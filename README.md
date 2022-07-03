@@ -102,8 +102,11 @@ However, if you want to contribute for both front and back you are more than wel
 The plan for now is:
 
 1️⃣	Create design, make 2-3 group calls to decide details (at least clarify points that I mentioned here) and availability to start the project normally. In the same time me and Anastasiia (Nastya in short) will be finalizing desing for missing part and I will start doing the first part which is lending page (I have created some during this summer already so I don’t really need help and can do this by myself, but if you want to help you are more than welcome) <br>
+
 2️⃣	Start writing code for the actual platform, starting from registration/login (this will require research regarding refreshing tokens, JWT authorization, etc.), then do the profiles page, then team page, then create logic to add/remove people from teams, assign roles in team, overall just make the teams logic, then do the tournaments logic and so on. <br>
+
 3️⃣	After the end of development start testing for potential bugs (there will be obviously a lot, but who knows…) <br>
+
 4️⃣	Finally, on this point our job is probably done, then we have to start promoting it which is another story and not really important for now…
 Let’s do this, you all are excellent people and programmers and I believe that as a team we will be able to solve all difficulties together and build this product together! <br>
 
