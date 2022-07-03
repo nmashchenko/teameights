@@ -1,0 +1,34 @@
+{
+  "name": "teameights.com",
+  "version": "1.0.0",
+  "description": "web application for searching for developers around the world",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix ../client",
+    "dev": "concurrently \" npm run server \" \" npm run client \"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nikita Mashchenko, George Vojvodic, Leeza Andryushenko, Zhangir Bekbolat",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.1",
+    "googleapis": "^68.0.0",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.13.14",
+    "nodemailer": "^6.5.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  }
+}
