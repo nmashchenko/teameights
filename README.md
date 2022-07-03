@@ -60,17 +60,25 @@ Premium user, obviously, will have more teams, will be able to ask for mentor fo
 # Pages
 
 Regarding the paging, currently we are 100% sure that this list of pages will exist (**green** – *page exists*, **red** – *under development*):
-
+<p>
 ✅	Developer profiles page (whenever user login, signup he will be redirected to this page). Regarding this page we are still deciding whether it is more logical to add people to this page whenever he will register or allow him to add himself manually) but you can check the design on figma (it is on the right side named ‘profiles’) and suggest something <br>
-✅	Developer page (it will pop-up as a modal window whenever user will click on developer from the list) and will provide all information about the developer and also will contain button ‘invite to team’ <br>
-✅	Tournaments page (it will display upcoming tournament information and winners of the past tournament, if you want to see how it looks like you can check it in figma ‘tournaments’) <br>
-❌	Upcoming tournament page (here teams will be able to see description of the tournament, prize pool, start date, and will be able to sign-up for it if there will be enough slots, we will decide maximum amount of slots later, this page is not ready yet on figma) <br>
-❌ Top teams tributes page (here we will display top teams, their earnings and people who are in the team) <br>
-❌	Your team’s page (this page will display information about the team, founders will be able to remove people, assign roles for the project, add project name, add name to the team) <br>
-❌	Team edit page (this will also be a module window that will pop-up whenever team’s founder will click on edit button) <br>
-❌	Incoming invites (in this page user will be able how many teams invited him, reject or accept invites) <br>
-❌	Top team page (on this page user will be able to see statistic of the top team from the ‘top teams tribute page’, members of the team, etc) <br>
 
+✅	Developer page (it will pop-up as a modal window whenever user will click on developer from the list) and will provide all information about the developer and also will contain button ‘invite to team’ <br>
+
+✅	Tournaments page (it will display upcoming tournament information and winners of the past tournament, if you want to see how it looks like you can check it in figma ‘tournaments’) <br>
+
+❌	Upcoming tournament page (here teams will be able to see description of the tournament, prize pool, start date, and will be able to sign-up for it if there will be enough slots, we will decide maximum amount of slots later, this page is not ready yet on figma) <br>
+
+❌ Top teams tributes page (here we will display top teams, their earnings and people who are in the team) <br>
+
+❌	Your team’s page (this page will display information about the team, founders will be able to remove people, assign roles for the project, add project name, add name to the team) <br>
+
+❌	Team edit page (this will also be a module window that will pop-up whenever team’s founder will click on edit button) <br>
+
+❌	Incoming invites (in this page user will be able how many teams invited him, reject or accept invites) <br>
+
+❌	Top team page (on this page user will be able to see statistic of the top team from the ‘top teams tribute page’, members of the team, etc) <br>
+</p>
 We might redesign some pages but for now they should exist in any form, also we might add some additional pages later.
 
 # Team
