@@ -1,6 +1,7 @@
 # Github pushes
 
-PLEASE...please...**NEVER** push to the *dev branch*
+Our default branch is **DEV**!!! Files in dev branch are reviewed and tested so you can safely make a copy of them to the new branch.
+PLEASE...please...**NEVER** push to the *dev branch* & don't touch master branch.
 
 Other than that for each ticket from clickup - create new branch!
 
