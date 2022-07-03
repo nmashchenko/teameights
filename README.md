@@ -1,4 +1,4 @@
-# teameights
+# teameights.com
 🦉 This is platform for developers to find each other.
 
 # Stack of technologies that we will be using for this project:
