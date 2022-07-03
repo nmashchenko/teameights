@@ -87,11 +87,12 @@ Regarding the team members as for now:
 
 🧑🏻	George (dev) <br>
 🧑🏻	Nikita (dev) <br>
-👩🏼	Anastasiia (designer) <br>
+🧑🏻	Zhangir (dev) <br>
+🧑🏻  Egor (dev) <br>
 👩🏼	Leeza (dev) <br>
-🧑🏻	Zhangir (dev, will join later in July) <br>
+👩🏼	Anastasiia (designer) <br>
 
-I think 5 people is enough, even though all of us are juniors, some of us have experience in developing real-world projects. Personally, I believe this idea is amazing and is 1) helping people, 2) could be monetized easily, 3) will give us some real-world experience as students, 4) can potentially give us an opportunity to found company and work on this full-time.
+I think 6 people is enough, even though all of us are juniors, some of us have experience in developing real-world projects. Personally, I believe this idea is amazing and is 1) helping people, 2) could be monetized easily, 3) will give us some real-world experience as students, 4) can potentially give us an opportunity to found company and work on this full-time.
 
 *Once again guys, I don’t want to make any deadlines for now, since I understand that this is a side project for all of us and we probably will be building it slowly, that’s why I invited so many people and probably will invite 1 or 2 more so we can backup each other when some of us will be extremely busy. Also, regarding the roles for this project, if you want to work more on back than on front let me know, same works for other way.*
 
