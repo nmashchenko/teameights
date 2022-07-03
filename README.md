@@ -1,7 +1,7 @@
 # teameights
 🦉 This is platform for developers to find each other.
 
-Stack of technologies that we will be using for this project:
+# Stack of technologies that we will be using for this project:
 
 •	Front-End: 
 o	ReactJS for basic structure (functional)
@@ -17,6 +17,7 @@ o	Figma
 
 (P.S.) There are some concerns regarding typescript, we have to discuss this all together since I am personally not familiar with it at all and I have experience with developing projects on clear JS but if you all want to use TS for more secured development I will totally support this
 
+# Responsiveness
 The application should be responsive (e.g. should be available both on mobile phones and desktops).
 
 Approximate widths for different devices:
@@ -39,6 +40,8 @@ If you want to know why teameights.com or team8s.com – I don’t know, I just 
 
 The application will be built in two different parts, first one will be landing page with all of the information about our platform, with a lot of ‘get started’, ‘sign up’, etc. buttons that will redirect user to the sign-up/sign-in page and then will transfer him to the platform in case of successful login
 
+# Roles
+
 There will be several different roles on platform, for example:
 
 •	Default user
@@ -50,6 +53,8 @@ In short, the idea is for now: default user will be able to search for teammates
 Premium user, obviously, will have more teams, will be able to ask for mentor for his team and will have access to premium projects, probably also with some additional features (like deadline management, impact management, etc.). 
 
 Finally, mentor user will be a person who is not interested in finding teammates but rather will be able to mentor some teams that are looking for him and he will be able to help multiple teams simultaneously with their questions, etc.
+
+# Pages
 
 Regarding the paging, currently we are 100% sure that this list of pages will exist (green – page exists, red – under development):
 
@@ -65,6 +70,8 @@ Regarding the paging, currently we are 100% sure that this list of pages will ex
 
 We might redesign some pages but for now they should exist in any form, also we might add some additional pages later.
 
+# Team
+
 Regarding the team members as for now:
 
 o	George (dev)
@@ -78,6 +85,8 @@ I think 5 people is enough, even though all of us are juniors, some of us have e
 Once again guys, I don’t want to make any deadlines for now, since I understand that this is a side project for all of us and we probably will be building it slowly, that’s why I invited so many people and probably will invite 1 or 2 more so we can backup each other when some of us will be extremely busy. Also, regarding the roles for this project, if you want to work more on back than on front let me know, same works for other way. 
 
 However, if you want to contribute for both front and back you are more than welcome! Be prepared that this project will be coding-heavy, and you will probably have to learn a lot of new things beside university material so if you are not sure you will have enough time in the future or motivation for it, let me know so I can find someone instead of you (but I really don’t want to do that since I want to work with all of you!!!)
+
+# Design
 
 The plan for now is:
 
