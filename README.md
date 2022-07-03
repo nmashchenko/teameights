@@ -97,7 +97,7 @@ I think 5 people is enough, even though all of us are juniors, some of us have e
 
 However, if you want to contribute for both front and back you are more than welcome! Be prepared that this project will be coding-heavy, and you will probably have to learn a lot of new things beside university material so if you are not sure you will have enough time in the future or motivation for it, let me know so I can find someone instead of you (but I really don’t want to do that since I want to work with all of you!!!)
 
-# Design
+# Plan
 
 The plan for now is:
 
