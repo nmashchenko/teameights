@@ -3,16 +3,15 @@
 
 # Stack of technologies that we will be using for this project:
 
-**Front-End:**
-⭐️	ReactJS for basic structure (functional)
-⭐️  MaterialUI/Tailwind/something else for CSS (or probably styled-components with default CSS)
-⭐️	Redux
+**Front-End:** <br>
+⭐️	ReactJS for basic structure (functional) <br>
+⭐️  MaterialUI/Tailwind/something else for CSS (or probably styled-components with default CSS) <br>
+⭐️	Redux <br>
 
- **Back-End:**
-⭐️	NodeJS
-⭐️	MongoDB
-⭐️	DevOps:
-⭐️	Undetermined
+ **Back-End:** <br>
+⭐️	NodeJS <br>
+⭐️	MongoDB <br>
+⭐️	DevOps:	Undetermined <br>
 
 **Design:**
 ⭐️ Figma 
