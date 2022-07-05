@@ -17,8 +17,8 @@ class UserController {
       if(!errors.isEmpty()) {
         return next(ApiError.BadRequest('Error during authorization', errors.array())) 
       }
-      const {email, password} = req.body;
-      const userData = await userService.registration(email, password);
+      const {username, email, password} = req.body;
+      const userData = await userService.registration(username, email, password);
       res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true}); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
       return res.json(userData);
     } catch(err){

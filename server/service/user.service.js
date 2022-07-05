@@ -19,15 +19,20 @@ const ApiError = require('../exceptions/api.error');
 const appConfig = require('../app/app.config')
 
 class UserService {
-  async registration(email, password) {
+  async registration(username, email, password) {
     const candidate = await User.findOne({email})
     if (candidate) {
       throw ApiError.BadRequest(`User with email: ${email} already registered`)
     }
 
+    const usernameValidation = await User.findOne({username})
+    if(usernameValidation) {
+      throw ApiError.BadRequest(`User with username: ${username} already registered`)
+    }
+
     const hashPassword = await bcrypt.hash(password, 3); // hash password
     const activationLink = uuid.v4(); // generate activation link (v34fa-adsfaa-8138183-dwadw)
-    const user = await User.create({email, password: hashPassword, activationLink});
+    const user = await User.create({username, email, password: hashPassword, activationLink});
     await mailService.sendActivationMail(email, `${appConfig.API_URL}/api/activate/${activationLink}`); // send activation email
     const userDto = new UserDto(user); // id, email, isActivated
     const tokens = tokenService.generateTokens({...userDto}); // get tokens
