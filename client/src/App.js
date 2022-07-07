@@ -1,7 +1,13 @@
+import { useRoutes } from "./routes";
+import { BrowserRouter as Router } from 'react-router-dom'
+
 function App() {
+  const routes = useRoutes()
   return (
     <>
-      <h1>Client is up and working!</h1>
+      <Router>
+        {routes}
+      </Router>
     </>
   );
 }

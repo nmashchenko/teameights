@@ -29,6 +29,7 @@ class UserController {
 
   async login(req, res, next) {
     try{
+      console.log(req.body);
       const {email, password} = req.body;
       const userData = await userService.login(email, password);
       res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true}); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
