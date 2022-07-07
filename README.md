@@ -16,7 +16,9 @@
 **Design:** <br>
 ⭐️ Figma 
 
-(P.S.) There are some concerns regarding typescript, we have to discuss this all together since I am personally not familiar with it at all and I have experience with developing projects on clear JS but if you all want to use TS for more secured development I will totally support this
+# Idea
+
+🎧 Overall idea - platform for student developers (probably skilled also) to find each other and work together on pet projects/real projects from project pool of customers (will be available only for skilled teams), tournaments between them will determine skill level, etc. Also possible mentorship, premium projects, AI code review, etc. basic functionality is described below.
 
 # Responsiveness
 The application should be *responsive* (e.g. should be available both on mobile phones and desktops).
