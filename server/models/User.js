@@ -25,6 +25,54 @@ const UserSchema = new mongoose.Schema({
   activationLink: {
     type: String
   },
+  userCountry: {
+    type: String,
+    required: false
+  },
+  userAge: {
+    type: Number,
+    required: false
+  },
+  userUniversity: {
+    type: String,
+    required: false,
+  },
+  userProgrammingLanguages: {
+    type: Array[String],
+    required: false
+  },
+  userConcentration: {
+    type: String,
+    required: false
+  },
+  userDescription: {
+    type: String,
+    required: false
+  },
+  userRealName: {
+    type: String,
+    required: false
+  },
+  userLanguages: {
+    type: Array[String],
+    required: false
+  },
+  userLinks: {
+    type: Object,
+    required: false
+  },
+  userExperience: {
+    type: Number,
+    required: false
+  },
+  userAvatar: {
+    type: String,
+    required: false
+  },
+  userRole: {
+    type: String,
+    required: false
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',
