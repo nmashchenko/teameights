@@ -47,7 +47,7 @@ function Experience() {
             </MiddleTextContainer>
             <ContinueButton onClick={() => {
               dispatch(setActiveState('Links'))
-              dispatch(setProgress('70'))
+              dispatch(setProgress('84'))
               }}>Continue</ContinueButton>
           </CardContainer>
       </Container>

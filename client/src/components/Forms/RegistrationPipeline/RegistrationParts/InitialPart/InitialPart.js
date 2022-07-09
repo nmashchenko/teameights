@@ -48,7 +48,7 @@ function InitialPart() {
             </MiddleTextContainer>
             <ContinueButton onClick={() => {
               dispatch(setActiveState('NamePart'))
-              dispatch(setProgress('10'))
+              dispatch(setProgress('12'))
               }}>Continue</ContinueButton>
           </CardContainer>
       </Container>

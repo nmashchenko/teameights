@@ -47,7 +47,7 @@ function AgePart() {
             </MiddleTextContainer>
             <ContinueButton onClick={() => {
               dispatch(setActiveState('Programming'))
-              dispatch(setProgress('40'))
+              dispatch(setProgress('48'))
               }}>Continue</ContinueButton>
           </CardContainer>
       </Container>

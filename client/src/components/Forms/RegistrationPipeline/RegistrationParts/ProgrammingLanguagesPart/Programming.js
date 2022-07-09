@@ -63,7 +63,7 @@ function Programming() {
             </MiddleTextContainer>
             <ContinueButton onClick={() => {
               dispatch(setActiveState('ConcentrationPart'))
-              dispatch(setProgress('50'))
+              dispatch(setProgress('60'))
               }}>Continue</ContinueButton>
           </CardContainer>
       </Container>

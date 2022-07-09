@@ -10,6 +10,7 @@ import Links from './RegistrationParts/LinksPart/Links'
 
 // * Redux
 import { useSelector } from "react-redux";
+import LeaderPart from './RegistrationParts/LeaderPart/LeaderPart'
 
 function FinishRegistration() {
 
@@ -31,6 +32,7 @@ function FinishRegistration() {
         {active === 'ConcentrationPart' && <ConcentrationPart />}
         {active === 'Experience' && <Experience />}
         {active === 'Links' && <Links />}
+        {active === 'Leader' && <LeaderPart />}
     </>
   )
 }

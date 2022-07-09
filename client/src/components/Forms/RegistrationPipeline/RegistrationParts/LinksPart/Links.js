@@ -5,6 +5,10 @@ import Box from "@mui/material/Box";
 // * Assets
 import SiteLogo from "../../../../../assets/SiteLogo";
 import ProgressBar from "../../ProgressBar/ProgressBar";
+import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+
+// * Redux
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   CardContainer,
@@ -17,6 +21,13 @@ import {
 } from './Links.styles'
 
 function Links() {
+  const dispatch = useDispatch();
+
+  const {setActiveState, setProgress} = registrationAuth.actions;
+  const {progress} = useSelector(
+    (state) => state.registrationReducer
+  );
+
   return(
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -27,7 +38,7 @@ function Links() {
         </AppBar>
       </Box>
       <Container>
-        <ProgressBar done="70" />
+        <ProgressBar done={progress} />
           <CardContainer>
             <div>
               <TopText>Do you have any social links?</TopText>
@@ -38,7 +49,10 @@ function Links() {
                 <InputField maxlength="35" placeholder="Telegram"/>
                 <InputField maxlength="35" placeholder="Instagram"/>
             </MiddleTextContainer>
-            <ContinueButton>Continue</ContinueButton>
+            <ContinueButton onClick={() => {
+              dispatch(setActiveState('Leader'))
+              dispatch(setProgress('100'))
+              }}>Continue</ContinueButton>
           </CardContainer>
       </Container>
     </>

@@ -69,7 +69,7 @@ function Concentration() {
           </MiddleTextContainer>
           <ContinueButton onClick={() => {
               dispatch(setActiveState('Experience'))
-              dispatch(setProgress('60'))
+              dispatch(setProgress('72'))
               }}>Continue</ContinueButton>
         </CardContainer>
       </Container>

@@ -70,7 +70,7 @@ function CountryPart() {
           </MiddleTextContainer>
             <ContinueButton onClick={() => {
               dispatch(setActiveState('AgePart'))
-              dispatch(setProgress('30'))
+              dispatch(setProgress('36'))
               }}>Continue</ContinueButton>
         </CardContainer>
       </Container>

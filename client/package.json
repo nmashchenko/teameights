@@ -22,7 +22,8 @@
     "react-select-country-list": "^2.2.3",
     "redux": "^4.2.0",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
