@@ -1,13 +1,13 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
 
-import RegistrationPipeline from '../../../components/Forms/RegistrationPipeline/RegistrationPipeline';
+import ConfirmRegistration from '../../../components/Forms/RegistrationPipeline'
 
 function FinishRegistration() {
   return (
     <>
       <CssBaseline />
-      <RegistrationPipeline />
+      <ConfirmRegistration />
     </>
   )
 }

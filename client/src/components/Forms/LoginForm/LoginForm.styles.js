@@ -106,6 +106,7 @@ export const LoginLink = styled.a`
   color: ${BLACK.main};
   margin: 0;
   text-decoration: none;
+  
 
   &:hover {
     cursor: pointer;
@@ -121,6 +122,8 @@ export const BottomBox = styled.div`
   margin-top: 21px;
   max-width: 365px;
   width: 100%;
+  text-decoration: none;
+  font-weight: 600;
 
   @media ${device.tablet} { 
     max-width: 265px;

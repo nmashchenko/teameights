@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
-import {LIME, BLACK, WHITE} from '../../../constants/colors'
+import {LIME, BLACK, WHITE} from '../../../../../constants/colors'
 import Toolbar from "@mui/material/Toolbar";
+import Select from 'react-select'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -58,7 +59,7 @@ export const MiddleTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: center;
   max-width: 450px;
   width: 100%;
 `
@@ -77,8 +78,14 @@ export const ContinueButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    color: ${BLACK.main};
-    background: ${WHITE.main};
+    opacity: 0.9;
     transition: 0.3s ease-in-out;
+  }
+`
+
+export const SelectField = styled(Select)`
+  && {
+    width: 60%;
+    margin-top: 20px;
   }
 `

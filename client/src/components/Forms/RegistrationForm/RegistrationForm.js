@@ -138,7 +138,7 @@ function RegistrationForm() {
             <RegistrationButton onClick={handleRegistration}>Register</RegistrationButton>
           </RegistrationInputContainer>
           <BottomBox>
-            <RegistrationLink href="/" fontSize="12px" fontWeight="700">
+            <RegistrationLink href="/auth/login" fontSize="12px" fontWeight="700">
               Already registered?
             </RegistrationLink>
           </BottomBox>

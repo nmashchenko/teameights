@@ -128,7 +128,7 @@ function LoginForm() {
             <LoginLink href="/" fontSize="12px" fontWeight="700">
               Forgot password?
             </LoginLink>
-            <LoginLink href="/" fontSize="12px" fontWeight="700">
+            <LoginLink href="/auth/registration" fontSize="12px" fontWeight="700">
               Sign up
             </LoginLink>
           </BottomBox>
