@@ -87,8 +87,20 @@ class UserController {
 
   async registrationCompletion(req, res, next) {
     try {
-      const { email, username, userCountry, userAge, userUniversity, userProgrammingLanguages, userConcentration,
-        userDescription, userRealName, userLanguages, userLinks, userExperience, userAvatar, userRole } = req.body;
+      const { email,
+        username,
+        userCountry,
+        userAge,
+        userUniversity,
+        userProgrammingLanguages,
+        userConcentration,
+        userDescription,
+        userRealName,
+        userLanguages,
+        userLinks,
+        userExperience,
+        userAvatar,
+        userRole } = req.body;
       const userData = await userService.registrationCompletion(email,
         username,
         userCountry,

@@ -114,13 +114,8 @@ class UserService {
     userAvatar,
     userRole) {
     const candidate = await User.findOne({ email })
-    if (candidate) {
-      throw ApiError.BadRequest(`User with email: ${email} already registered`)
-    }
-
-    const usernameValidation = await User.findOne({ username })
-    if (usernameValidation) {
-      throw ApiError.BadRequest(`User with username: ${username} already registered`)
+    if (!candidate) {
+      throw ApiError.BadRequest(`User with email: ${email} is not registered`)
     }
 
     const userData = await User.findOneAndUpdate({ email: email }, {
