@@ -1,7 +1,9 @@
 // * Modules
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import * as yup from "yup";
+import Snackbar from "@mui/material/Snackbar";
 
 // * Assets
 import SiteLogo from "../../../../../assets/SiteLogo";
@@ -21,20 +23,60 @@ import {
   ContinueButton,
   SelectField,
   InfoContainer,
+  AlertBox
 } from './LeaderPart.styles'
 
 function LeaderPart() {
-  const dispatch = useDispatch();
-
-  const [value, setValue] = useState("");
-
-  const changeHandler = (value) => {
-    setValue(value);
-  };
-  const {setActiveState, setProgress} = registrationAuth.actions;
-  const {progress} = useSelector(
-    (state) => state.registrationReducer
-  );
+    // * Asset setup
+    const Alert = React.forwardRef(function Alert(props, ref) {
+      return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
+    });
+  
+    const answerSchema = yup.object().shape({
+      label: yup.string().required("You have to make a decision! 😁"),
+      value: yup.string().required("You have to make a decision! 😁"),
+    });
+  
+    // * useStates
+    const [open, setOpen] = useState(false);
+    const [errors, setErrors] = useState([]);
+    const [value, setValue] = useState("");
+  
+    // * Redux
+    const dispatch = useDispatch();
+    const { setUserLeader } =
+      registrationAuth.actions;
+  
+    const { progress, userData } = useSelector(
+      (state) => state.registrationReducer
+    );
+  
+    // * Functions
+    const handleSubmit = async () => {
+      try {
+        value
+          ? await answerSchema.validate(value)
+          : await answerSchema.validate({ value });
+          value.value === 'true' ? dispatch(setUserLeader(true)) :  dispatch(setUserLeader(false))
+      } catch (err) {
+        setErrors(err.errors);
+        setOpen(true);
+      }
+    };
+  
+    const handleClose = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      setOpen(false);
+    };
+  
+    const changeHandler = (value) => {
+      setValue(value);
+    };
+  
+    useEffect(() => {}, [errors]);
+  
 
   return(
     <>
@@ -45,6 +87,21 @@ function LeaderPart() {
           </NavBar>
         </AppBar>
       </Box>
+      {errors.length > 0 && (
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            {errors[0]}
+          </Alert>
+        </Snackbar>
+      )}
       <Container>
         <ProgressBar done={progress} />
           <CardContainer>
@@ -69,7 +126,7 @@ function LeaderPart() {
                 })}
               />
             </MiddleTextContainer>
-            <ContinueButton>Finish</ContinueButton>
+            <ContinueButton onClick={handleSubmit}>Finish</ContinueButton>
           </CardContainer>
       </Container>
     </>

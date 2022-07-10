@@ -8,7 +8,7 @@ const initialState = {
     country: '',
     experience: '',
     leader: false,
-    links: [],
+    links: {},
     programmingLanguages: [],
   },
   active: 'InitialPart',
