@@ -1,11 +1,13 @@
 // * Modules
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import * as yup from "yup";
+import Snackbar from "@mui/material/Snackbar";
 
 // * Assets
 import SiteLogo from "../../../../../assets/SiteLogo";
 import ProgressBar from "../../ProgressBar/ProgressBar";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import countryList from "react-select-country-list";
 import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
 
@@ -20,22 +22,61 @@ import {
   MiddleTextContainer,
   ContinueButton,
   SelectField,
+  AlertBox,
 } from "./CountryPart.styles";
 
 function CountryPart() {
-  const dispatch = useDispatch();
+  // * Asset setup
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
+  });
 
-  const {setActiveState, setProgress} = registrationAuth.actions;
-  const {progress} = useSelector(
+  const countrySchema = yup.object().shape({
+    label: yup.string().required("Please choose your country!"),
+    value: yup.string().required("Please choose your country!"),
+  });
+
+  // * Redux
+  const dispatch = useDispatch();
+  const { setActiveState, setProgress, setUserCountry } =
+    registrationAuth.actions;
+  const { progress, userData } = useSelector(
     (state) => state.registrationReducer
   );
 
+  // * useStates
+  const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState([]);
   const [value, setValue] = useState("");
   const options = useMemo(() => countryList().getData(), []);
 
+  // * Functions
   const changeHandler = (value) => {
     setValue(value);
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      value
+        ? await countrySchema.validate(value)
+        : await countrySchema.validate({ value });
+      dispatch(setUserCountry(value.label));
+      dispatch(setActiveState("AgePart"));
+      dispatch(setProgress("36"));
+    } catch (err) {
+      setErrors(err.errors);
+      setOpen(true);
+    }
+  };
+
+  useEffect(() => {}, [errors]);
 
   return (
     <>
@@ -46,6 +87,21 @@ function CountryPart() {
           </NavBar>
         </AppBar>
       </Box>
+      {errors.length > 0 && (
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            {errors[0]}
+          </Alert>
+        </Snackbar>
+      )}
       <Container>
         <ProgressBar done={progress} />
         <CardContainer>
@@ -68,10 +124,7 @@ function CountryPart() {
               })}
             />
           </MiddleTextContainer>
-            <ContinueButton onClick={() => {
-              dispatch(setActiveState('AgePart'))
-              dispatch(setProgress('36'))
-              }}>Continue</ContinueButton>
+          <ContinueButton onClick={handleSubmit}>Continue</ContinueButton>
         </CardContainer>
       </Container>
     </>

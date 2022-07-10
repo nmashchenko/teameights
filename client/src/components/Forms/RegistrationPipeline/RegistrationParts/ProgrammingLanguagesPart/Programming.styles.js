@@ -1,6 +1,8 @@
 import styled, { keyframes } from 'styled-components'
 import {LIME, BLACK, WHITE} from '../../../../../constants/colors'
 import Toolbar from "@mui/material/Toolbar";
+import MuiAlert from '@mui/material/Alert';
+import Chip from "@mui/material/Chip";
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -86,5 +88,22 @@ export const ContinueButton = styled.button`
     cursor: pointer;
     opacity: 0.9;
     transition: 0.3s ease-in-out;
+  }
+`
+
+export const AlertBox = styled(MuiAlert)`
+  && {
+    background: ${BLACK.main};
+  }
+`
+
+export const Option = styled(Chip)`
+  &&{
+    &:hover {
+      background: ${BLACK.main};
+    }
+  }
+  &.css-1a5zdfy-MuiButtonBase-root-MuiChip-root{
+    background: black;
   }
 `

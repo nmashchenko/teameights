@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import {LIME, BLACK, WHITE} from '../../../../../constants/colors'
 import Toolbar from "@mui/material/Toolbar";
+import MuiAlert from '@mui/material/Alert';
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -94,4 +95,10 @@ export const InputField = styled.input`
   margin-top: 15px;
   text-align: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+`
+
+export const AlertBox = styled(MuiAlert)`
+  && {
+    background: ${BLACK.main};
+  }
 `

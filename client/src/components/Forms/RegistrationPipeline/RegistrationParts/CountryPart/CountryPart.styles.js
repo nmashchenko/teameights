@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components'
 import {LIME, BLACK, WHITE} from '../../../../../constants/colors'
 import Toolbar from "@mui/material/Toolbar";
 import Select from 'react-select'
+import MuiAlert from '@mui/material/Alert';
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -87,5 +88,11 @@ export const SelectField = styled(Select)`
   && {
     width: 60%;
     margin-top: 20px;
+  }
+`
+
+export const AlertBox = styled(MuiAlert)`
+  && {
+    background: ${BLACK.main};
   }
 `
