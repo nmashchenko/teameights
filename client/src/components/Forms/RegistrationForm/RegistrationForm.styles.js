@@ -11,7 +11,7 @@ export const NavBar = styled(Toolbar)`
   }
 `
 
-export const LoginContainer = styled.div`
+export const RegistrationContainer = styled.div`
   width: 100%;
   height: 93.4vh;
   display: flex;
@@ -20,7 +20,7 @@ export const LoginContainer = styled.div`
   background: ${LIME.background};
 `
 
-export const LoginBox = styled.div`
+export const RegistrationBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,13 +37,13 @@ export const LoginBox = styled.div`
   }
 `
 
-export const LoginTextContainer = styled.div`
+export const RegistrationTextContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `
 
-export const LoginText = styled.h3`
+export const RegistrationText = styled.h3`
   font-family: 'Montserrat';
   font-weight: '600';
   font-size: 20px;
@@ -51,7 +51,7 @@ export const LoginText = styled.h3`
   margin: 0;
 `
 
-export const LoginInputContainer = styled.div`
+export const RegistrationInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,7 +59,7 @@ export const LoginInputContainer = styled.div`
   margin-top: 22px;
 `
 
-export const LoginInput = styled.input`
+export const RegistrationInput = styled.input`
   border: none;
   outline: none;
   width: 369px;
@@ -75,7 +75,7 @@ export const LoginInput = styled.input`
   }
 `
 
-export const LoginButton = styled.button`
+export const RegistrationButton = styled.button`
   font-family: 'Montserrat';
   font-weight: 600;
   border: none;
@@ -100,13 +100,12 @@ export const LoginButton = styled.button`
   }
 `
 
-export const LoginLink = styled.a`
+export const RegistrationLink = styled.a`
   font-family: 'Montserrat';
-  font-size: 15px;
+  font-size: 17px;
   color: ${BLACK.main};
   margin: 0;
   text-decoration: none;
-  
 
   &:hover {
     cursor: pointer;
@@ -117,13 +116,13 @@ export const LoginLink = styled.a`
 
 export const BottomBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
   align-items: center;
   margin-top: 21px;
   max-width: 365px;
   width: 100%;
-  text-decoration: none;
-  font-weight: 600;
 
   @media ${device.tablet} { 
     max-width: 265px;

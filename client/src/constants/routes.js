@@ -1,7 +1,9 @@
 const ROUTES = Object.freeze({
   login: '/auth/login',
   registration: '/auth/registration',
-  temporary: '/temporary'
+  confirmEmail: '/auth/confirm-email',
+  finishRegistration: '/auth/finish-registration',
+  temporary: '/users',
 })
 
 export default ROUTES

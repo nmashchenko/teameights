@@ -56,8 +56,8 @@ class UserController {
     try {
       const activationLink = req.params.link;
       await userService.activate(activationLink);
-      return res.redirect(appConfig.CLIENT_URL);
-    } catch (err) {
+      return res.redirect(appConfig.COMPLETE_REGISTRATION_URL);
+    } catch(err){
       // error.middleware will take care of it
       next(err);
     }
