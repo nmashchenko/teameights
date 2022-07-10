@@ -21,21 +21,21 @@ import ROUTES from '../../../constants/routes';
 
 import {
   NavBar,
-  LoginContainer,
-  LoginTextContainer,
-  LoginInputContainer,
-  LoginBox,
-  LoginText,
-  LoginInput,
-  LoginButton,
+  RegistrationContainer,
+  RegistrationTextContainer,
+  RegistrationInputContainer,
+  RegistrationBox,
+  RegistrationText,
+  RegistrationInput,
+  RegistrationButton,
   BottomBox,
-  LoginLink,
+  RegistrationLink,
   PasswordContainer,
   ShowPass,
   AlertBox,
-} from "./LoginForm.styles";
+} from "./RegistrationForm.styles";
 
-function LoginForm() {
+function RegistrationForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {isAuth, error} = useSelector(
@@ -45,6 +45,8 @@ function LoginForm() {
   const [open, setOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
   const Alert = React.forwardRef(function Alert(props, ref) {
@@ -58,20 +60,14 @@ function LoginForm() {
     setOpen(false);
   };
 
-  const handleLogin = () => {
-    dispatch(authApi.loginUser(email, password));
+  const handleRegistration = () => {
+    dispatch(authApi.registerUser(username, email, password, confirmPassword));
     setOpen(true);
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      dispatch(authApi.checkAuth());
-    }
-  }, []);
-
-  useEffect(() => {
     if (isAuth) {
-      navigate(ROUTES.temporary, { replace: true })
+      navigate(ROUTES.confirmEmail, { replace: true })
     }
   }, [isAuth, navigate])
 
@@ -99,20 +95,26 @@ function LoginForm() {
           </Alert>
         </Snackbar>
       )}
-      <LoginContainer>
-        <LoginBox>
-          <LoginTextContainer>
-            <LoginText fontSize="20px">Welcome back 💫</LoginText>
-          </LoginTextContainer>
-          <LoginInputContainer>
-            <LoginInput
+      <RegistrationContainer>
+        <RegistrationBox>
+          <RegistrationTextContainer>
+            <RegistrationText fontSize="20px">Let's begin your journey 🔥</RegistrationText>
+          </RegistrationTextContainer>
+          <RegistrationInputContainer>
+          <RegistrationInput
+              placeholder="Username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <RegistrationInput
               placeholder="Email"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <PasswordContainer>
-              <LoginInput
+              <RegistrationInput
                 placeholder="Password"
                 type={showPassword ? "text" : "password"}
                 value={password}
@@ -121,21 +123,29 @@ function LoginForm() {
               <ShowPass onClick={(e) => setShowPassword(!showPassword)}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </ShowPass>
-            </PasswordContainer>
-            <LoginButton onClick={handleLogin}>Login</LoginButton>
-          </LoginInputContainer>
+              </PasswordContainer>
+              <PasswordContainer>
+              <RegistrationInput
+                placeholder="Repeat password"
+                type={showPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <ShowPass onClick={(e) => setShowPassword(!showPassword)}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </ShowPass>
+              </PasswordContainer>
+            <RegistrationButton onClick={handleRegistration}>Register</RegistrationButton>
+          </RegistrationInputContainer>
           <BottomBox>
-            <LoginLink href="/" fontSize="12px" fontWeight="700">
-              Forgot password?
-            </LoginLink>
-            <LoginLink href="/auth/registration" fontSize="12px" fontWeight="700">
-              Sign up
-            </LoginLink>
+            <RegistrationLink href="/auth/login" fontSize="12px" fontWeight="700">
+              Already registered?
+            </RegistrationLink>
           </BottomBox>
-        </LoginBox>
-      </LoginContainer>
+        </RegistrationBox>
+      </RegistrationContainer>
     </div>
   );
 }
 
-export default LoginForm;
+export default RegistrationForm;

@@ -27,9 +27,21 @@ const checkAuth = () => async(dispatch) => {
   }
 }
 
+const registerUser = (username, email, password, repeatPassword) => async(dispatch) => {
+  try{
+    dispatch(userAuth.actions.authUser())
+    const response = await api.post('/registration', {username, email, password, repeatPassword})
+    localStorage.setItem('token', response.data.accessToken);
+    dispatch(userAuth.actions.authUserSuccess(response.data))
+  } catch(err) {
+    dispatch(userAuth.actions.authUserError(err.response?.data?.message))
+  }
+}
+
 const authApi = Object.freeze({
   loginUser,
   checkAuth,
+  registerUser,
 })
 
 export default authApi
