@@ -101,35 +101,29 @@ class UserService {
 
   async registrationCompletion(
     email,
-    username,
     userCountry,
     userAge,
-    userUniversity,
     userProgrammingLanguages,
     userConcentration,
-    userDescription,
-    userLanguages,
+    userLeader,
     userLinks,
     userExperience,
-    userAvatar,
-    userRole) {
+    userRole
+    ) {
     const candidate = await User.findOne({ email })
     if (!candidate) {
       throw ApiError.BadRequest(`User with email: ${email} is not registered`)
     }
 
-    const userData = await User.findOneAndUpdate({ email: email }, {
+    const userData = await User.findOneAndUpdate({ email }, {
       userCountry,
-      userAge: userAge,
-      userUniversity: userUniversity,
-      userProgrammingLanguages: userProgrammingLanguages,
-      userConcentration: userConcentration,
-      userDescription: userDescription,
-      userLanguages: userLanguages,
-      userLinks: userLinks,
-      userExperience: userExperience,
-      userAvatar: userAvatar,
-      userRole: userRole
+      userAge,
+      userProgrammingLanguages,
+      userConcentration,
+      userLinks,
+      userExperience,
+      userRole,
+      userLeader
     })
 
     return { userData } // return access&refresh tokens, and user

@@ -32,29 +32,33 @@ const UserSchema = new mongoose.Schema({
   userAge: {
     type: Number,
     required: false
-  },
-  userUniversity: {
+  }, 
+  userLeader: {
     type: String,
-    required: false,
+    required: false
   },
+  // userUniversity: {
+  //   type: String,
+  //   required: false,
+  // },
   userProgrammingLanguages: {
-    type: Array[String],
+    type: Array,
     required: false
   },
   userConcentration: {
     type: String,
     required: false
   },
-  userDescription: {
-    type: String,
-    required: false
-  },
+  // userDescription: {
+  //   type: String,
+  //   required: false
+  // },
   userRealName: {
     type: String,
     required: false
   },
   userLanguages: {
-    type: Array[String],
+    type: Array,
     required: false
   },
   userLinks: {
@@ -65,10 +69,10 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     required: false
   },
-  userAvatar: {
-    type: String,
-    required: false
-  },
+  // userAvatar: {
+  //   type: String,
+  //   required: false
+  // },
   userRole: {
     type: String,
     required: false

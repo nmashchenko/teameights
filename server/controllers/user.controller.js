@@ -87,34 +87,32 @@ class UserController {
 
   async registrationCompletion(req, res, next) {
     try {
-      const { email,
-        username,
+      const {
+        email,
         userCountry,
         userAge,
-        userUniversity,
         userProgrammingLanguages,
         userConcentration,
         userDescription,
         userRealName,
-        userLanguages,
         userLinks,
         userExperience,
-        userAvatar,
-        userRole } = req.body;
-      const userData = await userService.registrationCompletion(email,
-        username,
+        userRole 
+      } = req.body;
+
+      const userData = await userService.registrationCompletion(
+        email,
         userCountry,
         userAge,
-        userUniversity,
         userProgrammingLanguages,
         userConcentration,
         userDescription,
         userRealName,
-        userLanguages,
         userLinks,
         userExperience,
-        userAvatar,
-        userRole);
+        userRole,
+      );
+
       return res.json(userData);
     } catch (err) {
       // error.middleware will take care of it
