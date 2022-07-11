@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import Snackbar from "@mui/material/Snackbar";
+import { Link, useNavigate } from 'react-router-dom'
 
 // * Assets
 import SiteLogo from "../../../../../assets/SiteLogo";
@@ -26,6 +27,9 @@ import {
   AlertBox
 } from './LeaderPart.styles'
 
+import authApi from "../../../../../api/endpoints/auth";
+import ROUTES from "../../../../../constants/routes";
+
 function LeaderPart() {
     // * Asset setup
     const Alert = React.forwardRef(function Alert(props, ref) {
@@ -36,6 +40,8 @@ function LeaderPart() {
       label: yup.string().required("You have to make a decision! 😁"),
       value: yup.string().required("You have to make a decision! 😁"),
     });
+
+    const navigate = useNavigate();
   
     // * useStates
     const [open, setOpen] = useState(false);
@@ -58,6 +64,8 @@ function LeaderPart() {
           ? await answerSchema.validate(value)
           : await answerSchema.validate({ value });
           value.value === 'true' ? dispatch(setUserLeader(true)) :  dispatch(setUserLeader(false))
+          dispatch(authApi.finishRegistration(userData));
+          navigate(ROUTES.temporary, { replace: true })
       } catch (err) {
         setErrors(err.errors);
         setOpen(true);

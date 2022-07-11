@@ -1,7 +1,9 @@
 // * Modules
+import React, {useEffect} from 'react';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+import { Link, useNavigate } from 'react-router-dom'
 
 // * Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -9,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 // * Assets
 import SiteLogo from "../../../../../assets/SiteLogo";
 import ProgressBar from "../../ProgressBar/ProgressBar";
+import authApi from "../../../../../api/endpoints/auth";
 
 import {
   CardContainer,
@@ -19,13 +22,25 @@ import {
   ContinueButton,
 } from './InitialPart.styles'
 
+import ROUTES from '../../../../../constants/routes';
+
 function InitialPart() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {setActiveState, setProgress} = registrationAuth.actions;
-  const {progress} = useSelector(
+  const {progress, userData, error} = useSelector(
     (state) => state.registrationReducer
   );
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      // TODO: remove this check later
+      dispatch(authApi.checkRegistration());
+    } else {
+      navigate(ROUTES.login, { replace: true })
+    }
+  }, []);
 
   return(
     <>

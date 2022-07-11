@@ -2,17 +2,22 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   userData: {
-    name: '',
-    age: '',
-    concentration: '',
-    country: '',
-    experience: '',
-    leader: false,
-    links: {},
-    programmingLanguages: [],
+    email: '',
+    userRealName: '',
+    userAge: '',
+    userConcentration: '',
+    userCountry: '',
+    userExperience: '',
+    userLeader: false,
+    userLinks: {},
+    userProgrammingLanguages: [],
+    userRole: 'Standard',
+    isRegistered: true,
   },
   active: 'InitialPart',
-  progress: '0'
+  progress: '0',
+  isLoading: false,
+  error: '',
 }
 
 export const registrationAuth = createSlice({
@@ -20,35 +25,39 @@ export const registrationAuth = createSlice({
   initialState,
   reducers: {
     setUserName(state, action) {
-      state.userData.name = action.payload
+      state.userData.userRealName = action.payload
     },
 
     setUserAge(state, action) {
-      state.userData.age = action.payload
+      state.userData.userAge = action.payload
     },
 
     setUserConcentration(state, action) {
-      state.userData.concentration = action.payload
+      state.userData.userConcentration = action.payload
     },
 
     setUserCountry(state, action) {
-      state.userData.country = action.payload
+      state.userData.userCountry = action.payload
     },
 
     setUserExperience(state, action) {
-      state.userData.experience = action.payload
+      state.userData.userExperience = action.payload
     },
 
     setUserLeader(state, action) {
-      state.userData.leader = action.payload
+      state.userData.userLeader = action.payload
     },
 
     setUserLinks(state, action) {
-      state.userData.links = action.payload
+      state.userData.userLinks = action.payload
     },
 
     setUserProgrammingLanguages(state, action) {
-      state.userData.programmingLanguages = action.payload
+      state.userData.userProgrammingLanguages = action.payload
+    },
+
+    setUserEmail(state, action) {
+      state.userData.email = action.payload
     },
 
     setActiveState(state, action) {
@@ -57,7 +66,21 @@ export const registrationAuth = createSlice({
 
     setProgress(state, action) {
       state.progress = action.payload;
-    }
+    },
+
+    finishRegistration(state) {
+      state.isLoading = true;
+    },
+
+    finishRegistrationSuccess(state) {
+      state.isLoading = false;
+      state.error = '';
+    },
+
+    finishRegistrationError(state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   }
 })
 

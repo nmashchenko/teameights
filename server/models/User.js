@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isRegistered: {
+    type: Boolean,
+    default: false
+  },
   activationLink: {
     type: String
   },
@@ -30,11 +34,11 @@ const UserSchema = new mongoose.Schema({
     required: false
   },
   userAge: {
-    type: Number,
+    type: String,
     required: false
   }, 
   userLeader: {
-    type: String,
+    type: Boolean,
     required: false
   },
   // userUniversity: {
@@ -57,16 +61,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  userLanguages: {
-    type: Array,
-    required: false
-  },
+  // userLanguages: {
+  //   type: Array,
+  //   required: false
+  // },
   userLinks: {
     type: Object,
     required: false
   },
   userExperience: {
-    type: Number,
+    type: String,
     required: false
   },
   // userAvatar: {

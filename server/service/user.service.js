@@ -32,7 +32,8 @@ class UserService {
 
     const hashPassword = await bcrypt.hash(password, 3); // hash password
     const activationLink = uuid.v4(); // generate activation link (v34fa-adsfaa-8138183-dwadw)
-    const user = await User.create({ username, email, password: hashPassword, activationLink });
+    const isRegistered = false;
+    const user = await User.create({ username, email, password: hashPassword, activationLink , isRegistered});
     await mailService.sendActivationMail(email, `${appConfig.API_URL}/api/activate/${activationLink}`); // send activation email
     const userDto = new UserDto(user); // id, email, isActivated
     const tokens = tokenService.generateTokens({ ...userDto }); // get tokens
@@ -65,7 +66,7 @@ class UserService {
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto }); // get tokens
     await tokenService.saveToken(userDto.id, tokens.refreshToken); // save refresh token into the database
-    return { ...tokens, user: userDto } // return access&refresh tokens, and user
+    return { ...tokens, user: userDto} // return access&refresh tokens, and user
   }
 
   async logout(refreshToken) {
@@ -91,24 +92,33 @@ class UserService {
     return { ...tokens, user: userDto } // return access&refresh tokens, and user
   }
 
-
-
   // * test function -> should be removed soon
   async getAllUsers() {
     const users = await User.find();
     return users;
   }
 
-  async registrationCompletion(
+  async checkIsRegistered(email) {
+    const user = await User.findOne({email});
+    if (!user) {
+      throw ApiError.BadRequest('User with this email is not found')
+    }
+
+    return user.isRegistered;
+  }
+
+  async registrationCompletion( 
     email,
     userCountry,
     userAge,
     userProgrammingLanguages,
     userConcentration,
-    userLeader,
+    userRealName,
     userLinks,
     userExperience,
-    userRole
+    userLeader,
+    userRole,
+    isRegistered,
     ) {
     const candidate = await User.findOne({ email })
     if (!candidate) {
@@ -120,10 +130,12 @@ class UserService {
       userAge,
       userProgrammingLanguages,
       userConcentration,
+      userRealName,
       userLinks,
       userExperience,
+      userLeader,
       userRole,
-      userLeader
+      isRegistered,
     })
 
     return { userData } // return access&refresh tokens, and user

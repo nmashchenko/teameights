@@ -38,7 +38,8 @@ import {
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {isAuth, error} = useSelector(
+
+  const {isAuth, error, isRegistered} = useSelector(
     (state) => state.userReducer
   );
 
@@ -59,6 +60,7 @@ function LoginForm() {
   };
 
   const handleLogin = () => {
+    dispatch(authApi.checkIsRegistered(email));
     dispatch(authApi.loginUser(email, password));
     setOpen(true);
   };
@@ -71,8 +73,12 @@ function LoginForm() {
 
   useEffect(() => {
     if (isAuth) {
-      navigate(ROUTES.temporary, { replace: true })
-    }
+      if(isRegistered) {
+        navigate(ROUTES.temporary, { replace: true })
+      } else {
+         navigate(ROUTES.finishRegistration, { replace: true })
+      }
+    } 
   }, [isAuth, navigate])
 
   return (
