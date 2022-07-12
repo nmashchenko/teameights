@@ -106,21 +106,21 @@ class UserService {
     return user.isRegistered;
   }
 
-  // async checkUserEmail(refreshToken) {
-  //   if (!refreshToken) {
-  //     throw ApiError.UnauthorizedError();
-  //   }
+  async checkUserEmail(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError();
+    }
 
-  //   const userData = tokenService.validateRefreshToken(refreshToken);
-  //   const tokenFromDb = await tokenService.findToken(refreshToken);
-  //   if (!userData || !tokenFromDb) { // if either refresh token is not validated OR not found in DB -> user is not logged in
-  //     throw ApiError.UnauthorizedError();
-  //   }
+    const userData = tokenService.validateRefreshToken(refreshToken);
+    const tokenFromDb = await tokenService.findToken(refreshToken);
+    if (!userData || !tokenFromDb) { // if either refresh token is not validated OR not found in DB -> user is not logged in
+      throw ApiError.UnauthorizedError();
+    }
 
-  //   const user = await User.findById(userData.id)
+    const user = await User.findById(userData.id)
 
-  //   return user.email;
-  // }
+    return user.email;
+  }
 
   async registrationCompletion( 
     email,

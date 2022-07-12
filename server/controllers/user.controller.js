@@ -94,16 +94,16 @@ class UserController {
     }
   }
 
-  // async getEmail(req, res, next) {
-  //   try {
-  //     const { refreshToken } = req.cookies;
-  //     const email = await userService.checkUserEmail(refreshToken);
-  //     return res.json(email);
-  //   } catch (err) {
-  //     // error.middleware will take care of it
-  //     next(err);
-  //   }
-  // }
+  async getEmail(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const email = await userService.checkUserEmail(refreshToken);
+      return res.json(email);
+    } catch (err) {
+      // error.middleware will take care of it
+      next(err);
+    }
+  }
 
   async registrationCompletion(req, res, next) {
     try {
