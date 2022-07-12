@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Snackbar from "@mui/material/Snackbar";
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // * Assets
 import SiteLogo from "../../../assets/SiteLogo";
@@ -38,14 +38,15 @@ import {
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {isAuth, error} = useSelector(
+
+  const {isAuth, error, isRegistered, user} = useSelector(
     (state) => state.userReducer
   );
 
   const [open, setOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
@@ -59,10 +60,13 @@ function LoginForm() {
   };
 
   const handleLogin = () => {
-    dispatch(authApi.loginUser(email, password));
+    // check if user is registered in the system.
+    dispatch(authApi.checkIsRegistered(inputEmail));
+    dispatch(authApi.loginUser(inputEmail, password));
     setOpen(true);
   };
 
+  // check if user is authenticated and update user(object) with data about him
   useEffect(() => {
     if (localStorage.getItem("token")) {
       dispatch(authApi.checkAuth());
@@ -71,8 +75,13 @@ function LoginForm() {
 
   useEffect(() => {
     if (isAuth) {
-      navigate(ROUTES.temporary, { replace: true })
-    }
+      // If user already registered we send him to the platform page, otherwise => complete registration
+      if(user.user.isRegistered) {
+        navigate(ROUTES.temporary, { replace: true })
+      } else {
+        navigate(ROUTES.finishRegistration, { replace: true })
+      }
+    } 
   }, [isAuth, navigate])
 
   return (
@@ -108,8 +117,8 @@ function LoginForm() {
             <LoginInput
               placeholder="Email"
               type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={inputEmail}
+              onChange={(e) => setInputEmail(e.target.value)}
             />
             <PasswordContainer>
               <LoginInput

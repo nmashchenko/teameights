@@ -29,7 +29,6 @@ class UserController {
 
   async login(req, res, next) {
     try {
-      console.log(req.body);
       const { email, password } = req.body;
       const userData = await userService.login(email, password);
       res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
@@ -85,6 +84,27 @@ class UserController {
     }
   }
 
+  async checkIsRegistered(req, res, next) {
+    try {
+      const status = await userService.checkIsRegistered(req.body.email);
+      return res.json(status);
+    } catch (err) {
+      // error.middleware will take care of it
+      next(err);
+    }
+  }
+
+  // async getEmail(req, res, next) {
+  //   try {
+  //     const { refreshToken } = req.cookies;
+  //     const email = await userService.checkUserEmail(refreshToken);
+  //     return res.json(email);
+  //   } catch (err) {
+  //     // error.middleware will take care of it
+  //     next(err);
+  //   }
+  // }
+
   async registrationCompletion(req, res, next) {
     try {
       const {
@@ -93,11 +113,12 @@ class UserController {
         userAge,
         userProgrammingLanguages,
         userConcentration,
-        userDescription,
         userRealName,
         userLinks,
         userExperience,
-        userRole 
+        userRole,
+        userLeader,
+        isRegistered,
       } = req.body;
 
       const userData = await userService.registrationCompletion(
@@ -106,11 +127,12 @@ class UserController {
         userAge,
         userProgrammingLanguages,
         userConcentration,
-        userDescription,
         userRealName,
         userLinks,
         userExperience,
+        userLeader,
         userRole,
+        isRegistered,
       );
 
       return res.json(userData);

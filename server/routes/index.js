@@ -16,9 +16,14 @@ router.post('/registration', validationMiddleware(authValidation.registerValidat
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.post('/registration-checkout', userController.registrationCompletion);
+router.post('/check-registration', userController.checkIsRegistered);
+
+// router.get('/get-email', userController.getEmail)
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 router.get('/users', authMiddleware, userController.getUsers);
+
+
 
 
 module.exports = router 
