@@ -23,6 +23,7 @@ import {
 } from './InitialPart.styles'
 
 import ROUTES from '../../../../../constants/routes';
+import registerAuthApi from '../../../../../api/endpoints/registration-auth';
 
 function InitialPart() {
   const dispatch = useDispatch();
@@ -35,8 +36,7 @@ function InitialPart() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      // TODO: remove this check later
-      dispatch(authApi.checkRegistration());
+      dispatch(registerAuthApi.checkRegistration());
     } else {
       navigate(ROUTES.login, { replace: true })
     }

@@ -34,6 +34,14 @@ export const userAuth = createSlice({
       state.error = action.payload;
       state.isAuth = false;
     },
+
+    // setUserEmail(state, action) {
+    //   state.isLoading = false;
+    //   state.error = '';
+    //   state.user.email = action.payload;
+    // }
+
+
   }
 })
 

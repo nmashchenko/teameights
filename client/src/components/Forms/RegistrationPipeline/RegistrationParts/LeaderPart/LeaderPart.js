@@ -27,7 +27,7 @@ import {
   AlertBox
 } from './LeaderPart.styles'
 
-import authApi from "../../../../../api/endpoints/auth";
+import registrationAuthApi from "../../../../../api/endpoints/registration-auth";
 import ROUTES from "../../../../../constants/routes";
 
 function LeaderPart() {
@@ -64,7 +64,7 @@ function LeaderPart() {
           ? await answerSchema.validate(value)
           : await answerSchema.validate({ value });
           value.value === 'true' ? dispatch(setUserLeader(true)) :  dispatch(setUserLeader(false))
-          dispatch(authApi.finishRegistration(userData));
+          dispatch(registrationAuthApi.finishRegistration(userData));
           navigate(ROUTES.temporary, { replace: true })
       } catch (err) {
         setErrors(err.errors);

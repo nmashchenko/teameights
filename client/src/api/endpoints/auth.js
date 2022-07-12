@@ -1,9 +1,14 @@
+// * Modules 
+import axios from 'axios';
+
 // * Api
 import api from "../../http";
-import axios from 'axios';
+
+// * API
 import { API_URL } from '../../http';
+
+// * Redux
 import { userAuth } from '../../store/reducers/UserAuth';
-import { registrationAuth } from '../../store/reducers/RegistrationAuth'
 
 
 const loginUser = (email, password) => async(dispatch) => {
@@ -49,34 +54,22 @@ const checkIsRegistered = (email) => async(dispatch) => {
   }
 }
 
-const checkRegistration = () => async(dispatch) => {
-  try {
-    dispatch(registrationAuth.actions.finishRegistration())
-    const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true})
-    localStorage.setItem('token', response.data.accessToken);
-    dispatch(registrationAuth.actions.setUserEmail(response.data.user.email))
-  } catch(err) {
-    dispatch(registrationAuth.actions.finishRegistrationError(err.response?.data?.message))
-  }
-}
-
-const finishRegistration = (userData) => async(dispatch) => {
-  try{
-    dispatch(registrationAuth.actions.finishRegistration())
-    await api.post('/registration-checkout', userData)
-    dispatch(registrationAuth.actions.finishRegistrationSuccess())
-  } catch(err) {
-    dispatch(registrationAuth.actions.finishRegistrationError(err.response?.data?.message))
-  }
-}
+// const checkRegistration = () => async(dispatch) => {
+//   try {
+//     dispatch(userAuth.actions.authUser())
+//     const response = await axios.get(`${API_URL}/get-email`, {withCredentials: true})
+//     dispatch(userAuth.actions.setUserEmail(response.data))
+//   } catch(err) {
+//     dispatch(userAuth.actions.authUserError(err.response?.data?.message))
+//   }
+// }
 
 const authApi = Object.freeze({
   loginUser,
   checkAuth,
   registerUser,
-  finishRegistration,
-  checkRegistration,
-  checkIsRegistered
+  checkIsRegistered,
+  // checkRegistration
 })
 
 export default authApi
