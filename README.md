@@ -87,11 +87,8 @@ We might redesign some pages but for now they should exist in any form, also we 
 
 Regarding the team members as for now:
 
-🧑🏻	George (dev) <br>
 🧑🏻	Nikita (dev) <br>
 🧑🏻	Zhangir (dev) <br>
-🧑🏻  Egor (dev) <br>
-👩🏼	Leeza (dev) <br>
 👩🏼	Anastasiia (designer) <br>
 
 I think 6 people is enough, even though all of us are juniors, some of us have experience in developing real-world projects. Personally, I believe this idea is amazing and is 1) helping people, 2) could be monetized easily, 3) will give us some real-world experience as students, 4) can potentially give us an opportunity to found company and work on this full-time.
