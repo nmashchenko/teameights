@@ -1,5 +1,4 @@
 // * Modules
-import { setLocale } from "yup";
 import React, { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 

@@ -18,12 +18,19 @@ const initialState = {
   progress: '0',
   isLoading: false,
   error: '',
+
+  //this state is used on initial loading to check if user is registered
+  curRegistration: false,
 }
 
 export const registrationAuth = createSlice({
   name: 'registration',
   initialState,
   reducers: {
+    setUserRegistration(state, action) {
+      state.curRegistration = action.payload
+    },
+
     setUserName(state, action) {
       state.userData.userRealName = action.payload
     },

@@ -12,7 +12,9 @@ const checkRegistration = () => async(dispatch) => {
   try {
     dispatch(registrationAuth.actions.finishRegistration())
     const response = await axios.get(`${API_URL}/get-email`, {withCredentials: true})
-    dispatch(registrationAuth.actions.setUserEmail(response.data))
+    let {isRegistered, email} = response.data
+    dispatch(registrationAuth.actions.setUserEmail(email))
+    dispatch(registrationAuth.actions.setUserRegistration(isRegistered))
   } catch(err) {
     dispatch(registrationAuth.actions.finishRegistrationError(err.response?.data?.message))
   }

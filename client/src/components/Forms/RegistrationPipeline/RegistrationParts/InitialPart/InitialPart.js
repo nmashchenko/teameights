@@ -26,7 +26,7 @@ function InitialPart() {
   const navigate = useNavigate();
 
   const { setActiveState, setProgress } = registrationAuth.actions;
-  const { progress } = useSelector(
+  const { progress, curRegistration } = useSelector(
     (state) => state.registrationReducer
   );
 
@@ -39,6 +39,14 @@ function InitialPart() {
       navigate(ROUTES.login, { replace: true });
     }
   }, []);
+
+  // render component one more time after getting data from global state to make sure
+  useEffect(() => {
+    // if user is already registered -> navigate him to the login page
+    if(curRegistration) {
+      navigate(ROUTES.temporary, { replace: true });
+    }
+  }, [curRegistration, navigate])
 
   return (
     <>

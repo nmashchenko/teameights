@@ -1,6 +1,5 @@
 // * Modules
 import styled, { keyframes } from 'styled-components'
-import MuiAlert from '@mui/material/Alert';
 
 // * Constants
 import {LIME, BLACK, WHITE} from '../../../../../constants/colors'
