@@ -1,40 +1,28 @@
 // * Modules
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import React, { useState, useEffect } from "react";
-import * as yup from "yup";
 import Snackbar from "@mui/material/Snackbar";
 
 // * Assets
-import SiteLogo from "../../../../../assets/SiteLogo";
 import ProgressBar from "../../ProgressBar/ProgressBar";
-import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+import NavLogo from "../../NavLogo/NavLogo";
+import yupValidation from "../../YupValidations/YupValidations";
+import Alert from '../../Alert/Alert'
 
 
 // * Redux
 import { useSelector, useDispatch } from "react-redux";
+import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
 
 import {
   CardContainer,
   Container,
-  NavBar,
   TopText,
   MiddleTextContainer,
   ContinueButton,
   InputField,
-  AlertBox,
 } from './Experience.styles'
 
 function Experience() {
-  // * Asset setup
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
-  });
-
-  const experienceSchema = yup.object().shape({
-    experienceNumber: yup.number().required("Please input your experience").typeError('Experience must be a number').positive('Experience must be greater than zero'),
-  });
-
   // * useStates
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -42,10 +30,9 @@ function Experience() {
 
   // * Redux
   const dispatch = useDispatch();
-  const { setActiveState, setProgress, setUserExperience } =
-    registrationAuth.actions;
+  const { setActiveState, setProgress, setUserExperience } = registrationAuth.actions;
 
-  const { progress, userData } = useSelector(
+  const { progress } = useSelector(
     (state) => state.registrationReducer
   );
 
@@ -53,7 +40,7 @@ function Experience() {
     const handleSubmit = async () => {
       try {
         let experienceNumber = parseInt(experience)
-        await experienceSchema.validate({ experienceNumber });
+        await yupValidation.experienceSchema.validate({ experienceNumber });
         dispatch(setUserExperience(experience));
         dispatch(setActiveState('Links'))
         dispatch(setProgress('84'))
@@ -73,13 +60,7 @@ function Experience() {
     useEffect(() => {}, [errors]);
   return(
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
-      </Box>
+      <NavLogo />
       {errors.length > 0 && (
         <Snackbar
           open={open}
@@ -90,7 +71,7 @@ function Experience() {
             horizontal: "right",
           }}
         >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          <Alert onClose={handleClose} severity="error">
             {errors[0]}
           </Alert>
         </Snackbar>

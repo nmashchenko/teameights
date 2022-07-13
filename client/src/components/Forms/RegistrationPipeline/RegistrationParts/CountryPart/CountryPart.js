@@ -1,46 +1,32 @@
 // * Modules
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import * as yup from "yup";
-import Snackbar from "@mui/material/Snackbar";
-
-// * Assets
-import SiteLogo from "../../../../../assets/SiteLogo";
-import ProgressBar from "../../ProgressBar/ProgressBar";
 import React, { useState, useMemo, useEffect } from "react";
+import Snackbar from "@mui/material/Snackbar";
 import countryList from "react-select-country-list";
-import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+
+// * Other
+import ProgressBar from "../../ProgressBar/ProgressBar";
+import NavLogo from "../../NavLogo/NavLogo";
+import yupValidation from "../../YupValidations/YupValidations";
+import Alert from '../../Alert/Alert'
 
 // * Redux
 import { useSelector, useDispatch } from "react-redux";
+import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
 
 import {
   CardContainer,
   Container,
-  NavBar,
   TopText,
   MiddleTextContainer,
   ContinueButton,
   SelectField,
-  AlertBox,
 } from "./CountryPart.styles";
 
 function CountryPart() {
-  // * Asset setup
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
-  });
-
-  const countrySchema = yup.object().shape({
-    label: yup.string().required("Please choose your country!"),
-    value: yup.string().required("Please choose your country!"),
-  });
-
   // * Redux
   const dispatch = useDispatch();
-  const { setActiveState, setProgress, setUserCountry } =
-    registrationAuth.actions;
-  const { progress, userData } = useSelector(
+  const { setActiveState, setProgress, setUserCountry } = registrationAuth.actions;
+  const { progress} = useSelector(
     (state) => state.registrationReducer
   );
 
@@ -65,8 +51,8 @@ function CountryPart() {
   const handleSubmit = async () => {
     try {
       value
-        ? await countrySchema.validate(value)
-        : await countrySchema.validate({ value });
+        ? await yupValidation.countrySchema.validate(value)
+        : await yupValidation.countrySchema.validate({ value });
       dispatch(setUserCountry(value.label));
       dispatch(setActiveState("AgePart"));
       dispatch(setProgress("36"));
@@ -80,13 +66,7 @@ function CountryPart() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
-      </Box>
+      <NavLogo />
       {errors.length > 0 && (
         <Snackbar
           open={open}
@@ -97,7 +77,7 @@ function CountryPart() {
             horizontal: "right",
           }}
         >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          <Alert onClose={handleClose} severity="error">
             {errors[0]}
           </Alert>
         </Snackbar>
@@ -115,7 +95,7 @@ function CountryPart() {
               onChange={changeHandler}
               theme={(theme) => ({
                 ...theme,
-                borderRadius: 0,
+                borderRadius: 5,
                 colors: {
                   ...theme.colors,
                   primary25: "#E0FF00",

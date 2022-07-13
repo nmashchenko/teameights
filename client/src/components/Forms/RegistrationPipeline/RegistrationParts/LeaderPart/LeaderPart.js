@@ -1,46 +1,35 @@
 // * Modules
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import React, { useState, useEffect } from "react";
-import * as yup from "yup";
 import Snackbar from "@mui/material/Snackbar";
-import { Link, useNavigate } from 'react-router-dom'
 
 // * Assets
-import SiteLogo from "../../../../../assets/SiteLogo";
 import ProgressBar from "../../ProgressBar/ProgressBar";
 import {options} from './Leader.options';
-import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+import registrationAuthApi from "../../../../../api/endpoints/registration-auth";
+import NavLogo from "../../NavLogo/NavLogo";
+import yupValidation from "../../YupValidations/YupValidations";
+import Alert from '../../Alert/Alert'
+
+// * Router
+import {useNavigate } from 'react-router-dom'
+import ROUTES from "../../../../../constants/routes";
 
 // * Redux
 import { useSelector, useDispatch } from "react-redux";
+import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
 
 import {
   CardContainer,
   Container,
-  NavBar,
   TopText,
   MiddleTextContainer,
   ContinueButton,
   SelectField,
   InfoContainer,
-  AlertBox
 } from './LeaderPart.styles'
 
-import registrationAuthApi from "../../../../../api/endpoints/registration-auth";
-import ROUTES from "../../../../../constants/routes";
 
 function LeaderPart() {
-    // * Asset setup
-    const Alert = React.forwardRef(function Alert(props, ref) {
-      return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
-    });
-  
-    const answerSchema = yup.object().shape({
-      label: yup.string().required("You have to make a decision! 😁"),
-      value: yup.string().required("You have to make a decision! 😁"),
-    });
-
     const navigate = useNavigate();
   
     // * useStates
@@ -50,8 +39,7 @@ function LeaderPart() {
   
     // * Redux
     const dispatch = useDispatch();
-    const { setUserLeader } =
-      registrationAuth.actions;
+    const { setUserLeader } = registrationAuth.actions;
   
     const { progress, userData } = useSelector(
       (state) => state.registrationReducer
@@ -61,8 +49,8 @@ function LeaderPart() {
     const handleSubmit = async () => {
       try {
         value
-          ? await answerSchema.validate(value)
-          : await answerSchema.validate({ value });
+          ? await yupValidation.answerSchema.validate(value)
+          : await yupValidation.answerSchema.validate({ value });
           value.value === 'true' ? dispatch(setUserLeader(true)) :  dispatch(setUserLeader(false))
           dispatch(registrationAuthApi.finishRegistration(userData));
           navigate(ROUTES.temporary, { replace: true })
@@ -88,13 +76,7 @@ function LeaderPart() {
 
   return(
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
-      </Box>
+      <NavLogo />
       {errors.length > 0 && (
         <Snackbar
           open={open}
@@ -105,7 +87,7 @@ function LeaderPart() {
             horizontal: "right",
           }}
         >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          <Alert onClose={handleClose} severity="error">
             {errors[0]}
           </Alert>
         </Snackbar>

@@ -1,7 +1,5 @@
 // * Modules
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import * as yup from "yup";
+import { setLocale } from "yup";
 import React, { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 
@@ -9,41 +7,26 @@ import Snackbar from "@mui/material/Snackbar";
 import { useSelector, useDispatch } from "react-redux";
 import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
 
-// * Assets
-import SiteLogo from "../../../../../assets/SiteLogo";
+// * Other
 import ProgressBar from "../../ProgressBar/ProgressBar";
+import NavLogo from "../../NavLogo/NavLogo";
+import yupValidation from "../../YupValidations/YupValidations";
+import Alert from '../../Alert/Alert'
 
 import {
   CardContainer,
   Container,
-  NavBar,
   TopText,
   MiddleTextContainer,
   ContinueButton,
   InputField,
-  AlertBox,
 } from "./NamePart.styles";
 
 function NamePart() {
-  // * Asset setup
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
-  });
-
-  yup.setLocale({
-    string: {
-      max: "Name should be less than 30 characters",
-    },
-  });
-
-  const nameSchema = yup.object().shape({
-    name: yup.string().required("Please input your name").max(30),
-  });
-
   // * Redux
   const dispatch = useDispatch();
   const { setActiveState, setProgress, setUserName } = registrationAuth.actions;
-  const { progress, userData } = useSelector(
+  const { progress } = useSelector(
     (state) => state.registrationReducer
   );
 
@@ -62,7 +45,7 @@ function NamePart() {
 
   const handleSubmit = async () => {
     try {
-      const isValid = await nameSchema.validate({ name });
+      await yupValidation.nameSchema.validate({ name });
       dispatch(setUserName(name));
       dispatch(setActiveState("CountryPart"));
       dispatch(setProgress("24"));
@@ -76,13 +59,7 @@ function NamePart() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
-      </Box>
+      <NavLogo />
       {errors.length > 0 && (
         <Snackbar
           open={open}
@@ -93,7 +70,7 @@ function NamePart() {
             horizontal: "right",
           }}
         >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          <Alert onClose={handleClose} severity="error">
             {errors[0]}
           </Alert>
         </Snackbar>

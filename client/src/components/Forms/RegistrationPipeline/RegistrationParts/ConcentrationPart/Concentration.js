@@ -1,41 +1,28 @@
 // * Modules
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-
-// * Assets
-import SiteLogo from "../../../../../assets/SiteLogo";
-import ProgressBar from "../../ProgressBar/ProgressBar";
-import React, { useState, useMemo, useEffect } from "react";
-import * as yup from "yup";
+import React, { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
+
+// * Other
+import ProgressBar from "../../ProgressBar/ProgressBar";
 import { options } from "./Concentration.options";
-import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+import NavLogo from "../../NavLogo/NavLogo";
+import yupValidation from "../../YupValidations/YupValidations";
+import Alert from '../../Alert/Alert'
 
 // * Redux
 import { useSelector, useDispatch } from "react-redux";
+import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
 
 import {
   CardContainer,
   Container,
-  NavBar,
   TopText,
   MiddleTextContainer,
   ContinueButton,
   SelectField,
-  AlertBox,
 } from "./Concentration.styles";
 
 function Concentration() {
-  // * Asset setup
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
-  });
-
-  const concentrationSchema = yup.object().shape({
-    label: yup.string().required("Please choose your concentration 🎓"),
-    value: yup.string().required("Please choose your concentration 🎓"),
-  });
-
   // * useStates
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -46,7 +33,7 @@ function Concentration() {
   const { setActiveState, setProgress, setUserConcentration } =
     registrationAuth.actions;
 
-  const { progress, userData } = useSelector(
+  const { progress } = useSelector(
     (state) => state.registrationReducer
   );
 
@@ -54,8 +41,8 @@ function Concentration() {
   const handleSubmit = async () => {
     try {
       value
-        ? await concentrationSchema.validate(value)
-        : await concentrationSchema.validate({ value });
+        ? await yupValidation.concentrationSchema.validate(value)
+        : await yupValidation.concentrationSchema.validate({ value });
       dispatch(setUserConcentration(value.label));
       dispatch(setActiveState("Experience"));
       dispatch(setProgress("72"));
@@ -80,13 +67,7 @@ function Concentration() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
-      </Box>
+      <NavLogo />
       {errors.length > 0 && (
         <Snackbar
           open={open}
@@ -97,7 +78,7 @@ function Concentration() {
             horizontal: "right",
           }}
         >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          <Alert onClose={handleClose} severity="error">
             {errors[0]}
           </Alert>
         </Snackbar>
@@ -115,7 +96,7 @@ function Concentration() {
               onChange={changeHandler}
               theme={(theme) => ({
                 ...theme,
-                borderRadius: 0,
+                borderRadius: 5,
                 colors: {
                   ...theme.colors,
                   primary25: "#E0FF00",
