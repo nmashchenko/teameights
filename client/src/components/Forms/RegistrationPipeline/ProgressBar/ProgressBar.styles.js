@@ -1,4 +1,5 @@
-import styled, {keyframes} from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+import { device } from '../../../../constants/breakpoints'
 
 const linearGradient = keyframes`
   0% {
@@ -13,12 +14,22 @@ const linearGradient = keyframes`
 `
 
 export const ProgressBarContainer = styled.div`
+  display: flex;
   background-color: #d8d8d8;
   border-radius: 20px;
   position: relative;
-  margin: 140px 0 15px 0;
+  margin: 0px 0 15px 0;
   height: 30px;
   width: 500px;
+
+  
+  @media ${device.tablet} { 
+    max-width: 415px;
+  }
+
+  @media ${device.mobileL} { 
+    max-width: 325px;
+  }
 `
 
 export const ProgressDone = styled.div`

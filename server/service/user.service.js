@@ -119,7 +119,9 @@ class UserService {
 
     const user = await User.findById(userData.id)
 
-    return user.email;
+    let {isRegistered, email} = user
+
+    return {isRegistered, email};
   }
 
   async registrationCompletion( 

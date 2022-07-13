@@ -14,7 +14,11 @@ export default function OutlinedChips(props) {
         props.handleAddRemove(props.label);
         }
       }
-      onDelete={selected && (() => {})}
+      onDelete={selected && (() => {
+          setSelected((s) => !s)
+          props.handleAddRemove(props.label);
+        })
+      }
       color={selected ? "primary" : "default"}
       variant={selected ? "default" : "outlined"}
       deleteIcon={<DoneIcon />}

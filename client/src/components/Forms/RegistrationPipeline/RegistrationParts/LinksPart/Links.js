@@ -1,53 +1,33 @@
 // * Modules
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import * as yup from "yup";
 import React, { useState, useEffect } from "react";
 import Snackbar from "@mui/material/Snackbar";
 
 // * Assets
-import SiteLogo from "../../../../../assets/SiteLogo";
 import ProgressBar from "../../ProgressBar/ProgressBar";
-import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+import NavLogo from "../../NavLogo/NavLogo";
+import yupValidation from "../../YupValidations/YupValidations";
+import Alert from '../../Alert/Alert'
+
 
 // * Redux
 import { useSelector, useDispatch } from "react-redux";
+import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
 
 import {
   CardContainer,
   Container,
-  NavBar,
   TopText,
   MiddleTextContainer,
   ContinueButton,
   InputField,
-  AlertBox,
 } from './Links.styles'
 
 function Links() {
-  // * Asset setup
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
-  });
-
-  yup.setLocale({
-    string: {
-      max: "Name should be less than 30 characters",
-    },
-  });
-
-  const regMatch = /^((http|https):\/\/)?(www.)?(?!.*(http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+(\/)?.([\w\?[a-zA-Z-_%\/@?]+)*([^\/\w\?[a-zA-Z0-9_-]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/;
-  const urlsSchema = yup.object().shape({
-    github: yup.string().matches(regMatch, {message:"Github link should be a valid URL",excludeEmptyString:true}),
-    linkedIn: yup.string().matches(regMatch, {message:"LinkedIn link should be a valid URL",excludeEmptyString:true}),
-    instagram: yup.string().matches(regMatch, {message:"Instagram link should be a valid URL",excludeEmptyString:true}),
-    telegram: yup.string().matches(regMatch, {message:"Telegram link should be a valid URL",excludeEmptyString:true}),
-  });
 
   // * Redux
   const dispatch = useDispatch();
   const { setActiveState, setProgress, setUserLinks } = registrationAuth.actions;
-  const { progress, userData } = useSelector(
+  const { progress } = useSelector(
     (state) => state.registrationReducer
   );
 
@@ -69,7 +49,7 @@ function Links() {
 
   const handleSubmit = async () => {
     try {
-      await urlsSchema.validate({ github, linkedIn, instagram, telegram });
+      await yupValidation.urlsSchema.validate({ github, linkedIn, instagram, telegram });
       dispatch(setUserLinks({github, linkedIn, instagram, telegram}));
       dispatch(setActiveState('Leader'))
       dispatch(setProgress('100'))
@@ -83,13 +63,7 @@ function Links() {
 
   return(
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
-      </Box>
+      <NavLogo />
       {errors.length > 0 && (
         <Snackbar
           open={open}
@@ -100,7 +74,7 @@ function Links() {
             horizontal: "right",
           }}
         >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          <Alert onClose={handleClose} severity="error">
             {errors[0]}
           </Alert>
         </Snackbar>

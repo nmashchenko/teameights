@@ -54,22 +54,11 @@ const checkIsRegistered = (email) => async(dispatch) => {
   }
 }
 
-// const checkRegistration = () => async(dispatch) => {
-//   try {
-//     dispatch(userAuth.actions.authUser())
-//     const response = await axios.get(`${API_URL}/get-email`, {withCredentials: true})
-//     dispatch(userAuth.actions.setUserEmail(response.data))
-//   } catch(err) {
-//     dispatch(userAuth.actions.authUserError(err.response?.data?.message))
-//   }
-// }
-
 const authApi = Object.freeze({
   loginUser,
   checkAuth,
   registerUser,
   checkIsRegistered,
-  // checkRegistration
 })
 
 export default authApi
