@@ -3,7 +3,7 @@ function ArrowLeft() {
     <svg
       width="91"
       height="24"
-      viewBox="0 0 91 24"
+      viewBox="0 0 81 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

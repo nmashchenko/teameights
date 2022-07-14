@@ -4,7 +4,9 @@ const ROUTES = Object.freeze({
   confirmEmail: '/auth/confirm-email',
   finishRegistration: '/auth/finish-registration',
   passwordRecover: '/auth/password-recover',
-  temporary: '/users',
+  passwordRecoverConfirm: '/auth/password-recover-confirm',
+  passwordRecoverSuccess: '/auth/password-recover-success',
+  temporary: '/platform',
   
 })
 

@@ -164,7 +164,8 @@ export const LoginButton = styled.button`
 
 export const LoginLink = styled.a`
   font-family: 'Montserrat';
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
   color: ${BLACK.main};
   margin: 0;
   text-decoration: none;

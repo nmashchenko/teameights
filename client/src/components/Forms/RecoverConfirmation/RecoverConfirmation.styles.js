@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import Toolbar from "@mui/material/Toolbar";
-import {LIME, WHITE, BLACK, GREY} from '../../../constants/colors'
+import {LIME, WHITE, BLACK, GREY, GREEN} from '../../../constants/colors'
 import {device} from '../../../constants/breakpoints'
+import ArrowLeft from "../../../assets/Arrows/ArrowLeft"
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -75,19 +76,43 @@ export const TitleText = styled.h3`
   }
 `
 
-export const SubTitleText = styled.h4`
-  font-family: 'Montserrat';
-  font-weight: 400;
-  font-size: 22px;
-  color: ${GREY.text};
-  margin: 0;
+export const MiddleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0 45px 0;
+  width: 420px;
+  height: 139px;
+  padding: 1px 20px;
+  background: rgba(123, 233, 128, 0.51);
+  border: 3px solid ${GREEN.border};
+  border-radius: 20px;
 
   @media ${device.tablet} { 
-    font-size: 21px;
+    max-width: 380px;
   }
 
   @media ${device.mobileL} { 
+    max-width: 260px;
+    padding: 1px 14px;
+    margin: 15px 0 25px 0;
+  }
+`
+
+export const MiddleText = styled.h4`
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: start;
+  color: ${GREEN.text};
+
+  @media ${device.tablet} { 
     font-size: 19px;
+  }
+
+  @media ${device.mobileL} { 
+    font-size: 18px;
   }
 
   @media ${device.mobileM} { 
@@ -95,89 +120,10 @@ export const SubTitleText = styled.h4`
   }
 `
 
-export const RecoverInput = styled.input`
-  outline: none;
-  width: 96%;
-  height: 77px;
-  text-align: center;
-  border: 1px solid #000000;
-  border-radius: 3px;
-  margin: 44px 0 44px 0;
-  background: ${GREY.background};
-  font-family: 'Montserrat';
-  font-weight: 600;
-  font-size: 22px;
-  color: ${BLACK.main};
-
-  &::placeholder {
-    font-weight: 600;
-    font-size: 24px;
-
-    @media ${device.mobileL} { 
-      font-size: 21px;
-    }
-
-    @media ${device.mobileM} { 
-      font-size: 20px;
-    }
-  }
-
-  @media ${device.tablet} { 
-    height: 70px;
-  }
-
-  @media ${device.mobileL} { 
-    font-size: 18px;
-    height: 67px;
-  }
-
-  @media ${device.mobileM} { 
-    font-size: 16px;
-    height: 64px;
-  }
-`
-
-export const RecoverButton = styled.button`
-  font-family: 'Montserrat';
-  font-weight: 700;
-  font-size: 23px;
-  border: none;
-  width: 97%;
-  height: 77px;
-  background: ${BLACK.main};
-  color: ${WHITE.main};
-  text-align: center;
-  border: 1px solid ${BLACK.main};
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 3px;
-
-  &:hover {
-    border: none;
-    cursor: pointer;
-    transition: 0.4s;
-    color: ${BLACK.main};
-    background: ${LIME.main};
-  }
-
-  @media ${device.tablet} { 
-    height: 70px;
-  }
-
-  @media ${device.mobileL} { 
-    font-size: 18px;
-    height: 67px;
-  }
-
-  @media ${device.mobileM} { 
-    font-size: 16px;
-    height: 64px;
-  }
-`
-
 export const BackButton = styled.button`
   font-family: 'Montserrat';
   font-weight: 700;
-  font-size: 26px;
+  font-size: 28px;
   color: ${BLACK.main};
   background: none;
   border: none;
@@ -201,5 +147,8 @@ export const ButtonContainer = styled.div`
   display: flex;
   gap: 34px;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 20px;
+`
+
+export const Arrow = styled(ArrowLeft)`
 `

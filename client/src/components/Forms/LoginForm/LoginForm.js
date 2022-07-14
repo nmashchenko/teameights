@@ -111,7 +111,7 @@ function LoginForm() {
       <LoginContainer>
         <LoginBox>
           <LoginTextContainer>
-            <LoginText fontSize="20px">Welcome back 💫</LoginText>
+            <LoginText fontSize="20px">Welcome back 🎉</LoginText>
           </LoginTextContainer>
           <LoginInputContainer>
             <LoginInput
