@@ -3,7 +3,9 @@ const ROUTES = Object.freeze({
   registration: '/auth/registration',
   confirmEmail: '/auth/confirm-email',
   finishRegistration: '/auth/finish-registration',
+  passwordRecover: '/auth/password-recover',
   temporary: '/users',
+  
 })
 
 export default ROUTES

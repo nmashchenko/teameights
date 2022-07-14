@@ -11,6 +11,7 @@ import Temporary from './components/Temporary/Temporary'
 import ROUTES from './constants/routes';
 import Confirmation from './screens/Forms/Confirmation/Confirmation';
 import FinishRegistration from './screens/Forms/FinishRegistration/FinishRegistration';
+import RecoverPassword from './components/Forms/RecoverPassword/RecoverPassword';
 
 
 export const useRoutes = () => {
@@ -24,6 +25,7 @@ export const useRoutes = () => {
       <Route path={ROUTES.registration} element={<Registration />} />
       <Route path={ROUTES.confirmEmail} element={<Confirmation />}/>
       <Route path={ROUTES.finishRegistration} element={<FinishRegistration />}/>
+      <Route path={ROUTES.passwordRecover} element={<RecoverPassword />} />
 
       <Route path="*" element={<Navigate to={ROUTES.login} replace />} />
     </Routes>

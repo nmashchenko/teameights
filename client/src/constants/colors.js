@@ -3,6 +3,11 @@ const LIME = Object.freeze({
   background: '#FDFEF3',
 })
 
+const GREY = Object.freeze({
+  text: '#979797',
+  background: '#F6F6F6',
+})
+
 const BLACK = Object.freeze({
   main: '#121111',
 })
@@ -15,4 +20,5 @@ export {
   LIME,
   BLACK,
   WHITE,
+  GREY,
 }
