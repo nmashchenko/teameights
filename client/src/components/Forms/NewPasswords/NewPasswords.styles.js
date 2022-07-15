@@ -3,6 +3,7 @@ import Toolbar from "@mui/material/Toolbar";
 import {LIME, WHITE, BLACK, GREY} from '../../../constants/colors'
 import {device} from '../../../constants/breakpoints'
 import IconButton from '@mui/material/IconButton';
+import MuiAlert from '@mui/material/Alert';
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -204,5 +205,15 @@ export const ShowPass = styled(IconButton)`
   @media ${device.mobileM} { 
     right: 0;
     top: 13px;
+  }
+`
+
+export const AlertBox = styled(MuiAlert)`
+  && {
+    background: ${BLACK.main};
+  }
+
+  @media ${device.tablet} {
+    max-width: 250px;
   }
 `

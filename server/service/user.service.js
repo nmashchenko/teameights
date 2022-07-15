@@ -4,6 +4,7 @@ const User = require('../models/User');
 // * Modules
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
+const jwt = require('jsonwebtoken');
 
 // * Services
 const mailService = require('./mail.service');
@@ -156,6 +157,41 @@ class UserService {
     })
 
     return { userData } // return access&refresh tokens, and user
+  }
+
+  async generateLink(email) {
+    const user = await User.findOne({ email })
+    if (!user) {
+      throw ApiError.BadRequest('User with this email is not found')
+    }
+    const userDto = new UserDto(user);
+    const payload = { email: userDto.email, id: userDto.id }
+
+    const token = jwt.sign(payload, appConfig.JWT_SECURE_KEY, {expiresIn: '15m'})
+    await mailService.sendResetEmail(email, `${appConfig.API_URL}/api/reset-password/${userDto.id}/${token}`); // send activation email
+  }
+
+  async verifyReset(id, token) {
+    const user = await User.findOne({ _id: id })
+
+    if (!user) {
+      throw ApiError.BadRequest('Invalid link')
+    }
+
+    jwt.verify(token, appConfig.JWT_SECURE_KEY)
+  }
+
+  async updatePassword(id, token, password) {
+    const user = await User.findOne({ _id: id })
+
+    if (!user) {
+      throw ApiError.BadRequest('Invalid link')
+    }
+
+    jwt.verify(token, appConfig.JWT_SECURE_KEY)
+
+    const hashPassword = await bcrypt.hash(password, 3); // hash password
+    await User.findOneAndUpdate({ _id: id }, {password: hashPassword})
   }
 }
 

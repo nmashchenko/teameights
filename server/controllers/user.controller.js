@@ -142,6 +142,39 @@ class UserController {
     }
   }
 
+  async resetPassword(req, res, next) {
+    try{
+      const {email} = req.body;
+      await userService.generateLink(email);
+      return res.send('Email sent')
+    } catch(err) {
+      // error.middleware will take care of it
+      next(err);
+    }
+  }
+
+  async verifyReset(req, res, next) {
+    try{
+      const { id, token } = req.params;
+      await userService.verifyReset(id, token);
+      return res.redirect(`${appConfig.CLIENT_URL}/auth/password-recover/${id}/${token}`);
+    } catch(err) {
+      // error.middleware will take care of it
+      next(err);
+    }
+  }
+
+  async resetFinish(req, res, next) {
+    try{
+      const { id, token, password } = req.body;
+      await userService.updatePassword(id, token, password);
+      return res.send('Successfuly updated')
+    } catch(err) {
+      // error.middleware will take care of it
+      next(err);
+    }
+  }
+
 }
 
 module.exports = new UserController();

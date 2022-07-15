@@ -5,7 +5,7 @@ const ROUTES = Object.freeze({
   finishRegistration: '/auth/finish-registration',
   passwordRecover: '/auth/password-recover',
   passwordRecoverConfirm: '/auth/password-recover-confirm',
-  passwordRecoverSuccess: '/auth/password-recover-success',
+  passwordRecoverSuccess: '/auth/password-recover/:id/:token',
   temporary: '/platform',
   
 })

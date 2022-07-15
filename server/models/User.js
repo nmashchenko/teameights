@@ -31,15 +31,12 @@ const UserSchema = new mongoose.Schema({
   },
   userCountry: {
     type: String,
-    required: false
   },
   userAge: {
     type: String,
-    required: false
   }, 
   userLeader: {
     type: Boolean,
-    required: false
   },
   // userUniversity: {
   //   type: String,
@@ -47,11 +44,9 @@ const UserSchema = new mongoose.Schema({
   // },
   userProgrammingLanguages: {
     type: Array,
-    required: false
   },
   userConcentration: {
     type: String,
-    required: false
   },
   // userDescription: {
   //   type: String,
@@ -59,7 +54,6 @@ const UserSchema = new mongoose.Schema({
   // },
   userRealName: {
     type: String,
-    required: false
   },
   // userLanguages: {
   //   type: Array,
@@ -67,11 +61,9 @@ const UserSchema = new mongoose.Schema({
   // },
   userLinks: {
     type: Object,
-    required: false
   },
   userExperience: {
     type: String,
-    required: false
   },
   // userAvatar: {
   //   type: String,
@@ -80,7 +72,7 @@ const UserSchema = new mongoose.Schema({
   userRole: {
     type: String,
     required: false
-  }
+  },
 }, {
   timestamps: {
     createdAt: 'created_at',

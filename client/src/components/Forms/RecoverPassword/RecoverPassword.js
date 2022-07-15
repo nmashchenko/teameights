@@ -8,6 +8,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import SiteLogo from "../../../assets/SiteLogo";
 import ArrowLeft from "../../../assets/Arrows/ArrowLeft"
 
+// * Api
+import resetPassword from "../../../api/endpoints/reset";
+
+// * Redux
+import { useDispatch } from "react-redux";
+
 import {
   NavBar,
   Container,
@@ -25,7 +31,14 @@ import ROUTES from "../../../constants/routes";
 
 function RecoverPassword() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
+
+  const handleReset = () => {
+    dispatch(resetPassword.getRegistrationEmail(email));
+    navigate(ROUTES.passwordRecoverConfirm, { replace: true, state: {email} })
+  }
+
   return (
     <Container>
     <Box sx={{ flexGrow: 1 }}>
@@ -44,7 +57,7 @@ function RecoverPassword() {
           <SubTitleText>Enter the email address you used to register and we will send you the instructions</SubTitleText>
         </TextContainer>
         <RecoverInput placeholder="EMAIL" onChange={(e) => setEmail(e.target.value)}/>
-        <RecoverButton onClick={() => navigate(ROUTES.passwordRecoverConfirm, { replace: true, state: {email} })}>RESET PASSWORD</RecoverButton>
+        <RecoverButton onClick={handleReset}>RESET PASSWORD</RecoverButton>
         <ButtonContainer>
           <ArrowLeft />
           <BackButton onClick={() => navigate(ROUTES.login, { replace: true })}>BACK TO SIGN IN</BackButton>
