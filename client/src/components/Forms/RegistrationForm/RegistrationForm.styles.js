@@ -28,7 +28,7 @@ export const RegistrationBox = styled.div`
   max-width: 520px;
   width: 100%;
   box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.15);
-  padding: 40px 23px;
+  padding: 30px 23px;
   border-radius: 24px;
   background: ${WHITE.main};
 
