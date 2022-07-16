@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
 import { useNavigate } from "react-router-dom";
+import isEqual from 'lodash/isEqual';
 
 // * Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -26,7 +27,7 @@ function InitialPart() {
   const navigate = useNavigate();
 
   const { setActiveState, setProgress } = registrationAuth.actions;
-  const { progress, curRegistration } = useSelector(
+  const { progress, curRegistration, error } = useSelector(
     (state) => state.registrationReducer
   );
 
@@ -48,9 +49,18 @@ function InitialPart() {
     }
   }, [curRegistration, navigate])
 
+  // make sure user is actually authorized
+  useEffect(() => {
+    // if user is not authorized -> redirect
+    if(isEqual(error, 'User is not authorized')) {
+      navigate(ROUTES.login, { replace: true });
+    }
+  }, [error, navigate])
+
   return (
     <>
       <NavLogo />
+      {error}
       <Container>
         <ProgressBar done={progress} />
         <CardContainer>

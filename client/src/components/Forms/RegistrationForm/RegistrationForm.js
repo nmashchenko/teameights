@@ -98,24 +98,24 @@ function RegistrationForm() {
       <RegistrationContainer>
         <RegistrationBox>
           <RegistrationTextContainer>
-            <RegistrationText fontSize="20px">Let's begin your journey 🔥</RegistrationText>
+            <RegistrationText fontSize="20px">Let's begin your journey</RegistrationText>
           </RegistrationTextContainer>
           <RegistrationInputContainer>
           <RegistrationInput
-              placeholder="Username"
+              placeholder="USERNAME"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
             <RegistrationInput
-              placeholder="Email"
+              placeholder="EMAIL"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <PasswordContainer>
               <RegistrationInput
-                placeholder="Password"
+                placeholder="PASSWORD"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -126,7 +126,7 @@ function RegistrationForm() {
               </PasswordContainer>
               <PasswordContainer>
               <RegistrationInput
-                placeholder="Repeat password"
+                placeholder="REPEAT PASSWORD"
                 type={showPassword ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}

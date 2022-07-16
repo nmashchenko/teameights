@@ -111,18 +111,18 @@ function LoginForm() {
       <LoginContainer>
         <LoginBox>
           <LoginTextContainer>
-            <LoginText fontSize="20px">Welcome back 💫</LoginText>
+            <LoginText fontSize="20px">Welcome back 🎉</LoginText>
           </LoginTextContainer>
           <LoginInputContainer>
             <LoginInput
-              placeholder="Email"
+              placeholder="EMAIL"
               type="text"
               value={inputEmail}
               onChange={(e) => setInputEmail(e.target.value)}
             />
             <PasswordContainer>
               <LoginInput
-                placeholder="Password"
+                placeholder="PASSWORD"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -131,10 +131,10 @@ function LoginForm() {
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </ShowPass>
             </PasswordContainer>
-            <LoginButton onClick={handleLogin}>Login</LoginButton>
+            <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
           </LoginInputContainer>
           <BottomBox>
-            <LoginLink href="/" fontSize="12px" fontWeight="700">
+            <LoginLink href="/auth/password-recover" fontSize="12px" fontWeight="700">
               Forgot password?
             </LoginLink>
             <LoginLink href="/auth/registration" fontSize="12px" fontWeight="700">
