@@ -1,12 +1,15 @@
 // * Modules
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import {useState} from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from '../../../components/Forms/RegistrationPipeline/Alert/Alert'
 
 // * Assets
 import SiteLogo from "../../../assets/SiteLogo";
-import ArrowLeft from "../../../assets/Arrows/ArrowLeft"
+import ArrowLeft from "../../../assets/Arrows/ArrowLeft";
+import emailValidation from "./RecoverValidation";
 
 // * Api
 import resetPassword from "../../../api/endpoints/reset";
@@ -26,46 +29,90 @@ import {
   RecoverButton,
   ButtonContainer,
   BackButton,
-} from './RecoverPassword.styles'
+} from "./RecoverPassword.styles";
 import ROUTES from "../../../constants/routes";
 
 function RecoverPassword() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
+  const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState([]);
 
-  const handleReset = () => {
-    dispatch(resetPassword.getRegistrationEmail(email));
-    navigate(ROUTES.passwordRecoverConfirm, { replace: true, state: {email} })
-  }
+  const handleReset = async () => {
+    try {
+      await emailValidation.validate({ email });
+      dispatch(resetPassword.getRegistrationEmail(email));
+      navigate(ROUTES.passwordRecoverConfirm, {
+        replace: true,
+        state: { email },
+      });
+    } catch (err) {
+      setErrors(err.errors);
+      setOpen(true);
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <Container>
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" elevation={0}>
-        <NavBar>
-          <SiteLogo />
-        </NavBar>
-      </AppBar>
-    </Box>
-    <RecoverContainer>
-      <RecoverBox>
-        <TextContainer>
-          <TitleText margin='0 0 24px 0'>Recover Password</TitleText>
-        </TextContainer>
-        <TextContainer>
-          <SubTitleText>Enter the email address you used to register and we will send you the instructions</SubTitleText>
-        </TextContainer>
-        <RecoverInput placeholder="EMAIL" onChange={(e) => setEmail(e.target.value)}/>
-        <RecoverButton onClick={handleReset}>RESET PASSWORD</RecoverButton>
-        <ButtonContainer>
-          <ArrowLeft />
-          <BackButton onClick={() => navigate(ROUTES.login, { replace: true })}>BACK TO SIGN IN</BackButton>
-        </ButtonContainer>
-      </RecoverBox>
-    </RecoverContainer>
-  </Container>
-  )
+      {errors.length > 0 && (
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {errors[0]}
+          </Alert>
+        </Snackbar>
+      )}
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" elevation={0}>
+          <NavBar>
+            <SiteLogo />
+          </NavBar>
+        </AppBar>
+      </Box>
+      <RecoverContainer>
+        <RecoverBox>
+          <TextContainer>
+            <TitleText margin="0 0 24px 0">Recover Password</TitleText>
+          </TextContainer>
+          <TextContainer>
+            <SubTitleText>
+              Enter the email address you used to register and we will send you
+              the instructions
+            </SubTitleText>
+          </TextContainer>
+          <RecoverInput
+            placeholder="EMAIL"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <RecoverButton onClick={handleReset}>RESET PASSWORD</RecoverButton>
+          <ButtonContainer>
+            <ArrowLeft />
+            <BackButton
+              onClick={() => navigate(ROUTES.login, { replace: true })}
+            >
+              BACK TO SIGN IN
+            </BackButton>
+          </ButtonContainer>
+        </RecoverBox>
+      </RecoverContainer>
+    </Container>
+  );
 }
 
-export default RecoverPassword
+export default RecoverPassword;
