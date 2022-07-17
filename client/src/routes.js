@@ -5,12 +5,12 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 // * Screens
 import Login from './screens/Forms/Login/Login'
 import Registration from './screens/Forms/Registration/Registration';
-import Temporary from './components/Temporary/Temporary'
 import Confirmation from './screens/Forms/Confirmation/Confirmation';
 import FinishRegistration from './screens/Forms/FinishRegistration/FinishRegistration';
 import ResetPassword from './screens/Forms/ResetPassword/ResetPassword';
 import ResetPasswordConfirmation from './screens/Forms/ResetPasswordConfirmation/ResetPasswordConfirmation'
 import ResetNewPasswords from './screens/Forms/ResetNewPasswords/ResetNewPasswords';
+import UsersList from './screens/UsersList/UsersList'
 
 // * Constants
 import ROUTES from './constants/routes';
@@ -19,7 +19,7 @@ export const useRoutes = () => {
   return (
     <Routes>
       {/* // * for authenticated user */}
-      <Route path={ROUTES.temporary} element={<Temporary />} />
+      <Route path={ROUTES.temporary} element={<UsersList />} />
 
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />
