@@ -1,0 +1,17 @@
+/* this is just for the MUI SelectField to remove blue border */
+fieldset{
+  border: none !important;
+  outline: none !important;
+}
+
+.css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon{
+  color: white !important;
+}
+
+.css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon{
+  color: white !important;
+}
+
+.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+  background: none;
+}
