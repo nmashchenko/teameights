@@ -5,6 +5,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
+const isEmpty = require('lodash/isEmpty');
 
 // * Services
 const mailService = require('./mail.service');
@@ -92,10 +93,42 @@ class UserService {
     return { ...tokens, user: userDto } // return access&refresh tokens, and user
   }
 
-  // * test function -> should be removed soon
   async getAllUsers() {
-    const users = await User.find();
+    const users = await User.find({isRegistered: true});
     return users;
+  }
+
+  async getAllUsersFiltered(countries, roles, programmingLanguages) {
+    // cases: 
+    // countries - not empty, roles, programmingLangs - empty
+    // roles - not empty, countries, programmingLangs - empty
+    // programmingLangs - not empty, countries, roles - empty
+
+    // countries, roles - not empty, programmingLangs - empty
+    // countries, programmingLangs - not empty, roles - empty
+    // roles, programmingLangs - not empty, countries - empty
+    if(!isEmpty(countries) && isEmpty(roles) && isEmpty(programmingLanguages)){
+      const users = await User.find({isRegistered: true, userCountry: {$in: countries}});
+      return users;
+    } else if(!isEmpty(roles) && isEmpty(countries) && isEmpty(programmingLanguages)){
+      const users = await User.find({isRegistered: true, userConcentration: {$in: roles}});
+      return users;
+    } else if(!isEmpty(programmingLanguages) && isEmpty(countries) && isEmpty(roles)){
+      const users = await User.find({isRegistered: true, userProgrammingLanguages: {$in: programmingLanguages}});
+      return users;
+    } else if(!isEmpty(countries) && !isEmpty(roles) && isEmpty(programmingLanguages)){
+      const users = await User.find({isRegistered: true, userCountry: {$in: countries}, userConcentration: {$in: roles}});
+      return users;
+    } else if(!isEmpty(countries) && !isEmpty(programmingLanguages) && isEmpty(roles)){
+      const users = await User.find({isRegistered: true, userCountry: {$in: countries}, userProgrammingLanguages: {$in: programmingLanguages}});
+      return users;
+    } else if(!isEmpty(roles) && !isEmpty(programmingLanguages) && isEmpty(countries)){
+      const users = await User.find({isRegistered: true, userConcentration: {$in: roles}, userProgrammingLanguages: {$in: programmingLanguages}});
+      return users;
+    } else {
+      const users = await User.find({isRegistered: true, userCountry: {$in: countries}, userConcentration: {$in: roles}, userProgrammingLanguages: {$in: programmingLanguages}});
+      return users;
+    }
   }
 
   async checkIsRegistered(email) {

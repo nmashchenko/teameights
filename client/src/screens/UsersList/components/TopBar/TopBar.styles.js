@@ -22,3 +22,13 @@ export const NavIconContainer = styled.div`
 export const LogoContainer = styled.div`
   margin-right: 20%;
 `
+
+export const Button = styled.button`
+  border: none;
+  outline: none;
+  width: 46px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+`

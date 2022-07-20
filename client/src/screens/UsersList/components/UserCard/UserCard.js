@@ -13,13 +13,23 @@ function UserCard(props) {
     <CardContainer>
       <UserInformationContainer>
         <TextContainer>
-          <TitleText>Nikita, 20</TitleText>
-          <TitleText fontWeight='600' fontSize='15px' color='white'>Full-Stack dev.</TitleText>
+          <TitleText>{props.person.userRealName}, {props.person.userAge}</TitleText>
+          <TitleText fontWeight='600' fontSize='15px' color='white'>{props.person.userConcentration}</TitleText>
         </TextContainer>
-        <CountryFlag countryCode={props.countryCode} svg />
+        <CountryFlag countryCode={props.countryCode.internet} svg />
+        {/* <TextContainer>
+          <TitleText>Vasya, 11</TitleText>
+          <TitleText fontWeight='600' fontSize='15px' color='white'>Full Stack Developer</TitleText>
+        </TextContainer>
+        <CountryFlag countryCode='UA' svg /> */}
       </UserInformationContainer>
       <ProgrammingLanguagesContainer>
-        <LanguageContainer>
+        {props.person.userProgrammingLanguages.map((element) => (
+            <LanguageContainer key={element}>
+            <h3>{element}</h3>
+          </LanguageContainer>
+        ))}
+        {/* <LanguageContainer>
           <h3>JS</h3>
         </LanguageContainer>
         <LanguageContainer>
@@ -30,7 +40,7 @@ function UserCard(props) {
         </LanguageContainer>
         <LanguageContainer>
           <h3>C</h3>
-        </LanguageContainer>
+        </LanguageContainer> */}
       </ProgrammingLanguagesContainer>
     </CardContainer>
   )

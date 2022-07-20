@@ -84,6 +84,17 @@ class UserController {
     }
   }
 
+  async getUsersFiltered(req, res, next) {
+    try {
+      const { countries, roles, programmingLanguages } = req.body;
+      const users = await userService.getAllUsersFiltered(countries, roles, programmingLanguages);
+      return res.json(users);
+    } catch (err) {
+      // error.middleware will take care of it
+      next(err);
+    }
+  }
+
   async checkIsRegistered(req, res, next) {
     try {
       const status = await userService.checkIsRegistered(req.body.email);

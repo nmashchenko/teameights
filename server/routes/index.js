@@ -20,6 +20,7 @@ router.post('/registration-checkout', userController.registrationCompletion);
 router.post('/check-registration', userController.checkIsRegistered);
 router.post('/reset-password', userController.resetPassword)
 router.post('/reset-password/:id/:token', validationMiddleware(resetValidation.resetValidationSchema), userController.resetFinish)
+router.post('/users-filtered', authMiddleware, userController.getUsersFiltered)
 
 router.get('/get-email', userController.getEmail)
 router.get('/activate/:link', userController.activate);
