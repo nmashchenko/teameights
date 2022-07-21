@@ -12,7 +12,7 @@ export const NavBar = styled(Toolbar)`
 `
 
 export const BoxContainer = styled(Box)`
-  margin: 50px 0 0 100px;
+  padding: 30px 100px;
 `
 
 export const NavIconContainer = styled.div`
@@ -20,7 +20,7 @@ export const NavIconContainer = styled.div`
 `
 
 export const LogoContainer = styled.div`
-  margin-right: 20%;
+  margin-right: 14%;
 `
 
 export const Button = styled.button`
@@ -31,4 +31,11 @@ export const Button = styled.button`
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.9);
   cursor: pointer;
+`
+
+export const SelectContainer = styled.div`
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center
 `

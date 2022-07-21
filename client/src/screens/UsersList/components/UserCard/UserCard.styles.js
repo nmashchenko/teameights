@@ -7,12 +7,14 @@ export const UserInformationContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 80px;
 `
 
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 13px;
+  max-width: 100px;
 `
 
 export const TitleText = styled.h3`
@@ -62,13 +64,15 @@ export const CardContainer = styled.div`
   align-items: center;
   max-width: 260px;
   width: 100%;
+  max-height: 330px;
+  height: 100%;
   padding: 32px 26px;
   background: ${BLACK.main};
   border-radius: 25px;
 
   &:hover {
     cursor: pointer;
-    background: #FDFEF3;
+    background: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
     transition: 0.4s ease-in-out;
   }

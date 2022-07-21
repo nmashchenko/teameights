@@ -17,6 +17,7 @@ import {
   NavIconContainer,
   LogoContainer,
   Button,
+  SelectContainer,
 } from "./TopBar.styles";
 
 function TopBar(props) {
@@ -36,35 +37,29 @@ function TopBar(props) {
             <LogoContainer>
               <SiteLogo />
             </LogoContainer>
-            <div style={{ marginRight: "100px" }}>
+            <SelectContainer>
               <SelectField
-                inputName={"Country"}
-                options={countriesOptions}
-                data={props.countries}
-                handleChange={props.handleCountries}
-              />
-            </div>
-            <div style={{ marginRight: "100px" }}>
-              <SelectField
-                inputName={"Role"}
-                options={concentrationOptions}
-                data={props.roles}
-                handleChange={props.handleRoles}
-              />
-            </div>
-            <div style={{ marginRight: "100px" }}>
-              <SelectField
-                inputName={"Language"}
-                options={programmingLanguageOptions}
-                data={props.programmingLanguages}
-                handleChange={props.handleProgrammingLanguages}
-              />
-            </div>
-            <div>
-              <Button onClick={props.handleSubmitFilter}>
-                <SearchIcon sx={{width: '32px', height: '32px', color: 'white'}}/>
-              </Button>
-            </div>
+                  inputName={"Country"}
+                  options={countriesOptions}
+                  data={props.countries}
+                  handleChange={props.handleCountries}
+                />
+                <SelectField
+                  inputName={"Role"}
+                  options={concentrationOptions}
+                  data={props.roles}
+                  handleChange={props.handleRoles}
+                />
+                <SelectField
+                  inputName={"Language"}
+                  options={programmingLanguageOptions}
+                  data={props.programmingLanguages}
+                  handleChange={props.handleProgrammingLanguages}
+                />
+                <Button onClick={props.handleSubmitFilter}>
+                  <SearchIcon sx={{width: '32px', height: '32px', color: 'white'}}/>
+                </Button>
+            </SelectContainer>
           </NavBar>
         </AppBar>
       </BoxContainer>
