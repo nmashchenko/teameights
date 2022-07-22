@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import countryList from "react-select-country-list";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 // * Assets
 import SiteLogo from "../../../../assets/SiteLogo";
@@ -39,27 +39,29 @@ function TopBar(props) {
             </LogoContainer>
             <SelectContainer>
               <SelectField
-                  inputName={"Country"}
-                  options={countriesOptions}
-                  data={props.countries}
-                  handleChange={props.handleCountries}
-                />
-                <SelectField
-                  inputName={"Role"}
-                  options={concentrationOptions}
-                  data={props.roles}
-                  handleChange={props.handleRoles}
-                />
-                <SelectField
-                  inputName={"Language"}
-                  options={programmingLanguageOptions}
-                  data={props.programmingLanguages}
-                  handleChange={props.handleProgrammingLanguages}
-                />
-                <Button onClick={props.handleSubmitFilter}>
-                  <SearchIcon sx={{width: '32px', height: '32px', color: 'white'}}/>
-                </Button>
+                inputName={"Country"}
+                options={countriesOptions}
+                data={props.countries}
+                handleChange={props.handleCountries}
+              />
+              <SelectField
+                inputName={"Role"}
+                options={concentrationOptions}
+                data={props.roles}
+                handleChange={props.handleRoles}
+              />
+              <SelectField
+                inputName={"Language"}
+                options={programmingLanguageOptions}
+                data={props.programmingLanguages}
+                handleChange={props.handleProgrammingLanguages}
+              />
             </SelectContainer>
+            <Button onClick={props.handleSubmitFilter}>
+              <SearchIcon
+                sx={{ width: "32px", height: "32px", color: "white" }}
+              />
+            </Button>
           </NavBar>
         </AppBar>
       </BoxContainer>

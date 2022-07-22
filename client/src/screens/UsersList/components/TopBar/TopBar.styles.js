@@ -1,27 +1,27 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 
-import {LIME, WHITE, BLACK, GREY} from '../../../../constants/colors'
-import {device} from '../../../../constants/breakpoints'
+import { LIME, WHITE, BLACK, GREY } from "../../../../constants/colors";
+import { device } from "../../../../constants/breakpoints";
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
     background: transparent;
   }
-`
+`;
 
 export const BoxContainer = styled(Box)`
   padding: 30px 100px;
-`
+`;
 
 export const NavIconContainer = styled.div`
   margin-right: 20px;
-`
+`;
 
 export const LogoContainer = styled.div`
-  margin-right: 14%;
-`
+  margin-right: 7%;
+`;
 
 export const Button = styled.button`
   border: none;
@@ -31,11 +31,11 @@ export const Button = styled.button`
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.9);
   cursor: pointer;
-`
+`;
 
 export const SelectContainer = styled.div`
-  width: 60%;
+  width: 68%;
   display: flex;
-  justify-content: space-between;
-  align-items: center
-`
+  justify-content: space-around;
+  align-items: center;
+`;

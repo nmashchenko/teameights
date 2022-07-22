@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import lookup from "country-code-lookup";
 import isEmpty from "lodash/isEmpty";
+import Modal from "@mui/material/Modal";
 
 // * Components
 import UserCard from "./components/UserCard/UserCard";
@@ -14,6 +15,7 @@ import NotFound from "./components/NotFound/NotFound";
 
 // * API
 import usersApi from "../../api/endpoints/users";
+import UserProfile from "./components/UserProfile/UserProfile";
 
 function UsersList() {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +23,17 @@ function UsersList() {
   const [countries, setCountries] = useState([]);
   const [roles, setRoles] = useState([]);
   const [programmingLanguages, setProgrammingLanguages] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [showUser, setShowUser] = useState({});
+
+  const handleOpen = (user) => {
+    setShowUser(user);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setShowUser({});
+  };
 
   const handleCountries = (event) => {
     const {
@@ -94,6 +107,14 @@ function UsersList() {
         handleProgrammingLanguages={handleProgrammingLanguages}
         handleSubmitFilter={handleSubmitFilter}
       />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <UserProfile user={showUser} />
+      </Modal>
       {isLoading ? (
         <GridContainer>
           <CardsContainer>
@@ -110,13 +131,28 @@ function UsersList() {
             <div>
               <GridContainer>
                 <CardsContainer>
-                  {users.map((element) => (
-                    <CardContainer>
-                      <UserCard
-                        countryCode={lookup.byCountry(element.userCountry)}
-                        key={element._id}
-                        person={element}
-                      />
+                  {users.map((element, index) => (
+                    <CardContainer
+                      onClick={() => handleOpen(element)}
+                      key={index}
+                    >
+                      {index % 2 === 0 ? (
+                        <UserCard
+                          countryCode={lookup.byCountry(element.userCountry)}
+                          key={element._id}
+                          person={element}
+                        />
+                      ) : (
+                        <UserCard
+                          backgroundColor="#F4D03F"
+                          backgroundImage="linear-gradient(132deg, #F4D03F 0%, #16A085 100%)"
+                          textColor="black"
+                          languageContainerColor="white"
+                          countryCode={lookup.byCountry(element.userCountry)}
+                          key={element._id}
+                          person={element}
+                        />
+                      )}
                     </CardContainer>
                   ))}
                 </CardsContainer>
