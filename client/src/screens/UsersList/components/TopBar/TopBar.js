@@ -5,8 +5,10 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // * Assets
 import SiteLogo from "../../../../assets/SiteLogo";
+import PlatformLogo from "../../../../assets/PlatformLogo";
 import NavBarIcon from "../../../../assets/NavBarIcon";
 import SelectField from "../SelectField/SelectField";
+import Search from "../../../../assets/SearchIcon"
 import { concentrationOptions } from "./Contentration.options";
 import { programmingLanguageOptions } from "./ProgrammingLanguages.options";
 // import SearchIcon from "../../../../assets/SearchIcon"
@@ -35,7 +37,7 @@ function TopBar(props) {
               <NavBarIcon />
             </NavIconContainer>
             <LogoContainer>
-              <SiteLogo />
+              <PlatformLogo />
             </LogoContainer>
             <SelectContainer>
               <SelectField
@@ -58,7 +60,7 @@ function TopBar(props) {
               />
             </SelectContainer>
             <Button onClick={props.handleSubmitFilter}>
-              <SearchIcon
+              <Search
                 sx={{ width: "32px", height: "32px", color: "white" }}
               />
             </Button>

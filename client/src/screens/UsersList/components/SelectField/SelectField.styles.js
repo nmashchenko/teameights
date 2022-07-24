@@ -22,13 +22,26 @@ export const Item = styled(MenuItem)`
   }
 
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
-    background-color: #E0FF00;
+    background-color: #72EB3A;
     color: black;
+    font-family: 'Montserrat';
+    font-size: 0.875rem;
+    font-weight: 600;
   }
 
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover {
-    background-color: #E0FF00;
+    background-color: #72EB3A;
     color: black;
+    font-family: 'Montserrat';
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  &.MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary Mui-focused MuiInputBase-formControl sc-egNfGp kouRYJ css-1nbbxgk-MuiInputBase-root-MuiOutlinedInput-root {
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 0.875rem;
+    font-weight: 600;
   }
 `
 

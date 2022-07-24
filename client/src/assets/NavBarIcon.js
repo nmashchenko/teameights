@@ -1,15 +1,33 @@
 function NavBarIcon() {
   return (
     <svg
-      width="29"
-      height="20"
-      viewBox="0 0 29 20"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width="29" height="5" rx="2.5" fill="black" />
-      <rect y="7" width="23" height="6" rx="3" fill="black" />
-      <rect y="15" width="15" height="5" rx="2.5" fill="black" />
+      <path
+        d="M9 10.3334H23"
+        stroke="#72EB3A"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M9 16H17.6667"
+        stroke="#72EB3A"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M9 21.6666H23"
+        stroke="#72EB3A"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
   );
 }

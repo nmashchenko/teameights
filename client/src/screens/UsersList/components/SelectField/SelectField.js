@@ -2,6 +2,7 @@ import * as React from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import "./SelectField.css";
+import ArrowDown from '../../../../assets/Arrows/ArrowDown'
 
 import { Item, PlaceholderText, CustomSelect } from "./SelectField.styles";
 
@@ -13,7 +14,6 @@ const MenuProps = {
       boxSizing: "border-box",
       padding: "5px",
       margin: "10px 0",
-      border: "1px solid black",
       borderRadius: "0.75em",
       color: "black",
       overflow: "auto",
@@ -25,8 +25,9 @@ const MenuProps = {
 export default function MultipleSelect(props) {
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 170 }}>
+      <FormControl sx={{ m: 1, width: 130 }}>
         <CustomSelect
+          IconComponent = {ArrowDown}
           multiple
           displayEmpty
           value={props.data}
@@ -40,13 +41,9 @@ export default function MultipleSelect(props) {
             return selected.join(", ");
           }}
           MenuProps={MenuProps}
-          classes={{
-            icon: { color: "white" },
-          }}
           sx={{
             borderRadius: "0.75em",
-            background: "rgba(0, 0, 0, 0.9)",
-            color: "white",
+            background: "none",
             height: "45px",
           }}
         >

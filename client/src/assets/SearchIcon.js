@@ -2,18 +2,26 @@ function SearchIcon() {
   return (
     <svg
       width="20"
-      height="19"
-      viewBox="0 0 20 19"
+      height="20"
+      viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M8.06 15.6C3.596 15.6 0 12.12 0 7.8C0 3.48 3.596 0 8.06 0C12.524 0 16.12 3.48 16.12 7.8C16.12 12.12 12.524 15.6 8.06 15.6ZM8.06 1.2C4.278 1.2 1.24 4.14 1.24 7.8C1.24 11.46 4.278 14.4 8.06 14.4C11.842 14.4 14.88 11.46 14.88 7.8C14.88 4.14 11.842 1.2 8.06 1.2Z"
-        fill="white"
+        d="M13 13L19 19"
+        stroke="#72EB3A"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
-      <path
-        d="M14.0627 12.7602L19.6303 18.1482L18.7536 18.9966L13.186 13.6086L14.0627 12.7602Z"
-        fill="white"
+      <circle
+        cx="8"
+        cy="8"
+        r="7"
+        stroke="#72EB3A"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
     </svg>
   );

@@ -18,7 +18,12 @@ export const CardContainer = styled.div`
 `
 
 export const SkeletonCard = styled(Skeleton)`
-  width: 260px;
-  height: 310px;
+  width: 200px;
+  height: 270px;
   border-radius: 25px;
+
+  @media screen and (min-width: 1440px) { 
+    width: 240px;
+    height: 300px;
+  }
 `

@@ -16,6 +16,7 @@ export const Container = styled.div`
 export const Text = styled.h2`
   font-family: 'Montserrat';
   font-weight: 700;
+  color: white;
   font-size: 36px;
-  margin: 0 0 20px 0;
+  margin: 0 0 30px 0;
 `

@@ -45,6 +45,9 @@ const UserSchema = new mongoose.Schema({
   userProgrammingLanguages: {
     type: Array,
   },
+  // userFrameworks: {
+  //   type: Array,
+  // },
   userConcentration: {
     type: String,
   },
@@ -55,10 +58,6 @@ const UserSchema = new mongoose.Schema({
   userRealName: {
     type: String,
   },
-  // userLanguages: {
-  //   type: Array,
-  //   required: false
-  // },
   userLinks: {
     type: Object,
   },

@@ -2,20 +2,29 @@
 import React, { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import styled from "styled-components";
-import Pagination from "@mui/material/Pagination";
+// import Pagination from "@mui/material/Pagination";
 import lookup from "country-code-lookup";
 import isEmpty from "lodash/isEmpty";
 import Modal from "@mui/material/Modal";
+import { createGlobalStyle } from 'styled-components'
 
 // * Components
 import UserCard from "./components/UserCard/UserCard";
 import TopBar from "./components/TopBar/TopBar";
 import CardSkeleton from "./components/CardSkeleton/CardSkeleton";
 import NotFound from "./components/NotFound/NotFound";
+import Pagination from "./components/Pagination/Pagination"
 
 // * API
 import usersApi from "../../api/endpoints/users";
 import UserProfile from "./components/UserProfile/UserProfile";
+
+const GlobalStyle = createGlobalStyle`
+  body {  
+    background: #26292B !important;
+    font-family: "Montserrat" !important;
+  }
+`
 
 function UsersList() {
   const [isLoading, setIsLoading] = useState(false);
@@ -86,6 +95,7 @@ function UsersList() {
     const getUsers = async () => {
       setIsLoading(true);
       const users = await usersApi.getUsers();
+      console.log(users)
       setUsers(users.data);
       // TODO: CHANGE BEFORE PRODUCTION !!!
       setTimeout(function () {
@@ -97,6 +107,7 @@ function UsersList() {
 
   return (
     <>
+      <GlobalStyle />
       <CssBaseline />
       <TopBar
         countries={countries}
@@ -136,23 +147,11 @@ function UsersList() {
                       onClick={() => handleOpen(element)}
                       key={index}
                     >
-                      {index % 2 === 0 ? (
                         <UserCard
                           countryCode={lookup.byCountry(element.userCountry)}
                           key={element._id}
                           person={element}
                         />
-                      ) : (
-                        <UserCard
-                          backgroundColor="#F4D03F"
-                          backgroundImage="linear-gradient(132deg, #F4D03F 0%, #16A085 100%)"
-                          textColor="black"
-                          languageContainerColor="white"
-                          countryCode={lookup.byCountry(element.userCountry)}
-                          key={element._id}
-                          person={element}
-                        />
-                      )}
                     </CardContainer>
                   ))}
                 </CardsContainer>
@@ -178,10 +177,10 @@ const GridContainer = styled.div`
 const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 370px);
+  grid-template-rows: repeat(2, 340px);
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 15px;
   width: 75%;
 `;
 
@@ -192,7 +191,7 @@ const CardContainer = styled.div`
 `;
 
 const PaginationContainer = styled.div`
-  margin: 10px 0 20px 0;
+  margin: 75px 0 20px 0;
   display: flex;
   width: 100%;
   justify-content: center;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { BLACK } from "../../../../constants/colors";
 import ReactCountryFlag from "react-country-flag";
+import {device} from '../../../../constants/breakpoints'
 
 export const Wrapper = styled.div`
   position: relative;
@@ -12,31 +13,74 @@ export const Wrapper = styled.div`
 export const UserInformationContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
-  height: 80px;
+`;
+
+export const UserImage = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+`
+
+export const ProgrammingLanguagesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 60px;
+`
+
+export const LanguageContainer = styled.div`
+  background: #1B1D24;
+  border-radius: 2px;
+  width: 65px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (min-width: 1440px) { 
+    width: 90px;
+  }
+`
+export const UserData = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  height: 60px;
 `;
 
 export const TextContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 13px;
-  max-width: 100px;
-`;
+  margin-top: 5px;
+`
+
+export const CountryContainer = styled.div`
+  display: flex;
+`
 
 export const TitleText = styled.h3`
   font-family: "Montserrat";
   font-weight: ${(props) => props.fontWeight || "400"};
   font-size: ${(props) => props.fontSize || "15px"};
-  color: ${(props) => props.color || "#FBFBFB"};
+  color: ${(props) => props.color || "#FFF"};
   margin: ${(props) => props.margin || "0px"};
+
+  @media screen and (min-width: 1440px) { 
+      font-size: 13px;
+    }
 `;
 
-export const LanguageContainer = styled.div`
-  width: 89.59px;
-  height: 47.06px;
-  background: ${(props) => props.languageContainerColor || "#E0FF00"};
-  border-radius: 13px;
+export const Framework = styled.div`
+  width: ${(props) => props.width || "65px"};
+  height: 30px;
+  margin-right: ${(props) => props.marginRight || "0px"};
+  margin-bottom: ${(props) => props.marginBottom || "10px"};
+  flex-grow: 1;
+  background: ${(props) => props.background || "#E0FF00"};
+  box-shadow: 0px 0px 25px rgba(246, 81, 81, 0.12);
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,19 +88,33 @@ export const LanguageContainer = styled.div`
   > h3 {
     font-family: "Montserrat";
     font-weight: 600;
-    font-size: 19px;
-    color: #000000;
+    font-size: 12px;
+    color: #fff;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    @media screen and (min-width: 1440px) { 
+      font-size: 14px;
+    }
   }
+  
+  @media screen and (min-width: 1440px) { 
+    height: 40px;
+  }
+  
 `;
 
-export const ProgrammingLanguagesContainer = styled.div`
+export const FrameWorksContainer = styled.div`
   width: 100%;
-  margin-top: 25px;
-  display: grid;
-  grid-template-columns: repeat(2, 120px);
-  grid-template-rows: repeat(2, 70px);
+  display: flex;
+  flex-wrap: wrap;
+  height: 75px;
+  justify-content: ${(props) => props.justifyContent || "start"};
   align-items: center;
+  margin-top: 20px;
+
+  @media screen and (min-width: 1440px) { 
+    height: 120px;
+  }
 `;
 
 export const CountryFlag = styled(ReactCountryFlag)`
@@ -68,47 +126,50 @@ export const CountryFlag = styled(ReactCountryFlag)`
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: start;
   align-items: center;
-  max-width: 260px;
-  width: 100%;
-  max-height: 330px;
-  height: 100%;
-  padding: 32px 26px;
-  background: ${(props) => props.backgroundColor || BLACK.main};
-  background-image: ${(props) => props.backgroundImage || "none"};
-  border-radius: 25px;
+  width: 200px;
+  height: 270px;
+  padding: 25px 22px;
+  background: #2E3239;
+  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.12);
+  border-radius: 15px;
 
   &:hover {
     cursor: pointer;
-    background: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-    transition: 0.4s ease-in-out;
   }
 
-  &:hover ${LanguageContainer} {
+  /* &:hover ${LanguageContainer} {
     background: black;
     transition: 0.3s;
-  }
+  } */
 
-  &:hover h3 {
+  /* &:hover h3 {
     color: white;
-  }
+  } */
 
-  &:hover ${TitleText} {
+  /* &:hover ${TitleText} {
     color: black;
+  } */
+
+  @media screen and (min-width: 1440px) { 
+    width: 240px;
+    height: 300px;
   }
 `;
 
 export const CrownContainer = styled.div`
   position: absolute;
-  margin-bottom: 300px;
-  margin-right: 250px;
+  margin-bottom: 270px;
+  margin-right: 200px;
   width: 56px;
   height: 54px;
-  border-radius: 50%;
-  background: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+
+  @media screen and (min-width: 1440px) { 
+    margin-bottom: 300px;
+    margin-right: 235px;
+  }
 `;

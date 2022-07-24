@@ -14,7 +14,7 @@ const CardSkeleton = ({ cards }) => {
     .map((item, i) => (
       <CardGridContainer key={i}>
         <CardContainer>
-          <SkeletonCard />
+          <SkeletonCard baseColor="#313131" highlightColor="#525252"/>
         </CardContainer>
       </CardGridContainer>
     ));
