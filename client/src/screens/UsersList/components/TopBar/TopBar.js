@@ -6,9 +6,9 @@ import SearchIcon from "@mui/icons-material/Search";
 // * Assets
 import SiteLogo from "../../../../assets/SiteLogo";
 import PlatformLogo from "../../../../assets/PlatformLogo";
-import NavBarIcon from "../../../../assets/NavBarIcon";
 import SelectField from "../SelectField/SelectField";
-import Search from "../../../../assets/SearchIcon"
+import Search from "../../../../assets/SearchIcon";
+import NavBarContainer from "../NavBar/NavBar"
 import { concentrationOptions } from "./Contentration.options";
 import { programmingLanguageOptions } from "./ProgrammingLanguages.options";
 // import SearchIcon from "../../../../assets/SearchIcon"
@@ -33,9 +33,7 @@ function TopBar(props) {
           sx={{ background: "transparent" }}
         >
           <NavBar>
-            <NavIconContainer>
-              <NavBarIcon />
-            </NavIconContainer>
+            <NavBarContainer />
             <LogoContainer>
               <PlatformLogo />
             </LogoContainer>

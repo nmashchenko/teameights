@@ -15,10 +15,6 @@ export const BoxContainer = styled(Box)`
   padding: 27px 45px;
 `;
 
-export const NavIconContainer = styled.div`
-  margin-right: 20px;
-`;
-
 export const LogoContainer = styled.div`
   margin-right: 7%;
 `;
