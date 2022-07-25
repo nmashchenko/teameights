@@ -2,11 +2,17 @@
 import React, { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import styled from "styled-components";
-// import Pagination from "@mui/material/Pagination";
 import lookup from "country-code-lookup";
 import isEmpty from "lodash/isEmpty";
 import Modal from "@mui/material/Modal";
 import { createGlobalStyle } from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+
+// * Redux
+import { useSelector, useDispatch } from "react-redux";
+
+// * Constants
+import ROUTES from '../../constants/routes';
 
 // * Components
 import UserCard from "./components/UserCard/UserCard";
@@ -14,11 +20,16 @@ import TopBar from "./components/TopBar/TopBar";
 import CardSkeleton from "./components/CardSkeleton/CardSkeleton";
 import NotFound from "./components/NotFound/NotFound";
 import Pagination from "./components/Pagination/Pagination"
+import UserProfile from "./components/UserProfile/UserProfile";
 
 // * API
 import usersApi from "../../api/endpoints/users";
-import UserProfile from "./components/UserProfile/UserProfile";
+import authApi from "../../api/endpoints/auth";
 
+/**
+ * Global style applied for this component.
+ * TODO: Move this global style to the root component after refactoring
+ */
 const GlobalStyle = createGlobalStyle`
   body {  
     background: #26292B !important;
@@ -27,6 +38,20 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function UsersList() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  /**
+   * Get global state from redux
+   */
+  const {isAuth} = useSelector(
+    (state) => state.userReducer
+  );
+
+  /**
+   * Set of states that are used by this component
+   */
+
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [countries, setCountries] = useState([]);
@@ -35,15 +60,22 @@ function UsersList() {
   const [open, setOpen] = useState(false);
   const [showUser, setShowUser] = useState({});
 
+  /**
+   * Handle open and close for modal window that pops up whenever user clicks on the card
+   */
   const handleOpen = (user) => {
     setShowUser(user);
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
     setShowUser({});
   };
 
+  /**
+   * This is programmingLanguages useState filter, don't change it without approvement !!!
+   */
   const handleCountries = (event) => {
     const {
       target: { value },
@@ -54,6 +86,9 @@ function UsersList() {
     );
   };
 
+  /**
+   * This is programmingLanguages useState filter, don't change it without approvement !!!
+   */
   const handleRoles = (event) => {
     const {
       target: { value },
@@ -64,16 +99,23 @@ function UsersList() {
     );
   };
 
+  /**
+   * This is programmingLanguages useState filter, don't change it without approvement !!!
+   */
   const handleProgrammingLanguages = (event) => {
     const {
       target: { value },
     } = event;
     setProgrammingLanguages(
-      // On autofill we get a stringified value.
+      /* On autofill we get a stringified value. */
       typeof value === "string" ? value.split(",") : value
     );
   };
 
+  /**
+   * Function used to regenerate the list of users with filters
+   * TODO: Review this function for potential bugs and in case of any make specific fixes
+   */
   const handleSubmitFilter = () => {
     const getUsersFiltered = async () => {
       setIsLoading(true);
@@ -91,6 +133,19 @@ function UsersList() {
     getUsersFiltered();
   };
 
+  /**
+   * Function used in <NavBar /> and passed as a props, it handles logout button
+   */
+  const handleUserLogout = () => {
+    dispatch(authApi.logoutUser())
+  }
+
+  /**
+   * This function will work one time when user loads page first time
+   * he will get list of all users that can be invited to the team
+   * this function should be optimized later for scaling purposes
+   * TODO: add lazy loading support!
+   */
   useEffect(() => {
     const getUsers = async () => {
       setIsLoading(true);
@@ -102,8 +157,23 @@ function UsersList() {
         setIsLoading(false);
       }, 2000);
     };
+
+    if (localStorage.getItem("token")) {
+      dispatch(authApi.checkAuth());
+    }
+
     getUsers();
   }, []);
+
+
+  /*
+   * This useEffect is triggered when user presses logout button in the NavBar component
+  */
+  useEffect(() => {
+    if (!isAuth) {
+        navigate(ROUTES.login, { replace: true })
+    } 
+  }, [isAuth, navigate])
 
   return (
     <>
@@ -117,6 +187,7 @@ function UsersList() {
         handleRoles={handleRoles}
         handleProgrammingLanguages={handleProgrammingLanguages}
         handleSubmitFilter={handleSubmitFilter}
+        handleUserLogout={handleUserLogout}
       />
       <Modal
         open={open}
@@ -124,8 +195,9 @@ function UsersList() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <UserProfile user={showUser} />
+        <UserProfile user={showUser} handleClose={handleClose}/>
       </Modal>
+      {/* Load skeleton before showing real cards to improve performance of the app */}
       {isLoading ? (
         <GridContainer>
           <CardsContainer>
@@ -134,6 +206,7 @@ function UsersList() {
         </GridContainer>
       ) : (
         <div>
+          {/* If nothing was found, show user a NotFound container */}
           {isEmpty(users) ? (
             <InfoContainer>
               <NotFound />

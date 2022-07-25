@@ -54,11 +54,23 @@ const checkIsRegistered = (email) => async(dispatch) => {
   }
 }
 
+const logoutUser = () => async(dispatch) => {
+  try{
+    dispatch(userAuth.actions.authUser())
+    await api.post('/logout')
+    localStorage.removeItem('token')
+    dispatch(userAuth.actions.authUserLogout())
+  } catch(err) {
+    dispatch(userAuth.actions.authUserError(err.response?.data?.message))
+  }
+}
+
 const authApi = Object.freeze({
   loginUser,
   checkAuth,
   registerUser,
   checkIsRegistered,
+  logoutUser,
 })
 
 export default authApi

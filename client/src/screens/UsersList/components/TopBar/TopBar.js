@@ -33,7 +33,7 @@ function TopBar(props) {
           sx={{ background: "transparent" }}
         >
           <NavBar>
-            <NavBarContainer />
+            <NavBarContainer handleUserLogout={props.handleUserLogout}/>
             <LogoContainer>
               <PlatformLogo />
             </LogoContainer>

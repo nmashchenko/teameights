@@ -76,23 +76,24 @@ export const UserText = styled.h3`
 
 `
 
-export const MenuBars = styled(Link)`
-
-`
 export const NavItems = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 35px;
+  margin-top: 15px;
+
+  @media screen and (min-width: 1440px) { 
+    margin-top: 25px;
+  }
 `
 export const NavItem = styled.div`
   display: flex;
   align-items: center;
   list-style: none;
-  padding: 34px 39px;
+  padding: 30px 39px;
   height: 50px;
   
   @media screen and (min-width: 1440px) { 
-    padding: 40px 39px;
+    padding: 35px 39px;
     height: 60px;
   }
 
@@ -110,7 +111,6 @@ export const NavItem = styled.div`
 
     @media screen and (min-width: 1440px) { 
       font-size: 17px;
-      font-weight: 600;
     }
   }
 
@@ -157,8 +157,7 @@ export const SingOutButton = styled.button`
   }
 
   @media screen and (min-width: 1440px) { 
-    margin-bottom: 50px;
-    width: 260px;
+    margin-bottom: 30px;
     height: 45px;
   }
 `

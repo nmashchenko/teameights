@@ -26,7 +26,7 @@ import {
 
 
 
-const NavBar = () => {
+const NavBar = (props) => {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -64,7 +64,7 @@ const NavBar = () => {
               })}
             </NavItems>
             <BottomContent>
-                <SingOutButton><Exit /> Sign Out</SingOutButton>
+                <SingOutButton onClick={props.handleUserLogout}><Exit /> Sign Out</SingOutButton>
                 <UserText fontWeight='400' fontSize='12px' color='rgba(255, 255, 255, 0.15)' margin='0 0 5px 0'>Copyright © 2022 Teameights.</UserText>
                 <UserText fontWeight='400' fontSize='12px' color='rgba(255, 255, 255, 0.15)' margin='0 0 30px 0'>All rights reserved.</UserText>
             </BottomContent>

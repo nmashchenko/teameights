@@ -20,6 +20,7 @@ const getUsersFiltered = async(countries, roles, programmingLanguages) => {
   }
 }
 
+
 const usersApi = Object.freeze({
   getUsers,
   getUsersFiltered
