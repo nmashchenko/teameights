@@ -12,7 +12,7 @@ export const NavMenu = styled.nav`
   display: flex;
   justify-content: center;
   position: fixed;
-  background: rgba(0,0,0,0.5);
+  background: #1A1C22;
   top: 0;
   left: ${(props) => props.left || "-100%"};
   transition: ${(props) => props.transition || "550ms"};

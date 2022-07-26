@@ -77,8 +77,9 @@ class UserController {
 
   async getUsers(req, res, next) {
     try {
-      const users = await userService.getAllUsers();
-      return res.json(users);
+      const {page = 1, limit = 9} = req.query;
+      const results = await userService.getAllUsers(page, limit);
+      return res.json(results);
     } catch (err) {
       // error.middleware will take care of it
       next(err);

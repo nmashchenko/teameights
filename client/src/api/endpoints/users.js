@@ -2,9 +2,9 @@
 import api from "../../http";
 
 
-const getUsers = async()  => {
+const getUsers = async(page)  => {
   try{
-    const data = await api.get('/users', {})
+    const data = await api.get('/users', {params: {page}})
     return data
   } catch(err) {
     console.log(err)

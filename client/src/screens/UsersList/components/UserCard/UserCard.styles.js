@@ -79,7 +79,6 @@ export const Framework = styled.div`
   margin-bottom: ${(props) => props.marginBottom || "10px"};
   flex-grow: 1;
   background: ${(props) => props.background || "#E0FF00"};
-  box-shadow: 0px 0px 25px rgba(246, 81, 81, 0.12);
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -117,10 +116,18 @@ export const FrameWorksContainer = styled.div`
   }
 `;
 
-export const CountryFlag = styled(ReactCountryFlag)`
-  width: 60px !important;
-  height: 60px !important;
-  margin-bottom: 10px !important;
+export const CrownContainer = styled.div`
+  position: absolute;
+  margin-bottom: 270px;
+  margin-right: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (min-width: 1440px) { 
+    margin-bottom: 300px;
+    margin-right: 235px;
+  }
 `;
 
 export const CardContainer = styled.div`
@@ -139,37 +146,18 @@ export const CardContainer = styled.div`
     cursor: pointer;
   }
 
-  /* &:hover ${LanguageContainer} {
-    background: black;
-    transition: 0.3s;
-  } */
+  &:hover + ${CrownContainer} {
 
-  /* &:hover h3 {
-    color: white;
-  } */
+  } 
 
-  /* &:hover ${TitleText} {
-    color: black;
-  } */
+   &:hover h3 {
+  } 
+
+   &:hover ${TitleText} {
+  } 
 
   @media screen and (min-width: 1440px) { 
     width: 240px;
     height: 300px;
-  }
-`;
-
-export const CrownContainer = styled.div`
-  position: absolute;
-  margin-bottom: 270px;
-  margin-right: 200px;
-  width: 56px;
-  height: 54px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media screen and (min-width: 1440px) { 
-    margin-bottom: 300px;
-    margin-right: 235px;
   }
 `;

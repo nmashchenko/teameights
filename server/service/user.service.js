@@ -93,9 +93,26 @@ class UserService {
     return { ...tokens, user: userDto } // return access&refresh tokens, and user
   }
 
-  async getAllUsers() {
-    const users = await User.find({isRegistered: true});
-    return users;
+  async getAllUsers(page, limit) {
+    page = parseInt(page)
+    limit = parseInt(limit)
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const results = {}
+
+    if(endIndex < await User.countDocuments().exec()) {
+      results.next = {
+        page: page + 1,
+        limit: limit
+      }
+    }
+
+    results.results = await User.find({isRegistered: true})
+    .limit(limit)
+    .skip(startIndex);
+    return results;
   }
 
   async getAllUsersFiltered(countries, roles, programmingLanguages) {

@@ -1,26 +1,27 @@
 // * Modules
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import styled from "styled-components";
 import lookup from "country-code-lookup";
 import isEmpty from "lodash/isEmpty";
+import isUndefined from "lodash/isUndefined";
 import Modal from "@mui/material/Modal";
-import { createGlobalStyle } from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+import { createGlobalStyle } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 // * Redux
 import { useSelector, useDispatch } from "react-redux";
 
 // * Constants
-import ROUTES from '../../constants/routes';
+import ROUTES from "../../constants/routes";
 
 // * Components
 import UserCard from "./components/UserCard/UserCard";
 import TopBar from "./components/TopBar/TopBar";
 import CardSkeleton from "./components/CardSkeleton/CardSkeleton";
 import NotFound from "./components/NotFound/NotFound";
-import Pagination from "./components/Pagination/Pagination"
 import UserProfile from "./components/UserProfile/UserProfile";
+import SliderToTop from "./components/SliderToTop/SliderToTop"
 
 // * API
 import usersApi from "../../api/endpoints/users";
@@ -35,30 +36,68 @@ const GlobalStyle = createGlobalStyle`
     background: #26292B !important;
     font-family: "Montserrat" !important;
   }
-`
+`;
 
 function UsersList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  /**
-   * Get global state from redux
-   */
-  const {isAuth} = useSelector(
-    (state) => state.userReducer
-  );
+  const observer = useRef();
 
   /**
    * Set of states that are used by this component
    */
-
+  const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [users, setUsers] = useState([]);
   const [countries, setCountries] = useState([]);
   const [roles, setRoles] = useState([]);
   const [programmingLanguages, setProgrammingLanguages] = useState([]);
   const [open, setOpen] = useState(false);
   const [showUser, setShowUser] = useState({});
+  const [users, setUsers] = useState([]);
+  const [hasMore, setHasMore] = useState(false);
+  const [notFound, setNotFound] = useState(false);
+
+  /**
+   * This function will work one time when user loads page first time
+   * he will get list of all users that can be invited to the team
+   * this function should be optimized later for scaling purposes
+   */
+  useEffect(() => {
+    setIsLoading(true);
+    usersApi.getUsers(pageNumber).then((res) => {
+      console.log(res.data)
+      setUsers((prevUsers) => {
+        return [...prevUsers, ...res.data.results];
+      });
+      setHasMore(!isUndefined(res.data.next));
+    });
+    // TODO: CHANGE BEFORE PRODUCTION !!!
+    setTimeout(function () {
+      setIsLoading(false);
+    }, 2000);
+  }, [pageNumber]);
+
+  /**
+   * Lazy loading of the pages, don't touch this part
+   */
+
+  const lastUserElementRef = useCallback(
+    (node) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPageNumber((prevPageNumber) => prevPageNumber + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasMore]
+  );
+  /**
+   * Get global state from redux
+   */
+  const { isAuth } = useSelector((state) => state.userReducer);
 
   /**
    * Handle open and close for modal window that pops up whenever user clicks on the card
@@ -124,11 +163,16 @@ function UsersList() {
         roles,
         programmingLanguages
       );
+      console.log(users);
+      setNotFound(false);
+      if (isEmpty(users.data)) {
+        setNotFound(true);
+      }
       setUsers(users.data);
       // TODO: CHANGE BEFORE PRODUCTION !!!
-      setTimeout(function () {
+      // setTimeout(function () {
         setIsLoading(false);
-      }, 2000);
+      // }, 2000);
     };
     getUsersFiltered();
   };
@@ -137,43 +181,17 @@ function UsersList() {
    * Function used in <NavBar /> and passed as a props, it handles logout button
    */
   const handleUserLogout = () => {
-    dispatch(authApi.logoutUser())
-  }
-
-  /**
-   * This function will work one time when user loads page first time
-   * he will get list of all users that can be invited to the team
-   * this function should be optimized later for scaling purposes
-   * TODO: add lazy loading support!
-   */
-  useEffect(() => {
-    const getUsers = async () => {
-      setIsLoading(true);
-      const users = await usersApi.getUsers();
-      console.log(users)
-      setUsers(users.data);
-      // TODO: CHANGE BEFORE PRODUCTION !!!
-      setTimeout(function () {
-        setIsLoading(false);
-      }, 2000);
-    };
-
-    if (localStorage.getItem("token")) {
-      dispatch(authApi.checkAuth());
-    }
-
-    getUsers();
-  }, []);
-
+    dispatch(authApi.logoutUser());
+  };
 
   /*
    * This useEffect is triggered when user presses logout button in the NavBar component
-  */
+   */
   useEffect(() => {
     if (!isAuth) {
-        navigate(ROUTES.login, { replace: true })
-    } 
-  }, [isAuth, navigate])
+      navigate(ROUTES.login, { replace: true });
+    }
+  }, [isAuth, navigate]);
 
   return (
     <>
@@ -195,47 +213,55 @@ function UsersList() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <UserProfile user={showUser} handleClose={handleClose}/>
+        <UserProfile user={showUser} handleClose={handleClose} />
       </Modal>
-      {/* Load skeleton before showing real cards to improve performance of the app */}
-      {isLoading ? (
-        <GridContainer>
-          <CardsContainer>
-            <CardSkeleton cards={6} />
-          </CardsContainer>
-        </GridContainer>
-      ) : (
-        <div>
-          {/* If nothing was found, show user a NotFound container */}
-          {isEmpty(users) ? (
-            <InfoContainer>
-              <NotFound />
-            </InfoContainer>
-          ) : (
-            <div>
-              <GridContainer>
-                <CardsContainer>
-                  {users.map((element, index) => (
-                    <CardContainer
-                      onClick={() => handleOpen(element)}
-                      key={index}
-                    >
+
+        {/* If nothing was found, show user a NotFound container */}
+        {notFound ? (
+          <InfoContainer>
+            <NotFound />
+          </InfoContainer>
+        ) : (
+          <CardsZone>
+            <GridContainer>
+              <CardsContainer>
+                {users.map((element, index) => {
+                  if (users.length === index + 1) {
+                    return (
+                      <CardContainer
+                        onClick={() => handleOpen(element)}
+                        key={index}
+                        ref={lastUserElementRef}
+                      >
                         <UserCard
                           countryCode={lookup.byCountry(element.userCountry)}
                           key={element._id}
                           person={element}
                         />
-                    </CardContainer>
-                  ))}
-                </CardsContainer>
-              </GridContainer>
-              <PaginationContainer>
-                <Pagination count={10} size="large" />
-              </PaginationContainer>
-            </div>
-          )}
-        </div>
-      )}
+                      </CardContainer>
+                    );
+                  } else {
+                    return (
+                      <CardContainer
+                        onClick={() => handleOpen(element)}
+                        key={index}
+                      >
+                        <UserCard
+                          countryCode={lookup.byCountry(element.userCountry)}
+                          key={element._id}
+                          person={element}
+                        />
+                      </CardContainer>
+                    );
+                  }
+                })}
+                {/* Load skeleton before showing real cards to improve performance of the app */}
+                <>{isLoading && <CardSkeleton cards={9} />}</>
+              </CardsContainer>
+            </GridContainer>
+            <SliderToTop />
+          </CardsZone>
+        )}
     </>
   );
 }
@@ -245,16 +271,18 @@ const GridContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
+  margin-bottom: 30px;
 `;
 
 const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 340px);
+  row-gap: 50px;
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  width: 75%;
+  width: 80%;
 `;
 
 const CardContainer = styled.div`
@@ -263,13 +291,14 @@ const CardContainer = styled.div`
   justify-content: center; /* new */
 `;
 
-const PaginationContainer = styled.div`
-  margin: 75px 0 20px 0;
+const CardsZone = styled.div`
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  position: relative;
 `;
+
 const InfoContainer = styled.div`
   display: flex;
   justify-content: center;
