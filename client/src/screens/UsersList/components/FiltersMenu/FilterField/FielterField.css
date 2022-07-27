@@ -1,7 +1,9 @@
 .goAwk.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
-  background: #5f7adb !important;
+  background: #365A08 !important;
+  color: white !important;
 }
 
 .goAwk.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover {
-  background: #5f7adb !important;
+  background: #365A08 !important;
+  color: white !important;
 }

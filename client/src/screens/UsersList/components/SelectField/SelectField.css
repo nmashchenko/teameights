@@ -9,11 +9,13 @@ fieldset{
   outline: none !important;
 }
 .cflzmJ.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected{
-  background: #5f7adb !important;
+  background: #365A08 !important;
+  color: white !important;
 }
 
 .cflzmJ.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover{
-  background: #5f7adb !important;
+  background: #365A08 !important;
+  color: white !important;
 }
 
 .css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
@@ -32,7 +34,7 @@ fieldset{
 }
 
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar-thumb { /* WebKit */
-  background: #5D9D0B;
+  background: #365A08;
   border-radius: 10px;
   height: 30px !important;
 }

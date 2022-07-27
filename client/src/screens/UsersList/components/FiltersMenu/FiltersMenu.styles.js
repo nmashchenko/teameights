@@ -91,4 +91,10 @@ export const CustomButton = styled.button`
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
+
+  &:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+     transform: scale(1.1);
+  }
 `
