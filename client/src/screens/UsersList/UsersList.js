@@ -1,12 +1,10 @@
 // * Modules
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import styled from "styled-components";
 import lookup from "country-code-lookup";
 import isEmpty from "lodash/isEmpty";
 import isUndefined from "lodash/isUndefined";
 import Modal from "@mui/material/Modal";
-import { createGlobalStyle } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 // * Redux
@@ -27,16 +25,16 @@ import SliderToTop from "./components/SliderToTop/SliderToTop"
 import usersApi from "../../api/endpoints/users";
 import authApi from "../../api/endpoints/auth";
 
-/**
- * Global style applied for this component.
- * TODO: Move this global style to the root component after refactoring
- */
-const GlobalStyle = createGlobalStyle`
-  body {  
-    background: #26292B !important;
-    font-family: "Montserrat" !important;
-  }
-`;
+// * Styles
+import {
+  GridContainer,
+  CardsContainer,
+  CardContainer,
+  CardsZone,
+  InfoContainer,
+  GlobalStyle,
+} from './UsersList.styles'
+
 
 function UsersList() {
   const dispatch = useDispatch();
@@ -65,7 +63,6 @@ function UsersList() {
   useEffect(() => {
     setIsLoading(true);
     usersApi.getUsers(pageNumber).then((res) => {
-      console.log(res.data)
       setUsers((prevUsers) => {
         return [...prevUsers, ...res.data.results];
       });
@@ -265,46 +262,5 @@ function UsersList() {
     </>
   );
 }
-
-const GridContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 30px;
-`;
-
-const CardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: 50px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 15px;
-  width: 80%;
-`;
-
-const CardContainer = styled.div`
-  display: flex; /* new */
-  align-items: center; /* new */
-  justify-content: center; /* new */
-`;
-
-const CardsZone = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-  align-items: center;
-  position: relative;
-`;
-
-const InfoContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 6%;
-`;
 
 export default UsersList;

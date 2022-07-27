@@ -11,27 +11,50 @@ import Search from "../../../../assets/SearchIcon";
 import NavBarContainer from "../NavBar/NavBar"
 import { concentrationOptions } from "./Contentration.options";
 import { programmingLanguageOptions } from "./ProgrammingLanguages.options";
-// import SearchIcon from "../../../../assets/SearchIcon"
+import Filters from "../../../../assets/Filters"
+import FiltersMenu from "../FiltersMenu/FiltersMenu"
 
 import {
   NavBar,
   BoxContainer,
-  NavIconContainer,
   LogoContainer,
+  AlternativeLogoContainer,
   Button,
   SelectContainer,
+  FilterContainer,
+  FilterText
 } from "./TopBar.styles";
 
 function TopBar(props) {
   const countriesOptions = React.useMemo(() => countryList().getData(), []);
+
+  const [filterBar, setFilterBar] = useState(false);
+  const showFiltersBar = () => setFilterBar(!filterBar);
   return (
     <>
+      <FiltersMenu 
+        filterBar={filterBar} 
+        showFiltersBar={showFiltersBar}
+        countries={props.countries}
+        roles={props.roles}
+        programmingLanguages={props.programmingLanguages}
+        handleCountries={props.handleCountries}
+        handleRoles={props.handleRoles}
+        handleProgrammingLanguages={props.handleProgrammingLanguages}
+        handleSubmitFilter={props.handleSubmitFilter}
+        countriesOptions={countriesOptions}
+        concentrationOptions={concentrationOptions}
+        programmingLanguageOptions={programmingLanguageOptions}
+      />
       <BoxContainer sx={{ flexGrow: 1 }}>
         <AppBar
-          position="static"
+          position="relative"
           elevation={0}
           sx={{ background: "transparent" }}
         >
+          <AlternativeLogoContainer>
+              <PlatformLogo />
+          </AlternativeLogoContainer>
           <NavBar>
             <NavBarContainer handleUserLogout={props.handleUserLogout}/>
             <LogoContainer>
@@ -62,6 +85,10 @@ function TopBar(props) {
                 sx={{ width: "32px", height: "32px", color: "white" }}
               />
             </Button>
+            <FilterContainer onClick={showFiltersBar}>
+              <Filters />
+              <FilterText>Filters</FilterText>
+            </FilterContainer>
           </NavBar>
         </AppBar>
       </BoxContainer>

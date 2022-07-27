@@ -1,15 +1,19 @@
 /* this is just for the MUI SelectField to remove blue border */
 fieldset{
+  /* border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important; */
+  /* border-bottom: 1px solid #5f7adb !important; */
   border: none !important;
   outline: none !important;
 }
-
-.css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon{
-  color: #72EB3A !important;
+.cflzmJ.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected{
+  background: #5f7adb !important;
 }
 
-.css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon{
-  color: #72EB3A !important;
+.cflzmJ.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover{
+  background: #5f7adb !important;
 }
 
 .css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
@@ -22,3 +26,21 @@ fieldset{
   font-size: 0.875rem !important;
   font-weight: 600 !important;
 }
+
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar { 
+  width: 9px;
+}
+
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar-thumb { /* WebKit */
+  background: #5D9D0B;
+  border-radius: 10px;
+  height: 30px !important;
+}
+
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar-track{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+

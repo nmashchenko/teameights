@@ -15,8 +15,13 @@ export const NavMenu = styled.nav`
   background: #1A1C22;
   top: 0;
   left: ${(props) => props.left || "-100%"};
-  transition: ${(props) => props.transition || "550ms"};
+  transition: ${(props) => props.transition || "all 0.3s ease"};
   z-index: 999;
+`
+export const NameNotificationsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 `
 
 export const NavMenuItems = styled.div`
@@ -65,6 +70,7 @@ export const UserTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 15px;
+  gap: 5px;
 `
 
 export const UserText = styled.h3`
@@ -73,7 +79,16 @@ export const UserText = styled.h3`
   font-size: ${(props) => props.fontSize || "14px"};
   color: ${(props) => props.color || "#FFF"};
   margin: ${(props) => props.margin || "0px"};
+`
 
+export const NotificationsArea = styled.div`
+  cursor: pointer;
+
+  &:hover{
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+     transform: scale(1.1);
+  }
 `
 
 export const NavItems = styled.div`

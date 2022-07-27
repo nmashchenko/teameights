@@ -5,9 +5,11 @@ import { NavBarData } from './NavBar.data'
 import { Link } from 'react-router-dom';
 import userImg from '../../img/tempImg.jpg'
 import Exit from '../../../../assets/Sidebar/Exit'
+import Notification from '../../../../assets/Sidebar/Notification';
 
 import {
   NavIconContainer,
+  NameNotificationsContainer,
   UserInfo,
   UserData,
   UserImage,
@@ -21,8 +23,9 @@ import {
   NavItems,
   BottomContent,
   SingOutButton,
-
+  NotificationsArea,
 } from "./NavBar.styles";
+
 
 
 
@@ -46,7 +49,12 @@ const NavBar = (props) => {
           <UserData>
             <UserImage src={userImg} alt='user image' />
             <UserTextContainer>
-              <UserText fontWeight='600'>Nikita Mashchenko</UserText>
+              <NameNotificationsContainer>
+                <UserText fontWeight='600'>Nikita Mashchenko</UserText>
+                <NotificationsArea>
+                 <Notification />
+                </NotificationsArea>
+              </NameNotificationsContainer>
               <UserText>Full Stack Developer</UserText>
             </UserTextContainer>
           </UserData>

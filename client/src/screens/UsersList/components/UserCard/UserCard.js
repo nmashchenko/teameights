@@ -2,7 +2,8 @@ import isEqual from "lodash/isEqual";
 import CrownImg from "../../img/CrownTest.png";
 import userImg from "../../img/tempImg.jpg";
 import Country from "../../img/Country.svg";
-import FrameworkColors from "./FrameworkColors";
+import {frameworkColors, frameworkTextColors} from "./FrameworkColors";
+import languageOptions from "./ProgrammingLanguages"
 
 import {
   Wrapper,
@@ -32,22 +33,14 @@ function UserCard(props) {
             {props.person.userProgrammingLanguages.length <= 2
               ? props.person.userProgrammingLanguages.map((element, index) => (
                   <LanguageContainer key={element}>
-                    {isEqual(element, "HTML/CSS") ? (
-                      <TitleText fontSize="12px">HTML</TitleText>
-                    ) : (
-                      <TitleText fontSize="12px">{element}</TitleText>
-                    )}
+                    {languageOptions[element]}
                   </LanguageContainer>
                 ))
               : props.person.userProgrammingLanguages
                   .slice(0, 2)
                   .map((element, index) => (
                     <LanguageContainer key={element}>
-                      {isEqual(element, "HTML/CSS") ? (
-                        <TitleText fontSize="12px">HTML</TitleText>
-                      ) : (
-                        <TitleText fontSize="12px">{element}</TitleText>
-                      )}
+                      {languageOptions[element]}
                     </LanguageContainer>
                   ))}
           </ProgrammingLanguagesContainer>
@@ -58,7 +51,7 @@ function UserCard(props) {
               <TitleText fontWeight="500" fontSize="12px" margin="0 7px 0 0">
                 {props.person.userRealName}, {props.person.userAge}
               </TitleText>
-              <img src={Country} alt="Country"></img>
+              {/* <img src={Country} alt="Country"></img> */}
             </CountryContainer>
             <TitleText fontWeight="600" fontSize="12px">
               {props.person.userConcentration}
@@ -80,7 +73,8 @@ function UserCard(props) {
                       key={element}
                       justifyContent="center"
                       marginBottom="0"
-                      background={FrameworkColors[element]}
+                      background={frameworkColors[element]}
+                      color={frameworkTextColors[element]}
                     >
                       <h3>{element}</h3>
                     </Framework>
@@ -90,7 +84,8 @@ function UserCard(props) {
                     <Framework
                       key={element}
                       width="100%"
-                      background={FrameworkColors[element]}
+                      background={frameworkColors[element]}
+                      color={frameworkTextColors[element]}
                     >
                       <h3>{element}</h3>
                     </Framework>
@@ -101,14 +96,16 @@ function UserCard(props) {
                       <Framework
                         key={element}
                         marginRight="12px"
-                        background={FrameworkColors[element]}
+                        background={frameworkColors[element]}
+                        color={frameworkTextColors[element]}
                       >
                         <h3>{element}</h3>
                       </Framework>
                     ) : (
                       <Framework
                         key={element}
-                        background={FrameworkColors[element]}
+                        background={frameworkColors[element]}
+                        color={frameworkTextColors[element]}
                       >
                         <h3>{element}</h3>
                       </Framework>
@@ -120,14 +117,16 @@ function UserCard(props) {
                       <Framework
                         key={element}
                         marginRight="12px"
-                        background={FrameworkColors[element]}
+                        background={frameworkColors[element]}
+                        color={frameworkTextColors[element]}
                       >
                         <h3>{element}</h3>
                       </Framework>
                     ) : (
                       <Framework
                         key={element}
-                        background={FrameworkColors[element]}
+                        background={frameworkColors[element]}
+                        color={frameworkTextColors[element]}
                       >
                         <h3>{element}</h3>
                       </Framework>
@@ -140,14 +139,16 @@ function UserCard(props) {
                   <Framework
                     key={element}
                     marginRight="12px"
-                    background={FrameworkColors[element]}
+                    background={frameworkColors[element]}
+                    color={frameworkTextColors[element]}
                   >
                     <h3>{element}</h3>
                   </Framework>
                 ) : (
                   <Framework
                     key={element}
-                    background={FrameworkColors[element]}
+                    background={frameworkColors[element]}
+                    color={frameworkTextColors[element]}
                   >
                     <h3>{element}</h3>
                   </Framework>

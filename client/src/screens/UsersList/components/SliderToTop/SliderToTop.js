@@ -15,8 +15,7 @@ const SliderToTop = () => {
     let heightToShowFrom = 100;
     const winScroll = document.body.scrollTop || 
         document.documentElement.scrollTop;
-       
-    console.log(winScroll)
+      
     if (winScroll > heightToShowFrom) { 
        !isVisible &&      // to limit setting state only the first time         
          setIsVisible(true);
