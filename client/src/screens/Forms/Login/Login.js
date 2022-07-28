@@ -1,7 +1,7 @@
 import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline'
 
-import LoginForm  from '../../../components/Forms/LoginForm/LoginForm'
+import LoginForm from '../../../components/Forms/LoginForm/LoginForm'
 
 function Login() {
   return (

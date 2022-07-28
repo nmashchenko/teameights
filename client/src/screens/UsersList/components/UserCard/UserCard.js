@@ -1,9 +1,9 @@
-import isEqual from "lodash/isEqual";
-import CrownImg from "../../img/CrownTest.png";
-import userImg from "../../img/tempImg.jpg";
-import Country from "../../img/Country.svg";
-import {frameworkColors, frameworkTextColors} from "./FrameworkColors";
-import languageOptions from "./ProgrammingLanguages"
+import isEqual from 'lodash/isEqual'
+import CrownImg from '../../img/CrownTest.png'
+import userImg from '../../img/tempImg.jpg'
+import Country from '../../img/Country.svg'
+import { frameworkColors, frameworkTextColors } from './FrameworkColors'
+import languageOptions from './ProgrammingLanguages'
 
 import {
   Wrapper,
@@ -19,7 +19,7 @@ import {
   ProgrammingLanguagesContainer,
   LanguageContainer,
   CrownContainer,
-} from "./UserCard.styles";
+} from './UserCard.styles'
 
 function UserCard(props) {
   return (
@@ -32,16 +32,12 @@ function UserCard(props) {
           <ProgrammingLanguagesContainer>
             {props.person.userProgrammingLanguages.length <= 2
               ? props.person.userProgrammingLanguages.map((element, index) => (
-                  <LanguageContainer key={element}>
-                    {languageOptions[element]}
-                  </LanguageContainer>
+                  <LanguageContainer key={element}>{languageOptions[element]}</LanguageContainer>
                 ))
               : props.person.userProgrammingLanguages
                   .slice(0, 2)
                   .map((element, index) => (
-                    <LanguageContainer key={element}>
-                      {languageOptions[element]}
-                    </LanguageContainer>
+                    <LanguageContainer key={element}>{languageOptions[element]}</LanguageContainer>
                   ))}
           </ProgrammingLanguagesContainer>
         </UserInformationContainer>
@@ -78,7 +74,7 @@ function UserCard(props) {
                     >
                       <h3>{element}</h3>
                     </Framework>
-                  ));
+                  ))
                 } else if (props.person.userFrameworks.length === 2) {
                   return props.person.userFrameworks.map((element) => (
                     <Framework
@@ -89,7 +85,7 @@ function UserCard(props) {
                     >
                       <h3>{element}</h3>
                     </Framework>
-                  ));
+                  ))
                 } else if (props.person.userFrameworks.length === 3) {
                   return props.person.userFrameworks.map((element, index) =>
                     index === 0 ? (
@@ -109,8 +105,8 @@ function UserCard(props) {
                       >
                         <h3>{element}</h3>
                       </Framework>
-                    )
-                  );
+                    ),
+                  )
                 } else if (props.person.userFrameworks.length === 4) {
                   return props.person.userFrameworks.map((element, index) =>
                     index % 2 === 0 ? (
@@ -130,8 +126,8 @@ function UserCard(props) {
                       >
                         <h3>{element}</h3>
                       </Framework>
-                    )
-                  );
+                    ),
+                  )
                 }
               })()
             : props.person.userFrameworks.slice(0, 4).map((element, index) =>
@@ -152,7 +148,7 @@ function UserCard(props) {
                   >
                     <h3>{element}</h3>
                   </Framework>
-                )
+                ),
               )}
         </FrameWorksContainer>
       </CardContainer>
@@ -164,7 +160,7 @@ function UserCard(props) {
         <div></div>
       )}
     </Wrapper>
-  );
+  )
 }
 
-export default UserCard;
+export default UserCard

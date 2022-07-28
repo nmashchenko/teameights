@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import Toolbar from "@mui/material/Toolbar";
-import {LIME, WHITE, BLACK, GREY} from '../../../constants/colors'
-import {device} from '../../../constants/breakpoints'
+import Toolbar from '@mui/material/Toolbar'
+import { LIME, WHITE, BLACK, GREY } from '../../../constants/colors'
+import { device } from '../../../constants/breakpoints'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -35,16 +35,16 @@ export const RecoverBox = styled.div`
   border-radius: 24px;
   background: ${WHITE.main};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     max-width: 515px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     max-width: 325px;
     padding: 50px 20px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     max-width: 290px;
   }
 `
@@ -62,15 +62,15 @@ export const TitleText = styled.h3`
   color: ${BLACK.main};
   margin: ${(props) => props.margin || '0'};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: 28px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 22px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 20px;
   }
 `
@@ -82,15 +82,15 @@ export const SubTitleText = styled.h4`
   color: ${GREY.text};
   margin: 0;
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: 21px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 19px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 17px;
   }
 `
@@ -113,25 +113,25 @@ export const RecoverInput = styled.input`
     font-weight: 600;
     font-size: 24px;
 
-    @media ${device.mobileL} { 
+    @media ${device.mobileL} {
       font-size: 21px;
     }
 
-    @media ${device.mobileM} { 
+    @media ${device.mobileM} {
       font-size: 20px;
     }
   }
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     height: 70px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
     height: 67px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 16px;
     height: 64px;
   }
@@ -159,16 +159,16 @@ export const RecoverButton = styled.button`
     background: ${LIME.main};
   }
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     height: 70px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
     height: 67px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 16px;
     height: 64px;
   }
@@ -188,11 +188,11 @@ export const BackButton = styled.button`
     color: ${LIME.main};
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 17px;
   }
 `

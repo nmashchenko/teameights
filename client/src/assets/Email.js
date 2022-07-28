@@ -179,7 +179,7 @@ function Email() {
         </clipPath>
       </defs>
     </svg>
-  );
+  )
 }
 
-export default Email;
+export default Email

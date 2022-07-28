@@ -1,12 +1,6 @@
 function SearchIcon() {
   return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M13 13L19 19"
         stroke="#72EB3A"
@@ -24,7 +18,7 @@ function SearchIcon() {
         stroke-linejoin="round"
       />
     </svg>
-  );
+  )
 }
 
-export default SearchIcon;
+export default SearchIcon

@@ -1,14 +1,14 @@
 import styled from 'styled-components'
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
-import {LIME, WHITE, BLACK, GREY} from '../../../../constants/colors'
-import {device} from '../../../../constants/breakpoints'
+import { LIME, WHITE, BLACK, GREY } from '../../../../constants/colors'
+import { device } from '../../../../constants/breakpoints'
 
 export const CardGridContainer = styled.div`
-  display: flex;            /* new */
-  align-items: center;      /* new */
-  justify-content: center;  /* new */
+  display: flex; /* new */
+  align-items: center; /* new */
+  justify-content: center; /* new */
 `
 
 export const CardContainer = styled.div`
@@ -22,7 +22,7 @@ export const SkeletonCard = styled(Skeleton)`
   height: 270px;
   border-radius: 25px;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     width: 240px;
     height: 300px;
   }

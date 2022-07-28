@@ -1,7 +1,7 @@
 import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline'
 
-import ConfirmEmail  from '../../../components/Forms/ConfirmEmailForm/ConfirmEmail'
+import ConfirmEmail from '../../../components/Forms/ConfirmEmailForm/ConfirmEmail'
 
 function Confirmation() {
   return (

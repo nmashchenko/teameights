@@ -22,18 +22,17 @@ export const ProgressBarContainer = styled.div`
   height: 30px;
   width: 500px;
 
-  
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     max-width: 415px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     max-width: 325px;
   }
 `
 
 export const ProgressDone = styled.div`
-  background: linear-gradient(13deg,#17b94b,#39a59d,#e0ff00,#5d5d5a);
+  background: linear-gradient(13deg, #17b94b, #39a59d, #e0ff00, #5d5d5a);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   background-size: 240% 240%;
   animation: ${linearGradient} 10s ease infinite;

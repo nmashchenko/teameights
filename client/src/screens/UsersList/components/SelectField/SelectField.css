@@ -1,27 +1,27 @@
-/* this is just for the MUI SelectField to remove blue border */
+/* remove border outside of select fields */
 fieldset{
-  /* border-top: none !important;
-  border-left: none !important;
-  border-right: none !important;
-  border-bottom: none !important; */
-  /* border-bottom: 1px solid #5f7adb !important; */
   border: none !important;
   outline: none !important;
 }
+
+/* set green color for on click on select field */
 .cflzmJ.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected{
   background: #365A08 !important;
   color: white !important;
 }
 
+/* set green color for on click on select field & hover */
 .cflzmJ.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover{
   background: #365A08 !important;
   color: white !important;
 }
 
+/* remove background */
 .css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
   background: none;
 }
 
+/* customize input */
 .css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   color: white !important;
   font-family: 'Montserrat' !important;
@@ -29,6 +29,7 @@ fieldset{
   font-weight: 600 !important;
 }
 
+/* scrollbar customization */
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar { 
   width: 9px;
 }

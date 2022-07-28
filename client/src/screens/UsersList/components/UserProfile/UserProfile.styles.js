@@ -1,9 +1,9 @@
-import styled, { keyframes } from "styled-components";
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
+import styled, { keyframes } from 'styled-components'
+import Toolbar from '@mui/material/Toolbar'
+import Box from '@mui/material/Box'
 
-import { LIME, WHITE, BLACK, GREY } from "../../../../constants/colors";
-import { device } from "../../../../constants/breakpoints";
+import { LIME, WHITE, BLACK, GREY } from '../../../../constants/colors'
+import { device } from '../../../../constants/breakpoints'
 
 export const Container = styled.div`
   position: absolute;
@@ -15,11 +15,11 @@ export const Container = styled.div`
   width: 930px;
   height: 640px;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     width: 1100px;
     height: 700px;
   }
-`;
+`
 
 export const ProfileContainer = styled.div`
   background: white;
@@ -31,7 +31,7 @@ export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 export const TopContent = styled.div`
   display: flex;
@@ -49,17 +49,17 @@ export const IconContainer = styled.div`
 `
 
 export const Text = styled.h3`
-  font-family: "Montserrat";
-  font-weight: ${(props) => props.fontWeight || "600"};
+  font-family: 'Montserrat';
+  font-weight: ${(props) => props.fontWeight || '600'};
   font-size: calc(${(props) => props.fontSize || '24px'} - 2px);
-  color: ${(props) => props.color || "#000"};
-  margin: ${(props) => props.margin || "0px"};
-  text-align: ${(props) => props.textAlign || "none"};
+  color: ${(props) => props.color || '#000'};
+  margin: ${(props) => props.margin || '0px'};
+  text-align: ${(props) => props.textAlign || 'none'};
 
-  @media screen and (min-width: 1440px) { 
-    font-size: ${(props) => props.fontSize || "32px"};
+  @media screen and (min-width: 1440px) {
+    font-size: ${(props) => props.fontSize || '32px'};
   }
-`;
+`
 
 const linkKeyframesRev = keyframes`
     0% {
@@ -71,7 +71,7 @@ const linkKeyframesRev = keyframes`
     100% {
         background-size: 100%;
     }
-`;
+`
 
 const linkKeyframes = keyframes`
   0% {
@@ -83,11 +83,11 @@ const linkKeyframes = keyframes`
   100% {
       background-size: 650%;
     }
-`;
+`
 
 export const ProjectLink = styled.a`
   text-decoration: none;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 20px;
   margin: 0 0 15px 0;
@@ -114,17 +114,17 @@ export const ProjectLink = styled.a`
     animation: ${linkKeyframes} 0.5s ease-in forwards;
   }
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     font-size: 24px;
   }
-`;
+`
 
 export const MainSection = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   align-items: start;
-`;
+`
 
 export const LeftSection = styled.div`
   height: 100%;
@@ -132,22 +132,22 @@ export const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-`;
+`
 
 export const AboutMeContainer = styled.div`
   max-width: 370px;
   margin-top: 25px;
   height: 150px;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     height: 170px;
   }
-`;
+`
 
 export const AboutBox = styled.div`
   margin-top: 40px;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     margin-top: 35px;
   }
 `
@@ -156,10 +156,10 @@ export const UserLinks = styled.div`
   margin-top: 15px;
   display: flex;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     margin-top: 45px;
   }
-`;
+`
 
 export const RightSection = styled.div`
   height: 100%;
@@ -167,7 +167,7 @@ export const RightSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
-`;
+`
 
 export const ImgContainer = styled.img`
   margin-top: 15px;
@@ -175,11 +175,11 @@ export const ImgContainer = styled.img`
   height: 220px;
   border-radius: 50%;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     width: 270px;
     height: 270px;
   }
-`;
+`
 
 export const InfoContainer = styled.div`
   display: flex;
@@ -187,10 +187,10 @@ export const InfoContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     width: 270px;
   }
-`;
+`
 
 export const ButtonsContainer = styled.div`
   display: flex;
@@ -198,10 +198,10 @@ export const ButtonsContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     width: 270px;
   }
-`;
+`
 
 export const Button = styled.button`
   width: 200px;
@@ -210,7 +210,7 @@ export const Button = styled.button`
   background: rgba(0, 0, 0, 0.9);
   border-radius: 10px;
   margin-bottom: 25px;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 17px;
   color: ${WHITE.main};
@@ -220,4 +220,4 @@ export const Button = styled.button`
     font-size: 18px;
     transition: 0.1s ease-in-out;
   }
-`;
+`

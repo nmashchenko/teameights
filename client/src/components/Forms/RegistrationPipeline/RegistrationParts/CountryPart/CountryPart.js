@@ -1,17 +1,17 @@
 // * Modules
-import React, { useState, useMemo, useEffect } from "react";
-import Snackbar from "@mui/material/Snackbar";
-import countryList from "react-select-country-list";
+import React, { useState, useMemo, useEffect } from 'react'
+import Snackbar from '@mui/material/Snackbar'
+import countryList from 'react-select-country-list'
 
 // * Other
-import ProgressBar from "../../ProgressBar/ProgressBar";
-import NavLogo from "../../NavLogo/NavLogo";
-import yupValidation from "../../YupValidations/YupValidations";
+import ProgressBar from '../../ProgressBar/ProgressBar'
+import NavLogo from '../../NavLogo/NavLogo'
+import yupValidation from '../../YupValidations/YupValidations'
 import Alert from '../../Alert/Alert'
 
 // * Redux
-import { useSelector, useDispatch } from "react-redux";
-import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+import { useSelector, useDispatch } from 'react-redux'
+import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 
 import {
   CardContainer,
@@ -20,49 +20,47 @@ import {
   MiddleTextContainer,
   ContinueButton,
   SelectField,
-} from "./CountryPart.styles";
+} from './CountryPart.styles'
 
 function CountryPart() {
   // * Redux
-  const dispatch = useDispatch();
-  const { setActiveState, setProgress, setUserCountry } = registrationAuth.actions;
-  const { progress} = useSelector(
-    (state) => state.registrationReducer
-  );
+  const dispatch = useDispatch()
+  const { setActiveState, setProgress, setUserCountry } = registrationAuth.actions
+  const { progress } = useSelector((state) => state.registrationReducer)
 
   // * useStates
-  const [open, setOpen] = useState(false);
-  const [errors, setErrors] = useState([]);
-  const [value, setValue] = useState("");
-  const options = useMemo(() => countryList().getData(), []);
+  const [open, setOpen] = useState(false)
+  const [errors, setErrors] = useState([])
+  const [value, setValue] = useState('')
+  const options = useMemo(() => countryList().getData(), [])
 
   // * Functions
   const changeHandler = (value) => {
-    setValue(value);
-  };
+    setValue(value)
+  }
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleSubmit = async () => {
     try {
       value
         ? await yupValidation.countrySchema.validate(value)
-        : await yupValidation.countrySchema.validate({ value });
-      dispatch(setUserCountry(value.label));
-      dispatch(setActiveState("AgePart"));
-      dispatch(setProgress("36"));
+        : await yupValidation.countrySchema.validate({ value })
+      dispatch(setUserCountry(value.label))
+      dispatch(setActiveState('AgePart'))
+      dispatch(setProgress('36'))
     } catch (err) {
-      setErrors(err.errors);
-      setOpen(true);
+      setErrors(err.errors)
+      setOpen(true)
     }
-  };
+  }
 
-  useEffect(() => {}, [errors]);
+  useEffect(() => {}, [errors])
 
   return (
     <>
@@ -73,8 +71,8 @@ function CountryPart() {
           autoHideDuration={3000}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
+            vertical: 'top',
+            horizontal: 'right',
           }}
         >
           <Alert onClose={handleClose} severity="error">
@@ -98,8 +96,8 @@ function CountryPart() {
                 borderRadius: 5,
                 colors: {
                   ...theme.colors,
-                  primary25: "#E0FF00",
-                  primary: "black",
+                  primary25: '#E0FF00',
+                  primary: 'black',
                 },
               })}
             />
@@ -108,7 +106,7 @@ function CountryPart() {
         </CardContainer>
       </Container>
     </>
-  );
+  )
 }
 
-export default CountryPart;
+export default CountryPart

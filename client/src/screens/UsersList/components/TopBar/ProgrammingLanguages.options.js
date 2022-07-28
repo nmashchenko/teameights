@@ -1,62 +1,62 @@
 export const programmingLanguageOptions = [
   {
-    label: "JS",
+    label: 'JS',
     id: 1,
   },
   {
-    label: "C++",
+    label: 'C++',
     id: 2,
   },
   {
-    label: "C",
+    label: 'C',
     id: 3,
   },
   {
-    label: "Python",
+    label: 'Python',
     id: 4,
   },
   {
-    label: "Swift",
+    label: 'Swift',
     id: 5,
   },
   {
-    label: "Ruby",
+    label: 'Ruby',
     id: 6,
   },
   {
-    label: "Scala",
+    label: 'Scala',
     id: 7,
   },
   {
-    label: "PHP",
+    label: 'PHP',
     id: 8,
   },
   {
-    label: "Go",
+    label: 'Go',
     id: 9,
   },
   {
-    label: "C#",
+    label: 'C#',
     id: 10,
   },
   {
-    label: "Java",
+    label: 'Java',
     id: 11,
   },
   {
-    label: "HTML/CSS",
+    label: 'HTML/CSS',
     id: 12,
   },
   {
-    label: "Dart",
+    label: 'Dart',
     id: 13,
   },
   {
-    label: "Perl",
+    label: 'Perl',
     id: 14,
   },
   {
-    label: "SQL",
+    label: 'SQL',
     id: 15,
   },
-];
+]

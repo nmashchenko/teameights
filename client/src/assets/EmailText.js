@@ -25,7 +25,7 @@ function EmailText() {
         </linearGradient>
       </defs>
     </svg>
-  );
+  )
 }
 
-export default EmailText;
+export default EmailText

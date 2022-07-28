@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
 
 export const Item = styled(MenuItem)`
   &.MuiMenuItem-root {
@@ -19,7 +19,7 @@ export const Item = styled(MenuItem)`
   }
 
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
-    background-color: #72EB3A;
+    background-color: #72eb3a;
     color: black;
     font-family: 'Montserrat';
     font-size: 0.875rem;
@@ -27,14 +27,21 @@ export const Item = styled(MenuItem)`
   }
 
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover {
-    background-color: #72EB3A;
+    background-color: #72eb3a;
     color: black;
     font-family: 'Montserrat';
     font-size: 0.875rem;
     font-weight: 600;
   }
 
-  &.MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary Mui-focused MuiInputBase-formControl sc-egNfGp kouRYJ css-1nbbxgk-MuiInputBase-root-MuiOutlinedInput-root {
+  &.MuiOutlinedInput-root
+    MuiInputBase-root
+    MuiInputBase-colorPrimary
+    Mui-focused
+    MuiInputBase-formControl
+    sc-egNfGp
+    kouRYJ
+    css-1nbbxgk-MuiInputBase-root-MuiOutlinedInput-root {
     color: white;
     font-family: 'Montserrat';
     font-size: 0.875rem;
@@ -51,7 +58,7 @@ export const PlaceholderText = styled.h5`
 `
 
 export const CustomSelect = styled(Select)`
-  &.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+  &.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     background: none;
   }
 `

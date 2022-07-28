@@ -1,12 +1,6 @@
 function Close() {
   return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 10 10"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="14" height="14" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M7.80302 8.86365C8.09592 9.15655 8.57079 9.15655 8.86368 8.86365C9.15658 8.57076 9.15658 8.09589 8.86368 7.80299L7.80302 8.86365ZM2.19702 1.13633C1.90412 0.843433 1.42925 0.843433 1.13636 1.13633C0.843464 1.42922 0.843464 1.90409 1.13636 2.19699L2.19702 1.13633ZM8.86368 7.80299L2.19702 1.13633L1.13636 2.19699L7.80302 8.86365L8.86368 7.80299Z"
         fill="#72EB3A"
@@ -16,7 +10,7 @@ function Close() {
         fill="#72EB3A"
       />
     </svg>
-  );
+  )
 }
 
-export default Close;
+export default Close

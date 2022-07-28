@@ -1,8 +1,10 @@
+/* set green color for on click on select field */
 .goAwk.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
   background: #365A08 !important;
   color: white !important;
 }
 
+/* set green color for on click on select field & hover */
 .goAwk.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover {
   background: #365A08 !important;
   color: white !important;

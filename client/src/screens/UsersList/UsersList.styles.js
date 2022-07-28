@@ -1,5 +1,5 @@
-import styled, { createGlobalStyle } from "styled-components";
-import {device} from '../../constants/breakpoints'
+import styled, { createGlobalStyle } from 'styled-components'
+import { device } from '../../constants/breakpoints'
 
 export const GridContainer = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ export const GridContainer = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 30px;
-`;
+`
 
 export const CardsContainer = styled.div`
   display: grid;
@@ -22,20 +22,20 @@ export const CardsContainer = styled.div`
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @media screen and (min-width: 730px) and (max-width: 1250px) { 
+  @media screen and (min-width: 730px) and (max-width: 1250px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (min-width: 0px) and (max-width: 730px) { 
+  @media screen and (min-width: 0px) and (max-width: 730px) {
     grid-template-columns: repeat(1, 1fr);
   }
-`;
+`
 
 export const CardContainer = styled.div`
   display: flex; /* new */
   align-items: center; /* new */
   justify-content: center; /* new */
-`;
+`
 
 export const CardsZone = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ export const CardsZone = styled.div`
   justify-content: space-evenly;
   align-items: center;
   position: relative;
-`;
+`
 
 export const InfoContainer = styled.div`
   display: flex;
@@ -51,7 +51,7 @@ export const InfoContainer = styled.div`
   align-items: center;
   flex-direction: column;
   margin-top: 6%;
-`;
+`
 
 /**
  * Global style applied for this component.
@@ -69,4 +69,4 @@ export const GlobalStyle = createGlobalStyle`
      height: 0;
    }
  }
-`;
+`

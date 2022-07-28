@@ -1,11 +1,11 @@
 // * Modules
 import styled, { keyframes } from 'styled-components'
 import Select from 'react-select'
-import MuiAlert from '@mui/material/Alert';
+import MuiAlert from '@mui/material/Alert'
 
 // * Constants
-import {device} from '../../../../../constants/breakpoints'
-import {LIME, BLACK, WHITE} from '../../../../../constants/colors'
+import { device } from '../../../../../constants/breakpoints'
+import { LIME, BLACK, WHITE } from '../../../../../constants/colors'
 
 export const Container = styled.div`
   display: flex;
@@ -29,7 +29,6 @@ const linearGradient = keyframes`
   }
 `
 
-
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,30 +39,29 @@ export const CardContainer = styled.div`
   width: 100%;
   max-height: 363px;
   height: 100%;
-  background: linear-gradient(13deg,#17b94b,#39a59d,#e0ff00,#5d5d5a);
+  background: linear-gradient(13deg, #17b94b, #39a59d, #e0ff00, #5d5d5a);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   background-size: 240% 240%;
   animation: ${linearGradient} 10s ease infinite;
   border-radius: 13px;
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     max-width: 500px;
     max-height: 300px;
     margin: 40px 0 40px 0;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     max-width: 355px;
     max-height: 300px;
     margin: 35px 0 35px 0;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     max-width: 335px;
     max-height: 300px;
     margin: 30px 0 30px 0;
   }
-
 `
 
 export const TopText = styled.h3`
@@ -73,11 +71,11 @@ export const TopText = styled.h3`
   margin: ${(props) => props.margin || '0'};
   color: ${BLACK.main};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: calc(${(props) => props.fontSize || '18px'} - 1px);
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: calc(${(props) => props.fontSize || '18px'} - 2px);
   }
 `
@@ -109,7 +107,7 @@ export const ContinueButton = styled.button`
     transition: 0.3s ease-in-out;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     width: 210px;
   }
 `

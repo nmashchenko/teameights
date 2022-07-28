@@ -1,12 +1,6 @@
 function Exit() {
   return (
-    <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M7 0.875H0.875V13.125H7V0.875Z" fill="#365A08" />
       <path
         d="M13.125 7H5.25"
@@ -30,7 +24,7 @@ function Exit() {
         stroke-linejoin="round"
       />
     </svg>
-  );
+  )
 }
 
-export default Exit;
+export default Exit

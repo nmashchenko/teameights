@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import Person from '../../../../assets/Sidebar/Person'
 import Project from '../../../../assets/Sidebar/Project'
@@ -19,11 +19,11 @@ export const NavBarData = [
   {
     title: 'Projects',
     path: '/projects',
-    icon: <Project />  
+    icon: <Project />,
   },
   {
     title: 'Team',
     path: '/team',
-    icon: <Team />, 
+    icon: <Team />,
   },
 ]

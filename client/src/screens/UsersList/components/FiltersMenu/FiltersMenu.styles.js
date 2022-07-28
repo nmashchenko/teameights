@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const FiltersMenuContainer = styled.div`
   width: 100%;
@@ -7,9 +7,9 @@ export const FiltersMenuContainer = styled.div`
   flex-direction: column;
   padding: 40px 30px;
   position: fixed;
-  background: #1A1C22;
-  top: ${(props) => props.top || "-100%"};
-  transition: ${(props) => props.transition || "all 0.3s ease"};
+  background: #1a1c22;
+  top: ${(props) => props.top || '-100%'};
+  transition: ${(props) => props.transition || 'all 0.3s ease'};
   z-index: 999;
   overflow-y: auto;
   overflow-x: hidden;
@@ -32,20 +32,20 @@ export const FilterText = styled.h4`
   font-family: 'Montserrat';
   font-weight: 700;
   font-size: 17px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0;
 `
 
 export const FiltersAmount = styled.div`
   width: 18px;
   height: 18px;
-  background: #5D9D0B;
+  background: #5d9d0b;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  >h4 {
+  > h4 {
     font-family: 'Montserrat';
     font-weight: 700;
     font-size: 12px;
@@ -58,12 +58,12 @@ export const CloseContainer = styled.div`
 `
 
 export const TitleText = styled.h3`
-  font-family: "Montserrat";
-  font-weight: ${(props) => props.fontWeight || "600"};
-  font-size: ${(props) => props.fontSize || "17px"};
-  color: ${(props) => props.color || "#FFF"};
-  margin: ${(props) => props.margin || "0px"};
-`;
+  font-family: 'Montserrat';
+  font-weight: ${(props) => props.fontWeight || '600'};
+  font-size: ${(props) => props.fontSize || '17px'};
+  color: ${(props) => props.color || '#FFF'};
+  margin: ${(props) => props.margin || '0px'};
+`
 
 export const FilterSection = styled.div`
   width: 100%;
@@ -83,11 +83,11 @@ export const ButtonsContainer = styled.div`
 export const CustomButton = styled.button`
   width: 93px;
   height: 35px;
-  background: ${(props) => props.background || "#5F7ADB"};
+  background: ${(props) => props.background || '#5F7ADB'};
   color: white;
   border-radius: 5px;
   border: none;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
@@ -95,6 +95,6 @@ export const CustomButton = styled.button`
   &:hover {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
-     transform: scale(1.1);
+    transform: scale(1.1);
   }
 `

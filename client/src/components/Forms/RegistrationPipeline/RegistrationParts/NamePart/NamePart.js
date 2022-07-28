@@ -1,15 +1,15 @@
 // * Modules
-import React, { useState, useEffect } from "react";
-import Snackbar from "@mui/material/Snackbar";
+import React, { useState, useEffect } from 'react'
+import Snackbar from '@mui/material/Snackbar'
 
 // * Redux
-import { useSelector, useDispatch } from "react-redux";
-import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+import { useSelector, useDispatch } from 'react-redux'
+import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 
 // * Other
-import ProgressBar from "../../ProgressBar/ProgressBar";
-import NavLogo from "../../NavLogo/NavLogo";
-import yupValidation from "../../YupValidations/YupValidations";
+import ProgressBar from '../../ProgressBar/ProgressBar'
+import NavLogo from '../../NavLogo/NavLogo'
+import yupValidation from '../../YupValidations/YupValidations'
 import Alert from '../../Alert/Alert'
 
 import {
@@ -19,42 +19,40 @@ import {
   MiddleTextContainer,
   ContinueButton,
   InputField,
-} from "./NamePart.styles";
+} from './NamePart.styles'
 
 function NamePart() {
   // * Redux
-  const dispatch = useDispatch();
-  const { setActiveState, setProgress, setUserName } = registrationAuth.actions;
-  const { progress } = useSelector(
-    (state) => state.registrationReducer
-  );
+  const dispatch = useDispatch()
+  const { setActiveState, setProgress, setUserName } = registrationAuth.actions
+  const { progress } = useSelector((state) => state.registrationReducer)
 
   // * useStates
-  const [open, setOpen] = useState(false);
-  let [name, setName] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [open, setOpen] = useState(false)
+  let [name, setName] = useState('')
+  const [errors, setErrors] = useState([])
 
   // * Functions
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleSubmit = async () => {
     try {
-      await yupValidation.nameSchema.validate({ name });
-      dispatch(setUserName(name));
-      dispatch(setActiveState("CountryPart"));
-      dispatch(setProgress("24"));
+      await yupValidation.nameSchema.validate({ name })
+      dispatch(setUserName(name))
+      dispatch(setActiveState('CountryPart'))
+      dispatch(setProgress('24'))
     } catch (err) {
-      setErrors(err.errors);
-      setOpen(true);
+      setErrors(err.errors)
+      setOpen(true)
     }
-  };
+  }
 
-  useEffect(() => {}, [errors]);
+  useEffect(() => {}, [errors])
 
   return (
     <>
@@ -65,8 +63,8 @@ function NamePart() {
           autoHideDuration={3000}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
+            vertical: 'top',
+            horizontal: 'right',
           }}
         >
           <Alert onClose={handleClose} severity="error">
@@ -87,7 +85,7 @@ function NamePart() {
         </CardContainer>
       </Container>
     </>
-  );
+  )
 }
 
-export default NamePart;
+export default NamePart

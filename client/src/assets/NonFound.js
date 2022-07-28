@@ -130,7 +130,7 @@ function SearchIcon() {
         fill="#CCCCCC"
       />
     </svg>
-  );
+  )
 }
 
-export default SearchIcon;
+export default SearchIcon

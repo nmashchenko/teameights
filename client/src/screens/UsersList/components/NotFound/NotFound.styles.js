@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
+import Toolbar from '@mui/material/Toolbar'
+import Box from '@mui/material/Box'
 
-import {LIME, WHITE, BLACK, GREY} from '../../../../constants/colors'
-import {device} from '../../../../constants/breakpoints'
+import { LIME, WHITE, BLACK, GREY } from '../../../../constants/colors'
+import { device } from '../../../../constants/breakpoints'
 
 export const Container = styled.div`
   width: 100%;

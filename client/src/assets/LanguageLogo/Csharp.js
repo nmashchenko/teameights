@@ -6,7 +6,7 @@ function Csharp() {
         fill="white"
       ></path>
     </svg>
-  );
+  )
 }
 
-export default Csharp;
+export default Csharp

@@ -1,6 +1,6 @@
-import MuiAlert from '@mui/material/Alert';
+import MuiAlert from '@mui/material/Alert'
 import styled from 'styled-components'
-import {BLACK} from '../../../../constants/colors'
+import { BLACK } from '../../../../constants/colors'
 
 export const AlertBox = styled(MuiAlert)`
   && {

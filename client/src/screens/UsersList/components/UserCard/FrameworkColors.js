@@ -34,7 +34,4 @@ const frameworkTextColors = Object.freeze({
   Photoshop: '#2DA9FF',
 })
 
-export {
-  frameworkColors,
-  frameworkTextColors
-}
+export { frameworkColors, frameworkTextColors }

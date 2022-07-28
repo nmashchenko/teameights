@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const NavIconContainer = styled.div`
   margin-right: 20px;
   cursor: pointer;
-`;
+`
 
 export const NavMenu = styled.nav`
   width: 320px;
@@ -12,10 +12,10 @@ export const NavMenu = styled.nav`
   display: flex;
   justify-content: center;
   position: fixed;
-  background: #1A1C22;
+  background: #1a1c22;
   top: 0;
-  left: ${(props) => props.left || "-100%"};
-  transition: ${(props) => props.transition || "all 0.3s ease"};
+  left: ${(props) => props.left || '-100%'};
+  transition: ${(props) => props.transition || 'all 0.3s ease'};
   z-index: 999;
 `
 export const NameNotificationsContainer = styled.div`
@@ -34,7 +34,7 @@ export const NavMenuItems = styled.div`
 export const UserInfo = styled.div`
   width: 320px;
   height: 200px;
-  background: #2E3239;
+  background: #2e3239;
   border-radius: 0px 0px 12px 12px;
   padding: 0 20px;
   display: flex;
@@ -62,7 +62,7 @@ export const UserData = styled.div`
 export const UserImage = styled.img`
   width: 80px;
   height: 80px;
-  border: 3px solid #365A08;
+  border: 3px solid #365a08;
   border-radius: 50%;
 `
 
@@ -74,20 +74,20 @@ export const UserTextContainer = styled.div`
 `
 
 export const UserText = styled.h3`
-  font-family: "Montserrat";
-  font-weight: ${(props) => props.fontWeight || "400"};
-  font-size: ${(props) => props.fontSize || "14px"};
-  color: ${(props) => props.color || "#FFF"};
-  margin: ${(props) => props.margin || "0px"};
+  font-family: 'Montserrat';
+  font-weight: ${(props) => props.fontWeight || '400'};
+  font-size: ${(props) => props.fontSize || '14px'};
+  color: ${(props) => props.color || '#FFF'};
+  margin: ${(props) => props.margin || '0px'};
 `
 
 export const NotificationsArea = styled.div`
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
-     transform: scale(1.1);
+    transform: scale(1.1);
   }
 `
 
@@ -96,7 +96,7 @@ export const NavItems = styled.div`
   flex-direction: column;
   margin-top: 15px;
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     margin-top: 25px;
   }
 `
@@ -106,13 +106,13 @@ export const NavItem = styled.div`
   list-style: none;
   padding: 30px 39px;
   height: 50px;
-  
-  @media screen and (min-width: 1440px) { 
+
+  @media screen and (min-width: 1440px) {
     padding: 35px 39px;
     height: 60px;
   }
 
-  >a {
+  > a {
     text-decoration: none;
     color: white;
     font-size: 16px;
@@ -124,16 +124,16 @@ export const NavItem = styled.div`
     border-radius: 4px;
     font-weight: 500;
 
-    @media screen and (min-width: 1440px) { 
+    @media screen and (min-width: 1440px) {
       font-size: 17px;
     }
   }
 
-  >a:hover {
+  > a:hover {
     /* background: green; */
     font-size: 16.5px;
 
-    @media screen and (min-width: 1440px) { 
+    @media screen and (min-width: 1440px) {
       font-size: 17.5px;
     }
   }
@@ -160,10 +160,10 @@ export const SingOutButton = styled.button`
   border: none;
   width: 230px;
   height: 40px;
-  background: #2E3239;
+  background: #2e3239;
   border-radius: 5px;
   color: white;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-weight: 600;
   cursor: pointer;
 
@@ -171,7 +171,7 @@ export const SingOutButton = styled.button`
     font-size: 14.5px;
   }
 
-  @media screen and (min-width: 1440px) { 
+  @media screen and (min-width: 1440px) {
     margin-bottom: 30px;
     height: 45px;
   }

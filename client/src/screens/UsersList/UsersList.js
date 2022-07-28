@@ -1,29 +1,29 @@
 // * Modules
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import lookup from "country-code-lookup";
-import isEmpty from "lodash/isEmpty";
-import isUndefined from "lodash/isUndefined";
-import Modal from "@mui/material/Modal";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef, useCallback } from 'react'
+import CssBaseline from '@mui/material/CssBaseline'
+import lookup from 'country-code-lookup'
+import isEmpty from 'lodash/isEmpty'
+import isUndefined from 'lodash/isUndefined'
+import Modal from '@mui/material/Modal'
+import { useNavigate } from 'react-router-dom'
 
 // * Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux'
 
 // * Constants
-import ROUTES from "../../constants/routes";
+import ROUTES from '../../constants/routes'
 
 // * Components
-import UserCard from "./components/UserCard/UserCard";
-import TopBar from "./components/TopBar/TopBar";
-import CardSkeleton from "./components/CardSkeleton/CardSkeleton";
-import NotFound from "./components/NotFound/NotFound";
-import UserProfile from "./components/UserProfile/UserProfile";
-import SliderToTop from "./components/SliderToTop/SliderToTop"
+import UserCard from './components/UserCard/UserCard'
+import TopBar from './components/TopBar/TopBar'
+import CardSkeleton from './components/CardSkeleton/CardSkeleton'
+import NotFound from './components/NotFound/NotFound'
+import UserProfile from './components/UserProfile/UserProfile'
+import SliderToTop from './components/SliderToTop/SliderToTop'
 
 // * API
-import usersApi from "../../api/endpoints/users";
-import authApi from "../../api/endpoints/auth";
+import usersApi from '../../api/endpoints/users'
+import authApi from '../../api/endpoints/auth'
 
 // * Styles
 import {
@@ -35,25 +35,24 @@ import {
   GlobalStyle,
 } from './UsersList.styles'
 
-
 function UsersList() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const observer = useRef();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const observer = useRef()
 
   /**
    * Set of states that are used by this component
    */
-  const [pageNumber, setPageNumber] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [countries, setCountries] = useState([]);
-  const [roles, setRoles] = useState([]);
-  const [programmingLanguages, setProgrammingLanguages] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [showUser, setShowUser] = useState({});
-  const [users, setUsers] = useState([]);
-  const [hasMore, setHasMore] = useState(false);
-  const [notFound, setNotFound] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [countries, setCountries] = useState([])
+  const [roles, setRoles] = useState([])
+  const [programmingLanguages, setProgrammingLanguages] = useState([])
+  const [open, setOpen] = useState(false)
+  const [showUser, setShowUser] = useState({})
+  const [users, setUsers] = useState([])
+  const [hasMore, setHasMore] = useState(false)
+  const [notFound, setNotFound] = useState(false)
 
   /**
    * This function will work one time when user loads page first time
@@ -61,18 +60,18 @@ function UsersList() {
    * this function should be optimized later for scaling purposes
    */
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     usersApi.getUsers(pageNumber).then((res) => {
       setUsers((prevUsers) => {
-        return [...prevUsers, ...res.data.results];
-      });
-      setHasMore(!isUndefined(res.data.next));
-    });
+        return [...prevUsers, ...res.data.results]
+      })
+      setHasMore(!isUndefined(res.data.next))
+    })
     // TODO: CHANGE BEFORE PRODUCTION !!!
     setTimeout(function () {
-      setIsLoading(false);
-    }, 2000);
-  }, [pageNumber]);
+      setIsLoading(false)
+    }, 2000)
+  }, [pageNumber])
 
   /**
    * Lazy loading of the pages, don't touch this part
@@ -80,34 +79,34 @@ function UsersList() {
 
   const lastUserElementRef = useCallback(
     (node) => {
-      if (isLoading) return;
-      if (observer.current) observer.current.disconnect();
+      if (isLoading) return
+      if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPageNumber((prevPageNumber) => prevPageNumber + 1);
+          setPageNumber((prevPageNumber) => prevPageNumber + 1)
         }
-      });
-      if (node) observer.current.observe(node);
+      })
+      if (node) observer.current.observe(node)
     },
-    [isLoading, hasMore]
-  );
+    [isLoading, hasMore],
+  )
   /**
    * Get global state from redux
    */
-  const { isAuth } = useSelector((state) => state.userReducer);
+  const { isAuth } = useSelector((state) => state.userReducer)
 
   /**
    * Handle open and close for modal window that pops up whenever user clicks on the card
    */
   const handleOpen = (user) => {
-    setShowUser(user);
-    setOpen(true);
-  };
+    setShowUser(user)
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-    setShowUser({});
-  };
+    setOpen(false)
+    setShowUser({})
+  }
 
   /**
    * This is programmingLanguages useState filter, don't change it without approvement !!!
@@ -115,12 +114,12 @@ function UsersList() {
   const handleCountries = (event) => {
     const {
       target: { value },
-    } = event;
+    } = event
     setCountries(
       // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+      typeof value === 'string' ? value.split(',') : value,
+    )
+  }
 
   /**
    * This is programmingLanguages useState filter, don't change it without approvement !!!
@@ -128,12 +127,12 @@ function UsersList() {
   const handleRoles = (event) => {
     const {
       target: { value },
-    } = event;
+    } = event
     setRoles(
       // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+      typeof value === 'string' ? value.split(',') : value,
+    )
+  }
 
   /**
    * This is programmingLanguages useState filter, don't change it without approvement !!!
@@ -141,12 +140,12 @@ function UsersList() {
   const handleProgrammingLanguages = (event) => {
     const {
       target: { value },
-    } = event;
+    } = event
     setProgrammingLanguages(
       /* On autofill we get a stringified value. */
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+      typeof value === 'string' ? value.split(',') : value,
+    )
+  }
 
   /**
    * Function used to regenerate the list of users with filters
@@ -154,41 +153,37 @@ function UsersList() {
    */
   const handleSubmitFilter = () => {
     const getUsersFiltered = async () => {
-      setIsLoading(true);
-      const users = await usersApi.getUsersFiltered(
-        countries,
-        roles,
-        programmingLanguages
-      );
-      console.log(users);
-      setNotFound(false);
+      setIsLoading(true)
+      const users = await usersApi.getUsersFiltered(countries, roles, programmingLanguages)
+      console.log(users)
+      setNotFound(false)
       if (isEmpty(users.data)) {
-        setNotFound(true);
+        setNotFound(true)
       }
-      setUsers(users.data);
+      setUsers(users.data)
       // TODO: CHANGE BEFORE PRODUCTION !!!
       // setTimeout(function () {
-        setIsLoading(false);
+      setIsLoading(false)
       // }, 2000);
-    };
-    getUsersFiltered();
-  };
+    }
+    getUsersFiltered()
+  }
 
   /**
    * Function used in <NavBar /> and passed as a props, it handles logout button
    */
   const handleUserLogout = () => {
-    dispatch(authApi.logoutUser());
-  };
+    dispatch(authApi.logoutUser())
+  }
 
   /*
    * This useEffect is triggered when user presses logout button in the NavBar component
    */
   useEffect(() => {
     if (!isAuth) {
-      navigate(ROUTES.login, { replace: true });
+      navigate(ROUTES.login, { replace: true })
     }
-  }, [isAuth, navigate]);
+  }, [isAuth, navigate])
 
   return (
     <>
@@ -213,54 +208,51 @@ function UsersList() {
         <UserProfile user={showUser} handleClose={handleClose} />
       </Modal>
 
-        {/* If nothing was found, show user a NotFound container */}
-        {notFound ? (
-          <InfoContainer>
-            <NotFound />
-          </InfoContainer>
-        ) : (
-          <CardsZone>
-            <GridContainer>
-              <CardsContainer>
-                {users.map((element, index) => {
-                  if (users.length === index + 1) {
-                    return (
-                      <CardContainer
-                        onClick={() => handleOpen(element)}
-                        key={index}
-                        ref={lastUserElementRef}
-                      >
-                        <UserCard
-                          countryCode={lookup.byCountry(element.userCountry)}
-                          key={element._id}
-                          person={element}
-                        />
-                      </CardContainer>
-                    );
-                  } else {
-                    return (
-                      <CardContainer
-                        onClick={() => handleOpen(element)}
-                        key={index}
-                      >
-                        <UserCard
-                          countryCode={lookup.byCountry(element.userCountry)}
-                          key={element._id}
-                          person={element}
-                        />
-                      </CardContainer>
-                    );
-                  }
-                })}
-                {/* Load skeleton before showing real cards to improve performance of the app */}
-                <>{isLoading && <CardSkeleton cards={9} />}</>
-              </CardsContainer>
-            </GridContainer>
-            <SliderToTop />
-          </CardsZone>
-        )}
+      {/* If nothing was found, show user a NotFound container */}
+      {notFound ? (
+        <InfoContainer>
+          <NotFound />
+        </InfoContainer>
+      ) : (
+        <CardsZone>
+          <GridContainer>
+            <CardsContainer>
+              {users.map((element, index) => {
+                if (users.length === index + 1) {
+                  return (
+                    <CardContainer
+                      onClick={() => handleOpen(element)}
+                      key={index}
+                      ref={lastUserElementRef}
+                    >
+                      <UserCard
+                        countryCode={lookup.byCountry(element.userCountry)}
+                        key={element._id}
+                        person={element}
+                      />
+                    </CardContainer>
+                  )
+                } else {
+                  return (
+                    <CardContainer onClick={() => handleOpen(element)} key={index}>
+                      <UserCard
+                        countryCode={lookup.byCountry(element.userCountry)}
+                        key={element._id}
+                        person={element}
+                      />
+                    </CardContainer>
+                  )
+                }
+              })}
+              {/* Load skeleton before showing real cards to improve performance of the app */}
+              <>{isLoading && <CardSkeleton cards={9} />}</>
+            </CardsContainer>
+          </GridContainer>
+          <SliderToTop />
+        </CardsZone>
+      )}
     </>
-  );
+  )
 }
 
-export default UsersList;
+export default UsersList

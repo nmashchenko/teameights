@@ -21,10 +21,4 @@ const WHITE = Object.freeze({
   main: '#fff',
 })
 
-export {
-  LIME,
-  BLACK,
-  WHITE,
-  GREY,
-  GREEN,
-}
+export { LIME, BLACK, WHITE, GREY, GREEN }

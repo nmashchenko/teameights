@@ -1,5 +1,5 @@
 import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline'
 
 import ConfirmRegistration from '../../../components/Forms/RegistrationPipeline'
 
