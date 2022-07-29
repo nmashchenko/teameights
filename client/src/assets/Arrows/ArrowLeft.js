@@ -4,9 +4,9 @@ function ArrowLeft() {
       <path
         d="M5 1L1 5L5 9"
         stroke="#72EB3A"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )

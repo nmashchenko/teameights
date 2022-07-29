@@ -1,18 +1,21 @@
+// * Modules
 import React, { useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import countryList from 'react-select-country-list'
-import SearchIcon from '@mui/icons-material/Search'
 
 // * Assets
-import SiteLogo from '../../../../assets/SiteLogo'
 import PlatformLogo from '../../../../assets/PlatformLogo'
 import SelectField from '../SelectField/SelectField'
 import Search from '../../../../assets/SearchIcon'
+import Filters from '../../../../assets/Filters'
+
+// * Components
 import NavBarContainer from '../NavBar/NavBar'
+import FiltersMenu from '../FiltersMenu/FiltersMenu'
+
+// * Options
 import { concentrationOptions } from './Contentration.options'
 import { programmingLanguageOptions } from './ProgrammingLanguages.options'
-import Filters from '../../../../assets/Filters'
-import FiltersMenu from '../FiltersMenu/FiltersMenu'
 
 import {
   NavBar,
@@ -52,7 +55,7 @@ function TopBar(props) {
             <PlatformLogo />
           </AlternativeLogoContainer>
           <NavBar>
-            <NavBarContainer handleUserLogout={props.handleUserLogout} />
+            <NavBarContainer handleUserLogout={props.handleUserLogout} user={props.user}/>
             <LogoContainer>
               <PlatformLogo />
             </LogoContainer>

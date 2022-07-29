@@ -1,7 +1,12 @@
+// * Modules
 import React, { useState, useEffect } from 'react'
-import Slider from '../../../../assets/Slider'
-import { SliderContainer } from './SliderToTop.styles'
 import { animateScroll as scroll } from 'react-scroll'
+
+// * Assets
+import Slider from '../../../../assets/Slider'
+
+// * Styles
+import { SliderContainer } from './SliderToTop.styles'
 
 const SliderToTop = () => {
   const [isVisible, setIsVisible] = useState(false)

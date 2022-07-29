@@ -1,12 +1,32 @@
-import React from 'react'
+// * Assets
 import NonFound from '../../../../assets/NonFound'
-import { Container, InfoContainer, Text } from './NotFound.styles'
 
-const NotFound = () => {
+// * Styles
+import {
+  Container,
+  NonFoundContainer,
+  TopText,
+  BotText,
+  Button,
+  InfoContainer,
+  TextContainer,
+} from './NotFound.styles'
+
+const NotFound = ({ handleComeback }) => {
   return (
     <Container>
-      <Text>No results found for your filters!</Text>
-      <NonFound />
+      <InfoContainer>
+        <TopText margin="0 0 15px 0">No results found.</TopText>
+        <TextContainer>
+          <BotText fontSize="25px" fontWeight="300">
+            We can’t find any item matching your search
+          </BotText>
+        </TextContainer>
+        <Button onClick={handleComeback}>Comeback</Button>
+      </InfoContainer>
+      <NonFoundContainer>
+        <NonFound />
+      </NonFoundContainer>
     </Container>
   )
 }

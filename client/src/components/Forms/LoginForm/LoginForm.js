@@ -59,7 +59,6 @@ function LoginForm() {
 
   const handleLogin = () => {
     // check if user is registered in the system.
-    dispatch(authApi.checkIsRegistered(inputEmail))
     dispatch(authApi.loginUser(inputEmail, password))
     setOpen(true)
   }
@@ -74,11 +73,7 @@ function LoginForm() {
   useEffect(() => {
     if (isAuth) {
       // If user already registered we send him to the platform page, otherwise => complete registration
-      if (user.user.isRegistered) {
-        navigate(ROUTES.temporary, { replace: true })
-      } else {
-        navigate(ROUTES.finishRegistration, { replace: true })
-      }
+      navigate(ROUTES.temporary, { replace: true })
     }
   }, [isAuth, navigate])
 

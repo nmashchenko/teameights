@@ -1,8 +1,12 @@
+// * Modules
 import React from 'react'
+
+// * Assets
 import Filters from '../../../../assets/Filters'
 import Close from '../../../../assets/Close'
 import FilterField from './FilterField/FilterField'
 
+// * Styles
 import {
   FiltersMenuContainer,
   TopContent,
@@ -14,6 +18,7 @@ import {
   FilterSection,
   ButtonsContainer,
   CustomButton,
+  Line,
 } from './FiltersMenu.styles'
 
 const FiltersMenu = ({
@@ -54,7 +59,7 @@ const FiltersMenu = ({
           <FilterSection>
             <TitleText>Roles</TitleText>
             <FilterField options={concentrationOptions} data={roles} handleChange={handleRoles} />
-            <hr style={{ width: '100%', opacity: '0.25', border: '1px solid #2E3239' }}></hr>
+            <Line />
           </FilterSection>
           <FilterSection>
             <TitleText>Countries</TitleText>
@@ -63,7 +68,7 @@ const FiltersMenu = ({
               data={countries}
               handleChange={handleCountries}
             />
-            <hr style={{ width: '100%', opacity: '0.25', border: '1px solid #2E3239' }}></hr>
+            <Line />
           </FilterSection>
           <FilterSection>
             <TitleText>Programming Languages</TitleText>
@@ -72,7 +77,7 @@ const FiltersMenu = ({
               data={programmingLanguages}
               handleChange={handleProgrammingLanguages}
             />
-            <hr style={{ width: '100%', opacity: '0.25', border: '1px solid #2E3239' }}></hr>
+            <Line />
           </FilterSection>
           <ButtonsContainer>
             <CustomButton background="none" onClick={showFiltersBar}>

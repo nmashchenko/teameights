@@ -1,9 +1,7 @@
+// * Modules
 import styled from 'styled-components'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-
-import { LIME, WHITE, BLACK, GREY } from '../../../../constants/colors'
-import { device } from '../../../../constants/breakpoints'
 
 export const CardGridContainer = styled.div`
   display: flex; /* new */

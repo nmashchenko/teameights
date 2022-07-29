@@ -10,9 +10,6 @@ import Snackbar from '@mui/material/Snackbar'
 // * Assets
 import SiteLogo from '../../../assets/SiteLogo'
 
-// * Redux
-import { useDispatch, useSelector } from 'react-redux'
-
 // * Api
 import resetPassword from '../../../api/endpoints/reset'
 
@@ -36,7 +33,6 @@ import ROUTES from '../../../constants/routes'
 
 function NewPassword() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />
@@ -47,12 +43,16 @@ function NewPassword() {
   const [repeatPassword, setRepeatPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [open, setOpen] = useState(false)
+  const [error, setError] = useState('')
 
-  const { error, statusDone } = useSelector((state) => state.resetPasswordReducer)
-
-  const handleReset = () => {
-    setOpen(true)
-    dispatch(resetPassword.updatePassword(id, token, password, repeatPassword))
+  const handleReset = async() => {
+    const error = await resetPassword.updatePassword(id, token, password, repeatPassword)
+    if(!error){
+      navigate(ROUTES.login, { replace: true })
+    } else {
+      setOpen(true)
+      setError(error)
+    }
   }
 
   const handleClose = (event, reason) => {
@@ -63,12 +63,6 @@ function NewPassword() {
   }
 
   useEffect(() => {}, [error])
-
-  useEffect(() => {
-    if (statusDone) {
-      navigate(ROUTES.login, { replace: true })
-    }
-  }, [statusDone, navigate])
 
   return (
     <Container>

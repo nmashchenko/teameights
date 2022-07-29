@@ -8,14 +8,11 @@ import Alert from '../../../components/Forms/RegistrationPipeline/Alert/Alert'
 
 // * Assets
 import SiteLogo from '../../../assets/SiteLogo'
-import ArrowLeft from '../../../assets/Arrows/ArrowLeft'
+import ArrowLeftReset from '../../../assets/ArrowLeftReset'
 import emailValidation from './RecoverValidation'
 
 // * Api
 import resetPassword from '../../../api/endpoints/reset'
-
-// * Redux
-import { useDispatch } from 'react-redux'
 
 import {
   NavBar,
@@ -34,7 +31,6 @@ import ROUTES from '../../../constants/routes'
 
 function RecoverPassword() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [open, setOpen] = useState(false)
   const [errors, setErrors] = useState([])
@@ -42,7 +38,7 @@ function RecoverPassword() {
   const handleReset = async () => {
     try {
       await emailValidation.validate({ email })
-      dispatch(resetPassword.getRegistrationEmail(email))
+      resetPassword.getRegistrationEmail(email)
       navigate(ROUTES.passwordRecoverConfirm, {
         replace: true,
         state: { email },
@@ -97,7 +93,7 @@ function RecoverPassword() {
           <RecoverInput placeholder="EMAIL" onChange={(e) => setEmail(e.target.value)} required />
           <RecoverButton onClick={handleReset}>RESET PASSWORD</RecoverButton>
           <ButtonContainer>
-            <ArrowLeft />
+            <ArrowLeftReset />
             <BackButton onClick={() => navigate(ROUTES.login, { replace: true })}>
               BACK TO SIGN IN
             </BackButton>

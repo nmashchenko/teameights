@@ -1,10 +1,12 @@
-import isEqual from 'lodash/isEqual'
+// * Images
 import CrownImg from '../../img/CrownTest.png'
 import userImg from '../../img/tempImg.jpg'
-import Country from '../../img/Country.svg'
+
+// * Colors
 import { frameworkColors, frameworkTextColors } from './FrameworkColors'
 import languageOptions from './ProgrammingLanguages'
 
+// * Styles
 import {
   Wrapper,
   CardContainer,
@@ -30,6 +32,11 @@ function UserCard(props) {
             <UserImage src={userImg} alt="userImg" />
           </div>
           <ProgrammingLanguagesContainer>
+            {
+            /**
+             * limit length of programming languages array to show only 2
+             */
+            }
             {props.person.userProgrammingLanguages.length <= 2
               ? props.person.userProgrammingLanguages.map((element, index) => (
                   <LanguageContainer key={element}>{languageOptions[element]}</LanguageContainer>
@@ -54,13 +61,20 @@ function UserCard(props) {
             </TitleText>
           </UserData>
         </TextContainer>
-        {/*
-          if length === 1: justify 1 block in center 
-          if length === 2: set width to 100% for all
-          if length === 3: margin-right: 10px for index 0 
-          if length === 4: margin-right: 10px for index 0,2
-        */}
+        {
+        /**
+         *if length === 1: justify 1 block in center 
+         *if length === 2: set width to 100% for all
+         *if length === 3: margin-right: 10px for index 0 
+         *if length === 4: margin-right: 10px for index 0,2
+         */
+         }
         <FrameWorksContainer>
+          {
+            /**
+            * limit length of frameworks array to show only 4
+            */
+          }
           {props.person.userFrameworks.length <= 4
             ? (() => {
                 if (props.person.userFrameworks.length === 1) {

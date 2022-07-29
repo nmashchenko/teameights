@@ -149,5 +149,3 @@ export const ButtonContainer = styled.div`
   align-items: center;
   margin-top: 20px;
 `
-
-export const Arrow = styled(ArrowLeft)``

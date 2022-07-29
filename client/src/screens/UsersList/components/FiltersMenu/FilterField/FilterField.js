@@ -1,29 +1,18 @@
-import * as React from 'react'
+// * Modules
 import OutlinedInput from '@mui/material/OutlinedInput'
 import FormControl from '@mui/material/FormControl'
-import ArrowDown from '../../../../../assets/Arrows/ArrowDown'
-import { Item, PlaceholderText, CustomSelect } from './FilterField.styles'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import CodeIcon from '@mui/icons-material/Code'
-import './FielterField.css'
 
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: '400px',
-      background: '#2E3239',
-      boxSizing: 'border-box',
-      padding: '5px',
-      margin: '10px 0',
-      boxShadow: '0px 5px 15px rgba(95, 122, 219, 0.12)',
-      borderRadius: '0.75em',
-      color: 'white',
-      overflow: 'auto',
-      outline: '0px',
-    },
-  },
-}
+//* Constants
+import MenuProps from '../MenuProps'
+
+// * Assets
+import ArrowDown from '../../../../../assets/Arrows/ArrowDown'
+
+// * Styles
+import { Item, CustomSelect } from './FilterField.styles'
 
 export default function MultipleSelect(props) {
   return (

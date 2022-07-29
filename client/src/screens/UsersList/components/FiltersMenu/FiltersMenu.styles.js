@@ -1,3 +1,4 @@
+// * Modules
 import styled from 'styled-components'
 
 export const FiltersMenuContainer = styled.div`
@@ -97,4 +98,10 @@ export const CustomButton = styled.button`
     -ms-transform: scale(1.1);
     transform: scale(1.1);
   }
+`
+
+export const Line = styled.hr`
+  width: 100%;
+  opacity: 0.25;
+  border: 1px solid #2E3239;
 `

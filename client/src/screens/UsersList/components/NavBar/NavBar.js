@@ -1,11 +1,16 @@
+// * Modules
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+
+// * Assets
 import NavBarIcon from '../../../../assets/NavBarIcon'
 import Close from '../../../../assets/Sidebar/Close'
-import { NavBarData } from './NavBar.data'
-import { Link } from 'react-router-dom'
-import userImg from '../../img/tempImg.jpg'
 import Exit from '../../../../assets/Sidebar/Exit'
 import Notification from '../../../../assets/Sidebar/Notification'
+
+// * Data
+import { NavBarData } from './NavBar.data'
+import userImg from '../../img/tempImg.jpg'
 
 import {
   NavIconContainer,
@@ -27,6 +32,7 @@ import {
 } from './NavBar.styles'
 
 const NavBar = (props) => {
+  const user = props.user.user
   const [sidebar, setSidebar] = useState(false)
 
   const showSidebar = () => setSidebar(!sidebar)
@@ -44,15 +50,17 @@ const NavBar = (props) => {
                 <Close />
               </NavBarToggle>
               <UserData>
-                <UserImage src={userImg} alt="user image" />
+                <div>
+                  <UserImage src={userImg} alt="user image" />
+                </div>
                 <UserTextContainer>
                   <NameNotificationsContainer>
-                    <UserText fontWeight="600">Nikita Mashchenko</UserText>
+                    <UserText fontWeight="600">{user.userRealName}</UserText>
                     <NotificationsArea>
                       <Notification />
                     </NotificationsArea>
                   </NameNotificationsContainer>
-                  <UserText>Full Stack Developer</UserText>
+                  <UserText>{user.userConcentration}</UserText>
                 </UserTextContainer>
               </UserData>
             </UserInfo>

@@ -21,7 +21,6 @@ router.post(
 router.post("/login", userController.login);
 router.post("/logout", userController.logout);
 router.post("/registration-checkout", userController.registrationCompletion);
-router.post("/check-registration", userController.checkIsRegistered);
 router.post("/reset-password", userController.resetPassword);
 router.post(
   "/reset-password/:id/:token",

@@ -1,5 +1,5 @@
+// * Modules
 import styled, { createGlobalStyle } from 'styled-components'
-import { device } from '../../constants/breakpoints'
 
 export const GridContainer = styled.div`
   display: flex;
@@ -49,8 +49,7 @@ export const InfoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  margin-top: 6%;
+  height: calc(100vh - 120px);
 `
 
 /**

@@ -41,7 +41,6 @@ class UserController {
 
   async logout(req, res, next) {
     try {
-      console.log('huy')
       const { refreshToken } = req.cookies;
       const token = await userService.logout(refreshToken);
       res.clearCookie('refreshToken');
@@ -91,16 +90,6 @@ class UserController {
       const { countries, roles, programmingLanguages } = req.body;
       const users = await userService.getAllUsersFiltered(countries, roles, programmingLanguages);
       return res.json(users);
-    } catch (err) {
-      // error.middleware will take care of it
-      next(err);
-    }
-  }
-
-  async checkIsRegistered(req, res, next) {
-    try {
-      const status = await userService.checkIsRegistered(req.body.email);
-      return res.json(status);
     } catch (err) {
       // error.middleware will take care of it
       next(err);

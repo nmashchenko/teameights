@@ -1,11 +1,10 @@
+// * Modules
 import styled from 'styled-components'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 
-import { LIME, WHITE, BLACK, GREY } from '../../../../constants/colors'
-import { device } from '../../../../constants/breakpoints'
-
 export const Item = styled(MenuItem)`
+  /* Root */
   &.MuiMenuItem-root {
     font-family: 'Montserrat';
     font-size: 0.875rem;
@@ -21,22 +20,25 @@ export const Item = styled(MenuItem)`
     }
   }
 
+  /* Selected item inside the filter */
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
-    background-color: #72eb3a;
-    color: black;
+    background: #365A08 !important;
+    color: white !important;
     font-family: 'Montserrat';
     font-size: 0.875rem;
     font-weight: 600;
   }
 
+  /* Hover for the selected item inside the filter */
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover {
-    background-color: #72eb3a;
-    color: black;
+    background: #365A08 !important;
+    color: white !important;
     font-family: 'Montserrat';
     font-size: 0.875rem;
     font-weight: 600;
   }
-
+  
+  /* Root of input */
   &.MuiOutlinedInput-root
     MuiInputBase-root
     MuiInputBase-colorPrimary

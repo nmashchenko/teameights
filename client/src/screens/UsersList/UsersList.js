@@ -53,7 +53,11 @@ function UsersList() {
   const [users, setUsers] = useState([])
   const [hasMore, setHasMore] = useState(false)
   const [notFound, setNotFound] = useState(false)
-
+  
+  const handleComeback = () => {
+    setNotFound(false)
+    setPageNumber(1)
+  }
   /**
    * This function will work one time when user loads page first time
    * he will get list of all users that can be invited to the team
@@ -70,8 +74,12 @@ function UsersList() {
     // TODO: CHANGE BEFORE PRODUCTION !!!
     setTimeout(function () {
       setIsLoading(false)
-    }, 2000)
-  }, [pageNumber])
+    }, 1000)
+    /**
+     * pageNumber dependency -> whenever user scrolls to the bottom client ask for new data on specific page from server (page is updated once user gets to the bottom)
+     * notFound dependency -> whenever user didn't find any data, set page to 1 and generate new cards for the user
+     */
+  }, [pageNumber, notFound])
 
   /**
    * Lazy loading of the pages, don't touch this part
@@ -93,7 +101,7 @@ function UsersList() {
   /**
    * Get global state from redux
    */
-  const { isAuth } = useSelector((state) => state.userReducer)
+  const { isAuth, user } = useSelector((state) => state.userReducer)
 
   /**
    * Handle open and close for modal window that pops up whenever user clicks on the card
@@ -183,6 +191,11 @@ function UsersList() {
     if (!isAuth) {
       navigate(ROUTES.login, { replace: true })
     }
+
+    if(isAuth && !user.user.isRegistered) {
+      navigate(ROUTES.finishRegistration, { replace: true })
+    }
+
   }, [isAuth, navigate])
 
   return (
@@ -190,6 +203,7 @@ function UsersList() {
       <GlobalStyle />
       <CssBaseline />
       <TopBar
+        user={user}
         countries={countries}
         roles={roles}
         programmingLanguages={programmingLanguages}
@@ -211,7 +225,7 @@ function UsersList() {
       {/* If nothing was found, show user a NotFound container */}
       {notFound ? (
         <InfoContainer>
-          <NotFound />
+          <NotFound handleComeback={handleComeback}/>
         </InfoContainer>
       ) : (
         <CardsZone>

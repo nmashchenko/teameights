@@ -4,18 +4,6 @@ fieldset{
   outline: none !important;
 }
 
-/* set green color for on click on select field */
-.cflzmJ.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected{
-  background: #365A08 !important;
-  color: white !important;
-}
-
-/* set green color for on click on select field & hover */
-.cflzmJ.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover{
-  background: #365A08 !important;
-  color: white !important;
-}
-
 /* remove background */
 .css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
   background: none;

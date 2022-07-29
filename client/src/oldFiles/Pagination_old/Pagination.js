@@ -1,8 +1,8 @@
 import * as React from 'react'
 import usePagination from '@mui/material/usePagination'
 import { styled } from '@mui/material/styles'
-import ArrowLeft from '../../../../assets/Arrows/ArrowLeft'
-import ArrowRight from '../../../../assets/Arrows/ArrowRight'
+import ArrowLeft from '../../assets/Arrows/ArrowLeft'
+import ArrowRight from '../../assets/Arrows/ArrowRight'
 
 const List = styled('ul')({
   listStyle: 'none',

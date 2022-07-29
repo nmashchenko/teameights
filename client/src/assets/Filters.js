@@ -4,9 +4,9 @@ function Filters() {
       <path
         d="M1 1L4.75 7V11.5L9.25 13.75V7L13 1H1Z"
         stroke="#72EB3A"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )

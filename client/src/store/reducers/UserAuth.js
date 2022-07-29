@@ -30,12 +30,6 @@ export const userAuth = createSlice({
       state.user = {}
     },
 
-    authUserIsRegistered(state, action) {
-      state.isLoading = false;
-      state.error = '';
-      state.isRegistered = action.payload;
-    },
-
     authUserError(state, action) {
       state.isLoading = false;
       state.error = action.payload;

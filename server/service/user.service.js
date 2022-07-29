@@ -41,7 +41,7 @@ class UserService {
     const tokens = tokenService.generateTokens({ ...userDto }); // get tokens
     await tokenService.saveToken(userDto.id, tokens.refreshToken); // save refresh token into the database
 
-    return { ...tokens, user: userDto } // return access&refresh tokens, and user
+    return { ...tokens, user } // return access&refresh tokens, and user
   }
 
   async activate(activationLink) {
@@ -68,7 +68,7 @@ class UserService {
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto }); // get tokens
     await tokenService.saveToken(userDto.id, tokens.refreshToken); // save refresh token into the database
-    return { ...tokens, user: userDto} // return access&refresh tokens, and user
+    return { ...tokens, user} // return access&refresh tokens, and user
   }
 
   async logout(refreshToken) {
@@ -86,11 +86,12 @@ class UserService {
     if (!userData || !tokenFromDb) { // if either refresh token is not validated OR not found in DB -> user is not logged in
       throw ApiError.UnauthorizedError();
     }
+    
     const user = await User.findById(userData.id)
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto }); // get tokens
     await tokenService.saveToken(userDto.id, tokens.refreshToken); // save refresh token into the database
-    return { ...tokens, user: userDto } // return access&refresh tokens, and user
+    return { ...tokens, user } // return access&refresh tokens, and user
   }
 
   async getAllUsers(page, limit) {
@@ -146,15 +147,6 @@ class UserService {
       const users = await User.find({isRegistered: true, userCountry: {$in: countries}, userConcentration: {$in: roles}, userProgrammingLanguages: {$in: programmingLanguages}});
       return users;
     }
-  }
-
-  async checkIsRegistered(email) {
-    const user = await User.findOne({email});
-    if (!user) {
-      throw ApiError.BadRequest('User with this email is not found')
-    }
-
-    return user.isRegistered;
   }
 
   async checkUserEmail(refreshToken) {

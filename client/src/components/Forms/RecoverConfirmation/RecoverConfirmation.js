@@ -2,6 +2,7 @@
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import { useNavigate, useLocation } from 'react-router-dom'
+import ArrowLeftReset from '../../../assets/ArrowLeftReset'
 
 // * Assets
 import SiteLogo from '../../../assets/SiteLogo'
@@ -18,7 +19,6 @@ import {
   MiddleText,
   BackButton,
   ButtonContainer,
-  Arrow,
 } from './RecoverConfirmation.styles'
 
 function RecoverPassword() {
@@ -46,7 +46,7 @@ function RecoverPassword() {
             </MiddleText>
           </MiddleContainer>
           <ButtonContainer>
-            <Arrow />
+            <ArrowLeftReset />
             <BackButton onClick={() => navigate(ROUTES.login, { replace: true })}>
               BACK TO SIGN IN
             </BackButton>

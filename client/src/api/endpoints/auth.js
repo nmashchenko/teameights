@@ -43,16 +43,6 @@ const registerUser = (username, email, password, repeatPassword) => async (dispa
   }
 }
 
-const checkIsRegistered = (email) => async (dispatch) => {
-  try {
-    dispatch(userAuth.actions.authUser())
-    await api.post('/check-registration', { email })
-    dispatch(userAuth.actions.authUserIsRegistered())
-  } catch (err) {
-    dispatch(userAuth.actions.authUserError(err.response?.data?.message))
-  }
-}
-
 const logoutUser = () => async (dispatch) => {
   try {
     dispatch(userAuth.actions.authUser())
@@ -68,7 +58,6 @@ const authApi = Object.freeze({
   loginUser,
   checkAuth,
   registerUser,
-  checkIsRegistered,
   logoutUser,
 })
 

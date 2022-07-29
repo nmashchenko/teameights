@@ -1,223 +1,123 @@
-import styled, { keyframes } from 'styled-components'
-import Toolbar from '@mui/material/Toolbar'
-import Box from '@mui/material/Box'
-
-import { LIME, WHITE, BLACK, GREY } from '../../../../constants/colors'
-import { device } from '../../../../constants/breakpoints'
+// * Modules
+import styled from 'styled-components'
 
 export const Container = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* width: 65%;
-  height: 80%; */
-  width: 930px;
-  height: 640px;
-
-  @media screen and (min-width: 1440px) {
-    width: 1100px;
-    height: 700px;
-  }
+  width: 670px;
+  height: 430px;
 `
 
 export const ProfileContainer = styled.div`
-  background: white;
+  background: #26292B;
   width: 100%;
   height: 100%;
-  border-radius: 45px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-  padding: 30px 50px;
+  border-radius: 15px;
+  padding: 30px 25px;
+  display: flex;
+`
+
+export const LinksAndAvatarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `
 
-export const TopContent = styled.div`
+export const UserAvatar = styled.img`
+  width: 80px;
+  height: 80px;
+  box-shadow: 0px 0px 50px rgba(114, 235, 58, 0.1);
+  border-radius: 5px;
+`
+
+export const UserLink = styled.div`
+  cursor: pointer;
+  margin-top: 20px;
+
+  &:hover {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+`
+
+export const UserDetailedInfoContainer = styled.div`
   display: flex;
   width: 100%;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  flex-direction: column;
+  margin-left: 15px;
 `
 
-export const IconContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
+export const NameAndCloseContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`
+
+export const CloseContainer = styled.div`
   cursor: pointer;
+`
+
+export const UserDescriptionContainer = styled.div`
+  max-width: 480px;
+`
+export const LinksContainer = styled.div`
+  display: flex;
+  margin-top: 10px;
+`
+/*TODO: FIX THIS FOR DIFFERENT WIDTH*/
+export const ProjectLinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+  }
 `
 
 export const Text = styled.h3`
   font-family: 'Montserrat';
-  font-weight: ${(props) => props.fontWeight || '600'};
-  font-size: calc(${(props) => props.fontSize || '24px'} - 2px);
-  color: ${(props) => props.color || '#000'};
+  font-weight: ${(props) => props.fontWeight || '500'};
+  font-size: ${(props) => props.fontSize || '24px'};
+  color: ${(props) => props.color || '#fff'};
   margin: ${(props) => props.margin || '0px'};
   text-align: ${(props) => props.textAlign || 'none'};
-
-  @media screen and (min-width: 1440px) {
-    font-size: ${(props) => props.fontSize || '32px'};
-  }
-`
-
-const linkKeyframesRev = keyframes`
-    0% {
-        background-size: 650%;
-    }
-    40% {
-        background-size: 650%;
-    }
-    100% {
-        background-size: 100%;
-    }
-`
-
-const linkKeyframes = keyframes`
-  0% {
-      background-size: 100%;
-    }
-  80% {
-      background-size: 650%;
-    }
-  100% {
-      background-size: 650%;
-    }
-`
-
-export const ProjectLink = styled.a`
-  text-decoration: none;
-  font-family: 'Montserrat';
-  font-weight: 600;
-  font-size: 20px;
-  margin: 0 0 15px 0;
-  /* Fallback: Set a background color. */
-  background-color: #f3ec78;
-
-  /* Create the gradient. */
-  background-image: linear-gradient(45deg, #f3ec78, #af4261);
-
-  /* Set the background size and repeat properties. */
-  background-size: 100%;
-  background-repeat: repeat;
-
-  /* Use the text as a mask for the background. */
-  /* This will show the gradient as a text color rather than element bg. */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-  animation: ${linkKeyframesRev} 0.75s ease forwards;
-
-  &:hover {
-    cursor: pointer;
-    animation: ${linkKeyframes} 0.5s ease-in forwards;
-  }
-
-  @media screen and (min-width: 1440px) {
-    font-size: 24px;
-  }
-`
-
-export const MainSection = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: start;
-`
-
-export const LeftSection = styled.div`
-  height: 100%;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-`
-
-export const AboutMeContainer = styled.div`
-  max-width: 370px;
-  margin-top: 25px;
-  height: 150px;
-
-  @media screen and (min-width: 1440px) {
-    height: 170px;
-  }
-`
-
-export const AboutBox = styled.div`
-  margin-top: 40px;
-
-  @media screen and (min-width: 1440px) {
-    margin-top: 35px;
-  }
-`
-
-export const UserLinks = styled.div`
-  margin-top: 15px;
-  display: flex;
-
-  @media screen and (min-width: 1440px) {
-    margin-top: 45px;
-  }
-`
-
-export const RightSection = styled.div`
-  height: 100%;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-`
-
-export const ImgContainer = styled.img`
-  margin-top: 15px;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-
-  @media screen and (min-width: 1440px) {
-    width: 270px;
-    height: 270px;
-  }
-`
-
-export const InfoContainer = styled.div`
-  display: flex;
-  width: 250px;
-  flex-direction: column;
-  align-items: center;
-
-  @media screen and (min-width: 1440px) {
-    width: 270px;
-  }
 `
 
 export const ButtonsContainer = styled.div`
   display: flex;
-  width: 220px;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-
-  @media screen and (min-width: 1440px) {
-    width: 270px;
-  }
+  margin-top: 35px;
+  gap: 40px;
+  margin-right: 40px;
+  width: calc(100% - 80px);
 `
 
 export const Button = styled.button`
-  width: 200px;
-  height: 50px;
-  outline: none;
-  background: rgba(0, 0, 0, 0.9);
-  border-radius: 10px;
-  margin-bottom: 25px;
+  border: none;
+  width: 132px;
+  height: 40px;
+  background: #2E3239;
+  border-radius: 5px;
   font-family: 'Montserrat';
-  font-weight: 600;
-  font-size: 17px;
-  color: ${WHITE.main};
+  font-weight: 400;
+  font-size: 16px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 
   &:hover {
-    font-size: 18px;
-    transition: 0.1s ease-in-out;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
   }
 `
+

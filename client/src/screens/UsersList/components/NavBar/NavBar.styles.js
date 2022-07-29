@@ -1,5 +1,5 @@
+// * Modules
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 
 export const NavIconContainer = styled.div`
   margin-right: 20px;
@@ -20,7 +20,6 @@ export const NavMenu = styled.nav`
 `
 export const NameNotificationsContainer = styled.div`
   display: flex;
-  justify-content: center;
   gap: 15px;
 `
 
