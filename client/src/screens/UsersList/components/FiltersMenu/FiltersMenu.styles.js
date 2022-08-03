@@ -30,7 +30,6 @@ export const FiltersContentTop = styled.div`
 `
 
 export const FilterText = styled.h4`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 17px;
   color: #ffffff;
@@ -47,7 +46,6 @@ export const FiltersAmount = styled.div`
   align-items: center;
 
   > h4 {
-    font-family: 'Montserrat';
     font-weight: 700;
     font-size: 12px;
     color: white;
@@ -59,7 +57,6 @@ export const CloseContainer = styled.div`
 `
 
 export const TitleText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: ${(props) => props.fontWeight || '600'};
   font-size: ${(props) => props.fontSize || '17px'};
   color: ${(props) => props.color || '#FFF'};
@@ -88,7 +85,6 @@ export const CustomButton = styled.button`
   color: white;
   border-radius: 5px;
   border: none;
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
@@ -103,5 +99,5 @@ export const CustomButton = styled.button`
 export const Line = styled.hr`
   width: 100%;
   opacity: 0.25;
-  border: 1px solid #2E3239;
+  border: 1px solid #2e3239;
 `

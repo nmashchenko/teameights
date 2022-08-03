@@ -54,7 +54,6 @@ export const LoginTextContainer = styled.div`
 `
 
 export const LoginText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   color: ${BLACK.main};
@@ -91,7 +90,6 @@ export const LoginInput = styled.input`
   border-radius: 3px;
   margin: 14px 0 14px 0;
   background: ${GREY.background};
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 22px;
   color: ${BLACK.main};
@@ -125,7 +123,6 @@ export const LoginInput = styled.input`
 `
 
 export const LoginButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 23px;
   border: none;
@@ -163,7 +160,6 @@ export const LoginButton = styled.button`
 `
 
 export const LoginLink = styled.a`
-  font-family: 'Montserrat';
   font-size: 20px;
   font-weight: 600;
   color: ${BLACK.main};

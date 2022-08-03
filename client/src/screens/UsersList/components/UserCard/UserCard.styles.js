@@ -58,7 +58,6 @@ export const CountryContainer = styled.div`
 `
 
 export const TitleText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: ${(props) => props.fontWeight || '400'};
   font-size: ${(props) => props.fontSize || '13px'};
   color: ${(props) => props.color || '#FFF'};
@@ -78,7 +77,6 @@ export const Framework = styled.div`
   align-items: center;
 
   > h3 {
-    font-family: 'Montserrat';
     font-weight: 600;
     font-size: 14px;
     color: ${(props) => props.color || 'white'};

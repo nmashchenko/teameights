@@ -20,12 +20,12 @@ export const useRoutes = () => {
     <Routes>
       {/* // * for authenticated user */}
       <Route path={ROUTES.temporary} element={<UsersList />} />
-
+      <Route path={ROUTES.finishRegistration} element={<FinishRegistration />}/>
+      
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />
       <Route path={ROUTES.registration} element={<Registration />} />
       <Route path={ROUTES.confirmEmail} element={<Confirmation />}/>
-      <Route path={ROUTES.finishRegistration} element={<FinishRegistration />}/>
       <Route path={ROUTES.passwordRecover} element={<ResetPassword />} />
       <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmation />} />
       <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswords />} />

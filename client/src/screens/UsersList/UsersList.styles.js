@@ -31,12 +31,6 @@ export const CardsContainer = styled.div`
   }
 `
 
-export const CardContainer = styled.div`
-  display: flex; /* new */
-  align-items: center; /* new */
-  justify-content: center; /* new */
-`
-
 export const CardsZone = styled.div`
   display: flex;
   width: 100%;
@@ -59,7 +53,6 @@ export const InfoContainer = styled.div`
 export const GlobalStyle = createGlobalStyle`
  body {  
    background: #26292B !important;
-   font-family: "Montserrat" !important;
    overflow-y: scroll;
    scrollbar-width: none; /* Firefox */
    -ms-overflow-style: none;  /* Internet Explorer 10+ */

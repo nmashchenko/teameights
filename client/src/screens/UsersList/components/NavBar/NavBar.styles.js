@@ -73,7 +73,6 @@ export const UserTextContainer = styled.div`
 `
 
 export const UserText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: ${(props) => props.fontWeight || '400'};
   font-size: ${(props) => props.fontSize || '14px'};
   color: ${(props) => props.color || '#FFF'};
@@ -162,7 +161,6 @@ export const SingOutButton = styled.button`
   background: #2e3239;
   border-radius: 5px;
   color: white;
-  font-family: 'Montserrat';
   font-weight: 600;
   cursor: pointer;
 

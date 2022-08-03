@@ -39,7 +39,7 @@ function LoginForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { isAuth, error, isRegistered, user } = useSelector((state) => state.userReducer)
+  const { isAuth, error } = useSelector((state) => state.userReducer)
 
   const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)

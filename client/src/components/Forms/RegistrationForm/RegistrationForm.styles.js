@@ -56,7 +56,6 @@ export const RegistrationTextContainer = styled.div`
 `
 
 export const RegistrationText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   color: ${BLACK.main};
@@ -93,7 +92,6 @@ export const RegistrationInput = styled.input`
   border-radius: 3px;
   margin: 14px 0 14px 0;
   background: ${GREY.background};
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 22px;
   color: ${BLACK.main};
@@ -127,7 +125,6 @@ export const RegistrationInput = styled.input`
 `
 
 export const RegistrationButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 23px;
   border: none;
@@ -165,7 +162,6 @@ export const RegistrationButton = styled.button`
 `
 
 export const RegistrationLink = styled.a`
-  font-family: 'Montserrat';
   font-size: 22px;
   font-weight: 600;
   color: ${BLACK.main};

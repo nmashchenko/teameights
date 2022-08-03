@@ -1,25 +1,34 @@
 // * Modules
-const { validationResult } = require('express-validator')
+const { validationResult } = require("express-validator");
 
 // * Services
-const userService = require('../service/user.service')
+const userService = require("../service/user.service");
 
 // * Exception
-const ApiError = require('../exceptions/api.error')
+const ApiError = require("../exceptions/api.error");
 
 // * Config
-const appConfig = require('../app/app.config')
+const appConfig = require("../app/app.config");
 
 class UserController {
   async registration(req, res, next) {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest('Error during authorization', errors.array()))
+        return next(
+          ApiError.BadRequest("Error during authorization", errors.array())
+        );
       }
       const { username, email, password } = req.body;
-      const userData = await userService.registration(username, email, password);
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
+      const userData = await userService.registration(
+        username,
+        email,
+        password
+      );
+      res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
       // error.middleware will take care of it
@@ -31,7 +40,10 @@ class UserController {
     try {
       const { email, password } = req.body;
       const userData = await userService.login(email, password);
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
+      res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
       // error.middleware will take care of it
@@ -43,7 +55,7 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       const token = await userService.logout(refreshToken);
-      res.clearCookie('refreshToken');
+      res.clearCookie("refreshToken");
       return res.json(token);
     } catch (err) {
       // error.middleware will take care of it
@@ -56,7 +68,7 @@ class UserController {
       const activationLink = req.params.link;
       await userService.activate(activationLink);
       return res.redirect(appConfig.COMPLETE_REGISTRATION_URL);
-    } catch(err){
+    } catch (err) {
       // error.middleware will take care of it
       next(err);
     }
@@ -66,7 +78,10 @@ class UserController {
     try {
       const { refreshToken } = req.cookies;
       const userData = await userService.refresh(refreshToken);
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
+      res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
       // error.middleware will take care of it
@@ -76,7 +91,7 @@ class UserController {
 
   async getUsers(req, res, next) {
     try {
-      const {page = 1, limit = 9} = req.query;
+      const { page = 1, limit = 9 } = req.query;
       const results = await userService.getAllUsers(page, limit);
       return res.json(results);
     } catch (err) {
@@ -87,8 +102,20 @@ class UserController {
 
   async getUsersFiltered(req, res, next) {
     try {
-      const { countries, roles, programmingLanguages } = req.body;
-      const users = await userService.getAllUsersFiltered(countries, roles, programmingLanguages);
+      const {
+        page = 1,
+        limit = 9,
+        countries,
+        roles,
+        programmingLanguages,
+      } = req.body;
+      const users = await userService.getAllUsersFiltered(
+        page,
+        limit,
+        countries,
+        roles,
+        programmingLanguages
+      );
       return res.json(users);
     } catch (err) {
       // error.middleware will take care of it
@@ -134,7 +161,7 @@ class UserController {
         userExperience,
         userLeader,
         userRole,
-        isRegistered,
+        isRegistered
       );
 
       return res.json(userData);
@@ -145,38 +172,39 @@ class UserController {
   }
 
   async resetPassword(req, res, next) {
-    try{
-      const {email} = req.body;
+    try {
+      const { email } = req.body;
       await userService.generateLink(email);
-      return res.send('Email sent')
-    } catch(err) {
+      return res.send("Email sent");
+    } catch (err) {
       // error.middleware will take care of it
       next(err);
     }
   }
 
   async verifyReset(req, res, next) {
-    try{
+    try {
       const { id, token } = req.params;
       await userService.verifyReset(id, token);
-      return res.redirect(`${appConfig.CLIENT_URL}/auth/password-recover/${id}/${token}`);
-    } catch(err) {
+      return res.redirect(
+        `${appConfig.CLIENT_URL}/auth/password-recover/${id}/${token}`
+      );
+    } catch (err) {
       // error.middleware will take care of it
       next(err);
     }
   }
 
   async resetFinish(req, res, next) {
-    try{
+    try {
       const { id, token, password } = req.body;
       await userService.updatePassword(id, token, password);
-      return res.send('Successfuly updated')
-    } catch(err) {
+      return res.send("Successfuly updated");
+    } catch (err) {
       // error.middleware will take care of it
       next(err);
     }
   }
-
 }
 
 module.exports = new UserController();

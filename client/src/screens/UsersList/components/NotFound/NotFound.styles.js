@@ -15,7 +15,6 @@ export const Container = styled.div`
 `
 
 export const TopText = styled.h2`
-  font-family: 'Montserrat';
   font-weight: 700;
   color: white;
   text-align: center;
@@ -37,7 +36,6 @@ export const TopText = styled.h2`
 `
 
 export const BotText = styled.h2`
-  font-family: 'Montserrat';
   font-weight: 400;
   color: white;
   text-align: center;
@@ -62,10 +60,9 @@ export const Button = styled.button`
   cursor: pointer;
   width: 211px;
   height: 55px;
-  background: #5D9D0B;
+  background: #5d9d0b;
   box-shadow: 0px 0px 50px rgba(93, 157, 11, 0.15);
   border-radius: 5px;
-  font-family: 'Montserrat';
   font-weight: 700;
   color: white;
   font-size: 16px;
@@ -84,7 +81,7 @@ export const InfoContainer = styled.div`
   align-items: center;
   flex-direction: column;
   margin-right: 50px;
-  
+
   @media screen and (min-width: 980px) and (max-width: 1250px) {
     margin-right: 20px;
   }

@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import Toolbar from '@mui/material/Toolbar'
 import { LIME, WHITE, BLACK, GREY, GREEN } from '../../../constants/colors'
 import { device } from '../../../constants/breakpoints'
-import ArrowLeft from '../../../assets/Arrows/ArrowLeft'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -57,7 +56,6 @@ export const TextContainer = styled.div`
 `
 
 export const TitleText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   color: ${BLACK.main};
@@ -100,7 +98,6 @@ export const MiddleContainer = styled.div`
 `
 
 export const MiddleText = styled.h4`
-  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
@@ -121,7 +118,6 @@ export const MiddleText = styled.h4`
 `
 
 export const BackButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 28px;
   color: ${BLACK.main};

@@ -58,7 +58,6 @@ export const TextContainer = styled.div`
 `
 
 export const TitleText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   color: ${BLACK.main};
@@ -78,7 +77,6 @@ export const TitleText = styled.h3`
 `
 
 export const SubTitleText = styled.h4`
-  font-family: 'Montserrat';
   font-weight: 400;
   font-size: 22px;
   color: ${GREY.text};
@@ -105,7 +103,6 @@ export const NewPasswordInput = styled.input`
   border: 1px solid #000000;
   border-radius: 3px;
   background: ${GREY.background};
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 22px;
   color: ${BLACK.main};
@@ -140,7 +137,6 @@ export const NewPasswordInput = styled.input`
 `
 
 export const NewPasswordButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 23px;
   border: none;

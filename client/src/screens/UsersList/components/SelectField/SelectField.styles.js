@@ -6,7 +6,6 @@ import Select from '@mui/material/Select'
 export const Item = styled(MenuItem)`
   /* Root */
   &.MuiMenuItem-root {
-    font-family: 'Montserrat';
     font-size: 0.875rem;
     font-weight: 600;
     list-style: none;
@@ -22,22 +21,20 @@ export const Item = styled(MenuItem)`
 
   /* Selected item inside the filter */
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
-    background: #365A08 !important;
+    background: #365a08 !important;
     color: white !important;
-    font-family: 'Montserrat';
     font-size: 0.875rem;
     font-weight: 600;
   }
 
   /* Hover for the selected item inside the filter */
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover {
-    background: #365A08 !important;
+    background: #365a08 !important;
     color: white !important;
-    font-family: 'Montserrat';
     font-size: 0.875rem;
     font-weight: 600;
   }
-  
+
   /* Root of input */
   &.MuiOutlinedInput-root
     MuiInputBase-root
@@ -48,14 +45,12 @@ export const Item = styled(MenuItem)`
     kouRYJ
     css-1nbbxgk-MuiInputBase-root-MuiOutlinedInput-root {
     color: white;
-    font-family: 'Montserrat';
     font-size: 0.875rem;
     font-weight: 600;
   }
 `
 
 export const PlaceholderText = styled.h5`
-  font-family: 'Montserrat';
   font-size: 0.875rem;
   font-weight: 600;
   color: white;

@@ -4,7 +4,6 @@ import React from 'react'
 // * Assets
 import Filters from '../../../../assets/Filters'
 import Close from '../../../../assets/Close'
-import FilterField from './FilterField/FilterField'
 
 // * Styles
 import {
@@ -14,12 +13,14 @@ import {
   FilterText,
   FiltersAmount,
   CloseContainer,
-  TitleText,
-  FilterSection,
   ButtonsContainer,
   CustomButton,
-  Line,
 } from './FiltersMenu.styles'
+
+// * Components
+import Countries from './Filters/Countries'
+import Roles from './Filters/Roles'
+import ProgrammingLanguages from './Filters/ProgrammingLanguages'
 
 const FiltersMenu = ({
   filterBar,
@@ -27,9 +28,9 @@ const FiltersMenu = ({
   countries,
   roles,
   programmingLanguages,
-  handleCountries,
-  handleRoles,
-  handleProgrammingLanguages,
+  setCountries,
+  setRoles,
+  setProgrammingLanguages,
   handleSubmitFilter,
   countriesOptions,
   concentrationOptions,
@@ -56,29 +57,13 @@ const FiltersMenu = ({
               <Close />
             </CloseContainer>
           </TopContent>
-          <FilterSection>
-            <TitleText>Roles</TitleText>
-            <FilterField options={concentrationOptions} data={roles} handleChange={handleRoles} />
-            <Line />
-          </FilterSection>
-          <FilterSection>
-            <TitleText>Countries</TitleText>
-            <FilterField
-              options={countriesOptions}
-              data={countries}
-              handleChange={handleCountries}
-            />
-            <Line />
-          </FilterSection>
-          <FilterSection>
-            <TitleText>Programming Languages</TitleText>
-            <FilterField
-              options={programmingLanguageOptions}
-              data={programmingLanguages}
-              handleChange={handleProgrammingLanguages}
-            />
-            <Line />
-          </FilterSection>
+          <Roles options={concentrationOptions} data={roles} setRoles={setRoles} />
+          <Countries options={countriesOptions} data={countries} setCountries={setCountries} />
+          <ProgrammingLanguages
+            options={programmingLanguageOptions}
+            data={programmingLanguages}
+            setProgrammingLanguages={setProgrammingLanguages}
+          />
           <ButtonsContainer>
             <CustomButton background="none" onClick={showFiltersBar}>
               Cancel

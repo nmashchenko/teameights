@@ -10,9 +10,9 @@ const getUsers = async (page) => {
   }
 }
 
-const getUsersFiltered = async (countries, roles, programmingLanguages) => {
+const getUsersFiltered = async (page, countries, roles, programmingLanguages) => {
   try {
-    const data = await api.post('/users-filtered', { countries, roles, programmingLanguages })
+    const data = await api.post('/users-filtered', { page, countries, roles, programmingLanguages })
     return data
   } catch (err) {
     console.log(err)

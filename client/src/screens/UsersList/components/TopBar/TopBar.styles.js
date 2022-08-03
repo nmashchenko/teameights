@@ -78,7 +78,6 @@ export const FilterContainer = styled.div`
 `
 
 export const FilterText = styled.h4`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 15px;
   color: #ffffff;

@@ -56,7 +56,6 @@ export const TextContainer = styled.div`
 `
 
 export const TitleText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   color: ${BLACK.main};
@@ -76,7 +75,6 @@ export const TitleText = styled.h3`
 `
 
 export const SubTitleText = styled.h4`
-  font-family: 'Montserrat';
   font-weight: 400;
   font-size: 22px;
   color: ${GREY.text};
@@ -104,7 +102,6 @@ export const RecoverInput = styled.input`
   border-radius: 3px;
   margin: 44px 0 44px 0;
   background: ${GREY.background};
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 22px;
   color: ${BLACK.main};
@@ -138,7 +135,6 @@ export const RecoverInput = styled.input`
 `
 
 export const RecoverButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 23px;
   border: none;
@@ -175,7 +171,6 @@ export const RecoverButton = styled.button`
 `
 
 export const BackButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 26px;
   color: ${BLACK.main};

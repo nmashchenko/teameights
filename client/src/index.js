@@ -1,14 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import { Provider } from 'react-redux';
-import { setupStore } from './store/store';
+// * Modules
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createGlobalStyle } from 'styled-components'
 
-const store = setupStore();
+// * Redux
+import { Provider } from 'react-redux'
+import { setupStore } from './store/store'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// * Components
+import App from './App'
+
+const GlobalStyle = createGlobalStyle`
+ * {  
+   font-family: "Montserrat" !important;
+ }
+`
+const store = setupStore()
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-);
+  <Provider store={store}>
+    <GlobalStyle />
+    <App />
+  </Provider>,
+)

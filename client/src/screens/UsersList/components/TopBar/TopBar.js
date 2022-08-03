@@ -5,7 +5,6 @@ import countryList from 'react-select-country-list'
 
 // * Assets
 import PlatformLogo from '../../../../assets/PlatformLogo'
-import SelectField from '../SelectField/SelectField'
 import Search from '../../../../assets/SearchIcon'
 import Filters from '../../../../assets/Filters'
 
@@ -28,6 +27,10 @@ import {
   FilterText,
 } from './TopBar.styles'
 
+import Countries from './Filters/Countries'
+import ProgrammingLanguages from './Filters/ProgrammingLanguages'
+import Roles from './Filters/Roles'
+
 function TopBar(props) {
   const countriesOptions = React.useMemo(() => countryList().getData(), [])
 
@@ -41,9 +44,9 @@ function TopBar(props) {
         countries={props.countries}
         roles={props.roles}
         programmingLanguages={props.programmingLanguages}
-        handleCountries={props.handleCountries}
-        handleRoles={props.handleRoles}
-        handleProgrammingLanguages={props.handleProgrammingLanguages}
+        setCountries={props.setCountries}
+        setRoles={props.setRoles}
+        setProgrammingLanguages={props.setProgrammingLanguages}
         handleSubmitFilter={props.handleSubmitFilter}
         countriesOptions={countriesOptions}
         concentrationOptions={concentrationOptions}
@@ -55,28 +58,21 @@ function TopBar(props) {
             <PlatformLogo />
           </AlternativeLogoContainer>
           <NavBar>
-            <NavBarContainer handleUserLogout={props.handleUserLogout} user={props.user}/>
+            <NavBarContainer handleUserLogout={props.handleUserLogout} user={props.user} />
             <LogoContainer>
               <PlatformLogo />
             </LogoContainer>
             <SelectContainer>
-              <SelectField
-                inputName={'Country'}
+              <Countries
                 options={countriesOptions}
                 data={props.countries}
-                handleChange={props.handleCountries}
+                setCountries={props.setCountries}
               />
-              <SelectField
-                inputName={'Role'}
-                options={concentrationOptions}
-                data={props.roles}
-                handleChange={props.handleRoles}
-              />
-              <SelectField
-                inputName={'Language'}
+              <Roles options={concentrationOptions} data={props.roles} setRoles={props.setRoles} />
+              <ProgrammingLanguages
                 options={programmingLanguageOptions}
                 data={props.programmingLanguages}
-                handleChange={props.handleProgrammingLanguages}
+                setProgrammingLanguages={props.setProgrammingLanguages}
               />
             </SelectContainer>
             <Button onClick={props.handleSubmitFilter}>

@@ -66,7 +66,6 @@ export const CardContainer = styled.div`
 `
 
 export const TopText = styled.h3`
-  font-family: 'Montserrat';
   text-align: center;
   font-size: ${(props) => props.fontSize || '18px'};
   font-weight: ${(props) => props.fontWeight || '700'};
@@ -119,7 +118,6 @@ export const MiddleTextContainer = styled.div`
 `
 
 export const ContinueButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 16px;
   margin-top: 36px;

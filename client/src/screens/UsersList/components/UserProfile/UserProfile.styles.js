@@ -11,7 +11,7 @@ export const Container = styled.div`
 `
 
 export const ProfileContainer = styled.div`
-  background: #26292B;
+  background: #26292b;
   width: 100%;
   height: 100%;
   border-radius: 15px;
@@ -81,7 +81,6 @@ export const ProjectLinkContainer = styled.div`
 `
 
 export const Text = styled.h3`
-  font-family: 'Montserrat';
   font-weight: ${(props) => props.fontWeight || '500'};
   font-size: ${(props) => props.fontSize || '24px'};
   color: ${(props) => props.color || '#fff'};
@@ -103,9 +102,8 @@ export const Button = styled.button`
   border: none;
   width: 132px;
   height: 40px;
-  background: #2E3239;
+  background: #2e3239;
   border-radius: 5px;
-  font-family: 'Montserrat';
   font-weight: 400;
   font-size: 16px;
   color: #fff;
@@ -120,4 +118,3 @@ export const Button = styled.button`
     transform: scale(1.05);
   }
 `
-

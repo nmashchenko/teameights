@@ -1,9 +1,7 @@
 // * Modules
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
-import lookup from 'country-code-lookup'
 import isEmpty from 'lodash/isEmpty'
-import isUndefined from 'lodash/isUndefined'
 import Modal from '@mui/material/Modal'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,12 +12,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import ROUTES from '../../constants/routes'
 
 // * Components
-import UserCard from './components/UserCard/UserCard'
 import TopBar from './components/TopBar/TopBar'
 import CardSkeleton from './components/CardSkeleton/CardSkeleton'
 import NotFound from './components/NotFound/NotFound'
 import UserProfile from './components/UserProfile/UserProfile'
 import SliderToTop from './components/SliderToTop/SliderToTop'
+import Cards from './components/Cards/Cards'
+import FilteredCards from './components/FilteredCards/FilteredCards'
 
 // * API
 import usersApi from '../../api/endpoints/users'
@@ -29,7 +28,6 @@ import authApi from '../../api/endpoints/auth'
 import {
   GridContainer,
   CardsContainer,
-  CardContainer,
   CardsZone,
   InfoContainer,
   GlobalStyle,
@@ -38,66 +36,34 @@ import {
 function UsersList() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const observer = useRef()
 
   /**
    * Set of states that are used by this component
    */
   const [pageNumber, setPageNumber] = useState(1)
+  const [filteredPageNumber, setFilteredPageNumber] = useState(1)
+  const [users, setUsers] = useState([])
+  const [filteredUsers, setFilteredUsers] = useState([])
+
   const [isLoading, setIsLoading] = useState(false)
   const [countries, setCountries] = useState([])
   const [roles, setRoles] = useState([])
   const [programmingLanguages, setProgrammingLanguages] = useState([])
   const [open, setOpen] = useState(false)
   const [showUser, setShowUser] = useState({})
-  const [users, setUsers] = useState([])
-  const [hasMore, setHasMore] = useState(false)
   const [notFound, setNotFound] = useState(false)
-  
+  const [displayFiltered, setDisplayFiltered] = useState(false)
+  const [trigger, setTrigger] = useState(false)
+
   const handleComeback = () => {
     setNotFound(false)
+    setDisplayFiltered(false)
+    setUsers([])
+    setFilteredUsers([])
     setPageNumber(1)
+    setFilteredPageNumber(1)
   }
-  /**
-   * This function will work one time when user loads page first time
-   * he will get list of all users that can be invited to the team
-   * this function should be optimized later for scaling purposes
-   */
-  useEffect(() => {
-    setIsLoading(true)
-    usersApi.getUsers(pageNumber).then((res) => {
-      setUsers((prevUsers) => {
-        return [...prevUsers, ...res.data.results]
-      })
-      setHasMore(!isUndefined(res.data.next))
-    })
-    // TODO: CHANGE BEFORE PRODUCTION !!!
-    setTimeout(function () {
-      setIsLoading(false)
-    }, 1000)
-    /**
-     * pageNumber dependency -> whenever user scrolls to the bottom client ask for new data on specific page from server (page is updated once user gets to the bottom)
-     * notFound dependency -> whenever user didn't find any data, set page to 1 and generate new cards for the user
-     */
-  }, [pageNumber, notFound])
 
-  /**
-   * Lazy loading of the pages, don't touch this part
-   */
-
-  const lastUserElementRef = useCallback(
-    (node) => {
-      if (isLoading) return
-      if (observer.current) observer.current.disconnect()
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPageNumber((prevPageNumber) => prevPageNumber + 1)
-        }
-      })
-      if (node) observer.current.observe(node)
-    },
-    [isLoading, hasMore],
-  )
   /**
    * Get global state from redux
    */
@@ -117,62 +83,24 @@ function UsersList() {
   }
 
   /**
-   * This is programmingLanguages useState filter, don't change it without approvement !!!
-   */
-  const handleCountries = (event) => {
-    const {
-      target: { value },
-    } = event
-    setCountries(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    )
-  }
-
-  /**
-   * This is programmingLanguages useState filter, don't change it without approvement !!!
-   */
-  const handleRoles = (event) => {
-    const {
-      target: { value },
-    } = event
-    setRoles(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    )
-  }
-
-  /**
-   * This is programmingLanguages useState filter, don't change it without approvement !!!
-   */
-  const handleProgrammingLanguages = (event) => {
-    const {
-      target: { value },
-    } = event
-    setProgrammingLanguages(
-      /* On autofill we get a stringified value. */
-      typeof value === 'string' ? value.split(',') : value,
-    )
-  }
-
-  /**
    * Function used to regenerate the list of users with filters
    * TODO: Review this function for potential bugs and in case of any make specific fixes
    */
   const handleSubmitFilter = () => {
     const getUsersFiltered = async () => {
       setIsLoading(true)
-      const users = await usersApi.getUsersFiltered(countries, roles, programmingLanguages)
-      console.log(users)
-      setNotFound(false)
-      if (isEmpty(users.data)) {
+      const users = await usersApi.getUsersFiltered(1, countries, roles, programmingLanguages)
+      if (isEmpty(users.data?.results)) {
         setNotFound(true)
+        setDisplayFiltered(false)
+      } else {
+        setTrigger((prev) => !prev)
+        setFilteredPageNumber(1)
+        setNotFound(false)
+        setDisplayFiltered(true)
+        setFilteredUsers([])
       }
-      setUsers(users.data)
-      // TODO: CHANGE BEFORE PRODUCTION !!!
-      // setTimeout(function () {
       setIsLoading(false)
-      // }, 2000);
     }
     getUsersFiltered()
   }
@@ -192,10 +120,9 @@ function UsersList() {
       navigate(ROUTES.login, { replace: true })
     }
 
-    if(isAuth && !user.user.isRegistered) {
+    if (isAuth && !user.user.isRegistered) {
       navigate(ROUTES.finishRegistration, { replace: true })
     }
-
   }, [isAuth, navigate])
 
   return (
@@ -207,9 +134,9 @@ function UsersList() {
         countries={countries}
         roles={roles}
         programmingLanguages={programmingLanguages}
-        handleCountries={handleCountries}
-        handleRoles={handleRoles}
-        handleProgrammingLanguages={handleProgrammingLanguages}
+        setCountries={setCountries}
+        setRoles={setRoles}
+        setProgrammingLanguages={setProgrammingLanguages}
         handleSubmitFilter={handleSubmitFilter}
         handleUserLogout={handleUserLogout}
       />
@@ -225,39 +152,38 @@ function UsersList() {
       {/* If nothing was found, show user a NotFound container */}
       {notFound ? (
         <InfoContainer>
-          <NotFound handleComeback={handleComeback}/>
+          <NotFound handleComeback={handleComeback} />
         </InfoContainer>
       ) : (
         <CardsZone>
           <GridContainer>
             <CardsContainer>
-              {users.map((element, index) => {
-                if (users.length === index + 1) {
-                  return (
-                    <CardContainer
-                      onClick={() => handleOpen(element)}
-                      key={index}
-                      ref={lastUserElementRef}
-                    >
-                      <UserCard
-                        countryCode={lookup.byCountry(element.userCountry)}
-                        key={element._id}
-                        person={element}
-                      />
-                    </CardContainer>
-                  )
-                } else {
-                  return (
-                    <CardContainer onClick={() => handleOpen(element)} key={index}>
-                      <UserCard
-                        countryCode={lookup.byCountry(element.userCountry)}
-                        key={element._id}
-                        person={element}
-                      />
-                    </CardContainer>
-                  )
-                }
-              })}
+              {displayFiltered ? (
+                <FilteredCards
+                  handleOpen={handleOpen}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  filteredUsers={filteredUsers}
+                  setFilteredUsers={setFilteredUsers}
+                  filteredPageNumber={filteredPageNumber}
+                  setFilteredPageNumber={setFilteredPageNumber}
+                  countries={countries}
+                  roles={roles}
+                  programmingLanguages={programmingLanguages}
+                  trigger={trigger}
+                />
+              ) : (
+                <Cards
+                  handleOpen={handleOpen}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                  users={users}
+                  setUsers={setUsers}
+                  pageNumber={pageNumber}
+                  setPageNumber={setPageNumber}
+                  notFound={notFound}
+                />
+              )}
               {/* Load skeleton before showing real cards to improve performance of the app */}
               <>{isLoading && <CardSkeleton cards={9} />}</>
             </CardsContainer>
