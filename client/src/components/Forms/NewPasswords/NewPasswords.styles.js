@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import Toolbar from "@mui/material/Toolbar";
-import {LIME, WHITE, BLACK, GREY} from '../../../constants/colors'
-import {device} from '../../../constants/breakpoints'
-import IconButton from '@mui/material/IconButton';
-import MuiAlert from '@mui/material/Alert';
+import Toolbar from '@mui/material/Toolbar'
+import { LIME, WHITE, BLACK, GREY } from '../../../constants/colors'
+import { device } from '../../../constants/breakpoints'
+import IconButton from '@mui/material/IconButton'
+import MuiAlert from '@mui/material/Alert'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -37,16 +37,16 @@ export const NewPasswordBox = styled.div`
   border-radius: 24px;
   background: ${WHITE.main};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     max-width: 515px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     max-width: 325px;
     padding: 50px 20px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     max-width: 290px;
   }
 `
@@ -58,41 +58,39 @@ export const TextContainer = styled.div`
 `
 
 export const TitleText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   color: ${BLACK.main};
   margin: ${(props) => props.margin || '0'};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: 28px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 22px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 20px;
   }
 `
 
 export const SubTitleText = styled.h4`
-  font-family: 'Montserrat';
   font-weight: 400;
   font-size: 22px;
   color: ${GREY.text};
   margin: 0;
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: 21px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 19px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 17px;
   }
 `
@@ -105,7 +103,6 @@ export const NewPasswordInput = styled.input`
   border: 1px solid #000000;
   border-radius: 3px;
   background: ${GREY.background};
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 22px;
   color: ${BLACK.main};
@@ -115,32 +112,31 @@ export const NewPasswordInput = styled.input`
     font-weight: 600;
     font-size: 23px;
 
-    @media ${device.mobileL} { 
+    @media ${device.mobileL} {
       font-size: 19px;
     }
 
-    @media ${device.mobileM} { 
+    @media ${device.mobileM} {
       font-size: 18px;
     }
   }
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     height: 70px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
     height: 67px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 16px;
     height: 64px;
   }
 `
 
 export const NewPasswordButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 23px;
   border: none;
@@ -161,16 +157,16 @@ export const NewPasswordButton = styled.button`
     background: ${LIME.main};
   }
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     height: 70px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
     height: 67px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 16px;
     height: 64px;
   }
@@ -197,12 +193,12 @@ export const ShowPass = styled(IconButton)`
     position: absolute;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     right: 0;
     top: 14px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     right: 0;
     top: 13px;
   }

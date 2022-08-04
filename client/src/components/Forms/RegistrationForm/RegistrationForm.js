@@ -1,23 +1,23 @@
 // * Modules
-import React, { useState, useEffect } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Snackbar from "@mui/material/Snackbar";
+import React, { useState, useEffect } from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Snackbar from '@mui/material/Snackbar'
 import { Link, useNavigate } from 'react-router-dom'
 
 // * Assets
-import SiteLogo from "../../../assets/SiteLogo";
+import SiteLogo from '../../../assets/SiteLogo'
 
 // * Api
-import authApi from "../../../api/endpoints/auth";
+import authApi from '../../../api/endpoints/auth'
 
 // * Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux'
 
 // * Constants
-import ROUTES from '../../../constants/routes';
+import ROUTES from '../../../constants/routes'
 
 import {
   NavBar,
@@ -33,37 +33,35 @@ import {
   PasswordContainer,
   ShowPass,
   AlertBox,
-} from "./RegistrationForm.styles";
+} from './RegistrationForm.styles'
 
 function RegistrationForm() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const {isAuth, error} = useSelector(
-    (state) => state.userReducer
-  );
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { isAuth, error } = useSelector((state) => state.userReducer)
 
-  const [open, setOpen] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [open, setOpen] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
 
   const Alert = React.forwardRef(function Alert(props, ref) {
-    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />;
-  });
+    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />
+  })
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleRegistration = () => {
-    dispatch(authApi.registerUser(username, email, password, confirmPassword));
-    setOpen(true);
-  };
+    dispatch(authApi.registerUser(username, email, password, confirmPassword))
+    setOpen(true)
+  }
 
   useEffect(() => {
     if (isAuth) {
@@ -72,7 +70,7 @@ function RegistrationForm() {
   }, [isAuth, navigate])
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" elevation={0}>
           <NavBar>
@@ -86,11 +84,11 @@ function RegistrationForm() {
           autoHideDuration={3000}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
+            vertical: 'top',
+            horizontal: 'right',
           }}
         >
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
             {error}
           </Alert>
         </Snackbar>
@@ -101,7 +99,7 @@ function RegistrationForm() {
             <RegistrationText fontSize="20px">Let's begin your journey</RegistrationText>
           </RegistrationTextContainer>
           <RegistrationInputContainer>
-          <RegistrationInput
+            <RegistrationInput
               placeholder="USERNAME"
               type="text"
               value={username}
@@ -116,25 +114,25 @@ function RegistrationForm() {
             <PasswordContainer>
               <RegistrationInput
                 placeholder="PASSWORD"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <ShowPass onClick={(e) => setShowPassword(!showPassword)}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </ShowPass>
-              </PasswordContainer>
-              <PasswordContainer>
+            </PasswordContainer>
+            <PasswordContainer>
               <RegistrationInput
                 placeholder="REPEAT PASSWORD"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <ShowPass onClick={(e) => setShowPassword(!showPassword)}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </ShowPass>
-              </PasswordContainer>
+            </PasswordContainer>
             <RegistrationButton onClick={handleRegistration}>Register</RegistrationButton>
           </RegistrationInputContainer>
           <BottomBox>
@@ -145,7 +143,7 @@ function RegistrationForm() {
         </RegistrationBox>
       </RegistrationContainer>
     </div>
-  );
+  )
 }
 
-export default RegistrationForm;
+export default RegistrationForm

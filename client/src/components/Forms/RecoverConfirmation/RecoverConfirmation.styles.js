@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import Toolbar from "@mui/material/Toolbar";
-import {LIME, WHITE, BLACK, GREY, GREEN} from '../../../constants/colors'
-import {device} from '../../../constants/breakpoints'
-import ArrowLeft from "../../../assets/Arrows/ArrowLeft"
+import Toolbar from '@mui/material/Toolbar'
+import { LIME, WHITE, BLACK, GREY, GREEN } from '../../../constants/colors'
+import { device } from '../../../constants/breakpoints'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -36,16 +35,16 @@ export const RecoverBox = styled.div`
   border-radius: 24px;
   background: ${WHITE.main};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     max-width: 515px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     max-width: 325px;
     padding: 50px 20px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     max-width: 290px;
   }
 `
@@ -57,21 +56,20 @@ export const TextContainer = styled.div`
 `
 
 export const TitleText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   color: ${BLACK.main};
   margin: ${(props) => props.margin || '0'};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: 28px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 22px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 20px;
   }
 `
@@ -88,11 +86,11 @@ export const MiddleContainer = styled.div`
   border: 3px solid ${GREEN.border};
   border-radius: 20px;
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     max-width: 380px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     max-width: 260px;
     padding: 1px 14px;
     margin: 15px 0 25px 0;
@@ -100,28 +98,26 @@ export const MiddleContainer = styled.div`
 `
 
 export const MiddleText = styled.h4`
-  font-family: 'Montserrat';
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
   text-align: start;
   color: ${GREEN.text};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: 19px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 17px;
   }
 `
 
 export const BackButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 28px;
   color: ${BLACK.main};
@@ -134,11 +130,11 @@ export const BackButton = styled.button`
     color: ${LIME.main};
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 17px;
   }
 `
@@ -148,7 +144,4 @@ export const ButtonContainer = styled.div`
   gap: 34px;
   align-items: center;
   margin-top: 20px;
-`
-
-export const Arrow = styled(ArrowLeft)`
 `

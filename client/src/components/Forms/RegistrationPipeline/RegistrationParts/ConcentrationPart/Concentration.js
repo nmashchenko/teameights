@@ -1,17 +1,17 @@
 // * Modules
-import React, { useState, useEffect } from "react";
-import Snackbar from "@mui/material/Snackbar";
+import React, { useState, useEffect } from 'react'
+import Snackbar from '@mui/material/Snackbar'
 
 // * Other
-import ProgressBar from "../../ProgressBar/ProgressBar";
-import { options } from "./Concentration.options";
-import NavLogo from "../../NavLogo/NavLogo";
-import yupValidation from "../../YupValidations/YupValidations";
+import ProgressBar from '../../ProgressBar/ProgressBar'
+import { options } from './Concentration.options'
+import NavLogo from '../../NavLogo/NavLogo'
+import yupValidation from '../../YupValidations/YupValidations'
 import Alert from '../../Alert/Alert'
 
 // * Redux
-import { useSelector, useDispatch } from "react-redux";
-import { registrationAuth } from "../../../../../store/reducers/RegistrationAuth";
+import { useSelector, useDispatch } from 'react-redux'
+import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 
 import {
   CardContainer,
@@ -20,50 +20,47 @@ import {
   MiddleTextContainer,
   ContinueButton,
   SelectField,
-} from "./Concentration.styles";
+} from './Concentration.styles'
 
 function Concentration() {
   // * useStates
-  const [open, setOpen] = useState(false);
-  const [errors, setErrors] = useState([]);
-  const [value, setValue] = useState("");
+  const [open, setOpen] = useState(false)
+  const [errors, setErrors] = useState([])
+  const [value, setValue] = useState('')
 
   // * Redux
-  const dispatch = useDispatch();
-  const { setActiveState, setProgress, setUserConcentration } =
-    registrationAuth.actions;
+  const dispatch = useDispatch()
+  const { setActiveState, setProgress, setUserConcentration } = registrationAuth.actions
 
-  const { progress } = useSelector(
-    (state) => state.registrationReducer
-  );
+  const { progress } = useSelector((state) => state.registrationReducer)
 
   // * Functions
   const handleSubmit = async () => {
     try {
       value
         ? await yupValidation.concentrationSchema.validate(value)
-        : await yupValidation.concentrationSchema.validate({ value });
-      dispatch(setUserConcentration(value.label));
-      dispatch(setActiveState("Experience"));
-      dispatch(setProgress("72"));
+        : await yupValidation.concentrationSchema.validate({ value })
+      dispatch(setUserConcentration(value.label))
+      dispatch(setActiveState('Experience'))
+      dispatch(setProgress('72'))
     } catch (err) {
-      setErrors(err.errors);
-      setOpen(true);
+      setErrors(err.errors)
+      setOpen(true)
     }
-  };
+  }
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+    if (reason === 'clickaway') {
+      return
     }
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const changeHandler = (value) => {
-    setValue(value);
-  };
+    setValue(value)
+  }
 
-  useEffect(() => {}, [errors]);
+  useEffect(() => {}, [errors])
 
   return (
     <>
@@ -74,8 +71,8 @@ function Concentration() {
           autoHideDuration={3000}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
+            vertical: 'top',
+            horizontal: 'right',
           }}
         >
           <Alert onClose={handleClose} severity="error">
@@ -99,8 +96,8 @@ function Concentration() {
                 borderRadius: 5,
                 colors: {
                   ...theme.colors,
-                  primary25: "#E0FF00",
-                  primary: "black",
+                  primary25: '#E0FF00',
+                  primary: 'black',
                 },
               })}
             />
@@ -109,7 +106,7 @@ function Concentration() {
         </CardContainer>
       </Container>
     </>
-  );
+  )
 }
 
-export default Concentration;
+export default Concentration

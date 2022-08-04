@@ -20,12 +20,12 @@ function EmailText() {
           y2="38"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.114583" stop-color="#E0FF00" />
-          <stop offset="1" stop-color="#0F1103" />
+          <stop offset="0.114583" stopColor="#E0FF00" />
+          <stop offset="1" stopColor="#0F1103" />
         </linearGradient>
       </defs>
     </svg>
-  );
+  )
 }
 
-export default EmailText;
+export default EmailText

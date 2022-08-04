@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {LIME, BLACK} from '../../../constants/colors'
+import { LIME, BLACK } from '../../../constants/colors'
 
 export const Container = styled.div`
   width: 100%;
@@ -8,7 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: ${LIME.background}
+  background: ${LIME.background};
 `
 
 export const TextContainer = styled.div`

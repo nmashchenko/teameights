@@ -1,29 +1,19 @@
 // * API
-import api from "../../http";
+import api from '../../http'
 
-// * Redux
-import { resetPassword } from '../../store/reducers/Reset'
-
-
-const getRegistrationEmail = (email) => async(dispatch) => {
-  try{
-    dispatch(resetPassword.actions.resetPassword)
-    await api.post('/reset-password', {email})
-    dispatch(resetPassword.actions.resetPasswordSuccess())
-  } catch(err) {
+const getRegistrationEmail = async (email)  => {
+  try {
+    await api.post('/reset-password', { email })
+  } catch (err) {
     console.log(err)
-    dispatch(resetPassword.actions.resetPasswordError())
   }
 }
 
-const updatePassword = (id, token, password, repeatPassword) => async(dispatch) => {
-  try{
-    dispatch(resetPassword.actions.resetPassword)
-    await api.post(`/reset-password/${id}/${token}`, {id, token, password, repeatPassword})
-    dispatch(resetPassword.actions.resetPasswordSuccess())
-  } catch(err) {
-    console.log(err)
-    dispatch(resetPassword.actions.resetPasswordError(err.response?.data?.message))
+const updatePassword = async (id, token, password, repeatPassword) => {
+  try {
+    await api.post(`/reset-password/${id}/${token}`, { id, token, password, repeatPassword })
+  } catch (err) {
+    return err.response.data.message
   }
 }
 

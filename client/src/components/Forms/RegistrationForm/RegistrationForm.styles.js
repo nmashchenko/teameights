@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from '@mui/material/IconButton';
-import MuiAlert from '@mui/material/Alert';
-import {LIME, WHITE, BLACK, GREY} from '../../../constants/colors'
-import {device} from '../../../constants/breakpoints'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import MuiAlert from '@mui/material/Alert'
+import { LIME, WHITE, BLACK, GREY } from '../../../constants/colors'
+import { device } from '../../../constants/breakpoints'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -32,16 +32,16 @@ export const RegistrationBox = styled.div`
   border-radius: 24px;
   background: ${WHITE.main};
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     max-width: 515px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     max-width: 355px;
     padding: 30px 20px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     max-width: 320px;
     padding: 15px 20px;
   }
@@ -56,21 +56,20 @@ export const RegistrationTextContainer = styled.div`
 `
 
 export const RegistrationText = styled.h3`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 30px;
   color: ${BLACK.main};
   margin: 0;
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: 28px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 22px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 20px;
   }
 `
@@ -93,7 +92,6 @@ export const RegistrationInput = styled.input`
   border-radius: 3px;
   margin: 14px 0 14px 0;
   background: ${GREY.background};
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 22px;
   color: ${BLACK.main};
@@ -102,32 +100,31 @@ export const RegistrationInput = styled.input`
     font-weight: 400;
     font-size: 24px;
 
-    @media ${device.mobileL} { 
+    @media ${device.mobileL} {
       font-size: 21px;
     }
 
-    @media ${device.mobileM} { 
+    @media ${device.mobileM} {
       font-size: 20px;
     }
   }
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     height: 70px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
     height: 67px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 16px;
     height: 64px;
   }
 `
 
 export const RegistrationButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 700;
   font-size: 23px;
   border: none;
@@ -149,23 +146,22 @@ export const RegistrationButton = styled.button`
     background: ${LIME.main};
   }
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     height: 70px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 18px;
     height: 67px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 16px;
     height: 64px;
   }
 `
 
 export const RegistrationLink = styled.a`
-  font-family: 'Montserrat';
   font-size: 22px;
   font-weight: 600;
   color: ${BLACK.main};
@@ -178,11 +174,11 @@ export const RegistrationLink = styled.a`
     color: ${LIME.main};
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: 14px;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     font-size: 13px;
   }
 `
@@ -197,7 +193,7 @@ export const BottomBox = styled.div`
   text-decoration: none;
   font-weight: 600;
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     width: 89%;
   }
 `
@@ -224,4 +220,3 @@ export const AlertBox = styled(MuiAlert)`
     max-width: 250px;
   }
 `
-

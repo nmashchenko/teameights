@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components'
-import {LIME, BLACK, WHITE} from '../../../../../constants/colors'
-import MuiAlert from '@mui/material/Alert';
-import {device} from '../../../../../constants/breakpoints'
+import { LIME, BLACK, WHITE } from '../../../../../constants/colors'
+import MuiAlert from '@mui/material/Alert'
+import { device } from '../../../../../constants/breakpoints'
 
 export const Container = styled.div`
   display: flex;
@@ -25,7 +25,6 @@ const linearGradient = keyframes`
   }
 `
 
-
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,46 +35,44 @@ export const CardContainer = styled.div`
   width: 100%;
   max-height: 363px;
   height: 100%;
-  background: linear-gradient(13deg,#17b94b,#39a59d,#e0ff00,#5d5d5a);
+  background: linear-gradient(13deg, #17b94b, #39a59d, #e0ff00, #5d5d5a);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   background-size: 240% 240%;
   animation: ${linearGradient} 10s ease infinite;
   border-radius: 13px;
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     max-width: 500px;
     max-height: 340px;
     margin: 40px 0 40px 0;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     max-width: 355px;
     max-height: 320px;
     margin: 30px 0 30px 0;
   }
 
-  @media ${device.mobileM} { 
+  @media ${device.mobileM} {
     max-width: 335px;
     max-height: 300px;
     margin: 30px 0 30px 0;
     padding: 5px 5px;
   }
-
 `
 
 export const TopText = styled.h3`
-  font-family: 'Montserrat';
   font-size: ${(props) => props.fontSize || '18px'};
   font-weight: ${(props) => props.fontWeight || '700'};
   margin: ${(props) => props.margin || '0 0 10px 0'};
   color: ${BLACK.main};
   text-align: center;
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     font-size: calc(${(props) => props.fontSize || '18px'} - 1px);
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     font-size: calc(${(props) => props.fontSize || '18px'} - 2px);
   }
 `
@@ -89,13 +86,13 @@ export const MiddleTextContainer = styled.div`
   width: 100%;
   margin-top: 10px;
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     margin-top: 0;
     max-width: 297px;
     text-align: center;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     margin-top: 0;
     max-width: 247px;
     text-align: center;
@@ -103,7 +100,6 @@ export const MiddleTextContainer = styled.div`
 `
 
 export const ContinueButton = styled.button`
-  font-family: 'Montserrat';
   font-weight: 600;
   font-size: 16px;
   margin-top: 36px;
@@ -120,17 +116,16 @@ export const ContinueButton = styled.button`
     transition: 0.3s ease-in-out;
   }
 
-  @media ${device.tablet} { 
+  @media ${device.tablet} {
     margin-top: 20px;
   }
 
-  @media ${device.mobileL} { 
+  @media ${device.mobileL} {
     margin-top: 20px;
   }
 `
 
 export const InputField = styled.input`
-  font-family: 'Montserrat';
   background: ${LIME.background};
   border: 0;
   outline: none;
