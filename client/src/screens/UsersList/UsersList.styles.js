@@ -1,5 +1,6 @@
 // * Modules
 import styled, { createGlobalStyle } from 'styled-components'
+import Modal from '@mui/material/Modal'
 
 export const GridContainer = styled.div`
   display: flex;
@@ -46,6 +47,11 @@ export const InfoContainer = styled.div`
   height: calc(100vh - 120px);
 `
 
+export const UserCardModal = styled(Modal)`
+  @media screen and (min-width: 0px) and (max-width: 730px) {
+    visibility: hidden;
+  }
+`
 /**
  * Global style applied for this component.
  * TODO: Move this global style to the root component after refactoring

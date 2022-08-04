@@ -33,6 +33,7 @@ function UserCard(props) {
     <Wrapper>
       <CardContainer>
         <UserInformationContainer>
+          {/* TODO: Change for real image! */}
           <div>
             <UserImage src={userImg} alt="userImg" />
           </div>

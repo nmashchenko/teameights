@@ -44,6 +44,7 @@ class UserService {
       activationLink,
       isRegistered,
     });
+
     await mailService.sendActivationMail(
       email,
       `${appConfig.API_URL}/api/activate/${activationLink}`
