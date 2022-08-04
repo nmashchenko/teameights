@@ -16,7 +16,7 @@ export const UserProfileContainer = styled.div`
   overflow-x: hidden;
 
   @media screen and (min-width: 730px) {
-    visibility: hidden;
+    display: none;
   }
 
   @media screen and (min-width: 480px) and (max-width: 730px) {

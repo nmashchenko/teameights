@@ -49,7 +49,7 @@ export const InfoContainer = styled.div`
 
 export const UserCardModal = styled(Modal)`
   @media screen and (min-width: 0px) and (max-width: 730px) {
-    visibility: hidden;
+    display: none;
   }
 `
 /**

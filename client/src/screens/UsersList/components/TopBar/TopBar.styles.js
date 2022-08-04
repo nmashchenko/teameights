@@ -21,7 +21,7 @@ export const LogoContainer = styled.div`
   margin-right: 7%;
 
   @media screen and (min-width: 0px) and (max-width: 980px) {
-    visibility: hidden;
+    display: none;
   }
 `
 
@@ -32,10 +32,10 @@ export const AlternativeLogoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: hidden;
+  display: none;
 
   @media screen and (min-width: 0px) and (max-width: 980px) {
-    visibility: visible;
+    display: inherit;
   }
 `
 
@@ -48,7 +48,7 @@ export const Button = styled.button`
   cursor: pointer;
 
   @media screen and (min-width: 0px) and (max-width: 980px) {
-    visibility: hidden;
+    display: none;
   }
 `
 
@@ -59,7 +59,7 @@ export const SelectContainer = styled.div`
   align-items: center;
 
   @media screen and (min-width: 0px) and (max-width: 980px) {
-    visibility: hidden;
+    display: none;
   }
 `
 
