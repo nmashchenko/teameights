@@ -4,8 +4,8 @@
 # Stack of technologies that we will be using for this project:
 
 **Front-End:** <br>
-⭐️	ReactJS for basic structure (functional) <br>
-⭐️  MaterialUI/Tailwind/something else for CSS (or probably styled-components with default CSS) <br>
+⭐️	ReactJS (functional) <br>
+⭐️  MaterialUI / Styled Components
 ⭐️	Redux <br>
 
  **Back-End:** <br>
@@ -30,16 +30,9 @@ Approximate widths for different devices:
 
 # Colors
 
-Colors is undetermined yet, however as for now (not final) we will be using:
-
-📌	Main BG: #E5E5E5 <br>
-📌	Subcolor #1: #D6D6D6 (inputs/dropdowns) <br>
-📌	Subcolor #2: #121111 (different blocks or cards background) <br>
-📌	Subcolor #3: #E0FF00 (some of the buttons) <br>
-
 This list will be constantly updating, and you will be always able to see the design on figma:
 
-https://www.figma.com/file/SNPSYWc2ztGlbkf1V8iP9r/%D0%BD%D0%B8%D0%BA%D0%B8%D1%82%D0%BA%D0%B8-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B8%D0%BA?node-id=0%3A1
+https://www.figma.com/file/QaEUKYrZnVUEOzMBBSd7Q3/team8s?node-id=0%3A1
 
 If you want to know why teameights.com or team8s.com – I don’t know, I just think this sounds cool =)
 
@@ -89,9 +82,12 @@ Regarding the team members as for now:
 
 🧑🏻	Nikita (dev) <br>
 🧑🏻	Zhangir (dev) <br>
-👩🏼	Anastasiia (designer) <br>
+🧑🏻  George (dev) <br>
+🧑🏻	Mitya (designer) <br>
 
-I think 6 people is enough, even though all of us are juniors, some of us have experience in developing real-world projects. Personally, I believe this idea is amazing and is 1) helping people, 2) could be monetized easily, 3) will give us some real-world experience as students, 4) can potentially give us an opportunity to found company and work on this full-time.
+👩🏼	Anastasiya ( inspirer ) <br>
+
+I think 5 people is enough, even though all of us are juniors, some of us have experience in developing real-world projects. Personally, I believe this idea is amazing and is 1) helping people, 2) could be monetized easily, 3) will give us some real-world experience as students, 4) can potentially give us an opportunity to found company and work on this full-time.
 
 *Once again guys, I don’t want to make any deadlines for now, since I understand that this is a side project for all of us and we probably will be building it slowly, that’s why I invited so many people and probably will invite 1 or 2 more so we can backup each other when some of us will be extremely busy. Also, regarding the roles for this project, if you want to work more on back than on front let me know, same works for other way.*
 
