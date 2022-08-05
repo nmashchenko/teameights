@@ -129,195 +129,25 @@ class UserService {
     return results;
   }
 
-  async getAllUsersFiltered(
-    page,
-    limit,
-    countries,
-    roles,
-    programmingLanguages
-  ) {
+  async getAllUsersFiltered(page, limit, filtersQuery) {
     page = parseInt(page);
     limit = parseInt(limit);
-
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
 
     const results = {};
-    // !CASES:
-    // * countries - not empty, roles, programmingLangs - empty
-    if (
-      !isEmpty(countries) &&
-      isEmpty(roles) &&
-      isEmpty(programmingLanguages)
-    ) {
-      const users = await User.find({
-        isRegistered: true,
-        userCountry: { $in: countries },
-      });
-      if (endIndex < users.length) {
-        results.next = {
-          page: page + 1,
-          limit: limit,
-        };
-      }
-      results.results = await User.find({
-        isRegistered: true,
-        userCountry: { $in: countries },
-      })
-        .limit(limit)
-        .skip(startIndex);
-      return results;
+    const users = await User.find(filtersQuery);
 
-      // * roles - not empty, countries, programmingLangs - empty
-    } else if (
-      !isEmpty(roles) &&
-      isEmpty(countries) &&
-      isEmpty(programmingLanguages)
-    ) {
-      const users = await User.find({
-        isRegistered: true,
-        userConcentration: { $in: roles },
-      });
-      if (endIndex < users.length) {
-        results.next = {
-          page: page + 1,
-          limit: limit,
-        };
-      }
-      results.results = await User.find({
-        isRegistered: true,
-        userConcentration: { $in: roles },
-      })
-        .limit(limit)
-        .skip(startIndex);
-      return results;
-
-      // * programmingLangs - not empty, countries, roles - empty
-    } else if (
-      !isEmpty(programmingLanguages) &&
-      isEmpty(countries) &&
-      isEmpty(roles)
-    ) {
-      const users = await User.find({
-        isRegistered: true,
-        userProgrammingLanguages: { $in: programmingLanguages },
-      });
-      if (endIndex < users.length) {
-        results.next = {
-          page: page + 1,
-          limit: limit,
-        };
-      }
-      results.results = await User.find({
-        isRegistered: true,
-        userProgrammingLanguages: { $in: programmingLanguages },
-      })
-        .limit(limit)
-        .skip(startIndex);
-      return results;
-
-      // * countries, roles - not empty, programmingLangs - empty
-    } else if (
-      !isEmpty(countries) &&
-      !isEmpty(roles) &&
-      isEmpty(programmingLanguages)
-    ) {
-      const users = await User.find({
-        isRegistered: true,
-        userCountry: { $in: countries },
-        userConcentration: { $in: roles },
-      });
-      if (endIndex < users.length) {
-        results.next = {
-          page: page + 1,
-          limit: limit,
-        };
-      }
-      results.results = await User.find({
-        isRegistered: true,
-        userCountry: { $in: countries },
-        userConcentration: { $in: roles },
-      })
-        .limit(limit)
-        .skip(startIndex);
-      return results;
-
-      // * countries, programmingLangs - not empty, roles - empty
-    } else if (
-      !isEmpty(countries) &&
-      !isEmpty(programmingLanguages) &&
-      isEmpty(roles)
-    ) {
-      const users = await User.find({
-        isRegistered: true,
-        userCountry: { $in: countries },
-        userProgrammingLanguages: { $in: programmingLanguages },
-      });
-      if (endIndex < users.length) {
-        results.next = {
-          page: page + 1,
-          limit: limit,
-        };
-      }
-      results.results = await User.find({
-        isRegistered: true,
-        userCountry: { $in: countries },
-        userProgrammingLanguages: { $in: programmingLanguages },
-      })
-        .limit(limit)
-        .skip(startIndex);
-      return results;
-
-      // * roles, programmingLangs - not empty, countries - empty
-    } else if (
-      !isEmpty(roles) &&
-      !isEmpty(programmingLanguages) &&
-      isEmpty(countries)
-    ) {
-      const users = await User.find({
-        isRegistered: true,
-        userConcentration: { $in: roles },
-        userProgrammingLanguages: { $in: programmingLanguages },
-      });
-      if (endIndex < users.length) {
-        results.next = {
-          page: page + 1,
-          limit: limit,
-        };
-      }
-      results.results = await User.find({
-        isRegistered: true,
-        userConcentration: { $in: roles },
-        userProgrammingLanguages: { $in: programmingLanguages },
-      })
-        .limit(limit)
-        .skip(startIndex);
-      return results;
-
-      // * roles, programmingLangs, countries - not empty
-    } else {
-      const users = await User.find({
-        isRegistered: true,
-        userCountry: { $in: countries },
-        userConcentration: { $in: roles },
-        userProgrammingLanguages: { $in: programmingLanguages },
-      });
-      if (endIndex < users.length) {
-        results.next = {
-          page: page + 1,
-          limit: limit,
-        };
-      }
-      results.results = await User.find({
-        isRegistered: true,
-        userCountry: { $in: countries },
-        userConcentration: { $in: roles },
-        userProgrammingLanguages: { $in: programmingLanguages },
-      })
-        .limit(limit)
-        .skip(startIndex);
-      return results;
+    if (endIndex < users.length) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
     }
+    results.results = await User.find(filtersQuery)
+      .limit(limit)
+      .skip(startIndex);
+    return results;
   }
 
   async checkUserEmail(refreshToken) {

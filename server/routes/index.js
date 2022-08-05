@@ -35,7 +35,7 @@ router.get("/reset-password/:id/:token", userController.verifyReset);
 
 // only for authenticated users
 
-router.post("/users-filtered", authMiddleware, userController.getUsersFiltered);
+router.get("/users-filtered", authMiddleware, userController.getUsersFiltered);
 router.get("/users", authMiddleware, userController.getUsers);
 
 module.exports = router;

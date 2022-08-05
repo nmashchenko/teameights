@@ -1,10 +1,6 @@
 function NonFound() {
   return (
-    <svg
-      viewBox="0 0 706 475"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 706 475" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d_220_488)">
         <path
           d="M66.508 412.687C60.2605 407.579 53.7393 402.7 47.9478 397.091C45.2573 394.491 42.7491 391.664 40.8338 388.426C39.8306 386.785 39.0097 385.006 38.4169 383.182C37.9153 381.677 37.4136 379.351 39.6025 379.123C40.4234 379.032 41.2898 379.214 42.0651 379.443C42.9315 379.671 43.2963 378.348 42.4299 378.12C39.8306 377.482 36.0912 377.664 36.5016 381.312C37.0032 385.416 39.6937 389.612 42.1563 392.758C48.5406 400.967 57.5699 407.123 65.5504 413.644C66.2344 414.192 67.1921 413.234 66.508 412.687Z"
@@ -638,9 +634,9 @@ function NonFound() {
           width="705.408"
           height="475"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
