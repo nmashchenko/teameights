@@ -10,6 +10,8 @@ const ApiError = require("../exceptions/api.error");
 // * Config
 const appConfig = require("../app/app.config");
 
+const qs = require("qs");
+
 class UserController {
   async registration(req, res, next) {
     try {
@@ -102,20 +104,15 @@ class UserController {
 
   async getUsersFiltered(req, res, next) {
     try {
-      const {
-        page = 1,
-        limit = 9,
-        countries,
-        roles,
-        programmingLanguages,
-      } = req.body;
+      const { page = 1, limit = 9, filtersQuery } = req.query;
+      const parsedQuery = qs.parse(filtersQuery);
+
       const users = await userService.getAllUsersFiltered(
         page,
         limit,
-        countries,
-        roles,
-        programmingLanguages
+        parsedQuery
       );
+
       return res.json(users);
     } catch (err) {
       // error.middleware will take care of it

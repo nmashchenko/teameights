@@ -27,6 +27,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^5.13.14",
     "nodemailer": "^6.7.6",
+    "qs": "^6.11.0",
     "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2"
   },

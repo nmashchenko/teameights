@@ -1,5 +1,8 @@
 // * API
 import api from '../../http'
+import filteredQueryMaker from '../../helpers/filteredQueryMaker'
+
+import qs from 'qs'
 
 const getUsers = async (page) => {
   try {
@@ -12,7 +15,11 @@ const getUsers = async (page) => {
 
 const getUsersFiltered = async (page, countries, roles, programmingLanguages) => {
   try {
-    const data = await api.post('/users-filtered', { page, countries, roles, programmingLanguages })
+    const filtersQuery = filteredQueryMaker(countries, roles, programmingLanguages)
+    let queryString = qs.stringify(filtersQuery)
+    const data = await api.get('/users-filtered', {
+      params: { page, filtersQuery: queryString },
+    })
     return data
   } catch (err) {
     console.log(err)
