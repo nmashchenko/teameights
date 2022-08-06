@@ -104,7 +104,6 @@ class UserController {
 
   async getUsersFiltered(req, res, next) {
     try {
-      console.log(req.query);
       const { page = 1, limit = 9, filtersQuery } = req.query;
       const parsedQuery = qs.parse(filtersQuery);
 
