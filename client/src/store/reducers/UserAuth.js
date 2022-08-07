@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   user: {},
@@ -13,29 +13,33 @@ export const userAuth = createSlice({
   initialState,
   reducers: {
     authUser(state) {
-      state.isLoading = true;
+      state.isLoading = true
     },
 
     authUserSuccess(state, action) {
-      state.isLoading = false;
-      state.error = '';
-      state.user = action.payload;
-      state.isAuth = true;
+      state.isLoading = false
+      state.error = ''
+      state.user = action.payload
+      state.isAuth = true
     },
 
     authUserLogout(state) {
-      state.isLoading = false;
-      state.error = '';
-      state.isAuth = false;
+      state.isLoading = false
+      state.error = ''
+      state.isAuth = false
       state.user = {}
     },
 
     authUserError(state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.isAuth = false;
+      state.isLoading = false
+      state.error = action.payload
+      state.isAuth = false
     },
-  }
+
+    authClearError(state) {
+      state.error = ''
+    },
+  },
 })
 
-export default userAuth.reducer;
+export default userAuth.reducer

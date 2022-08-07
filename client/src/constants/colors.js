@@ -4,8 +4,9 @@ const LIME = Object.freeze({
 })
 
 const GREEN = Object.freeze({
-  text: '#5FCC5D',
+  text: '#72EB3A',
   border: '#41F453',
+  button: '#5D9D0B',
 })
 
 const GREY = Object.freeze({
@@ -15,10 +16,15 @@ const GREY = Object.freeze({
 
 const BLACK = Object.freeze({
   main: '#121111',
+  background: '#26292B',
 })
 
 const WHITE = Object.freeze({
   main: '#fff',
 })
 
-export { LIME, BLACK, WHITE, GREY, GREEN }
+const RED = Object.freeze({
+  alert: '#cf625e',
+})
+
+export { LIME, BLACK, WHITE, GREY, GREEN, RED }

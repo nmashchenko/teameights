@@ -1,44 +1,54 @@
 // * Modules
 import React, { useState, useEffect } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import Snackbar from '@mui/material/Snackbar'
-import { Link, useNavigate } from 'react-router-dom'
-
-// * Assets
-import SiteLogo from '../../../assets/SiteLogo'
+import { useNavigate } from 'react-router-dom'
+import isEqual from 'lodash/isEqual'
 
 // * Api
 import authApi from '../../../api/endpoints/auth'
 
 // * Redux
 import { useSelector, useDispatch } from 'react-redux'
+import { userAuth } from '../../../store/reducers/UserAuth'
 
 // * Constants
 import ROUTES from '../../../constants/routes'
 
+// * Assets
+import NavBar from '../../NavBar/NavBar'
+import SnackBar from '../../SnackBar/SnackBar'
+import CodingImage from '../../../assets/CodingImage'
+import GitHub from '../../../assets/GitHub'
+import Google from '../../../assets/Google'
+import Backdrop from '../../Backdrop/Backdrop'
+
 import {
-  NavBar,
   RegistrationContainer,
-  RegistrationTextContainer,
-  RegistrationInputContainer,
-  RegistrationBox,
-  RegistrationText,
-  RegistrationInput,
-  RegistrationButton,
-  BottomBox,
+  LeftScreenContainer,
+  LoginSignUpContainer,
+  LoginSignUpLinks,
   RegistrationLink,
+  UsernameEmailPasswordContainer,
+  RegistrationInput,
   PasswordContainer,
   ShowPass,
-  AlertBox,
+  RegistrationButton,
+  OrContainer,
+  OrLine,
+  AlternativeRegistration,
+  RightScreenContainer,
+  ImageContainer,
+  TextContainer,
+  Text,
+  SpannedLetter,
+  SeparateLine,
 } from './RegistrationForm.styles'
 
 function RegistrationForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isAuth, error } = useSelector((state) => state.userReducer)
+  const { isAuth, error, isLoading } = useSelector((state) => state.userReducer)
 
   const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -46,10 +56,6 @@ function RegistrationForm() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />
-  })
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -59,9 +65,17 @@ function RegistrationForm() {
   }
 
   const handleRegistration = () => {
+    // clear previous error before making new request
+    dispatch(userAuth.actions.authClearError())
+    // make a request to register user
     dispatch(authApi.registerUser(username, email, password, confirmPassword))
-    setOpen(true)
   }
+
+  useEffect(() => {
+    if (error && !isEqual(error, 'User is not authorized')) {
+      setOpen(true)
+    }
+  }, [error])
 
   useEffect(() => {
     if (isAuth) {
@@ -69,54 +83,49 @@ function RegistrationForm() {
     }
   }, [isAuth, navigate])
 
+  useEffect(() => {
+    // clear previous error before making new request
+    dispatch(userAuth.actions.authClearError())
+  }, [])
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
-      </Box>
-      {error && (
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
-          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-            {error}
-          </Alert>
-        </Snackbar>
-      )}
+      <NavBar />
+      {error && <SnackBar open={open} handleClose={handleClose} error={error} />}
+      <Backdrop isLoading={isLoading} />
       <RegistrationContainer>
-        <RegistrationBox>
-          <RegistrationTextContainer>
-            <RegistrationText fontSize="20px">Let's begin your journey</RegistrationText>
-          </RegistrationTextContainer>
-          <RegistrationInputContainer>
+        <LeftScreenContainer>
+          <LoginSignUpContainer>
+            <LoginSignUpLinks>
+              <RegistrationLink to="/auth/login" color="white" border="none" marginbot="0">
+                Login
+              </RegistrationLink>
+              <RegistrationLink to="/auth/registration">Sign-Up</RegistrationLink>
+            </LoginSignUpLinks>
+          </LoginSignUpContainer>
+          <UsernameEmailPasswordContainer>
             <RegistrationInput
-              placeholder="USERNAME"
+              placeholder="Username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              margin="0 0 30px 0"
             />
             <RegistrationInput
-              placeholder="EMAIL"
+              placeholder="Email"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              margin="0 0 30px 0"
             />
             <PasswordContainer>
               <RegistrationInput
-                placeholder="PASSWORD"
+                placeholder="Password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                margin="0 0 30px 0"
+                paddingright="45px"
               />
               <ShowPass onClick={(e) => setShowPassword(!showPassword)}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
@@ -124,23 +133,45 @@ function RegistrationForm() {
             </PasswordContainer>
             <PasswordContainer>
               <RegistrationInput
-                placeholder="REPEAT PASSWORD"
+                placeholder="Repeat Password"
                 type={showPassword ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                paddingright="45px"
               />
               <ShowPass onClick={(e) => setShowPassword(!showPassword)}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </ShowPass>
             </PasswordContainer>
             <RegistrationButton onClick={handleRegistration}>Register</RegistrationButton>
-          </RegistrationInputContainer>
-          <BottomBox>
-            <RegistrationLink href="/auth/login" fontSize="12px" fontWeight="700">
-              Already registered?
-            </RegistrationLink>
-          </BottomBox>
-        </RegistrationBox>
+            <OrContainer>
+              <OrLine />
+              <Text fontSize="14px" margin="0 10px 0 10px" fontWeight="500">
+                OR
+              </Text>
+              <OrLine />
+            </OrContainer>
+            <AlternativeRegistration>
+              <div>
+                <GitHub />
+              </div>
+              <div>
+                <Google />
+              </div>
+            </AlternativeRegistration>
+          </UsernameEmailPasswordContainer>
+        </LeftScreenContainer>
+        <SeparateLine />
+        <RightScreenContainer>
+          <ImageContainer>
+            <CodingImage />
+            <TextContainer>
+              <Text>
+                start your coding journey with Team<SpannedLetter>8</SpannedLetter>s!
+              </Text>
+            </TextContainer>
+          </ImageContainer>
+        </RightScreenContainer>
       </RegistrationContainer>
     </div>
   )

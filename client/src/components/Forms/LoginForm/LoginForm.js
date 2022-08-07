@@ -1,38 +1,47 @@
 // * Modules
 import React, { useState, useEffect } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import Snackbar from '@mui/material/Snackbar'
 import { useNavigate } from 'react-router-dom'
-
-// * Assets
-import SiteLogo from '../../../assets/SiteLogo'
+import isEqual from 'lodash/isEqual'
 
 // * Api
 import authApi from '../../../api/endpoints/auth'
 
 // * Redux
+import { userAuth } from '../../../store/reducers/UserAuth'
 import { useSelector, useDispatch } from 'react-redux'
 
 // * Constants
 import ROUTES from '../../../constants/routes'
 
+// * Assets
+import NavBar from '../../NavBar/NavBar'
+import SnackBar from '../../SnackBar/SnackBar'
+import CodingImage from '../../../assets/CodingImage'
+import GitHub from '../../../assets/GitHub'
+import Google from '../../../assets/Google'
+
 import {
-  NavBar,
   LoginContainer,
-  LoginTextContainer,
-  LoginInputContainer,
-  LoginBox,
-  LoginText,
-  LoginInput,
-  LoginButton,
-  BottomBox,
+  LeftScreenContainer,
+  LoginSignUpContainer,
+  LoginSignUpLinks,
   LoginLink,
+  EmailPasswordContainer,
+  LoginInput,
   PasswordContainer,
   ShowPass,
-  AlertBox,
+  LoginButton,
+  OrContainer,
+  OrLine,
+  AlternativeLogin,
+  RightScreenContainer,
+  ImageContainer,
+  TextContainer,
+  Text,
+  SpannedLetter,
+  SeparateLine,
 } from './LoginForm.styles'
 
 function LoginForm() {
@@ -46,10 +55,6 @@ function LoginForm() {
   const [password, setPassword] = useState('')
   const [inputEmail, setInputEmail] = useState('')
 
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />
-  })
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
@@ -58,17 +63,26 @@ function LoginForm() {
   }
 
   const handleLogin = () => {
+    // clear previous error before making new request
+    dispatch(userAuth.actions.authClearError())
     // check if user is registered in the system.
     dispatch(authApi.loginUser(inputEmail, password))
-    setOpen(true)
   }
 
   // check if user is authenticated and update user(object) with data about him
   useEffect(() => {
+    // clear previous error before making new request
+    dispatch(userAuth.actions.authClearError())
     if (localStorage.getItem('token')) {
       dispatch(authApi.checkAuth())
     }
   }, [])
+
+  useEffect(() => {
+    if (error && !isEqual(error, 'User is not authorized')) {
+      setOpen(true)
+    }
+  }, [error])
 
   useEffect(() => {
     if (isAuth) {
@@ -79,62 +93,79 @@ function LoginForm() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
-      </Box>
-      {error && (
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
-          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-            {error}
-          </Alert>
-        </Snackbar>
-      )}
+      <NavBar />
+      {error && <SnackBar open={open} handleClose={handleClose} error={error} />}
       <LoginContainer>
-        <LoginBox>
-          <LoginTextContainer>
-            <LoginText fontSize="20px">Welcome back 🎉</LoginText>
-          </LoginTextContainer>
-          <LoginInputContainer>
+        <LeftScreenContainer>
+          <LoginSignUpContainer>
+            <LoginSignUpLinks>
+              <LoginLink to="/auth/login">Login</LoginLink>
+              <LoginLink to="/auth/registration" color="white" border="none" marginbot="0">
+                Sign-Up
+              </LoginLink>
+            </LoginSignUpLinks>
+          </LoginSignUpContainer>
+          <EmailPasswordContainer>
             <LoginInput
-              placeholder="EMAIL"
+              placeholder="Email"
               type="text"
               value={inputEmail}
               onChange={(e) => setInputEmail(e.target.value)}
+              margin="0 0 30px 0"
             />
             <PasswordContainer>
               <LoginInput
-                placeholder="PASSWORD"
+                placeholder="Password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                paddingright="45px"
               />
               <ShowPass onClick={(e) => setShowPassword(!showPassword)}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </ShowPass>
             </PasswordContainer>
-            <LoginButton onClick={handleLogin}>LOGIN</LoginButton>
-          </LoginInputContainer>
-          <BottomBox>
-            <LoginLink href="/auth/password-recover" fontSize="12px" fontWeight="700">
-              Forgot password?
+            <LoginButton onClick={handleLogin}>Login</LoginButton>
+            <LoginLink
+              color="white"
+              border="none"
+              marginbot="0"
+              margintop="20px"
+              to="/auth/password-recover"
+              fontSize="14px"
+              fontWeight="600"
+            >
+              Forgot Password?
             </LoginLink>
-            <LoginLink href="/auth/registration" fontSize="12px" fontWeight="700">
-              Sign up
-            </LoginLink>
-          </BottomBox>
-        </LoginBox>
+            <OrContainer>
+              <OrLine />
+              <Text fontSize="14px" margin="0 10px 0 10px" fontWeight="500">
+                OR
+              </Text>
+              <OrLine />
+            </OrContainer>
+            <AlternativeLogin>
+              <div>
+                <GitHub />
+              </div>
+              <div>
+                <Google />
+              </div>
+            </AlternativeLogin>
+          </EmailPasswordContainer>
+        </LeftScreenContainer>
+        <SeparateLine />
+        <RightScreenContainer>
+          <ImageContainer>
+            <CodingImage />
+            <TextContainer>
+              <Text>Welcome back!</Text>
+              <Text>
+                Are you ready to find your Team<SpannedLetter>8</SpannedLetter>s?
+              </Text>
+            </TextContainer>
+          </ImageContainer>
+        </RightScreenContainer>
       </LoginContainer>
     </div>
   )

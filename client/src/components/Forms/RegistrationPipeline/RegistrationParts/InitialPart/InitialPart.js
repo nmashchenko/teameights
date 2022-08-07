@@ -47,13 +47,13 @@ function InitialPart() {
     }
   }, [curRegistration, navigate])
 
-  // make sure user is actually authorized
-  useEffect(() => {
-    // if user is not authorized -> redirect
-    if (isEqual(error, 'User is not authorized')) {
-      navigate(ROUTES.login, { replace: true })
-    }
-  }, [error, navigate])
+  // // make sure user is actually authorized
+  // useEffect(() => {
+  //   // if user is not authorized -> redirect
+  //   if (isEqual(error, 'User is not authorized')) {
+  //     navigate(ROUTES.login, { replace: true })
+  //   }
+  // }, [error, navigate])
 
   return (
     <>
