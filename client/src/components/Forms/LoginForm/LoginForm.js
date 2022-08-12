@@ -92,7 +92,7 @@ function LoginForm() {
   }, [isAuth, navigate])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <>
       <NavBar />
       {error && <SnackBar open={open} handleClose={handleClose} error={error} />}
       <LoginContainer>
@@ -167,7 +167,7 @@ function LoginForm() {
           </ImageContainer>
         </RightScreenContainer>
       </LoginContainer>
-    </div>
+    </>
   )
 }
 

@@ -174,6 +174,7 @@ class UserController {
       await userService.generateLink(email);
       return res.send("Email sent");
     } catch (err) {
+      console.log(err);
       // error.middleware will take care of it
       next(err);
     }

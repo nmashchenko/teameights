@@ -89,7 +89,7 @@ function RegistrationForm() {
   }, [])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <>
       <NavBar />
       {error && <SnackBar open={open} handleClose={handleClose} error={error} />}
       <Backdrop isLoading={isLoading} />
@@ -173,7 +173,7 @@ function RegistrationForm() {
           </ImageContainer>
         </RightScreenContainer>
       </RegistrationContainer>
-    </div>
+    </>
   )
 }
 
