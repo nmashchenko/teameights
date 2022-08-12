@@ -174,16 +174,6 @@ export const AlternativeRegistration = styled.div`
   align-items: center;
   gap: 15px;
   margin: 20px 0 20px 0;
-
-  > div {
-    cursor: pointer;
-    &:hover {
-      transition: 0.15s;
-      -webkit-transform: scale(1.05);
-      -ms-transform: scale(1.05);
-      transform: scale(1.05);
-    }
-  }
 `
 
 export const RightScreenContainer = styled.div`

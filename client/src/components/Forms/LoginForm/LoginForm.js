@@ -19,8 +19,9 @@ import ROUTES from '../../../constants/routes'
 import NavBar from '../../NavBar/NavBar'
 import SnackBar from '../../SnackBar/SnackBar'
 import CodingImage from '../../../assets/CodingImage'
-import GitHub from '../../../assets/GitHub'
-import Google from '../../../assets/Google'
+
+// * Helpers
+import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
 
 import {
   LoginContainer,
@@ -145,12 +146,7 @@ function LoginForm() {
               <OrLine />
             </OrContainer>
             <AlternativeLogin>
-              <div>
-                <GitHub />
-              </div>
-              <div>
-                <Google />
-              </div>
+              <SocialLoginRegistration />
             </AlternativeLogin>
           </EmailPasswordContainer>
         </LeftScreenContainer>

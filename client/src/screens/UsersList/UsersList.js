@@ -125,7 +125,7 @@ function UsersList() {
       navigate(ROUTES.login, { replace: true })
     }
 
-    if (isAuth && !user.user.isRegistered) {
+    if (isAuth && !user.user?.isRegistered) {
       navigate(ROUTES.finishRegistration, { replace: true })
     }
   }, [isAuth, navigate])
