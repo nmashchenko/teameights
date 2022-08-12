@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import isEmpty from 'lodash/isEmpty'
 import { useNavigate } from 'react-router-dom'
+import { isEqual } from 'lodash'
 
 // * Redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -95,17 +96,23 @@ function UsersList() {
     const getUsersFiltered = async () => {
       setIsLoading(true)
       const users = await usersApi.getUsersFiltered(1, countries, roles, programmingLanguages)
-      if (isEmpty(users.data?.results)) {
-        setNotFound(true)
-        setDisplayFiltered(false)
+      // check if user's token expired and redirect
+      if (isEqual(users, 'Request failed with status code 401')) {
+        dispatch(authApi.logoutUser())
+        navigate(ROUTES.login, { replace: true })
       } else {
-        setTrigger((prev) => !prev)
-        setFilteredPageNumber(1)
-        setNotFound(false)
-        setDisplayFiltered(true)
-        setFilteredUsers([])
+        if (isEmpty(users.data?.results)) {
+          setNotFound(true)
+          setDisplayFiltered(false)
+        } else {
+          setTrigger((prev) => !prev)
+          setFilteredPageNumber(1)
+          setNotFound(false)
+          setDisplayFiltered(true)
+          setFilteredUsers([])
+        }
+        setIsLoading(false)
       }
-      setIsLoading(false)
     }
     getUsersFiltered()
   }
