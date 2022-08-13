@@ -90,6 +90,7 @@ class UserService {
       const isActivated = true;
       const hashPassword = await bcrypt.hash(sub, 3); // hash password
       const user = await User.create({
+        username: "temporary",
         userRealName: name,
         password: hashPassword,
         email,

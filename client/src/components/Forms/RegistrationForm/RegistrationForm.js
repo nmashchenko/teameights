@@ -50,7 +50,7 @@ import {
 function RegistrationForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isAuth, error, isLoading } = useSelector((state) => state.userReducer)
+  const { user, isAuth, error, isLoading } = useSelector((state) => state.userReducer)
 
   const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -80,8 +80,12 @@ function RegistrationForm() {
   }, [error])
 
   useEffect(() => {
-    if (isAuth) {
+    if (isAuth && !user.user.isActivated) {
       navigate(ROUTES.confirmEmail, { replace: true })
+    } else if (isAuth && !user.user.isRegistered) {
+      navigate(ROUTES.finishRegistration, { replace: true })
+    } else if (isAuth && user.user.isRegistered && user.user.isActivated) {
+      navigate(ROUTES.temporary, { replace: true })
     }
   }, [isAuth, navigate])
 
