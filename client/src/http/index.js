@@ -1,9 +1,6 @@
 // * Modules
 import axios from 'axios'
 
-// * Helpers
-import useRedirect from '../hooks/useRedirect'
-
 // * API_URL
 export const API_URL = 'http://localhost:5000/api'
 
@@ -31,6 +28,7 @@ api.interceptors.response.use(
         return api.request(originalRequest)
       } catch (err) {
         console.log('Not authorized')
+        localStorage.removeItem('token')
       }
     }
     throw error

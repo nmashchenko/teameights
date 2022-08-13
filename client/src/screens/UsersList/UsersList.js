@@ -97,7 +97,7 @@ function UsersList() {
       setIsLoading(true)
       const users = await usersApi.getUsersFiltered(1, countries, roles, programmingLanguages)
       // check if user's token expired and redirect
-      if (isEqual(users, 'Request failed with status code 401')) {
+      if (isEqual(localStorage.getItem('token'), null)) {
         dispatch(authApi.logoutUser())
         navigate(ROUTES.login, { replace: true })
       } else {

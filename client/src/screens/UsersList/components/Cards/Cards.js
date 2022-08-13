@@ -62,7 +62,7 @@ const Cards = ({
       .getUsers(pageNumber)
       .then((res) => {
         // check if user's token expired and redirect
-        if (isEqual(res, 'Request failed with status code 401')) {
+        if (isEqual(localStorage.getItem('token'), null)) {
           dispatch(authApi.logoutUser())
           navigate(ROUTES.login, { replace: true })
         } else {
