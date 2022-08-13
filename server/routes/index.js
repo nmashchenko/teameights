@@ -19,6 +19,10 @@ router.post(
   userController.registration
 ); // validation middleware
 router.post("/login", userController.login);
+router.post(
+  "/social-login-registration",
+  userController.socialLoginRegistration
+);
 router.post("/logout", userController.logout);
 router.post("/registration-checkout", userController.registrationCompletion);
 router.post("/reset-password", userController.resetPassword);

@@ -10,6 +10,7 @@ const getUsers = async (page) => {
     return data
   } catch (err) {
     console.log(err)
+    return err.message
   }
 }
 
@@ -22,7 +23,7 @@ const getUsersFiltered = async (page, countries, roles, programmingLanguages) =>
     })
     return data
   } catch (err) {
-    console.log(err)
+    return err.message
   }
 }
 

@@ -1,36 +1,40 @@
 // * Modules
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 //* Models
-const Token = require('../models/Token')
+const Token = require("../models/Token");
 
 // * Config
-const appConfig = require('../app/app.config')
+const appConfig = require("../app/app.config");
 
-class TokenService { 
+class TokenService {
   generateTokens(payload) {
-    const accessToken = jwt.sign(payload, appConfig.JWT_ACCESS_KEY, {expiresIn: '30m'})
-    const refreshToken = jwt.sign(payload, appConfig.JWT_REFRESH_KEY, {expiresIn: '30d'})
+    const accessToken = jwt.sign(payload, appConfig.JWT_ACCESS_KEY, {
+      expiresIn: "30m",
+    });
+    const refreshToken = jwt.sign(payload, appConfig.JWT_REFRESH_KEY, {
+      expiresIn: "30d",
+    });
     return {
       accessToken,
       refreshToken,
-    }
+    };
   }
 
   validateAccessToken(token) {
-    try{
+    try {
       const userData = jwt.verify(token, appConfig.JWT_ACCESS_KEY);
       return userData;
-    } catch(err){
+    } catch (err) {
       return null;
     }
   }
 
   validateRefreshToken(token) {
-    try{
+    try {
       const userData = jwt.verify(token, appConfig.JWT_REFRESH_KEY);
       return userData;
-    } catch(err){
+    } catch (err) {
       return null;
     }
   }
@@ -39,23 +43,23 @@ class TokenService {
     // * Important note: With this approach, for one user we will get only one token,
     // * so this basically means if user is logged in from his PC and will login from
     // * his Ipad, he will be automatically logged out on PC
-    const tokenData = await Token.findOne({user: userId})
-    if(tokenData) { 
+    const tokenData = await Token.findOne({ user: userId });
+    if (tokenData) {
       tokenData.refreshToken = refreshToken;
       return await tokenData.save();
     }
 
-    const token = await Token.create({user: userId, refreshToken})
+    const token = await Token.create({ user: userId, refreshToken });
     return token;
   }
 
   async removeToken(refreshToken) {
-    const tokenData = await Token.deleteOne({refreshToken})
+    const tokenData = await Token.deleteOne({ refreshToken });
     return tokenData;
   }
 
   async findToken(refreshToken) {
-    const tokenData = await Token.findOne({refreshToken})
+    const tokenData = await Token.findOne({ refreshToken });
     return tokenData;
   }
 }

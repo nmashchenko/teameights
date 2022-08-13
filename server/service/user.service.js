@@ -83,6 +83,32 @@ class UserService {
     return { ...tokens, user }; // return access&refresh tokens, and user
   }
 
+  async socialLoginRegistration(name, email, picture, sub) {
+    const user = await User.findOne({ email });
+    if (!user) {
+      const isRegistered = false;
+      const isActivated = true;
+      const hashPassword = await bcrypt.hash(sub, 3); // hash password
+      const user = await User.create({
+        userRealName: name,
+        password: hashPassword,
+        email,
+        isRegistered,
+        isActivated,
+        userAvatar: picture,
+      });
+      const userDto = new UserDto(user);
+      const tokens = tokenService.generateTokens({ ...userDto }); // get tokens
+      await tokenService.saveToken(userDto.id, tokens.refreshToken); // save refresh token into the database
+      return { ...tokens, user }; // return access&refresh tokens, and user
+    }
+
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto }); // get tokens
+    await tokenService.saveToken(userDto.id, tokens.refreshToken); // save refresh token into the database
+    return { ...tokens, user }; // return access&refresh tokens, and user
+  }
+
   async logout(refreshToken) {
     const token = await tokenService.removeToken(refreshToken); // remove refresh token from DB if user logs out
     return token;

@@ -6,7 +6,7 @@ import isEqual from 'lodash/isEqual'
 import { Link } from 'react-router-dom'
 
 // * Constants
-import { WHITE, BLACK, GREEN } from '../../../constants/colors'
+import { WHITE, BLACK, GREEN, BLUE } from '../../../constants/colors'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -96,7 +96,7 @@ export const RegistrationInput = styled.input`
   background: ${WHITE.main};
   font-weight: 600;
   font-size: 18px;
-  color: grey;
+  color: rgba(0, 0, 0, 0.85);
   padding-left: 10px;
   padding-right: ${(props) => props.paddingright || '15px'};
 
@@ -108,6 +108,10 @@ export const RegistrationInput = styled.input`
     font-weight: 600;
     font-size: 18px;
     color: rgba(0, 0, 0, 0.3);
+  }
+
+  &:focus {
+    border: 1px solid ${BLUE.inputBorder};
   }
 
   @media screen and (min-width: 950px) and (max-width: 1200px) {
@@ -174,16 +178,6 @@ export const AlternativeRegistration = styled.div`
   align-items: center;
   gap: 15px;
   margin: 20px 0 20px 0;
-
-  > div {
-    cursor: pointer;
-    &:hover {
-      transition: 0.15s;
-      -webkit-transform: scale(1.05);
-      -ms-transform: scale(1.05);
-      transform: scale(1.05);
-    }
-  }
 `
 
 export const RightScreenContainer = styled.div`

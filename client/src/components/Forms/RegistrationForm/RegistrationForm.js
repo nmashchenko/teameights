@@ -19,10 +19,12 @@ import ROUTES from '../../../constants/routes'
 import NavBar from '../../NavBar/NavBar'
 import SnackBar from '../../SnackBar/SnackBar'
 import CodingImage from '../../../assets/CodingImage'
-import GitHub from '../../../assets/GitHub'
-import Google from '../../../assets/Google'
 import Backdrop from '../../Backdrop/Backdrop'
 
+// * Helpers
+import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
+
+// * Styles
 import {
   RegistrationContainer,
   LeftScreenContainer,
@@ -147,17 +149,12 @@ function RegistrationForm() {
             <OrContainer>
               <OrLine />
               <Text fontSize="14px" margin="0 10px 0 10px" fontWeight="500">
-                OR
+                OR LOGIN WITH
               </Text>
               <OrLine />
             </OrContainer>
             <AlternativeRegistration>
-              <div>
-                <GitHub />
-              </div>
-              <div>
-                <Google />
-              </div>
+              <SocialLoginRegistration />
             </AlternativeRegistration>
           </UsernameEmailPasswordContainer>
         </LeftScreenContainer>

@@ -1,7 +1,12 @@
 // * Modules
+import { useNavigate } from 'react-router-dom'
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import lookup from 'country-code-lookup'
 import isUndefined from 'lodash/isUndefined'
+import { isEqual } from 'lodash'
+
+// * Redux
+import { useDispatch } from 'react-redux'
 
 // * Styles
 import { CardContainer } from './FilteredCards.style'
@@ -9,8 +14,12 @@ import { CardContainer } from './FilteredCards.style'
 // * Components
 import UserCard from '../UserCard/UserCard'
 
+// * Constants
+import ROUTES from '../../../../constants/routes'
+
 // * API
 import usersApi from '../../../../api/endpoints/users'
+import authApi from '../../../../api/endpoints/auth'
 
 const FilteredCards = ({
   handleOpen,
@@ -26,6 +35,8 @@ const FilteredCards = ({
   trigger,
 }) => {
   const observer = useRef()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [hasMore, setHasMore] = useState(false)
   /**
    * Lazy loading of the pages, don't touch this part
@@ -54,10 +65,19 @@ const FilteredCards = ({
     usersApi
       .getUsersFiltered(filteredPageNumber, countries, roles, programmingLanguages)
       .then((res) => {
-        setFilteredUsers((prevUsers) => {
-          return [...prevUsers, ...res.data.results]
-        })
-        setHasMore(!isUndefined(res.data.next))
+        // check if user's token expired and redirect
+        if (isEqual(localStorage.getItem('token'), null)) {
+          dispatch(authApi.logoutUser())
+          navigate(ROUTES.login, { replace: true })
+        } else {
+          setFilteredUsers((prevUsers) => {
+            return [...prevUsers, ...res.data.results]
+          })
+          setHasMore(!isUndefined(res.data.next))
+        }
+      })
+      .catch((err) => {
+        console.log('error: ' + err)
       })
     // TODO: CHANGE BEFORE PRODUCTION !!!
     setTimeout(function () {
