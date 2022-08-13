@@ -21,6 +21,8 @@ const BLUE = Object.freeze({
 const BLACK = Object.freeze({
   main: '#121111',
   background: '#26292B',
+  cardContainer: '#161616',
+  line: '#2e3239', // separating line in registration pipeline
 })
 
 const WHITE = Object.freeze({

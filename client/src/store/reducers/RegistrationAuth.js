@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   userData: {
     email: '',
+    userUsername: '',
     userRealName: '',
     userAge: '',
     userConcentration: '',
@@ -31,7 +32,11 @@ export const registrationAuth = createSlice({
       state.curRegistration = action.payload
     },
 
-    setUserName(state, action) {
+    setUserUsername(state, action) {
+      state.userData.userUsername = action.payload
+    },
+
+    setUserRealName(state, action) {
       state.userData.userRealName = action.payload
     },
 
@@ -68,27 +73,27 @@ export const registrationAuth = createSlice({
     },
 
     setActiveState(state, action) {
-      state.active = action.payload;
+      state.active = action.payload
     },
 
     setProgress(state, action) {
-      state.progress = action.payload;
+      state.progress = action.payload
     },
 
     finishRegistration(state) {
-      state.isLoading = true;
+      state.isLoading = true
     },
 
     finishRegistrationSuccess(state) {
-      state.isLoading = false;
-      state.error = '';
+      state.isLoading = false
+      state.error = ''
     },
 
     finishRegistrationError(state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
+      state.isLoading = false
+      state.error = action.payload
     },
-  }
+  },
 })
 
-export default registrationAuth.reducer;
+export default registrationAuth.reducer
