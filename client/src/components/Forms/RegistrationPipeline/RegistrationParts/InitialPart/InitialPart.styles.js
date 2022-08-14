@@ -24,6 +24,7 @@ export const CardContainer = styled.div`
   background: ${BLACK.cardContainer};
   border-radius: 25px;
   margin-bottom: 78px;
+  box-shadow: 0px 5px 50px rgba(0, 0, 0, 0.1);
 `
 
 export const TopText = styled.h3`

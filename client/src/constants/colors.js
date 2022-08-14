@@ -7,11 +7,13 @@ const GREEN = Object.freeze({
   text: '#72EB3A',
   border: '#41F453',
   button: '#5D9D0B',
+  alternativeBorder: '#365a08',
 })
 
 const GREY = Object.freeze({
   text: '#979797',
   background: '#F6F6F6',
+  line: '#eaeaf0',
 })
 
 const BLUE = Object.freeze({

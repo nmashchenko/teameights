@@ -26,7 +26,7 @@ function InitialPart() {
   const navigate = useNavigate()
 
   const { setActiveState, setProgress } = registrationAuth.actions
-  const { userData, curRegistration, error } = useSelector((state) => state.registrationReducer)
+  const { userData, curRegistration } = useSelector((state) => state.registrationReducer)
 
   // check if local storage has token that was generated with registration
   useEffect(() => {
