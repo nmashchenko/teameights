@@ -14,6 +14,7 @@ const GREY = Object.freeze({
   text: '#979797',
   background: '#F6F6F6',
   line: '#eaeaf0',
+  selectBackground: '#2E3239',
 })
 
 const BLUE = Object.freeze({

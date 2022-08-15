@@ -4,21 +4,26 @@ import * as yup from 'yup'
 const regMatch =
   /^((http|https):\/\/)?(www.)?(?!.*(http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+(\/)?.([\w\?[a-zA-Z-_%\/@?]+)*([^\/\w\?[a-zA-Z0-9_-]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/
 
-const nameSchema = yup.object().shape({
+const userPersonalInfoName = yup.object().shape({
   name: yup.string().required('Please input your name').max(30),
-})
-
-const countrySchema = yup.object().shape({
-  label: yup.string().required('Please choose your country!'),
-  value: yup.string().required('Please choose your country!'),
-})
-
-const ageSchema = yup.object().shape({
-  ageNumber: yup
+  age: yup
     .number()
     .required('Please input your age')
     .typeError('Age must be a number')
     .positive('Age must be greater than zero'),
+  country: yup.string().required('Please choose your country!'),
+  description: yup.string().required('Please write something about you!').max(220),
+})
+
+const userPersonalInfoUsername = yup.object().shape({
+  username: yup.string().required('Please input your username').max(30),
+  age: yup
+    .number()
+    .required('Please input your age')
+    .typeError('Age must be a number')
+    .positive('Age must be greater than zero'),
+  country: yup.string().required('Please choose your country!'),
+  description: yup.string().required('Please write something about you!').max(220),
 })
 
 const programmingLanguagesSchema = yup.object().shape({
@@ -42,24 +47,18 @@ const urlsSchema = yup.object().shape({
   github: yup
     .string()
     .matches(regMatch, { message: 'Github link should be a valid URL', excludeEmptyString: true }),
-  linkedIn: yup
-    .string()
-    .matches(regMatch, {
-      message: 'LinkedIn link should be a valid URL',
-      excludeEmptyString: true,
-    }),
-  instagram: yup
-    .string()
-    .matches(regMatch, {
-      message: 'Instagram link should be a valid URL',
-      excludeEmptyString: true,
-    }),
-  telegram: yup
-    .string()
-    .matches(regMatch, {
-      message: 'Telegram link should be a valid URL',
-      excludeEmptyString: true,
-    }),
+  linkedIn: yup.string().matches(regMatch, {
+    message: 'LinkedIn link should be a valid URL',
+    excludeEmptyString: true,
+  }),
+  instagram: yup.string().matches(regMatch, {
+    message: 'Instagram link should be a valid URL',
+    excludeEmptyString: true,
+  }),
+  telegram: yup.string().matches(regMatch, {
+    message: 'Telegram link should be a valid URL',
+    excludeEmptyString: true,
+  }),
 })
 
 const answerSchema = yup.object().shape({
@@ -68,9 +67,8 @@ const answerSchema = yup.object().shape({
 })
 
 const yupValidation = Object.freeze({
-  nameSchema,
-  countrySchema,
-  ageSchema,
+  userPersonalInfoName,
+  userPersonalInfoUsername,
   programmingLanguagesSchema,
   concentrationSchema,
   experienceSchema,

@@ -48,7 +48,7 @@ export const LeftContainer = styled.div`
 `
 
 export const Input = styled.input`
-  border: 1px solid ${GREEN.alternativeBorder};
+  border: ${(props) => props.border || `1px solid ${GREEN.alternativeBorder}`};
   background: inherit;
   outline: none;
   width: ${(props) => props.width || '240px'};
@@ -115,4 +115,17 @@ export const Button = styled.button`
     -ms-transform: scale(1.02);
     transform: scale(1.02);
   }
+`
+
+export const WordsCounterContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: end;
+`
+
+export const WordsCounter = styled.span`
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: ${(props) => props.color || WHITE.main};
 `

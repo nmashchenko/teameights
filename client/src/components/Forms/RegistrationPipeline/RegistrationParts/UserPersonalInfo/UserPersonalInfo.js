@@ -1,5 +1,6 @@
 // * Modules
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { isEmpty, isEqual } from 'lodash'
 
 // * Redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,6 +11,7 @@ import NavLogo from '../../NavLogo/NavLogo'
 import yupValidation from '../../YupValidations/YupValidations'
 import SnackBar from '../../../../SnackBar/SnackBar'
 import Stepper from '../../Stepper/Stepper'
+import CustomSelect from '../../CustomSelect/CustomSelect'
 
 import {
   Container,
@@ -23,17 +25,24 @@ import {
   TextArea,
   ButtonContainer,
   Button,
+  WordsCounterContainer,
+  WordsCounter,
 } from './UserPersonalInfo.styles'
 
 function NamePart() {
   // * Redux
   const dispatch = useDispatch()
-  const { setActiveState, setProgress, setUserName } = registrationAuth.actions
-  const { progress } = useSelector((state) => state.registrationReducer)
+  const { setActiveState, setStep, setUserPersonalInfoWithName, setUserPersonalInfoWithUsername } =
+    registrationAuth.actions
+  const { step, userData } = useSelector((state) => state.registrationReducer)
 
   // * useStates
   const [open, setOpen] = useState(false)
-  let [name, setName] = useState('')
+  const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
+  const [age, setAge] = useState('')
+  const [country, setCountry] = useState('')
+  const [description, setDescription] = useState('')
   const [errors, setErrors] = useState([])
 
   // * Functions
@@ -44,15 +53,47 @@ function NamePart() {
     setOpen(false)
   }
 
-  const handleSubmit = async () => {
-    try {
-      await yupValidation.nameSchema.validate({ name })
-      dispatch(setUserName(name))
-      dispatch(setActiveState('CountryPart'))
-      dispatch(setProgress('24'))
-    } catch (err) {
-      setErrors(err.errors)
-      setOpen(true)
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    if (isEqual(userData.userUsername, '')) {
+      yupValidation.userPersonalInfoUsername
+        .validate(
+          {
+            username,
+            age,
+            country,
+            description,
+          },
+          { abortEarly: false },
+        )
+        .then(function () {
+          console.log('success')
+          dispatch(setUserPersonalInfoWithUsername({ username, age, country, description }))
+          dispatch(setActiveState('CountryPart'))
+          dispatch(setStep(1))
+        })
+        .catch(function (err) {
+          setOpen(true)
+          err.inner.forEach((e) => {
+            console.log(e.message, e.path)
+            setErrors((prevErrors) => [...prevErrors, e.path])
+          })
+        })
+    } else {
+      yupValidation.userPersonalInfoName
+        .validate({ name, age, country, description }, { abortEarly: false })
+        .then(function () {
+          dispatch(setUserPersonalInfoWithName({ name, age, country, description }))
+          dispatch(setActiveState('CountryPart'))
+          dispatch(setStep(1))
+        })
+        .catch(function (err) {
+          setOpen(true)
+          err.inner.forEach((e) => {
+            console.log(e.message, e.path)
+            setErrors((prevErrors) => [...prevErrors, e.path])
+          })
+        })
     }
   }
 
@@ -60,45 +101,69 @@ function NamePart() {
 
   return (
     <>
-      <NavLogo />
-      {errors.length > 0 && <SnackBar handleClose={handleClose} open={open} error={errors[0]} />}
-      <Container>
-        <Stepper />
-        <CardContainer>
-          <TopContainer>
-            <Text fontSize="18px" fontWeight="700" margin="0 0 10px 0">
-              User Profile
-            </Text>
-          </TopContainer>
-          <MiddleContainer>
-            <LeftContainer>
-              <Text fontSize="17px" fontWeight="400">
-                Full Name
+      <form onSubmit={handleSubmit}>
+        <NavLogo />
+        {open && (
+          <SnackBar
+            handleClose={handleClose}
+            open={open}
+            error={'You can not advance before fixing errors!!'}
+          />
+        )}
+        <Container>
+          {errors}
+          <Stepper step={step} />
+          <CardContainer>
+            <TopContainer>
+              <Text fontSize="18px" fontWeight="700" margin="0 0 10px 0">
+                User Profile
               </Text>
-              <Input />
-              <Text fontSize="17px" fontWeight="400">
-                Age
-              </Text>
-              <Input />
-              <Text fontSize="17px" fontWeight="400">
-                Country
-              </Text>
-              <Input />
-            </LeftContainer>
-            <RightContainer>
-              <div>
+            </TopContainer>
+            <MiddleContainer>
+              <LeftContainer>
                 <Text fontSize="17px" fontWeight="400">
-                  About me
+                  {isEqual(userData.userUsername, '') ? 'Username' : 'Full Name'}
                 </Text>
-                <TextArea />
-              </div>
-              <ButtonContainer>
-                <Button>Next</Button>
-              </ButtonContainer>
-            </RightContainer>
-          </MiddleContainer>
-        </CardContainer>
-      </Container>
+                {isEqual(userData.userUsername, '') ? (
+                  <Input onChange={(e) => setUsername(e.target.value)} />
+                ) : (
+                  <Input onChange={(e) => setName(e.target.value)} />
+                )}
+                <Text fontSize="17px" fontWeight="400">
+                  Country
+                </Text>
+                <CustomSelect country={country} setCountry={setCountry} />
+                <Text fontSize="17px" fontWeight="400">
+                  Age
+                </Text>
+                <Input onChange={(e) => setAge(e.target.value)} />
+              </LeftContainer>
+              <RightContainer>
+                <div>
+                  <Text fontSize="17px" fontWeight="400">
+                    About me
+                  </Text>
+                  <TextArea
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Start typing here..."
+                    maxLength={200}
+                  />
+                  <WordsCounterContainer>
+                    {!isEqual(description.length, 200) ? (
+                      <WordsCounter>{description.length}/200</WordsCounter>
+                    ) : (
+                      <WordsCounter color="#cf625e">{description.length}/200</WordsCounter>
+                    )}
+                  </WordsCounterContainer>
+                </div>
+                <ButtonContainer>
+                  <Button type="submit">Next</Button>
+                </ButtonContainer>
+              </RightContainer>
+            </MiddleContainer>
+          </CardContainer>
+        </Container>
+      </form>
     </>
   )
 }

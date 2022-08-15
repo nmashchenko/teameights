@@ -6,6 +6,7 @@ const initialState = {
     userUsername: '',
     userRealName: '',
     userAge: '',
+    userDescription: '',
     userConcentration: '',
     userCountry: '',
     userExperience: '',
@@ -13,43 +14,61 @@ const initialState = {
     userLinks: {},
     userProgrammingLanguages: [],
     userRole: 'Standard',
-    isRegistered: true,
+    isRegistered: false,
   },
   active: 'InitialPart',
-  progress: '0',
+  step: 0,
   isLoading: false,
   error: '',
-
-  //this state is used on initial loading to check if user is registered
-  curRegistration: false,
 }
 
 export const registrationAuth = createSlice({
   name: 'registration',
   initialState,
   reducers: {
-    setUserRegistration(state, action) {
-      state.curRegistration = action.payload
+    /**
+     *
+     * @param {Object} state - redux state that is being changed
+     * @param {Object} action - passed parameters that should be changed
+     *
+     * The point of creating two setters is that if user logs in with google, he will be given only Full Name but username will be missing
+     * However, if user sign-ups regular way, he will be given username in the beginning
+     */
+    setUserInitialDataWithName: (state, action) => {
+      state.userData.email = action.payload.email
+      state.userData.userRealName = action.payload.userRealName
+      state.userData.isRegistered = action.payload.isRegistered
     },
 
-    setUserUsername(state, action) {
-      state.userData.userUsername = action.payload
+    setUserInitialDataWithUsername: (state, action) => {
+      state.userData.email = action.payload.email
+      state.userData.userUsername = action.payload.username
+      state.userData.isRegistered = action.payload.isRegistered
     },
 
-    setUserRealName(state, action) {
-      state.userData.userRealName = action.payload
+    /**
+     *
+     * @param {Object} state - redux state that is being changed
+     * @param {Object} action - passed parameters that should be changed
+     *
+     * Same story here, after getting initial data we need to set additional real name/username
+     */
+    setUserPersonalInfoWithName(state, action) {
+      state.userData.userRealName = action.payload.name
+      state.userData.userAge = action.payload.age
+      state.userData.userCountry = action.payload.country
+      state.userData.userDescription = action.payload.description
     },
 
-    setUserAge(state, action) {
-      state.userData.userAge = action.payload
+    setUserPersonalInfoWithUsername(state, action) {
+      state.userData.userUsername = action.payload.username
+      state.userData.userAge = action.payload.age
+      state.userData.userCountry = action.payload.country
+      state.userData.userDescription = action.payload.description
     },
 
     setUserConcentration(state, action) {
       state.userData.userConcentration = action.payload
-    },
-
-    setUserCountry(state, action) {
-      state.userData.userCountry = action.payload
     },
 
     setUserExperience(state, action) {
@@ -68,16 +87,12 @@ export const registrationAuth = createSlice({
       state.userData.userProgrammingLanguages = action.payload
     },
 
-    setUserEmail(state, action) {
-      state.userData.email = action.payload
-    },
-
     setActiveState(state, action) {
       state.active = action.payload
     },
 
-    setProgress(state, action) {
-      state.progress = action.payload
+    setStep(state, action) {
+      state.step = action.payload
     },
 
     finishRegistration(state) {
@@ -87,11 +102,13 @@ export const registrationAuth = createSlice({
     finishRegistrationSuccess(state) {
       state.isLoading = false
       state.error = ''
+      state.userData.isRegistered = true
     },
 
     finishRegistrationError(state, action) {
       state.isLoading = false
       state.error = action.payload
+      state.userData.isRegistered = false
     },
   },
 })

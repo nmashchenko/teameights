@@ -25,7 +25,7 @@ function InitialPart() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { setActiveState, setProgress } = registrationAuth.actions
+  const { setActiveState, setStep } = registrationAuth.actions
   const { userData, curRegistration } = useSelector((state) => state.registrationReducer)
 
   // check if local storage has token that was generated with registration
@@ -73,7 +73,7 @@ function InitialPart() {
             // change the global states
             onClick={() => {
               dispatch(setActiveState('NamePart'))
-              dispatch(setProgress('12'))
+              dispatch(setStep(0))
             }}
           >
             Continue

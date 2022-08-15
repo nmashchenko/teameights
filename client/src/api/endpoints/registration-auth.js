@@ -15,13 +15,13 @@ const checkRegistration = () => async (dispatch) => {
     const response = await axios.get(`${API_URL}/get-email`, { withCredentials: true })
     let { isRegistered, email, userRealName, username } = response.data
     if (isEqual(response.data.username, 'temporary')) {
-      dispatch(registrationAuth.actions.setUserEmail(email))
-      dispatch(registrationAuth.actions.setUserRegistration(isRegistered))
-      dispatch(registrationAuth.actions.setUserRealName(userRealName))
+      dispatch(
+        registrationAuth.actions.setUserInitialDataWithName({ email, isRegistered, userRealName }),
+      )
     } else {
-      dispatch(registrationAuth.actions.setUserEmail(email))
-      dispatch(registrationAuth.actions.setUserRegistration(isRegistered))
-      dispatch(registrationAuth.actions.setUserUsername(username))
+      dispatch(
+        registrationAuth.actions.setUserInitialDataWithUsername({ email, isRegistered, username }),
+      )
     }
   } catch (err) {
     dispatch(registrationAuth.actions.finishRegistrationError(err.response?.data?.message))

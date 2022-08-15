@@ -7,6 +7,7 @@ import Programming from './RegistrationParts/ProgrammingLanguagesPart/Programmin
 import ConcentrationPart from './RegistrationParts/ConcentrationPart/Concentration'
 import Experience from './RegistrationParts/ExperiencePart/Experience'
 import Links from './RegistrationParts/LinksPart/Links'
+import UserPersonalInfo from './RegistrationParts/UserPersonalInfo/UserPersonalInfo'
 
 // * Redux
 import { useSelector } from 'react-redux'
@@ -20,7 +21,7 @@ function FinishRegistration() {
   return (
     <>
       {active === 'InitialPart' && <InitialPart />}
-      {active === 'NamePart' && <NamePart />}
+      {active === 'NamePart' && <UserPersonalInfo />}
       {active === 'CountryPart' && <CountryPart />}
       {active === 'AgePart' && <AgePart />}
       {active === 'Programming' && <Programming />}

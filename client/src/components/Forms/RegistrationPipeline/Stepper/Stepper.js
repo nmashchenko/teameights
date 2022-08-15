@@ -85,10 +85,10 @@ QontoStepIcon.propTypes = {
 
 const steps = ['User profile', 'Specialization', 'Experience', 'Education', 'Links', 'Avatar']
 
-export default function CustomizedSteppers() {
+export default function CustomizedSteppers({ step }) {
   return (
-    <Stack sx={{ width: '800px' }} spacing={4}>
-      <Stepper alternativeLabel activeStep={0} connector={<QontoConnector />}>
+    <Stack sx={{ width: '800px', marginTop: '30px' }} spacing={4}>
+      <Stepper alternativeLabel activeStep={step} connector={<QontoConnector />}>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel
