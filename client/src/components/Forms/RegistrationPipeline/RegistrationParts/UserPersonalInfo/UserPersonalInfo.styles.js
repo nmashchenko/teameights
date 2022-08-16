@@ -1,8 +1,22 @@
 // * Modules
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 // * Constants
-import { BLACK, WHITE, GREEN } from '../../../../../constants/colors'
+import { BLACK, WHITE, GREEN, GREY, RED } from '../../../../../constants/colors'
+
+const shake = keyframes`
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+`
 
 export const Container = styled.div`
   display: flex;
@@ -58,6 +72,8 @@ export const Input = styled.input`
   margin: ${(props) => props.margin || '10px 0 30px 0'};
   padding-left: 10px;
   color: ${WHITE.main};
+  animation-name: ${(props) => props.animation || shake};
+  animation-duration: 0.3s;
 
   &:focus {
     border: 1px solid ${WHITE.main};
@@ -70,12 +86,14 @@ export const TextArea = styled.textarea`
   height: 150px;
   padding: 12px 20px;
   box-sizing: border-box;
-  border: 1px solid ${GREEN.alternativeBorder};
+  border: ${(props) => props.border || `1px solid ${GREEN.alternativeBorder}`};
   color: ${WHITE.main};
   border-radius: 5px;
   background: inherit;
   font-size: 16px;
   resize: none;
+  animation-name: ${(props) => props.animation || shake};
+  animation-duration: 0.3s;
 `
 
 export const RightContainer = styled.div`
@@ -115,6 +133,20 @@ export const Button = styled.button`
     -ms-transform: scale(1.02);
     transform: scale(1.02);
   }
+`
+
+export const ButtonDisabled = styled.button`
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 30px;
+  border: none;
+  width: 180px;
+  height: 40px;
+  color: ${WHITE.main};
+  background: ${RED.alert};
+  opacity: 0.3;
+  border-radius: 25px;
+  cursor: not-allowed;
 `
 
 export const WordsCounterContainer = styled.div`

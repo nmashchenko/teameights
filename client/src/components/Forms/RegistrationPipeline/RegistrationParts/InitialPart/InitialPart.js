@@ -72,7 +72,7 @@ function InitialPart() {
           <ContinueButton
             // change the global states
             onClick={() => {
-              dispatch(setActiveState('NamePart'))
+              dispatch(setActiveState('UserPersonalInfo'))
               dispatch(setStep(0))
             }}
           >

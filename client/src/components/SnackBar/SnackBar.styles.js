@@ -5,6 +5,7 @@ import { device } from '../../constants/breakpoints'
 
 export const AlertBox = styled(MuiAlert)`
   && {
+    /* margin-top: 100px; */
     background: ${RED.alert};
   }
 

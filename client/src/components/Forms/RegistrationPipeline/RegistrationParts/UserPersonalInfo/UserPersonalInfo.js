@@ -1,18 +1,26 @@
 // * Modules
-import React, { useState, useEffect, useMemo } from 'react'
-import { isEmpty, isEqual } from 'lodash'
+import React, { useState } from 'react'
+import WarningIcon from '@mui/icons-material/Warning'
 
 // * Redux
-import { useSelector, useDispatch } from 'react-redux'
-import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
+import { useSelector } from 'react-redux'
 
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
-import yupValidation from '../../YupValidations/YupValidations'
 import SnackBar from '../../../../SnackBar/SnackBar'
 import Stepper from '../../Stepper/Stepper'
-import CustomSelect from '../../CustomSelect/CustomSelect'
 
+// * Components
+import NameUsernameArea from './Components/NameUsernameArea'
+import AgeArea from './Components/AgeArea'
+import CountryArea from './Components/CountryArea'
+import AboutMeArea from './Components/AboutMeArea'
+
+// * Hooks
+import useInfoSubmit from './Hooks/useInfoSubmit'
+import personalInfoHooks from './Hooks/personalInfoHooks'
+
+// * Styles
 import {
   Container,
   CardContainer,
@@ -20,20 +28,14 @@ import {
   Text,
   MiddleContainer,
   LeftContainer,
-  Input,
   RightContainer,
-  TextArea,
   ButtonContainer,
   Button,
-  WordsCounterContainer,
-  WordsCounter,
+  ButtonDisabled,
 } from './UserPersonalInfo.styles'
 
 function NamePart() {
   // * Redux
-  const dispatch = useDispatch()
-  const { setActiveState, setStep, setUserPersonalInfoWithName, setUserPersonalInfoWithUsername } =
-    registrationAuth.actions
   const { step, userData } = useSelector((state) => state.registrationReducer)
 
   // * useStates
@@ -53,65 +55,38 @@ function NamePart() {
     setOpen(false)
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    if (isEqual(userData.userUsername, '')) {
-      yupValidation.userPersonalInfoUsername
-        .validate(
-          {
-            username,
-            age,
-            country,
-            description,
-          },
-          { abortEarly: false },
-        )
-        .then(function () {
-          console.log('success')
-          dispatch(setUserPersonalInfoWithUsername({ username, age, country, description }))
-          dispatch(setActiveState('CountryPart'))
-          dispatch(setStep(1))
-        })
-        .catch(function (err) {
-          setOpen(true)
-          err.inner.forEach((e) => {
-            console.log(e.message, e.path)
-            setErrors((prevErrors) => [...prevErrors, e.path])
-          })
-        })
-    } else {
-      yupValidation.userPersonalInfoName
-        .validate({ name, age, country, description }, { abortEarly: false })
-        .then(function () {
-          dispatch(setUserPersonalInfoWithName({ name, age, country, description }))
-          dispatch(setActiveState('CountryPart'))
-          dispatch(setStep(1))
-        })
-        .catch(function (err) {
-          setOpen(true)
-          err.inner.forEach((e) => {
-            console.log(e.message, e.path)
-            setErrors((prevErrors) => [...prevErrors, e.path])
-          })
-        })
-    }
-  }
+  // * useInfoSubmit hook
+  const handleSubmit = useInfoSubmit(
+    userData,
+    username,
+    name,
+    age,
+    country,
+    description,
+    setOpen,
+    setErrors,
+  )
 
-  useEffect(() => {}, [errors])
+  // * Other hooks to handle age, name, username, country, description
+  const handleAge = personalInfoHooks.useHandleAge(setErrors, setAge)
+  const handleName = personalInfoHooks.useHandleName(setErrors, setName)
+  const handleUsername = personalInfoHooks.useHandleUsername(setErrors, setUsername)
+  const handleCountry = personalInfoHooks.useHandleCountry(setErrors, setCountry)
+  const handleDescription = personalInfoHooks.useHandleDescription(setErrors, setDescription)
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <NavLogo />
-        {open && (
+        {open && errors.length > 0 && (
           <SnackBar
             handleClose={handleClose}
             open={open}
-            error={'You can not advance before fixing errors!!'}
+            error={`You need to fix ${errors.length} error(s) before continuing`}
+            vertical="bot"
           />
         )}
         <Container>
-          {errors}
           <Stepper step={step} />
           <CardContainer>
             <TopContainer>
@@ -121,43 +96,29 @@ function NamePart() {
             </TopContainer>
             <MiddleContainer>
               <LeftContainer>
-                <Text fontSize="17px" fontWeight="400">
-                  {isEqual(userData.userUsername, '') ? 'Username' : 'Full Name'}
-                </Text>
-                {isEqual(userData.userUsername, '') ? (
-                  <Input onChange={(e) => setUsername(e.target.value)} />
-                ) : (
-                  <Input onChange={(e) => setName(e.target.value)} />
-                )}
-                <Text fontSize="17px" fontWeight="400">
-                  Country
-                </Text>
-                <CustomSelect country={country} setCountry={setCountry} />
-                <Text fontSize="17px" fontWeight="400">
-                  Age
-                </Text>
-                <Input onChange={(e) => setAge(e.target.value)} />
+                <NameUsernameArea
+                  userData={userData}
+                  errors={errors}
+                  handleUsername={handleUsername}
+                  handleName={handleName}
+                />
+                <CountryArea errors={errors} handleCountry={handleCountry} country={country} />
+                <AgeArea errors={errors} handleAge={handleAge} />
               </LeftContainer>
               <RightContainer>
-                <div>
-                  <Text fontSize="17px" fontWeight="400">
-                    About me
-                  </Text>
-                  <TextArea
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Start typing here..."
-                    maxLength={200}
-                  />
-                  <WordsCounterContainer>
-                    {!isEqual(description.length, 200) ? (
-                      <WordsCounter>{description.length}/200</WordsCounter>
-                    ) : (
-                      <WordsCounter color="#cf625e">{description.length}/200</WordsCounter>
-                    )}
-                  </WordsCounterContainer>
-                </div>
+                <AboutMeArea
+                  errors={errors}
+                  handleDescription={handleDescription}
+                  description={description}
+                />
                 <ButtonContainer>
-                  <Button type="submit">Next</Button>
+                  {errors.length > 0 ? (
+                    <ButtonDisabled>
+                      <WarningIcon />
+                    </ButtonDisabled>
+                  ) : (
+                    <Button type="submit">Next</Button>
+                  )}
                 </ButtonContainer>
               </RightContainer>
             </MiddleContainer>
