@@ -177,7 +177,7 @@ class UserService {
     return results;
   }
 
-  async checkUserEmail(refreshToken) {
+  async findUserObject(refreshToken) {
     if (!refreshToken) {
       throw ApiError.UnauthorizedError();
     }
@@ -269,6 +269,11 @@ class UserService {
 
     const hashPassword = await bcrypt.hash(password, 3); // hash password
     await User.findOneAndUpdate({ _id: id }, { password: hashPassword });
+  }
+
+  async checkUsername(username) {
+    const user = await User.findOne({ username });
+    return user;
   }
 }
 

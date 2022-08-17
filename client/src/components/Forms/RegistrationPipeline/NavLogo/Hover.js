@@ -24,7 +24,7 @@ export default function Hover({ open, handlePopoverClose, anchorEl }) {
         disableRestoreFocus
       >
         <Typography sx={{ p: 1 }}>
-          If you encounter any problems, email us at helpteameights@gmail.com
+          If you encounter any problems, email us at <strong>helpteameights@gmail.com</strong>
         </Typography>
       </Popover>
     </div>

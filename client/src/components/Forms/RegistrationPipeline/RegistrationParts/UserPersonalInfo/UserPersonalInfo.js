@@ -33,6 +33,7 @@ import {
   Button,
   ButtonDisabled,
 } from './UserPersonalInfo.styles'
+import { includes } from 'lodash'
 
 function NamePart() {
   // * Redux
@@ -46,6 +47,10 @@ function NamePart() {
   const [country, setCountry] = useState('')
   const [description, setDescription] = useState('')
   const [errors, setErrors] = useState([])
+
+  // * Error messages
+  const errorMessage = `You need to fix ${errors.length} error(s) before continuing`
+  const alternativeErrorMessage = 'Username is already taken!'
 
   // * Functions
   const handleClose = (event, reason) => {
@@ -70,7 +75,7 @@ function NamePart() {
   // * Other hooks to handle age, name, username, country, description
   const handleAge = personalInfoHooks.useHandleAge(setErrors, setAge)
   const handleName = personalInfoHooks.useHandleName(setErrors, setName)
-  const handleUsername = personalInfoHooks.useHandleUsername(setErrors, setUsername)
+  const handleUsername = personalInfoHooks.useHandleUsername(setErrors, setUsername, errors)
   const handleCountry = personalInfoHooks.useHandleCountry(setErrors, setCountry)
   const handleDescription = personalInfoHooks.useHandleDescription(setErrors, setDescription)
 
@@ -82,7 +87,11 @@ function NamePart() {
           <SnackBar
             handleClose={handleClose}
             open={open}
-            error={`You need to fix ${errors.length} error(s) before continuing`}
+            error={
+              includes(errors, 'Username is already taken!')
+                ? alternativeErrorMessage
+                : errorMessage
+            }
             vertical="bot"
           />
         )}

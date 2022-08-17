@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import InitialPart from './RegistrationParts/InitialPart/InitialPart'
+import UserConcentration from './RegistrationParts/UserConcentration/UserConcentration'
 import Programming from './RegistrationParts/ProgrammingLanguagesPart/Programming'
 import ConcentrationPart from './RegistrationParts/ConcentrationPart/Concentration'
 import Experience from './RegistrationParts/ExperiencePart/Experience'
@@ -19,7 +20,7 @@ function FinishRegistration() {
     <>
       {active === 'InitialPart' && <InitialPart />}
       {active === 'UserPersonalInfo' && <UserPersonalInfo />}
-      {active === 'Programming' && <Programming />}
+      {active === 'UserConcentration' && <UserConcentration />}
       {active === 'ConcentrationPart' && <ConcentrationPart />}
       {active === 'Experience' && <Experience />}
       {active === 'Links' && <Links />}

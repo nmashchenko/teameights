@@ -133,10 +133,10 @@ class UserController {
     }
   }
 
-  async getEmail(req, res, next) {
+  async getUserObject(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
-      const data = await userService.checkUserEmail(refreshToken);
+      const data = await userService.findUserObject(refreshToken);
       return res.json(data);
     } catch (err) {
       // error.middleware will take care of it
@@ -213,6 +213,16 @@ class UserController {
       return res.send("Successfuly updated");
     } catch (err) {
       // error.middleware will take care of it
+      next(err);
+    }
+  }
+
+  async validateUsername(req, res, next) {
+    try {
+      const { username } = req.query;
+      const user = await userService.checkUsername(username);
+      return res.json(user);
+    } catch (err) {
       next(err);
     }
   }

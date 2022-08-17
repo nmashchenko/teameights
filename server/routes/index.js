@@ -24,7 +24,6 @@ router.post(
   userController.socialLoginRegistration
 );
 router.post("/logout", userController.logout);
-router.post("/registration-checkout", userController.registrationCompletion);
 router.post("/reset-password", userController.resetPassword);
 router.post(
   "/reset-password/:id/:token",
@@ -32,13 +31,14 @@ router.post(
   userController.resetFinish
 );
 
-router.get("/get-email", userController.getEmail);
+router.get("/get-user-object", userController.getUserObject);
+router.get("/check-username", userController.validateUsername);
 router.get("/activate/:link", userController.activate);
 router.get("/refresh", userController.refresh);
 router.get("/reset-password/:id/:token", userController.verifyReset);
 
 // only for authenticated users
-
+router.post("/registration-checkout", userController.registrationCompletion);
 router.get("/users-filtered", authMiddleware, userController.getUsersFiltered);
 router.get("/users", authMiddleware, userController.getUsers);
 

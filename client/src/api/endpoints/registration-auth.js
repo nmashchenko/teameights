@@ -12,7 +12,7 @@ import { registrationAuth } from '../../store/reducers/RegistrationAuth'
 const checkRegistration = () => async (dispatch) => {
   try {
     dispatch(registrationAuth.actions.finishRegistration())
-    const response = await axios.get(`${API_URL}/get-email`, { withCredentials: true })
+    const response = await axios.get(`${API_URL}/get-user-object`, { withCredentials: true })
     let { isRegistered, email, userRealName, username } = response.data
     if (isEqual(response.data.username, 'temporary')) {
       dispatch(
@@ -38,9 +38,19 @@ const finishRegistration = (userData) => async (dispatch) => {
   }
 }
 
+const validateUsername = async (username) => {
+  try {
+    const response = await api.get('/check-username', { params: { username } })
+    return response.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const registerAuthApi = Object.freeze({
   finishRegistration,
   checkRegistration,
+  validateUsername,
 })
 
 export default registerAuthApi

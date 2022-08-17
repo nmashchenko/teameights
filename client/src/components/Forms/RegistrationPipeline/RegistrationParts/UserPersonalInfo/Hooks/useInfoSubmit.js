@@ -7,6 +7,7 @@ import yupValidation from '../../../YupValidations/YupValidations'
 // * Redux
 import { useDispatch } from 'react-redux'
 import { registrationAuth } from '../../../../../../store/reducers/RegistrationAuth'
+import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
 
 /**
  *
@@ -32,6 +33,7 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
   const dispatch = useDispatch()
   const { setActiveState, setStep, setUserPersonalInfoWithName, setUserPersonalInfoWithUsername } =
     registrationAuth.actions
+  // * Redux
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -46,10 +48,16 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
           },
           { abortEarly: false },
         )
-        .then(function () {
-          dispatch(setUserPersonalInfoWithUsername({ username, age, country, description }))
-          dispatch(setActiveState('CountryPart'))
-          dispatch(setStep(1))
+        .then(async function () {
+          const user = await registerAuthApi.validateUsername(username)
+          if (!isEqual(user, null)) {
+            setOpen(true)
+            setErrors(['username', 'Username is already taken!'])
+          } else {
+            dispatch(setUserPersonalInfoWithUsername({ username, age, country, description }))
+            dispatch(setActiveState('UserConcentration'))
+            dispatch(setStep(1))
+          }
         })
         .catch(function (err) {
           setOpen(true)
@@ -63,7 +71,7 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
         .validate({ name, age, country, description }, { abortEarly: false })
         .then(function () {
           dispatch(setUserPersonalInfoWithName({ name, age, country, description }))
-          dispatch(setActiveState('CountryPart'))
+          dispatch(setActiveState('UserConcentration'))
           dispatch(setStep(1))
         })
         .catch(function (err) {

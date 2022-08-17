@@ -1,3 +1,4 @@
+import { includes } from 'lodash'
 /**
  * This handler resets error if it exists in errors array after user starts typing.
  * And then sets his age
@@ -21,10 +22,15 @@ const useHandleAge = (setErrors, setAge) => {
  * @param {Function} setUsername
  * @returns
  */
-const useHandleUsername = (setErrors, setUsername) => {
+const useHandleUsername = (setErrors, setUsername, errors) => {
   const handleUsername = (event) => {
-    setErrors((errors) => errors.filter((word) => word !== 'username'))
-    setUsername(event.target.value)
+    if (includes(errors, 'Username is already taken!')) {
+      setErrors([])
+      setUsername(event.target.value)
+    } else {
+      setErrors((errors) => errors.filter((word) => word !== 'username'))
+      setUsername(event.target.value)
+    }
   }
 
   return handleUsername
