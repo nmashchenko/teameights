@@ -75,11 +75,8 @@ export const registrationAuth = createSlice({
     },
 
     setUserExperience(state, action) {
-      state.userData.userExperience = action.payload
-    },
-
-    setUserLeader(state, action) {
-      state.userData.userLeader = action.payload
+      state.userData.userExperience = action.payload.experience
+      state.userData.userLeader = action.payload.leader
     },
 
     setUserLinks(state, action) {

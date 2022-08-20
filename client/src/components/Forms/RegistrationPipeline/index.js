@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import InitialPart from './RegistrationParts/InitialPart/InitialPart'
 import UserConcentration from './RegistrationParts/UserConcentration/UserConcentration'
-import ConcentrationPart from './RegistrationParts/ConcentrationPart/Concentration'
+import UserExperience from './RegistrationParts/UserExperience/UserExperience'
 import Experience from './RegistrationParts/ExperiencePart/Experience'
 import Links from './RegistrationParts/LinksPart/Links'
 import UserPersonalInfo from './RegistrationParts/UserPersonalInfo/UserPersonalInfo'
@@ -35,8 +35,7 @@ function FinishRegistration() {
       {active === 'InitialPart' && <InitialPart />}
       {active === 'UserPersonalInfo' && <UserPersonalInfo />}
       {active === 'UserConcentration' && <UserConcentration />}
-      {active === 'ConcentrationPart' && <ConcentrationPart />}
-      {active === 'Experience' && <Experience />}
+      {active === 'UserExperience' && <UserExperience />}
       {active === 'Links' && <Links />}
       {active === 'Leader' && <LeaderPart />}
     </SnackbarStyled>

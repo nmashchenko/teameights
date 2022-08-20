@@ -10,35 +10,28 @@ import { registrationAuth } from '../../../../../../store/reducers/RegistrationA
 
 /**
  *
- * @param {Array} programmingLanguages
- * @param {Array} frameworks
- * @param {String} concentration
+ * @param {String} experience
+ * @param {Boolean} leader
  * @param {Function} setOpen
  * @param {Function} setErrors
  * @returns function
  *
  */
 
-const useConcentrationSubmit = (
-  programmingLanguages,
-  frameworks,
-  concentration,
-  setOpen,
-  setErrors,
-) => {
+const useConcentrationSubmit = (experience, leader, setOpen, setErrors) => {
   const dispatch = useDispatch()
   const { enqueueSnackbar } = useSnackbar()
-  const { setActiveState, setStep, setUserConcentration } = registrationAuth.actions
+  const { setActiveState, setStep, setUserExperience } = registrationAuth.actions
   // * Redux
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    yupValidation.userConcentrationSchema
-      .validate({ programmingLanguages, frameworks, concentration }, { abortEarly: false })
+    yupValidation.userExperienceSchema
+      .validate({ experience, leader }, { abortEarly: false })
       .then(function () {
-        dispatch(setUserConcentration({ programmingLanguages, frameworks, concentration }))
-        dispatch(setActiveState('UserExperience'))
-        dispatch(setStep(2))
+        dispatch(setUserExperience({ experience, leader }))
+        // dispatch(setActiveState('UserExperience'))
+        dispatch(setStep(3))
       })
       .catch(function (err) {
         setOpen(true)

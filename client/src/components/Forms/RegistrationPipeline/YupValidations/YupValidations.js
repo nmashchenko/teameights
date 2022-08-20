@@ -32,12 +32,9 @@ const userConcentrationSchema = yup.object().shape({
   concentration: yup.string().required('Select your concentration'),
 })
 
-const experienceSchema = yup.object().shape({
-  experienceNumber: yup
-    .number()
-    .required('Please input your experience')
-    .typeError('Experience must be a number')
-    .positive('Experience must be greater than zero'),
+const userExperienceSchema = yup.object().shape({
+  experience: yup.string().required('Please choose your experience'),
+  leader: yup.bool().required('Decide if you want to be a leader').nullable(),
 })
 
 const urlsSchema = yup.object().shape({
@@ -67,7 +64,7 @@ const yupValidation = Object.freeze({
   userPersonalInfoNameSchema,
   userPersonalInfoUsernameSchema,
   userConcentrationSchema,
-  experienceSchema,
+  userExperienceSchema,
   urlsSchema,
   answerSchema,
 })
