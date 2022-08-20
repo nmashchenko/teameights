@@ -13,6 +13,7 @@ const initialState = {
     userLeader: false,
     userLinks: {},
     userProgrammingLanguages: [],
+    userFrameworks: [],
     userRole: 'Standard',
     isRegistered: false,
   },
@@ -68,7 +69,9 @@ export const registrationAuth = createSlice({
     },
 
     setUserConcentration(state, action) {
-      state.userData.userConcentration = action.payload
+      state.userData.userProgrammingLanguages = action.payload.programmingLanguages
+      state.userData.userConcentration = action.payload.concentration
+      state.userData.userFrameworks = action.payload.frameworks
     },
 
     setUserExperience(state, action) {
@@ -81,10 +84,6 @@ export const registrationAuth = createSlice({
 
     setUserLinks(state, action) {
       state.userData.userLinks = action.payload
-    },
-
-    setUserProgrammingLanguages(state, action) {
-      state.userData.userProgrammingLanguages = action.payload
     },
 
     setActiveState(state, action) {

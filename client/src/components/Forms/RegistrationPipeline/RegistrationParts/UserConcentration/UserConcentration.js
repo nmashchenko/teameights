@@ -1,11 +1,10 @@
 // * Modules
 import React, { useState } from 'react'
+import WarningIcon from '@mui/icons-material/Warning'
 
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
-import SnackBar from '../../../../SnackBar/SnackBar'
 import Stepper from '../../Stepper/Stepper'
-import CustomMultipleSelect from '../../CustomMultipleSelect/CustomMultipleSelect'
 
 // * Data
 import frameworksOptions from '../../../../../constants/frameworks'
@@ -15,6 +14,15 @@ import programmingLanguagesOptions from '../../../../../constants/programmingLan
 // * Redux
 import { useSelector } from 'react-redux'
 
+// * Components
+import ProgrammingLanguagesArea from './Components/ProgrammingLanguagesArea'
+import FramewoksArea from './Components/FrameworksArea'
+import ConcentrationArea from './Components/ConcentrationArea'
+
+// * Hooks
+import useConcentrationSubmit from './Hooks/useConcentrationSubmit'
+import concentrationHooks from './Hooks/concentrationHooks'
+
 // * Styles
 import {
   Container,
@@ -22,10 +30,9 @@ import {
   TopContainer,
   Text,
   MiddleContainer,
-  ConcetrationContainer,
-  Line,
   BottomContainer,
   Button,
+  ButtonDisabled,
 } from './UserConcentration.styles'
 
 const UserConcentration = () => {
@@ -39,45 +46,26 @@ const UserConcentration = () => {
   const [frameworks, setFrameworks] = useState([])
   const [concentration, setConcentration] = useState('')
 
-  // * Functions
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setOpen(false)
-  }
+  // * useInfoSubmit hook
+  const handleSubmit = useConcentrationSubmit(
+    programmingLanguages,
+    frameworks,
+    concentration,
+    setOpen,
+    setErrors,
+  )
 
-  const handleProgrammingLanguages = (event) => {
-    const {
-      target: { value },
-    } = event
-    setProgrammingLanguages(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    )
-  }
-
-  const handleFrameworks = (event) => {
-    const {
-      target: { value },
-    } = event
-    setFrameworks(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    )
-  }
-
-  const handleConcentration = (event) => {
-    setConcentration(event.target.value)
-  }
+  const handleProgrammingLanguages = concentrationHooks.useHandleProgrammingLanguages(
+    setErrors,
+    setProgrammingLanguages,
+  )
+  const handleFrameworks = concentrationHooks.useHandleFrameworks(setErrors, setFrameworks)
+  const handleConcentration = concentrationHooks.useHandleConcentration(setErrors, setConcentration)
 
   return (
     <>
       <form>
         <NavLogo />
-        {open && errors.length > 0 && (
-          <SnackBar handleClose={handleClose} open={open} error={'fix errors'} vertical="bot" />
-        )}
         <Container>
           <Stepper step={step} />
           <CardContainer>
@@ -87,46 +75,36 @@ const UserConcentration = () => {
               </Text>
             </TopContainer>
             <MiddleContainer>
-              <ConcetrationContainer margin="15px 0 0 0">
-                <Text fontSize="16px" fontWeight="400" margin="0 0 10px 0">
-                  Programming Languages
-                </Text>
-                <CustomMultipleSelect
-                  data={programmingLanguages}
-                  handleData={handleProgrammingLanguages}
-                  options={programmingLanguagesOptions}
-                  errors={errors}
-                />
-                <Line />
-              </ConcetrationContainer>
-              <ConcetrationContainer margin="10px 0 0 0">
-                <Text fontSize="16px" fontWeight="400" margin="0 0 10px 0">
-                  Frameworks
-                </Text>
-                <CustomMultipleSelect
-                  data={frameworks}
-                  handleData={handleFrameworks}
-                  options={frameworksOptions}
-                  errors={errors}
-                />
-                <Line />
-              </ConcetrationContainer>
-              <ConcetrationContainer margin="10px 0 0 0">
-                <Text fontSize="16px" fontWeight="400" margin="0 0 10px 0">
-                  Concentration
-                </Text>
-                <CustomMultipleSelect
-                  data={concentration}
-                  handleData={handleConcentration}
-                  options={concentrationsOptions}
-                  errors={errors}
-                  multiple={false}
-                />
-                <Line />
-              </ConcetrationContainer>
+              <ProgrammingLanguagesArea
+                programmingLanguages={programmingLanguages}
+                handleProgrammingLanguages={handleProgrammingLanguages}
+                programmingLanguagesOptions={programmingLanguagesOptions}
+                errors={errors}
+              />
+              <FramewoksArea
+                frameworks={frameworks}
+                handleFrameworks={handleFrameworks}
+                frameworksOptions={frameworksOptions}
+                errors={errors}
+              />
+              <ConcentrationArea
+                concentration={concentration}
+                handleConcentration={handleConcentration}
+                concentrationsOptions={concentrationsOptions}
+                errors={errors}
+              />
             </MiddleContainer>
             <BottomContainer>
-              <Button>Next</Button>
+              <Text fontSize="14px" fontWeight="300" color="grey">
+                ❤️ Select your favorites!
+              </Text>
+              {errors.length > 0 ? (
+                <ButtonDisabled onClick={handleSubmit}>
+                  <WarningIcon />
+                </ButtonDisabled>
+              ) : (
+                <Button onClick={handleSubmit}>Next</Button>
+              )}
             </BottomContainer>
           </CardContainer>
         </Container>

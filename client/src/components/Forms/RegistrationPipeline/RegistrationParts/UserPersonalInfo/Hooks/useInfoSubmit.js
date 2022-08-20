@@ -1,5 +1,6 @@
 // * Modules
 import { isEqual } from 'lodash'
+// import { useSnackbar } from 'notistack'
 
 // * Yup validation
 import yupValidation from '../../../YupValidations/YupValidations'
@@ -31,6 +32,7 @@ import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
 
 const useInfoSubmit = (userData, username, name, age, country, description, setOpen, setErrors) => {
   const dispatch = useDispatch()
+  // const { enqueueSnackbar } = useSnackbar()
   const { setActiveState, setStep, setUserPersonalInfoWithName, setUserPersonalInfoWithUsername } =
     registrationAuth.actions
   // * Redux
@@ -38,7 +40,7 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
   const handleSubmit = (event) => {
     event.preventDefault()
     if (isEqual(userData.userUsername, '')) {
-      yupValidation.userPersonalInfoUsername
+      yupValidation.userPersonalInfoUsernameSchema
         .validate(
           {
             username,
@@ -64,10 +66,13 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
           setErrors([])
           err.inner.forEach((e) => {
             setErrors((prevErrors) => [...prevErrors, e.path])
+            // enqueueSnackbar(e.message, {
+            //   preventDuplicate: true,
+            // })
           })
         })
     } else {
-      yupValidation.userPersonalInfoName
+      yupValidation.userPersonalInfoNameSchema
         .validate({ name, age, country, description }, { abortEarly: false })
         .then(function () {
           dispatch(setUserPersonalInfoWithName({ name, age, country, description }))
@@ -79,6 +84,9 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
           setErrors([])
           err.inner.forEach((e) => {
             setErrors((prevErrors) => [...prevErrors, e.path])
+            // enqueueSnackbar(e.message, {
+            //   preventDuplicate: true,
+            // })
           })
         })
     }

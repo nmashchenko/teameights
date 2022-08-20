@@ -8,7 +8,7 @@ const MenuProps = {
       background: GREY.selectBackground,
       boxSizing: 'border-box',
       padding: '0 5px',
-      margin: '10px 0',
+      margin: '15px 0',
       borderRadius: '5px',
       color: WHITE.main,
       overflow: 'auto',

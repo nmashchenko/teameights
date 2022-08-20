@@ -15,8 +15,8 @@ import MenuProps from './MenuProps'
 import ArrowDown from '../../../../assets/Arrows/ArrowDown'
 import ArrowDownRed from '../../../../assets/Arrows/ArrowDownRed'
 
-const CustomSelect = ({ data, handleData, options, errors, multiple = true }) => {
-  const animation = includes(errors, 'country') ? undefined : 'none'
+const CustomSelect = ({ data, handleData, options, errors, error, multiple = true }) => {
+  const animation = includes(errors, error) ? undefined : 'none'
 
   return (
     <>
@@ -24,7 +24,7 @@ const CustomSelect = ({ data, handleData, options, errors, multiple = true }) =>
         <SelectCustom
           value={data}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          IconComponent={includes(errors, 'country') ? ArrowDownRed : ArrowDown}
+          IconComponent={includes(errors, error) ? ArrowDownRed : ArrowDown}
           onChange={handleData}
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"

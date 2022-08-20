@@ -4,7 +4,7 @@ import * as yup from 'yup'
 const regMatch =
   /^((http|https):\/\/)?(www.)?(?!.*(http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+(\/)?.([\w\?[a-zA-Z-_%\/@?]+)*([^\/\w\?[a-zA-Z0-9_-]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/
 
-const userPersonalInfoName = yup.object().shape({
+const userPersonalInfoNameSchema = yup.object().shape({
   name: yup.string().required('Please input your name').max(30),
   age: yup
     .number()
@@ -15,7 +15,7 @@ const userPersonalInfoName = yup.object().shape({
   description: yup.string().required('Please write something about you!').max(220),
 })
 
-const userPersonalInfoUsername = yup.object().shape({
+const userPersonalInfoUsernameSchema = yup.object().shape({
   username: yup.string().required('Please input your username').max(30),
   age: yup
     .number()
@@ -26,13 +26,10 @@ const userPersonalInfoUsername = yup.object().shape({
   description: yup.string().required('Please write something about you!').max(220),
 })
 
-const programmingLanguagesSchema = yup.object().shape({
-  programmingLanguages: yup.array().min(1, 'Select at least one language 👅'),
-})
-
-const concentrationSchema = yup.object().shape({
-  label: yup.string().required('Please choose your concentration 🎓'),
-  value: yup.string().required('Please choose your concentration 🎓'),
+const userConcentrationSchema = yup.object().shape({
+  programmingLanguages: yup.array().min(1, 'Select at least one language'),
+  frameworks: yup.array().min(1, 'Select at least one framework'),
+  concentration: yup.string().required('Select your concentration'),
 })
 
 const experienceSchema = yup.object().shape({
@@ -67,10 +64,9 @@ const answerSchema = yup.object().shape({
 })
 
 const yupValidation = Object.freeze({
-  userPersonalInfoName,
-  userPersonalInfoUsername,
-  programmingLanguagesSchema,
-  concentrationSchema,
+  userPersonalInfoNameSchema,
+  userPersonalInfoUsernameSchema,
+  userConcentrationSchema,
   experienceSchema,
   urlsSchema,
   answerSchema,
