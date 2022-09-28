@@ -54,7 +54,7 @@ Premium user, obviously, will be able to ask for mentor for his team and will ha
 
 # Pages (Desktop versions)
 
-Regarding the **platform** paging, currently we are 100% sure that this list of pages will exist (✅ – *page exists*, ❌ – *under development*, 🔧 - under construction, 📱 - adaptive already):
+Regarding the **platform** paging, currently we are 100% sure that this list of pages will exist (✅ – *page exists*, ❌ – *under development*, 🔧 -*under construction*, 📱 - *adaptive already*):
 <p>
 ✅📱 Login / SignUp page:
   
