@@ -99,6 +99,11 @@ Regarding the **platform** paging, currently we are 100% sure that this list of 
 
 ❌	Incoming invites (in this page user will be able how many teams invited him, reject or accept invites) <br>
 ⚠️ **TODO: Add incoming invite page here**
+  
+❌ Projects page ( premium / default pool of projects that people can work on )
+⚠️ **TODO: Add incoming projects page here**
+  
+TBD. 
 </p>
 We might redesign some pages but for now they should exist in any form, also we might add some additional pages later.
 
@@ -124,6 +129,8 @@ We will also do code reviews to maintain the large code-base and 1 on 1 sessions
 The plan for now is:
 
 1️⃣	Do first meetings to discuss and assign roles for this project as well as understand the deadlines and requirments
+
+  (a) Discuss the overall idea and probably remove/add some functionality! It is important that you express your thoughts and discuss what you like / don't like about it from the user perspective.
 
 2️⃣ Introduce the codebase we have now to the new team members and start the learning process of side technologies.
 
