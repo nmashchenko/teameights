@@ -57,6 +57,7 @@ Premium user, obviously, will be able to ask for mentor for his team and will ha
 Regarding the **platform** paging, currently we are 100% sure that this list of pages will exist (✅ – *page exists*, ❌ – *under development*, 🔧 - under construction, 📱 - adaptive already):
 <p>
 ✅📱 Login / SignUp page:
+  
 ![image](https://user-images.githubusercontent.com/52038455/192882103-4bfd20cc-46a2-43af-a5cd-bd650522ef93.png)
 ![image](https://user-images.githubusercontent.com/52038455/192882145-7c5b7618-8a4e-4e4f-8b8f-ff4188076e03.png)
 
