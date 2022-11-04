@@ -23,6 +23,7 @@ import personalInfoHooks from './Hooks/personalInfoHooks'
 // * Styles
 import {
   Container,
+  RegistrationContainer,
   CardContainer,
   TopContainer,
   Text,
@@ -82,7 +83,6 @@ function NamePart() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <NavLogo />
         {open && errors.length > 0 && (
           <SnackBar
             handleClose={handleClose}
@@ -97,7 +97,11 @@ function NamePart() {
         )}
         <Container>
           <Stepper step={step} />
-          <CardContainer>
+          <RegistrationContainer>
+            <NavLogo />
+          </RegistrationContainer>
+          {/* <Stepper step={step} /> */}
+          {/* <CardContainer>
             <TopContainer>
               <Text fontSize="18px" fontWeight="700" margin="0 0 10px 0">
                 User Profile
@@ -131,7 +135,7 @@ function NamePart() {
                 </ButtonContainer>
               </RightContainer>
             </MiddleContainer>
-          </CardContainer>
+          </CardContainer> */}
         </Container>
       </form>
     </>

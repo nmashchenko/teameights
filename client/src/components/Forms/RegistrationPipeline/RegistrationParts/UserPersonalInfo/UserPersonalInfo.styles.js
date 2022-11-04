@@ -20,6 +20,9 @@ const shake = keyframes`
 
 export const Container = styled.div`
   display: flex;
+`
+
+export const RegistrationContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;

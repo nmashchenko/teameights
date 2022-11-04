@@ -8,6 +8,9 @@ import Step from '@mui/material/Step'
 import Check from '@mui/icons-material/Check'
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector'
 
+// * Components
+import {StepperContainer} from './Stepper.styles'
+
 // * Constants
 import { GREY, GREEN, WHITE } from '../../../../constants/colors'
 
@@ -87,34 +90,37 @@ const steps = ['User profile', 'Specialization', 'Experience', 'Education', 'Lin
 
 export default function CustomizedSteppers({ step }) {
   return (
-    <Stack sx={{ width: '800px', marginTop: '30px' }} spacing={4}>
-      <Stepper alternativeLabel activeStep={step} connector={<QontoConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel
-              StepIconComponent={QontoStepIcon}
-              sx={{
-                '& .css-qivjh0-MuiStepLabel-label.Mui-active': {
-                  color: 'transparent',
-                  fontSize: '15px',
-                  fontWeight: '700',
-                },
-                '& .css-qivjh0-MuiStepLabel-label.Mui-completed': {
-                  color: GREEN.text,
-                  fontSize: '15px',
-                  fontWeight: '700',
-                },
-                '& .css-qivjh0-MuiStepLabel-label': {
-                  color: WHITE.main,
-                  fontSize: '15px',
-                },
-              }}
-            >
-              {label}
-            </StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Stack>
+    <StepperContainer>
+    
+    </StepperContainer>
+    // <Stack sx={{ width: '800px', marginTop: '30px' }} spacing={4}>
+    //   <Stepper alternativeLabel activeStep={step} connector={<QontoConnector />}>
+    //     {steps.map((label) => (
+    //       <Step key={label}>
+    //         <StepLabel
+    //           StepIconComponent={QontoStepIcon}
+    //           sx={{
+    //             '& .css-qivjh0-MuiStepLabel-label.Mui-active': {
+    //               color: 'transparent',
+    //               fontSize: '15px',
+    //               fontWeight: '700',
+    //             },
+    //             '& .css-qivjh0-MuiStepLabel-label.Mui-completed': {
+    //               color: GREEN.text,
+    //               fontSize: '15px',
+    //               fontWeight: '700',
+    //             },
+    //             '& .css-qivjh0-MuiStepLabel-label': {
+    //               color: WHITE.main,
+    //               fontSize: '15px',
+    //             },
+    //           }}
+    //         >
+    //           {label}
+    //         </StepLabel>
+    //       </Step>
+    //     ))}
+    //   </Stepper>
+    // </Stack>
   )
 }
