@@ -23,31 +23,26 @@ export const Container = styled.div`
 `
 
 export const RegistrationContainer = styled.div`
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 85px);
   width: 100%;
   background: ${BLACK.background};
-`
-
-export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 770px;
-  height: 420px;
-  padding: 20px 25px;
-  background: ${BLACK.cardContainer};
-  border-radius: 25px;
-  margin-bottom: 78px;
-  margin-top: 50px;
-  box-shadow: 0px 5px 50px rgba(0, 0, 0, 0.1);
 `
 
-export const TopContainer = styled.div`
-  width: 100%;
-  border-bottom: 1px solid ${BLACK.line} !important;
+export const ContentContainer = styled.div`
+  height: calc(100vh - 91px);
+`
+
+export const GroupContainer = styled.div`
+  display: flex;
+`
+
+export const SectionContainer = styled.div`
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+  align-items: start;
+  margin: 80px 0 0 40px;
 `
 
 export const MiddleContainer = styled.div`
@@ -65,21 +60,20 @@ export const LeftContainer = styled.div`
 `
 
 export const Input = styled.input`
-  border: ${(props) => props.border || `1px solid ${GREEN.alternativeBorder}`};
+  outline: 0;
+  border-width: 0 0 1.5px;
+  border-color: #4b4b4b;
   background: inherit;
-  outline: none;
   width: ${(props) => props.width || '240px'};
   height: ${(props) => props.height || '40px'};
-  border-radius: 5px;
   font-size: 18px;
-  margin: ${(props) => props.margin || '10px 0 30px 0'};
-  padding-left: 10px;
+  margin: ${(props) => props.margin || '16px 0 0 0'};
   color: ${WHITE.main};
   animation-name: ${(props) => props.animation || shake};
   animation-duration: 0.3s;
 
   &:focus {
-    border: 1px solid ${WHITE.main};
+    border-color: ${WHITE.main};
   }
 `
 
@@ -109,7 +103,7 @@ export const Text = styled.h3`
   font-size: ${(props) => props.fontSize || '18px'};
   font-weight: ${(props) => props.fontWeight || '500'};
   margin: ${(props) => props.margin || '0'};
-  color: ${WHITE.main};
+  color: #4b4b4b;
 `
 
 export const ButtonContainer = styled.div`

@@ -10,7 +10,7 @@ import Hover from './Hover'
 
 import { NavBar, InfoContainer, InfoText } from './NavLogo.styles'
 
-function NavLogo() {
+function NavLogo({ sectionName }) {
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handlePopoverOpen = (event) => {
@@ -27,10 +27,11 @@ function NavLogo() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0}>
         <NavBar>
-          <SiteLogo />
+          {/* <SiteLogo /> */}
+          <InfoText fontSize="20px">{sectionName}</InfoText>
           <div style={{ flexGrow: 1 }}></div>
           <InfoContainer onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-            <InfoText>Need Help</InfoText>
+            <InfoText fontSize="18px">Need Help</InfoText>
             <InfoIcon />
           </InfoContainer>
           <Hover anchorEl={anchorEl} handlePopoverClose={handlePopoverClose} open={open} />

@@ -56,4 +56,15 @@ export const Item = styled(MenuItem)`
 export const SelectCustom = styled(Select)`
   animation-name: ${(props) => props.animation || shake};
   animation-duration: 0.3s;
+
+  & .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 0;
+  }
+`
+
+export const Line = styled.hr`
+  margin: 0;
+  border: none;
+  height: 1px;
+  background: #4b4b4b;
 `

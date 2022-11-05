@@ -22,7 +22,7 @@ export const InfoContainer = styled.div`
 `
 
 export const InfoText = styled.h3`
-  font-size: 16px;
+  font-size: ${(props) => props.fontSize || `16px`};
   font-weight: 500;
   margin: 0;
   color: ${WHITE.main};

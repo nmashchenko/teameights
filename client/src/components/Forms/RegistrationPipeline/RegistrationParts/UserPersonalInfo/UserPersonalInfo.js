@@ -24,8 +24,9 @@ import personalInfoHooks from './Hooks/personalInfoHooks'
 import {
   Container,
   RegistrationContainer,
-  CardContainer,
-  TopContainer,
+  ContentContainer,
+  GroupContainer,
+  SectionContainer,
   Text,
   MiddleContainer,
   LeftContainer,
@@ -98,9 +99,24 @@ function NamePart() {
         <Container>
           <Stepper step={step} />
           <RegistrationContainer>
-            <NavLogo />
+            <NavLogo sectionName={'User Profile'} />
+            <ContentContainer>
+              <SectionContainer>
+                <GroupContainer>
+                  <NameUsernameArea
+                    userData={userData}
+                    errors={errors}
+                    handleUsername={handleUsername}
+                    handleName={handleName}
+                  />
+                </GroupContainer>
+                <GroupContainer>
+                  <CountryArea errors={errors} handleCountry={handleCountry} country={country} />
+                </GroupContainer>
+              </SectionContainer>
+            </ContentContainer>
           </RegistrationContainer>
-          {/* <Stepper step={step} /> */}
+
           {/* <CardContainer>
             <TopContainer>
               <Text fontSize="18px" fontWeight="700" margin="0 0 10px 0">

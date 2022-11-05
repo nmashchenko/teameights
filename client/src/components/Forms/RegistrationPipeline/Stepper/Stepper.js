@@ -6,41 +6,20 @@ import Stepper from '@mui/material/Stepper'
 import StepLabel from '@mui/material/StepLabel'
 import Step from '@mui/material/Step'
 import Check from '@mui/icons-material/Check'
-import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector'
 
 // * Components
-import {StepperContainer} from './Stepper.styles'
+import { StepperContainer, ButtonContainer } from './Stepper.styles'
+import NavigationArrowUp from '../../../../assets/Arrows/NavigationArrowUp'
+import NavigationArrowDown from '../../../../assets/Arrows/NavigationArrowDown'
 
 // * Constants
-import { GREY, GREEN, WHITE } from '../../../../constants/colors'
-
-const QontoConnector = styled(StepConnector)(() => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 10,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: GREEN.text,
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: GREEN.text,
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderColor: GREY.line,
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-}))
+import { GREEN } from '../../../../constants/colors'
+const steps = ['User profile', 'Specialization', 'Experience', 'Education', 'Links', 'Avatar']
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
-  color: GREY.line,
+  color: GREEN.alternativeBorder,
   display: 'flex',
-  height: 22,
+  height: 32,
   alignItems: 'center',
   ...(ownerState.active && {
     color: GREEN.text,
@@ -51,8 +30,8 @@ const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
     fontSize: 18,
   },
   '& .QontoStepIcon-circle': {
-    width: 8,
-    height: 8,
+    width: 10,
+    height: 10,
     borderRadius: '50%',
     backgroundColor: 'currentColor',
   },
@@ -72,6 +51,28 @@ function QontoStepIcon(props) {
   )
 }
 
+export default function CustomizedSteppers({ step }) {
+  return (
+    <StepperContainer>
+      <ButtonContainer>
+        <NavigationArrowUp />
+      </ButtonContainer>
+      <Stack>
+        <Stepper activeStep={step} orientation="vertical" connector={null}>
+          {steps.map((label) => (
+            <Step>
+              <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </Stack>
+      <ButtonContainer>
+        <NavigationArrowDown />
+      </ButtonContainer>
+    </StepperContainer>
+  )
+}
+
 QontoStepIcon.propTypes = {
   /**
    * Whether this step is active.
@@ -84,43 +85,4 @@ QontoStepIcon.propTypes = {
    * @default false
    */
   completed: PropTypes.bool,
-}
-
-const steps = ['User profile', 'Specialization', 'Experience', 'Education', 'Links', 'Avatar']
-
-export default function CustomizedSteppers({ step }) {
-  return (
-    <StepperContainer>
-    
-    </StepperContainer>
-    // <Stack sx={{ width: '800px', marginTop: '30px' }} spacing={4}>
-    //   <Stepper alternativeLabel activeStep={step} connector={<QontoConnector />}>
-    //     {steps.map((label) => (
-    //       <Step key={label}>
-    //         <StepLabel
-    //           StepIconComponent={QontoStepIcon}
-    //           sx={{
-    //             '& .css-qivjh0-MuiStepLabel-label.Mui-active': {
-    //               color: 'transparent',
-    //               fontSize: '15px',
-    //               fontWeight: '700',
-    //             },
-    //             '& .css-qivjh0-MuiStepLabel-label.Mui-completed': {
-    //               color: GREEN.text,
-    //               fontSize: '15px',
-    //               fontWeight: '700',
-    //             },
-    //             '& .css-qivjh0-MuiStepLabel-label': {
-    //               color: WHITE.main,
-    //               fontSize: '15px',
-    //             },
-    //           }}
-    //         >
-    //           {label}
-    //         </StepLabel>
-    //       </Step>
-    //     ))}
-    //   </Stepper>
-    // </Stack>
-  )
 }

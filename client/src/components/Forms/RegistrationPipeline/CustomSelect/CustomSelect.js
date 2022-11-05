@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import countryList from 'react-select-country-list'
 import FormControl from '@mui/material/FormControl'
-import { SelectCustom, Item } from './CustomSelect.styles'
+import { SelectCustom, Item, Line } from './CustomSelect.styles'
 import { includes } from 'lodash'
 
 // * Constants
@@ -26,7 +26,7 @@ const CustomSelect = ({ country, handleCountry, errors }) => {
   }, [])
   return (
     <>
-      <FormControl sx={{ margin: '10px 0 30px 0', width: '240px' }}>
+      <FormControl sx={{ margin: '10px 0 0 0', width: '240px', padding: '0px' }}>
         <SelectCustom
           value={country}
           IconComponent={includes(errors, 'country') ? ArrowDownRed : ArrowDown}
@@ -36,13 +36,10 @@ const CustomSelect = ({ country, handleCountry, errors }) => {
           MenuProps={MenuProps}
           animation={animation}
           sx={{
-            borderRadius: '5px',
             background: 'none',
             height: '45px',
-            border: includes(errors, 'country')
-              ? `1px solid #cf625e`
-              : `1px solid ${GREEN.alternativeBorder}`,
-            paddingRight: '10px',
+            border: 'none',
+            fontSize: '18px',
             color: WHITE.main,
           }}
         >
@@ -53,6 +50,7 @@ const CustomSelect = ({ country, handleCountry, errors }) => {
           ))}
         </SelectCustom>
       </FormControl>
+      <Line />
     </>
   )
 }
