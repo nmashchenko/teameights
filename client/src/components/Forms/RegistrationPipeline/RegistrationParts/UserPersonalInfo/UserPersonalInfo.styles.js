@@ -20,6 +20,7 @@ const shake = keyframes`
 
 export const Container = styled.div`
   display: flex;
+  min-height: 100vh;
 `
 
 export const RegistrationContainer = styled.div`
@@ -27,10 +28,12 @@ export const RegistrationContainer = styled.div`
   background: ${BLACK.background};
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  flex-grow: 1;
 `
 
 export const ContentContainer = styled.div`
-  height: calc(100vh - 91px);
+  flex-grow: 1;
 `
 
 export const GroupContainer = styled.div`
@@ -42,27 +45,18 @@ export const SectionContainer = styled.div`
   width: 70%;
   justify-content: space-between;
   align-items: start;
+  margin: ${(props) => props.margin || '80px 0 0 40px'};
+`
+
+export const AboutMeContainer = styled.div`
   margin: 80px 0 0 40px;
-`
-
-export const MiddleContainer = styled.div`
-  display: flex;
-  width: 100%;
-  height: 90%;
-  margin-top: 25px;
-`
-
-export const LeftContainer = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  width: calc(100% - 300px);
 `
 
 export const Input = styled.input`
   outline: 0;
   border-width: 0 0 1.5px;
-  border-color: #4b4b4b;
+  border-color: ${(props) => props.borderColor || '#4b4b4b'};
   background: inherit;
   width: ${(props) => props.width || '240px'};
   height: ${(props) => props.height || '40px'};
@@ -79,11 +73,11 @@ export const Input = styled.input`
 
 export const TextArea = styled.textarea`
   margin-top: 10px;
+  height: 180px;
   width: 100%;
-  height: 150px;
   padding: 12px 20px;
   box-sizing: border-box;
-  border: ${(props) => props.border || `1px solid ${GREEN.alternativeBorder}`};
+  border: ${(props) => props.border || `1px solid #4b4b4b`};
   color: ${WHITE.main};
   border-radius: 5px;
   background: inherit;
@@ -93,12 +87,6 @@ export const TextArea = styled.textarea`
   animation-duration: 0.3s;
 `
 
-export const RightContainer = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`
 export const Text = styled.h3`
   font-size: ${(props) => props.fontSize || '18px'};
   font-weight: ${(props) => props.fontWeight || '500'};
@@ -107,21 +95,40 @@ export const Text = styled.h3`
 `
 
 export const ButtonContainer = styled.div`
-  width: 100%;
+  margin: 40px 0 0 40px;
+  width: calc(100% - 300px);
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+`
+
+export const ResetButton = styled.button`
+  border: none;
+  background: inherit;
+  color: #4b4b4b;
+  outline: none;
+  font-weight: 400;
+  font-size: 18px;
+  margin-bottom: 30px;
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+  }
 `
 
 export const Button = styled.button`
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 18px;
   margin-bottom: 30px;
   border: none;
-  width: 180px;
-  height: 40px;
+  width: 170px;
+  height: 49px;
   color: ${WHITE.main};
   background: ${GREEN.button};
-  border-radius: 25px;
+  border-radius: 5px;
   cursor: pointer;
 
   &:hover {
@@ -147,7 +154,6 @@ export const ButtonDisabled = styled.button`
 `
 
 export const WordsCounterContainer = styled.div`
-  width: 100%;
   display: flex;
   justify-content: end;
 `

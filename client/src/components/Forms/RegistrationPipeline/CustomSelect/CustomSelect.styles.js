@@ -66,5 +66,7 @@ export const Line = styled.hr`
   margin: 0;
   border: none;
   height: 1px;
-  background: #4b4b4b;
+  background: ${(props) => props.background || '#4b4b4b'};
+  animation-name: ${(props) => props.animation || shake};
+  animation-duration: 0.3s;
 `

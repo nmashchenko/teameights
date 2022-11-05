@@ -50,7 +50,7 @@ const CustomSelect = ({ country, handleCountry, errors }) => {
           ))}
         </SelectCustom>
       </FormControl>
-      <Line />
+      {includes(errors, 'country') ? <Line background="#cf625e" /> : <Line animation="none" />}
     </>
   )
 }
