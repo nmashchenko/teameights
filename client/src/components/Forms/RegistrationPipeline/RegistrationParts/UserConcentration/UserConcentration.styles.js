@@ -20,31 +20,25 @@ const shake = keyframes`
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 85px);
+  min-height: 100vh;
+`
+
+export const RegistrationContainer = styled.div`
   width: 100%;
   background: ${BLACK.background};
-`
-
-export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 770px;
-  height: 420px;
-  padding: 20px 25px;
-  background: ${BLACK.cardContainer};
-  border-radius: 25px;
-  margin-bottom: 78px;
-  margin-top: 50px;
-  box-shadow: 0px 5px 50px rgba(0, 0, 0, 0.1);
+  justify-content: space-around;
+  flex-grow: 1;
 `
 
-export const TopContainer = styled.div`
+export const ContentContainer = styled.div`
   width: 100%;
-  border-bottom: 1px solid ${BLACK.line} !important;
+  height: calc(100vh - 91px);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
 `
 
 export const Text = styled.h3`
@@ -76,23 +70,23 @@ export const Line = styled.hr`
 `
 
 export const BottomContainer = styled.div`
-  width: 100%;
+  width: 95%;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  justify-content: center;
+  align-items: center;
   margin-top: 5px;
 `
 
 export const Button = styled.button`
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 18px;
   margin-bottom: 30px;
   border: none;
-  width: 100px;
-  height: 40px;
+  width: 170px;
+  height: 49px;
   color: ${WHITE.main};
   background: ${GREEN.button};
-  border-radius: 25px;
+  border-radius: 5px;
   cursor: pointer;
 
   &:hover {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import InitialPart from './RegistrationParts/InitialPart/InitialPart'
 import UserConcentration from './RegistrationParts/UserConcentration/UserConcentration'
 import UserExperience from './RegistrationParts/UserExperience/UserExperience'

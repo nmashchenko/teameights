@@ -7,6 +7,10 @@ import StepLabel from '@mui/material/StepLabel'
 import Step from '@mui/material/Step'
 import Check from '@mui/icons-material/Check'
 
+// * Redux
+import { useDispatch } from 'react-redux'
+import { registrationAuth } from '../../../../store/reducers/RegistrationAuth'
+
 // * Components
 import { StepperContainer, ButtonContainer } from './Stepper.styles'
 import NavigationArrowUp from '../../../../assets/Arrows/NavigationArrowUp'
@@ -14,7 +18,16 @@ import NavigationArrowDown from '../../../../assets/Arrows/NavigationArrowDown'
 
 // * Constants
 import { GREEN } from '../../../../constants/colors'
-const steps = ['User profile', 'Specialization', 'Experience', 'Education', 'Links', 'Avatar']
+import { useEffect } from 'react'
+
+const steps = [
+  'InitialPart',
+  'UserPersonalInfo',
+  'UserConcentration',
+  'UserExperience',
+  'Links',
+  'Avatar',
+]
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   color: GREEN.alternativeBorder,
@@ -52,21 +65,68 @@ function QontoStepIcon(props) {
 }
 
 export default function CustomizedSteppers({ step }) {
+  const dispatch = useDispatch()
+  const { setStep, setActiveState } = registrationAuth.actions
+
+  const handleCases = (newStep) => {
+    switch (newStep) {
+      case 0:
+        dispatch(setStep(0))
+        dispatch(setActiveState(steps[newStep]))
+        break
+      case 1:
+        dispatch(setStep(1))
+        dispatch(setActiveState(steps[newStep]))
+        break
+      case 2:
+        dispatch(setStep(2))
+        dispatch(setActiveState(steps[newStep]))
+        break
+      case 3:
+        dispatch(setStep(3))
+        dispatch(setActiveState(steps[newStep]))
+        break
+      case 4:
+        dispatch(setStep(4))
+        dispatch(setActiveState(steps[newStep]))
+        break
+      case 5:
+        dispatch(setStep(5))
+        dispatch(setActiveState(steps[newStep]))
+        break
+      default:
+        break
+    }
+  }
+
+  const handleDecrement = () => {
+    if (step - 1 >= 0) {
+      step = step - 1
+      handleCases(step)
+    }
+  }
+  const handleIncrement = () => {
+    if (step + 1 < steps.length) {
+      step = step + 1
+      handleCases(step)
+    }
+  }
+
   return (
     <StepperContainer>
-      <ButtonContainer>
+      <ButtonContainer onClick={handleDecrement}>
         <NavigationArrowUp />
       </ButtonContainer>
       <Stack>
-        <Stepper activeStep={step} orientation="vertical" connector={null}>
-          {steps.map((label) => (
-            <Step>
+        <Stepper activeStep={step - 1} orientation="vertical" connector={null}>
+          {steps.map((label, i) => (
+            <Step key={i}>
               <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
             </Step>
           ))}
         </Stepper>
       </Stack>
-      <ButtonContainer>
+      <ButtonContainer onClick={handleIncrement}>
         <NavigationArrowDown />
       </ButtonContainer>
     </StepperContainer>

@@ -38,7 +38,7 @@ const useConcentrationSubmit = (
       .then(function () {
         dispatch(setUserConcentration({ programmingLanguages, frameworks, concentration }))
         dispatch(setActiveState('UserExperience'))
-        dispatch(setStep(2))
+        dispatch(setStep(3))
       })
       .catch(function (err) {
         setOpen(true)

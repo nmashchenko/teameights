@@ -73,7 +73,7 @@ function InitialPart() {
             // change the global states
             onClick={() => {
               dispatch(setActiveState('UserPersonalInfo'))
-              dispatch(setStep(0))
+              dispatch(setStep(1))
             }}
           >
             Continue

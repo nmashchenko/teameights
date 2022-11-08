@@ -31,7 +31,7 @@ const useConcentrationSubmit = (experience, leader, setOpen, setErrors) => {
       .then(function () {
         dispatch(setUserExperience({ experience, leader }))
         // dispatch(setActiveState('UserExperience'))
-        dispatch(setStep(3))
+        dispatch(setStep(4))
       })
       .catch(function (err) {
         setOpen(true)

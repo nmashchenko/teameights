@@ -26,10 +26,8 @@ import concentrationHooks from './Hooks/concentrationHooks'
 // * Styles
 import {
   Container,
-  CardContainer,
-  TopContainer,
-  Text,
-  MiddleContainer,
+  RegistrationContainer,
+  ContentContainer,
   BottomContainer,
   Button,
   ButtonDisabled,
@@ -65,16 +63,11 @@ const UserConcentration = () => {
   return (
     <>
       <form>
-        <NavLogo />
         <Container>
           <Stepper step={step} />
-          <CardContainer>
-            <TopContainer>
-              <Text fontSize="18px" fontWeight="700" margin="0 0 10px 0">
-                Concentration
-              </Text>
-            </TopContainer>
-            <MiddleContainer>
+          <RegistrationContainer>
+            <NavLogo sectionName={'Concentration'} />
+            <ContentContainer>
               <ProgrammingLanguagesArea
                 programmingLanguages={programmingLanguages}
                 handleProgrammingLanguages={handleProgrammingLanguages}
@@ -93,20 +86,17 @@ const UserConcentration = () => {
                 concentrationsOptions={concentrationsOptions}
                 errors={errors}
               />
-            </MiddleContainer>
-            <BottomContainer>
-              <Text fontSize="14px" fontWeight="300" color="grey">
-                ❤️ Select your favorites!
-              </Text>
-              {errors.length > 0 ? (
-                <ButtonDisabled onClick={handleSubmit}>
-                  <WarningIcon />
-                </ButtonDisabled>
-              ) : (
-                <Button onClick={handleSubmit}>Next</Button>
-              )}
-            </BottomContainer>
-          </CardContainer>
+              <BottomContainer>
+                {errors.length > 0 ? (
+                  <ButtonDisabled onClick={handleSubmit}>
+                    <WarningIcon />
+                  </ButtonDisabled>
+                ) : (
+                  <Button onClick={handleSubmit}>Next</Button>
+                )}
+              </BottomContainer>
+            </ContentContainer>
+          </RegistrationContainer>
         </Container>
       </form>
     </>

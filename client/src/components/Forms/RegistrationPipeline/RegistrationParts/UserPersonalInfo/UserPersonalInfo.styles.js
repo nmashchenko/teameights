@@ -91,7 +91,7 @@ export const Text = styled.h3`
   font-size: ${(props) => props.fontSize || '18px'};
   font-weight: ${(props) => props.fontWeight || '500'};
   margin: ${(props) => props.margin || '0'};
-  color: #4b4b4b;
+  color: white;
 `
 
 export const ButtonContainer = styled.div`

@@ -58,7 +58,7 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
           } else {
             dispatch(setUserPersonalInfoWithUsername({ username, age, country, description }))
             dispatch(setActiveState('UserConcentration'))
-            dispatch(setStep(1))
+            dispatch(setStep(2))
           }
         })
         .catch(function (err) {
