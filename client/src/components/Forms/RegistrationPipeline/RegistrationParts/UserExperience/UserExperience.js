@@ -20,11 +20,10 @@ import useExperienceSubmit from './Hooks/useExperienceSubmit'
 import {
   Container,
   CardContainer,
-  TopContainer,
+  ContentContainer,
   Text,
   MiddleContainer,
   AlertContainer,
-  BottomContainer,
   Button,
   ButtonDisabled,
 } from './UserExperience.styles'
@@ -36,57 +35,44 @@ const UserConcentration = () => {
   // * useStates
   const [open, setOpen] = useState(false)
   const [errors, setErrors] = useState([])
-  const [experience, setExperience] = useState('')
-  const [leader, setLeader] = useState(null)
+  const [experience, setExperience] = useState(userData.userExperience)
+  const [leader, setLeader] = useState(userData.userLeader)
 
   // * useExperienceSubmit hook
   const handleSubmit = useExperienceSubmit(experience, leader, setOpen, setErrors)
 
   return (
     <>
-      <NavLogo />
       <Container>
         <Stepper step={step} />
         <CardContainer>
-          <TopContainer>
-            <Text fontSize="18px" fontWeight="700" margin="0 0 10px 0">
-              Experience
-            </Text>
-          </TopContainer>
+          <NavLogo sectionName={'Experience'} />
+
           <MiddleContainer>
-            <Text fontSize="16px" fontWeight="500" margin="20px 0 0 0">
-              How many years of experience you have?
-            </Text>
-            <ExperienceArea setExperience={setExperience} setErrors={setErrors} errors={errors} />
-            <Text fontSize="16px" fontWeight="500" margin="40px 0 0 0">
-              Do you want to be a leader of the team?
-            </Text>
-            <AlertContainer>
-              <Text
-                fontSize="15px"
-                fontWeight="300"
-                margin="15px 0 0 0"
-                align="center"
-                opacity="0.6"
-              >
-                Please note that leaders typically have 1-3+ years of experience and will be
-                required to pass a leadership test.
+            <ContentContainer>
+              <Text fontSize="23px" fontWeight="400" margin="20px 0 0 0">
+                How many years of experience you have?
               </Text>
-            </AlertContainer>
-            <AgreementArea setLeader={setLeader} setErrors={setErrors} errors={errors} />
+              <ExperienceArea setExperience={setExperience} setErrors={setErrors} errors={errors} />
+              <Text fontSize="23px" fontWeight="400" margin="40px 0 0 0">
+                Do you want to be a leader of the team?
+              </Text>
+              <AlertContainer>
+                <Text fontSize="16px" fontWeight="200" margin="15px 0 0 0" opacity="0.4">
+                  👑 Please note that leaders typically have 1-3+ years of experience and will be
+                  required to pass a leadership test.
+                </Text>
+              </AlertContainer>
+              <AgreementArea setLeader={setLeader} setErrors={setErrors} errors={errors} />
+              {errors.length > 0 ? (
+                <ButtonDisabled onClick={handleSubmit}>
+                  <WarningIcon />
+                </ButtonDisabled>
+              ) : (
+                <Button onClick={handleSubmit}>Next</Button>
+              )}
+            </ContentContainer>
           </MiddleContainer>
-          <BottomContainer>
-            <Text fontSize="14px" fontWeight="300" color="grey">
-              👑 Are you ready to be a leader?
-            </Text>
-            {errors.length > 0 ? (
-              <ButtonDisabled onClick={handleSubmit}>
-                <WarningIcon />
-              </ButtonDisabled>
-            ) : (
-              <Button onClick={handleSubmit}>Next</Button>
-            )}
-          </BottomContainer>
         </CardContainer>
       </Container>
     </>

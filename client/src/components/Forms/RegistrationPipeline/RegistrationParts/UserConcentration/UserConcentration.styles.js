@@ -98,15 +98,24 @@ export const Button = styled.button`
 `
 
 export const ButtonDisabled = styled.button`
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 30px;
+  font-weight: 400;
+  font-size: 18px;
+  margin: 15px 0 30px 0;
+  width: ${(props) => props.width || 'none'};
+  padding: 15px 32px;
   border: none;
-  width: 100px;
-  height: 40px;
+  width: 170px;
+  height: 49px;
   color: ${WHITE.main};
   background: ${RED.alert};
+  border-radius: 5px;
+  cursor: pointer;
   opacity: 0.3;
-  border-radius: 25px;
-  cursor: not-allowed;
+
+  &:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
+  }
 `

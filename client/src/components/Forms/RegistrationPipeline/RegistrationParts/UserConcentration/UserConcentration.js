@@ -40,9 +40,11 @@ const UserConcentration = () => {
   // * useStates
   const [open, setOpen] = useState(false)
   const [errors, setErrors] = useState([])
-  const [programmingLanguages, setProgrammingLanguages] = useState([])
-  const [frameworks, setFrameworks] = useState([])
-  const [concentration, setConcentration] = useState('')
+  const [programmingLanguages, setProgrammingLanguages] = useState(
+    userData.userProgrammingLanguages,
+  )
+  const [frameworks, setFrameworks] = useState(userData.userFrameworks)
+  const [concentration, setConcentration] = useState(userData.userConcentration)
 
   // * useInfoSubmit hook
   const handleSubmit = useConcentrationSubmit(

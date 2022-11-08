@@ -40,36 +40,36 @@ const ExperienceArea = ({ setExperience, setErrors, errors }) => {
   return (
     <ExperienceContainer>
       {zeroOneClicked ? (
-        <ExperienceButtonClicked onClick={handleZeroOne}>0-1</ExperienceButtonClicked>
+        <ExperienceButtonClicked onClick={handleZeroOne}>0-1 years</ExperienceButtonClicked>
       ) : includes(errors, 'experience') ? (
         <ExperienceButton onClick={handleZeroOne} border="1px solid #cf625e">
-          0-1
+          0-1 years
         </ExperienceButton>
       ) : (
         <ExperienceButton onClick={handleZeroOne} animation="none">
-          0-1
+          0-1 years
         </ExperienceButton>
       )}
       {oneThreeClicked ? (
-        <ExperienceButtonClicked onClick={handleOneThree}>1-3</ExperienceButtonClicked>
+        <ExperienceButtonClicked onClick={handleOneThree}>1-3 years</ExperienceButtonClicked>
       ) : includes(errors, 'experience') ? (
         <ExperienceButton onClick={handleOneThree} border="1px solid #cf625e">
-          1-3
+          1-3 years
         </ExperienceButton>
       ) : (
         <ExperienceButton onClick={handleOneThree} animation="none">
-          1-3
+          1-3 years
         </ExperienceButton>
       )}
       {threePlusClicked ? (
-        <ExperienceButtonClicked onClick={handleThreePlus}>3+</ExperienceButtonClicked>
+        <ExperienceButtonClicked onClick={handleThreePlus}>3+ years</ExperienceButtonClicked>
       ) : includes(errors, 'experience') ? (
         <ExperienceButton onClick={handleThreePlus} border="1px solid #cf625e">
-          3+
+          3+ years
         </ExperienceButton>
       ) : (
         <ExperienceButton onClick={handleThreePlus} animation="none">
-          3+
+          3+ years
         </ExperienceButton>
       )}
     </ExperienceContainer>
