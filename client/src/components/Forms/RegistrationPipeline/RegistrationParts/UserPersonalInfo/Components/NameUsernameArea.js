@@ -27,7 +27,7 @@ const NameUsernameArea = ({ userData, errors, handleFunction, nameUsername, name
         <Text fontSize="18px" fontWeight="400">
           {nameUsername}
         </Text>
-        {userData.userRealName !== '' ? (
+        {userData.userRealName !== '' && userData.userUsername === '' ? (
           <Input borderColor="#72EB3A" value={name} disabled />
         ) : includes(errors, 'name') ? (
           <Input onChange={handleFunction} borderColor="#cf625e" value={name} />

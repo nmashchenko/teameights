@@ -40,11 +40,11 @@ function NamePart() {
 
   // * useStates
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [age, setAge] = useState('')
-  const [country, setCountry] = useState('')
-  const [description, setDescription] = useState('')
+  const [name, setName] = useState(userData.userRealName)
+  const [username, setUsername] = useState(userData.userUsername)
+  const [age, setAge] = useState(userData.userAge)
+  const [country, setCountry] = useState(userData.userCountry)
+  const [description, setDescription] = useState(userData.userDescription)
   const [errors, setErrors] = useState([])
 
   // * useEffect
