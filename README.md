@@ -1,60 +1,78 @@
 # teameights.com
+
 🦉 This is platform for developers to find each other.
 
-# Stack of technologies that we will be using for this project:
+# Diagram
 
-**Front-End:** <br>
-⭐️	ReactJS (functional) <br>
-⭐️  MaterialUI / Styled Components
-⭐️	Redux <br>
+**Services we are going to use to host:** <br>
 
- **Back-End:** <br>
-⭐️	NodeJS <br>
-⭐️	MongoDB <br>
-⭐️	DevOps:	Undetermined <br>
+✨ *Front:* Netlify <br>
+✨ *Backend:* Heroku <br>
+✨ *Database:* MongoDB automatically hosts it <br>
 
-**Design:** <br>
-⭐️ Figma 
+
+**Technologies we are going to use:** <br>
+
+✨ *Front:* ReactJS, Redux Toolkit, styled-components, axios, material ui <br>
+✨ *Backend:* NodeJS, express, joi(validation), etc <br>
+✨ *Database:* MongoDB <br>
+✨ *Codeversions:* Github <br>
+✨ *Design:* Figma <br>
+
+**APIs we are going to use:** <br>
+
+✨ Google / Github API for quick login
+
+✨ MongoDB api for database operations
+
+✨ StackBlitz API for creating coding env in application
+
+# MVP
+
+**🥳 Week 12:**
+- Complete the profiles page
+- Complete the user profile page where he can change information about him
+- Start working on the tournaments system, integrate the stackblitz into the platform
+- Complete the preregistration pipeline, e.g. after user signups with email/google/git redirect him to the pages where he can get more information about himself (refer to registration pipeline above)
+- Start working on teams logic, design the database architecture, implement adding/removing users to team as well as creating/removing teams
+- Work on filtering / infinite scroll for users in the profiles page
+
+# Link to the deployed app
+
+https://ephemeral-biscochitos-6c41fa.netlify.app
+
+It's currently just basic react app, we are currently working on another repo and will transfer the code here soon.
 
 # Idea
 
 🎧 Overall idea - platform for student developers (probably skilled also) to find each other and work together on pet projects/real projects from project pool of customers (will be available only for skilled teams), tournaments between them will determine skill level, etc. Also possible mentorship, premium projects, AI code review, etc. basic functionality is described below.
 
-# Responsiveness
-The application should be *responsive* (e.g. should be available both on mobile phones and desktops).
+# Figma design
 
-Approximate widths for different devices:
+Here is our design on figma:
 
-📱	Desktops 1440px <br>
-💻 Mobiles 375px <br>
-
-# Colors
-
-This list will be constantly updating, and you will be always able to see the design on figma:
-
-https://www.figma.com/file/QaEUKYrZnVUEOzMBBSd7Q3/team8s?node-id=0%3A1
+https://www.figma.com/file/eKn6hgqorxySnkFA3f8PcY/team8s?node-id=0%3A1
 
 If you want to know why teameights.com or team8s.com – I don’t know, I just think this sounds cool =)
-
-The application will be built in two different parts, first one will be landing page with all of the information about our platform, with a lot of ‘get started’, ‘sign up’, etc. buttons that will redirect user to the sign-up/sign-in page and then will transfer him to the platform in case of successful login
 
 # Roles
 
 There will be several different roles on platform, for example:
 
-⚜️	Default user <br>
-⚜️	Premium user <br>
-⚜️	Mentor user <br>
-⚜️	etc. <br>
+⚜️ Default user <br>
+⚜️ Premium user <br>
+⚜️ Mentor user <br>
+⚜️ etc. <br>
 
-*In short, the idea is for now: default user will be able to search for teammates, won’t be able to add ask for mentor for his team, won’t have access to premium projects, etc. (this list will be extending during our calls). 
-Premium user, obviously, will be able to ask for mentor for his team and will have access to premium projects, probably also with some additional features (like deadline management, impact management, etc.).*
+_In short, the idea is for now: default user will be able to search for teammates, won’t be able to add ask for mentor for his team, won’t have access to premium projects, etc. (this list will be extending during our calls).
+Premium user, obviously, will be able to ask for mentor for his team and will have access to premium projects, probably also with some additional features (like deadline management, impact management, etc.)._
 
 **Finally**, mentor user will be a person who is not interested in finding teammates but rather will be able to mentor some teams that are looking for him and he will be able to help multiple teams simultaneously with their questions, etc.
 
 # Pages (Desktop versions)
 
-Regarding the **platform** paging, currently we are 100% sure that this list of pages will exist (✅ – *page exists*, ❌ – *under development*, 🔧 -*under construction*, 📱 - *adaptive already*):
+Regarding the **platform** paging, currently we are 100% sure that this list of pages will exist (✅ – _page exists_, ❌ – _under development_, 🔧 -_under construction_, 📱 - _adaptive already_):
+
 <p>
 ✅📱 Login / SignUp page:
   
@@ -71,74 +89,71 @@ Regarding the **platform** paging, currently we are 100% sure that this list of 
 
 ⚠️ **TODO: Add all of the pages from this pipeline**
 
-✅📱	Developer profiles page (whenever user login, signup he will be redirected to this page and his profile will be added to the list of people who search for teams.:
+✅📱 Developer profiles page (whenever user login, signup he will be redirected to this page and his profile will be added to the list of people who search for teams.:
 ![image](https://user-images.githubusercontent.com/52038455/192883146-aec63869-255f-4cda-8b5b-20d81f4a3870.png)
 
-✅📱	Sidebar for navigation on developer profiles page:
+✅📱 Sidebar for navigation on developer profiles page:
 ![image](https://user-images.githubusercontent.com/52038455/192883262-0599ecd8-c560-451a-a471-0649551b9578.png)
 
-✅📱	Developer page (it will pop-up as a modal window whenever user will click on developer from the list) and will provide all information about the developer and also will contain button ‘invite to team’ <br>
+✅📱 Developer page (it will pop-up as a modal window whenever user will click on developer from the list) and will provide all information about the developer and also will contain button ‘invite to team’ <br>
 ![image](https://user-images.githubusercontent.com/52038455/192883516-e4d85298-df4a-42d3-94db-75d507d43a91.png)
 
 ✅📱 Results not found page (when filters didn't find anything):
 ![image](https://user-images.githubusercontent.com/52038455/192883634-0ec48b2e-e936-46e6-a63f-98e483c09a33.png)
 
-❌	Tournaments page (it will display upcoming tournament information and winners of the past tournament, if you want to see how it looks like you can check it in figma ‘tournaments’) <br>
+❌ Tournaments page (it will display upcoming tournament information and winners of the past tournament, if you want to see how it looks like you can check it in figma ‘tournaments’) <br>
 ⚠️ **TODO: Add the tournaments page here**
 
-❌	Upcoming tournament page (here teams will be able to see description of the tournament, prize pool, start date, and will be able to sign-up for it if there will be enough slots, we will decide maximum amount of slots later, this page is not ready yet on figma) <br>
+❌ Upcoming tournament page (here teams will be able to see description of the tournament, prize pool, start date, and will be able to sign-up for it if there will be enough slots, we will decide maximum amount of slots later, this page is not ready yet on figma) <br>
 ⚠️ **TODO: Add the upcoming tournament page here**
 
-❌ Top teams tributes page (here we will display top teams, their earnings and people who are in the team) <br>
-⚠️ **TODO: Add the top teams tributes page here**
-
-❌	Your team’s page (this page will display information about the team, founders will be able to remove people, assign roles for the project, add project name, add name to the team) <br>
+❌ Your team’s page (this page will display information about the team, founders will be able to remove people, assign roles for the project, add project name, add name to the team) <br>
 ⚠️ **TODO: Add your team page here**
 
-❌	Team edit page (this will also be a module window that will pop-up whenever team’s founder will click on edit button) <br>
+❌ Team edit page (this will also be a module window that will pop-up whenever team’s founder will click on edit button) <br>
 ⚠️ **TODO: Add the team edit page here**
 
-❌	Incoming invites (in this page user will be able how many teams invited him, reject or accept invites) <br>
+❌ Incoming invites (in this page user will be able how many teams invited him, reject or accept invites) <br>
 ⚠️ **TODO: Add incoming invite page here**
-  
-❌ Projects page ( premium / default pool of projects that people can work on )
-⚠️ **TODO: Add incoming projects page here**
-  
-TBD. 
+
+❌ Your personal page (in this page user will be able to see information about him and change it) <br>
+⚠️ **TODO: Add incoming invite page here**
+![image](https://user-images.githubusercontent.com/52038455/200723916-f0fa4a96-14af-4ee3-a43e-2b17bd7077cd.png)
+
+TBD.
+
 </p>
 We might redesign some pages but for now they should exist in any form, also we might add some additional pages later.
 
 # Pages (Phone/tablet versions)
+
 ⚠️ **TODO: Add screenshots here**
 
 # Team
+
 Regarding the team members as for now:
 
-🧑🏻	Nikita (full-stack dev) <br>
-🧑🏻	Mitya (designer) <br>
+🧑🏻 Nikita <br>
+🧑🏻 Leland <br>
+🧑🏻 Zach <br>
+🧑🏻 Zayn <br>
 
-Even though all of us are seniors, some of us have experience in developing real-world projects. Personally, I believe this idea is amazing and is 1) helping people, 2) could be monetized easily, 3) will give us some real-world experience as students, 4) can potentially give us an opportunity to found company and work on this full-time.
+# Questions
 
-*Regarding the roles for this project, if you want to work more on back than on front let me know, same works for other way. Nikita (me) will lead the project and assign tasks / keep healthy environment / check deadlines (we can use scrum methodology if you guys know it) *
+**What does your application do?**
 
-However, if you want to contribute for both front and back you are more than welcome! Be prepared that this project will be coding-heavy, and you will probably have to learn a lot of new things beside university material, I will be with you and help as much as I can with any bugs, material, etc.
+_It allows programmers (especially undergrads and lower) to find people with the same mindset to work on projects together, participate in coding tournaments (hackathon in box) and upgrade coding skills_
 
-We will also do code reviews to maintain the large code-base and 1 on 1 sessions if you will have any questions
+_Main idea is to add this experience to your resume in addition to internships that you have_
 
-# Plan
+_Hackathon in box will be a unique tournament future described above that will allow teams of 2+ people to work work on different projects together right on the platform (using different APIs we will be able to implement this) and get feedback from real people upon completion of tournaments_
 
-The plan for now is:
+**What makes it different than a CRUD app? I.e., what functionality does it provide that is not just a user interface layer on top of a database of user information, and the ability to view / add to / change that information?**
 
-1️⃣	Do first meetings to discuss and assign roles for this project as well as understand the deadlines and requirments
+_First of all we are actually building full stack REST application that is not just a basic operations to be done in a data repository (CRUD). Second, we are planning to use external public APIs (StackBlitz API to generate coding environment and embed it in platform, github API to generate repos, google api to handle OAuth, etc.). We plan to also have our unique tournament evaluation system inside that will determine winners of tournaments based on evaluations_
 
-  (a) Discuss the overall idea and probably remove/add some functionality! It is important that you express your thoughts and discuss what you like / don't like about it from the user perspective.
+_As possible extensions to this project we can have an AI implemented on platofrom that will evaluate each team member's performance during the tournament and will give this data to user, etc._
 
-2️⃣ Introduce the codebase we have now to the new team members and start the learning process of side technologies.
+**What security and privacy concerns do you expect you (as developers) or your users to have with this application?**
 
-3️⃣ Understand how git works/merging branches/making new branches/making pull requests/etc.
-
-4️⃣ Try to write and implement some new code for the existing codebase
-
-5️⃣ Refactor old code to write it in more clear and understandable way
-
-(P.S) Nikita ❤️
+_As this application might become popular we would definitely should take care of user personal data protection. As we will be collecting a lot of user personal information (including names, ages, emails, locations, etc.) we will have to think how to prevent most of the attacks that we learnt in class, therefore create a reliable security infrastructure inside the application_
