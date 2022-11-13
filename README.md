@@ -29,7 +29,7 @@
 
 # MVP
 
-**🥳 Week 12:**
+**🥳 Week 13:**
 - Complete the profiles page
 - Complete the user profile page where he can change information about him
 - Start working on the tournaments system, integrate the stackblitz into the platform
@@ -51,7 +51,7 @@ It's currently just basic react app, we are currently working on another repo an
 
 Here is our design on figma:
 
-https://www.figma.com/file/eKn6hgqorxySnkFA3f8PcY/team8s?node-id=0%3A1
+https://www.figma.com/file/QaEUKYrZnVUEOzMBBSd7Q3/team8s?node-id=0%3A1&t=k5t52OmxRs5fyqvO-0
 
 If you want to know why teameights.com or team8s.com – I don’t know, I just think this sounds cool =)
 
