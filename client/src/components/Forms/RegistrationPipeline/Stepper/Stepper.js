@@ -18,15 +18,14 @@ import NavigationArrowDown from '../../../../assets/Arrows/NavigationArrowDown'
 
 // * Constants
 import { GREEN } from '../../../../constants/colors'
-import { useEffect } from 'react'
-
 const steps = [
   'InitialPart',
   'UserPersonalInfo',
   'UserConcentration',
   'UserExperience',
+  'Education',
   'Links',
-  'Avatar',
+  'UserAvatar',
 ]
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
@@ -94,6 +93,10 @@ export default function CustomizedSteppers({ step }) {
         dispatch(setStep(5))
         dispatch(setActiveState(steps[newStep]))
         break
+      case 6:
+        dispatch(setStep(6))
+        dispatch(setActiveState(steps[newStep]))
+        break
       default:
         break
     }
@@ -118,7 +121,7 @@ export default function CustomizedSteppers({ step }) {
         <NavigationArrowUp />
       </ButtonContainer>
       <Stack>
-        <Stepper activeStep={step - 1} orientation="vertical" connector={null}>
+        <Stepper activeStep={step} orientation="vertical" connector={null}>
           {steps.map((label, i) => (
             <Step key={i}>
               <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>

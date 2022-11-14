@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import InitialPart from './RegistrationParts/InitialPart/InitialPart'
 import UserConcentration from './RegistrationParts/UserConcentration/UserConcentration'
 import UserExperience from './RegistrationParts/UserExperience/UserExperience'
+import Education from './RegistrationParts/EducationPart/Education'
 import Links from './RegistrationParts/LinksPart/Links'
 import UserPersonalInfo from './RegistrationParts/UserPersonalInfo/UserPersonalInfo'
+import UserAvatar from './RegistrationParts/UserAvatar/UserAvatar'
 import { SnackbarProvider } from 'notistack'
 import { styled } from '@mui/material'
 
@@ -34,7 +36,9 @@ function FinishRegistration() {
       {active === 'UserPersonalInfo' && <UserPersonalInfo />}
       {active === 'UserConcentration' && <UserConcentration />}
       {active === 'UserExperience' && <UserExperience />}
+      {active === 'Education' && <Education />}
       {active === 'Links' && <Links />}
+      {active === 'UserAvatar' && <UserAvatar />}
     </SnackbarStyled>
   )
 }

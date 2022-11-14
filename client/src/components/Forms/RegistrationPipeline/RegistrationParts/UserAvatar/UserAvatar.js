@@ -10,9 +10,9 @@ import Stepper from '../../Stepper/Stepper'
 import { useSelector } from 'react-redux'
 
 // * Styles
-import { Container, DataContainer } from './Links.styles'
+import { Container, DataContainer } from './UserAvatar.styles'
 
-const Links = () => {
+const UserAvatar = () => {
   // * Redux
   const { step, userData } = useSelector((state) => state.registrationReducer)
 
@@ -27,10 +27,10 @@ const Links = () => {
     <Container>
       <Stepper step={step} />
       <DataContainer>
-        <NavLogo sectionName={'Links'} />
+        <NavLogo sectionName={'User Avatar'} />
       </DataContainer>
     </Container>
   )
 }
 
-export default Links
+export default UserAvatar
