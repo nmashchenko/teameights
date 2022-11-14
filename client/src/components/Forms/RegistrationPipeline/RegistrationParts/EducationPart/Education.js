@@ -6,6 +6,7 @@ import { includes } from 'lodash'
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
 import Stepper from '../../Stepper/Stepper'
+import SkipArrow from '../../../../../assets/Arrows/SkipArrow'
 
 // * Redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -28,7 +29,6 @@ import {
   BottomContainer,
   Skip,
 } from './Education.styles'
-import SkipArrow from '../../../../../assets/Arrows/SkipArrow'
 
 const Education = () => {
   // * Redux
