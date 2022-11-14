@@ -15,6 +15,9 @@ const initialState = {
     userProgrammingLanguages: [],
     userFrameworks: [],
     userRole: 'Standard',
+    userUniversity: '',
+    userMajor: '',
+    userGraduationDate: '',
     isRegistered: false,
   },
   active: 'InitialPart',
@@ -89,6 +92,12 @@ export const registrationAuth = createSlice({
 
     setStep(state, action) {
       state.step = action.payload
+    },
+
+    setUniversityInfo(state, action) {
+      state.userData.userUniversity = action.payload.university
+      state.userData.userMajor = action.payload.major
+      state.userData.userGraduationDate = action.payload.graduationDate
     },
 
     finishRegistration(state) {

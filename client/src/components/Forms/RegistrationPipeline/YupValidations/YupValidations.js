@@ -37,6 +37,18 @@ const userExperienceSchema = yup.object().shape({
   leader: yup.bool().required('Decide if you want to be a leader').nullable(),
 })
 
+const userEducationSchema = yup.object().shape({
+  university: yup.string().matches(/^[aA-zZ\s]+$/, {
+    message: 'Only alphabets are allowed for this field ',
+    excludeEmptyString: true,
+  }),
+  major: yup.string().matches(/^[aA-zZ\s]+$/, {
+    message: 'Only alphabets are allowed for this field ',
+    excludeEmptyString: true,
+  }),
+  graduationDate: yup.number().positive().nullable(),
+})
+
 const urlsSchema = yup.object().shape({
   github: yup
     .string()
@@ -67,6 +79,7 @@ const yupValidation = Object.freeze({
   userExperienceSchema,
   urlsSchema,
   answerSchema,
+  userEducationSchema,
 })
 
 export default yupValidation
