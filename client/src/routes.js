@@ -11,6 +11,7 @@ import ResetPassword from './screens/Forms/ResetPassword/ResetPassword';
 import ResetPasswordConfirmation from './screens/Forms/ResetPasswordConfirmation/ResetPasswordConfirmation'
 import ResetNewPasswords from './screens/Forms/ResetNewPasswords/ResetNewPasswords';
 import UsersList from './screens/UsersList/UsersList'
+import Profile from './screens/Forms/Profile/Profile';
 
 // * Constants
 import ROUTES from './constants/routes';
@@ -21,6 +22,7 @@ export const useRoutes = () => {
       {/* // * for authenticated user */}
       <Route path={ROUTES.temporary} element={<UsersList />} />
       <Route path={ROUTES.finishRegistration} element={<FinishRegistration />}/>
+      <Route path={ROUTES.Profile} element={<Profile/>} />
       
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />
