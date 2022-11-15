@@ -64,7 +64,7 @@ export const ConcetrationContainer = styled.div`
 export const Line = styled.hr`
   width: 100%;
   opacity: 0.25;
-  border: ${(props) => props.border || '1px solid #72eb3a'};
+  border: ${(props) => props.border || '1px solid #4b4b4b'};
   animation-name: ${(props) => props.animation || shake};
   animation-duration: 0.3s;
 `

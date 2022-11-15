@@ -33,8 +33,13 @@ import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
 const useInfoSubmit = (userData, username, name, age, country, description, setOpen, setErrors) => {
   const dispatch = useDispatch()
   // const { enqueueSnackbar } = useSnackbar()
-  const { setActiveState, setStep, setUserPersonalInfoWithName, setUserPersonalInfoWithUsername } =
-    registrationAuth.actions
+  const {
+    setActiveState,
+    setStep,
+    setUserPersonalInfoWithName,
+    setUserPersonalInfoWithUsername,
+    setStageOneCompleted,
+  } = registrationAuth.actions
   // * Redux
 
   const handleSubmit = (event) => {
@@ -59,6 +64,7 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
             dispatch(setUserPersonalInfoWithUsername({ username, age, country, description }))
             dispatch(setActiveState('UserConcentration'))
             dispatch(setStep(2))
+            dispatch(setStageOneCompleted(true))
           }
         })
         .catch(function (err) {
@@ -78,6 +84,7 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
           dispatch(setUserPersonalInfoWithName({ name, age, country, description }))
           dispatch(setActiveState('UserConcentration'))
           dispatch(setStep(2))
+          dispatch(setStageOneCompleted(true))
         })
         .catch(function (err) {
           setOpen(true)

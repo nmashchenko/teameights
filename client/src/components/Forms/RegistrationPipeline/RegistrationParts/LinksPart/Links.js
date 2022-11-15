@@ -1,6 +1,7 @@
 // * Modules
 import React, { useState } from 'react'
 import WarningIcon from '@mui/icons-material/Warning'
+import { includes } from 'lodash'
 
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
@@ -11,7 +12,11 @@ import TelegramIcon from '../../../../../assets/Links/TelegramIcon'
 import SkipArrow from '../../../../../assets/Arrows/SkipArrow'
 
 // * Redux
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
+
+// * Hooks
+import useLinksSubmit from './Hooks/useLinksSubmit'
 
 // * Styles
 import {
@@ -31,8 +36,8 @@ import {
 const Links = () => {
   // * Redux
   const { step, userData } = useSelector((state) => state.registrationReducer)
-
-  console.log(userData)
+  const { setActiveState, setStep, setStageFiveCompleted } = registrationAuth.actions
+  const dispatch = useDispatch()
 
   // * useStates
   const [open, setOpen] = useState(false)
@@ -41,9 +46,28 @@ const Links = () => {
   const [telegram, setTelegram] = useState('')
   const [linkedIn, setLinkedIn] = useState('')
 
-  const handleSkip = () => {}
+  const handleGit = (e) => {
+    setErrors((errors) => errors.filter((word) => word !== 'github'))
+    setGithub(e.target.value)
+  }
 
-  const handleSubmit = () => {}
+  const handleTelegram = (e) => {
+    setErrors((errors) => errors.filter((word) => word !== 'telegram'))
+    setTelegram(e.target.value)
+  }
+
+  const handleLinked = (e) => {
+    setErrors((errors) => errors.filter((word) => word !== 'linkedIn'))
+    setLinkedIn(e.target.value)
+  }
+
+  const handleSkip = () => {
+    dispatch(setActiveState('UserAvatar'))
+    dispatch(setStageFiveCompleted(true))
+    dispatch(setStep(6))
+  }
+
+  const handleSubmit = useLinksSubmit(github, telegram, linkedIn, setOpen, setErrors)
 
   return (
     <Container>
@@ -53,15 +77,57 @@ const Links = () => {
         <MiddleContainer>
           <LinkArea>
             <GitHubIcon />
-            <LinkInput placeholder="Provide your link here" />
+            {includes(errors, 'github') ? (
+              <LinkInput
+                placeholder="Provide your link here"
+                borderColor="#cf625e"
+                value={github}
+                onChange={handleGit}
+              />
+            ) : (
+              <LinkInput
+                placeholder="Provide your link here"
+                animation="none"
+                value={github}
+                onChange={handleGit}
+              />
+            )}
           </LinkArea>
           <LinkArea>
             <LinkedInIcon />
-            <LinkInput placeholder="Provide your link here" />
+            {includes(errors, 'linkedIn') ? (
+              <LinkInput
+                placeholder="Provide your link here"
+                borderColor="#cf625e"
+                value={linkedIn}
+                onChange={handleLinked}
+              />
+            ) : (
+              <LinkInput
+                placeholder="Provide your link here"
+                animation="none"
+                value={linkedIn}
+                onChange={handleLinked}
+              />
+            )}
           </LinkArea>
           <LinkArea>
             <TelegramIcon />
-            <LinkInput placeholder="Provide your link here" />
+            {includes(errors, 'telegram') ? (
+              <LinkInput
+                placeholder="Provide your link here"
+                borderColor="#cf625e"
+                value={telegram}
+                onChange={handleTelegram}
+              />
+            ) : (
+              <LinkInput
+                placeholder="Provide your link here"
+                animation="none"
+                value={telegram}
+                onChange={handleTelegram}
+              />
+            )}
           </LinkArea>
         </MiddleContainer>
         <BottomContainer>

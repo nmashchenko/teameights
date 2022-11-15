@@ -19,10 +19,11 @@ import { registrationAuth } from '../../../../../../store/reducers/RegistrationA
  *
  */
 
-const useConcentrationSubmit = (university, major, graduationDate, setOpen, setErrors) => {
+const useEducationSubmit = (university, major, graduationDate, setOpen, setErrors) => {
   const dispatch = useDispatch()
   const { enqueueSnackbar } = useSnackbar()
-  const { setActiveState, setStep, setUniversityInfo } = registrationAuth.actions
+  const { setActiveState, setStep, setUniversityInfo, setStageFourCompleted } =
+    registrationAuth.actions
   // * Redux
 
   const handleSubmit = (event) => {
@@ -32,6 +33,7 @@ const useConcentrationSubmit = (university, major, graduationDate, setOpen, setE
       .then(function () {
         dispatch(setUniversityInfo({ university, major, graduationDate }))
         dispatch(setActiveState('Links'))
+        dispatch(setStageFourCompleted(true))
         dispatch(setStep(5))
       })
       .catch(function (err) {
@@ -49,4 +51,4 @@ const useConcentrationSubmit = (university, major, graduationDate, setOpen, setE
   return handleSubmit
 }
 
-export default useConcentrationSubmit
+export default useEducationSubmit

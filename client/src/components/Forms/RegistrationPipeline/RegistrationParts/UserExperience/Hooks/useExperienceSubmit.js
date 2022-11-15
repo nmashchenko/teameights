@@ -21,7 +21,8 @@ import { registrationAuth } from '../../../../../../store/reducers/RegistrationA
 const useConcentrationSubmit = (experience, leader, setOpen, setErrors) => {
   const dispatch = useDispatch()
   const { enqueueSnackbar } = useSnackbar()
-  const { setActiveState, setStep, setUserExperience } = registrationAuth.actions
+  const { setActiveState, setStep, setUserExperience, setStageThreeCompleted } =
+    registrationAuth.actions
   // * Redux
 
   const handleSubmit = (event) => {
@@ -31,6 +32,7 @@ const useConcentrationSubmit = (experience, leader, setOpen, setErrors) => {
       .then(function () {
         dispatch(setUserExperience({ experience, leader }))
         dispatch(setActiveState('Education'))
+        dispatch(setStageThreeCompleted(true))
         dispatch(setStep(4))
       })
       .catch(function (err) {

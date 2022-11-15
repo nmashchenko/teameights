@@ -20,6 +20,14 @@ const initialState = {
     userGraduationDate: '',
     isRegistered: false,
   },
+
+  completedStates: {
+    stageOneComplete: false,
+    stageTwoComplete: false,
+    stageThreeComplete: false,
+    stageFourComplete: false,
+    stageFiveComplete: false,
+  },
   active: 'InitialPart',
   step: 0,
   isLoading: false,
@@ -98,6 +106,26 @@ export const registrationAuth = createSlice({
       state.userData.userUniversity = action.payload.university
       state.userData.userMajor = action.payload.major
       state.userData.userGraduationDate = action.payload.graduationDate
+    },
+
+    setStageOneCompleted(state, action) {
+      state.completedStates.stageOneComplete = true
+    },
+
+    setStageTwoCompleted(state, action) {
+      state.completedStates.stageTwoComplete = true
+    },
+
+    setStageThreeCompleted(state, action) {
+      state.completedStates.stageThreeComplete = true
+    },
+
+    setStageFourCompleted(state, action) {
+      state.completedStates.stageFourComplete = true
+    },
+
+    setStageFiveCompleted(state, action) {
+      state.completedStates.stageFiveComplete = true
     },
 
     finishRegistration(state) {

@@ -33,7 +33,7 @@ import {
 const Education = () => {
   // * Redux
   const { step, userData } = useSelector((state) => state.registrationReducer)
-  const { setActiveState, setStep, setUniversityInfo } = registrationAuth.actions
+  const { setActiveState, setStep, setStageFourCompleted } = registrationAuth.actions
   const dispatch = useDispatch()
 
   // * useStates
@@ -61,6 +61,7 @@ const Education = () => {
   const handleSkip = () => {
     dispatch(setActiveState('Links'))
     dispatch(setStep(5))
+    dispatch(setStageFourCompleted(true))
   }
 
   // * useExperienceSubmit hook
@@ -80,9 +81,7 @@ const Education = () => {
 
         <MiddleContainer>
           <div>
-            <Text fontSize="18px" fontWeight="400">
-              University/School
-            </Text>
+            <Text fontWeight="400">University/School</Text>
             {includes(errors, 'university') ? (
               <Input onChange={handleUniversity} borderColor="#cf625e" value={university} />
             ) : (
@@ -90,9 +89,7 @@ const Education = () => {
             )}
           </div>
           <div>
-            <Text fontSize="18px" fontWeight="400">
-              Major
-            </Text>
+            <Text fontWeight="400">Major</Text>
             {includes(errors, 'major') ? (
               <Input onChange={handleMajor} borderColor="#cf625e" value={major} />
             ) : (
@@ -100,9 +97,7 @@ const Education = () => {
             )}
           </div>
           <div>
-            <Text fontSize="18px" fontWeight="400">
-              Expected Graduation
-            </Text>
+            <Text fontWeight="400">Expected Graduation</Text>
             {includes(errors, 'graduationDate') ? (
               <Input
                 onChange={handleGraduationDate}

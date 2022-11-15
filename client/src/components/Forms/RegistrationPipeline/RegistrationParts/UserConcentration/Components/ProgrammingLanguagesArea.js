@@ -16,7 +16,7 @@ const ProgrammingLanguagesArea = ({
 }) => {
   return (
     <ConcetrationContainer margin="15px 0 0 0">
-      <Text fontSize="16px" fontWeight="400" margin="0 0 10px 0">
+      <Text fontWeight="400" margin="0 0 10px 0">
         Programming Languages
       </Text>
       <CustomMultipleSelect

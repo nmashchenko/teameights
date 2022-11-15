@@ -1,4 +1,5 @@
 // * Modules
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { styled } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
@@ -8,7 +9,7 @@ import Step from '@mui/material/Step'
 import Check from '@mui/icons-material/Check'
 
 // * Redux
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { registrationAuth } from '../../../../store/reducers/RegistrationAuth'
 
 // * Components
@@ -64,8 +65,12 @@ function QontoStepIcon(props) {
 }
 
 export default function CustomizedSteppers({ step }) {
-  const dispatch = useDispatch()
+  const [curStep, setCurStep] = useState(step)
   const { setStep, setActiveState } = registrationAuth.actions
+  const { completedStates } = useSelector((state) => state.registrationReducer)
+
+  const dispatch = useDispatch()
+  useEffect(() => {}, [completedStates])
 
   const handleCases = (newStep) => {
     switch (newStep) {
@@ -78,24 +83,44 @@ export default function CustomizedSteppers({ step }) {
         dispatch(setActiveState(steps[newStep]))
         break
       case 2:
-        dispatch(setStep(2))
-        dispatch(setActiveState(steps[newStep]))
+        if (completedStates.stageOneComplete) {
+          dispatch(setStep(2))
+          dispatch(setActiveState(steps[newStep]))
+        } else {
+          setCurStep(curStep - 1)
+        }
         break
       case 3:
-        dispatch(setStep(3))
-        dispatch(setActiveState(steps[newStep]))
+        if (completedStates.stageTwoComplete) {
+          dispatch(setStep(3))
+          dispatch(setActiveState(steps[newStep]))
+        } else {
+          setCurStep(curStep - 1)
+        }
         break
       case 4:
-        dispatch(setStep(4))
-        dispatch(setActiveState(steps[newStep]))
+        if (completedStates.stageThreeComplete) {
+          dispatch(setStep(4))
+          dispatch(setActiveState(steps[newStep]))
+        } else {
+          setCurStep(curStep - 1)
+        }
         break
       case 5:
-        dispatch(setStep(5))
-        dispatch(setActiveState(steps[newStep]))
+        if (completedStates.stageFourComplete) {
+          dispatch(setStep(5))
+          dispatch(setActiveState(steps[newStep]))
+        } else {
+          setCurStep(curStep - 1)
+        }
         break
       case 6:
-        dispatch(setStep(6))
-        dispatch(setActiveState(steps[newStep]))
+        if (completedStates.stageFiveComplete) {
+          dispatch(setStep(6))
+          dispatch(setActiveState(steps[newStep]))
+        } else {
+          setCurStep(curStep - 1)
+        }
         break
       default:
         break
@@ -103,15 +128,15 @@ export default function CustomizedSteppers({ step }) {
   }
 
   const handleDecrement = () => {
-    if (step - 1 >= 0) {
-      step = step - 1
-      handleCases(step)
+    if (curStep - 1 >= 0) {
+      setCurStep(curStep - 1)
+      handleCases(curStep - 1)
     }
   }
   const handleIncrement = () => {
-    if (step + 1 < steps.length) {
-      step = step + 1
-      handleCases(step)
+    if (curStep + 1 < steps.length) {
+      setCurStep(curStep + 1)
+      handleCases(curStep + 1)
     }
   }
 

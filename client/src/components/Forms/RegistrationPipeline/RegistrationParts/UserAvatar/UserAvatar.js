@@ -16,6 +16,8 @@ const UserAvatar = () => {
   // * Redux
   const { step, userData } = useSelector((state) => state.registrationReducer)
 
+  console.log(userData)
+
   // * useStates
   const [open, setOpen] = useState(false)
   const [errors, setErrors] = useState([])

@@ -57,10 +57,10 @@ const urlsSchema = yup.object().shape({
     message: 'LinkedIn link should be a valid URL',
     excludeEmptyString: true,
   }),
-  instagram: yup.string().matches(regMatch, {
-    message: 'Instagram link should be a valid URL',
-    excludeEmptyString: true,
-  }),
+  // instagram: yup.string().matches(regMatch, {
+  //   message: 'Instagram link should be a valid URL',
+  //   excludeEmptyString: true,
+  // }),
   telegram: yup.string().matches(regMatch, {
     message: 'Telegram link should be a valid URL',
     excludeEmptyString: true,

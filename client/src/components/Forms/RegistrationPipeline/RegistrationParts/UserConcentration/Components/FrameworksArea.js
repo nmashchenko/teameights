@@ -11,7 +11,7 @@ import { Text, ConcetrationContainer, Line } from '../UserConcentration.styles'
 const FrameworksArea = ({ frameworks, handleFrameworks, frameworksOptions, errors }) => {
   return (
     <ConcetrationContainer margin="10px 0 0 0">
-      <Text fontSize="16px" fontWeight="400" margin="0 0 10px 0">
+      <Text fontWeight="400" margin="0 0 10px 0">
         Frameworks
       </Text>
       <CustomMultipleSelect
