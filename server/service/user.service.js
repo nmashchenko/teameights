@@ -38,7 +38,7 @@ class UserService {
     const activationLink = uuid.v4(); // generate activation link (v34fa-adsfaa-8138183-dwadw)
     const isRegistered = false;
     const user = await User.create({
-      username,
+      userUsername: username,
       email,
       password: hashPassword,
       activationLink,
@@ -90,12 +90,12 @@ class UserService {
       const isActivated = true;
       const hashPassword = await bcrypt.hash(sub, 3); // hash password
       const user = await User.create({
-        username: "temporary",
+        userUsername: "temporary",
         userRealName: name,
         password: hashPassword,
-        email,
-        isRegistered,
-        isActivated,
+        email: email,
+        isRegistered: isRegistered,
+        isActivated: isActivated,
         userAvatar: picture,
       });
       const userDto = new UserDto(user);
@@ -196,15 +196,22 @@ class UserService {
 
   async registrationCompletion(
     email,
-    userCountry,
-    userAge,
-    userProgrammingLanguages,
-    userConcentration,
+    userUsername,
     userRealName,
-    userLinks,
+    userPhoto,
+    userAge,
+    userDescription,
+    userConcentration,
+    userCountry,
     userExperience,
     userLeader,
+    userLinks,
+    userProgrammingLanguages,
+    userFrameworks,
     userRole,
+    userUniversity,
+    userMajor,
+    userGraduationDate,
     isRegistered
   ) {
     const candidate = await User.findOne({ email });
@@ -215,16 +222,24 @@ class UserService {
     const userData = await User.findOneAndUpdate(
       { email },
       {
-        userCountry,
-        userAge,
-        userProgrammingLanguages,
-        userConcentration,
+        email,
+        userUsername,
         userRealName,
-        userLinks,
+        userPhoto,
+        userAge,
+        userDescription,
+        userConcentration,
+        userCountry,
         userExperience,
         userLeader,
+        userLinks,
+        userProgrammingLanguages,
+        userFrameworks,
         userRole,
-        isRegistered,
+        userUniversity,
+        userMajor,
+        userGraduationDate,
+        isRegistered: true,
       }
     );
 

@@ -39,6 +39,10 @@ function UsersList() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    dispatch(authApi.checkAuth())
+  }, [])
+
   /**
    * Set of states that are used by this component
    */
@@ -71,6 +75,8 @@ function UsersList() {
    * Get global state from redux
    */
   const { isAuth, user } = useSelector((state) => state.userReducer)
+
+  console.log(user)
 
   const showMobileProfile = () => setMobileProfile(!mobileProfile)
   /**
@@ -133,6 +139,7 @@ function UsersList() {
     }
 
     if (isAuth && !user.user?.isRegistered) {
+      console.log('redirecting back!!')
       navigate(ROUTES.finishRegistration, { replace: true })
     }
   }, [isAuth, navigate])

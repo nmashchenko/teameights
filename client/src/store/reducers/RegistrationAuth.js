@@ -5,6 +5,7 @@ const initialState = {
     email: '',
     userUsername: '',
     userRealName: '',
+    userPhoto: '',
     userAge: '',
     userDescription: '',
     userConcentration: '',
@@ -132,7 +133,7 @@ export const registrationAuth = createSlice({
       state.isLoading = true
     },
 
-    finishRegistrationSuccess(state) {
+    finishRegistrationSuccess(state, action) {
       state.isLoading = false
       state.error = ''
       state.userData.isRegistered = true
