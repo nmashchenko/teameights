@@ -1,43 +1,41 @@
 import React from 'react'
+import { Container, ImgContainer, Text } from './ProfileForm.styles'
 
 export const ProfileForm = () => {
   return (
     // right profile box
     <div>
-      
-      <div>
-        <img />
-      </div>
+      <Container align="left">
+        <ImgContainer></ImgContainer>
+        <Text>
+          Name
+        
 
-      <div>
-        <h3>
-          name
-        </h3>
-        <p>
-          title
-        </p>
-      </div>
+            <div>
+            <p>
+              Location
+            </p>
+            <p>
+              Experience
+            </p>
+            <p>
+              Email
+            </p>
+            <p>
+              github
+            </p>
+            <p>
+              linkedin
+            </p>
+          </div>
+        </Text>
+      </Container>
 
-      <line></line>
-
-      <div>
-        <p>
-          Location
-        </p>
-        <p>
-          Experience
-        </p>
-        <p>
-          Email
-        </p>
-        <p>
-          github
-        </p>
-        <p>
-          linkedin
-        </p>
-      </div>
-
+      <Container align="right">
+        <Text>
+          Hello World
+        </Text>
+      </Container>
     
       
     </div>
