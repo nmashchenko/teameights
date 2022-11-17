@@ -62,6 +62,8 @@ const UserConcentration = () => {
   const handleFrameworks = concentrationHooks.useHandleFrameworks(setErrors, setFrameworks)
   const handleConcentration = concentrationHooks.useHandleConcentration(setErrors, setConcentration)
 
+  console.log(userData)
+
   return (
     <>
       <form>

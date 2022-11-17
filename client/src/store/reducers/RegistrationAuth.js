@@ -39,41 +39,14 @@ export const registrationAuth = createSlice({
   name: 'registration',
   initialState,
   reducers: {
-    /**
-     *
-     * @param {Object} state - redux state that is being changed
-     * @param {Object} action - passed parameters that should be changed
-     *
-     * The point of creating two setters is that if user logs in with google, he will be given only Full Name but username will be missing
-     * However, if user sign-ups regular way, he will be given username in the beginning
-     */
-    setUserInitialDataWithName: (state, action) => {
+    setUserInitialData: (state, action) => {
       state.userData.email = action.payload.email
-      state.userData.userRealName = action.payload.userRealName
+      state.userData.userUsername = action.payload.userUsername
       state.userData.isRegistered = action.payload.isRegistered
     },
 
-    setUserInitialDataWithUsername: (state, action) => {
-      state.userData.email = action.payload.email
-      state.userData.userUsername = action.payload.username
-      state.userData.isRegistered = action.payload.isRegistered
-    },
-
-    /**
-     *
-     * @param {Object} state - redux state that is being changed
-     * @param {Object} action - passed parameters that should be changed
-     *
-     * Same story here, after getting initial data we need to set additional real name/username
-     */
-    setUserPersonalInfoWithName(state, action) {
+    setUserPersonalInfo(state, action) {
       state.userData.userRealName = action.payload.name
-      state.userData.userAge = action.payload.age
-      state.userData.userCountry = action.payload.country
-      state.userData.userDescription = action.payload.description
-    },
-
-    setUserPersonalInfoWithUsername(state, action) {
       state.userData.userUsername = action.payload.username
       state.userData.userAge = action.payload.age
       state.userData.userCountry = action.payload.country
@@ -91,6 +64,12 @@ export const registrationAuth = createSlice({
       state.userData.userLeader = action.payload.leader
     },
 
+    setUniversityInfo(state, action) {
+      state.userData.userUniversity = action.payload.university
+      state.userData.userMajor = action.payload.major
+      state.userData.userGraduationDate = action.payload.graduationDate
+    },
+
     setUserLinks(state, action) {
       state.userData.userLinks = action.payload
     },
@@ -101,12 +80,6 @@ export const registrationAuth = createSlice({
 
     setStep(state, action) {
       state.step = action.payload
-    },
-
-    setUniversityInfo(state, action) {
-      state.userData.userUniversity = action.payload.university
-      state.userData.userMajor = action.payload.major
-      state.userData.userGraduationDate = action.payload.graduationDate
     },
 
     setStageOneCompleted(state, action) {

@@ -83,15 +83,14 @@ class UserService {
     return { ...tokens, user }; // return access&refresh tokens, and user
   }
 
-  async socialLoginRegistration(name, email, picture, sub) {
+  async socialLoginRegistration(username, email, picture, sub) {
     const user = await User.findOne({ email });
     if (!user) {
       const isRegistered = false;
       const isActivated = true;
       const hashPassword = await bcrypt.hash(sub, 3); // hash password
       const user = await User.create({
-        userUsername: "temporary",
-        userRealName: name,
+        userUsername: username,
         password: hashPassword,
         email: email,
         isRegistered: isRegistered,
@@ -287,7 +286,7 @@ class UserService {
   }
 
   async checkUsername(username) {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ userUsername: username });
     return user;
   }
 }

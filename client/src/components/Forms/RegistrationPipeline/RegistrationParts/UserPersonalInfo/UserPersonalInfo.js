@@ -49,9 +49,7 @@ function NamePart() {
 
   // * useEffect
   useEffect(() => {
-    userData.userUsername !== ''
-      ? setUsername(userData.userUsername)
-      : setName(userData.userRealName)
+    setUsername(userData.userUsername)
   }, [])
 
   // * Error messages

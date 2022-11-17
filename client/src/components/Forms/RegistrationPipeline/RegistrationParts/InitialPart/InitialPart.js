@@ -46,6 +46,8 @@ function InitialPart() {
     }
   }, [curRegistration, navigate])
 
+  console.log(userData)
+
   return (
     <>
       <NavLogo />
@@ -53,10 +55,7 @@ function InitialPart() {
         <CardContainer>
           <div>
             <TopText>
-              Welcome to the family,
-              {isEqual(userData.userUsername, '')
-                ? ' ' + userData.userRealName
-                : ' ' + userData.userUsername}
+              Welcome to the family, {userData.userUsername}
               ❤️
             </TopText>
           </div>

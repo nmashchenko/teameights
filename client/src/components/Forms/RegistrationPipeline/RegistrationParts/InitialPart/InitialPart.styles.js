@@ -6,7 +6,8 @@ import { BLACK, WHITE, GREEN } from '../../../../../constants/colors'
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 50px;
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 88px);

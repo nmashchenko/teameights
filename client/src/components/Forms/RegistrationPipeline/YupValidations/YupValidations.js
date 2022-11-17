@@ -4,19 +4,9 @@ import * as yup from 'yup'
 const regMatch =
   /^((http|https):\/\/)?(www.)?(?!.*(http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+(\/)?.([\w\?[a-zA-Z-_%\/@?]+)*([^\/\w\?[a-zA-Z0-9_-]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/
 
-const userPersonalInfoNameSchema = yup.object().shape({
-  name: yup.string().required('Please input your name').max(30),
-  age: yup
-    .number()
-    .required('Please input your age')
-    .typeError('Age must be a number')
-    .positive('Age must be greater than zero'),
-  country: yup.string().required('Please choose your country!'),
-  description: yup.string().required('Please write something about you!').max(220),
-})
-
-const userPersonalInfoUsernameSchema = yup.object().shape({
+const userPersonalInfoSchema = yup.object().shape({
   username: yup.string().required('Please input your username').max(30),
+  name: yup.string().required('Please input your name').max(30),
   age: yup
     .number()
     .required('Please input your age')
@@ -73,8 +63,7 @@ const answerSchema = yup.object().shape({
 })
 
 const yupValidation = Object.freeze({
-  userPersonalInfoNameSchema,
-  userPersonalInfoUsernameSchema,
+  userPersonalInfoSchema,
   userConcentrationSchema,
   userExperienceSchema,
   urlsSchema,

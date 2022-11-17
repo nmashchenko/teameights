@@ -32,7 +32,7 @@ import useAvatarSubmit from './Hooks/useUserAvatarSubmit'
 
 const UserAvatar = () => {
   // * Redux
-  const { step, userData } = useSelector((state) => state.registrationReducer)
+  const { step, userData, isLoading } = useSelector((state) => state.registrationReducer)
 
   useEffect(() => {
     setUser(userData)
@@ -91,6 +91,7 @@ const UserAvatar = () => {
       <Stepper step={step} />
       <DataContainer>
         <NavLogo sectionName={'User Avatar'} />
+        <h3>{'isloading: ' + isLoading}</h3>
         <MiddleContainer>
           <ModalWindow
             open={open}

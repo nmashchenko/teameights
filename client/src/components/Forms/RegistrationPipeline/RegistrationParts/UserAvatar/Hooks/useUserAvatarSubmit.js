@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 // * Redux
 import { useDispatch } from 'react-redux'
+// * Redux
+import { userAuth } from '../../../../../../store/reducers/UserAuth'
 
 /**
  *
@@ -21,7 +23,7 @@ const useAvatarSubmit = (userData) => {
 
   const handleSubmit = (event) => {
     dispatch(registerAuthApi.finishRegistration(userData))
-    navigate('/platform')
+    navigate('/auth/verification')
   }
   return handleSubmit
 }

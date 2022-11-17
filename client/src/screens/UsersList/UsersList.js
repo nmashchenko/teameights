@@ -39,9 +39,9 @@ function UsersList() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    dispatch(authApi.checkAuth())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(authApi.checkAuth())
+  // }, [])
 
   /**
    * Set of states that are used by this component
@@ -137,6 +137,8 @@ function UsersList() {
     if (!isAuth) {
       navigate(ROUTES.login, { replace: true })
     }
+
+    console.log(user.user?.isRegistered)
 
     if (isAuth && !user.user?.isRegistered) {
       console.log('redirecting back!!')

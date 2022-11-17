@@ -33,70 +33,45 @@ import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
 const useInfoSubmit = (userData, username, name, age, country, description, setOpen, setErrors) => {
   const dispatch = useDispatch()
   // const { enqueueSnackbar } = useSnackbar()
-  const {
-    setActiveState,
-    setStep,
-    setUserPersonalInfoWithName,
-    setUserPersonalInfoWithUsername,
-    setStageOneCompleted,
-  } = registrationAuth.actions
+  const { setActiveState, setStep, setUserPersonalInfo, setStageOneCompleted } =
+    registrationAuth.actions
   // * Redux
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (isEqual(userData.userUsername, '')) {
-      yupValidation.userPersonalInfoUsernameSchema
-        .validate(
-          {
-            username,
-            age,
-            country,
-            description,
-          },
-          { abortEarly: false },
-        )
-        .then(async function () {
-          const user = await registerAuthApi.validateUsername(username)
-          if (!isEqual(user, null)) {
-            setOpen(true)
-            setErrors(['username', 'Username is already taken!'])
-          } else {
-            dispatch(setUserPersonalInfoWithUsername({ username, age, country, description }))
-            dispatch(setActiveState('UserConcentration'))
-            dispatch(setStep(2))
-            dispatch(setStageOneCompleted(true))
-          }
-        })
-        .catch(function (err) {
+    yupValidation.userPersonalInfoSchema
+      .validate(
+        {
+          name,
+          username,
+          age,
+          country,
+          description,
+        },
+        { abortEarly: false },
+      )
+      .then(async function () {
+        const user = await registerAuthApi.validateUsername(username)
+        if (!isEqual(user, null)) {
           setOpen(true)
-          setErrors([])
-          err.inner.forEach((e) => {
-            setErrors((prevErrors) => [...prevErrors, e.path])
-            // enqueueSnackbar(e.message, {
-            //   preventDuplicate: true,
-            // })
-          })
-        })
-    } else {
-      yupValidation.userPersonalInfoNameSchema
-        .validate({ name, age, country, description }, { abortEarly: false })
-        .then(function () {
-          dispatch(setUserPersonalInfoWithName({ name, age, country, description }))
+          setErrors(['username', 'Username is already taken!'])
+        } else {
+          dispatch(setUserPersonalInfo({ username, name, age, country, description }))
           dispatch(setActiveState('UserConcentration'))
           dispatch(setStep(2))
           dispatch(setStageOneCompleted(true))
+        }
+      })
+      .catch(function (err) {
+        setOpen(true)
+        setErrors([])
+        err.inner.forEach((e) => {
+          setErrors((prevErrors) => [...prevErrors, e.path])
+          // enqueueSnackbar(e.message, {
+          //   preventDuplicate: true,
+          // })
         })
-        .catch(function (err) {
-          setOpen(true)
-          setErrors([])
-          err.inner.forEach((e) => {
-            setErrors((prevErrors) => [...prevErrors, e.path])
-            // enqueueSnackbar(e.message, {
-            //   preventDuplicate: true,
-            // })
-          })
-        })
-    }
+      })
   }
   return handleSubmit
 }

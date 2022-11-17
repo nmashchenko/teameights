@@ -48,9 +48,9 @@ class UserController {
 
   async socialLoginRegistration(req, res, next) {
     try {
-      const { name, email, picture, sub } = req.body;
+      const { username, email, picture, sub } = req.body;
       const userData = await userService.socialLoginRegistration(
-        name,
+        username,
         email,
         picture,
         sub
