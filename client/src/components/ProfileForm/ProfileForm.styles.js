@@ -2,59 +2,128 @@ import styled from 'styled-components'
 import { WHITE, BLACK } from '../../constants/colors'
 
 export const Container = styled.div`
-  width: 100%;
-  height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 50px;
   justify-content: center;
   align-items: center;
+  min-height: calc(100vh - 88px);
+  height: 100vh;
+  width: 100%;
   background: ${BLACK.background};
+`
+
+export const LeftCard = styled.div`
+  height: 565px;
+  width: 370px;
+  background: #1a1c22;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+`
+
+export const RightContainer = styled.div`
+  height: 565px;
+  width: 470px;
+  display: flex;
+  border-radius: 15px;
+  justify-content: space-between;
+  flex-direction: column;
+`
+
+export const RightCard = styled.div`
+  width: 470px;
+  height: 125px;
+
+  background: #1a1c22;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
 `
 
 export const TextContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 45px;
+  align-items: justify;
+  margin-bottom: 10px;
 `
 
-export const Text = styled.h3`
+export const NameText = styled.h3`
   font-weight: ${(props) => props.fontWeight || '700'};
-  font-size: ${(props) => props.fontSize || '35px'};
+  font-size: 18px;
   margin: ${(props) => props.margin || '0 0 20px 0'};
   color: ${WHITE.main};
   text-align: center;
+`
 
-  @media screen and (min-width: 620px) and (max-width: 840px) {
-    font-size: calc(${(props) => props.fontSize || '35px'} - 7px);
-  }
+export const SubText = styled.h3`
+  font-weight: ${(props) => props.fontWeight || '700'};
+  font-size: 16px;
+  margin: ${(props) => props.margin || '0 0 20px 0'};
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+`
 
-  @media screen and (min-width: 450px) and (max-width: 620px) {
-    font-size: calc(${(props) => props.fontSize || '35px'} - 14px);
-  }
+export const TitleText = styled.h3`
+  font-weight: ${(props) => props.fontWeight || '700'};
+  font-size: 16px;
+  margin: ${(props) => props.margin || '0 0 20px 0'};
+  color: ${WHITE.main};
+  text-align: center;
+`
 
-  @media screen and (min-width: 0px) and (max-width: 450px) {
-    font-size: calc(${(props) => props.fontSize || '35px'} - 18px);
-  }
+export const BannerLText = styled.h3`
+  font-weight: ${(props) => props.fontWeight || '700'};
+  font-size: 15px;
+  margin: ${(props) => props.margin || '0 0 20px 0'};
+  margin-left: 10px;
+  color: ${WHITE.main};
+  text-align: left;
+`
+
+export const BannerRText = styled.h3`
+  font-weight: ${(props) => props.fontWeight || '700'};
+  font-size: 16px;
+  margin-left: 10px;
+  color: ${WHITE.main};
+  text-align: left;
 `
 
 export const ImgContainer = styled.div`
-  width: 621px;
-  height: 508px;
+  width: 150px;
+  height: 150px;
+  
+`
+export const ProfileLine = styled.hr`
+  width: 340px;
+  height: 0px;
+  left: 220px;
+  top: 425px;
+`
 
-  @media screen and (min-width: 620px) and (max-width: 840px) {
-    width: 521px;
-    height: 408px;
-  }
+export const BannerLine = styled.hr`
+  width: 440px;
+  height: 0px;
+  left: 620px;
+  top: 182px;
 
-  @media screen and (min-width: 450px) and (max-width: 620px) {
-    width: 421px;
-    height: 308px;
-  }
+  border: 1px solid rgba(42, 60, 19, 0.5);
+`
 
-  @media screen and (min-width: 0px) and (max-width: 450px) {
-    width: 321px;
-    height: 208px;
-  }
+export const saveBtn = styled.div`
+  width: 170px;
+  height: 45px;
+  background: #5D9D0B;
+  border-radius: 10px;
+`
+
+export const Top = styled.div`
+  height: 100%;
+  align-self: center;
+  align-items: center;
+`
+
+export const Bottom = styled.div`
+  justify-content: center;
+  flex-direction: column;
+  background: #5D9D0B;
 `

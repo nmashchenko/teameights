@@ -1,56 +1,79 @@
 import React from 'react'
-import { Container, ImgContainer, Text } from './ProfileForm.styles'
+import {
+  Container,
+  LeftCard,
+  RightContainer,
+  RightCard,
+  NameText,
+  ImgContainer,
+  TextContainer,
+  TitleText,
+  SubText,
+  BannerLText,
+  BannerRText,
+  ProfileLine,
+  BannerLine,
+  saveBtn,
+  Top,
+  Bottom,
+  Save,
+} from './ProfileForm.styles'
 
 export const ProfileForm = () => {
   return (
-    // right profile box
-    <div>
-      <Container align="left">
-        <ImgContainer></ImgContainer>
-        <Text>
-          Name
-        
+    <Container>
 
-            <div>
-            <p>
-              Location
-            </p>
-            <p>
-              Experience
-            </p>
-            <p>
-              Email
-            </p>
-            <p>
-              github
-            </p>
-            <p>
-              linkedin
-            </p>
-          </div>
-        </Text>
-      </Container>
+      <Top><TitleText>Logo</TitleText></Top>
 
-      <Container align="right">
-        <Text>
-          Hello World
-        </Text>
-      </Container>
-    
       
-    </div>
+      <LeftCard>
+        <ImgContainer><img src=''/></ImgContainer>
+        <TextContainer>
+          <NameText>Name</NameText>
+          <SubText>SubTitle</SubText>
+          <TitleText>Title</TitleText>
+        </TextContainer>
 
-    //
-    // left info box
-    //
+        <ProfileLine/>
+        
+        <TextContainer>
+          <BannerLText>Icon: Location</BannerLText>
+          <BannerLText>Icon: Experiences</BannerLText>
+          <BannerLText>Icon: Email</BannerLText>
+        </TextContainer>
 
-    // lanaguage box
+        <TextContainer>
+          <BannerLText>Icon: Github</BannerLText>
+          <BannerLText>Icon: Linkedin</BannerLText>
+        </TextContainer>
 
-    // Tools box
+      </LeftCard>
 
-    // Team box
+      <RightContainer>
+        <RightCard id='Languages'>
+          <BannerRText>Languages</BannerRText>
+          <BannerLine/>
+        </RightCard>
 
-    // About me box
+        <RightCard id='Tools'>
+          <BannerRText>Tools</BannerRText>
+          <BannerLine/>
+        </RightCard>
+
+        <RightCard id='Team'>
+          <BannerRText>Team</BannerRText>
+          <BannerLine/>
+        </RightCard>
+
+        <RightCard id='AboutMe'>
+          <BannerRText>About me</BannerRText>
+          <BannerLine/>
+        </RightCard>
+
+      </RightContainer>
+
+      <Bottom><saveBtn></saveBtn></Bottom>
+    </Container>
   )
 }
 
