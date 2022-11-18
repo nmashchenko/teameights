@@ -5,8 +5,9 @@ const modelName = "User";
 
 const UserSchema = new mongoose.Schema(
   {
-    username: {
+    userUsername: {
       type: String,
+      unique: false,
     },
     email: {
       type: String,
@@ -36,23 +37,31 @@ const UserSchema = new mongoose.Schema(
     userLeader: {
       type: Boolean,
     },
-    // userUniversity: {
-    //   type: String,
-    //   required: false,
-    // },
+    userUniversity: {
+      type: String,
+      required: false,
+    },
+    userMajor: {
+      type: String,
+      required: false,
+    },
+    userGraduationDate: {
+      type: String,
+      required: false,
+    },
     userProgrammingLanguages: {
       type: Array,
     },
-    // userFrameworks: {
-    //   type: Array,
-    // },
+    userFrameworks: {
+      type: Array,
+    },
     userConcentration: {
       type: String,
     },
-    // userDescription: {
-    //   type: String,
-    //   required: false
-    // },
+    userDescription: {
+      type: String,
+      required: false,
+    },
     userRealName: {
       type: String,
     },
@@ -62,7 +71,7 @@ const UserSchema = new mongoose.Schema(
     userExperience: {
       type: String,
     },
-    userAvatar: {
+    userPhoto: {
       type: String,
     },
     userRole: {

@@ -1,112 +1,156 @@
 // * Modules
-import React, { useState, useEffect } from 'react'
-import Snackbar from '@mui/material/Snackbar'
+import React, { useState } from 'react'
+import WarningIcon from '@mui/icons-material/Warning'
+import { includes } from 'lodash'
 
-// * Assets
-import ProgressBar from '../../ProgressBar/ProgressBar'
+// * Other
 import NavLogo from '../../NavLogo/NavLogo'
-import yupValidation from '../../YupValidations/YupValidations'
-import Alert from '../../Alert/Alert'
+import Stepper from '../../Stepper/Stepper'
+import GitHubIcon from '../../../../../assets/Links/GitHubIcon'
+import LinkedInIcon from '../../../../../assets/Links/LinkedInIcon'
+import TelegramIcon from '../../../../../assets/Links/TelegramIcon'
+import SkipArrow from '../../../../../assets/Arrows/SkipArrow'
 
 // * Redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 
+// * Hooks
+import useLinksSubmit from './Hooks/useLinksSubmit'
+
+// * Styles
 import {
-  CardContainer,
   Container,
-  TopText,
-  MiddleTextContainer,
-  ContinueButton,
-  InputField,
+  DataContainer,
+  MiddleContainer,
+  LinkArea,
+  LinkInput,
+  ButtonContainer,
+  SkipButton,
+  ButtonDisabled,
+  Button,
+  BottomContainer,
+  Skip,
 } from './Links.styles'
 
-function Links() {
+const Links = () => {
   // * Redux
+  const { step, userData } = useSelector((state) => state.registrationReducer)
+  const { setActiveState, setStep, setStageFiveCompleted } = registrationAuth.actions
   const dispatch = useDispatch()
-  const { setActiveState, setProgress, setUserLinks } = registrationAuth.actions
-  const { progress } = useSelector((state) => state.registrationReducer)
 
   // * useStates
   const [open, setOpen] = useState(false)
   const [errors, setErrors] = useState([])
-  let [github, setGithub] = useState('')
-  let [linkedIn, setLinkedIn] = useState('')
-  let [instagram, setInstagram] = useState('')
-  let [telegram, setTelegram] = useState('')
+  const [github, setGithub] = useState('')
+  const [telegram, setTelegram] = useState('')
+  const [linkedIn, setLinkedIn] = useState('')
 
-  // * Functions
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setOpen(false)
+  const handleGit = (e) => {
+    setErrors((errors) => errors.filter((word) => word !== 'github'))
+    setGithub(e.target.value)
   }
 
-  const handleSubmit = async () => {
-    try {
-      await yupValidation.urlsSchema.validate({ github, linkedIn, instagram, telegram })
-      dispatch(setUserLinks({ github, linkedIn, instagram, telegram }))
-      dispatch(setActiveState('Leader'))
-      dispatch(setProgress('100'))
-    } catch (err) {
-      setErrors(err.errors)
-      setOpen(true)
-    }
+  const handleTelegram = (e) => {
+    setErrors((errors) => errors.filter((word) => word !== 'telegram'))
+    setTelegram(e.target.value)
   }
 
-  useEffect(() => {}, [errors])
+  const handleLinked = (e) => {
+    setErrors((errors) => errors.filter((word) => word !== 'linkedIn'))
+    setLinkedIn(e.target.value)
+  }
+
+  const handleSkip = () => {
+    dispatch(setActiveState('UserAvatar'))
+    dispatch(setStageFiveCompleted(true))
+    dispatch(setStep(6))
+  }
+
+  const handleSubmit = useLinksSubmit(github, telegram, linkedIn, setOpen, setErrors)
 
   return (
-    <>
-      <NavLogo />
-      {errors.length > 0 && (
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-        >
-          <Alert onClose={handleClose} severity="error">
-            {errors[0]}
-          </Alert>
-        </Snackbar>
-      )}
-      <Container>
-        <ProgressBar done={progress} />
-        <CardContainer>
-          <div>
-            <TopText>Do you have any social links?</TopText>
-          </div>
-          <MiddleTextContainer>
-            <InputField
-              maxlength="35"
-              placeholder="Github"
-              onChange={(e) => setGithub(e.target.value)}
-            />
-            <InputField
-              maxlength="35"
-              placeholder="LinkedIn"
-              onChange={(e) => setLinkedIn(e.target.value)}
-            />
-            <InputField
-              maxlength="35"
-              placeholder="Telegram"
-              onChange={(e) => setTelegram(e.target.value)}
-            />
-            <InputField
-              maxlength="35"
-              placeholder="Instagram"
-              onChange={(e) => setInstagram(e.target.value)}
-            />
-          </MiddleTextContainer>
-          <ContinueButton onClick={handleSubmit}>Continue</ContinueButton>
-        </CardContainer>
-      </Container>
-    </>
+    <Container>
+      <Stepper step={step} />
+      <DataContainer>
+        <NavLogo sectionName={'Links'} />
+        <MiddleContainer>
+          <LinkArea>
+            <GitHubIcon />
+            {includes(errors, 'github') ? (
+              <LinkInput
+                placeholder="Provide your link here"
+                borderColor="#cf625e"
+                value={github}
+                onChange={handleGit}
+              />
+            ) : (
+              <LinkInput
+                placeholder="Provide your link here"
+                animation="none"
+                value={github}
+                onChange={handleGit}
+              />
+            )}
+          </LinkArea>
+          <LinkArea>
+            <LinkedInIcon />
+            {includes(errors, 'linkedIn') ? (
+              <LinkInput
+                placeholder="Provide your link here"
+                borderColor="#cf625e"
+                value={linkedIn}
+                onChange={handleLinked}
+              />
+            ) : (
+              <LinkInput
+                placeholder="Provide your link here"
+                animation="none"
+                value={linkedIn}
+                onChange={handleLinked}
+              />
+            )}
+          </LinkArea>
+          <LinkArea>
+            <TelegramIcon />
+            {includes(errors, 'telegram') ? (
+              <LinkInput
+                placeholder="Provide your link here"
+                borderColor="#cf625e"
+                value={telegram}
+                onChange={handleTelegram}
+              />
+            ) : (
+              <LinkInput
+                placeholder="Provide your link here"
+                animation="none"
+                value={telegram}
+                onChange={handleTelegram}
+              />
+            )}
+          </LinkArea>
+        </MiddleContainer>
+        <BottomContainer>
+          <ButtonContainer>
+            <Skip>
+              <SkipButton type="button" onClick={handleSkip}>
+                Skip
+              </SkipButton>
+              <SkipArrow />
+            </Skip>
+            {errors.length > 0 ? (
+              <ButtonDisabled>
+                <WarningIcon />
+              </ButtonDisabled>
+            ) : (
+              <Button type="submit" onClick={handleSubmit}>
+                Next
+              </Button>
+            )}
+          </ButtonContainer>
+        </BottomContainer>
+      </DataContainer>
+    </Container>
   )
 }
 

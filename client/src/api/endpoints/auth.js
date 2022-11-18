@@ -21,10 +21,10 @@ const loginUser = (email, password) => async (dispatch) => {
   }
 }
 
-const socialLoginRegistration = (name, email, picture, sub) => async (dispatch) => {
+const socialLoginRegistration = (username, email, picture, sub) => async (dispatch) => {
   try {
     dispatch(userAuth.actions.authUser())
-    const response = await api.post('/social-login-registration', { name, email, picture, sub })
+    const response = await api.post('/social-login-registration', { username, email, picture, sub })
     localStorage.setItem('token', response.data.accessToken)
     dispatch(userAuth.actions.authUserSuccess(response.data))
   } catch (err) {

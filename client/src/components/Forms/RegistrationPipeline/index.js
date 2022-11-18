@@ -1,34 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import InitialPart from './RegistrationParts/InitialPart/InitialPart'
-import NamePart from './RegistrationParts/NamePart/NamePart'
-import CountryPart from './RegistrationParts/CountryPart/CountryPart'
-import AgePart from './RegistrationParts/AgePart/AgePart'
-import Programming from './RegistrationParts/ProgrammingLanguagesPart/Programming'
-import ConcentrationPart from './RegistrationParts/ConcentrationPart/Concentration'
-import Experience from './RegistrationParts/ExperiencePart/Experience'
+import UserConcentration from './RegistrationParts/UserConcentration/UserConcentration'
+import UserExperience from './RegistrationParts/UserExperience/UserExperience'
+import Education from './RegistrationParts/EducationPart/Education'
 import Links from './RegistrationParts/LinksPart/Links'
+import UserPersonalInfo from './RegistrationParts/UserPersonalInfo/UserPersonalInfo'
+import UserAvatar from './RegistrationParts/UserAvatar/UserAvatar'
+import { SnackbarProvider } from 'notistack'
+import { styled } from '@mui/material'
 
 // * Redux
 import { useSelector } from 'react-redux'
-import LeaderPart from './RegistrationParts/LeaderPart/LeaderPart'
 
 function FinishRegistration() {
   const { active } = useSelector((state) => state.registrationReducer)
 
+  const SnackbarStyled = styled(SnackbarProvider)`
+    &.SnackbarItem-contentRoot {
+      background-color: #cf625e;
+    }
+  `
+
   useEffect(() => {}, [active])
 
   return (
-    <>
+    <SnackbarStyled
+      maxSnack={4}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      variant="error"
+    >
       {active === 'InitialPart' && <InitialPart />}
-      {active === 'NamePart' && <NamePart />}
-      {active === 'CountryPart' && <CountryPart />}
-      {active === 'AgePart' && <AgePart />}
-      {active === 'Programming' && <Programming />}
-      {active === 'ConcentrationPart' && <ConcentrationPart />}
-      {active === 'Experience' && <Experience />}
+      {active === 'UserPersonalInfo' && <UserPersonalInfo />}
+      {active === 'UserConcentration' && <UserConcentration />}
+      {active === 'UserExperience' && <UserExperience />}
+      {active === 'Education' && <Education />}
       {active === 'Links' && <Links />}
-      {active === 'Leader' && <LeaderPart />}
-    </>
+      {active === 'UserAvatar' && <UserAvatar />}
+    </SnackbarStyled>
   )
 }
 
