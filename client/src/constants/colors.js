@@ -18,6 +18,10 @@ const BLUE = Object.freeze({
   inputBorder: '#5096f1',
 })
 
+const DARK_BLUE = Object.freeze({
+  background: '#1A1C22',
+})
+
 const BLACK = Object.freeze({
   main: '#121111',
   background: '#26292B',
@@ -31,4 +35,4 @@ const RED = Object.freeze({
   alert: '#cf625e',
 })
 
-export { LIME, BLACK, WHITE, GREY, GREEN, RED, BLUE }
+export { LIME, BLACK, WHITE, GREY, GREEN, RED, BLUE, DARK_BLUE }
