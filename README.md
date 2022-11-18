@@ -37,6 +37,12 @@
 - Start working on teams logic, design the database architecture, implement adding/removing users to team as well as creating/removing teams *(In progress, DB schemas are ready, initial codebase for creating/viewing/joining teams ready, implementation of invites/adding/removing in progress)* 🚧
 - Work on filtering / infinite scroll for users in the profiles page *DONE* ✅
 
+# What our app currently does?
+
+🎉 By now, users are able to login/register via basic account creation and email validation OR using Google OAuth. After initial registration users are redirected to the finish-registration page that will ask them to provide more personal data about them so we can compose a user profile before allowing him to participate in tournaments/search for *teameights*! After completing registration, user is redirected back to the profiles screen where he will see all of the profiles currently looking for a team on platform, they can view the descriptions, avatars, favorite languages, frameworks, etc. 
+
+🎉 Users can also access team page where they can ONLY access another screen if they press on "create team" button. Also they can view their profiles by clicking on Profile action from the burger menu, it's currently only UI and doesn't allow you to change anything but we are working on it!
+
 # Link to the deployed app
 
 https://ephemeral-biscochitos-6c41fa.netlify.app
