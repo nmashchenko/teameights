@@ -1,6 +1,16 @@
 import styled from 'styled-components'
 import { WHITE, BLACK, GREEN } from '../../../constants/colors'
 
+export const Container = styled.div`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: ${BLACK.background};
+`
+
 export const ToolbarContainer = styled.header`
     top: 0;
     left: 0;
@@ -13,21 +23,6 @@ export const ToolbarContainer = styled.header`
     flex-direction: row;
     justify-content: space-around;
 `
-
-export const LogoText = styled.div`
-    display: flex;
-    font-weight: 700;
-    font-size: 30px;
-    color: ${WHITE.main};
-    cursor: pointer;
-    text-align: center;
-    align-self: center;
-    margin-top: 10px;
-    position: fixed;
-
-`
-
-
 
 export const NavContainer = styled.div`
     position: fixed;
@@ -47,27 +42,23 @@ export const NavContainer = styled.div`
     }
 `
 
-export const Container = styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background: ${BLACK.background};
-`
-
-export const TextContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: left;
-`
-
 export const Text2 = styled.h3`
     font-family: 'NoirPro-Regular';
     font-size: 16px;
     color: #FFFFFF;
+
+`
+
+export const LogoText = styled.div`
+    display: flex;
+    font-weight: 700;
+    font-size: 30px;
+    color: ${WHITE.main};
+    cursor: pointer;
+    text-align: center;
+    align-self: center;
+    margin-top: 10px;
+    position: fixed;
 
 `
 
@@ -86,29 +77,6 @@ export const NavContainer2 = styled.div`
     
 `
 
-export const NavContainer3 = styled.div`
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-right: 50px;
-    margin-left: 50px;
-    gap: 5px;
-
-`
-export const NavContainer4 = styled.div`
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    
-
-
-`
-
-
-
 export const Text3 = styled.h3`
 
     font-family: 'NoirPro-Regular';
@@ -118,13 +86,15 @@ export const Text3 = styled.h3`
 
 `
 
-export const Text = styled.h3`
-    font-weight: ${(props) => props.fontWeight || '500'};
-    font-size: ${(props) => props.fontSize || '24px'};
-    font-family: 'NoirPro-Regular';
-    margin: ${(props) => props.margin || '0 0 0 0'};
-    color: ${WHITE.main};
-    text-align: left;
+export const NavContainer3 = styled.div`
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 50px;
+    margin-left: 50px;
+    gap: 5px;
+
 `
 
 export const Container2 = styled.div`
@@ -143,16 +113,22 @@ export const Container2 = styled.div`
     margin: 215px 355px 215px 355px;
 `
 
-export const buttonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 50px;
 
+export const TextContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: left;
 `
 
+export const Text = styled.h3`
+    font-weight: ${(props) => props.fontWeight || '500'};
+    font-size: ${(props) => props.fontSize || '24px'};
+    font-family: 'NoirPro-Regular';
+    margin: ${(props) => props.margin || '0 0 0 0'};
+    color: ${WHITE.main};
+    text-align: left;
+`
 
 export const ButtonGeneral = styled.button`
     font-weight: 600;
@@ -174,9 +150,8 @@ export const ButtonGeneral = styled.button`
         transition: 0.15s;
     }
 
-    
-
 `
+
 export const ButtonGeneral2 = styled.button`
     font-weight: 600;
     font-size: 16px;
