@@ -1,147 +1,138 @@
+// * Modules
 import styled, { keyframes } from 'styled-components'
-import { LIME, BLACK, WHITE } from '../../../../../constants/colors'
-import MuiAlert from '@mui/material/Alert'
-import { device } from '../../../../../constants/breakpoints'
+
+// * Constants
+import { BLACK, WHITE, GREEN, GREY, RED } from '../../../../../constants/colors'
+
+const shake = keyframes`
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+`
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-items: center;
-  height: 93.4vh;
-  width: 100%;
-  background: ${LIME.background};
-`
-const linearGradient = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  min-height: 100vh;
 `
 
-export const CardContainer = styled.div`
+export const DataContainer = styled.div`
+  width: 100%;
+  background: ${BLACK.background};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin: 50px 0 50px 0;
-  max-width: 645px;
-  width: 100%;
-  max-height: 363px;
-  height: 100%;
-  background: linear-gradient(13deg, #17b94b, #39a59d, #e0ff00, #5d5d5a);
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-  background-size: 240% 240%;
-  animation: ${linearGradient} 10s ease infinite;
-  border-radius: 13px;
-
-  @media ${device.tablet} {
-    max-width: 500px;
-    max-height: 340px;
-    margin: 40px 0 40px 0;
-  }
-
-  @media ${device.mobileL} {
-    max-width: 355px;
-    max-height: 320px;
-    margin: 30px 0 30px 0;
-  }
-
-  @media ${device.mobileM} {
-    max-width: 335px;
-    max-height: 300px;
-    margin: 30px 0 30px 0;
-    padding: 5px 5px;
-  }
+  flex-grow: 1;
 `
-
-export const TopText = styled.h3`
-  font-size: ${(props) => props.fontSize || '18px'};
-  font-weight: ${(props) => props.fontWeight || '700'};
-  margin: ${(props) => props.margin || '0 0 10px 0'};
-  color: ${BLACK.main};
-  text-align: center;
-
-  @media ${device.tablet} {
-    font-size: calc(${(props) => props.fontSize || '18px'} - 1px);
-  }
-
-  @media ${device.mobileL} {
-    font-size: calc(${(props) => props.fontSize || '18px'} - 2px);
-  }
-`
-
-export const MiddleTextContainer = styled.div`
+export const MiddleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  max-width: 450px;
-  width: 100%;
-  margin-top: 10px;
+  height: calc(100vh - 185px);
+`
 
-  @media ${device.tablet} {
-    margin-top: 0;
-    max-width: 297px;
-    text-align: center;
-  }
+export const LinkArea = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: baseline;
+  align-items: center;
+`
 
-  @media ${device.mobileL} {
-    margin-top: 0;
-    max-width: 247px;
-    text-align: center;
+export const LinkInput = styled.input`
+  outline: 0;
+  border-width: 0 0 1.5px;
+  border-color: ${(props) => props.borderColor || '#4b4b4b'};
+  background: inherit;
+  width: ${(props) => props.width || '400px'};
+  height: ${(props) => props.height || '40px'};
+  font-size: 18px;
+  margin: ${(props) => props.margin || '0'};
+  color: ${WHITE.main};
+  animation-name: ${(props) => props.animation || shake};
+  animation-duration: 0.3s;
+
+  &:focus {
+    border-color: ${WHITE.main};
   }
 `
 
-export const ContinueButton = styled.button`
+export const BottomContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
+export const ButtonContainer = styled.div`
+  width: calc(100% - 300px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+`
+
+export const SkipButton = styled.button`
+  border: none;
+  background: inherit;
+  color: #4b4b4b;
+  outline: none;
+  font-weight: 400;
+  font-size: 18px;
+  margin-bottom: 30px;
+  cursor: pointer;
+`
+
+export const ButtonDisabled = styled.button`
   font-weight: 600;
   font-size: 16px;
-  margin-top: 36px;
+  margin-bottom: 30px;
   border: none;
-  width: 247px;
+  width: 180px;
   height: 40px;
   color: ${WHITE.main};
-  background: ${BLACK.main};
-  border-radius: 9px;
+  background: ${RED.alert};
+  opacity: 0.3;
+  border-radius: 25px;
+  cursor: not-allowed;
+`
+
+export const Button = styled.button`
+  font-weight: 400;
+  font-size: 18px;
+  margin-bottom: 30px;
+  border: none;
+  width: 170px;
+  height: 49px;
+  color: ${WHITE.main};
+  background: ${GREEN.button};
+  border-radius: 5px;
+  cursor: pointer;
 
   &:hover {
     cursor: pointer;
-    opacity: 0.9;
-    transition: 0.3s ease-in-out;
-  }
-
-  @media ${device.tablet} {
-    margin-top: 20px;
-  }
-
-  @media ${device.mobileL} {
-    margin-top: 20px;
+    -webkit-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
   }
 `
 
-export const InputField = styled.input`
-  background: ${LIME.background};
-  border: 0;
-  outline: none;
-  max-width: 350px;
-  width: 100%;
-  height: 35px;
-  border-radius: 16px;
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 15px;
-  text-align: center;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-`
+export const Skip = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 5px;
 
-export const AlertBox = styled(MuiAlert)`
-  && {
-    background: ${BLACK.main};
+  &:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    transform: scale(1.02);
   }
 `

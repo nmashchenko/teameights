@@ -48,9 +48,9 @@ class UserController {
 
   async socialLoginRegistration(req, res, next) {
     try {
-      const { name, email, picture, sub } = req.body;
+      const { username, email, picture, sub } = req.body;
       const userData = await userService.socialLoginRegistration(
-        name,
+        username,
         email,
         picture,
         sub
@@ -133,10 +133,10 @@ class UserController {
     }
   }
 
-  async getEmail(req, res, next) {
+  async getUserObject(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
-      const data = await userService.checkUserEmail(refreshToken);
+      const data = await userService.findUserObject(refreshToken);
       return res.json(data);
     } catch (err) {
       // error.middleware will take care of it
@@ -148,29 +148,43 @@ class UserController {
     try {
       const {
         email,
-        userCountry,
-        userAge,
-        userProgrammingLanguages,
-        userConcentration,
+        userUsername,
         userRealName,
-        userLinks,
+        userPhoto,
+        userAge,
+        userDescription,
+        userConcentration,
+        userCountry,
         userExperience,
-        userRole,
         userLeader,
+        userLinks,
+        userProgrammingLanguages,
+        userFrameworks,
+        userRole,
+        userUniversity,
+        userMajor,
+        userGraduationDate,
         isRegistered,
       } = req.body;
 
       const userData = await userService.registrationCompletion(
         email,
-        userCountry,
-        userAge,
-        userProgrammingLanguages,
-        userConcentration,
+        userUsername,
         userRealName,
-        userLinks,
+        userPhoto,
+        userAge,
+        userDescription,
+        userConcentration,
+        userCountry,
         userExperience,
         userLeader,
+        userLinks,
+        userProgrammingLanguages,
+        userFrameworks,
         userRole,
+        userUniversity,
+        userMajor,
+        userGraduationDate,
         isRegistered
       );
 
@@ -213,6 +227,16 @@ class UserController {
       return res.send("Successfuly updated");
     } catch (err) {
       // error.middleware will take care of it
+      next(err);
+    }
+  }
+
+  async validateUsername(req, res, next) {
+    try {
+      const { username, email } = req.query;
+      const user = await userService.checkUsername(username, email);
+      return res.json(user);
+    } catch (err) {
       next(err);
     }
   }

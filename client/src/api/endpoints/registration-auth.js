@@ -1,5 +1,6 @@
 // * Modules
 import axios from 'axios'
+import { isEqual } from 'lodash'
 
 // * API
 import api from '../../http'
@@ -11,10 +12,15 @@ import { registrationAuth } from '../../store/reducers/RegistrationAuth'
 const checkRegistration = () => async (dispatch) => {
   try {
     dispatch(registrationAuth.actions.finishRegistration())
-    const response = await axios.get(`${API_URL}/get-email`, { withCredentials: true })
-    let { isRegistered, email } = response.data
-    dispatch(registrationAuth.actions.setUserEmail(email))
-    dispatch(registrationAuth.actions.setUserRegistration(isRegistered))
+    const response = await axios.get(`${API_URL}/get-user-object`, { withCredentials: true })
+    let { isRegistered, email, userUsername } = response.data
+    dispatch(
+      registrationAuth.actions.setUserInitialData({
+        email,
+        isRegistered,
+        userUsername,
+      }),
+    )
   } catch (err) {
     dispatch(registrationAuth.actions.finishRegistrationError(err.response?.data?.message))
   }
@@ -30,9 +36,19 @@ const finishRegistration = (userData) => async (dispatch) => {
   }
 }
 
+const validateUsername = async (username, email) => {
+  try {
+    const response = await api.get('/check-username', { params: { username, email } })
+    return response.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const registerAuthApi = Object.freeze({
   finishRegistration,
   checkRegistration,
+  validateUsername,
 })
 
 export default registerAuthApi

@@ -1,94 +1,123 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   userData: {
     email: '',
+    userUsername: '',
     userRealName: '',
+    userPhoto: '',
     userAge: '',
+    userDescription: '',
     userConcentration: '',
     userCountry: '',
     userExperience: '',
     userLeader: false,
     userLinks: {},
     userProgrammingLanguages: [],
+    userFrameworks: [],
     userRole: 'Standard',
-    isRegistered: true,
+    userUniversity: '',
+    userMajor: '',
+    userGraduationDate: '',
+    isRegistered: false,
+  },
+
+  completedStates: {
+    stageOneComplete: false,
+    stageTwoComplete: false,
+    stageThreeComplete: false,
+    stageFourComplete: false,
+    stageFiveComplete: false,
   },
   active: 'InitialPart',
-  progress: '0',
+  step: 0,
   isLoading: false,
   error: '',
-
-  //this state is used on initial loading to check if user is registered
-  curRegistration: false,
 }
 
 export const registrationAuth = createSlice({
   name: 'registration',
   initialState,
   reducers: {
-    setUserRegistration(state, action) {
-      state.curRegistration = action.payload
+    setUserInitialData: (state, action) => {
+      state.userData.email = action.payload.email
+      state.userData.userUsername = action.payload.userUsername
+      state.userData.isRegistered = action.payload.isRegistered
     },
 
-    setUserName(state, action) {
-      state.userData.userRealName = action.payload
-    },
-
-    setUserAge(state, action) {
-      state.userData.userAge = action.payload
+    setUserPersonalInfo(state, action) {
+      state.userData.userRealName = action.payload.name
+      state.userData.userUsername = action.payload.username
+      state.userData.userAge = action.payload.age
+      state.userData.userCountry = action.payload.country
+      state.userData.userDescription = action.payload.description
     },
 
     setUserConcentration(state, action) {
-      state.userData.userConcentration = action.payload
-    },
-
-    setUserCountry(state, action) {
-      state.userData.userCountry = action.payload
+      state.userData.userProgrammingLanguages = action.payload.programmingLanguages
+      state.userData.userConcentration = action.payload.concentration
+      state.userData.userFrameworks = action.payload.frameworks
     },
 
     setUserExperience(state, action) {
-      state.userData.userExperience = action.payload
+      state.userData.userExperience = action.payload.experience
+      state.userData.userLeader = action.payload.leader
     },
 
-    setUserLeader(state, action) {
-      state.userData.userLeader = action.payload
+    setUniversityInfo(state, action) {
+      state.userData.userUniversity = action.payload.university
+      state.userData.userMajor = action.payload.major
+      state.userData.userGraduationDate = action.payload.graduationDate
     },
 
     setUserLinks(state, action) {
       state.userData.userLinks = action.payload
     },
 
-    setUserProgrammingLanguages(state, action) {
-      state.userData.userProgrammingLanguages = action.payload
-    },
-
-    setUserEmail(state, action) {
-      state.userData.email = action.payload
-    },
-
     setActiveState(state, action) {
-      state.active = action.payload;
+      state.active = action.payload
     },
 
-    setProgress(state, action) {
-      state.progress = action.payload;
+    setStep(state, action) {
+      state.step = action.payload
+    },
+
+    setStageOneCompleted(state, action) {
+      state.completedStates.stageOneComplete = true
+    },
+
+    setStageTwoCompleted(state, action) {
+      state.completedStates.stageTwoComplete = true
+    },
+
+    setStageThreeCompleted(state, action) {
+      state.completedStates.stageThreeComplete = true
+    },
+
+    setStageFourCompleted(state, action) {
+      state.completedStates.stageFourComplete = true
+    },
+
+    setStageFiveCompleted(state, action) {
+      state.completedStates.stageFiveComplete = true
     },
 
     finishRegistration(state) {
-      state.isLoading = true;
+      state.isLoading = true
     },
 
-    finishRegistrationSuccess(state) {
-      state.isLoading = false;
-      state.error = '';
+    finishRegistrationSuccess(state, action) {
+      state.isLoading = false
+      state.error = ''
+      state.userData.isRegistered = true
     },
 
     finishRegistrationError(state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
+      state.isLoading = false
+      state.error = action.payload
+      state.userData.isRegistered = false
     },
-  }
+  },
 })
 
-export default registrationAuth.reducer;
+export default registrationAuth.reducer

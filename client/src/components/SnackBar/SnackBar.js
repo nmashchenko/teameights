@@ -2,7 +2,8 @@ import React from 'react'
 import Snackbar from '@mui/material/Snackbar'
 
 import { AlertBox } from './SnackBar.styles'
-const SnackBar = ({ open, handleClose, error }) => {
+import { isEqual } from 'lodash'
+const SnackBar = ({ open, handleClose, error, vertical = 'top' }) => {
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />
   })
@@ -13,7 +14,7 @@ const SnackBar = ({ open, handleClose, error }) => {
       autoHideDuration={3000}
       onClose={handleClose}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: isEqual(vertical, 'top') ? 'top' : 'bottom',
         horizontal: 'right',
       }}
     >
