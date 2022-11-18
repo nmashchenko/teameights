@@ -68,12 +68,12 @@ export const LoginLink = styled(Link)`
   margin-top: ${(props) => props.margintop || '0px'};
   cursor: pointer;
 
-  &:hover {
+  /* &:hover {
     transition: 0.15s;
     -webkit-transform: scale(1.02);
     -ms-transform: scale(1.02);
     transform: scale(1.02);
-  }
+  } */
 
   @media screen and (min-width: 0px) and (max-width: 450px) {
     font-size: ${(props) => props.fontSize || '25px'};
@@ -148,9 +148,6 @@ export const LoginButton = styled.button`
     border: none;
     cursor: pointer;
     transition: 0.15s;
-    -webkit-transform: scale(1.01);
-    -ms-transform: scale(1.01);
-    transform: scale(1.01);
   }
 
   @media screen and (min-width: 950px) and (max-width: 1200px) {

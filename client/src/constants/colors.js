@@ -7,11 +7,14 @@ const GREEN = Object.freeze({
   text: '#72EB3A',
   border: '#41F453',
   button: '#5D9D0B',
+  alternativeBorder: '#365a08',
 })
 
 const GREY = Object.freeze({
   text: '#979797',
   background: '#F6F6F6',
+  line: '#eaeaf0',
+  selectBackground: '#2E3239',
 })
 
 const BLUE = Object.freeze({
@@ -25,6 +28,8 @@ const DARK_BLUE = Object.freeze({
 const BLACK = Object.freeze({
   main: '#121111',
   background: '#26292B',
+  cardContainer: '#161616',
+  line: '#2e3239', // separating line in registration pipeline
 })
 
 const WHITE = Object.freeze({
