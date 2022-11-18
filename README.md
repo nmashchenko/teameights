@@ -27,15 +27,15 @@
 
 ✨ StackBlitz API for creating coding env in application
 
-# MVP
+# MVP Review
 
-**🥳 Week 13:**
-- Complete the profiles page
-- Complete the user profile page where he can change information about him
-- Start working on the tournaments system, integrate the stackblitz into the platform
-- Complete the preregistration pipeline, e.g. after user signups with email/google/git redirect him to the pages where he can get more information about himself (refer to registration pipeline above)
-- Start working on teams logic, design the database architecture, implement adding/removing users to team as well as creating/removing teams
-- Work on filtering / infinite scroll for users in the profiles page
+**🥳 By November 18 we did:**
+- Complete the profiles page -- *DONE* ✅
+- Complete the user profile page where he can change information about him -- *(In progress, almost done)* 🚧
+- Start working on the tournaments system, integrate the stackblitz into the platform -- *(In progress, started working on it recently)* 🚧
+- Complete the preregistration pipeline, e.g. after user signups with email/google/git redirect him to the pages where he can get more information about himself (refer to registration pipeline above) *DONE* ✅
+- Start working on teams logic, design the database architecture, implement adding/removing users to team as well as creating/removing teams *(In progress, DB schemas are ready, initial codebase for creating/viewing/joining teams ready, implementation of invites/adding/removing in progress)* 🚧
+- Work on filtering / infinite scroll for users in the profiles page *DONE* ✅
 
 # Link to the deployed app
 
