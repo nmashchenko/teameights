@@ -88,7 +88,7 @@ Regarding the **platform** paging, currently we are 100% sure that this list of 
 ✅📱 Email verification notice page (after sign-up):
 ![image](https://user-images.githubusercontent.com/52038455/192882393-5f9ad216-3cc8-4998-899a-fcbcc62268aa.png)
 
-🔧 Finish registration pipeline pages:
+✅ Finish registration pipeline pages:
 ![image](https://user-images.githubusercontent.com/52038455/192882634-b13f5e8d-f401-4894-a777-585d2b23e487.png)
 ![image](https://user-images.githubusercontent.com/52038455/192882696-9f1b5c8e-ba8b-48d2-9873-3e59491c8d61.png)
 ![image](https://user-images.githubusercontent.com/52038455/192882745-05caf0aa-813c-4d7b-a299-0766215d3487.png)
@@ -113,18 +113,21 @@ Regarding the **platform** paging, currently we are 100% sure that this list of 
 ❌ Upcoming tournament page (here teams will be able to see description of the tournament, prize pool, start date, and will be able to sign-up for it if there will be enough slots, we will decide maximum amount of slots later, this page is not ready yet on figma) <br>
 ⚠️ **TODO: Add the upcoming tournament page here**
 
-❌ Your team’s page (this page will display information about the team, founders will be able to remove people, assign roles for the project, add project name, add name to the team) <br>
+🔧 Your team’s page (this page will display information about the team, founders will be able to remove people, assign roles for the project, add project name, add name to the team) <br>
 ⚠️ **TODO: Add your team page here**
+![image](https://user-images.githubusercontent.com/52038455/202818362-6f6108c5-8410-4c85-a1f9-1db92e397463.png)
 
-❌ Team edit page (this will also be a module window that will pop-up whenever team’s founder will click on edit button) <br>
+
+🔧 Team edit page (this will also be a module window that will pop-up whenever team’s founder will click on edit button) <br>
 ⚠️ **TODO: Add the team edit page here**
 
 ❌ Incoming invites (in this page user will be able how many teams invited him, reject or accept invites) <br>
 ⚠️ **TODO: Add incoming invite page here**
 
-❌ Your personal page (in this page user will be able to see information about him and change it) <br>
+🔧 Your personal page (in this page user will be able to see information about him and change it) <br>
 ⚠️ **TODO: Add incoming invite page here**
-![image](https://user-images.githubusercontent.com/52038455/200723916-f0fa4a96-14af-4ee3-a43e-2b17bd7077cd.png)
+![image](https://user-images.githubusercontent.com/52038455/202818292-e36ab1f4-50a7-4e41-be29-f1bd59272468.png)
+
 
 TBD.
 
