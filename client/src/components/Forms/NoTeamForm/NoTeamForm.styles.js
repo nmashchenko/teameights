@@ -11,39 +11,6 @@ export const Container = styled.div`
   background: ${BLACK.background};
 `
 
-export const ToolbarContainer = styled.div`
-  width: 100%;
-  background: ${BLACK.background};
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
-  ${
-    '' /* flex-direction: row;
-  justify-content: space-between;
-  align-items: center; */
-  }
-  height: 78px;
-`
-
-export const NavContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-  margin-right: 80px;
-`
-
-export const NavContainer3 = styled.div`
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-`
-
 export const CardContainer = styled.div`
   height: calc(100vh - 78px);
   width: 100%;
