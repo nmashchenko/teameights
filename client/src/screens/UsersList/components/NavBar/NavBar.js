@@ -41,7 +41,6 @@ const NavBar = (props) => {
       <NavIconContainer onClick={showSidebar}>
         <NavBarIcon />
       </NavIconContainer>
-
       {sidebar ? (
         <NavMenu left="0" transition="250ms">
           <NavMenuItems onClick={showSidebar}>

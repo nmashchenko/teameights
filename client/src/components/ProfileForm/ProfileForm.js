@@ -1,18 +1,19 @@
 import React from 'react'
+import Photo from './Photo.png'
+import Location from '../../assets/UserProfile/Location'
 import {
   Container,
   LeftCard,
   RightContainer,
   RightCard,
-  NameText,
   ImgContainer,
   TextContainer,
-  TitleText,
-  SubText,
-  BannerLText,
-  BannerRText,
+  Text,
   ProfileLine,
   BannerLine,
+  InformationRow,
+  IconTextContainer,
+  EditButton,
   saveBtn,
   Top,
   Bottom,
@@ -22,57 +23,72 @@ import {
 export const ProfileForm = () => {
   return (
     <Container>
-
-      <Top><TitleText>Logo</TitleText></Top>
-
-      
       <LeftCard>
-        <ImgContainer><img src=''/></ImgContainer>
+        <ImgContainer>
+          <img src={Photo} />
+        </ImgContainer>
         <TextContainer>
-          <NameText>Name</NameText>
-          <SubText>SubTitle</SubText>
-          <TitleText>Title</TitleText>
+          <Text margin="15px 0 0 0">Nikita Mashchenko</Text>
+          <Text margin="5px 0 0 0" color="rgba(255, 255, 255, 0.5)" fontSize="16px">
+            pRod1gy
+          </Text>
+          <Text margin="5px 0 0 0">Full-Stack Web dev.</Text>
         </TextContainer>
 
-        <ProfileLine/>
-        
+        <ProfileLine />
+        <InformationRow>
+          <IconTextContainer>
+            <Location />
+            <Text fontSize="15px">Kharkiv, Ukraine</Text>
+          </IconTextContainer>
+          <EditButton>Edit</EditButton>
+        </InformationRow>
+        {/* 
         <TextContainer>
-          <BannerLText>Icon: Location</BannerLText>
-          <BannerLText>Icon: Experiences</BannerLText>
-          <BannerLText>Icon: Email</BannerLText>
+          <Text>Icon: Location</Text>
+          <Text>Icon: Experiences</Text>
+          <Text>Icon: Email</Text>
         </TextContainer>
 
         <TextContainer>
-          <BannerLText>Icon: Github</BannerLText>
-          <BannerLText>Icon: Linkedin</BannerLText>
-        </TextContainer>
-
+          <Text>Icon: Github</Text>
+          <Text>Icon: Linkedin</Text>
+        </TextContainer> */}
       </LeftCard>
 
       <RightContainer>
-        <RightCard id='Languages'>
-          <BannerRText>Languages</BannerRText>
-          <BannerLine/>
+        <RightCard id="Languages">
+          <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
+            Languages
+          </Text>
+          <BannerLine />
         </RightCard>
 
-        <RightCard id='Tools'>
-          <BannerRText>Tools</BannerRText>
-          <BannerLine/>
+        <RightCard id="Tools">
+          <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
+            Tools
+          </Text>
+          <BannerLine />
         </RightCard>
 
-        <RightCard id='Team'>
-          <BannerRText>Team</BannerRText>
-          <BannerLine/>
+        <RightCard id="Team">
+          <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
+            Team
+          </Text>
+          <BannerLine />
         </RightCard>
 
-        <RightCard id='AboutMe'>
-          <BannerRText>About me</BannerRText>
-          <BannerLine/>
+        <RightCard id="AboutMe">
+          <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
+            About me
+          </Text>
+          <BannerLine />
         </RightCard>
-
       </RightContainer>
 
-      <Bottom><saveBtn primary></saveBtn></Bottom>
+      <Bottom>
+        <saveBtn primary></saveBtn>
+      </Bottom>
     </Container>
   )
 }
