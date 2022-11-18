@@ -131,9 +131,7 @@ function UsersList() {
     if (!isAuth) {
       navigate(ROUTES.login, { replace: true })
     }
-
     if (isAuth && !user.user?.isRegistered) {
-      console.log('redirecting back!!')
       navigate(ROUTES.finishRegistration, { replace: true })
     }
   }, [isAuth, navigate])
