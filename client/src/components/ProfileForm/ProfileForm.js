@@ -72,7 +72,7 @@ export const ProfileForm = () => {
 
       </RightContainer>
 
-      <Bottom><saveBtn></saveBtn></Bottom>
+      <Bottom><saveBtn primary></saveBtn></Bottom>
     </Container>
   )
 }

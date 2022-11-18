@@ -83,7 +83,7 @@ export const BannerLText = styled.h3`
 export const BannerRText = styled.h3`
   font-weight: ${(props) => props.fontWeight || '700'};
   font-size: 16px;
-  margin-left: 10px;
+  margin-left: 15px;
   color: ${WHITE.main};
   text-align: left;
 `
@@ -109,11 +109,16 @@ export const BannerLine = styled.hr`
   border: 1px solid rgba(42, 60, 19, 0.5);
 `
 
-export const saveBtn = styled.div`
-  width: 170px;
-  height: 45px;
-  background: #5D9D0B;
-  border-radius: 10px;
+export const saveBtn = styled.button`
+background: ${props => props.primary ? "palevioletred" : "white"};
+color: ${props => props.primary ? "white" : "palevioletred"};
+
+font-size: 1em;
+margin: 1em;
+padding: 0.25em 1em;
+border: 2px solid palevioletred;
+border-radius: 3px;
+
 `
 
 export const Top = styled.div`
