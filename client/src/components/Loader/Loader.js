@@ -6,7 +6,6 @@ import { BLACK } from '../../constants/colors'
 import { useNavigate } from 'react-router-dom'
 
 // * Redux
-import { userAuth } from '../../store/reducers/UserAuth'
 import { useSelector, useDispatch } from 'react-redux'
 import authApi from '../../api/endpoints/auth'
 
