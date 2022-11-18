@@ -22,17 +22,16 @@ export const ToolbarContainer = styled.header`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 `
 
 export const NavContainer = styled.div`
     position: fixed;
-    left: 0 ;
-    top: 0;
+    left: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 50px; 
-    margin-top: 10px;
+    margin-left: 50px;
 
     gap: 50px;
     justify-content: space-start;
@@ -57,7 +56,6 @@ export const LogoText = styled.div`
     cursor: pointer;
     text-align: center;
     align-self: center;
-    margin-top: 10px;
     position: fixed;
 
 `
@@ -69,7 +67,6 @@ export const NavContainer2 = styled.div`
     flex-direction: row;
     align-items: center;
     margin-right: 50px;
-    margin-top: 10px;
 
     .mousechange:hover {
         cursor: pointer;
