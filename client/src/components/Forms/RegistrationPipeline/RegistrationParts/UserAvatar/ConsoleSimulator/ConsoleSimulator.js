@@ -22,6 +22,7 @@ const ConsoleSimulator = ({
   lineSevenActive,
   setLineTwoActive,
   setLineThreeActive,
+  setLineFourActive,
   setLineSixActive,
   setLineSevenActive,
 }) => {
@@ -65,11 +66,13 @@ const ConsoleSimulator = ({
                 text="teameights@ubuntu:~$ uploaded!"
                 cursor={false}
                 speed={20}
-                onFinished={() => setLineSixActive(true)}
+                onFinished={() => {
+                  setLineSevenActive(true)
+                }}
               />
             </Text>
           )}
-          {lineSixActive && (
+          {/* {lineSixActive && (
             <Text fontSize="10px" color="#5D9D0B" margin="0 0 0 10px">
               <Typewriter
                 text="teameights@ubuntu:~$ preparing..."
@@ -78,7 +81,7 @@ const ConsoleSimulator = ({
                 onFinished={() => setLineSevenActive(true)}
               />
             </Text>
-          )}
+          )} */}
           {lineSevenActive && (
             <Text fontSize="10px" color="#5D9D0B" margin="0 0 0 10px">
               <Typewriter text="teameights@ubuntu:~$ ready to launch!" cursor={false} speed={20} />

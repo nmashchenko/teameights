@@ -128,6 +128,9 @@ export const Button = styled.button`
   background: ${GREEN.button};
   border-radius: 5px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     cursor: pointer;

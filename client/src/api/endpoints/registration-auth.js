@@ -36,9 +36,9 @@ const finishRegistration = (userData) => async (dispatch) => {
   }
 }
 
-const validateUsername = async (username) => {
+const validateUsername = async (username, email) => {
   try {
-    const response = await api.get('/check-username', { params: { username } })
+    const response = await api.get('/check-username', { params: { username, email } })
     return response.data
   } catch (err) {
     console.log(err)

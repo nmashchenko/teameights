@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import ModalWindow from './ModalWindow/ModalWindow'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import { useSnackbar } from 'notistack'
+import { ThreeDots } from 'react-loader-spinner'
 
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
@@ -91,7 +92,6 @@ const UserAvatar = () => {
       <Stepper step={step} />
       <DataContainer>
         <NavLogo sectionName={'User Avatar'} />
-        <h3>{'isloading: ' + isLoading}</h3>
         <MiddleContainer>
           <ModalWindow
             open={open}
@@ -122,11 +122,27 @@ const UserAvatar = () => {
               lineSevenActive={lineSevenActive}
               setLineTwoActive={setLineTwoActive}
               setLineThreeActive={setLineThreeActive}
+              setLineFourActive={setLineFourActive}
               setLineSixActive={setLineSixActive}
               setLineSevenActive={setLineSevenActive}
             />
           </CardContainer>
-          <Button onClick={handleSubmit}>FINISH</Button>
+          {lineFourActive && !lineSevenActive ? (
+            <Button onClick={handleSubmit} disabled>
+              <ThreeDots
+                height="40"
+                width="40"
+                radius="9"
+                color="white"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              />
+            </Button>
+          ) : (
+            <Button onClick={handleSubmit}>FINISH</Button>
+          )}
         </MiddleContainer>
       </DataContainer>
     </Container>

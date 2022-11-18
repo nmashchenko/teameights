@@ -285,8 +285,11 @@ class UserService {
     await User.findOneAndUpdate({ _id: id }, { password: hashPassword });
   }
 
-  async checkUsername(username) {
+  async checkUsername(username, email) {
     const user = await User.findOne({ userUsername: username });
+    if (user.email === email) {
+      return null;
+    }
     return user;
   }
 }

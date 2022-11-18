@@ -46,8 +46,6 @@ function InitialPart() {
     }
   }, [curRegistration, navigate])
 
-  console.log(userData)
-
   return (
     <>
       <NavLogo />

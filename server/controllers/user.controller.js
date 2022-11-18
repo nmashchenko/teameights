@@ -233,8 +233,8 @@ class UserController {
 
   async validateUsername(req, res, next) {
     try {
-      const { username } = req.query;
-      const user = await userService.checkUsername(username);
+      const { username, email } = req.query;
+      const user = await userService.checkUsername(username, email);
       return res.json(user);
     } catch (err) {
       next(err);

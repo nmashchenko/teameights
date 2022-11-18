@@ -51,7 +51,7 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
         { abortEarly: false },
       )
       .then(async function () {
-        const user = await registerAuthApi.validateUsername(username)
+        const user = await registerAuthApi.validateUsername(username, userData.email)
         if (!isEqual(user, null)) {
           setOpen(true)
           setErrors(['username', 'Username is already taken!'])
