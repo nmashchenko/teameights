@@ -141,7 +141,7 @@ function UsersList() {
       <GlobalStyle />
       <CssBaseline />
       <TopBar
-        user={user}
+        user={user.user}
         countries={countries}
         roles={roles}
         programmingLanguages={programmingLanguages}

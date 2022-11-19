@@ -3,12 +3,10 @@ import { WHITE, BLACK } from '../../constants/colors'
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 50px;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 88px);
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background: ${BLACK.background};
 `
@@ -63,39 +61,6 @@ export const Text = styled.h3`
   text-align: ${(props) => props.alignment || 'center'};
 `
 
-// export const SubText = styled.h3`
-//   font-weight: ${(props) => props.fontWeight || '700'};
-//   font-size: 16px;
-//   margin: ${(props) => props.margin || '0 0 20px 0'};
-//   color: rgba(255, 255, 255, 0.5);
-//   text-align: center;
-// `
-
-// export const TitleText = styled.h3`
-//   font-weight: ${(props) => props.fontWeight || '700'};
-//   font-size: 16px;
-//   margin: ${(props) => props.margin || '0 0 20px 0'};
-//   color: ${WHITE.main};
-//   text-align: center;
-// `
-
-// export const BannerLText = styled.h3`
-//   font-weight: ${(props) => props.fontWeight || '700'};
-//   font-size: 15px;
-//   margin: ${(props) => props.margin || '0 0 20px 0'};
-//   margin-left: 10px;
-//   color: ${WHITE.main};
-//   text-align: left;
-// `
-
-// export const BannerRText = styled.h3`
-//   font-weight: ${(props) => props.fontWeight || '700'};
-//   font-size: 16px;
-//   margin-left: 15px;
-//   color: ${WHITE.main};
-//   text-align: left;
-// `
-
 export const ImgContainer = styled.div`
   width: 150px;
   height: 150px;
@@ -107,7 +72,7 @@ export const ProfileLine = styled.hr`
 `
 
 export const BannerLine = styled.hr`
-  width: 440px;
+  width: 450px;
   height: 0px;
   border: 1px solid rgba(42, 60, 19, 0.5);
 `
@@ -125,7 +90,7 @@ export const SocialRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: ${ (props) => (props.marginTop || '30px')};
+  margin-top: ${(props) => props.marginTop || '30px'};
 `
 
 export const IconTextContainer = styled.div`
@@ -151,25 +116,50 @@ export const EditButton = styled.button`
   cursor: pointer;
 `
 
-export const saveBtn = styled.button`
-  background: ${(props) => (props.primary ? 'palevioletred' : 'white')};
-  color: ${(props) => (props.primary ? 'white' : 'palevioletred')};
-
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
+export const Cards = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 78px);
+  width: 100%;
 `
 
-// export const Top = styled.div`
-//   height: 100%;
-//   align-self: center;
-//   align-items: center;
-// `
-
-export const Bottom = styled.div`
+export const Information = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
   justify-content: center;
-  flex-direction: column;
-  background: #5d9d0b;
+  align-items: center;
+  width: 100%;
+`
+
+export const RightCardData = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  height: 50px;
+  justify-content: ${(props) => props.justify || 'start'};
+  align-items: center;
+`
+
+export const ProgrammingLanguage = styled.div`
+  width: 40px;
+  height: 40px;
+  background: #2e3239;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+export const Framework = styled.div`
+  width: 65px;
+  height: 35px;
+  background: #00a4d3;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${(props) => props.background || '#42443B'};
 `
