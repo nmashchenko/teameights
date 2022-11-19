@@ -43,12 +43,17 @@
 
 🎉 Users can also access team page where they can ONLY access another screen if they press on "create team" button. Also they can view their profiles by clicking on Profile action from the burger menu, it's currently only UI and doesn't allow you to change anything but we are working on it!
 
-# Link to the deployed app
+# Links to the deployed app
 
-backend: https://teameights-server.herokuapp.com/api/users
-frontend: https://willowy-moonbeam-13cda4.netlify.app/
+📌 Backend: https://teameights-server.herokuapp.com/api/users
+📌 Application: https://willowy-moonbeam-13cda4.netlify.app/
 
-It's currently just basic react app, we are currently working on another repo and will transfer the code here soon.
+🔎 NB to TA/Prof, we currently investigating the issue with redirects because it seems like netlify doesn't recognize react router even after including netlify.toml, etc you can't use the application normally since redirects are not possible. However, we created temporary account that you can use to log in and check the progress:
+
+📌 Login: zxc123@zxc.com
+
+📌 Password: zxc123zxc123
+
 
 # Idea
 
