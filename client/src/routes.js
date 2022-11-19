@@ -13,6 +13,7 @@ import ResetNewPasswords from './screens/Forms/ResetNewPasswords/ResetNewPasswor
 import UsersList from './screens/UsersList/UsersList'
 import LoaderScreen from './screens/Forms/LoaderScreen/LoaderScreen'
 import NoTeamScreen from './screens/Forms/NoTeamScreen/NoTeamScreen'
+import Profile from './screens/Forms/Profile/Profile'
 
 // * Constants
 import ROUTES from './constants/routes'
@@ -25,6 +26,7 @@ export const useRoutes = () => {
       <Route path={ROUTES.finishRegistration} element={<FinishRegistration />} />
       <Route path="/auth/verification" element={<LoaderScreen />} />
       <Route path="/team" element={<NoTeamScreen />} />
+      <Route path="/profile" element={<Profile />} />
 
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />
