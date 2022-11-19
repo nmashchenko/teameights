@@ -9,7 +9,7 @@ import Search from '../../../../assets/SearchIcon'
 import Filters from '../../../../assets/Filters'
 
 // * Components
-import NavBarContainer from '../NavBar/NavBar'
+import NavBarContainer from '../../../../components/NavBar/NavBar'
 import FiltersMenu from '../FiltersMenu/FiltersMenu'
 
 // * Options

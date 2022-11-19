@@ -1,23 +1,108 @@
 // * Modules
-import React from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // * Assets
-import SiteLogo from '../../assets/SiteLogo'
+import NavBarIcon from '../../assets/NavBarIcon'
+import Close from '../../assets/Sidebar/Close'
+import Exit from '../../assets/Sidebar/Exit'
+import Notification from '../../assets/Sidebar/Notification'
 
-// * Styles
-import { NavBarContainer } from './NavBar.styles'
+// * Data
+import { NavBarData } from './NavBar.data'
+import userImg from './tempImg.jpg'
 
-const NavBar = () => {
+import {
+  NavIconContainer,
+  NameNotificationsContainer,
+  UserInfo,
+  UserData,
+  UserImage,
+  UserTextContainer,
+  UserText,
+  NavMenu,
+  NavMenuItems,
+  NavBarToggle,
+  NavItem,
+  ItemTitle,
+  NavItems,
+  BottomContent,
+  SingOutButton,
+  NotificationsArea,
+} from './NavBar.styles'
+
+const NavBar = ({ user, handleUserLogout }) => {
+  console.log(user)
+  const [sidebar, setSidebar] = useState(false)
+
+  const showSidebar = () => setSidebar(!sidebar)
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" elevation={0}>
-        <NavBarContainer>
-          <SiteLogo />
-        </NavBarContainer>
-      </AppBar>
-    </Box>
+    <>
+      <NavIconContainer onClick={showSidebar}>
+        <NavBarIcon />
+      </NavIconContainer>
+
+      {sidebar ? (
+        <NavMenu left="0" transition="250ms">
+          <NavMenuItems onClick={showSidebar}>
+            <UserInfo>
+              <NavBarToggle>
+                <Close />
+              </NavBarToggle>
+              <UserData>
+                <div>
+                  <UserImage src={userImg} alt="user image" />
+                </div>
+                <UserTextContainer>
+                  <NameNotificationsContainer>
+                    <UserText fontWeight="600">{user.userRealName}</UserText>
+                    <NotificationsArea>
+                      <Notification />
+                    </NotificationsArea>
+                  </NameNotificationsContainer>
+                  <UserText>{user.userConcentration}</UserText>
+                </UserTextContainer>
+              </UserData>
+            </UserInfo>
+            <NavItems>
+              {NavBarData.map((item, index) => {
+                return (
+                  <NavItem key={index}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <ItemTitle>{item.title}</ItemTitle>
+                    </Link>
+                  </NavItem>
+                )
+              })}
+            </NavItems>
+            <BottomContent>
+              <SingOutButton onClick={handleUserLogout}>
+                <Exit /> Sign Out
+              </SingOutButton>
+              <UserText
+                fontWeight="400"
+                fontSize="12px"
+                color="rgba(255, 255, 255, 0.15)"
+                margin="0 0 5px 0"
+              >
+                Copyright © 2022 Teameights.
+              </UserText>
+              <UserText
+                fontWeight="400"
+                fontSize="12px"
+                color="rgba(255, 255, 255, 0.15)"
+                margin="0 0 30px 0"
+              >
+                All rights reserved.
+              </UserText>
+            </BottomContent>
+          </NavMenuItems>
+        </NavMenu>
+      ) : (
+        <NavMenu />
+      )}
+    </>
   )
 }
 
