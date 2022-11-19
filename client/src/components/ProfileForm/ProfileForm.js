@@ -18,7 +18,13 @@ import {
   Top,
   Bottom,
   Save,
+  SocialRow,
+  EditBtnDiv,
 } from './ProfileForm.styles'
+import Star from '../../assets/UserProfile/Star'
+import Email from '../../assets/UserProfile/Email'
+import Github from '../../assets/UserProfile/Github'
+import Linkedin from '../../assets/UserProfile/Linkedin'
 
 export const ProfileForm = () => {
   return (
@@ -43,31 +49,67 @@ export const ProfileForm = () => {
           </IconTextContainer>
           <EditButton>Edit</EditButton>
         </InformationRow>
-        {/* 
-        <TextContainer>
-          <Text>Icon: Location</Text>
-          <Text>Icon: Experiences</Text>
-          <Text>Icon: Email</Text>
-        </TextContainer>
 
-        <TextContainer>
-          <Text>Icon: Github</Text>
-          <Text>Icon: Linkedin</Text>
-        </TextContainer> */}
+        <InformationRow>
+          <IconTextContainer>
+            <Star />
+            <Text fontSize="15px">3-5 years of experiences</Text>
+          </IconTextContainer>
+          <EditButton>Edit</EditButton>
+        </InformationRow>
+
+        <InformationRow>
+          <IconTextContainer>
+            <Email />
+            <Text fontSize="15px">holodmitya2002@gmail.com</Text>
+          </IconTextContainer>
+          <EditButton>Edit</EditButton>
+        </InformationRow>
+
+        <SocialRow>
+          <IconTextContainer>
+              <Github />
+              <Text fontSize="15px">Github Link</Text>
+            </IconTextContainer>
+            <EditButton>Edit</EditButton>
+        </SocialRow>
+
+        <SocialRow marginTop="10px">
+          <IconTextContainer >
+              <Linkedin />
+              <Text fontSize="15px">Linkedin Link</Text>
+            </IconTextContainer>
+            <EditButton>Edit</EditButton>
+        </SocialRow>
+
+
       </LeftCard>
 
       <RightContainer>
-        <RightCard id="Languages">
+      <RightCard id="Languages">
           <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
             Languages
           </Text>
+
+          <EditBtnDiv>
+              <EditButton>Edit</EditButton>
+          </EditBtnDiv>
+          
           <BannerLine />
+          
         </RightCard>
+        
+
 
         <RightCard id="Tools">
           <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
             Tools
           </Text>
+
+          <EditBtnDiv>
+              <EditButton>Edit</EditButton>
+          </EditBtnDiv>
+
           <BannerLine />
         </RightCard>
 
@@ -75,6 +117,11 @@ export const ProfileForm = () => {
           <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
             Team
           </Text>
+
+          <EditBtnDiv>
+              <EditButton>Edit</EditButton>
+          </EditBtnDiv>
+
           <BannerLine />
         </RightCard>
 
@@ -82,6 +129,9 @@ export const ProfileForm = () => {
           <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
             About me
           </Text>
+          <EditBtnDiv>
+              <EditButton>Edit</EditButton>
+          </EditBtnDiv>
           <BannerLine />
         </RightCard>
       </RightContainer>

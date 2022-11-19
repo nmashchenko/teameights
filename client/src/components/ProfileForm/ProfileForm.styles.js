@@ -120,9 +120,25 @@ export const InformationRow = styled.div`
   margin-top: 15px;
 `
 
+export const SocialRow = styled.div`
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: ${ (props) => (props.marginTop || '30px')};
+`
+
 export const IconTextContainer = styled.div`
   display: flex;
   gap: 15px;
+`
+
+export const EditBtnDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin: -25px 0 0 0;
 `
 
 export const EditButton = styled.button`
