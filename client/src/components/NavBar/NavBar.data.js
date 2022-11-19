@@ -2,10 +2,10 @@
 import React from 'react'
 
 // * Assets
-import Person from '../../../../assets/Sidebar/Person'
-import Project from '../../../../assets/Sidebar/Project'
-import Team from '../../../../assets/Sidebar/Team'
-import Tournament from '../../../../assets/Sidebar/Tournament'
+import Person from '../../assets/Sidebar/Person'
+import Project from '../../assets/Sidebar/Project'
+import Team from '../../assets/Sidebar/Team'
+import Tournament from '../../assets/Sidebar/Tournament'
 
 export const NavBarData = [
   {
@@ -19,8 +19,8 @@ export const NavBarData = [
     icon: <Tournament />,
   },
   {
-    title: 'Projects',
-    path: '/projects',
+    title: 'Teameights',
+    path: '/platform',
     icon: <Project />,
   },
   {
