@@ -46,6 +46,7 @@
 # Links to the deployed app
 
 📌 Backend: https://teameights-server.herokuapp.com/api/users
+
 📌 Application: https://willowy-moonbeam-13cda4.netlify.app/
 
 🔎 NB to TA/Prof, we currently investigating the issue with redirects because it seems like netlify doesn't recognize react router even after including netlify.toml, etc you can't use the application normally since redirects are not possible. However, we created temporary account that you can use to log in and check the progress:
@@ -98,8 +99,13 @@ Regarding the **platform** paging, currently we are 100% sure that this list of 
 ![image](https://user-images.githubusercontent.com/52038455/192882634-b13f5e8d-f401-4894-a777-585d2b23e487.png)
 ![image](https://user-images.githubusercontent.com/52038455/192882696-9f1b5c8e-ba8b-48d2-9873-3e59491c8d61.png)
 ![image](https://user-images.githubusercontent.com/52038455/192882745-05caf0aa-813c-4d7b-a299-0766215d3487.png)
-
-⚠️ **TODO: Add all of the pages from this pipeline**
+![image](https://user-images.githubusercontent.com/52038455/202837433-1cf43b35-68e1-4a09-87d8-b350f59a9dfa.png)
+![image](https://user-images.githubusercontent.com/52038455/202837444-952e5273-9948-4309-bc2d-c3c9d6b9f059.png)
+![image](https://user-images.githubusercontent.com/52038455/202837453-4b2b29b1-0734-42e8-a0d4-b8a5d30913f9.png)
+![image](https://user-images.githubusercontent.com/52038455/202837503-5a98cd82-8b0a-4b75-9730-660d3e5b791e.png)
+![image](https://user-images.githubusercontent.com/52038455/202837508-e40af0af-a96b-4ed6-ae87-32f7964b7fc2.png)
+![image](https://user-images.githubusercontent.com/52038455/202837512-9c868139-17a3-4bcd-a626-5ce95e01937f.png)
+![image](https://user-images.githubusercontent.com/52038455/202837518-7331833b-86c4-4904-ba0e-e36d33fbddff.png)
 
 ✅📱 Developer profiles page (whenever user login, signup he will be redirected to this page and his profile will be added to the list of people who search for teams.:
 ![image](https://user-images.githubusercontent.com/52038455/192883146-aec63869-255f-4cda-8b5b-20d81f4a3870.png)
@@ -120,8 +126,13 @@ Regarding the **platform** paging, currently we are 100% sure that this list of 
 ⚠️ **TODO: Add the upcoming tournament page here**
 
 🔧 Your team’s page (this page will display information about the team, founders will be able to remove people, assign roles for the project, add project name, add name to the team) <br>
-⚠️ **TODO: Add your team page here**
 ![image](https://user-images.githubusercontent.com/52038455/202818362-6f6108c5-8410-4c85-a1f9-1db92e397463.png)
+###Create team is selected:
+![image](https://user-images.githubusercontent.com/52038455/202837562-bc30ffa4-fe3e-4ea0-8ea2-87ac2a5b0192.png)
+###Join team selected
+![image](https://user-images.githubusercontent.com/52038455/202837577-09aa6184-5f78-4fbc-a01e-729b6f14660d.png)
+###Your team page (design in progress)
+![image](https://user-images.githubusercontent.com/52038455/202837593-b40747d4-7579-482a-b9c2-33f64da6bf23.png)
 
 
 🔧 Team edit page (this will also be a module window that will pop-up whenever team’s founder will click on edit button) <br>
