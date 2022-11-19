@@ -45,7 +45,8 @@
 
 # Link to the deployed app
 
-https://ephemeral-biscochitos-6c41fa.netlify.app
+backend: https://teameights-server.herokuapp.com/api/users
+frontend: https://willowy-moonbeam-13cda4.netlify.app/
 
 It's currently just basic react app, we are currently working on another repo and will transfer the code here soon.
 
