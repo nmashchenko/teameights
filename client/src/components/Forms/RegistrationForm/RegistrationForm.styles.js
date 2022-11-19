@@ -17,7 +17,7 @@ export const NavBar = styled(Toolbar)`
 
 export const RegistrationContainer = styled.div`
   width: 100%;
-  min-height: calc(100vh - 78px);
+  min-height: 100vh;
   display: flex;
   background: ${BLACK.background};
 `

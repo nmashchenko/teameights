@@ -94,7 +94,7 @@ function LoginForm() {
 
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       {error && <SnackBar open={open} handleClose={handleClose} error={error} />}
       <LoginContainer>
         <LeftScreenContainer>
