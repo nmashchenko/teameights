@@ -1,83 +1,62 @@
 // * Modules
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // * Assets
-import NavBarIcon from '../../../assets/NavBarIcon'
-import NotificationIcon from '../../../assets/NotificationIcon'
 import X from '../../../assets/X'
-import PlatformLogoBig from '../../../assets/PlatformLogoBig'
-import Exit from '../../../assets/Exit'
 import ProfileEllipse from './img/ProfileEllipse.png'
 import CrownImg from './img/Crown.svg'
 import ProfileEditIcon from '../../../assets/ProfileEditIcon'
-import DropDownIcon from './img/DropDownIcon.svg'
+import TopTemplate from '../../TopTemplate/TopTemplate'
 
 import {
   CreateTeamContainer,
-  TopBar,
-  ClickableText,
-  TopBarContainer,
+  Card,
   MainContainer,
   XContainer,
   ProfileContainer,
   CrownContainer,
+  Input,
   ProfileEditContainer,
-  TeamNameContainer,
-  ChooseCountryContainer,
-  Text,
-  Line,
-  DropDownIconContainer,
+  InputContainer,
   CreateButtonContainer,
 } from './CreateTeamForm.styles'
 
 function CreateTeamForm() {
+  const navigate = useNavigate()
+
+  const handleClose = () => {
+    navigate('/team', { replace: true })
+  }
   return (
     <>
       <CreateTeamContainer>
-        <TopBar>
-          <TopBarContainer>
-            <NavBarIcon />
-          </TopBarContainer>
-          <ClickableText>My Team</ClickableText>
-          <TopBarContainer>
-            <PlatformLogoBig />
-          </TopBarContainer>
-          <TopBarContainer>
-            <Exit />
-          </TopBarContainer>
-          <TopBarContainer>
-            <NotificationIcon />
-          </TopBarContainer>
-        </TopBar>
+        <TopTemplate />
 
-        <MainContainer>
-          <XContainer>
-            <X />
-          </XContainer>
-          <ProfileContainer>
-            <CrownContainer>
+        <Card>
+          <MainContainer>
+            <XContainer onClick={handleClose}>
+              <X />
+            </XContainer>
+            <ProfileContainer>
+              {/* <CrownContainer>
               <img src={CrownImg} alt="crown"></img>
-            </CrownContainer>
-            <img src={ProfileEllipse} alt="crown"></img>
-            <ProfileEditContainer>
-              <ProfileEditIcon />
-            </ProfileEditContainer>
-          </ProfileContainer>
-          <TeamNameContainer>
-            <Text>Team Name</Text>
-            <Line />
-          </TeamNameContainer>
-          <ChooseCountryContainer>
-            <Text>Choose a country</Text>
-            <DropDownIconContainer>
-              <img src={DropDownIcon} alt="crown"></img>
-            </DropDownIconContainer>
-            <Line />
-          </ChooseCountryContainer>
-          <CreateButtonContainer>
-            <p>Create</p>
-          </CreateButtonContainer>
-        </MainContainer>
+            </CrownContainer> */}
+              <img src={ProfileEllipse} alt="crown"></img>
+              <ProfileEditContainer>
+                <ProfileEditIcon />
+              </ProfileEditContainer>
+            </ProfileContainer>
+            <InputContainer>
+              <Input placeholder="Team name" />
+            </InputContainer>
+
+            <InputContainer>
+              <Input placeholder="Country" />
+            </InputContainer>
+            <CreateButtonContainer>Create</CreateButtonContainer>
+          </MainContainer>
+        </Card>
       </CreateTeamContainer>
     </>
   )

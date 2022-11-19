@@ -5,29 +5,20 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { WHITE, BLACK, GREEN, BLUE, DARK_BLUE } from '../../../constants/colors'
 
 export const CreateTeamContainer = styled.div`
-  position: absolute;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
   background: ${BLACK.background};
+  height: 100vh;
+  width: 100%;
 `
 
-export const TopBar = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width 100%;
-  margin-top: 2%;
-`
-
-export const TopBarContainer = styled.div`
-  cursor: pointer;
+export const Card = styled.div`
+  height: calc(100vh - 78px);
   display: flex;
   justify-content: center;
+  align-items: center;
 `
 
 export const ClickableText = styled.div`
@@ -39,32 +30,28 @@ export const ClickableText = styled.div`
 `
 
 export const MainContainer = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
   color: ${WHITE.main};
   background: ${DARK_BLUE.background};
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-
-  margin: 175px 340px 175px 340px;
-
-  width: 45%;
-  height: 55%;
+  width: 600px;
+  height: 450px;
+  padding: 10px 10px;
 `
 
 export const XContainer = styled.div`
   cursor: pointer;
-  width: 24px;
+  width: 90%;
   height: 24px;
   display: flex;
-  align-items: center;
-  margin-left: auto;
-  margin-top: 15px;
-  margin-right: 15px;
-  margin-bottom: 15px;
+  justify-content: end;
+  align-items: end;
+  margin: 15px 0 0 0;
 `
 
 export const ProfileContainer = styled.div``
@@ -90,46 +77,17 @@ export const ProfileEditContainer = styled.div`
   width: 30px;
   height: 30px;
   left: 90px;
-  bottom: 30px;
+  bottom: 40px;
 `
 
-export const TeamNameContainer = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: #828282;
-  margin-top: 50px;
+  margin-top: 20px;
   width: 250px;
   height: 26px;
-`
-
-export const Text = styled.div`
-  color: #828282;
-  height: 23px;
-`
-
-export const Line = styled.div`
-  width: 250px;
-  height: 0px;
-  border: 1px solid rgba(93, 157, 11, 0.5);
-`
-
-export const ChooseCountryContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #828282;
-  margin-top: 30px;
-  width: 250px;
-  height: 26px;
-`
-
-export const DropDownIconContainer = styled.div`
-  position: relative;
-  margin-left: auto;
-  bottom: 22px;
-  width: 9px;
-  height: 5px;
 `
 
 export const CreateButtonContainer = styled.div`
@@ -148,4 +106,20 @@ export const CreateButtonContainer = styled.div`
   margin-top: auto;
   margin-right: 30px;
   margin-bottom: 30px;
+`
+
+export const Input = styled.input`
+  outline: 0;
+  border-width: 0 0 1.5px;
+  border-color: ${(props) => props.borderColor || 'rgba(93, 157, 11, 0.5)'};
+  background: inherit;
+  width: ${(props) => props.width || '250px'};
+  height: ${(props) => props.height || '40px'};
+  font-size: 18px;
+  margin: ${(props) => props.margin || '16px 0 0 0'};
+  color: ${WHITE.main};
+
+  &:focus {
+    border-color: ${WHITE.main};
+  }
 `
