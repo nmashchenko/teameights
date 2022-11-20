@@ -157,12 +157,6 @@ We might redesign some pages but for now they should exist in any form, also we 
 
 # Team
 
-Regarding the team members as for now:
-
-🧑🏻 Nikita <br>
-🧑🏻 Leland <br>
-🧑🏻 Zach <br>
-🧑🏻 Zayn <br>
 
 # Questions
 
