@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 // * API_URL
-export const API_URL = 'https://teameights-server.herokuapp.com/api/'
+export const API_URL = 'https://teameights-server.herokuapp.com/api'
 
 const api = axios.create({
   withCredentials: true,
