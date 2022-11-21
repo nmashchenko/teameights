@@ -23,6 +23,8 @@ class UserController {
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
@@ -60,6 +62,8 @@ class UserController {
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       }); // httpOnly to prevent changing the cookie from browser (JS), TODO: we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
@@ -104,6 +108,8 @@ class UserController {
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
