@@ -1,62 +1,54 @@
-import { Background,
-    Container,
-    RightContainer,
-    LeftContainer,
-    TeamDiv,
-    Text,
-    MiniProfile,
-    ProfileImgBorder,
-    CreateBtnDiv,
-    CreateButton,
-    TeamImgBorder,
-    CircleContainer,
-    ProfileTextDiv,
-    DevName,
-    DevTitle,
-} from "./TeamForm.styles"
+// * Styles
+import {
+  Container,
+  CardContainer,
+  Card,
+  RightContainer,
+  LeftContainer,
+  Text,
+  MiniProfile,
+  ProfileImgBorder,
+  CreateButton,
+  TeamImgBorder,
+  CircleContainer,
+  ProfileTextDiv,
+} from './TeamForm.styles'
+
+// * Assets
+import TopTemplate from '../../TopTemplate/TopTemplate'
 
 function TeamForm() {
-    return(
-        <Background>
-            <Container>
+  return (
+    <Container>
+      <TopTemplate />
+      <CardContainer>
+        <Card>
+          {/* <LeftContainer>
+          <MiniProfile>
+            <ProfileImgBorder></ProfileImgBorder>
+            <ProfileTextDiv>
+              <DevName>Nikita Maksimov</DevName>
+              <DevTitle>Web Designer</DevTitle>
+            </ProfileTextDiv>
+          </MiniProfile>
+        </LeftContainer> */}
+          <RightContainer>
+            <CircleContainer>
+              <Text>Team Name</Text>
+            </CircleContainer>
 
-            <LeftContainer>
-                <MiniProfile>
-                    <ProfileImgBorder></ProfileImgBorder>
-                    <ProfileTextDiv>
-                        <DevName>Nikita Maksimov</DevName>
-                        <DevTitle>Web Designer</DevTitle> 
-                    </ProfileTextDiv>
-                </MiniProfile>
+            <TeamImgBorder></TeamImgBorder>
 
-            </LeftContainer>
+            <Text fontSize="16px" fontWeight="400">
+              Creation date: 23/01/22
+            </Text>
 
-
-
-
-
-
-
-
-                <RightContainer>
-                    <TeamDiv>
-                        <CircleContainer>
-                            <Text>Team Name</Text>
-                        </CircleContainer>
-                        
-
-                        <TeamImgBorder></TeamImgBorder>
-
-                        <Text>Creation date: 23/01/22</Text>
-
-                        <CreateBtnDiv>
-                            <CreateButton>Create</CreateButton>
-                        </CreateBtnDiv>
-                    </TeamDiv>
-                </RightContainer>
-            </Container>
-        </Background>
-    )
+            <CreateButton>Create</CreateButton>
+          </RightContainer>
+        </Card>
+      </CardContainer>
+    </Container>
+  )
 }
 
 export default TeamForm
