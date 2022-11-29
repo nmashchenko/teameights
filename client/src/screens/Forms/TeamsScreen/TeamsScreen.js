@@ -1,17 +1,16 @@
-// * Modules
 import CssBaseline from '@mui/material/CssBaseline'
 import { SnackbarProvider } from 'notistack'
 import { styled } from '@mui/material'
 
-import CreateTeamForm from '../../../components/Forms/CreateTeamForm/CreateTeamForm'
+import TeamsList from '../../../components/Forms/TeamsList/TeamsList'
 
-const SnackbarStyled = styled(SnackbarProvider)`
-  &.SnackbarItem-contentRoot {
-    background-color: #cf625e;
-  }
-`
+function TeamsScreen() {
+  const SnackbarStyled = styled(SnackbarProvider)`
+    &.SnackbarItem-contentRoot {
+      background-color: #cf625e;
+    }
+  `
 
-function CreateTeam() {
   return (
     <>
       <SnackbarStyled
@@ -23,10 +22,10 @@ function CreateTeam() {
         variant="error"
       >
         <CssBaseline />
-        <CreateTeamForm />
+        <TeamsList />
       </SnackbarStyled>
     </>
   )
 }
 
-export default CreateTeam
+export default TeamsScreen
