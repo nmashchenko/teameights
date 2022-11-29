@@ -23,6 +23,8 @@ class UserController {
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
@@ -38,6 +40,8 @@ class UserController {
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       }); // httpOnly to prevent changing the cookie from browser (JS), TODO: we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
@@ -58,6 +62,8 @@ class UserController {
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       }); // httpOnly to prevent changing the cookie from browser (JS), TODO: we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {
@@ -91,11 +97,19 @@ class UserController {
 
   async refresh(req, res, next) {
     try {
+      console.log("recieved these cookies:");
+      console.log(req.cookies);
+
       const { refreshToken } = req.cookies;
+
+      console.log("refresh token:");
+      console.log(refreshToken);
       const userData = await userService.refresh(refreshToken);
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        secure: true,
+        sameSite: "none",
       }); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
       return res.json(userData);
     } catch (err) {

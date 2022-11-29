@@ -96,7 +96,6 @@ function RegistrationForm() {
 
   return (
     <>
-      <NavBar />
       {error && <SnackBar open={open} handleClose={handleClose} error={error} />}
       <Backdrop isLoading={isLoading} />
       <RegistrationContainer>

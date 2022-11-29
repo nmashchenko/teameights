@@ -1,3 +1,7 @@
+// * Modules
+import { useNavigate } from 'react-router-dom'
+
+// * Styles
 import {
   Container,
   TextContainer,
@@ -8,9 +12,15 @@ import {
   Card,
 } from './NoTeamForm.styles'
 
+// * Assets
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
 function NoTeamForm() {
+  const navigate = useNavigate()
+
+  const handleCreate = () => {
+    navigate('/create-team', { replace: true })
+  }
   return (
     <Container>
       <TopTemplate />
@@ -21,7 +31,7 @@ function NoTeamForm() {
             <Text>Let's create it...</Text>
           </TextContainer>
           <ButtonContainer>
-            <ButtonGeneral onClick={() => {}}>Create team</ButtonGeneral>
+            <ButtonGeneral onClick={handleCreate}>Create team</ButtonGeneral>
             <ButtonGeneral onClick={() => {}}>Join existing</ButtonGeneral>
           </ButtonContainer>
         </Card>

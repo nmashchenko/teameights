@@ -74,6 +74,7 @@ function LoginForm() {
   useEffect(() => {
     // clear previous error before making new request
     dispatch(userAuth.actions.authClearError())
+    console.log('LOGIN: ' + localStorage.getItem('token'))
     if (localStorage.getItem('token')) {
       dispatch(authApi.checkAuth())
     }
@@ -94,7 +95,7 @@ function LoginForm() {
 
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       {error && <SnackBar open={open} handleClose={handleClose} error={error} />}
       <LoginContainer>
         <LeftScreenContainer>

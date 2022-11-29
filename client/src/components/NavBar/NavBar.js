@@ -32,7 +32,6 @@ import {
 } from './NavBar.styles'
 
 const NavBar = ({ user, handleUserLogout }) => {
-  console.log(user)
   const [sidebar, setSidebar] = useState(false)
 
   const showSidebar = () => setSidebar(!sidebar)

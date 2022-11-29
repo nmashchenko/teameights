@@ -128,6 +128,8 @@ function UsersList() {
    * This useEffect is triggered when user presses logout button in the NavBar component
    */
   useEffect(() => {
+    console.log(user)
+    console.log('cookie: ' + localStorage.getItem('token'))
     if (!isAuth) {
       navigate(ROUTES.login, { replace: true })
     }

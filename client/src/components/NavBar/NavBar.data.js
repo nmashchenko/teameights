@@ -19,8 +19,8 @@ export const NavBarData = [
     icon: <Tournament />,
   },
   {
-    title: 'Projects',
-    path: '/projects',
+    title: 'Teameights',
+    path: '/platform',
     icon: <Project />,
   },
   {
