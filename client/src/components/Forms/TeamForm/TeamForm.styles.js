@@ -18,10 +18,66 @@ export const Container = styled.div`
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   justify-items: center;
   align-items: center;
+`
+
+export const LeftContainer = styled.div`
+  width: 500px;
+  height: 550px;
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  justify-items: start;
+  align-items: start;
+`
+
+export const MiniProfile = styled.div`
+  width: 200px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  justify-items: start;
+  align-items: start;
+  margin: 30px 30px 30px 30px;
+`
+
+export const ProfileImgBorder = styled.div`
+  width: 200px;
+  height: 100px;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  background: #D9D9D9;
+  border-radius: 20px;
+`
+
+export const ProfileTextDiv = styled.div`
+  margin: 0 0 0 20px;
+`
+
+export const DevName = styled.h1`
+  width: 150px;
+  height: 16px;
+  font-style: italic;
+  font-weight: 100;
+  font-size: 13px;
+  line-height: 16px;
+  color: #A1A1A1;
+  margin: 20px 0 0 0;
+`
+
+export const DevTitle = styled.h3`
+  width: 150px;
+  height: 23px;
+  font-size: 16px;
+  line-height: 19px;
+  color: #FFFFFF;
 `
 
 export const RightContainer = styled.div`
