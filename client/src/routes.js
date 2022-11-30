@@ -13,6 +13,7 @@ import ResetNewPasswords from './screens/Forms/ResetNewPasswords/ResetNewPasswor
 import UsersList from './screens/UsersList/UsersList'
 import LoaderScreen from './screens/Forms/LoaderScreen/LoaderScreen'
 import NoTeamScreen from './screens/Forms/NoTeamScreen/NoTeamScreen'
+import TeamScreen from './screens/Forms/TeamScreen/TeamScreen'
 import Profile from './screens/Forms/Profile/Profile'
 import CreateTeam from './screens/Forms/CreateTeam/CreateTeam'
 import TeamsScreen from './screens/Forms/TeamsScreen/TeamsScreen'
@@ -29,6 +30,7 @@ export const useRoutes = () => {
       <Route path="/auth/verification" element={<LoaderScreen />} />
       <Route path="/team" element={<NoTeamScreen />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/myteam" element={<TeamScreen />} />
       <Route path="/create-team" element={<CreateTeam />} />
       <Route path="/teams" element={<TeamsScreen />} />
 
