@@ -26,66 +26,55 @@ export const Card = styled.div`
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  justify-items: center;
   align-items: center;
+  flex-direction: column;
+  gap: 30px;
+`
+
+export const MainCardContent = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+`
+
+export const ButtonCardContent = styled.div`
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 `
 
 export const LeftContainer = styled.div`
-  width: 500px;
-  height: 550px;
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
-  border-radius: 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  justify-items: start;
+  width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  row-gap: 40px;
   align-items: start;
 `
 
-export const MiniProfile = styled.div`
-  width: 200px;
-  height: 100px;
+export const UserCard = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: start;
-  justify-items: start;
-  align-items: start;
-  margin: 30px 30px 30px 30px;
-`
-
-export const ProfileImgBorder = styled.div`
-  width: 200px;
-  height: 100px;
+  gap: 15px;
   justify-content: center;
-  justify-items: center;
   align-items: center;
-  background: #d9d9d9;
-  border-radius: 20px;
 `
 
-export const ProfileTextDiv = styled.div`
-  margin: 0 0 0 20px;
+export const UserImg = styled.img`
+  width: 82px;
+  height: 82px;
+  border-radius: 7.58333px;
 `
 
-export const DevName = styled.h1`
-  width: 150px;
-  height: 16px;
-  font-style: italic;
-  font-weight: 100;
-  font-size: 13px;
-  line-height: 16px;
-  color: #a1a1a1;
-  margin: 20px 0 0 0;
-`
-
-export const DevTitle = styled.h3`
-  width: 150px;
-  height: 23px;
-  font-size: 16px;
-  line-height: 19px;
-  color: #ffffff;
+export const UserInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: start;
 `
 
 export const RightContainer = styled.div`
@@ -98,15 +87,6 @@ export const RightContainer = styled.div`
   flex-direction: column;
   background: #26292b;
 `
-
-// export const TeamDiv = styled.div`
-//   display: flex;
-//   margin-bottom: 10px;
-//   flex-direction: column;
-//   justify-content: center;
-//   justify-items: center;
-//   align-items: center;
-// `
 
 export const CircleContainer = styled.div`
   width: 181px;
@@ -128,26 +108,11 @@ export const Text = styled.h3`
   margin: ${(props) => props.margin || '0'};
 `
 
-export const TeamImgBorder = styled.div`
+export const TeamImgBorder = styled.img`
   width: 253px;
   height: 253px;
-  background: #d9d9d9;
   border-radius: 20px;
 `
-
-// export const CreateBtnDiv = styled.div`
-//   width: 146px;
-//   height: 44px;
-//   background: #00a4d3;
-//   border-radius: 5px;
-//   display: flex;
-//   justify-content: center;
-//   justify-items: center;
-//   align-items: center;
-//   background: rgba(93, 157, 11, 0.5);
-//   flex-direction: column;
-//   margin: 30px 0 0 0;
-// `
 
 export const CreateButton = styled.button`
   width: 146px;
@@ -161,3 +126,28 @@ export const CreateButton = styled.button`
   outline: none;
   cursor: pointer;
 `
+
+export const ActionButton = styled.button`
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #25282a;
+  outline: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`
+
+export const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+}
