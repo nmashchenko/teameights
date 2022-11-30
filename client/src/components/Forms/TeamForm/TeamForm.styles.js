@@ -146,8 +146,29 @@ export const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
+  bgcolor: '#26292B',
+  borderRadius: '15px',
+  boxShadow: 14,
   p: 4,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+  gap: '25px',
 }
+
+export const Input = styled.input`
+  outline: 0;
+  border-width: 0 0 1.5px;
+  border-color: ${(props) => props.borderColor || 'rgba(93, 157, 11, 0.5)'};
+  background: inherit;
+  width: ${(props) => props.width || '250px'};
+  height: ${(props) => props.height || '40px'};
+  font-size: 18px;
+  margin: ${(props) => props.margin || '0'};
+  color: ${WHITE.main};
+
+  &:focus {
+    border-color: ${WHITE.main};
+  }
+`

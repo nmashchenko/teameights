@@ -21,6 +21,7 @@ import {
   CircleContainer,
   ActionButton,
   style,
+  Input,
 } from './TeamForm.styles'
 
 // * Assets
@@ -31,8 +32,19 @@ import tempImg from './zxc.png'
 
 function TeamForm() {
   const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const [inviteActive, setInviteActive] = useState(false)
+
+  const handleOpenInvite = () => {
+    setOpen(true)
+    setInviteActive(true)
+  }
+
+  const handleOpenDelete = () => setOpen(true)
+
+  const handleClose = () => {
+    setOpen(false)
+    setInviteActive(false)
+  }
 
   return (
     <Container>
@@ -42,7 +54,20 @@ function TeamForm() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}></Box>
+        <Box sx={style}>
+          {inviteActive ? (
+            <>
+              <Text margin="0">Send invite to your team!</Text>
+              <Input placeholder="Email"></Input>
+              <CreateButton>Send</CreateButton>
+            </>
+          ) : (
+            <>
+              <Text margin="0">Do you want to delete this team?</Text>
+              <CreateButton>Yes</CreateButton>
+            </>
+          )}
+        </Box>
       </Modal>
       <TopTemplate />
       <CardContainer>
@@ -67,14 +92,14 @@ function TeamForm() {
               <Text fontSize="16px" fontWeight="400">
                 Creation date: 23/01/22
               </Text>
-              <CreateButton>Create</CreateButton>
+              <CreateButton>Edit</CreateButton>
             </RightContainer>
           </MainCardContent>
           <ButtonCardContent>
-            <ActionButton onClick={handleOpen}>
+            <ActionButton onClick={handleOpenInvite}>
               <Add />
             </ActionButton>
-            <ActionButton>
+            <ActionButton onClick={handleOpenDelete}>
               <Delete />
             </ActionButton>
           </ButtonCardContent>
