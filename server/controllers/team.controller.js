@@ -22,9 +22,19 @@ class TeamController {
 
   async getTeams(req, res, next) {
     try {
-      const createdTeam = await teamService.getTeams();
+      const teams = await teamService.getTeams();
+      return res.json(teams);
+    } catch (err) {
+      next(err);
+    }
+  }
 
-      return res.json(createdTeam);
+  async getTeamById(req, res, next) {
+    try {
+      const { teamId } = req.body;
+      console.log(teamId);
+      const team = await teamService.getTeamById(teamId);
+      return res.json(team);
     } catch (err) {
       next(err);
     }
@@ -36,6 +46,17 @@ class TeamController {
       const createdTeam = await teamService.addToTeam(teamId, userId);
 
       return res.json(createdTeam);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /* TODO: Change for actual invite to the notification box later instead of instantly adding to team */
+  async inviteByEmail(req, res, next) {
+    try {
+      const { email, teamId } = req.body;
+      const invitedUser = await teamService.inviteByEmail(email, teamId);
+      return res.json(invitedUser);
     } catch (err) {
       next(err);
     }

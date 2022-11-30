@@ -30,12 +30,15 @@ class TeamService {
   }
 
   async getTeams() {
-    try {
-      const foundTeams = await Team.find({});
-      return foundTeams;
-    } catch (err) {
-      next(err);
-    }
+    const foundTeams = await Team.find({});
+    return foundTeams;
+  }
+
+  async getTeamById(teamId) {
+    const foundTeams = await Team.findOne({ _id: teamId });
+
+    console.log(foundTeams);
+    return foundTeams;
   }
 
   async addToTeam(teamId, userId) {
@@ -66,6 +69,42 @@ class TeamService {
     } catch (err) {
       next(err);
     }
+  }
+
+  /* TODO: Change for actual invite to the notification box later instead of instantly adding to team */
+  async inviteByEmail(email, teamId) {
+    const user = await User.findOne({
+      email: email,
+    });
+
+    if (user === null) {
+      return {
+        error: "User doesn't exist",
+      };
+    }
+
+    if (user.userTeam) {
+      return {
+        error: "User already in team",
+      };
+    }
+
+    await User.findOneAndUpdate(
+      {
+        email: email,
+      },
+      { userTeam: teamId }
+    );
+
+    const updatedTeam = await Team.updateOne(
+      { _id: teamId },
+      { $push: { members: user._id } }
+    );
+
+    /* TODO: Add limit for 8 users in 1 team */
+    return {
+      status: "success",
+    };
   }
 }
 

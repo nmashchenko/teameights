@@ -34,7 +34,7 @@ function CreateTeamForm() {
   const [country, setCountry] = useState('')
 
   const { user } = useSelector((state) => state.userReducer)
-  const userId = user.user._id
+  const userId = user._id
 
   const handleClose = () => {
     navigate('/team', { replace: true })
@@ -54,6 +54,7 @@ function CreateTeamForm() {
       } else {
         setTeamName('')
         setCountry('')
+        navigate('/myteam', { replace: true })
       }
     }
   }

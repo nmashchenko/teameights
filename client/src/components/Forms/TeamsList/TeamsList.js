@@ -1,5 +1,6 @@
 // * Modules
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import { useSelector } from 'react-redux'
@@ -24,13 +25,14 @@ import TopTemplate from '../../TopTemplate/TopTemplate'
 import teamsAPI from '../../../api/endpoints/team'
 
 function TeamsList() {
+  const navigate = useNavigate()
   const { user } = useSelector((state) => state.userReducer)
   const { enqueueSnackbar } = useSnackbar()
 
   const [teams, setTeams] = useState([])
   const [open, setOpen] = useState(false)
   const [selectedTeam, setSelectedTeam] = useState({})
-  const userId = user.user._id
+  const userId = user._id
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -58,6 +60,7 @@ function TeamsList() {
       })
     } else {
       handleClose()
+      navigate('/myteam', { replace: true })
     }
   }
 

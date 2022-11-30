@@ -1,5 +1,7 @@
 // * Modules
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 // * Styles
 import {
@@ -17,6 +19,13 @@ import TopTemplate from '../../TopTemplate/TopTemplate'
 
 function NoTeamForm() {
   const navigate = useNavigate()
+  const { user } = useSelector((state) => state.userReducer)
+
+  useEffect(() => {
+    if (user.userTeam) {
+      navigate('/myteam', { replace: true })
+    }
+  }, [])
 
   const handleCreate = () => {
     navigate('/create-team', { replace: true })

@@ -15,7 +15,7 @@ const loginUser = (email, password) => async (dispatch) => {
     dispatch(userAuth.actions.authUser())
     const response = await api.post('/login', { email, password })
     localStorage.setItem('token', response.data.accessToken)
-    dispatch(userAuth.actions.authUserSuccess(response.data))
+    dispatch(userAuth.actions.authUserSuccess(response.data.user))
   } catch (err) {
     dispatch(userAuth.actions.authUserError(err.response?.data?.message))
   }
@@ -26,7 +26,8 @@ const socialLoginRegistration = (username, email, picture, sub) => async (dispat
     dispatch(userAuth.actions.authUser())
     const response = await api.post('/social-login-registration', { username, email, picture, sub })
     localStorage.setItem('token', response.data.accessToken)
-    dispatch(userAuth.actions.authUserSuccess(response.data))
+    console.log(response.data.user)
+    dispatch(userAuth.actions.authUserSuccess(response.data.user))
   } catch (err) {
     dispatch(userAuth.actions.authUserError(err.response?.data?.message))
   }
@@ -35,8 +36,7 @@ const socialLoginRegistration = (username, email, picture, sub) => async (dispat
 const checkAuth = () => async (dispatch) => {
   try {
     dispatch(userAuth.actions.authUser())
-    const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true })
-    localStorage.setItem('token', response.data.accessToken)
+    const response = await axios.get(`${API_URL}/get-user-object`, { withCredentials: true })
     dispatch(userAuth.actions.authUserSuccess(response.data))
   } catch (err) {
     dispatch(userAuth.actions.authUserError(err.response?.data?.message))
@@ -48,7 +48,7 @@ const registerUser = (username, email, password, repeatPassword) => async (dispa
     dispatch(userAuth.actions.authUser())
     const response = await api.post('/registration', { username, email, password, repeatPassword })
     localStorage.setItem('token', response.data.accessToken)
-    dispatch(userAuth.actions.authUserSuccess(response.data))
+    dispatch(userAuth.actions.authUserSuccess(response.data.user))
   } catch (err) {
     dispatch(userAuth.actions.authUserError(err.response?.data?.message))
   }

@@ -1,7 +1,14 @@
 // * Modules
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
+import { useSnackbar } from 'notistack'
+
+// * Redux
+import { useSelector } from 'react-redux'
+
+// * API
+import teamsAPI from '../../../api/endpoints/team'
 
 // * Styles
 import {
@@ -33,6 +40,22 @@ import tempImg from './zxc.png'
 function TeamForm() {
   const [open, setOpen] = useState(false)
   const [inviteActive, setInviteActive] = useState(false)
+  const [team, setTeam] = useState({})
+  const [email, setEmail] = useState('')
+  const { user } = useSelector((state) => state.userReducer)
+  const [isLoading, setIsLoading] = useState(true)
+  console.log(user)
+
+  useEffect(() => {
+    const getTeam = async () => {
+      const team = await teamsAPI.getTeamById(user.userTeam)
+      setTeam(team.data)
+      setIsLoading(false)
+    }
+
+    getTeam()
+  }, [])
+  const { enqueueSnackbar } = useSnackbar()
 
   const handleOpenInvite = () => {
     setOpen(true)
@@ -44,6 +67,17 @@ function TeamForm() {
   const handleClose = () => {
     setOpen(false)
     setInviteActive(false)
+  }
+
+  const handleInvite = async () => {
+    const result = await teamsAPI.inviteUserByEmail(email, user.userTeam)
+    if (result.data.error) {
+      enqueueSnackbar(result.data.error, {
+        preventDuplicate: true,
+      })
+    } else {
+      handleClose()
+    }
   }
 
   return (
@@ -58,8 +92,12 @@ function TeamForm() {
           {inviteActive ? (
             <>
               <Text margin="0">Send invite to your team!</Text>
-              <Input placeholder="Email"></Input>
-              <CreateButton>Send</CreateButton>
+              <Input
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              ></Input>
+              <CreateButton onClick={handleInvite}>Send</CreateButton>
             </>
           ) : (
             <>
@@ -74,23 +112,30 @@ function TeamForm() {
         <Card>
           <MainCardContent>
             <LeftContainer>
-              <UserCard>
-                <UserImg src="https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg" />
-                <UserInfo>
-                  <Text fontSize="14px" fontWeight="100">
-                    Nikita Mashchenko
-                  </Text>
-                  <Text fontSize="14px">Full-Stack dev.</Text>
-                </UserInfo>
-              </UserCard>
+              {/* TODO: find team members in useEffect. */}
+              {!isLoading ? (
+                team.members.map((member) => (
+                  <UserCard>
+                    <UserImg src="https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg" />
+                    <UserInfo>
+                      <Text fontSize="14px" fontWeight="100">
+                        Nikita Mashchenko
+                      </Text>
+                      <Text fontSize="14px">Full-Stack dev.</Text>
+                    </UserInfo>
+                  </UserCard>
+                ))
+              ) : (
+                <h1>Loading...</h1>
+              )}
             </LeftContainer>
             <RightContainer>
               <CircleContainer>
-                <Text>Team Name</Text>
+                <Text>{team.name}</Text>
               </CircleContainer>
               <TeamImgBorder src={tempImg} />
               <Text fontSize="16px" fontWeight="400">
-                Creation date: 23/01/22
+                Creation date: {team.created_at}
               </Text>
               <CreateButton>Edit</CreateButton>
             </RightContainer>

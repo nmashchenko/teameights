@@ -128,12 +128,12 @@ function UsersList() {
    * This useEffect is triggered when user presses logout button in the NavBar component
    */
   useEffect(() => {
-    console.log(user)
-    console.log('cookie: ' + localStorage.getItem('token'))
     if (!isAuth) {
       navigate(ROUTES.login, { replace: true })
     }
-    if (isAuth && !user.user?.isRegistered) {
+
+    console.log(user)
+    if (isAuth && !user?.isRegistered) {
       navigate(ROUTES.finishRegistration, { replace: true })
     }
   }, [isAuth, navigate])
@@ -143,7 +143,7 @@ function UsersList() {
       <GlobalStyle />
       <CssBaseline />
       <TopBar
-        user={user.user}
+        user={user}
         countries={countries}
         roles={roles}
         programmingLanguages={programmingLanguages}

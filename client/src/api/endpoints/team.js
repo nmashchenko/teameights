@@ -21,6 +21,16 @@ const getAllTeams = async () => {
   }
 }
 
+const getTeamById = async (teamId) => {
+  try {
+    const data = await api.post('/get-team-byid', { teamId })
+    return data
+  } catch (err) {
+    console.log(err)
+    return err.message
+  }
+}
+
 const addUserToTeam = async (userId, teamId) => {
   try {
     const data = await api.post('/add-to-team', { teamId, userId })
@@ -31,10 +41,22 @@ const addUserToTeam = async (userId, teamId) => {
   }
 }
 
+const inviteUserByEmail = async (email, teamId) => {
+  try {
+    const data = await api.post('/invite-to-team', { email, teamId })
+    return data
+  } catch (err) {
+    console.log(err)
+    return err.message
+  }
+}
+
 const teamsApi = Object.freeze({
   createTeam,
   getAllTeams,
+  getTeamById,
   addUserToTeam,
+  inviteUserByEmail,
 })
 
 export default teamsApi
