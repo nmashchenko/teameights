@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 
 const modelName = "User";
 
-const UserSchema = new mongoose.Schema(
+const { Schema } = mongoose;
+
+const UserSchema = new Schema(
   {
     userUsername: {
       type: String,
@@ -76,6 +78,9 @@ const UserSchema = new mongoose.Schema(
     },
     userRole: {
       type: String,
+    },
+    userTeam: {
+      type: Schema.Types.ObjectId,
     },
   },
   {

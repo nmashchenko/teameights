@@ -21,6 +21,11 @@ function NoTeamForm() {
   const handleCreate = () => {
     navigate('/create-team', { replace: true })
   }
+
+  const handleJoin = () => {
+    navigate('/teams', { replace: true })
+  }
+
   return (
     <Container>
       <TopTemplate />
@@ -32,7 +37,7 @@ function NoTeamForm() {
           </TextContainer>
           <ButtonContainer>
             <ButtonGeneral onClick={handleCreate}>Create team</ButtonGeneral>
-            <ButtonGeneral onClick={() => {}}>Join existing</ButtonGeneral>
+            <ButtonGeneral onClick={handleJoin}>Join existing</ButtonGeneral>
           </ButtonContainer>
         </Card>
       </CardContainer>
