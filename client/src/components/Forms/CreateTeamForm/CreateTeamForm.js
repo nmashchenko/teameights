@@ -1,16 +1,19 @@
 // * Modules
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import isEqual from 'lodash/isEqual'
+
+// * Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { userAuth } from '../../../store/reducers/UserAuth'
 
 // API
 import createTeam from '../../../api/endpoints/team'
 
 // * Assets
 import X from '../../../assets/X'
-import ProfileEllipse from './img/ProfileEllipse.png'
+import ProfileEllipse from './img/zxc1.jpg'
 import ProfileEditIcon from '../../../assets/ProfileEditIcon'
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
@@ -28,12 +31,15 @@ import {
 
 function CreateTeamForm() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const { enqueueSnackbar } = useSnackbar()
 
   const [teamName, setTeamName] = useState('')
   const [country, setCountry] = useState('')
 
   const { user } = useSelector((state) => state.userReducer)
+  const { updateUser } = userAuth.actions
   const userId = user._id
 
   const handleClose = () => {
@@ -47,14 +53,16 @@ function CreateTeamForm() {
       })
     } else {
       const value = await createTeam.createTeam(teamName, country, [userId])
+      console.log(value)
       if (isEqual(value.data, {})) {
         enqueueSnackbar('You have a team already!', {
           preventDuplicate: true,
         })
       } else {
+        dispatch(updateUser(value.data))
         setTeamName('')
         setCountry('')
-        navigate('/myteam', { replace: true })
+        navigate('/myteam')
       }
     }
   }
@@ -68,12 +76,12 @@ function CreateTeamForm() {
             <XContainer onClick={handleClose}>
               <X />
             </XContainer>
-            <ProfileContainer>
-              <img src={ProfileEllipse} alt="crown"></img>
+            <div>
+              <ProfileContainer src={ProfileEllipse} alt="crown" />
               <ProfileEditContainer>
                 <ProfileEditIcon />
               </ProfileEditContainer>
-            </ProfileContainer>
+            </div>
             <InputContainer>
               <Input
                 placeholder="Team name"

@@ -20,10 +20,11 @@ class TeamService {
         {
           _id: { $in: teamMembers },
         },
-        { userTeam: team._id }
+        { userTeam: team._id },
+        { new: true }
       );
 
-      return team;
+      return user;
     } else {
       return {};
     }
@@ -52,11 +53,12 @@ class TeamService {
         return {};
       }
 
-      await User.findOneAndUpdate(
+      const user = await User.findOneAndUpdate(
         {
           _id: userId,
         },
-        { userTeam: teamId }
+        { userTeam: teamId },
+        { new: true }
       );
 
       const foundTeams = await Team.updateOne(
@@ -65,7 +67,7 @@ class TeamService {
       );
 
       /* TODO: Add limit for 8 users in 1 team */
-      return foundTeams;
+      return user;
     } catch (err) {
       next(err);
     }
@@ -105,6 +107,14 @@ class TeamService {
     return {
       status: "success",
     };
+  }
+
+  async getTeamMembers(teamMembers) {
+    const users = await User.find({
+      _id: { $in: teamMembers },
+    });
+
+    return users;
   }
 }
 

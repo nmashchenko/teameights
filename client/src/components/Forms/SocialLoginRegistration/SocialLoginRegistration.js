@@ -13,7 +13,6 @@ const SocialLoginRegistration = () => {
 
   const createOrGetUser = async (response) => {
     const decoded = jwt_decode(response.credential)
-    console.log(decoded)
     const { picture, email, sub } = decoded
     const username = email.split('@')[0]
     dispatch(authApi.socialLoginRegistration(username, email, picture, sub))

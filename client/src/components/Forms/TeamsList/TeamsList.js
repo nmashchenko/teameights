@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import isEqual from 'lodash/isEqual'
 
@@ -21,12 +20,19 @@ import {
 } from './TeamsList.styles'
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
+// * Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { userAuth } from '../../../store/reducers/UserAuth'
+
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 
 function TeamsList() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const { user } = useSelector((state) => state.userReducer)
+  const { updateUser } = userAuth.actions
   const { enqueueSnackbar } = useSnackbar()
 
   const [teams, setTeams] = useState([])
@@ -59,8 +65,9 @@ function TeamsList() {
         preventDuplicate: true,
       })
     } else {
+      dispatch(updateUser(result.data))
       handleClose()
-      navigate('/myteam', { replace: true })
+      navigate('/myteam')
     }
   }
 

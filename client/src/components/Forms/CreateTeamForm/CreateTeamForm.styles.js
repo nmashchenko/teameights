@@ -54,7 +54,11 @@ export const XContainer = styled.div`
   margin: 15px 0 0 0;
 `
 
-export const ProfileContainer = styled.div``
+export const ProfileContainer = styled.img`
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+`
 
 export const CrownContainer = styled.div`
   position: relative;

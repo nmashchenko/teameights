@@ -61,6 +61,16 @@ class TeamController {
       next(err);
     }
   }
+
+  async getTeamMembers(req, res, next) {
+    try {
+      const { teamMembers } = req.body;
+      const users = await teamService.getTeamMembers(teamMembers);
+      return res.json(users);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new TeamController();

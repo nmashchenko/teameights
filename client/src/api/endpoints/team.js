@@ -31,6 +31,16 @@ const getTeamById = async (teamId) => {
   }
 }
 
+const getTeamMembers = async (teamMembers) => {
+  try {
+    const data = await api.post('/get-teammembers', { teamMembers })
+    return data
+  } catch (err) {
+    console.log(err)
+    return err.message
+  }
+}
+
 const addUserToTeam = async (userId, teamId) => {
   try {
     const data = await api.post('/add-to-team', { teamId, userId })
@@ -55,6 +65,7 @@ const teamsApi = Object.freeze({
   createTeam,
   getAllTeams,
   getTeamById,
+  getTeamMembers,
   addUserToTeam,
   inviteUserByEmail,
 })

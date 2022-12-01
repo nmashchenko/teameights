@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 const initialState = {
   user: {},
@@ -38,6 +38,11 @@ export const userAuth = createSlice({
 
     authClearError(state) {
       state.error = ''
+    },
+
+    updateUser(state, action) {
+      state.user = action.payload
+      console.log(state.user)
     },
   },
 })

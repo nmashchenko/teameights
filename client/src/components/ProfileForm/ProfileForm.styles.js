@@ -61,9 +61,10 @@ export const Text = styled.h3`
   text-align: ${(props) => props.alignment || 'center'};
 `
 
-export const ImgContainer = styled.div`
+export const ImgContainer = styled.img`
   width: 150px;
   height: 150px;
+  border-radius: 50%;
   margin-top: 30px;
 `
 export const ProfileLine = styled.hr`

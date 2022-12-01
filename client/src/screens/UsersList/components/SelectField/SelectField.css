@@ -5,16 +5,16 @@ fieldset{
 }
 
 /* remove background */
-.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+/* .css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
   background: none;
-}
+} */
 
 /* customize input */
-.css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+/* .css-vrp7az-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   color: white !important;
   font-size: 0.875rem !important;
   font-weight: 600 !important;
-}
+} */
 
 /* scrollbar customization */
 .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar { 

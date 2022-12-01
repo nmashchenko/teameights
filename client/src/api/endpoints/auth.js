@@ -37,6 +37,8 @@ const checkAuth = () => async (dispatch) => {
   try {
     dispatch(userAuth.actions.authUser())
     const response = await axios.get(`${API_URL}/get-user-object`, { withCredentials: true })
+    console.log('we got this data:')
+    console.log(response.data)
     dispatch(userAuth.actions.authUserSuccess(response.data))
   } catch (err) {
     dispatch(userAuth.actions.authUserError(err.response?.data?.message))
