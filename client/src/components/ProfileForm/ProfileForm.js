@@ -1,8 +1,10 @@
 // * Modules
-import React from 'react'
+import { useState, useEffect } from 'react'
+import isEqual from 'lodash/isEqual'
+import { useNavigate } from 'react-router-dom'
 
 // * Assets
-import Photo from './Photo.png'
+import Photo from './Photo.jpg'
 import Location from '../../assets/UserProfile/Location'
 import TopTemplate from '../TopTemplate/TopTemplate'
 import C from '../../assets/LanguageLogo/C'
@@ -12,6 +14,12 @@ import Star from '../../assets/UserProfile/Star'
 import Email from '../../assets/UserProfile/Email'
 import Github from '../../assets/UserProfile/Github'
 import Linkedin from '../../assets/UserProfile/Linkedin'
+
+// * Redux
+import { useSelector } from 'react-redux'
+
+// * API
+import teamsAPI from '../../api/endpoints/team'
 
 // * Styles
 import {
@@ -37,69 +45,83 @@ import {
 } from './ProfileForm.styles'
 
 export const ProfileForm = () => {
+  const [team, setTeam] = useState('')
+
+  const { user } = useSelector((state) => state.userReducer)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const getTeam = async () => {
+      if (isEqual(user, {})) {
+        navigate('/auth/login', { replace: true })
+      } else {
+        const team = await teamsAPI.getTeamById(user.userTeam)
+        setTeam(team.data.name)
+      }
+    }
+    getTeam()
+  }, [])
+
   return (
     <Container>
       <TopTemplate />
       <Cards>
         <Information>
           <LeftCard>
-            <ImgContainer>
-              <img src={Photo} />
-            </ImgContainer>
+            <div>
+              <ImgContainer src={Photo} />
+            </div>
             <TextContainer>
-              <Text margin="15px 0 0 0">Nikita Mashchenko</Text>
+              <Text margin="15px 0 0 0">{user.userRealName}</Text>
               <Text margin="5px 0 0 0" color="rgba(255, 255, 255, 0.5)" fontSize="16px">
-                pRod1gy
+                {user.userUsername}
               </Text>
-              <Text margin="5px 0 0 0">Full-Stack Web dev.</Text>
+              <Text margin="5px 0 0 0">{user.userConcentration}</Text>
             </TextContainer>
-
             <ProfileLine />
             <InformationRow>
               <IconTextContainer>
                 <Location />
-                <Text fontSize="15px">Kharkiv, Ukraine</Text>
+                <Text fontSize="15px">{user.userCountry}</Text>
               </IconTextContainer>
               <EditButton>Edit</EditButton>
             </InformationRow>
-
             <InformationRow>
               <IconTextContainer>
                 <Star />
-                <Text fontSize="15px">3-5 years of experiences</Text>
+                <Text fontSize="15px">{user.userExperience} years of experiences</Text>
               </IconTextContainer>
               <EditButton>Edit</EditButton>
             </InformationRow>
-
             <InformationRow>
               <IconTextContainer>
                 <Email />
-                <Text fontSize="15px">mashchenko1@icloud.com</Text>
+                <Text fontSize="15px">{user.email}</Text>
               </IconTextContainer>
               <EditButton>Edit</EditButton>
             </InformationRow>
-
+            {/* TODO: Edit for real usernames */}
             <SocialRow>
               <IconTextContainer>
                 <Github />
                 <Text fontSize="15px" color="#5F7ADB">
-                  exortme1ster
+                  Soon...
                 </Text>
               </IconTextContainer>
               <EditButton>Edit</EditButton>
             </SocialRow>
-
             <SocialRow marginTop="10px">
               <IconTextContainer>
                 <Linkedin />
                 <Text fontSize="15px" color="#5F7ADB">
-                  mashchenko_1
+                  Soon...
                 </Text>
               </IconTextContainer>
               <EditButton>Edit</EditButton>
             </SocialRow>
           </LeftCard>
 
+          {/* TODO: Edit for real lanuguages */}
           <RightContainer>
             <RightCard id="Languages">
               <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
@@ -109,7 +131,6 @@ export const ProfileForm = () => {
                 <EditButton>Edit</EditButton>
               </EditBtnDiv>
               <BannerLine />
-
               <RightCardData>
                 <ProgrammingLanguage>
                   <C />
@@ -123,6 +144,7 @@ export const ProfileForm = () => {
               </RightCardData>
             </RightCard>
 
+            {/* TODO: Edit for real lanuguages */}
             <RightCard id="Tools">
               <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
                 Tools
@@ -160,7 +182,7 @@ export const ProfileForm = () => {
               <BannerLine />
               <RightCardData justify="center">
                 <Text margin="0" fontSize="16px" fontWeight="600" color="rgba(255, 255, 255, 0.7)">
-                  That's where your team will come in
+                  {team}
                 </Text>
               </RightCardData>
             </RightCard>
@@ -175,8 +197,7 @@ export const ProfileForm = () => {
               <BannerLine />
               <RightCardData>
                 <Text margin="10px 0 0 0" fontSize="15px" fontWeight="400" alignment="start">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et
-                  velit interdum, ac aliquet odio mattis.
+                  {user.userDescription}
                 </Text>
               </RightCardData>
             </RightCard>

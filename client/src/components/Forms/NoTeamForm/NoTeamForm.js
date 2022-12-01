@@ -1,5 +1,7 @@
 // * Modules
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 // * Styles
 import {
@@ -17,10 +19,22 @@ import TopTemplate from '../../TopTemplate/TopTemplate'
 
 function NoTeamForm() {
   const navigate = useNavigate()
+  const { user } = useSelector((state) => state.userReducer)
+
+  useEffect(() => {
+    if (user.userTeam) {
+      navigate('/myteam', { replace: true })
+    }
+  }, [])
 
   const handleCreate = () => {
     navigate('/create-team', { replace: true })
   }
+
+  const handleJoin = () => {
+    navigate('/teams', { replace: true })
+  }
+
   return (
     <Container>
       <TopTemplate />
@@ -32,7 +46,7 @@ function NoTeamForm() {
           </TextContainer>
           <ButtonContainer>
             <ButtonGeneral onClick={handleCreate}>Create team</ButtonGeneral>
-            <ButtonGeneral onClick={() => {}}>Join existing</ButtonGeneral>
+            <ButtonGeneral onClick={handleJoin}>Join existing</ButtonGeneral>
           </ButtonContainer>
         </Card>
       </CardContainer>

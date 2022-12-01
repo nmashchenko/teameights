@@ -17,7 +17,7 @@ import ArrowDown from '../../../../assets/Arrows/ArrowDown'
 export default function MultipleSelect(props) {
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 130 }}>
+      <FormControl sx={{ m: 1, width: 130, background: 'transparent' }}>
         <CustomSelect
           IconComponent={ArrowDown}
           multiple
@@ -37,6 +37,9 @@ export default function MultipleSelect(props) {
             borderRadius: '0.75em',
             background: 'none',
             height: '45px',
+            color: 'white',
+            fontSize: '0.875rem',
+            fontWeight: '600',
           }}
         >
           <Item disabled value="">

@@ -16,6 +16,7 @@ import NoTeamScreen from './screens/Forms/NoTeamScreen/NoTeamScreen'
 import TeamScreen from './screens/Forms/TeamScreen/TeamScreen'
 import Profile from './screens/Forms/Profile/Profile'
 import CreateTeam from './screens/Forms/CreateTeam/CreateTeam'
+import TeamsScreen from './screens/Forms/TeamsScreen/TeamsScreen'
 
 // * Constants
 import ROUTES from './constants/routes'
@@ -33,6 +34,7 @@ export const useRoutes = () => {
       <Route path="/myteam" element={<TeamScreen />} />
       <Route path="/create-team" element={<CreateTeam />} />
       <Route path="/upcoming-tournaments" element={<UpcomingTournamentsScreen />} />
+      <Route path="/teams" element={<TeamsScreen />} />
 
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />

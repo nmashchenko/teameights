@@ -3,6 +3,7 @@ const Router = require("express").Router;
 
 // * Controllers
 const userController = require("../controllers/user.controller");
+const teamController = require("../controllers/team.controller");
 
 // * Middlewares
 const authMiddleware = require("../middlewares/auth.middleware");
@@ -30,7 +31,13 @@ router.post(
   validationMiddleware(resetValidation.resetValidationSchema),
   userController.resetFinish
 );
+router.post("/create-team", teamController.createTeam);
+router.post("/add-to-team", teamController.addToTeam); // when user clicks on "Join" button
+router.post("/invite-to-team", teamController.inviteByEmail); // when user is invited via email
+router.post("/get-team-byid", teamController.getTeamById);
+router.post("/get-teammembers", teamController.getTeamMembers);
 
+router.get("/get-teams", teamController.getTeams);
 router.get("/get-user-object", userController.getUserObject);
 router.get("/check-username", userController.validateUsername);
 router.get("/activate/:link", userController.activate);

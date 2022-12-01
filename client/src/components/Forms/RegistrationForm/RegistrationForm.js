@@ -80,11 +80,11 @@ function RegistrationForm() {
   }, [error])
 
   useEffect(() => {
-    if (isAuth && !user.user.isActivated) {
+    if (isAuth && !user.isActivated) {
       navigate(ROUTES.confirmEmail, { replace: true })
-    } else if (isAuth && !user.user.isRegistered) {
+    } else if (isAuth && !user.isRegistered) {
       navigate(ROUTES.finishRegistration, { replace: true })
-    } else if (isAuth && user.user.isRegistered && user.user.isActivated) {
+    } else if (isAuth && user.isRegistered && user.isActivated) {
       navigate(ROUTES.temporary, { replace: true })
     }
   }, [isAuth, navigate])

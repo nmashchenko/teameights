@@ -5,13 +5,7 @@ import Toolbar from '@mui/material/Toolbar'
 // * Constants
 import { BLACK, WHITE } from '../../../../constants/colors'
 
-export const NavBar = styled(Toolbar)`
-  &.css-hyum1k-MuiToolbar-root {
-    background: ${BLACK.background};
-    padding: 30px 40px;
-    border-bottom: 1px solid ${BLACK.line} !important;
-  }
-`
+export const NavBar = styled(Toolbar)``
 
 export const InfoContainer = styled.div`
   display: flex;

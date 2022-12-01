@@ -26,7 +26,13 @@ function NavLogo({ sectionName }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0}>
-        <NavBar>
+        <NavBar
+          sx={{
+            background: '#26292B',
+            padding: '30px 40px',
+            borderBottom: '1px solid #2e3239 !important',
+          }}
+        >
           {/* <SiteLogo /> */}
           <InfoText fontSize="20px">{sectionName}</InfoText>
           <div style={{ flexGrow: 1 }}></div>

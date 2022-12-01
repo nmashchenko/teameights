@@ -25,7 +25,7 @@ class MailService {
       text: "",
       html: `
             <div>
-              <h1>Для активации перейдите по ссылке</h1>
+              <h1>To activate account, click the link below:</h1>
               <a href="${link}">${link}</a>
             </div>
           `,
@@ -40,7 +40,7 @@ class MailService {
       text: "",
       html: `
           <div>
-            <h1>Для сброса перейдите по ссылке</h1>
+            <h1>To reset password, click the link below:</h1>
             <a href="${link}">${link}</a>
           </div>
           `,
