@@ -14,7 +14,6 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   background: #26292b;
-  margin-top: 10rem;
 `
 
 export const Div = styled.div`

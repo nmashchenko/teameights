@@ -23,7 +23,7 @@ function TournamentInfo() {
     <Container>
       <Content>
         <TopContainer>
-          <Text>Teameights cup #1</Text>
+          <Text margin="10rem 0 0 0">Teameights cup #1</Text>
           <SelectContainer>
             <SelectItem>
               <Text fontSize="16px" color="#5D9D0B">
