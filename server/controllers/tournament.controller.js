@@ -15,6 +15,15 @@ class TournamentController {
       next(err);
     }
   }
+
+  async getTournaments(req, res, next) {
+    try {
+      const tournaments = await tournamentService.getTournaments();
+      return res.json(tournaments);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new TournamentController();

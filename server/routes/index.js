@@ -38,15 +38,16 @@ router.post("/invite-to-team", teamController.inviteByEmail); // when user is in
 router.post("/get-team-byid", teamController.getTeamById);
 router.post("/get-teammembers", teamController.getTeamMembers);
 
-router.post("/create-tournament", tournamentController.createTournament);
-// router.post("/get-tournament-byid", tournamentController.)
-
 router.get("/get-teams", teamController.getTeams);
 router.get("/get-user-object", userController.getUserObject);
 router.get("/check-username", userController.validateUsername);
 router.get("/activate/:link", userController.activate);
 router.get("/refresh", userController.refresh);
 router.get("/reset-password/:id/:token", userController.verifyReset);
+
+router.post("/create-tournament", tournamentController.createTournament);
+
+router.get("/get-tournaments", tournamentController.getTournaments);
 
 // only for authenticated users
 router.post("/registration-checkout", userController.registrationCompletion);
