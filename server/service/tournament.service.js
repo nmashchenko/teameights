@@ -26,77 +26,69 @@ class TournamentService {
   }
 
   async addToTournament(t_id, team_id, frontend_id, backend_id) {
-    try {
-      const checkTeam = await Team.findOne({
-        _id: team_id,
-      });
+    const checkTeam = await Team.findOne({
+      _id: team_id,
+    });
 
-      if (checkTeam) {
-        return {};
-      }
+    if (checkTeam) {
+      return {};
+    }
 
-      // Check if team is already added to the tournament
-      const checkTeamTournamentExists = await Tournament.findOne(
-        {
-          _id: t_id,
-        },
-        { tournament_participants: { $elemMatch: { team_id: team_id } } }
-      );
+    // Check if team is already added to the tournament
+    const checkTeamTournamentExists = await Tournament.findOne(
+      {
+        _id: t_id,
+      },
+      { tournament_participants: { $elemMatch: { team_id: team_id } } }
+    );
 
-      // Return error if team already exists
-      if (checkTeamTournamentExists) {
-        return { error: `Team ${team_id} already exists in this tournament!` };
-      }
+    // Return error if team already exists
+    if (checkTeamTournamentExists) {
+      return { error: `Team ${team_id} already exists in this tournament!` };
+    }
 
-      const tournament = await Tournament.findOneAndUpdate(
-        {
-          _id: t_id,
-        },
-        {
-          $push: {
-            tournament_participants: {
-              team_id: team_id,
-              frontend_id: frontend_id,
-              backend_id: backend_id,
-            },
+    const tournament = await Tournament.findOneAndUpdate(
+      {
+        _id: t_id,
+      },
+      {
+        $push: {
+          tournament_participants: {
+            team_id: team_id,
+            frontend_id: frontend_id,
+            backend_id: backend_id,
           },
         },
-        { new: true }
-      );
+      },
+      { new: true }
+    );
 
-      return tournament;
-    } catch (err) {
-      next(err);
-    }
+    return tournament;
   }
 
   async userExistsInTournament(userId) {
-    try {
-      // Check if user already exists as a frontend OR backend competitor
-      const checkUserFrontEnd = await Tournament.findOne({
-        tournament_participants: { $elemMatch: { frontend_id: userId } },
-      });
-      const checkUserBackEnd = await Tournament.findOne({
-        tournament_participants: { $elemMatch: { backend_id: userId } },
-      });
+    // Check if user already exists as a frontend OR backend competitor
+    const checkUserFrontEnd = await Tournament.findOne({
+      tournament_participants: { $elemMatch: { frontend_id: userId } },
+    });
+    const checkUserBackEnd = await Tournament.findOne({
+      tournament_participants: { $elemMatch: { backend_id: userId } },
+    });
 
-      if (checkUserFrontEnd) {
-        return {
-          exists: true,
-          role: "frontend",
-        };
-      } else if (checkUserBackEnd) {
-        return {
-          exists: true,
-          role: "backend",
-        };
-      } else {
-        return {
-          exists: false,
-        };
-      }
-    } catch (err) {
-      next(err);
+    if (checkUserFrontEnd) {
+      return {
+        exists: true,
+        role: "frontend",
+      };
+    } else if (checkUserBackEnd) {
+      return {
+        exists: true,
+        role: "backend",
+      };
+    } else {
+      return {
+        exists: false,
+      };
     }
   }
 }

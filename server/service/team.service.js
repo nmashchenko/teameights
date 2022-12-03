@@ -43,34 +43,30 @@ class TeamService {
   }
 
   async addToTeam(teamId, userId) {
-    try {
-      const checkUserTeam = await User.findOne({
-        _id: userId,
-        userTeam: { $exists: true },
-      });
+    const checkUserTeam = await User.findOne({
+      _id: userId,
+      userTeam: { $exists: true },
+    });
 
-      if (checkUserTeam) {
-        return {};
-      }
-
-      const user = await User.findOneAndUpdate(
-        {
-          _id: userId,
-        },
-        { userTeam: teamId },
-        { new: true }
-      );
-
-      const foundTeams = await Team.updateOne(
-        { _id: teamId },
-        { $push: { members: userId } }
-      );
-
-      /* TODO: Add limit for 8 users in 1 team */
-      return user;
-    } catch (err) {
-      next(err);
+    if (checkUserTeam) {
+      return {};
     }
+
+    const user = await User.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      { userTeam: teamId },
+      { new: true }
+    );
+
+    const foundTeams = await Team.updateOne(
+      { _id: teamId },
+      { $push: { members: userId } }
+    );
+
+    /* TODO: Add limit for 8 users in 1 team */
+    return user;
   }
 
   /* TODO: Change for actual invite to the notification box later instead of instantly adding to team */
