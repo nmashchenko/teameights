@@ -6,10 +6,11 @@ const modelName = "Leaderboard";
 
 const LeaderboardSchema = new mongoose.Schema(
   {
-    leaderboard_id: {
-      type: Schema.Types.ObjectId,
-      required: true,
-    },
+    // Not needed since _id is already created
+    // leaderboard_id: {
+    //   type: Schema.Types.ObjectId,
+    //   required: true,
+    // },
     tournament_id: {
       type: Schema.Types.ObjectId,
       ref: "Tournament",

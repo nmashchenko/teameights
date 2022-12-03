@@ -6,10 +6,11 @@ const modelName = "Tournament";
 
 const TournamentSchema = new mongoose.Schema(
   {
-    tournament_id: {
-      type: Schema.Types.ObjectId,
-      required: true,
-    },
+    // not needed -- _id
+    // tournament_id: {
+    //   type: Schema.Types.ObjectId,
+    //   required: true,
+    // },
     tournament_name: {
       type: String,
       required: true,

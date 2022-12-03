@@ -6,10 +6,12 @@ const modelName = "Submission";
 
 const SubmissionSchema = new mongoose.Schema(
   {
-    submission_id: {
-      type: Schema.Types.ObjectId,
-      required: true,
-    },
+    // not needed -- _id
+
+    // submission_id: {
+    //   type: Schema.Types.ObjectId,
+    //   required: true,
+    // },
     submission_final_time: {
       type: String,
       required: true,
