@@ -38,11 +38,13 @@ import X from '../../../assets/X'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
+import tournamentAPI from '../../../api/endpoints/tournament'
 
 function TournamentInfo() {
   const [open, setOpen] = useState(false)
   const [frontEnd, setFrontEnd] = useState('')
   const [backEnd, setBackEnd] = useState('')
+  const [allowStart, setAllowStart] = useState(false)
   const [team, setTeam] = useState({})
   const [updating, setUpdating] = useState(true)
   const [members, setMembers] = useState([])
@@ -54,18 +56,39 @@ function TournamentInfo() {
   const handleClose = () => setOpen(false)
 
   const handleFront = (e) => {
+    console.log('front: ' + e.target.value)
     setFrontEnd(e.target.value)
   }
   const handleBack = (e) => {
+    console.log('back: ' + e.target.value)
     setBackEnd(e.target.value)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (frontEnd === backEnd) {
       enqueueSnackbar('Should be different users!', {
         preventDuplicate: true,
       })
+    } else if (frontEnd === '' || backEnd === '') {
+      enqueueSnackbar('Select both front & back!', {
+        preventDuplicate: true,
+      })
+    } else {
+      const res = await tournamentAPI.addTeamToTournament(team._id, frontEnd, backEnd)
+      console.log(res)
+      if (res.data.error) {
+        enqueueSnackbar(res.data.error, {
+          preventDuplicate: true,
+        })
+      } else {
+        setAllowStart(true)
+        handleClose()
+      }
     }
+  }
+
+  const handleStart = async () => {
+    navigate('/coding')
   }
 
   useEffect(() => {
@@ -107,6 +130,9 @@ function TournamentInfo() {
                   Frontend dev
                 </Text>
                 <CustomSelect onChange={handleFront}>
+                  <CustomOption value="none" selected disabled hidden>
+                    Select frontend
+                  </CustomOption>
                   {members.map((member) => (
                     <CustomOption value={member._id}>{member.userRealName}</CustomOption>
                   ))}
@@ -115,6 +141,9 @@ function TournamentInfo() {
                   Backend dev
                 </Text>
                 <CustomSelect onChange={handleBack}>
+                  <CustomOption value="none" selected disabled hidden>
+                    Select backend
+                  </CustomOption>
                   {members.map((member) => (
                     <CustomOption value={member._id}>{member.userRealName}</CustomOption>
                   ))}
@@ -180,7 +209,11 @@ function TournamentInfo() {
               </EntryStartsContainer>
 
               <ButtonContainer>
-                <PrimaryButton onClick={handleOpen}>SIGN UP</PrimaryButton>
+                {allowStart ? (
+                  <PrimaryButton onClick={handleStart}>Start coding</PrimaryButton>
+                ) : (
+                  <PrimaryButton onClick={handleOpen}>SIGN UP</PrimaryButton>
+                )}
               </ButtonContainer>
 
               <AvailableSlotsContainer>

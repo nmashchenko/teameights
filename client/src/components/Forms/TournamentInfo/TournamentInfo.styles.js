@@ -164,6 +164,6 @@ export const CustomSelect = styled.select`
 `
 
 export const CustomOption = styled.option`
-  background: white;
-  color: #26292b;
+  /* background: white;
+  color: #26292b; */
 `

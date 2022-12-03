@@ -1,4 +1,5 @@
 const Tournament = require("../models/Tournament");
+const Team = require("../models/Team");
 const isEqual = require("lodash/isEqual");
 
 class TournamentService {
@@ -26,47 +27,47 @@ class TournamentService {
   }
 
   async addToTournament(t_id, team_id, frontend_id, backend_id) {
-    try {
-      const checkTeam = await Team.findOne({
-        _id: team_id,
-      });
+    const checkTeam = await Team.findOne({
+      _id: team_id,
+    });
 
-      if (checkTeam) {
-        return {};
-      }
+    if (!checkTeam) {
+      return {
+        error: "Team not found",
+      };
+    }
 
-      const tournament = await Tournament.findOneAndUpdate(
-        {
-          _id: t_id,
-        },
-        {
+    // Check if team is already added to the tournament
+    const checkTeamTournamentExists = await Tournament.findOne(
+      {
+        _id: t_id,
+      },
+      { tournament_participants: { $elemMatch: { team_id: team_id } } }
+    );
+
+    if (checkTeamTournamentExists) {
+      return {
+        error: "Team already signed up",
+      };
+    }
+
+    const tournament = await Tournament.findOneAndUpdate(
+      {
+        _id: t_id,
+      },
+      {
+        $push: {
           tournament_participants: {
             team_id: team_id,
             frontend_id: frontend_id,
             backend_id: backend_id,
           },
         },
-        { new: true }
-      );
+      },
+      { new: true }
+    );
 
-      // I don't think this is needed...
-      // const foundTournament = await Tournament.updateOne(
-      //   {
-      //     _id: t_id,
-      //   },
-      //   {
-      //     $push: {
-      //       tournament_participants: {
-      //         team_id: team_id,
-      //       },
-      //     },
-      //   }
-      // );
-
-      return tournament;
-    } catch (err) {
-      next(err);
-    }
+    return tournament;
   }
 }
 

@@ -38,8 +38,13 @@ class TournamentController {
   async addToTournament(req, res, next) {
     try {
       const { t_id, team_id, frontend_id, backend_id } = req.body;
-      console.log('adding team ', team_id, ' to tournament ', t_id);
-      const tournament = await tournamentService.addToTournament(t_id, team_id, frontend_id, backend_id);
+      console.log("adding team ", team_id, " to tournament ", t_id);
+      const tournament = await tournamentService.addToTournament(
+        t_id,
+        team_id,
+        frontend_id,
+        backend_id
+      );
       return res.json(tournament);
     } catch (err) {
       next(err);
