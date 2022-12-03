@@ -30,11 +30,7 @@ function CodingForm({ renderer, value, output, handleEditorChange }) {
 
         <TaskContainer>
           <Text fontSize="24px" color="#5D9D0B" fontWeight="300">
-            <Typewriter
-              text="teameights@ubuntu: ~$ imagine you are styling a div element that is created under
-            teameightscup1.html, classname of this element is called teameightsDiv1, how would you
-            center this div on the screen assuming you are required to use flexbox?"
-            />
+            <Typewriter text="teameights@ubuntu: ~$ backend task here..." />
           </Text>
         </TaskContainer>
 

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 // * Assets
 import Frontend from './Frontend/Frontend'
 import Backend from './Backend/Backend'
+import CodeEvaluation from './Frontend/CodeEvaluation'
 
 // * Styles
 import { Text } from './CodingForm.styles'
@@ -18,10 +19,14 @@ import teamsAPI from '../../../api/endpoints/team'
 import tournamentAPI from '../../../api/endpoints/tournament'
 
 function CodingForm() {
-  const [code, setCode] = useState(`// some comment`)
+  const [code, setCode] = useState(``)
   const [value, setValue] = useState(code || '')
   const [output, setOutput] = useState('Your output here...')
   const [role, setRole] = useState('')
+  const [status, setStatus] = useState('N/A')
+  const [memory, setMemory] = useState('N/A')
+  const [time, setTime] = useState('N/A')
+
   const [team, setTeam] = useState('')
   const [updating, setUpdating] = useState(true)
   const { user } = useSelector((state) => state.userReducer)
@@ -55,6 +60,16 @@ function CodingForm() {
     }
   }
 
+  const onSubmit = () => {
+    const points = CodeEvaluation(code)
+    points < 70
+      ? setOutput(`You received ${points} points, probably missing something!`)
+      : setOutput(`You received ${points} points, good job! Waiting for your teameight to finish!`)
+    setStatus('Accepted')
+    setMemory('40')
+    setTime('0.002')
+  }
+
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a complete state
@@ -75,6 +90,7 @@ function CodingForm() {
 
   const handleEditorChange = (value) => {
     setValue(value)
+    console.log(value)
     onChange('code', value)
   }
 
@@ -84,6 +100,10 @@ function CodingForm() {
       value={value}
       output={output}
       handleEditorChange={handleEditorChange}
+      onSubmit={onSubmit}
+      status={status}
+      memory={memory}
+      time={time}
     />
   ) : (
     <Backend

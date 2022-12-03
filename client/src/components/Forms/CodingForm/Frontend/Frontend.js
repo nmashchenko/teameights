@@ -16,7 +16,16 @@ import {
   SubmitButton,
 } from '../CodingForm.styles'
 
-function CodingForm({ renderer, value, output, handleEditorChange }) {
+function CodingForm({
+  renderer,
+  value,
+  output,
+  handleEditorChange,
+  onSubmit,
+  status,
+  memory,
+  time,
+}) {
   return (
     <Container>
       <LeftContainer>
@@ -54,7 +63,7 @@ function CodingForm({ renderer, value, output, handleEditorChange }) {
             </Text>
             <ResultStatus>
               <Text fontSize="16px" color="#5D9D0B">
-                N/A
+                {status}
               </Text>
             </ResultStatus>
           </ResultContainer>
@@ -65,7 +74,7 @@ function CodingForm({ renderer, value, output, handleEditorChange }) {
             </Text>
             <ResultStatus>
               <Text fontSize="16px" color="#5D9D0B">
-                N/A
+                {memory}
               </Text>
             </ResultStatus>
           </ResultContainer>
@@ -76,7 +85,7 @@ function CodingForm({ renderer, value, output, handleEditorChange }) {
             </Text>
             <ResultStatus>
               <Text fontSize="16px" color="#5D9D0B">
-                N/A
+                {time}
               </Text>
             </ResultStatus>
           </ResultContainer>
@@ -87,14 +96,14 @@ function CodingForm({ renderer, value, output, handleEditorChange }) {
         <Editor
           height="85vh"
           width={`90%`}
-          language={'js'}
+          language={'css'}
           value={value}
           theme={'vs-dark'}
-          defaultValue="/* Welcome to teameights! */"
+          defaultValue=""
           onChange={handleEditorChange}
         />
 
-        <SubmitButton>SUBMIT</SubmitButton>
+        <SubmitButton onClick={onSubmit}>SUBMIT</SubmitButton>
       </RightContainer>
     </Container>
   )
