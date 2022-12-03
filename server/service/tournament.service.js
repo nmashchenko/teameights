@@ -82,17 +82,17 @@ class TournamentService {
 
       if (checkUserFrontEnd) {
         return {
-          exists: "true",
+          exists: true,
           role: "frontend",
         };
       } else if (checkUserBackEnd) {
         return {
-          exists: "true",
+          exists: true,
           role: "backend",
         };
       } else {
         return {
-          exists: "false",
+          exists: false,
         };
       }
     } catch (err) {
