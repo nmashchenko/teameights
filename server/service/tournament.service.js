@@ -69,6 +69,36 @@ class TournamentService {
 
     return tournament;
   }
+
+  async userExistsInTournament(userId) {
+    try {
+      // Check if user already exists as a frontend OR backend competitor
+      const checkUserFrontEnd = await Tournament.findOne({
+        tournament_participants: { $elemMatch: { frontend_id: userId } },
+      });
+      const checkUserBackEnd = await Tournament.findOne({
+        tournament_participants: { $elemMatch: { backend_id: userId } },
+      });
+
+      if (checkUserFrontEnd) {
+        return {
+          exists: "true",
+          role: "frontend",
+        };
+      } else if (checkUserBackEnd) {
+        return {
+          exists: "true",
+          role: "backend",
+        };
+      } else {
+        return {
+          exists: "false",
+        };
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new TournamentService();

@@ -50,6 +50,16 @@ class TournamentController {
       next(err);
     }
   }
+
+  async userExistsInTournament(req, res, next) {
+    try {
+      const { userId } = req.body;
+      const exists = await tournamentService.userExistsInTournament(userId);
+      return res.json(exists);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new TournamentController();
