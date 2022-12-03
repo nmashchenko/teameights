@@ -6,10 +6,6 @@ const modelName = "Tournament";
 
 const TournamentSchema = new mongoose.Schema(
   {
-    tournament_id: {
-      type: String,
-      required: true,
-    },
     tournament_name: {
       type: String,
       required: true,
@@ -17,25 +13,25 @@ const TournamentSchema = new mongoose.Schema(
     tournament_participants: [
       {
         team_id: {
-          type: String,
+          type: Schema.Types.ObjectId,
           required: true,
         },
         frontend_id: {
-          type: String,
+          type: Schema.Types.ObjectId,
           required: true,
         },
         backend_id: {
-          type: String,
+          type: Schema.Types.ObjectId,
           required: true,
         },
       },
     ],
     tournament_startTime: {
-      type: String,
+      type: Date,
       required: true,
     },
     tournament_endTime: {
-      type: String,
+      type: Date,
       required: true,
     },
   },

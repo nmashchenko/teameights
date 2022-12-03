@@ -2,22 +2,15 @@ const Tournament = require("../models/Tournament");
 const isEqual = require("lodash/isEqual");
 
 class TournamentService {
-  async createTournament(t_id, t_name, t_participants, t_startTime, t_endTime) {
-    const checkExistence = await Tournament.find({ t_id });
+  async createTournament(t_name, t_participants, t_startTime, t_endTime) {
+    const tournament = await Tournament.create({
+      tournament_name: t_name,
+      tournament_participants: t_participants,
+      tournament_startTime: t_startTime,
+      tournament_endTime: t_endTime,
+    });
 
-    if (isEqual(checkExistence, [])) {
-      const tournament = await Tournament.create({
-        tournament_id: t_id,
-        tournament_name: t_name,
-        tournament_participants: t_participants,
-        tournament_startTime: t_startTime,
-        tournament_endTime: t_endTime,
-      });
-
-      return "success!";
-    } else {
-      return {};
-    }
+    return tournament;
   }
 
   async getTournaments() {

@@ -47,7 +47,6 @@ router.get("/reset-password/:id/:token", userController.verifyReset);
 
 router.post("/create-tournament", tournamentController.createTournament);
 router.post("/get-tournament-byid", tournamentController.getTournamentById);
-
 router.get("/get-tournaments", tournamentController.getTournaments);
 
 // only for authenticated users
