@@ -8,27 +8,22 @@ const SubmissionSchema = new mongoose.Schema(
   {
     submission_final_time: {
       type: Date,
-      required: true,
     },
     submission_parts: {
       frontend: {
         submission_time: {
           type: Date,
-          required: true,
         },
         points: {
           type: Number,
-          required: true,
         },
       },
       backend: {
         submission_time: {
           type: Date,
-          required: true,
         },
         points: {
           type: Number,
-          required: true,
         },
       },
     },
