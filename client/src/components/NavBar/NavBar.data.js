@@ -15,7 +15,7 @@ export const NavBarData = [
   },
   {
     title: 'Tournaments',
-    path: '/tournaments',
+    path: '/tournament',
     icon: <Tournament />,
   },
   {
