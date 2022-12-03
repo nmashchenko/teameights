@@ -40,10 +40,12 @@ class TournamentService {
           _id: t_id,
         },
         {
-          tournament_participants: {
-            team_id: team_id,
-            frontend_id: frontend_id,
-            backend_id: backend_id,
+          $push: {
+            tournament_participants: {
+              team_id: team_id,
+              frontend_id: frontend_id,
+              backend_id: backend_id,
+            },
           },
         },
         { new: true }
