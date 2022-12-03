@@ -61,6 +61,7 @@ export const CloseContainer = styled.div`
 
 export const UserDescriptionContainer = styled.div`
   max-width: 480px;
+  min-height: 90px;
 `
 export const LinksContainer = styled.div`
   display: flex;
