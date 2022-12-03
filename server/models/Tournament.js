@@ -6,11 +6,6 @@ const modelName = "Tournament";
 
 const TournamentSchema = new mongoose.Schema(
   {
-    // not needed -- _id
-    // tournament_id: {
-    //   type: Schema.Types.ObjectId,
-    //   required: true,
-    // },
     tournament_name: {
       type: String,
       required: true,
@@ -32,11 +27,11 @@ const TournamentSchema = new mongoose.Schema(
       },
     ],
     tournament_startTime: {
-      type: String,
+      type: Date,
       required: true,
     },
     tournament_endTime: {
-      type: String,
+      type: Date,
       required: true,
     },
   },

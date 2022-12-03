@@ -4,6 +4,7 @@ const Router = require("express").Router;
 // * Controllers
 const userController = require("../controllers/user.controller");
 const teamController = require("../controllers/team.controller");
+const tournamentController = require("../controllers/tournament.controller");
 
 // * Middlewares
 const authMiddleware = require("../middlewares/auth.middleware");
@@ -43,6 +44,11 @@ router.get("/check-username", userController.validateUsername);
 router.get("/activate/:link", userController.activate);
 router.get("/refresh", userController.refresh);
 router.get("/reset-password/:id/:token", userController.verifyReset);
+
+router.post("/create-tournament", tournamentController.createTournament);
+router.post("/get-tournament-byid", tournamentController.getTournamentById);
+router.post("/add-to-tournament", tournamentController.addToTournament);
+router.get("/get-tournaments", tournamentController.getTournaments);
 
 // only for authenticated users
 router.post("/registration-checkout", userController.registrationCompletion);

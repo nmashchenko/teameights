@@ -6,20 +6,14 @@ const modelName = "Submission";
 
 const SubmissionSchema = new mongoose.Schema(
   {
-    // not needed -- _id
-
-    // submission_id: {
-    //   type: Schema.Types.ObjectId,
-    //   required: true,
-    // },
     submission_final_time: {
-      type: String,
+      type: Date,
       required: true,
     },
     submission_parts: {
       frontend: {
         submission_time: {
-          type: String,
+          type: Date,
           required: true,
         },
         points: {
@@ -29,7 +23,7 @@ const SubmissionSchema = new mongoose.Schema(
       },
       backend: {
         submission_time: {
-          type: String,
+          type: Date,
           required: true,
         },
         points: {
