@@ -23,6 +23,7 @@
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-avatar-edit": "^1.2.0",
+    "react-countdown": "^2.3.5",
     "react-country-flag": "^3.0.2",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.3.4",
