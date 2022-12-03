@@ -35,6 +35,7 @@ import {
 import { data } from './TournamentInfo.data'
 import ArrowLeftReset from '../../../assets/ArrowLeftReset'
 import X from '../../../assets/X'
+import CodingForm from '../CodingForm/CodingForm'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
@@ -48,6 +49,8 @@ function TournamentInfo() {
   const [team, setTeam] = useState({})
   const [updating, setUpdating] = useState(true)
   const [members, setMembers] = useState([])
+  const [userRole, setUserRole] = useState('')
+
   const { user } = useSelector((state) => state.userReducer)
   const { enqueueSnackbar } = useSnackbar()
 
@@ -64,6 +67,11 @@ function TournamentInfo() {
     setBackEnd(e.target.value)
   }
 
+  const handleTournamentCheck = (userRole) => {
+    setUserRole(userRole)
+    setAllowStart(true)
+  }
+
   const handleSubmit = async () => {
     if (frontEnd === backEnd) {
       enqueueSnackbar('Should be different users!', {
@@ -76,7 +84,7 @@ function TournamentInfo() {
     } else {
       const res = await tournamentAPI.addTeamToTournament(team._id, frontEnd, backEnd)
       console.log(res)
-      if (res.data.error) {
+      if (res.data?.error) {
         enqueueSnackbar(res.data.error, {
           preventDuplicate: true,
         })
@@ -92,18 +100,23 @@ function TournamentInfo() {
   }
 
   useEffect(() => {
-    const getTeam = async () => {
+    const getData = async () => {
       if (isEqual(user, {})) {
         navigate('/auth/login', { replace: true })
       } else {
         const team = await teamsAPI.getTeamById(user.userTeam)
         const users = await teamsAPI.getTeamMembers(team.data.members)
+        const checkSignedUp = await tournamentAPI.checkUserSignedUp(user._id)
+        console.log(checkSignedUp)
+        checkSignedUp.data.exists && checkSignedUp.data.exists === true
+          ? handleTournamentCheck(checkSignedUp.data.role)
+          : setAllowStart(false)
         setTeam(team.data)
         setMembers(users.data)
         setUpdating(false)
       }
     }
-    getTeam()
+    getData()
   }, [])
 
   return (

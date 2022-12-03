@@ -45,7 +45,7 @@ class TournamentService {
       { tournament_participants: { $elemMatch: { team_id: team_id } } }
     );
 
-    if (checkTeamTournamentExists) {
+    if (!isEqual(checkTeamTournamentExists.tournament_participants, [])) {
       return {
         error: "Team already signed up",
       };
@@ -82,17 +82,17 @@ class TournamentService {
 
       if (checkUserFrontEnd) {
         return {
-          exists: "true",
+          exists: true,
           role: "frontend",
         };
       } else if (checkUserBackEnd) {
         return {
-          exists: "true",
+          exists: true,
           role: "backend",
         };
       } else {
         return {
-          exists: "false",
+          exists: false,
         };
       }
     } catch (err) {
