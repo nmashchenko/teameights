@@ -38,7 +38,7 @@ export const useRoutes = () => {
       <Route path="/tournament" element={<Tournaments />} />
       <Route path="/teams" element={<TeamsScreen />} />
       <Route path="/tournament-info" element={<TournamentInfo />} />
-      <Route path="/coding-screen" element={<TournamentCodingScreen />} />
+      <Route path="/coding" element={<TournamentCodingScreen />} />
 
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />

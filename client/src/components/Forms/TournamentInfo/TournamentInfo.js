@@ -75,7 +75,7 @@ function TournamentInfo() {
               </EntryStartsContainer>
 
               <ButtonContainer>
-                <PrimaryButton>SIGN UP</PrimaryButton>
+                <PrimaryButton onClick={() => navigate('/coding')}>SIGN UP</PrimaryButton>
               </ButtonContainer>
 
               <AvailableSlotsContainer>
