@@ -17,6 +17,7 @@ import TeamScreen from './screens/Forms/TeamScreen/TeamScreen'
 import Profile from './screens/Forms/Profile/Profile'
 import CreateTeam from './screens/Forms/CreateTeam/CreateTeam'
 import TeamsScreen from './screens/Forms/TeamsScreen/TeamsScreen'
+import TournamentCodingScreen from './screens/Forms/TournamentCodingScreen/TournamentCodingScreen'
 import TournamentInfo from './screens/Forms/TournamentInfo/TournamentInfo'
 import Tournaments from './screens/Forms/Tournaments/Tournaments'
 
@@ -37,6 +38,7 @@ export const useRoutes = () => {
       <Route path="/tournament" element={<Tournaments />} />
       <Route path="/teams" element={<TeamsScreen />} />
       <Route path="/tournament-info" element={<TournamentInfo />} />
+      <Route path="/coding-screen" element={<TournamentCodingScreen />} />
 
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />
