@@ -70,12 +70,6 @@ class TournamentService {
       next(err);
     }
   }
-
-  // if () {
-  //     const tournament = await Tournament.create({
-
-  //     });
-  // }
 }
 
 module.exports = new TournamentService();
