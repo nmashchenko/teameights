@@ -24,6 +24,17 @@ class TournamentController {
       next(err);
     }
   }
+
+  async getTournamentById(req, res, next) {
+    try {
+      const { t_id } = req.body;
+      console.log(t_id);
+      const tournament = await tournamentService.getTournamentbyId(t_id);
+      return res.json(tournament);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new TournamentController();
