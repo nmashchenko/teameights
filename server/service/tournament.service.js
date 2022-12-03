@@ -25,7 +25,7 @@ class TournamentService {
     return foundTournament;
   }
 
-  async addToTournament(t_id, team_id) {
+  async addToTournament(t_id, team_id, frontend_id, backend_id) {
     try {
       const checkTeam = await Team.findOne({
         _id: team_id,
@@ -37,26 +37,31 @@ class TournamentService {
 
       const tournament = await Tournament.findOneAndUpdate(
         {
-          tournament_id: t_id,
+          _id: t_id,
         },
         {
           tournament_participants: {
             team_id: team_id,
+            frontend_id: frontend_id,
+            backend_id: backend_id,
           },
         },
         { new: true }
       );
 
-      const foundTournament = await Tournament.updateOne(
-        { tournament_id: t_id },
-        {
-          $push: {
-            tournament_participants: {
-              team_id: team_id,
-            },
-          },
-        }
-      );
+      // I don't think this is needed...
+      // const foundTournament = await Tournament.updateOne(
+      //   {
+      //     _id: t_id,
+      //   },
+      //   {
+      //     $push: {
+      //       tournament_participants: {
+      //         team_id: team_id,
+      //       },
+      //     },
+      //   }
+      // );
 
       return tournament;
     } catch (err) {
