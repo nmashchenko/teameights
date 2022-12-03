@@ -112,6 +112,58 @@ export const PrimaryButton = styled.button`
   font-weight: ${(props) => props.fontWeight || '600'};
   border: none;
   border-radius: 5px;
-  padding: 10px 120px;
+  padding: ${(props) => props.padding || '10px 120px'};
   cursor: ${(props) => props.cursor || 'pointer'};
+  margin: ${(props) => props.margin || '0'};
+`
+
+export const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 670,
+  height: 400,
+  background: '#26292B',
+  border: 'none',
+  borderRadius: '15px',
+  boxShadow: 24,
+  p: 3,
+  display: 'flex',
+  justifyContent: 'start',
+  alignItems: 'center',
+  flexDirection: 'column',
+}
+
+export const CloseContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+`
+
+export const CustomSelect = styled.select`
+  margin: 10px 0 0 0;
+  appearance: none;
+  border: 0;
+  outline: none;
+  font: inherit;
+  /* Personalize */
+  width: 18em;
+  height: 3em;
+  padding: 0 4em 0 1em;
+  background: #5d9d0b;
+  color: white;
+  border-radius: 0.25em;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  /* Remove focus outline */
+  &:focus {
+    outline: none;
+  }
+`
+
+export const CustomOption = styled.option`
+  background: white;
+  color: #26292b;
 `
