@@ -25,6 +25,15 @@ export const TopContainer = styled.div`
   margin-bottom: 25px;
 `
 
+export const ComeBackBtn = styled.button`
+  border: none;
+  outline: none;
+  background: inherit;
+  margin: 10rem 0 20px 0;
+  padding: 0;
+  cursor: pointer;
+`
+
 export const SelectContainer = styled.div`
   width: 110px;
   align-items: center;

@@ -1,8 +1,14 @@
+// * Modules
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+// * Styles
 import {
   Container,
   Content,
   Div,
   TopContainer,
+  ComeBackBtn,
   SelectContainer,
   SelectItem,
   TournamentInfoContainer,
@@ -16,14 +22,20 @@ import {
   PrimaryButton,
 } from './TournamentInfo.styles'
 
+// * Assets
 import { data } from './TournamentInfo.data'
+import ArrowLeftReset from '../../../assets/ArrowLeftReset'
 
 function TournamentInfo() {
+  const navigate = useNavigate()
   return (
     <Container>
       <Content>
         <TopContainer>
-          <Text margin="10rem 0 0 0">Teameights cup #1</Text>
+          <ComeBackBtn onClick={() => navigate('/tournament', { replace: true })}>
+            <ArrowLeftReset />
+          </ComeBackBtn>
+          <Text>Teameights cup #1</Text>
           <SelectContainer>
             <SelectItem>
               <Text fontSize="16px" color="#5D9D0B">
