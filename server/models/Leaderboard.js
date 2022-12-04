@@ -9,16 +9,23 @@ const LeaderboardSchema = new mongoose.Schema(
     tournament_id: {
       type: Schema.Types.ObjectId,
       ref: "Tournament",
+      required: true,
     },
     results: [
       {
         team_id: {
-          type: Schema.types.ObjectId,
+          type: Schema.Types.ObjectId,
           required: true,
         },
-        teamTotalScore: {
-          type: Number,
+        team_name: {
+          type: String,
           required: true,
+        },
+        frontendScore: {
+          type: Number,
+        },
+        backendScore: {
+          type: Number,
         },
       },
     ],

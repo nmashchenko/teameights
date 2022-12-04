@@ -1,5 +1,7 @@
 const { isEqual } = require("lodash");
 const Submission = require("../models/Submission");
+const Team = require("../models/Team");
+const leaderboardController = require("../controllers/leaderboard.controller");
 
 class SubmissionService {
   async makeSubmission(s_finalTime, s_parts, team_id, t_id) {
@@ -58,8 +60,8 @@ class SubmissionService {
     }
   }
 
-  async getSubmissions() {
-    const foundSubmissions = await Submission.find({});
+  async getSubmissions(t_id) {
+    const foundSubmissions = await Submission.find({ tournament_id: t_id });
     return foundSubmissions;
   }
 

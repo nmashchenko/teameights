@@ -18,7 +18,8 @@ class SubmissionController {
 
   async getSubmissions(req, res, next) {
     try {
-      const submissions = await submissionService.getSubmissions();
+      const { t_id } = req.body;
+      const submissions = await submissionService.getSubmissions(t_id);
       return res.json(submissions);
     } catch (err) {
       next(err);
