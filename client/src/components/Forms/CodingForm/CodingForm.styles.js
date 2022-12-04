@@ -73,6 +73,14 @@ export const OutputContainer = styled.div`
   -webkit-box-shadow: -3px -3px 36px -24px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: -3px -3px 36px -24px rgba(0, 0, 0, 0.6);
   box-shadow: -3px -3px 36px -24px rgba(0, 0, 0, 0.6);
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  ::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+  }
 `
 
 export const ResultContainer = styled.div`

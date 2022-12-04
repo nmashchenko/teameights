@@ -1,27 +1,48 @@
 // * Modules
 import React, { useEffect, useState } from 'react'
-import Countdown from 'react-countdown'
+import isEqual from 'lodash/isEqual'
+import { useNavigate } from 'react-router-dom'
+
+// * Assets
+import Frontend from './Frontend/Frontend'
+import Backend from './Backend/Backend'
 
 // * Styles
-import {
-  Container,
-  Text,
-  LeftContainer,
-  RightContainer,
-  TaskContainer,
-  OutputContainer,
-  ResultContainer,
-  ResultStatus,
-  SubmitButton,
-} from './CodingForm.styles'
-import Editor from '@monaco-editor/react'
+import { Text } from './CodingForm.styles'
 
-import Typewriter from 'react-ts-typewriter'
+// * Redux
+import { useSelector } from 'react-redux'
+
+// * API
+import teamsAPI from '../../../api/endpoints/team'
+import tournamentAPI from '../../../api/endpoints/tournament'
 
 function CodingForm() {
-  const [code, setCode] = useState(`// some comment`)
+  const [code, setCode] = useState(``)
   const [value, setValue] = useState(code || '')
   const [output, setOutput] = useState('Your output here...')
+  const [role, setRole] = useState('')
+
+  const [team, setTeam] = useState('')
+  const [updating, setUpdating] = useState(true)
+  const { user } = useSelector((state) => state.userReducer)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const getData = async () => {
+      if (isEqual(user, {})) {
+        navigate('/auth/login', { replace: true })
+      } else {
+        const team = await teamsAPI.getTeamById(user.userTeam)
+        const checkSignedUp = await tournamentAPI.checkUserSignedUp(user._id)
+        setRole(checkSignedUp.data.role)
+        setTeam(team.data)
+
+        setUpdating(false)
+      }
+    }
+    getData()
+  }, [])
 
   const onChange = (action, data) => {
     switch (action) {
@@ -55,89 +76,31 @@ function CodingForm() {
 
   const handleEditorChange = (value) => {
     setValue(value)
+    console.log(value)
     onChange('code', value)
   }
 
-  return (
-    <Container>
-      <LeftContainer>
-        <Text alignment="center" fontSize="22px" fontWeight="700">
-          Teameights cup #1
-        </Text>
-        <Text alignment="center" fontWeight="200">
-          Front-End
-        </Text>
-        <Countdown date={Date.now() + 1800000} renderer={renderer} />
-
-        <TaskContainer>
-          <Text fontSize="24px" color="#5D9D0B" fontWeight="300">
-            <Typewriter
-              text="teameights@ubuntu: ~$ imagine you are styling a div element that is created under
-            teameightscup1.html, classname of this element is called teameightsDiv1, how would you
-            center this div on the screen assuming you are required to use flexbox?"
-            />
-          </Text>
-        </TaskContainer>
-
-        <div style={{ width: '512px', justifyContent: 'flex-start' }}>
-          <Text fontWeight="600">Output:</Text>
-        </div>
-        <OutputContainer alignItems="start">
-          <Text color="#5D9D0B" fontSize="24px">
-            {output}
-          </Text>
-        </OutputContainer>
-
-        <div style={{ width: '512px', justifyContent: 'flex-start' }}>
-          <ResultContainer>
-            <Text fontSize="18px" fontWeight="400">
-              Status:
-            </Text>
-            <ResultStatus>
-              <Text fontSize="16px" color="#5D9D0B">
-                N/A
-              </Text>
-            </ResultStatus>
-          </ResultContainer>
-
-          <ResultContainer>
-            <Text fontSize="18px" fontWeight="400">
-              Memory:
-            </Text>
-            <ResultStatus>
-              <Text fontSize="16px" color="#5D9D0B">
-                N/A
-              </Text>
-            </ResultStatus>
-          </ResultContainer>
-
-          <ResultContainer>
-            <Text fontSize="18px" fontWeight="500">
-              Time:
-            </Text>
-            <ResultStatus>
-              <Text fontSize="16px" color="#5D9D0B">
-                N/A
-              </Text>
-            </ResultStatus>
-          </ResultContainer>
-        </div>
-      </LeftContainer>
-
-      <RightContainer>
-        <Editor
-          height="85vh"
-          width={`90%`}
-          language={'js'}
-          value={value}
-          theme={'vs-dark'}
-          defaultValue="/* Welcome to teameights! */"
-          onChange={handleEditorChange}
-        />
-
-        <SubmitButton>SUBMIT</SubmitButton>
-      </RightContainer>
-    </Container>
+  return role === 'frontend' ? (
+    <Frontend
+      renderer={renderer}
+      value={value}
+      output={output}
+      handleEditorChange={handleEditorChange}
+      team={team}
+      user={user}
+      setOutput={setOutput}
+      code={code}
+    />
+  ) : (
+    <Backend
+      renderer={renderer}
+      value={value}
+      output={output}
+      handleEditorChange={handleEditorChange}
+      setOutput={setOutput}
+      code={code}
+      user={user}
+    />
   )
 }
 
