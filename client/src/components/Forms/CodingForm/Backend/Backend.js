@@ -214,7 +214,7 @@ function Backend({ renderer, value, output, handleEditorChange, code, setOutput,
 
           const removeElements = (array) => {
               /*
-                  implement your solution here
+                implement your solution here
               */
           }
           
