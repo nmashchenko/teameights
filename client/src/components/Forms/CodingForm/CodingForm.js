@@ -97,6 +97,9 @@ function CodingForm() {
       value={value}
       output={output}
       handleEditorChange={handleEditorChange}
+      setOutput={setOutput}
+      code={code}
+      user={user}
     />
   )
 }
