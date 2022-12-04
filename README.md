@@ -27,14 +27,41 @@
 
 ✨ StackBlitz API for creating coding env in application
 
+# Instructions on how to run:
+
+👋🏻 I recorded a video that explains all functionality and steps:
+
+https://www.youtube.com/watch?v=DXY9KiE8D3w
+
+👨🏻‍💻 Also in case registration crashes / something weird happens, we created two accounts to log in:
+
+🎓 extra account 1:
+
+```
+emergency_acc1@uic.edu
+
+emergency_acc1
+```
+
+
+🎓 extra account 2:
+```
+emergency_acc2@uic.edu
+
+emergencyacc2
+```
+
+
+👑 We also decided to move from StackBlitz as it is almost impossible to implement their API for our needs and we used Judge0 + monaco-editor instead
+
 # MVP Review
 
 **🥳 By November 18 we did:**
 - Complete the profiles page -- *DONE* ✅
-- Complete the user profile page where he can change information about him -- *(In progress, almost done)* 🚧
-- Start working on the tournaments system, integrate the stackblitz into the platform -- *(In progress, started working on it recently)* 🚧
+- Complete the user profile page where he can change information about him --  *DONE* ✅
+- Start working on the tournaments system, integrate the Judge0 + monaco-editor into the platform --  *DONE* ✅
 - Complete the preregistration pipeline, e.g. after user signups with email/google/git redirect him to the pages where he can get more information about himself (refer to registration pipeline above) *DONE* ✅
-- Start working on teams logic, design the database architecture, implement adding/removing users to team as well as creating/removing teams *(In progress, DB schemas are ready, initial codebase for creating/viewing/joining teams ready, implementation of invites/adding/removing in progress)* 🚧
+- Start working on teams logic, design the database architecture, implement adding/removing users to team as well as creating/removing teams  *DONE* ✅
 - Work on filtering / infinite scroll for users in the profiles page *DONE* ✅
 
 # What our app currently does?
