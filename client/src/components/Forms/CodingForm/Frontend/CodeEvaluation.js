@@ -1,26 +1,24 @@
 const CodeEvaluation = (code) => {
   let points = 0
   const answers = [
-    '.teameightsDiv1',
-    'display:',
-    'flex; ',
-    'justify-content:',
-    'center; ',
-    'align-items:',
-    'center; }',
+    'teameightsDiv1',
+    'display',
+    'flex',
+    'justifycontent',
+    'center',
+    'alignitems',
+    'center',
   ]
   const words = code.split(' ')
 
   const result = words.filter((word) => word !== '')
 
-  for (let i = 0; i < result.length; i++) {
-    result[i] = result[i].replace('/[.,/#!$%^&*;:{}=-_`~()]/g', '').replace(/\s{2,}/g, ' ')
-  }
+  const finalResult = result.map((word) => word.replace(/[^a-zA-Z0-9]/g, ''))
 
-  console.log(result)
+  console.log(finalResult)
 
-  for (let i = 0; i < result.length; i++) {
-    if (answers.includes(result[i])) {
+  for (let i = 0; i < finalResult.length; i++) {
+    if (answers.includes(finalResult[i])) {
       points = points + 10
     }
   }

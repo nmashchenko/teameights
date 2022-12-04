@@ -221,13 +221,18 @@ function TournamentInfo() {
                 </InfoContainer>
               </EntryStartsContainer>
 
-              <ButtonContainer>
-                {allowStart ? (
-                  <PrimaryButton onClick={handleStart}>Start coding</PrimaryButton>
-                ) : (
-                  <PrimaryButton onClick={handleOpen}>SIGN UP</PrimaryButton>
-                )}
-              </ButtonContainer>
+              <div>
+                <ButtonContainer>
+                  {allowStart ? (
+                    <PrimaryButton onClick={handleStart}>Start coding</PrimaryButton>
+                  ) : (
+                    <PrimaryButton onClick={handleOpen}>SIGN UP</PrimaryButton>
+                  )}
+                  <PrimaryButton onClick={() => navigate('/leaderboard')}>
+                    Leaderboard
+                  </PrimaryButton>
+                </ButtonContainer>
+              </div>
 
               <AvailableSlotsContainer>
                 <AvailableSlotsItem fd="column" justify="center">

@@ -2,6 +2,8 @@
 import Countdown from 'react-countdown'
 import Editor from '@monaco-editor/react'
 import Typewriter from 'react-ts-typewriter'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // * Styles
 import {
@@ -16,16 +18,49 @@ import {
   SubmitButton,
 } from '../CodingForm.styles'
 
-function CodingForm({
-  renderer,
-  value,
-  output,
-  handleEditorChange,
-  onSubmit,
-  status,
-  memory,
-  time,
-}) {
+// * API
+import submissionAPI from '../../../../api/endpoints/submission'
+
+// * Assets
+import CodeEvaluation from './CodeEvaluation'
+
+function CodingForm({ renderer, value, output, handleEditorChange, team, user, setOutput, code }) {
+  const navigate = useNavigate()
+
+  const makeSubmission = async () => {
+    const curPoints = CodeEvaluation(code)
+    setPoints(points)
+
+    curPoints < 70
+      ? setOutput(`You received ${curPoints} points, probably missing something!`)
+      : setOutput(
+          `You received ${curPoints} points, good job! Waiting for your teameight to finish!`,
+        )
+    setStatus('Accepted')
+    setMemory('40')
+    setTime('0.002')
+    const s_parts = {
+      frontend: {
+        submission_time: new Date().getTime(),
+        points: curPoints,
+      },
+    }
+    const submission = await submissionAPI.makeSubmission(s_parts, user.userTeam)
+    if (curPoints === 70) {
+      setTimeout(function () {
+        setOutput('Redirecting you to the leaderboards...')
+      }, 2000)
+
+      setTimeout(function () {
+        navigate('/leaderboard')
+      }, 4000)
+    }
+  }
+  const [status, setStatus] = useState('N/A')
+  const [memory, setMemory] = useState('N/A')
+  const [time, setTime] = useState('N/A')
+  const [points, setPoints] = useState(0)
+
   return (
     <Container>
       <LeftContainer>
@@ -103,7 +138,7 @@ function CodingForm({
           onChange={handleEditorChange}
         />
 
-        <SubmitButton onClick={onSubmit}>SUBMIT</SubmitButton>
+        <SubmitButton onClick={makeSubmission}>SUBMIT</SubmitButton>
       </RightContainer>
     </Container>
   )

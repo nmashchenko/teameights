@@ -3,41 +3,58 @@ const Submission = require("../models/Submission");
 
 class SubmissionService {
   async makeSubmission(s_finalTime, s_parts, team_id, t_id) {
-    const checkExistence = await Submission.find({ team_id: team_id });
+    const checkExistence = await Submission.findOne({ team_id: team_id });
 
-    if (isEqual(checkExistence, [])) {
-      if (s_finalTime && s_parts) {
-        const submission = await Submission.create({
-          submission_final_time: s_finalTime,
-          submission_parts: s_parts,
-          team_id: team_id,
-          tournament_id: t_id,
-        });
-      } else {
-        const submission = await Submission.create({
-          team_id: team_id,
-          tournament_id: t_id,
-        });
-      }
+    if (!checkExistence) {
+      const submission = await Submission.create({
+        submission_final_time: s_finalTime,
+        submission_parts: s_parts,
+        team_id: team_id,
+        tournament_id: t_id,
+      });
 
-      return "Created new submission";
+      return submission;
     } else {
       // Update the existing submission
-      if (s_finalTime && s_parts) {
-        const submission = await Submission.create({
-          submission_final_time: s_finalTime,
-          submission_parts: s_parts,
-          team_id: team_id,
-          tournament_id: t_id,
-        });
-      } else {
-        const submission = await Submission.create({
-          team_id: team_id,
-          tournament_id: t_id,
-        });
-      }
+      if (s_parts.frontend !== undefined) {
+        const curSubmissionParts = checkExistence.submission_parts;
+        console.log(curSubmissionParts);
 
-      return "Submission updated";
+        curSubmissionParts.frontend = s_parts.frontend;
+
+        const updated = await Submission.updateOne(
+          {
+            _id: checkExistence._id,
+          },
+          {
+            $set: {
+              submission_parts: curSubmissionParts,
+            },
+          },
+          { new: true }
+        );
+
+        return "Submission for frontend updated";
+      } else if (s_parts.backend !== undefined) {
+        const curSubmissionParts = checkExistence.submission_parts;
+        console.log(curSubmissionParts);
+
+        curSubmissionParts.backend = s_parts.backend;
+
+        const updated = await Submission.updateOne(
+          {
+            _id: checkExistence._id,
+          },
+          {
+            $set: {
+              submission_parts: curSubmissionParts,
+            },
+          },
+          { new: true }
+        );
+
+        return "Submission for backend updated";
+      }
     }
   }
 

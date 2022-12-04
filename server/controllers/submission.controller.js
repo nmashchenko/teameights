@@ -4,13 +4,13 @@ class SubmissionController {
   async makeSubmission(req, res, next) {
     try {
       const { s_finalTime, s_parts, team_id, t_id } = req.body;
-      const submission = await submissionService.createSubmission(
+      const submission = await submissionService.makeSubmission(
         s_finalTime,
         s_parts,
         team_id,
         t_id
       );
-      return res.send(submission);
+      return res.json(submission);
     } catch (err) {
       next(err);
     }

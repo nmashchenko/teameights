@@ -69,7 +69,8 @@ export const InfoContainer = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  border-bottom: solid 2px #353535;
+  /* border-bottom: solid 2px #353535; */
+  gap: 12px;
 `
 
 export const AvailableSlotsContainer = styled.div`
