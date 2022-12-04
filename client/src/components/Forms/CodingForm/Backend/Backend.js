@@ -210,17 +210,18 @@ function Backend({ renderer, value, output, handleEditorChange, code, setOutput,
           language={'javascript'}
           value={value}
           theme={'vs-dark'}
-          defaultValue="/* Welcome to teameights! */
-
-          const removeElements = (array) => {
-              /*
-                implement your solution here
-              */
-          }
-          
-          // Don't change these lines!
-          const array = ['juice', 'apple',  'cs484']
-          console.log(removeElements(array))"
+          defaultValue={[
+            '/* Welcome to teameights! */',
+            'const removeElements = (array) => {',
+            '\t/*',
+            '\t\timplement your solution here',
+            '\t*/',
+            '}',
+            '',
+            `// Don't change these lines!`,
+            `const array = ['juice', 'apple',  'cs484']`,
+            `console.log(removeElements(array))`,
+          ].join('\n')}
           onChange={handleEditorChange}
         />
 
