@@ -1,35 +1,33 @@
 // * Modules
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
 import Snackbar from '@mui/material/Snackbar'
-
-// * Assets
-import SiteLogo from '../../../assets/SiteLogo'
 
 // * Api
 import resetPassword from '../../../api/endpoints/reset'
+// * Assets
+import SiteLogo from '../../../assets/SiteLogo'
+import ROUTES from '../../../constants/routes'
 
 import {
-  NavBar,
+  AlertBox,
   Container,
-  NewPasswordContainer,
-  NewPasswordBox,
-  TextContainer,
-  TitleText,
-  SubTitleText,
-  NewPasswordInput,
-  NewPasswordButton,
   InputContainer,
+  NavBar,
+  NewPasswordBox,
+  NewPasswordButton,
+  NewPasswordContainer,
+  NewPasswordInput,
   PasswordContainer,
   ShowPass,
-  AlertBox,
+  SubTitleText,
+  TextContainer,
+  TitleText,
 } from './NewPasswords.styles'
-
-import ROUTES from '../../../constants/routes'
 
 function NewPassword() {
   const navigate = useNavigate()
@@ -45,9 +43,10 @@ function NewPassword() {
   const [open, setOpen] = useState(false)
   const [error, setError] = useState('')
 
-  const handleReset = async() => {
+  const handleReset = async () => {
     const error = await resetPassword.updatePassword(id, token, password, repeatPassword)
-    if(!error){
+
+    if (!error) {
       navigate(ROUTES.login, { replace: true })
     } else {
       setOpen(true)

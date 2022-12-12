@@ -1,43 +1,41 @@
 // * Modules
-import { useState, useEffect } from 'react'
-import Box from '@mui/material/Box'
-import Modal from '@mui/material/Modal'
-import { useSnackbar } from 'notistack'
+import { useEffect, useState } from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
-import { useNavigate } from 'react-router-dom'
-import isEqual from 'lodash/isEqual'
-
 // * Redux
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
+import isEqual from 'lodash/isEqual'
+import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
+import Add from '../../../assets/TeamPage/Add'
+import Delete from '../../../assets/TeamPage/Delete'
+// * Assets
+import TopTemplate from '../../TopTemplate/TopTemplate'
 
 // * Styles
 import {
-  Container,
-  CardContainer,
-  Card,
-  MainCardContent,
+  ActionButton,
   ButtonCardContent,
-  RightContainer,
+  Card,
+  CardContainer,
+  CircleContainer,
+  Container,
+  CreateButton,
+  Input,
   LeftContainer,
+  MainCardContent,
+  RightContainer,
+  style,
+  TeamImgBorder,
   Text,
   UserCard,
   UserImg,
   UserInfo,
-  CreateButton,
-  TeamImgBorder,
-  CircleContainer,
-  ActionButton,
-  style,
-  Input,
 } from './TeamForm.styles'
-
-// * Assets
-import TopTemplate from '../../TopTemplate/TopTemplate'
-import Add from '../../../assets/TeamPage/Add'
-import Delete from '../../../assets/TeamPage/Delete'
 import tempImg from './zxc1.jpg'
 
 function TeamForm() {
@@ -58,11 +56,13 @@ function TeamForm() {
       } else {
         const team = await teamsAPI.getTeamById(user.userTeam)
         const users = await teamsAPI.getTeamMembers(team.data.members)
+
         setTeam(team.data)
         setMembers(users.data)
         setUpdating(false)
       }
     }
+
     getTeam()
   }, [])
 
@@ -82,6 +82,7 @@ function TeamForm() {
 
   const handleInvite = async () => {
     const result = await teamsAPI.inviteUserByEmail(email, user.userTeam)
+
     if (result.data.error) {
       enqueueSnackbar(result.data.error, {
         preventDuplicate: true,

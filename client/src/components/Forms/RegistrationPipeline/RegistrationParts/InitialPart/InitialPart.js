@@ -1,25 +1,23 @@
 // * Modules
 import React, { useEffect } from 'react'
-import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
+// * Redux
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { isEqual } from 'lodash'
 
-// * Redux
-import { useSelector, useDispatch } from 'react-redux'
-
+import registerAuthApi from '../../../../../api/endpoints/registration-auth'
+import ROUTES from '../../../../../constants/routes'
+import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 // * Assets
 import NavLogo from '../../NavLogo/NavLogo'
 
 import {
   CardContainer,
   Container,
-  TopText,
-  MiddleTextContainer,
   ContinueButton,
+  MiddleTextContainer,
+  TopText,
 } from './InitialPart.styles'
-
-import ROUTES from '../../../../../constants/routes'
-import registerAuthApi from '../../../../../api/endpoints/registration-auth'
 
 function InitialPart() {
   const dispatch = useDispatch()

@@ -2,7 +2,7 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
 // * Constants
-import { WHITE, BLACK, GREEN, BLUE, DARK_BLUE } from '../../../constants/colors'
+import { BLACK, BLUE, DARK_BLUE, GREEN, WHITE } from '../../../constants/colors'
 
 export const CreateTeamContainer = styled.div`
   display: flex;

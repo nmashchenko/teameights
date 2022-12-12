@@ -1,37 +1,34 @@
 // * Modules
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+// * Redux
+import { useSelector } from 'react-redux'
 import WarningIcon from '@mui/icons-material/Warning'
 import { includes } from 'lodash'
 
-// * Redux
-import { useSelector } from 'react-redux'
-
+import SnackBar from '../../../../SnackBar/SnackBar'
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
-import SnackBar from '../../../../SnackBar/SnackBar'
 import Stepper from '../../Stepper/Stepper'
 
-// * Components
-import NameUsernameArea from './Components/NameUsernameArea'
+import AboutMeArea from './Components/AboutMeArea'
 import AgeArea from './Components/AgeArea'
 import CountryArea from './Components/CountryArea'
-import AboutMeArea from './Components/AboutMeArea'
-
+// * Components
+import NameUsernameArea from './Components/NameUsernameArea'
+import personalInfoHooks from './Hooks/personalInfoHooks'
 // * Hooks
 import useInfoSubmit from './Hooks/useInfoSubmit'
-import personalInfoHooks from './Hooks/personalInfoHooks'
-
 // * Styles
 import {
+  Button,
+  ButtonContainer,
+  ButtonDisabled,
   Container,
-  RegistrationContainer,
   ContentContainer,
   GroupContainer,
-  SectionContainer,
+  RegistrationContainer,
   ResetButton,
-  ButtonContainer,
-  Button,
-  ButtonDisabled,
+  SectionContainer,
 } from './UserPersonalInfo.styles'
 
 function NamePart() {

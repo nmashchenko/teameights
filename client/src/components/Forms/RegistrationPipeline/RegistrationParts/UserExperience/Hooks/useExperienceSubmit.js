@@ -1,12 +1,11 @@
 // * Modules
-import { useSnackbar } from 'notistack'
-
-// * Yup validation
-import yupValidation from '../../../YupValidations/YupValidations'
-
 // * Redux
 import { useDispatch } from 'react-redux'
+import { useSnackbar } from 'notistack'
+
 import { registrationAuth } from '../../../../../../store/reducers/RegistrationAuth'
+// * Yup validation
+import yupValidation from '../../../YupValidations/YupValidations'
 
 /**
  *
@@ -46,6 +45,7 @@ const useConcentrationSubmit = (experience, leader, setOpen, setErrors) => {
         })
       })
   }
+
   return handleSubmit
 }
 

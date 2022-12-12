@@ -1,31 +1,28 @@
 // * Modules
 import React, { useState } from 'react'
+// * Redux
+import { useSelector } from 'react-redux'
 import WarningIcon from '@mui/icons-material/Warning'
 
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
 import Stepper from '../../Stepper/Stepper'
 
-// * Redux
-import { useSelector } from 'react-redux'
-
+import AgreementArea from './Components/AgreementArea'
 // * Components
 import ExperienceArea from './Components/ExperienceArea'
-import AgreementArea from './Components/AgreementArea'
-
 // * Hooks
 import useExperienceSubmit from './Hooks/useExperienceSubmit'
-
 // * Styles
 import {
-  Container,
-  CardContainer,
-  ContentContainer,
-  Text,
-  MiddleContainer,
   AlertContainer,
   Button,
   ButtonDisabled,
+  CardContainer,
+  Container,
+  ContentContainer,
+  MiddleContainer,
+  Text,
 } from './UserExperience.styles'
 
 const UserConcentration = () => {

@@ -1,21 +1,21 @@
 // * Modules
-import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-
-// * Styles
-import {
-  Container,
-  TextContainer,
-  Text,
-  ButtonGeneral,
-  ButtonContainer,
-  CardContainer,
-  Card,
-} from './NoTeamForm.styles'
+import { useNavigate } from 'react-router-dom'
 
 // * Assets
 import TopTemplate from '../../TopTemplate/TopTemplate'
+
+// * Styles
+import {
+  ButtonContainer,
+  ButtonGeneral,
+  Card,
+  CardContainer,
+  Container,
+  Text,
+  TextContainer,
+} from './NoTeamForm.styles'
 
 function NoTeamForm() {
   const navigate = useNavigate()

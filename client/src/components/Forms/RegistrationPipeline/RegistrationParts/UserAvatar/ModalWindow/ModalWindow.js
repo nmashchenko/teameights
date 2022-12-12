@@ -1,7 +1,7 @@
 // * Modules
+import Avatar from 'react-avatar-edit'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import Avatar from 'react-avatar-edit'
 
 // * Styles
 import { DoneButton } from '../UserAvatar.styles'

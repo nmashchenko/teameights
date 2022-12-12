@@ -1,12 +1,12 @@
 // * Modules
-import styled from 'styled-components'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import isEqual from 'lodash/isEqual'
 import { Link } from 'react-router-dom'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import isEqual from 'lodash/isEqual'
+import styled from 'styled-components'
 
 // * Constants
-import { WHITE, BLACK, GREEN, BLUE } from '../../../constants/colors'
+import { BLACK, BLUE, GREEN, WHITE } from '../../../constants/colors'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {

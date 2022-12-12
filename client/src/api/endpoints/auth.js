@@ -3,10 +3,8 @@ import axios from 'axios'
 
 // * Api
 import api from '../../http'
-
 // * API
 import { API_URL } from '../../http'
-
 // * Redux
 import { userAuth } from '../../store/reducers/UserAuth'
 
@@ -14,6 +12,7 @@ const loginUser = (email, password) => async (dispatch) => {
   try {
     dispatch(userAuth.actions.authUser())
     const response = await api.post('/login', { email, password })
+
     localStorage.setItem('token', response.data.accessToken)
     dispatch(userAuth.actions.authUserSuccess(response.data.user))
   } catch (err) {
@@ -25,6 +24,7 @@ const socialLoginRegistration = (username, email, picture, sub) => async (dispat
   try {
     dispatch(userAuth.actions.authUser())
     const response = await api.post('/social-login-registration', { username, email, picture, sub })
+
     localStorage.setItem('token', response.data.accessToken)
     console.log(response.data.user)
     dispatch(userAuth.actions.authUserSuccess(response.data.user))
@@ -37,6 +37,7 @@ const checkAuth = () => async (dispatch) => {
   try {
     dispatch(userAuth.actions.authUser())
     const response = await axios.get(`${API_URL}/get-user-object`, { withCredentials: true })
+
     console.log('we got this data:')
     console.log(response.data)
     dispatch(userAuth.actions.authUserSuccess(response.data))
@@ -49,6 +50,7 @@ const registerUser = (username, email, password, repeatPassword) => async (dispa
   try {
     dispatch(userAuth.actions.authUser())
     const response = await api.post('/registration', { username, email, password, repeatPassword })
+
     localStorage.setItem('token', response.data.accessToken)
     dispatch(userAuth.actions.authUserSuccess(response.data.user))
   } catch (err) {

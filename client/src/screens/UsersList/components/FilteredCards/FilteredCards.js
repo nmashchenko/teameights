@@ -1,25 +1,22 @@
 // * Modules
-import { useNavigate } from 'react-router-dom'
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import lookup from 'country-code-lookup'
-import isUndefined from 'lodash/isUndefined'
-import { isEqual } from 'lodash'
-
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 // * Redux
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import lookup from 'country-code-lookup'
+import { isEqual } from 'lodash'
+import isUndefined from 'lodash/isUndefined'
 
-// * Styles
-import { CardContainer } from './FilteredCards.style'
-
+import authApi from '../../../../api/endpoints/auth'
+// * API
+import usersApi from '../../../../api/endpoints/users'
+// * Constants
+import ROUTES from '../../../../constants/routes'
 // * Components
 import UserCard from '../UserCard/UserCard'
 
-// * Constants
-import ROUTES from '../../../../constants/routes'
-
-// * API
-import usersApi from '../../../../api/endpoints/users'
-import authApi from '../../../../api/endpoints/auth'
+// * Styles
+import { CardContainer } from './FilteredCards.style'
 
 const FilteredCards = ({
   handleOpen,
@@ -44,17 +41,24 @@ const FilteredCards = ({
 
   const lastUserElementRef = useCallback(
     (node) => {
-      if (isLoading) return
-      if (observer.current) observer.current.disconnect()
+      if (isLoading) {
+        return
+      }
+      if (observer.current) {
+        observer.current.disconnect()
+      }
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setFilteredPageNumber((prevPageNumber) => prevPageNumber + 1)
         }
       })
-      if (node) observer.current.observe(node)
+      if (node) {
+        observer.current.observe(node)
+      }
     },
     [isLoading, hasMore],
   )
+
   /**
    * This function will work one time when user loads page first time
    * he will get list of all users that can be invited to the team

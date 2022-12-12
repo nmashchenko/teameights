@@ -3,13 +3,13 @@ import NonFound from '../../../../assets/NonFound'
 
 // * Styles
 import {
-  Container,
-  NonFoundContainer,
-  TopText,
   BotText,
   Button,
+  Container,
   InfoContainer,
+  NonFoundContainer,
   TextContainer,
+  TopText,
 } from './NotFound.styles'
 
 const NotFound = ({ handleComeback }) => {

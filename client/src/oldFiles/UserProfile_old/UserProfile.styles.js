@@ -1,9 +1,9 @@
-import styled, { keyframes } from 'styled-components'
-import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import styled, { keyframes } from 'styled-components'
 
-import { LIME, WHITE, BLACK, GREY } from '../../../../constants/colors'
 import { device } from '../../../../constants/breakpoints'
+import { BLACK, GREY, LIME, WHITE } from '../../../../constants/colors'
 
 export const Container = styled.div`
   position: absolute;

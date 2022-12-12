@@ -1,9 +1,8 @@
 // * Modules
-import jwt_decode from 'jwt-decode'
-import { GoogleLogin } from '@react-oauth/google'
-
 // * Redux
 import { useDispatch } from 'react-redux'
+import { GoogleLogin } from '@react-oauth/google'
+import jwt_decode from 'jwt-decode'
 
 // * Api
 import authApi from '../../../api/endpoints/auth'
@@ -15,6 +14,7 @@ const SocialLoginRegistration = () => {
     const decoded = jwt_decode(response.credential)
     const { picture, email, sub } = decoded
     const username = email.split('@')[0]
+
     dispatch(authApi.socialLoginRegistration(username, email, picture, sub))
   }
 

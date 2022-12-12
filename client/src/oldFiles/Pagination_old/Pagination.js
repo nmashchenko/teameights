@@ -1,6 +1,7 @@
 import * as React from 'react'
-import usePagination from '@mui/material/usePagination'
 import { styled } from '@mui/material/styles'
+import usePagination from '@mui/material/usePagination'
+
 import ArrowLeft from '../../assets/Arrows/ArrowLeft'
 import ArrowRight from '../../assets/Arrows/ArrowRight'
 

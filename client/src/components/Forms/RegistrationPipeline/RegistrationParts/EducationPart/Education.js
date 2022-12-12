@@ -1,33 +1,31 @@
 // * Modules
 import React, { useState } from 'react'
+// * Redux
+import { useDispatch, useSelector } from 'react-redux'
 import WarningIcon from '@mui/icons-material/Warning'
 import { includes } from 'lodash'
 
+import SkipArrow from '../../../../../assets/Arrows/SkipArrow'
+import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
 import Stepper from '../../Stepper/Stepper'
-import SkipArrow from '../../../../../assets/Arrows/SkipArrow'
-
-// * Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 
 // * Hooks
 import useEducationSubmit from './Hooks/useEducationSubmit'
-
 // * Styles
 import {
+  BottomContainer,
+  Button,
+  ButtonContainer,
+  ButtonDisabled,
   Container,
   DataContainer,
-  MiddleContainer,
-  Text,
   Input,
-  ButtonContainer,
-  SkipButton,
-  ButtonDisabled,
-  Button,
-  BottomContainer,
+  MiddleContainer,
   Skip,
+  SkipButton,
+  Text,
 } from './Education.styles'
 
 const Education = () => {

@@ -1,7 +1,7 @@
 // * Modules
-import styled, { keyframes } from 'styled-components'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
+import styled, { keyframes } from 'styled-components'
 
 // * Constants
 import { GREEN } from '../../../../constants/colors'

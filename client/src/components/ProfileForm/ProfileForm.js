@@ -1,47 +1,45 @@
 // * Modules
-import { useState, useEffect } from 'react'
-import isEqual from 'lodash/isEqual'
-import { useNavigate } from 'react-router-dom'
-
-// * Assets
-import Photo from './Photo.jpg'
-import Location from '../../assets/UserProfile/Location'
-import TopTemplate from '../TopTemplate/TopTemplate'
-import C from '../../assets/LanguageLogo/C'
-import JS from '../../assets/LanguageLogo/JS'
-import Cplusplus from '../../assets/LanguageLogo/Cplusplus'
-import Star from '../../assets/UserProfile/Star'
-import Email from '../../assets/UserProfile/Email'
-import Github from '../../assets/UserProfile/Github'
-import Linkedin from '../../assets/UserProfile/Linkedin'
-
+import { useEffect, useState } from 'react'
 // * Redux
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import isEqual from 'lodash/isEqual'
 
 // * API
 import teamsAPI from '../../api/endpoints/team'
+import C from '../../assets/LanguageLogo/C'
+import Cplusplus from '../../assets/LanguageLogo/Cplusplus'
+import JS from '../../assets/LanguageLogo/JS'
+import Email from '../../assets/UserProfile/Email'
+import Github from '../../assets/UserProfile/Github'
+import Linkedin from '../../assets/UserProfile/Linkedin'
+import Location from '../../assets/UserProfile/Location'
+import Star from '../../assets/UserProfile/Star'
+import TopTemplate from '../TopTemplate/TopTemplate'
 
+// * Assets
+import Photo from './Photo.jpg'
 // * Styles
 import {
-  Container,
-  LeftCard,
-  RightContainer,
-  RightCard,
-  ImgContainer,
-  TextContainer,
-  Text,
-  ProfileLine,
   BannerLine,
-  InformationRow,
-  IconTextContainer,
-  EditButton,
   Cards,
-  Information,
-  SocialRow,
+  Container,
   EditBtnDiv,
-  RightCardData,
-  ProgrammingLanguage,
+  EditButton,
   Framework,
+  IconTextContainer,
+  ImgContainer,
+  Information,
+  InformationRow,
+  LeftCard,
+  ProfileLine,
+  ProgrammingLanguage,
+  RightCard,
+  RightCardData,
+  RightContainer,
+  SocialRow,
+  Text,
+  TextContainer,
 } from './ProfileForm.styles'
 
 export const ProfileForm = () => {
@@ -56,9 +54,11 @@ export const ProfileForm = () => {
         navigate('/auth/login', { replace: true })
       } else {
         const team = await teamsAPI.getTeamById(user.userTeam)
+
         setTeam(team.data.name)
       }
     }
+
     getTeam()
   }, [])
 

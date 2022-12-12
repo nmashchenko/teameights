@@ -2,13 +2,13 @@
 import { useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-import InfoIcon from '../../../../assets/InfoIcon'
 
+import InfoIcon from '../../../../assets/InfoIcon'
 // * Assets
 import SiteLogo from '../../../../assets/SiteLogo'
-import Hover from './Hover'
 
-import { NavBar, InfoContainer, InfoText } from './NavLogo.styles'
+import Hover from './Hover'
+import { InfoContainer, InfoText, NavBar } from './NavLogo.styles'
 
 function NavLogo({ sectionName }) {
   const [anchorEl, setAnchorEl] = useState(null)

@@ -18,4 +18,4 @@ const MenuProps = {
   },
 }
 
-export default MenuProps;
+export default MenuProps

@@ -1,29 +1,30 @@
 // * Modules
 import React from 'react'
+import CloseIcon from '@mui/icons-material/Close'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TelegramIcon from '@mui/icons-material/Telegram'
+
 import AvatarImage from '../../img/tempImg.jpg'
-import CloseIcon from '@mui/icons-material/Close'
 
 import {
-  Container,
-  ProfileContainer,
-  TopContent,
-  IconContainer,
-  Text,
-  MainSection,
-  LeftSection,
-  AboutMeContainer,
   AboutBox,
-  ProjectLink,
-  UserLinks,
-  RightSection,
+  AboutMeContainer,
+  Button,
+  ButtonsContainer,
+  Container,
+  IconContainer,
   ImgContainer,
   InfoContainer,
-  ButtonsContainer,
-  Button,
+  LeftSection,
+  MainSection,
+  ProfileContainer,
+  ProjectLink,
+  RightSection,
+  Text,
+  TopContent,
+  UserLinks,
 } from './UserProfile.styles'
 
 const UserProfile = ({ user, handleClose }) => {
