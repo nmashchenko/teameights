@@ -21,6 +21,7 @@ import TournamentCodingScreen from './screens/Forms/TournamentCodingScreen/Tourn
 import TournamentInfo from './screens/Forms/TournamentInfo/TournamentInfo'
 import Tournaments from './screens/Forms/Tournaments/Tournaments'
 import LeaderboardScreen from './screens/Forms/LeaderboardScreen/LeaderboardScreen'
+import Form404 from './screens/Forms/Form404/Form404'
 
 // * Constants
 import ROUTES from './constants/routes'
@@ -41,6 +42,7 @@ export const useRoutes = () => {
       <Route path="/tournament-info" element={<TournamentInfo />} />
       <Route path="/coding" element={<TournamentCodingScreen />} />
       <Route path="/leaderboard" element={<LeaderboardScreen />} />
+      <Route path="/page404" element={<Form404 />} />
 
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />
