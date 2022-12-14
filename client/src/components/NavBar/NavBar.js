@@ -6,19 +6,14 @@ import { Link } from 'react-router-dom'
 import NavBarIcon from '../../assets/NavBarIcon'
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
-import Notification from '../../assets/Sidebar/Notification'
 
 // * Data
 import { NavBarData } from './NavBar.data'
-import userImg from './tempImg.jpg'
+import TeameightsLogo from '../../assets/Team/TeameightsLogo'
 
 import {
   NavIconContainer,
-  NameNotificationsContainer,
   UserInfo,
-  UserData,
-  UserImage,
-  UserTextContainer,
   UserText,
   NavMenu,
   NavMenuItems,
@@ -28,7 +23,7 @@ import {
   NavItems,
   BottomContent,
   SingOutButton,
-  NotificationsArea,
+  IconNav,
 } from './NavBar.styles'
 
 const NavBar = ({ user, handleUserLogout }) => {
@@ -46,29 +41,16 @@ const NavBar = ({ user, handleUserLogout }) => {
           <NavMenuItems onClick={showSidebar}>
             <UserInfo>
               <NavBarToggle>
+                <TeameightsLogo />
                 <Close />
               </NavBarToggle>
-              <UserData>
-                <div>
-                  <UserImage src={userImg} alt="user image" />
-                </div>
-                <UserTextContainer>
-                  <NameNotificationsContainer>
-                    <UserText fontWeight="600">{user.userRealName}</UserText>
-                    <NotificationsArea>
-                      <Notification />
-                    </NotificationsArea>
-                  </NameNotificationsContainer>
-                  <UserText>{user.userConcentration}</UserText>
-                </UserTextContainer>
-              </UserData>
             </UserInfo>
             <NavItems>
               {NavBarData.map((item, index) => {
                 return (
                   <NavItem key={index}>
                     <Link to={item.path}>
-                      {item.icon}
+                      <IconNav>{item.icon} </IconNav>
                       <ItemTitle>{item.title}</ItemTitle>
                     </Link>
                   </NavItem>
@@ -79,21 +61,8 @@ const NavBar = ({ user, handleUserLogout }) => {
               <SingOutButton onClick={handleUserLogout}>
                 <Exit /> Sign Out
               </SingOutButton>
-              <UserText
-                fontWeight="400"
-                fontSize="12px"
-                color="rgba(255, 255, 255, 0.15)"
-                margin="0 0 5px 0"
-              >
-                Copyright © 2022 Teameights.
-              </UserText>
-              <UserText
-                fontWeight="400"
-                fontSize="12px"
-                color="rgba(255, 255, 255, 0.15)"
-                margin="0 0 30px 0"
-              >
-                All rights reserved.
+              <UserText fontWeight="400" fontSize="12px" color="rgba(255, 255, 255, 0.15)">
+                copyright © 2022 Teameights.
               </UserText>
             </BottomContent>
           </NavMenuItems>
