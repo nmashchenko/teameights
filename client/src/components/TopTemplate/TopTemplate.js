@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux'
 // * Modules
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import {useCheckAuth} from "../../api/hooks/useCheckAuth";
 
 const TopTemplate = () => {
   const navigate = useNavigate()
@@ -22,22 +23,17 @@ const TopTemplate = () => {
     navigate('/auth/login', { replace: true })
   }
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      dispatch(authApi.checkAuth())
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')) {
+  //     dispatch(authApi.checkAuth())
+  //   }
+  // }, [])
 
-  /**
-   * Get global state from redux
-   */
-  const { user } = useSelector((state) => state.userReducer)
-  // console.log(user)
 
   return (
     <ToolbarContainer>
       <NavContainer>
-        <NavBar user={user} handleUserLogout={handleUserLogout} />
+        <NavBar handleUserLogout={handleUserLogout} />
       </NavContainer>
       <TeameightsLogo />
     </ToolbarContainer>

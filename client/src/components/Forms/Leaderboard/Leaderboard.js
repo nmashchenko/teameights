@@ -23,11 +23,13 @@ import TopTemplate from '../../TopTemplate/TopTemplate'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import submissionAPI from '../../../api/endpoints/submission'
+import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
 
 function Leaderboard() {
   const [updating, setUpdating] = useState(true)
-  const { user } = useSelector((state) => state.userReducer)
-  const [submissions, setSubmissions] = useState([])
+    const {data: userData} = useCheckAuth()
+    const user = userData?.data
+    const [submissions, setSubmissions] = useState([])
 
   const navigate = useNavigate()
 

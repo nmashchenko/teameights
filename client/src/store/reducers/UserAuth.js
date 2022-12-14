@@ -19,7 +19,7 @@ export const userAuth = createSlice({
     authUserSuccess(state, action) {
       state.isLoading = false
       state.error = ''
-      state.user = action.payload
+      // state.user = action.payload
       state.isAuth = true
     },
 
@@ -27,7 +27,7 @@ export const userAuth = createSlice({
       state.isLoading = false
       state.error = ''
       state.isAuth = false
-      state.user = {}
+      // state.user = {}
     },
 
     authUserError(state, action) {

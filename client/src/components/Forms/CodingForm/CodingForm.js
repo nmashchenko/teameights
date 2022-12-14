@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import tournamentAPI from '../../../api/endpoints/tournament'
+import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
 
 function CodingForm() {
   const [code, setCode] = useState(``)
@@ -25,7 +26,8 @@ function CodingForm() {
 
   const [team, setTeam] = useState('')
   const [updating, setUpdating] = useState(true)
-  const { user } = useSelector((state) => state.userReducer)
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
   const navigate = useNavigate()
 
   useEffect(() => {

@@ -17,6 +17,7 @@ const loginUser = (email, password) => async (dispatch) => {
     localStorage.setItem('token', response.data.accessToken)
     dispatch(userAuth.actions.authUserSuccess(response.data.user))
   } catch (err) {
+    console.log(err.response?.data?.message)
     dispatch(userAuth.actions.authUserError(err.response?.data?.message))
   }
 }

@@ -1,12 +1,10 @@
 // * Modules
 import { useState, useEffect } from 'react'
-import isEqual from 'lodash/isEqual'
 import { useNavigate } from 'react-router-dom'
 
 // * Assets
 import Photo from './Photo.jpg'
 import Location from '../../assets/UserProfile/Location'
-import TopTemplate from '../TopTemplate/TopTemplate'
 import C from '../../assets/LanguageLogo/C'
 import JS from '../../assets/LanguageLogo/JS'
 import Cplusplus from '../../assets/LanguageLogo/Cplusplus'
@@ -15,8 +13,6 @@ import Email from '../../assets/UserProfile/Email'
 import Github from '../../assets/UserProfile/Github'
 import Linkedin from '../../assets/UserProfile/Linkedin'
 
-// * Redux
-import { useSelector } from 'react-redux'
 
 // * API
 import teamsAPI from '../../api/endpoints/team'
@@ -43,28 +39,39 @@ import {
   ProgrammingLanguage,
   Framework,
 } from './ProfileForm.styles'
+import {useCheckAuth} from "../../api/hooks/useCheckAuth";
+import Loader from "../Loader/Loader";
+import ROUTES from "../../constants/routes";
 
 export const ProfileForm = () => {
   const [team, setTeam] = useState('')
 
-  const { user } = useSelector((state) => state.userReducer)
+  const {data: userData, isLoading: isUserDataLoading} = useCheckAuth()
+  const user = userData?.data
+  console.log({isUserDataLoading})
+  console.log({user})
   const navigate = useNavigate()
-
   useEffect(() => {
     const getTeam = async () => {
-      if (isEqual(user, {})) {
-        navigate('/auth/login', { replace: true })
-      } else {
+      // if (!user) {
+      //   navigate('/auth/login', { replace: true })
+      // } else {
         const team = await teamsAPI.getTeamById(user.userTeam)
         setTeam(team.data.name)
-      }
+      // }
     }
     getTeam()
   }, [])
 
+
+  if(isUserDataLoading) {
+    return  <Loader />
+  }
+
+  if(!user ) {
+    return <button onClick={() => navigate(ROUTES.login)}>Login</button>
+  }
   return (
-    <Container>
-      <TopTemplate />
       <Cards>
         <Information>
           <LeftCard>
@@ -204,7 +211,6 @@ export const ProfileForm = () => {
           </RightContainer>
         </Information>
       </Cards>
-    </Container>
   )
 }
 

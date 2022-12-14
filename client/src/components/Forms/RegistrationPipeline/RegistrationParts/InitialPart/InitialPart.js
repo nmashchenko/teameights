@@ -42,7 +42,7 @@ function InitialPart() {
   useEffect(() => {
     // if user is already registered -> navigate him to the login page
     if (curRegistration) {
-      navigate(ROUTES.temporary, { replace: true })
+      navigate("/", { replace: true })
     }
   }, [curRegistration, navigate])
 

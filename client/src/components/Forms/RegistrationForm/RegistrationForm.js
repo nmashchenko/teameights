@@ -46,12 +46,15 @@ import {
   SpannedLetter,
   SeparateLine,
 } from './RegistrationForm.styles'
+import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
 
 function RegistrationForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { user, isAuth, error, isLoading } = useSelector((state) => state.userReducer)
+  const { isAuth, error, isLoading } = useSelector((state) => state.userReducer)
 
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
   const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [password, setPassword] = useState('')
@@ -85,7 +88,7 @@ function RegistrationForm() {
     } else if (isAuth && !user.isRegistered) {
       navigate(ROUTES.finishRegistration, { replace: true })
     } else if (isAuth && user.isRegistered && user.isActivated) {
-      navigate(ROUTES.temporary, { replace: true })
+      navigate("/", { replace: true })
     }
   }, [isAuth, navigate])
 

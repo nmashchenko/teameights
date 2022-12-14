@@ -30,10 +30,19 @@ import {
   SingOutButton,
   NotificationsArea,
 } from './NavBar.styles'
+import {useCheckAuth} from "../../api/hooks/useCheckAuth";
+import {useLogoutUser} from "../../api/hooks/useLogoutUser";
 
-const NavBar = ({ user, handleUserLogout }) => {
+const NavBar = ({  handleUserLogout }) => {
   const [sidebar, setSidebar] = useState(false)
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
 
+  const mutation = useLogoutUser()
+
+  const handleUseLogout = () => {
+    mutation.mutate()
+  }
   const showSidebar = () => setSidebar(!sidebar)
   return (
     <>
@@ -54,12 +63,12 @@ const NavBar = ({ user, handleUserLogout }) => {
                 </div>
                 <UserTextContainer>
                   <NameNotificationsContainer>
-                    <UserText fontWeight="600">{user.userRealName}</UserText>
+                    <UserText fontWeight="600">{user?.userRealName}</UserText>
                     <NotificationsArea>
                       <Notification />
                     </NotificationsArea>
                   </NameNotificationsContainer>
-                  <UserText>{user.userConcentration}</UserText>
+                  <UserText>{user?.userConcentration}</UserText>
                 </UserTextContainer>
               </UserData>
             </UserInfo>
@@ -76,7 +85,7 @@ const NavBar = ({ user, handleUserLogout }) => {
               })}
             </NavItems>
             <BottomContent>
-              <SingOutButton onClick={handleUserLogout}>
+              <SingOutButton onClick={handleUseLogout}>
                 <Exit /> Sign Out
               </SingOutButton>
               <UserText

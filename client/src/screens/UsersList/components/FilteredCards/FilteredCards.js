@@ -68,7 +68,7 @@ const FilteredCards = ({
         // check if user's token expired and redirect
         if (isEqual(localStorage.getItem('token'), null)) {
           dispatch(authApi.logoutUser())
-          navigate(ROUTES.login, { replace: true })
+          // navigate(ROUTES.login, { replace: true })
         } else {
           setFilteredUsers((prevUsers) => {
             return [...prevUsers, ...res.data.results]

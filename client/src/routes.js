@@ -24,19 +24,23 @@ import LeaderboardScreen from './screens/Forms/LeaderboardScreen/LeaderboardScre
 
 // * Constants
 import ROUTES from './constants/routes'
+import NotFound from "./screens/UsersList/components/NotFound/NotFound";
+import NavBarItemPageLayout from "./layouts/NavBarItemPageLayout/NavBarItemPageLayout";
 
 export const useRoutes = () => {
   return (
     <Routes>
       {/* // * for authenticated user */}
-      <Route path={ROUTES.temporary} element={<UsersList />} />
+      <Route path="/" element={<UsersList />} />
       <Route path={ROUTES.finishRegistration} element={<FinishRegistration />} />
       <Route path="/auth/verification" element={<LoaderScreen />} />
-      <Route path="/team" element={<NoTeamScreen />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route element={<NavBarItemPageLayout />}>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/tournament" element={<Tournaments />} />
+        <Route path="/team" element={<NoTeamScreen />} />
+      </Route>
       <Route path="/myteam" element={<TeamScreen />} />
       <Route path="/create-team" element={<CreateTeam />} />
-      <Route path="/tournament" element={<Tournaments />} />
       <Route path="/teams" element={<TeamsScreen />} />
       <Route path="/tournament-info" element={<TournamentInfo />} />
       <Route path="/coding" element={<TournamentCodingScreen />} />
@@ -50,7 +54,7 @@ export const useRoutes = () => {
       <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmation />} />
       <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswords />} />
 
-      <Route path="*" element={<Navigate to={ROUTES.login} replace />} />
+      <Route path="*" element={<NotFound replace />} />
     </Routes>
   )
 }

@@ -20,6 +20,7 @@ import ROUTES from '../../../../constants/routes'
 // * API
 import usersApi from '../../../../api/endpoints/users'
 import authApi from '../../../../api/endpoints/auth'
+import {useGetUsers} from "../../../../api/hooks/useGetUsers";
 
 const Cards = ({
   handleOpen,
@@ -34,6 +35,9 @@ const Cards = ({
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [hasMore, setHasMore] = useState(false)
+
+  const {data} = useGetUsers(pageNumber)
+  console.log({data})
   /**
    * Lazy loading of the pages, don't touch this part
    */
@@ -64,7 +68,7 @@ const Cards = ({
         // check if user's token expired and redirect
         if (isEqual(localStorage.getItem('token'), null)) {
           dispatch(authApi.logoutUser())
-          navigate(ROUTES.login, { replace: true })
+          // navigate(ROUTES.login, { replace: true })
         } else {
           setUsers((prevUsers) => {
             return [...prevUsers, ...res.data.results]

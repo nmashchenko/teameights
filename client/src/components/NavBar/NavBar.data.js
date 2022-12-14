@@ -20,7 +20,7 @@ export const NavBarData = [
   },
   {
     title: 'Teameights',
-    path: '/platform',
+    path: '/',
     icon: <Project />,
   },
   {

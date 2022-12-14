@@ -1,13 +1,8 @@
 // * Modules
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
 import styled from 'styled-components'
 import { BLACK } from '../../constants/colors'
-import { useNavigate } from 'react-router-dom'
-
-// * Redux
-import { useSelector, useDispatch } from 'react-redux'
-import authApi from '../../api/endpoints/auth'
 
 // * Styles
 const Container = styled.div`
@@ -21,31 +16,6 @@ const Container = styled.div`
 `
 
 const Loader = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { isAuth, isLoading } = useSelector((state) => state.userReducer)
-
-  // check if user is authenticated and update user(object) with data about him
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (localStorage.getItem('token')) {
-        dispatch(authApi.checkAuth())
-      }
-    }, 2000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isLoading && isAuth) {
-        navigate('/platform')
-      } else {
-        navigate('/auth/login')
-      }
-    }, 4000)
-    return () => clearTimeout(timer)
-  }, [])
 
   return (
     <Container>

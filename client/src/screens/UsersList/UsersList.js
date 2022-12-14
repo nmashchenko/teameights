@@ -34,6 +34,7 @@ import {
   GlobalStyle,
   UserCardModal,
 } from './UsersList.styles'
+import {useCheckAuth} from "../../api/hooks/useCheckAuth";
 
 function UsersList() {
   const dispatch = useDispatch()
@@ -70,7 +71,9 @@ function UsersList() {
   /**
    * Get global state from redux
    */
-  const { isAuth, user } = useSelector((state) => state.userReducer)
+  const { isAuth } = useSelector((state) => state.userReducer)
+  const {data: userData, isLoading: isUserDataLoading} = useCheckAuth()
+  const user = userData?.data
 
   const showMobileProfile = () => setMobileProfile(!mobileProfile)
   /**
@@ -99,7 +102,7 @@ function UsersList() {
       // check if user's token expired and redirect
       if (isEqual(localStorage.getItem('token'), null)) {
         dispatch(authApi.logoutUser())
-        navigate(ROUTES.login, { replace: true })
+        // navigate(ROUTES.login, { replace: true })
       } else {
         if (isEmpty(users.data?.results)) {
           setNotFound(true)
@@ -123,20 +126,6 @@ function UsersList() {
   const handleUserLogout = () => {
     dispatch(authApi.logoutUser())
   }
-
-  /*
-   * This useEffect is triggered when user presses logout button in the NavBar component
-   */
-  useEffect(() => {
-    if (!isAuth) {
-      navigate(ROUTES.login, { replace: true })
-    }
-
-    console.log(user)
-    if (isAuth && !user?.isRegistered) {
-      navigate(ROUTES.finishRegistration, { replace: true })
-    }
-  }, [isAuth, navigate])
 
   return (
     <>
@@ -200,7 +189,7 @@ function UsersList() {
                 />
               )}
               {/* Load skeleton before showing real cards to improve performance of the app */}
-              <>{isLoading && <CardSkeleton cards={9} />}</>
+              <>{(isLoading || isUserDataLoading) && <CardSkeleton cards={9} />}</>
             </CardsContainer>
           </GridContainer>
           <SliderToTop />
