@@ -2,11 +2,11 @@
 import axios from 'axios'
 
 // * API
-import api from '../../http'
-import { API_URL } from '../../http'
-
+import http from '../../http'
 // * Redux
 import { userAuth } from '../../store/reducers/UserAuth'
+
+const { API_URL, api } = http
 
 const loginUser = (email, password) => async (dispatch) => {
   try {

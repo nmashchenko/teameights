@@ -148,8 +148,10 @@ function TournamentInfo() {
                   <CustomOption value="none" selected disabled hidden>
                     Select frontend
                   </CustomOption>
-                  {members.map((member) => (
-                    <CustomOption value={member._id}>{member.userRealName}</CustomOption>
+                  {members.map((member, i) => (
+                    <CustomOption value={member._id} key={i}>
+                      {member.userRealName}
+                    </CustomOption>
                   ))}
                 </CustomSelect>
                 <Text alignment="center" fontSize="18px" margin="25px 0 0 0">
@@ -159,8 +161,10 @@ function TournamentInfo() {
                   <CustomOption value="none" selected disabled hidden>
                     Select backend
                   </CustomOption>
-                  {members.map((member) => (
-                    <CustomOption value={member._id}>{member.userRealName}</CustomOption>
+                  {members.map((member, i) => (
+                    <CustomOption value={member._id} key={i}>
+                      {member.userRealName}
+                    </CustomOption>
                   ))}
                 </CustomSelect>
                 <PrimaryButton
@@ -241,12 +245,13 @@ function TournamentInfo() {
                   AVAILABLE SLOTS
                 </AvailableSlotsItem>
 
-                {data.map((item) => (
+                {data.map((item, i) => (
                   <AvailableSlotsItem
                     borderb="solid 2px #353535"
                     align="center"
                     background="#1A1C22"
                     height="45px"
+                    key={i}
                   >
                     <Text color="#8A9AB5" fontSize="16px">
                       {item.name}

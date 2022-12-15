@@ -37,7 +37,11 @@
         "semi": false
       }
     ],
-
+    // regex checks 
+    "no-useless-escape" : "off",
+    
+    // disabling unused vars check
+    "no-unused-vars" : "off",
 
     // We had some issues with escaping so this is disabled for now
     "react/no-unescaped-entities": 0,
@@ -84,7 +88,7 @@
     "sort-imports": "off",
 
     // Ensure max length of a line to be a recommended 100
-    "max-len": ["error", { "code": 100 }],
+    // "max-len": ["error", { "code": 100 }],
 
     // Enforce curly braces for code clarity
     "curly": "error",

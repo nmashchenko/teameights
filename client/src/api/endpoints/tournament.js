@@ -1,5 +1,7 @@
 // * API
-import api from '../../http'
+import http from '../../http'
+
+const { api } = http
 
 const addTeamToTournament = async (team_id, frontend_id, backend_id) => {
   try {

@@ -1,8 +1,11 @@
-// * API
+// * Modules
 import qs from 'qs'
 
 import filteredQueryMaker from '../../helpers/filteredQueryMaker'
-import api from '../../http'
+// * API
+import http from '../../http'
+
+const { api } = http
 
 const getUsers = async (page) => {
   try {

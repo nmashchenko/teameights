@@ -1,5 +1,7 @@
 // * API
-import api from '../../http'
+import http from '../../http'
+
+const { api } = http
 
 const t_id = '638bcf732c63139d604db787'
 

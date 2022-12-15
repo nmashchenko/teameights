@@ -8,7 +8,6 @@ import axios from 'axios'
 
 // * API
 import submissionAPI from '../../../../api/endpoints/submission'
-
 // * Styles
 import {
   Container,

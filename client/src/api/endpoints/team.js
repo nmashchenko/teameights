@@ -1,5 +1,7 @@
 // * API
-import api from '../../http'
+import http from '../../http'
+
+const { api } = http
 
 const createTeam = async (teamName, teamCountry, teamMembers) => {
   try {

@@ -117,8 +117,8 @@ function TeamsList() {
                 People
               </Text>
             </ColumnNames>
-            {teams.map((team) => (
-              <TeamData margin="60px">
+            {teams.map((team, i) => (
+              <TeamData margin="60px" key={i}>
                 <TeamImage src="https://pbs.twimg.com/profile_images/1406293979323371528/TJ7BseVI_400x400.jpg" />
                 <Text fontSize="18px" color="white">
                   {team.name}

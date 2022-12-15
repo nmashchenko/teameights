@@ -1,13 +1,12 @@
 // * Modules
 import axios from 'axios'
-import { isEqual } from 'lodash'
 
 // * API
-import api from '../../http'
-import { API_URL } from '../../http'
-
+import http from '../../http'
 // * Redux
 import { registrationAuth } from '../../store/reducers/RegistrationAuth'
+
+const { API_URL, api } = http
 
 const checkRegistration = () => async (dispatch) => {
   try {

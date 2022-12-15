@@ -97,7 +97,7 @@ function Leaderboard() {
             </InfoContainer>
 
             {submissions.map((item, i) => (
-              <InfoContainer>
+              <InfoContainer key={i}>
                 <Text fontWeight="600" color="#FFE600">
                   #{i}
                 </Text>

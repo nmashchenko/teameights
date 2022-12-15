@@ -130,8 +130,8 @@ function TeamForm() {
             <MainCardContent>
               <LeftContainer>
                 {/* TODO: find team members in useEffect. */}
-                {members.map((member) => (
-                  <UserCard>
+                {members.map((member, i) => (
+                  <UserCard key={i}>
                     <UserImg src="https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg" />
                     <UserInfo>
                       <Text fontSize="14px" fontWeight="100">
