@@ -42,7 +42,6 @@ export const useRoutes = () => {
       <Route path="/tournament-info" element={<TournamentInfo />} />
       <Route path="/coding" element={<TournamentCodingScreen />} />
       <Route path="/leaderboard" element={<LeaderboardScreen />} />
-      <Route path="/page404" element={<Form404 />} />
 
       {/* // * for not authenticated user */}
       <Route path={ROUTES.login} element={<Login />} />
@@ -52,7 +51,7 @@ export const useRoutes = () => {
       <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmation />} />
       <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswords />} />
 
-      <Route path="*" element={<Navigate to={ROUTES.login} replace />} />
+      <Route path="*" element={< Form404 />} />
     </Routes>
   )
 }
