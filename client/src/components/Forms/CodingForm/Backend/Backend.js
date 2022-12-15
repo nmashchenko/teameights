@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import Typewriter from 'react-ts-typewriter'
 import Editor from '@monaco-editor/react'
 import axios from 'axios'
-import isEqual from 'lodash/isEqual'
 
 // * API
 import submissionAPI from '../../../../api/endpoints/submission'
+
 // * Styles
 import {
   Container,

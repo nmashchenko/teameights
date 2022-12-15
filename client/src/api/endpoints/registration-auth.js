@@ -5,6 +5,7 @@ import { isEqual } from 'lodash'
 // * API
 import api from '../../http'
 import { API_URL } from '../../http'
+
 // * Redux
 import { registrationAuth } from '../../store/reducers/RegistrationAuth'
 

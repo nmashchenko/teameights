@@ -1,10 +1,10 @@
 // * Modules
 import axios from 'axios'
 
-// * Api
-import api from '../../http'
 // * API
+import api from '../../http'
 import { API_URL } from '../../http'
+
 // * Redux
 import { userAuth } from '../../store/reducers/UserAuth'
 
