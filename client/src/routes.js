@@ -21,6 +21,7 @@ import TournamentCodingScreen from './screens/Forms/TournamentCodingScreen/Tourn
 import TournamentInfo from './screens/Forms/TournamentInfo/TournamentInfo'
 import Tournaments from './screens/Forms/Tournaments/Tournaments'
 import LeaderboardScreen from './screens/Forms/LeaderboardScreen/LeaderboardScreen'
+import Form404 from './screens/Forms/Form404/Form404'
 
 // * Constants
 import ROUTES from './constants/routes'
@@ -50,7 +51,7 @@ export const useRoutes = () => {
       <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmation />} />
       <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswords />} />
 
-      <Route path="*" element={<Navigate to={ROUTES.login} replace />} />
+      <Route path="*" element={< Form404 />} />
     </Routes>
   )
 }
