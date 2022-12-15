@@ -38,29 +38,16 @@ export const RightContainer = styled.div`
     width: 75%;
   }
 `
-export const H1 = styled.h1`
-  font-weight: 600;
-  font-size: 7rem;
+
+export const Text = styled.h1`
+  font-weight: ${(props) => props.fontWeight || '500'};
+  font-size: ${(props) => props.fontSize || '2rem'};
   color: white;
   padding: 0 2rem;
   margin: 0;
+  text-align: ${(props) => props.textAlign || 'center'};
 `
-export const Text = styled.p`
-  font-weight: 500;
-  font-size: 2rem;
-  color: white;
-  padding: 0 2rem;
-  margin: 0;
-  text-align: center;
-`
-export const TextSmall = styled.p`
-  font-weight: 400;
-  font-size: 1rem;
-  color: white;
-  padding: 0 2rem;
-  margin: 0;
-  text-align: center;
-`
+
 export const Button = styled.button`
   width: 14rem;
   height: 3.5rem;
