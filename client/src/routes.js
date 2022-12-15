@@ -31,8 +31,8 @@ export const useRoutes = () => {
       <Route path={ROUTES.temporary} element={<UsersList />} />
       <Route path={ROUTES.finishRegistration} element={<FinishRegistration />} />
       <Route path="/auth/verification" element={<LoaderScreen />} />
-      <Route path="/team" element={<NoTeamScreen />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path={ROUTES.team} element={<NoTeamScreen />} />
+      <Route path={ROUTES.profile} element={<Profile />} />
       <Route path="/myteam" element={<TeamScreen />} />
       <Route path="/create-team" element={<CreateTeam />} />
       <Route path="/tournament" element={<Tournaments />} />
