@@ -42,6 +42,7 @@ import {
 import {useCheckAuth} from "../../api/hooks/useCheckAuth";
 import Loader from "../Loader/Loader";
 import ROUTES from "../../constants/routes";
+import {Button} from "@mui/material";
 
 export const ProfileForm = () => {
   const [team, setTeam] = useState('')
@@ -69,7 +70,7 @@ export const ProfileForm = () => {
   }
 
   if(!user ) {
-    return <button onClick={() => navigate(ROUTES.login)}>Login</button>
+    return <Button onClick={() => navigate(ROUTES.login)} color="success">Login</Button>
   }
   return (
       <Cards>

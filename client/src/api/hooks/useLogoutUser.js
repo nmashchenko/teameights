@@ -1,11 +1,10 @@
-import React, {useId} from 'react';
+import React from 'react';
 import {userAuth} from "../../store/reducers/UserAuth";
 import api from "../../http";
 import {useMutation, useQueryClient} from "react-query";
 import {useDispatch} from "react-redux";
 
 export const useLogoutUser = () => {
-    const id = useId();
     const dispatch = useDispatch()
     const queryClient = useQueryClient()
 
@@ -13,8 +12,8 @@ export const useLogoutUser = () => {
           return  await api.post('/logout')
     }
 
-    const mutation =  useMutation(logoutUser, {
-        mutationKey: ["logoutUser", id],
+    return useMutation(logoutUser, {
+        mutationKey: "logoutUser",
         onSuccess: (data) => {
             // remove accessToken && set isAuth to false
             localStorage.removeItem('token')
@@ -33,7 +32,5 @@ export const useLogoutUser = () => {
             dispatch(userAuth.actions.authUserError(error.response?.data?.message))
         }
     })
-
-    return mutation
 };
 

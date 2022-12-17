@@ -120,4 +120,7 @@ export const registrationAuth = createSlice({
   },
 })
 
+export const { setUserInitialData, setUserPersonalInfo, setUserConcentration, setUserExperience, setUniversityInfo, setUserLinks, setActiveState, setStep, setStageOneCompleted, setStageTwoCompleted, setStageThreeCompleted, setStageFourCompleted, setStageFiveCompleted, finishRegistration, finishRegistrationSuccess, finishRegistrationError } = registrationAuth.actions;
+
+
 export default registrationAuth.reducer

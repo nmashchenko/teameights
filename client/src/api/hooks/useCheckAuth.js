@@ -11,8 +11,11 @@ export const useCheckAuth = () => {
     };
 
     return useQuery("checkAuth", checkAuth, {
-        onSuccess: () => {
-            dispatch(userAuth.actions.authUserSuccess())
+        onSuccess: (data) => {
+            const user = data?.data
+            if(user && user.isRegistered){
+                dispatch(userAuth.actions.authUserSuccess())
+            }
         },
         onError: (error) => {
             dispatch(userAuth.actions.authUserError(error.response?.data?.message))

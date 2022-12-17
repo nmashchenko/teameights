@@ -3,21 +3,23 @@ import jwt_decode from 'jwt-decode'
 import { GoogleLogin } from '@react-oauth/google'
 
 // * Redux
-import { useDispatch } from 'react-redux'
 
 // * Api
-import authApi from '../../../api/endpoints/auth'
+import {useLoginUser} from "../../../api/hooks/useLoginUser";
+import Loader from "../../Loader/Loader";
 
 const SocialLoginRegistration = () => {
-  const dispatch = useDispatch()
-
+  const {mutate: socialLoginUser, isLoading: isLoggingInUser} = useLoginUser('social-login-registration')
   const createOrGetUser = async (response) => {
     const decoded = jwt_decode(response.credential)
     const { picture, email, sub } = decoded
     const username = email.split('@')[0]
-    dispatch(authApi.socialLoginRegistration(username, email, picture, sub))
+    socialLoginUser({username, email, picture, sub})
   }
 
+  if(isLoggingInUser) {
+    return <Loader />
+  }
   return (
     <GoogleLogin
       onSuccess={(response) => createOrGetUser(response)}

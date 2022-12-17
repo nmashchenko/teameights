@@ -72,7 +72,7 @@ function UsersList() {
    * Get global state from redux
    */
   const { isAuth } = useSelector((state) => state.userReducer)
-  const {data: userData, isLoading: isUserDataLoading} = useCheckAuth()
+  const {data: userData, isLoading: isLoadingUseData} = useCheckAuth()
   const user = userData?.data
 
   const showMobileProfile = () => setMobileProfile(!mobileProfile)
@@ -179,17 +179,9 @@ function UsersList() {
               ) : (
                 <Cards
                   handleOpen={handleOpen}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                  users={users}
-                  setUsers={setUsers}
-                  pageNumber={pageNumber}
-                  setPageNumber={setPageNumber}
-                  notFound={notFound}
+                  isLoadingUseData={isLoadingUseData}
                 />
               )}
-              {/* Load skeleton before showing real cards to improve performance of the app */}
-              <>{(isLoading || isUserDataLoading) && <CardSkeleton cards={9} />}</>
             </CardsContainer>
           </GridContainer>
           <SliderToTop />

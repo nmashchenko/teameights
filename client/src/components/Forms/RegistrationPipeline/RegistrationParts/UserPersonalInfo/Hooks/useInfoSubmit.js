@@ -7,7 +7,12 @@ import yupValidation from '../../../YupValidations/YupValidations'
 
 // * Redux
 import { useDispatch } from 'react-redux'
-import { registrationAuth } from '../../../../../../store/reducers/RegistrationAuth'
+import {
+  registrationAuth,
+  setActiveState, setStageOneCompleted,
+  setStep,
+  setUserPersonalInfo
+} from '../../../../../../store/reducers/RegistrationAuth'
 import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
 
 /**
@@ -33,8 +38,7 @@ import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
 const useInfoSubmit = (userData, username, name, age, country, description, setOpen, setErrors) => {
   const dispatch = useDispatch()
   // const { enqueueSnackbar } = useSnackbar()
-  const { setActiveState, setStep, setUserPersonalInfo, setStageOneCompleted } =
-    registrationAuth.actions
+
   // * Redux
 
   const handleSubmit = (event) => {
@@ -64,8 +68,10 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
       })
       .catch(function (err) {
         setOpen(true)
+        console.log(err)
         setErrors([])
         err.inner.forEach((e) => {
+          console.log(e)
           setErrors((prevErrors) => [...prevErrors, e.path])
           // enqueueSnackbar(e.message, {
           //   preventDuplicate: true,

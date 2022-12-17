@@ -20,23 +20,26 @@ import {
 
 import ROUTES from '../../../../../constants/routes'
 import registerAuthApi from '../../../../../api/endpoints/registration-auth'
+import {useCheckAuth} from "../../../../../api/hooks/useCheckAuth";
+import Loader from "../../../../Loader/Loader";
 
 function InitialPart() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const { setActiveState, setStep } = registrationAuth.actions
-  const { userData, curRegistration } = useSelector((state) => state.registrationReducer)
-
+  const {curRegistration } = useSelector((state) => state.registrationReducer)
+  const {data: userData, isFetching} = useCheckAuth()
+  const user = userData?.data
   // check if local storage has token that was generated with registration
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      // get email of user
-      dispatch(registerAuthApi.checkRegistration())
-    } else {
-      navigate(ROUTES.login, { replace: true })
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')) {
+  //     // get email of user
+  //     dispatch(registerAuthApi.checkRegistration())
+  //   } else {
+  //     navigate(ROUTES.login, { replace: true })
+  //   }
+  // }, [])
 
   // render component one more time after getting data from global state to make sure
   useEffect(() => {
@@ -46,6 +49,9 @@ function InitialPart() {
     }
   }, [curRegistration, navigate])
 
+  if(isFetching) {
+    return  <Loader />
+  }
   return (
     <>
       <NavLogo />
@@ -53,7 +59,7 @@ function InitialPart() {
         <CardContainer>
           <div>
             <TopText>
-              Welcome to the family, {userData.userUsername}
+              Welcome to the family, {user.userUsername}
               ❤️
             </TopText>
           </div>

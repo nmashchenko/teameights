@@ -33,6 +33,9 @@ import {
   Button,
   ButtonDisabled,
 } from './UserPersonalInfo.styles'
+import yupValidation from "../../YupValidations/YupValidations";
+import {useValidateUsername} from "../../../../../api/hooks/useValidateUsername";
+import {useCheckAuth} from "../../../../../api/hooks/useCheckAuth";
 
 function NamePart() {
   // * Redux
@@ -46,7 +49,9 @@ function NamePart() {
   const [country, setCountry] = useState(userData.userCountry)
   const [description, setDescription] = useState(userData.userDescription)
   const [errors, setErrors] = useState([])
-
+  const {data } = useCheckAuth()
+  const user = data?.data
+  const {refetch}  = useValidateUsername({username, email: user.email})
   // * useEffect
   useEffect(() => {
     setUsername(userData.userUsername)
@@ -83,6 +88,31 @@ function NamePart() {
     setOpen,
     setErrors,
   )
+
+  const handleSubmitUserPersonalInfo = (e) => {
+    e.preventDefault()
+    try{
+      yupValidation.userPersonalInfoSchema
+          .validate(
+              {
+                name,
+                username,
+                age,
+                country,
+                description,
+              },
+              { abortEarly: false },
+          )
+    }catch (err) {
+      console.log(err)
+      err.inner.forEach((e) => {
+        console.log(e)
+        setErrors((prevErrors) => [...prevErrors, e.path])
+
+      })
+    }
+    refetch()
+  }
 
   // * Other hooks to handle age, name, username, country, description
   const handleAge = personalInfoHooks.useHandleAge(setErrors, setAge)
