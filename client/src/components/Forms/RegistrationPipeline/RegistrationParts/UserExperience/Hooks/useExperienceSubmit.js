@@ -2,11 +2,11 @@
 import { useSnackbar } from 'notistack'
 
 // * Yup validation
-import yupValidation from '../../../YupValidations/YupValidations'
 
 // * Redux
 import { useDispatch } from 'react-redux'
 import { registrationAuth } from '../../../../../../store/reducers/RegistrationAuth'
+import yupValidation from "../../../schemas";
 
 /**
  *

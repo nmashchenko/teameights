@@ -3,7 +3,6 @@ import { isEqual } from 'lodash'
 // import { useSnackbar } from 'notistack'
 
 // * Yup validation
-import yupValidation from '../../../YupValidations/YupValidations'
 
 // * Redux
 import { useDispatch } from 'react-redux'
@@ -14,6 +13,7 @@ import {
   setUserPersonalInfo
 } from '../../../../../../store/reducers/RegistrationAuth'
 import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
+import yupValidation from "../../../schemas";
 
 /**
  *

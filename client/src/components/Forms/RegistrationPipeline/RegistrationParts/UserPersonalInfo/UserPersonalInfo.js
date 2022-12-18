@@ -33,9 +33,15 @@ import {
   Button,
   ButtonDisabled,
 } from './UserPersonalInfo.styles'
-import yupValidation from "../../YupValidations/YupValidations";
 import {useValidateUsername} from "../../../../../api/hooks/useValidateUsername";
 import {useCheckAuth} from "../../../../../api/hooks/useCheckAuth";
+import yupValidation from "../../schemas";
+import {Formik, Form} from "formik";
+import CustomInput from "../../../../../shared/components/CustomInput/CustomInput";
+import CustomSelect from "../../../../../shared/components/CustomSelect/CustomSelect";
+import countryList from "react-select-country-list";
+import CustomTextArea from "../../../../../shared/components/CustomTextArea/CustomTextArea";
+import {Item} from "../../../../../shared/components/CustomSelect/CustomSelect.styles";
 
 function NamePart() {
   // * Redux
@@ -44,14 +50,14 @@ function NamePart() {
   // * useStates
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(userData.userRealName)
-  const [username, setUsername] = useState(userData.userUsername)
+  const [username, setUsername] = useState("")
   const [age, setAge] = useState(userData.userAge)
   const [country, setCountry] = useState(userData.userCountry)
-  const [description, setDescription] = useState(userData.userDescription)
+  const [description, setDescription] = useState("")
   const [errors, setErrors] = useState([])
   const {data } = useCheckAuth()
   const user = data?.data
-  const {refetch}  = useValidateUsername({username, email: user.email})
+  const {refetch}  = useValidateUsername(username, user?.email)
   // * useEffect
   useEffect(() => {
     setUsername(userData.userUsername)
@@ -69,13 +75,13 @@ function NamePart() {
     setOpen(false)
   }
 
-  const handleReset = () => {
-    userData.userUsername !== '' ? setName('') : setUsername('')
-    setAge('')
-    setCountry('')
-    setDescription('')
-    setErrors([])
-  }
+  // const handleReset = () => {
+  //   userData.userUsername !== '' ? setName('') : setUsername('')
+  //   setAge('')
+  //   setCountry('')
+  //   setDescription('')
+  //   setErrors([])
+  // }
 
   // * useInfoSubmit hook
   const handleSubmit = useInfoSubmit(
@@ -89,29 +95,12 @@ function NamePart() {
     setErrors,
   )
 
-  const handleSubmitUserPersonalInfo = (e) => {
-    e.preventDefault()
-    try{
-      yupValidation.userPersonalInfoSchema
-          .validate(
-              {
-                name,
-                username,
-                age,
-                country,
-                description,
-              },
-              { abortEarly: false },
-          )
-    }catch (err) {
-      console.log(err)
-      err.inner.forEach((e) => {
-        console.log(e)
-        setErrors((prevErrors) => [...prevErrors, e.path])
+  const handleSubmitUserPersonalInfo = async (values, actions) => {
 
-      })
-    }
-    refetch()
+    await setUsername(values.username)
+    await refetch()
+
+    await actions.resetForm();
   }
 
   // * Other hooks to handle age, name, username, country, description
@@ -122,77 +111,96 @@ function NamePart() {
   const handleDescription = personalInfoHooks.useHandleDescription(setErrors, setDescription)
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        {open && errors.length > 0 && (
-          <SnackBar
-            handleClose={handleClose}
-            open={open}
-            error={
-              includes(errors, 'Username is already taken!')
-                ? alternativeErrorMessage
-                : errorMessage
-            }
-            vertical="bot"
-          />
-        )}
-        <Container>
-          <Stepper step={step} />
-          <RegistrationContainer>
-            <NavLogo sectionName={'User Profile'} />
-            <ContentContainer>
-              <SectionContainer>
-                <GroupContainer>
-                  <NameUsernameArea
-                    userData={userData}
-                    errors={errors}
-                    handleFunction={handleName}
-                    nameUsername="Full Name"
-                    name={name}
-                  />
-                </GroupContainer>
-                <GroupContainer>
-                  <CountryArea errors={errors} handleCountry={handleCountry} country={country} />
-                </GroupContainer>
-              </SectionContainer>
+      <Formik
+          initialValues={{ fullName: "",  username: "", country: "", age: "", description: "" }}
+          validationSchema={yupValidation.userPersonalInfoSchema}
+          onSubmit={handleSubmitUserPersonalInfo}
+          >
+        {({ errors, handleReset, isSubmitting }) => {
 
-              <SectionContainer margin="80px 0 0 40px">
-                <GroupContainer>
-                  <NameUsernameArea
-                    userData={userData}
-                    errors={errors}
-                    handleFunction={handleUsername}
-                    nameUsername="Username"
-                    name={username}
-                  />
-                </GroupContainer>
-                <GroupContainer>
-                  <AgeArea errors={errors} handleAge={handleAge} age={age} />
-                </GroupContainer>
-              </SectionContainer>
+          return (
+            <Form>
+              {open && errors.length > 0 && (
+                <SnackBar
+                  handleClose={handleClose}
+                  open={open}
+                  error={
+                    includes(errors, 'Username is already taken!')
+                      ? alternativeErrorMessage
+                      : errorMessage
+                  }
+                  vertical="bot"
+                />
+              )}
+              <Container>
+                <Stepper step={step} />
+                <RegistrationContainer>
+                  <NavLogo sectionName={'User Profile'} />
+                  <ContentContainer>
+                    <SectionContainer>
+                      <GroupContainer>
+                        <CustomInput
+                          label="Full Name"
+                          name="fullName"
+                          type="text"
+                        />
+                      </GroupContainer>
+                      <GroupContainer>
+                        <CustomSelect
+                            label="Сountry"
+                            name="country"
+                        >
+                          {countryList().getData().map(({ label }) => (
+                              <Item key={label} value={label}>
+                                {label}
+                              </Item>
+                          ))}
+                        </CustomSelect>
+                      </GroupContainer>
+                    </SectionContainer>
 
-              <AboutMeArea
-                errors={errors}
-                handleDescription={handleDescription}
-                description={description}
-              />
-              <ButtonContainer>
-                <ResetButton type="button" onClick={handleReset}>
-                  Reset all
-                </ResetButton>
-                {errors.length > 0 ? (
-                  <ButtonDisabled>
-                    <WarningIcon />
-                  </ButtonDisabled>
-                ) : (
-                  <Button type="submit">Next</Button>
-                )}
-              </ButtonContainer>
-            </ContentContainer>
-          </RegistrationContainer>
-        </Container>
-      </form>
-    </>
+                    <SectionContainer margin="80px 0 0 40px">
+                      <GroupContainer>
+                        <CustomInput
+                          label="Username"
+                          name="username"
+                          type="text"
+                        />
+                      </GroupContainer>
+                      <GroupContainer>
+                        <CustomInput
+                          label="Age"
+                          name="age"
+                          type="text"
+                        />
+                      </GroupContainer>
+                    </SectionContainer>
+
+                    <CustomTextArea
+                        label="About me"
+                        name="description"
+                        placeholder="Start typing here..."
+                        maxLength={200}
+                    />
+                    <ButtonContainer>
+                      <ResetButton type="button" onClick={handleReset}>
+                        Reset all
+                      </ResetButton>
+                      {Object.keys(errors).length ? (
+                        <ButtonDisabled>
+                          <WarningIcon />
+                        </ButtonDisabled>
+                      ) : (
+                        <Button disabled={isSubmitting} type="submit">Next</Button>
+                      )}
+                    </ButtonContainer>
+                  </ContentContainer>
+                </RegistrationContainer>
+              </Container>
+            </Form>
+          )}
+        }
+      </Formik>
   )
 }
 

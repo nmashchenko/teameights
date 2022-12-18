@@ -4,35 +4,20 @@ import { includes } from 'lodash'
 
 // * Styles
 import { Input, Text } from '../UserPersonalInfo.styles'
+import {useField} from "formik";
+import Box from "@mui/material/Box";
 
-const NameUsernameArea = ({ userData, errors, handleFunction, nameUsername, name }) => {
-  if (nameUsername === 'Username') {
+const NameUsernameArea = ({ label, ...props }) => {
+    const [field, meta] = useField(props);
+    const isError = meta.touched && meta.error
     return (
-      <div>
+      <Box>
         <Text fontSize="18px" fontWeight="400">
-          {nameUsername}
+          {label}
         </Text>
-        {includes(errors, 'username') ? (
-          <Input onChange={handleFunction} borderColor="#cf625e" value={name} />
-        ) : (
-          <Input onChange={handleFunction} animation="none" value={name} />
-        )}
-      </div>
+        <Input {...field} {...props}  borderColor={isError && "#cf625e"} animate={!isError && "none"}/>
+      </Box>
     )
-  } else {
-    return (
-      <div>
-        <Text fontSize="18px" fontWeight="400">
-          {nameUsername}
-        </Text>
-        {includes(errors, 'name') ? (
-          <Input onChange={handleFunction} borderColor="#cf625e" value={name} />
-        ) : (
-          <Input onChange={handleFunction} animation="none" value={name} />
-        )}
-      </div>
-    )
-  }
 }
 
 export default NameUsernameArea

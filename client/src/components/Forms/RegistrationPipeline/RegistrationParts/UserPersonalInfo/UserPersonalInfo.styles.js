@@ -104,7 +104,7 @@ export const ButtonContainer = styled.div`
 export const ResetButton = styled.button`
   border: none;
   background: inherit;
-  color: #4b4b4b;
+  color: ${WHITE.main};
   outline: none;
   font-weight: 400;
   font-size: 18px;

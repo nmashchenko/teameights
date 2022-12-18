@@ -10,10 +10,10 @@ import {
     setStep
 } from "../../store/reducers/RegistrationAuth";
 
-export const useValidateUsername = () => {
+export const useValidateUsername = (username, email) => {
     const dispatch = useDispatch()
-    const validateUsername = async (validationDetails) => {
-           return await api.get('/check-username', { params: validationDetails })
+    const validateUsername = async () => {
+           return await api.get('/check-username', { params: { username, email } })
     }
 
     return useQuery("validateUsername", validateUsername, {
