@@ -6,10 +6,10 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useMutation} from "react-query";
 
-export const useRegister = (registrationDetails) => {
+export const useRegister = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const registerUser = async () => {
+    const registerUser = async (registrationDetails) => {
             return await api.post('/registration', registrationDetails)
     }
 
