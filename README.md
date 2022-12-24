@@ -25,8 +25,6 @@
 
 ✨ MongoDB api for database operations
 
-✨ StackBlitz API for creating coding env in application
-
 # Instructions on how to run:
 
 👋🏻 I recorded a video that explains all functionality and steps:
