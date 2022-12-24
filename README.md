@@ -14,7 +14,7 @@
 **Technologies we are going to use:** <br>
 
 ✨ *Front:* ReactJS, Redux Toolkit, styled-components, axios, material ui <br>
-✨ *Backend:* NodeJS, express, joi(validation), etc <br>
+✨ *Backend:* NodeJS, express, joi(validation), etc -> Currently transfering to NestJS <br>
 ✨ *Database:* MongoDB <br>
 ✨ *Codeversions:* Github <br>
 ✨ *Design:* Figma <br>
@@ -52,8 +52,6 @@ emergencyacc2
 ```
 
 
-👑 We also decided to move from StackBlitz as it is almost impossible to implement their API for our needs and we used Judge0 + monaco-editor instead
-
 # MVP Review
 
 **🥳 By November 18 we did:**
@@ -76,22 +74,13 @@ emergencyacc2
 
 📌 Application: https://willowy-moonbeam-13cda4.netlify.app/
 
-🔎 NB to TA/Prof, we currently investigating the issue with redirects because it seems like netlify doesn't recognize react router even after including netlify.toml, etc you can't use the application normally since redirects are not possible. However, we created temporary account that you can use to log in and check the progress:
-
-📌 Login: zxc123@zxc.com
-
-📌 Password: zxc123zxc123
-
+📌 Figma: https://www.figma.com/file/6HjJzha9c7h2XixxlAIbSM/TEAM8S?t=MrVzUoWAaf4UORvw-0
 
 # Idea
 
 🎧 Overall idea - platform for student developers (probably skilled also) to find each other and work together on pet projects/real projects from project pool of customers (will be available only for skilled teams), tournaments between them will determine skill level, etc. Also possible mentorship, premium projects, AI code review, etc. basic functionality is described below.
 
-# Figma design
-
-Here is our design on figma:
-
-https://www.figma.com/file/QaEUKYrZnVUEOzMBBSd7Q3/team8s?node-id=0%3A1&t=k5t52OmxRs5fyqvO-0
+# Why teameights?
 
 If you want to know why teameights.com or team8s.com – I don’t know, I just think this sounds cool =)
 
