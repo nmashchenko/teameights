@@ -1,6 +1,6 @@
 // * API
 import api from '../../http'
-import filteredQueryMaker from '../../helpers/filteredQueryMaker'
+import filteredQueryMaker from '../../utils/filteredQueryMaker'
 
 import qs from 'qs'
 

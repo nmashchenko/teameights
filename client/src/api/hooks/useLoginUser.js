@@ -5,6 +5,7 @@ import {userAuth} from "../../store/reducers/UserAuth";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import ROUTES from "../../constants/routes";
+import {setIsFinishRegistrationStarted} from "../../store/reducers/RegistrationAuth";
 
 export const useLoginUser = (type) => {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export const useLoginUser = (type) => {
         onMutate: () => {
             // clear previous error before making new request
             dispatch(userAuth.actions.authClearError())
+            dispatch(setIsFinishRegistrationStarted(false))
         },
         onSuccess: (data) => {
             const user = data?.data.user

@@ -7,7 +7,6 @@ import {shake} from "../../styles/KeyFrames.styles";
 export const SelectCustom = styled(Select)`
   animation-name: ${(props) => !props.$isError ? 'none' : shake};
   animation-duration: 0.3s;
-  
   background: none;
   height:  45px;
   border: none;
@@ -65,7 +64,6 @@ export const Item = styled(MenuItem)`
     font-weight: 600;
   }
 `
-
 
 export const MenuProps = {
     PaperProps: {

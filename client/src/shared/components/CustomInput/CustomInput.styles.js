@@ -7,10 +7,9 @@ export const Input = styled.input`
   border-width: 0 0 1.5px;
   border-color: ${(props) => props.borderColor || '#4b4b4b'};
   background: inherit;
-  width: ${(props) => props.width || '240px'};
+  // width: ${(props) => props.width || '240px'};
   height: ${(props) => props.height || '40px'};
   font-size: 18px;
-  margin: ${(props) => props.margin || '16px 0 0 0'};
   color: ${WHITE.main};
   animation-name: ${(props) => props.animation || shake};
   animation-duration: 0.3s;
@@ -20,3 +19,20 @@ export const Input = styled.input`
   }
 `
 
+export const GroupContainer = styled.div`
+  display: flex;
+  margin-bottom: 3rem;
+`
+export const SectionContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: start;
+`
+
+export const InputWithIConWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: baseline;
+  align-items: center;
+`

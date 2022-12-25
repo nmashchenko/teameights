@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import finishRegistrationValidation from "../../schemas";
 
 const initialState = {
   userData: {
@@ -31,7 +32,11 @@ const initialState = {
   },
   active: 'InitialPart',
   step: 0,
+  isLastStep: false,
+  isFinishRegistrationStarted: false,
+  isOptionalStep: false,
   isLoading: false,
+  isFinishedAvatarLoading: false,
   error: '',
 }
 
@@ -74,12 +79,24 @@ export const registrationAuth = createSlice({
       state.userData.userLinks = action.payload
     },
 
+    setIsFinishRegistrationStarted(state, action) {
+      state.isFinishRegistrationStarted = action.payload
+    },
+
     setActiveState(state, action) {
       state.active = action.payload
     },
 
     setStep(state, action) {
       state.step = action.payload
+    },
+
+    setIsLastStep(state, action) {
+      state.isLastStep = action.payload
+    },
+
+    setIsOptionalStep(state, action) {
+      state.isOptionalStep = action.payload
     },
 
     setStageOneCompleted(state, action) {
@@ -105,7 +122,9 @@ export const registrationAuth = createSlice({
     finishRegistration(state) {
       state.isLoading = true
     },
-
+    setIsFinishedAvatarLoading(state, action) {
+      state.isFinishedAvatarLoading = action.payload
+    },
     finishRegistrationSuccess(state, action) {
       state.isLoading = false
       state.error = ''
@@ -120,7 +139,7 @@ export const registrationAuth = createSlice({
   },
 })
 
-export const { setUserInitialData, setUserPersonalInfo, setUserConcentration, setUserExperience, setUniversityInfo, setUserLinks, setActiveState, setStep, setStageOneCompleted, setStageTwoCompleted, setStageThreeCompleted, setStageFourCompleted, setStageFiveCompleted, finishRegistration, finishRegistrationSuccess, finishRegistrationError } = registrationAuth.actions;
+export const { setUserInitialData, setIsLastStep, setIsOptionalStep, setIsFinishedAvatarLoading,  setIsFinishRegistrationStarted,  setUserPersonalInfo, setUserConcentration, setUserExperience, setUniversityInfo, setUserLinks, setActiveState, setStep, setStageOneCompleted, setStageTwoCompleted, setStageThreeCompleted, setStageFourCompleted, setStageFiveCompleted, finishRegistration, finishRegistrationSuccess, finishRegistrationError } = registrationAuth.actions;
 
 
 export default registrationAuth.reducer

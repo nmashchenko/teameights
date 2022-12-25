@@ -3,8 +3,7 @@ import {WHITE} from "../../../constants/colors";
 import {shake} from "../../styles/KeyFrames.styles";
 
 export const TextAreaWrapper = styled.div`
-  margin: 80px 0 0 40px;
-  width: calc(100% - 300px);
+  flex-basis: 100%;
 `
 
 export const TextArea = styled.textarea`
