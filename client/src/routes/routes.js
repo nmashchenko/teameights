@@ -28,6 +28,7 @@ import NotFound from "../screens/UsersList/components/NotFound/NotFound";
 import NavBarItemPageLayout from "../layouts/NavBarItemPageLayout/NavBarItemPageLayout";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 import ProtectFinishRegistration from "./protected/ProtectFinishRegistration";
+import Form404 from "../screens/Forms/Form404/Form404";
 
 export const useRoutes = () => {
   return (
@@ -60,7 +61,7 @@ export const useRoutes = () => {
       <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmation />} />
       <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswords />} />
 
-      <Route path="*" element={<NotFound replace />} />
+      <Route path="*" element={< Form404 />} />
     </Routes>
   )
 }
