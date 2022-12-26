@@ -7,14 +7,13 @@ import CustomTextArea from "../../../../../../shared/components/CustomTextArea/C
 import {GroupContainer, SectionContainer} from "../../../../../../shared/components/CustomInput/CustomInput.styles";
 import {ContentWrapper} from "./UserPersonalInfoForm.styles";
 import {
-     ButtonsContainer,
     ResetButton
 } from "../../MultiStepRegistration/MultiStepRegistration.styles";
-import WarningIcon from "@mui/icons-material/Warning";
 import {useFormikContext} from "formik";
 import ButtonWithDisabled from "../../../../../../shared/components/ButtonWithDisabled/ButtonWithDisabled";
 import {useDispatch} from "react-redux";
 import {setIsFinishedAvatarLoading} from "../../../../../../store/reducers/RegistrationAuth";
+import {ButtonsContainer} from "../../../../../../shared/styles/Button.styles";
 
 const UserPersonalInfoForm = () => {
 

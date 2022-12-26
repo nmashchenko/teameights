@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
-import {ButtonsContainer, MiddleContainer} from "../../MultiStepRegistration/MultiStepRegistration.styles";
+import {MiddleContainer} from "../../MultiStepRegistration/MultiStepRegistration.styles";
 import CustomInput from "../../../../../../shared/components/CustomInput/CustomInput";
 import {InputWithIConWrapper} from "../../../../../../shared/components/CustomInput/CustomInput.styles";
 import LinkedInIcon from "../../../../../../assets/Links/LinkedInIcon";
 import TelegramIcon from "../../../../../../assets/Links/TelegramIcon";
 import GitHubIcon from "../../../../../../assets/Links/GitHubIcon";
-import ButtonWithSkip from "../../../../../../shared/components/ButtonWithSkip/ButtonWithSkip";
+import ButtonWithSkip from "../../MultiStepRegistration/components/ButtonWithSkip/ButtonWithSkip";
 import {useFormikContext} from "formik";
+import {ButtonsContainer} from "../../../../../../shared/styles/Button.styles";
 
 const UserLinksForm = () => {
     const {errors, setErrors} = useFormikContext()

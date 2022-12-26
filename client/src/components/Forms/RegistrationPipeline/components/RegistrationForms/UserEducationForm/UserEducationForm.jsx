@@ -1,8 +1,9 @@
 import React from 'react';
 import CustomInput from "../../../../../../shared/components/CustomInput/CustomInput";
 import {useFormikContext} from "formik";
-import {ButtonsContainer, MiddleContainer} from "../../MultiStepRegistration/MultiStepRegistration.styles";
-import ButtonWithSkip from "../../../../../../shared/components/ButtonWithSkip/ButtonWithSkip";
+import {MiddleContainer} from "../../MultiStepRegistration/MultiStepRegistration.styles";
+import ButtonWithSkip from "../../MultiStepRegistration/components/ButtonWithSkip/ButtonWithSkip";
+import {ButtonsContainer} from "../../../../../../shared/styles/Button.styles";
 
 const UserEducationForm = () => {
     const {errors} = useFormikContext()

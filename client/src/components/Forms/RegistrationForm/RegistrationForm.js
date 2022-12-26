@@ -1,21 +1,13 @@
 // * Modules
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import { useNavigate } from 'react-router-dom'
-import isEqual from 'lodash/isEqual'
 
 // * Api
 
 // * Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { userAuth } from '../../../store/reducers/UserAuth'
-
-// * Constants
-import ROUTES from '../../../constants/routes'
-
-// * Assets
-import SnackBar from '../../SnackBar/SnackBar'
 import Backdrop from '../../Backdrop/Backdrop'
 
 // * Helpers
@@ -59,18 +51,6 @@ function RegistrationForm() {
   const handleRegistration = () => {
     registerUser({username, email, password, repeatPassword: confirmPassword})
   }
-
-
-  // useEffect(() => {
-  //   if (isAuth && !user.isActivated) {
-  //     navigate(ROUTES.confirmEmail, { replace: true })
-  //   } else if (isAuth && !user.isRegistered) {
-  //     navigate(ROUTES.finishRegistration, { replace: true })
-  //   } else if (isAuth && user.isRegistered && user.isActivated) {
-  //     navigate("/", { replace: true })
-  //   }
-  // }, [isAuth, navigate])
-
 
 
   if(isUserRegistrationLoading) {

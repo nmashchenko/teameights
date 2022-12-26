@@ -15,7 +15,8 @@ import {setIsFinishedAvatarLoading} from "../../../../../../../store/reducers/Re
 
 const ConsoleSimulator = ({
   startedUploading,
-  returnedToPreviousSteps
+  returnedToPreviousSteps,
+                            setStartedUploading
 }) => {
 
   const {values} = useFormikContext()
@@ -55,7 +56,10 @@ const ConsoleSimulator = ({
                   <Text fontSize="10px" color="#5D9D0B" margin="0 0 0 10px">
                   <Typewriter
                   text={[...lines.slice(4, 6)]}
-                  onFinished={() => dispatch(setIsFinishedAvatarLoading(true))}
+                  onFinished={() => {
+                    setStartedUploading(false)
+                    dispatch(setIsFinishedAvatarLoading(true))
+                  }}
                   cursor={false}
                   speed={10}
                   delay={100}

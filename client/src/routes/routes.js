@@ -1,6 +1,6 @@
 // * Modules
 import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 // * Screens
 import Login from '../screens/Forms/Login/Login'
@@ -24,7 +24,6 @@ import LeaderboardScreen from '../screens/Forms/LeaderboardScreen/LeaderboardScr
 
 // * Constants
 import ROUTES from '../constants/routes'
-import NotFound from "../screens/UsersList/components/NotFound/NotFound";
 import NavBarItemPageLayout from "../layouts/NavBarItemPageLayout/NavBarItemPageLayout";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 import ProtectFinishRegistration from "./protected/ProtectFinishRegistration";

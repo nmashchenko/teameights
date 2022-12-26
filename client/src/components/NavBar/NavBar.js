@@ -35,7 +35,7 @@ import {useLogoutUser} from "../../api/hooks/useLogoutUser";
 import Loader from "../Loader/Loader";
 import {useSelector} from "react-redux";
 import Routes from "../../constants/routes";
-import {Button} from "@mui/material";
+import {Button} from "../../shared/styles/Button.styles";
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
@@ -96,7 +96,7 @@ const NavBar = () => {
               })}
             </NavItems>
             <BottomContent>
-                {isAuth ? <SingOutButton onClick={handleUseLogout}><Exit /> Sign Out</SingOutButton>: <Button color="success" onClick={() => navigate(Routes.login)} >Login</Button>}
+                {isAuth ? <SingOutButton onClick={handleUseLogout}><Exit /> Sign Out</SingOutButton>: <Button onClick={() => navigate(Routes.login)} >Login</Button>}
               <UserText
                 fontWeight="400"
                 fontSize="12px"

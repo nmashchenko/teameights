@@ -41,8 +41,8 @@ function LoginForm() {
   const { error } = useSelector((state) => state.userReducer)
 
   const [showPassword, setShowPassword] = useState(false)
-  const [password, setPassword] = useState('12345678')
-  const [inputEmail, setInputEmail] = useState('malarmihail@gmail.com')
+  const [password, setPassword] = useState('')
+  const [inputEmail, setInputEmail] = useState('')
 
 
   const {mutate: loginUser, isLoading: isLoggingUserIn} = useLoginUser('login')

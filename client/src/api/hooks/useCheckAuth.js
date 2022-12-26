@@ -21,6 +21,7 @@ export const useCheckAuth = () => {
             dispatch(userAuth.actions.authUserError(error.response?.data?.message))
         },
         refetchOnMount: false,
+        refetchOnWindowFocus: false,
         enabled: !!localStorage.getItem('token')
     })
 };

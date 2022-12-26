@@ -9,12 +9,12 @@ import {useLoginUser} from "../../../api/hooks/useLoginUser";
 import Loader from "../../Loader/Loader";
 
 const SocialLoginRegistration = () => {
-  const {mutate: socialLoginUser, isLoading: isLoggingInUser} = useLoginUser('social-login-registration')
+  const {mutate: socialLoginRegisterUser, isLoading: isLoggingInUser} = useLoginUser('social-login-registration')
   const createOrGetUser = async (response) => {
     const decoded = jwt_decode(response.credential)
     const { picture, email, sub } = decoded
     const username = email.split('@')[0]
-    socialLoginUser({username, email, picture, sub})
+    socialLoginRegisterUser({username, email, picture, sub})
   }
 
   if(isLoggingInUser) {

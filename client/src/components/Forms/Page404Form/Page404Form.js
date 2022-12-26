@@ -27,7 +27,7 @@ const Page404Form = () => {
           <Text fontWeight="400" fontSize="1rem">
             Couldn't find the requested page.
           </Text>
-          <Button onClick={() => navigate('/platform')}>Return Home</Button>
+          <Button onClick={() => navigate('/', {replace: true})}>Return Home</Button>
         </LeftContainer>
         <RightContainer>
           <Page404 width="100%" height="auto" />

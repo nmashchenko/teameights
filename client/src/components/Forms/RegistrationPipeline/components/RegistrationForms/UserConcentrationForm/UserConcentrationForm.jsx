@@ -4,13 +4,11 @@ import SelectValue from "../../../../../../shared/components/CustomSelect/compon
 import programmingLanguageOptions from "../../../../../../constants/programmingLanguages";
 import {Item} from "../../../../../../shared/components/CustomSelect/CustomSelect.styles";
 import {ContentContainer} from "./UserConcentrationForm.styles";
-import {
-    ButtonContainer,
-} from "../../MultiStepRegistration/MultiStepRegistration.styles";
 import {useFormikContext} from "formik";
 import frameworkOptions from "../../../../../../constants/frameworks";
 import concentrationOptions from "../../../../../../constants/concentrations";
 import ButtonWithDisabled from "../../../../../../shared/components/ButtonWithDisabled/ButtonWithDisabled";
+import {ButtonContainer} from "../../../../../../shared/styles/Button.styles";
 
 const UserConcentrationForm = () => {
     const {errors} = useFormikContext()

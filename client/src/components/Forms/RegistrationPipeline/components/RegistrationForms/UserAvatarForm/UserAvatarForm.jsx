@@ -1,11 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     CardContainer,
     SelectContainer, Text, UploadArea, UserImageContainer,
 } from "../../RegistrationParts/UserAvatar/UserAvatar.styles";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import ConsoleSimulator from "../../RegistrationParts/UserAvatar/ConsoleSimulator/ConsoleSimulator";
-import {Button, ButtonContainer} from "../../MultiStepRegistration/MultiStepRegistration.styles";
 import {useFormikContext} from "formik";
 
 import {AvatarWrapper} from "./UserAvatarForm.styles";
@@ -13,9 +12,11 @@ import Avatar from "@mikhail2404/react-avatar-edit";
 import {ErrorMessage} from "../../../../../../shared/styles/Tpography.styles";
 import ButtonWithDisabled from "../../../../../../shared/components/ButtonWithDisabled/ButtonWithDisabled";
 import ModalWindow from "../../RegistrationParts/UserAvatar/ModalWindow/ModalWindow";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setIsModalOpen} from "../../../../../../store/reducers/Shared";
 import {setIsFinishedAvatarLoading} from "../../../../../../store/reducers/RegistrationAuth";
+import {ThreeDots} from "react-loader-spinner";
+import {Button, ButtonContainer} from "../../../../../../shared/styles/Button.styles";
 
 const UserAvatarForm = () => {
 
@@ -28,6 +29,7 @@ const UserAvatarForm = () => {
     useEffect(() => {
         setReturnedToPreviousSteps(true)
     }, [])
+
     const onCloseModal = () => {
         setUserAvatar(null)
         setStartedUploading(false)
@@ -46,8 +48,8 @@ const UserAvatarForm = () => {
         dispatch(setIsFinishedAvatarLoading(false))
         setStartedUploading(false)
         setReturnedToPreviousSteps(false)
-
     }
+
     const onFileLoad = () => {
         setFieldValue('file', null)
         setStartedUploading(true)
@@ -94,10 +96,25 @@ const UserAvatarForm = () => {
                             </UploadArea>
                         </UserImageContainer>
                 </SelectContainer>
-                <ConsoleSimulator startedUploading={startedUploading} returnedToPreviousSteps={returnedToPreviousSteps} />
+                <ConsoleSimulator setStartedUploading={setStartedUploading}  startedUploading={startedUploading} returnedToPreviousSteps={returnedToPreviousSteps} />
             </CardContainer>
             <ButtonContainer>
-                <ButtonWithDisabled errors={errors}/>
+                {startedUploading ?
+                    <Button  disabled={true}>
+                        <ThreeDots
+                            height="40"
+                            width="40"
+                            radius="9"
+                            color="white"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{justifyContent: 'center'}}
+                            visible={true}
+                        />
+                    </Button>
+                    :
+                    <ButtonWithDisabled errors={errors}/>
+                }
+
             </ButtonContainer>
         </>
     );
