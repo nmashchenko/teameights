@@ -14,11 +14,13 @@ import {
 
 // * Assets
 import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
+import ROUTES from "../../../constants/routes";
 
 function NoTeamForm() {
   const navigate = useNavigate()
   const {data: userData} = useCheckAuth()
   const user = userData?.data
+
   useEffect(() => {
     if (user?.userTeam) {
       navigate('/myteam', { replace: true })
@@ -26,11 +28,20 @@ function NoTeamForm() {
   }, [])
 
   const handleCreate = () => {
-    navigate('/create-team', { replace: true })
+    if(!user.isRegistered){
+      navigate(ROUTES.login)
+    }else {
+      navigate('/create-team', { replace: true })
+    }
+
   }
 
   const handleJoin = () => {
-    navigate('/teams', { replace: true })
+    if(!user.isRegistered){
+      navigate(ROUTES.login)
+    } else {
+      navigate('/teams', { replace: true })
+    }
   }
 
   return (

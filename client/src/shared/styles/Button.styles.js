@@ -44,9 +44,9 @@ export const ButtonDisabled = styled.button`
 `
 
 export const ButtonsContainer= styled.div`
-  width: 100%;
+  width: ${(props) => props.width || 'calc(100% - 300px)'};
   display: flex;
-  justify-content: ${(props) => props.justifyContent || 'space-between'};
+  justify-content: space-between;
   margin-top: ${(props) => props.marginTop || '3rem'};
   align-items: center;
 `

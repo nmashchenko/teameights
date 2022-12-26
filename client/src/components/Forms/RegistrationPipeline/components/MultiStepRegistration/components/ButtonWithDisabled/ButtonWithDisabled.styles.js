@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {GREEN, RED, WHITE} from "../../../constants/colors";
+import {GREEN, RED, WHITE} from "../../../../../../../constants/colors";
 
 export const ButtonDisabled = styled.button`
   font-weight: 600;

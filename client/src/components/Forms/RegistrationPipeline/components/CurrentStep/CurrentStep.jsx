@@ -10,12 +10,14 @@ import UserAvatarForm from "../RegistrationForms/UserAvatarForm/UserAvatarForm";
 import finishRegistrationValidation from "../../../../../schemas";
 import {useDispatch} from "react-redux";
 import {setIsLastStep} from "../../../../../store/reducers/RegistrationAuth";
+import {useFormikContext} from "formik";
 
 const CurrentStep = ({step}) => {
     const dispatch = useDispatch()
-
+    const {setTouched} = useFormikContext()
     useEffect(() => {
         dispatch(setIsLastStep(step === finishRegistrationValidation.length))
+        setTouched({})
     }, [step])
 
     switch (step) {

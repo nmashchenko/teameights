@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import SkipArrow from "../../../../../../../assets/Arrows/SkipArrow";
-import ButtonWithDisabled from "../../../../../../../shared/components/ButtonWithDisabled/ButtonWithDisabled";
+import ButtonWithDisabled from "../ButtonWithDisabled/ButtonWithDisabled";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsOptionalStep, setStep} from "../../../../../../../store/reducers/RegistrationAuth";
 import {Skip, SkipButton} from "./ButtonWithSkip.styles";

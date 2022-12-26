@@ -7,7 +7,7 @@ export const Input = styled.input`
   border-width: 0 0 1.5px;
   border-color: ${(props) => props.borderColor || '#4b4b4b'};
   background: inherit;
-  // width: ${(props) => props.width || '240px'};
+  width: ${(props) => props.width};
   height: ${(props) => props.height || '40px'};
   font-size: 18px;
   color: ${WHITE.main};
@@ -27,7 +27,8 @@ export const SectionContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-items: start;
+  align-items: baseline;
+  flex-wrap: wrap;
 `
 
 export const InputWithIConWrapper = styled.div`

@@ -8,7 +8,7 @@ import {AlertContainer, ContentContainer} from "./UserExperienceForm.styles";
 import {Button, ButtonDisabled} from "../../MultiStepRegistration/MultiStepRegistration.styles";
 import WarningIcon from "@mui/icons-material/Warning";
 import {useFormikContext} from "formik";
-import ButtonWithDisabled from "../../../../../../shared/components/ButtonWithDisabled/ButtonWithDisabled";
+import ButtonWithDisabled from "../../MultiStepRegistration/components/ButtonWithDisabled/ButtonWithDisabled";
 
 ;
 

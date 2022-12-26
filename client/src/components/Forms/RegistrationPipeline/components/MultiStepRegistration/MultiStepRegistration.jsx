@@ -52,7 +52,7 @@ const MultiStepRegistration = () => {
             submitFrom(values)
         } else {
             dispatch(setStep(step + 1))
-            actions.setTouched({});
+            actions.setTouched({})
         }
     }
 

@@ -2,12 +2,9 @@
 import React, { useState } from 'react'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import { useNavigate } from 'react-router-dom'
-
-// * Api
 
 // * Redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Backdrop from '../../Backdrop/Backdrop'
 
 // * Helpers
@@ -29,21 +26,16 @@ import {
   AlternativeRegistration,
   Text,
 } from './RegistrationForm.styles'
-import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
 import {useRegister} from "../../../api/hooks/useRegister";
 import Loader from "../../Loader/Loader";
 
 function RegistrationForm() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { isAuth, error, isLoading } = useSelector((state) => state.userReducer)
+  const { isLoading } = useSelector((state) => state.userReducer)
 
-  const {data: userData} = useCheckAuth()
-  const user = userData?.data
   const [showPassword, setShowPassword] = useState(false)
-  const [password, setPassword] = useState('12345678')
-  const [confirmPassword, setConfirmPassword] = useState('12345678')
-  const [username, setUsername] = useState('www')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
 
   const {mutate: registerUser, isLoading: isUserRegistrationLoading} = useRegister()

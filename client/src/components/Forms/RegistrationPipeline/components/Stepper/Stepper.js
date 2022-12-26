@@ -1,5 +1,4 @@
 // * Modules
-import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { styled } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
@@ -68,67 +67,9 @@ function QontoStepIcon(props) {
 export default function CustomizedSteppers() {
   const { step, isLastStep, isOptionalStep } = useSelector((state) => state.registrationReducer)
 
-  const [curStep, setCurStep] = useState(step)
-  const { setStep, setActiveState } = registrationAuth.actions
-  const { completedStates } = useSelector((state) => state.registrationReducer)
-  const {isValid, touched} = useFormikContext()
+  const { setStep } = registrationAuth.actions
+  const {isValid, initialTouched} = useFormikContext()
   const dispatch = useDispatch()
-  // useEffect(() => {}, [completedStates])
-
-  // const handleCases = (newStep) => {
-  //   switch (newStep) {
-  //     case 0:
-  //       dispatch(setStep(0))
-  //       dispatch(setActiveState(steps[newStep]))
-  //       break
-  //     case 1:
-  //       dispatch(setStep(1))
-  //       dispatch(setActiveState(steps[newStep]))
-  //       break
-  //     case 2:
-  //       if (completedStates.stageOneComplete) {
-  //         dispatch(setStep(2))
-  //         dispatch(setActiveState(steps[newStep]))
-  //       } else {
-  //         setCurStep(curStep - 1)
-  //       }
-  //       break
-  //     case 3:
-  //       if (completedStates.stageTwoComplete) {
-  //         dispatch(setStep(3))
-  //         dispatch(setActiveState(steps[newStep]))
-  //       } else {
-  //         setCurStep(curStep - 1)
-  //       }
-  //       break
-  //     case 4:
-  //       if (completedStates.stageThreeComplete) {
-  //         dispatch(setStep(4))
-  //         dispatch(setActiveState(steps[newStep]))
-  //       } else {
-  //         setCurStep(curStep - 1)
-  //       }
-  //       break
-  //     case 5:
-  //       if (completedStates.stageFourComplete) {
-  //         dispatch(setStep(5))
-  //         dispatch(setActiveState(steps[newStep]))
-  //       } else {
-  //         setCurStep(curStep - 1)
-  //       }
-  //       break
-  //     case 6:
-  //       if (completedStates.stageFiveComplete) {
-  //         dispatch(setStep(6))
-  //         dispatch(setActiveState(steps[newStep]))
-  //       } else {
-  //         setCurStep(curStep - 1)
-  //       }
-  //       break
-  //     default:
-  //       break
-  //   }
-  // }
 
   const handleDecrement = () => {
     dispatch(setStep(step - 1))
@@ -140,7 +81,7 @@ export default function CustomizedSteppers() {
 
   return (
     <StepperContainer>
-      <ButtonContainer type="button" disabled={step === 1 || !(isValid || isOptionalStep)} onClick={handleDecrement}>
+      <ButtonContainer type="button" disabled={step === 1 } onClick={handleDecrement}>
         <NavigationArrowUp />
       </ButtonContainer>
       <Stack>
@@ -152,7 +93,7 @@ export default function CustomizedSteppers() {
           ))}
         </Stepper>
       </Stack>
-      <ButtonContainer type="button" disabled={isLastStep || !((isValid && Object.keys(touched).length) || isOptionalStep)} onClick={handleIncrement}>
+      <ButtonContainer type="button" disabled={isLastStep || !(isValid || isOptionalStep) } onClick={handleIncrement}>
         <NavigationArrowDown />
       </ButtonContainer>
     </StepperContainer>

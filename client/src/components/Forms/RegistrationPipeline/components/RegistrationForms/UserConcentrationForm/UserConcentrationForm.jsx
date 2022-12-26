@@ -7,7 +7,7 @@ import {ContentContainer} from "./UserConcentrationForm.styles";
 import {useFormikContext} from "formik";
 import frameworkOptions from "../../../../../../constants/frameworks";
 import concentrationOptions from "../../../../../../constants/concentrations";
-import ButtonWithDisabled from "../../../../../../shared/components/ButtonWithDisabled/ButtonWithDisabled";
+import ButtonWithDisabled from "../../MultiStepRegistration/components/ButtonWithDisabled/ButtonWithDisabled";
 import {ButtonContainer} from "../../../../../../shared/styles/Button.styles";
 
 const UserConcentrationForm = () => {

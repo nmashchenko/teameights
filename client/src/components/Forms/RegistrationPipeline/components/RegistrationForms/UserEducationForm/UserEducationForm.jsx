@@ -28,7 +28,7 @@ const UserEducationForm = () => {
                     min="0"
                 />
             </MiddleContainer>
-            <ButtonsContainer justifyContent="space-evenly" marginTop="0">
+            <ButtonsContainer  marginTop="0">
                 <ButtonWithSkip resetFields={{university: '', major: '', graduationDate:  0}} errors={errors}/>
             </ButtonsContainer>
         </>

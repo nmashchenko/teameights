@@ -20,6 +20,7 @@ const UserLinksForm = () => {
                     <GitHubIcon />
                     <CustomInput
                         name="github"
+                        width="17rem"
                         type="text"
                         placeholder="Provide your link (optional)"
                     />
@@ -28,6 +29,7 @@ const UserLinksForm = () => {
                     <LinkedInIcon />
                     <CustomInput
                         name="linkedIn"
+                        width="17rem"
                         type="text"
                         placeholder="Provide your link (optional)"
                     />
@@ -36,12 +38,13 @@ const UserLinksForm = () => {
                     <TelegramIcon />
                     <CustomInput
                         name="telegram"
+                        width="17rem"
                         type="text"
                         placeholder="Provide your link (optional)"
                     />
                 </InputWithIConWrapper>
             </MiddleContainer>
-            <ButtonsContainer justifyContent="space-evenly" marginTop="0">
+            <ButtonsContainer  marginTop="0">
                 <ButtonWithSkip resetFields={{github: '', linkedIn: '', telegram:  ''}} errors={errors}/>
             </ButtonsContainer>
         </>
