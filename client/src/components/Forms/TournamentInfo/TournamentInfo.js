@@ -40,6 +40,7 @@ import CodingForm from '../CodingForm/CodingForm'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import tournamentAPI from '../../../api/endpoints/tournament'
+import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
 
 function TournamentInfo() {
   const [open, setOpen] = useState(false)
@@ -51,7 +52,8 @@ function TournamentInfo() {
   const [members, setMembers] = useState([])
   const [userRole, setUserRole] = useState('')
 
-  const { user } = useSelector((state) => state.userReducer)
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
   const { enqueueSnackbar } = useSnackbar()
 
   const navigate = useNavigate()
@@ -175,7 +177,7 @@ function TournamentInfo() {
                   Submit
                 </PrimaryButton>
               </>
-            ) : user.userTeam ? (
+            ) : user?.userTeam ? (
               <Text>You need at least two team members.</Text>
             ) : (
               <Text>You need to join team first</Text>

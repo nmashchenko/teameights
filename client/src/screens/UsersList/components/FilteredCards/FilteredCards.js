@@ -15,11 +15,9 @@ import { CardContainer } from './FilteredCards.style'
 import UserCard from '../UserCard/UserCard'
 
 // * Constants
-import ROUTES from '../../../../constants/routes'
 
 // * API
 import usersApi from '../../../../api/endpoints/users'
-import authApi from '../../../../api/endpoints/auth'
 
 const FilteredCards = ({
   handleOpen,
@@ -67,8 +65,8 @@ const FilteredCards = ({
       .then((res) => {
         // check if user's token expired and redirect
         if (isEqual(localStorage.getItem('token'), null)) {
-          dispatch(authApi.logoutUser())
-          navigate(ROUTES.login, { replace: true })
+          // dispatch(authApi.logoutUser())
+          // navigate(ROUTES.login, { replace: true })
         } else {
           setFilteredUsers((prevUsers) => {
             return [...prevUsers, ...res.data.results]

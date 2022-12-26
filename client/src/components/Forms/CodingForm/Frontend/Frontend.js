@@ -1,7 +1,7 @@
 // * Modules
 import Countdown from 'react-countdown'
 import Editor from '@monaco-editor/react'
-import Typewriter from 'react-ts-typewriter'
+import Typewriter from '@mikhail2404/react-ts-typewriter'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 

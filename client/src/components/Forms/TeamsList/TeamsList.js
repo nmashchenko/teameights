@@ -26,12 +26,14 @@ import { userAuth } from '../../../store/reducers/UserAuth'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
+import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
 
 function TeamsList() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user } = useSelector((state) => state.userReducer)
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
   const { updateUser } = userAuth.actions
   const { enqueueSnackbar } = useSnackbar()
 

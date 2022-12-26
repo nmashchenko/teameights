@@ -1,5 +1,5 @@
 // * Routes
-import { useRoutes } from './routes'
+import { useRoutes } from './routes/routes'
 
 // * Modules
 import { BrowserRouter as Router } from 'react-router-dom'

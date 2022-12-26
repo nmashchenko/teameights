@@ -1,6 +1,6 @@
 // * Modules
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 // * Assets
 import NavBarIcon from '../../assets/NavBarIcon'
@@ -30,10 +30,30 @@ import {
   SingOutButton,
   NotificationsArea,
 } from './NavBar.styles'
+import {useCheckAuth} from "../../api/hooks/useCheckAuth";
+import {useLogoutUser} from "../../api/hooks/useLogoutUser";
+import Loader from "../Loader/Loader";
+import {useSelector} from "react-redux";
+import Routes from "../../constants/routes";
+import {Button} from "../../shared/styles/Button.styles";
 
-const NavBar = ({ user, handleUserLogout }) => {
+const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
+  const { isAuth } = useSelector((state) => state.userReducer)
+  const navigate = useNavigate()
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
 
+
+  const {mutate: logoutUser, isLoading: isUserLoggingOut} = useLogoutUser()
+
+  const handleUseLogout = () => {
+    logoutUser()
+  }
+
+  if(isUserLoggingOut ) {
+    return  <Loader />
+  }
   const showSidebar = () => setSidebar(!sidebar)
   return (
     <>
@@ -54,12 +74,12 @@ const NavBar = ({ user, handleUserLogout }) => {
                 </div>
                 <UserTextContainer>
                   <NameNotificationsContainer>
-                    <UserText fontWeight="600">{user.userRealName}</UserText>
+                    <UserText fontWeight="600">{user?.userRealName}</UserText>
                     <NotificationsArea>
                       <Notification />
                     </NotificationsArea>
                   </NameNotificationsContainer>
-                  <UserText>{user.userConcentration}</UserText>
+                  <UserText>{user?.userConcentration}</UserText>
                 </UserTextContainer>
               </UserData>
             </UserInfo>
@@ -76,9 +96,7 @@ const NavBar = ({ user, handleUserLogout }) => {
               })}
             </NavItems>
             <BottomContent>
-              <SingOutButton onClick={handleUserLogout}>
-                <Exit /> Sign Out
-              </SingOutButton>
+                {isAuth ? <SingOutButton onClick={handleUseLogout}><Exit /> Sign Out</SingOutButton>: <Button onClick={() => navigate(Routes.login)} >Login</Button>}
               <UserText
                 fontWeight="400"
                 fontSize="12px"

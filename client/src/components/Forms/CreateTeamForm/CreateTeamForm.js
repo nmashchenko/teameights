@@ -28,6 +28,7 @@ import {
   InputContainer,
   CreateButtonContainer,
 } from './CreateTeamForm.styles'
+import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
 
 function CreateTeamForm() {
   const navigate = useNavigate()
@@ -38,7 +39,8 @@ function CreateTeamForm() {
   const [teamName, setTeamName] = useState('')
   const [country, setCountry] = useState('')
 
-  const { user } = useSelector((state) => state.userReducer)
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
   const { updateUser } = userAuth.actions
   const userId = user._id
 

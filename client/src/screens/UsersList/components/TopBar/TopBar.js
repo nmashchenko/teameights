@@ -58,7 +58,7 @@ function TopBar(props) {
             <PlatformLogo />
           </AlternativeLogoContainer>
           <NavBar>
-            <NavBarContainer handleUserLogout={props.handleUserLogout} user={props.user} />
+            <NavBarContainer  />
             <LogoContainer>
               <PlatformLogo />
             </LogoContainer>

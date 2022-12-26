@@ -65,7 +65,11 @@ router.post("/get-leaderboard", leaderboardController.getLeaderboard);
 
 // only for authenticated users
 router.post("/registration-checkout", userController.registrationCompletion);
-router.get("/users-filtered", authMiddleware, userController.getUsersFiltered);
-router.get("/users", authMiddleware, userController.getUsers);
+// router.get("/users-filtered", authMiddleware, userController.getUsersFiltered);
+// router.get("/users", authMiddleware, userController.getUsers);
+
+// temporary => TODO: remove later before merging to dev
+router.get("/users-filtered", userController.getUsersFiltered);
+router.get("/users", userController.getUsers);
 
 module.exports = router;

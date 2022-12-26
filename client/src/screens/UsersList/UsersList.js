@@ -1,15 +1,8 @@
 // * Modules
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import isEmpty from 'lodash/isEmpty'
-import { useNavigate } from 'react-router-dom'
 import { isEqual } from 'lodash'
-
-// * Redux
-import { useSelector, useDispatch } from 'react-redux'
-
-// * Constants
-import ROUTES from '../../constants/routes'
 
 // * Components
 import TopBar from './components/TopBar/TopBar'
@@ -23,7 +16,6 @@ import UserProfilePhone from './components/UserProfilePhone/UserProfilePhone'
 
 // * API
 import usersApi from '../../api/endpoints/users'
-import authApi from '../../api/endpoints/auth'
 
 // * Styles
 import {
@@ -34,17 +26,14 @@ import {
   GlobalStyle,
   UserCardModal,
 } from './UsersList.styles'
+import {useCheckAuth} from "../../api/hooks/useCheckAuth";
 
 function UsersList() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   /**
    * Set of states that are used by this component
    */
-  const [pageNumber, setPageNumber] = useState(1)
   const [filteredPageNumber, setFilteredPageNumber] = useState(1)
-  const [users, setUsers] = useState([])
   const [filteredUsers, setFilteredUsers] = useState([])
 
   const [isLoading, setIsLoading] = useState(false)
@@ -61,16 +50,15 @@ function UsersList() {
   const handleComeback = () => {
     setNotFound(false)
     setDisplayFiltered(false)
-    setUsers([])
     setFilteredUsers([])
-    setPageNumber(1)
     setFilteredPageNumber(1)
   }
 
   /**
    * Get global state from redux
    */
-  const { isAuth, user } = useSelector((state) => state.userReducer)
+  const {data: userData, isLoading: isLoadingUseData} = useCheckAuth()
+  const user = userData?.data
 
   const showMobileProfile = () => setMobileProfile(!mobileProfile)
   /**
@@ -98,8 +86,8 @@ function UsersList() {
       const users = await usersApi.getUsersFiltered(1, countries, roles, programmingLanguages)
       // check if user's token expired and redirect
       if (isEqual(localStorage.getItem('token'), null)) {
-        dispatch(authApi.logoutUser())
-        navigate(ROUTES.login, { replace: true })
+        // dispatch(authApi.logoutUser())
+        // navigate(ROUTES.login, { replace: true })
       } else {
         if (isEmpty(users.data?.results)) {
           setNotFound(true)
@@ -120,24 +108,6 @@ function UsersList() {
   /**
    * Function used in <NavBar /> and passed as a props, it handles logout button
    */
-  const handleUserLogout = () => {
-    dispatch(authApi.logoutUser())
-  }
-
-  /*
-   * This useEffect is triggered when user presses logout button in the NavBar component
-   */
-  useEffect(() => {
-    if (!isAuth) {
-      navigate(ROUTES.login, { replace: true })
-    }
-
-    console.log(user)
-    if (isAuth && !user?.isRegistered) {
-      navigate(ROUTES.finishRegistration, { replace: true })
-    }
-  }, [isAuth, navigate])
-
   return (
     <>
       <GlobalStyle />
@@ -151,7 +121,6 @@ function UsersList() {
         setRoles={setRoles}
         setProgrammingLanguages={setProgrammingLanguages}
         handleSubmitFilter={handleSubmitFilter}
-        handleUserLogout={handleUserLogout}
       />
       {/* ! USED ONLY FOR 730px or more */}
       <UserCardModal
@@ -190,17 +159,9 @@ function UsersList() {
               ) : (
                 <Cards
                   handleOpen={handleOpen}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                  users={users}
-                  setUsers={setUsers}
-                  pageNumber={pageNumber}
-                  setPageNumber={setPageNumber}
-                  notFound={notFound}
+                  isLoadingUseData={isLoadingUseData}
                 />
               )}
-              {/* Load skeleton before showing real cards to improve performance of the app */}
-              <>{isLoading && <CardSkeleton cards={9} />}</>
             </CardsContainer>
           </GridContainer>
           <SliderToTop />

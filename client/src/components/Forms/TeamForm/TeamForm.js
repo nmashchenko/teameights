@@ -39,6 +39,7 @@ import TopTemplate from '../../TopTemplate/TopTemplate'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
 import tempImg from './zxc1.jpg'
+import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
 
 function TeamForm() {
   const navigate = useNavigate()
@@ -49,8 +50,8 @@ function TeamForm() {
   const [updating, setUpdating] = useState(true)
   const [members, setMembers] = useState([])
 
-  const { user } = useSelector((state) => state.userReducer)
-
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
   useEffect(() => {
     const getTeam = async () => {
       if (isEqual(user, {})) {

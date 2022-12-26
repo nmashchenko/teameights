@@ -9,6 +9,7 @@ import { setupStore } from './store/store'
 
 // * Components
 import App from './App'
+import {QueryClient, QueryClientProvider} from "react-query";
 
 const GlobalStyle = createGlobalStyle`
  * {  
@@ -16,10 +17,14 @@ const GlobalStyle = createGlobalStyle`
  }
 `
 const store = setupStore()
+const queryClient = new QueryClient()
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <Provider store={store}>
-    <GlobalStyle />
-    <App />
+      <QueryClientProvider client={queryClient}>
+          <GlobalStyle />
+          <App />
+      </QueryClientProvider>
   </Provider>,
 )

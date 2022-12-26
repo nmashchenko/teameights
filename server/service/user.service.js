@@ -286,11 +286,11 @@ class UserService {
   }
 
   async checkUsername(username, email) {
-    const user = await User.findOne({ userUsername: username });
-    if (user.email === email) {
-      return null;
+    const user = await User.findOne({ userUsername: username, email: email });
+    if (user) {
+      return user;
     }
-    return user;
+    return { error: `User doesn't exist` };
   }
 }
 

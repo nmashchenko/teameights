@@ -1,3 +1,4 @@
+import React from "react"
 // * Images
 import CrownImg from '../../img/CrownTest.png'
 import userImg from '../../img/tempImg.jpg'
@@ -28,9 +29,9 @@ import {
 } from './UserCard.styles'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
 
-function UserCard(props) {
+const  UserCard = React.forwardRef((props, ref=null) => {
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <CardContainer>
         <UserInformationContainer>
           {/* TODO: Change for real image! */}
@@ -88,6 +89,6 @@ function UserCard(props) {
       )}
     </Wrapper>
   )
-}
+})
 
 export default UserCard

@@ -1,10 +1,8 @@
 // * Modules
-import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // * Styles
 import {
-  Container,
   Content,
   SmallCard,
   SmallCardContainer,
@@ -16,14 +14,11 @@ import {
 } from './TournamentsForm.styles'
 
 // * Assets
-import TopTemplate from '../../TopTemplate/TopTemplate'
 import JS from '../../../assets/LanguageLogo/JS'
 
 function TournamentsForm() {
   const navigate = useNavigate()
   return (
-    <Container>
-      <TopTemplate />
       <Content>
         <SmallCard>
           <SmallCardContainer>
@@ -56,7 +51,6 @@ function TournamentsForm() {
           <Text fontSize="18px">No recent tournaments found...</Text>
         </BigCard>
       </Content>
-    </Container>
   )
 }
 
