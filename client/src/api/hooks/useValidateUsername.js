@@ -2,14 +2,15 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 
-import api from '../../http'
+import http from '../../http'
 import {
   finishRegistrationError,
   setActiveState,
   setStageOneCompleted,
   setStep,
 } from '../../store/reducers/RegistrationAuth'
-import { userAuth } from '../../store/reducers/UserAuth'
+
+const { api } = http
 
 export const useValidateUsername = (username, email) => {
   const dispatch = useDispatch()

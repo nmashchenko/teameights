@@ -1,9 +1,10 @@
 // * API
 import qs from 'qs'
 
-import api from '../../http'
+import http from '../../http'
 import filteredQueryMaker from '../../utils/filteredQueryMaker'
 
+const { api } = http
 const getUsers = async (page) => {
   try {
     const data = await api.get('/users', { params: { page } })

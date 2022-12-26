@@ -4,8 +4,10 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import ROUTES from '../../constants/routes'
-import api from '../../http'
+import http from '../../http'
 import { userAuth } from '../../store/reducers/UserAuth'
+
+const { api } = http
 
 export const useRegister = () => {
   const dispatch = useDispatch()

@@ -48,8 +48,6 @@ export const ProfileForm = () => {
   const { data: userData, isLoading: isUserDataLoading } = useCheckAuth()
   const user = userData?.data
 
-  console.log({ isUserDataLoading })
-  console.log({ user })
   const navigate = useNavigate()
 
   useEffect(() => {

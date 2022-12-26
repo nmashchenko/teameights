@@ -5,7 +5,7 @@ import React, { useCallback, useRef } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import lookup from 'country-code-lookup'
 
-import api from '../../../../http'
+import http from '../../../../http'
 import CardSkeleton from '../CardSkeleton/CardSkeleton'
 // * Components
 import UserCard from '../UserCard/UserCard'
@@ -13,6 +13,8 @@ import UserCard from '../UserCard/UserCard'
 // * Redux
 // * Styles
 import { CardContainer } from './Cards.styles'
+
+const { api } = http
 
 const Cards = ({ handleOpen, isLoadingUseData }) => {
   const intObserver = useRef()

@@ -2,8 +2,10 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 
-import api from '../../http'
+import http from '../../http'
 import { userAuth } from '../../store/reducers/UserAuth'
+
+const { api } = http
 
 export const useCheckAuth = () => {
   const dispatch = useDispatch()
