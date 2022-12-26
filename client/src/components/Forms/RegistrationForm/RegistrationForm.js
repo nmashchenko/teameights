@@ -1,24 +1,10 @@
 // * Modules
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import { useNavigate } from 'react-router-dom'
-import isEqual from 'lodash/isEqual'
-
-// * Api
-import authApi from '../../../api/endpoints/auth'
 
 // * Redux
-import { useSelector, useDispatch } from 'react-redux'
-import { userAuth } from '../../../store/reducers/UserAuth'
-
-// * Constants
-import ROUTES from '../../../constants/routes'
-
-// * Assets
-import NavBar from '../../NavBar/NavBar'
-import SnackBar from '../../SnackBar/SnackBar'
-import CodingImage from '../../../assets/CodingImage'
+import { useSelector } from 'react-redux'
 import Backdrop from '../../Backdrop/Backdrop'
 
 // * Helpers
@@ -26,7 +12,6 @@ import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegis
 
 // * Styles
 import {
-  RegistrationContainer,
   LeftScreenContainer,
   LoginSignUpContainer,
   LoginSignUpLinks,
@@ -39,66 +24,33 @@ import {
   OrContainer,
   OrLine,
   AlternativeRegistration,
-  RightScreenContainer,
-  ImageContainer,
-  TextContainer,
   Text,
-  SpannedLetter,
-  SeparateLine,
 } from './RegistrationForm.styles'
+import {useRegister} from "../../../api/hooks/useRegister";
+import Loader from "../../Loader/Loader";
 
 function RegistrationForm() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { user, isAuth, error, isLoading } = useSelector((state) => state.userReducer)
+  const { isLoading } = useSelector((state) => state.userReducer)
 
-  const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setOpen(false)
-  }
+  const {mutate: registerUser, isLoading: isUserRegistrationLoading} = useRegister()
 
   const handleRegistration = () => {
-    // clear previous error before making new request
-    dispatch(userAuth.actions.authClearError())
-    // make a request to register user
-    dispatch(authApi.registerUser(username, email, password, confirmPassword))
+    registerUser({username, email, password, repeatPassword: confirmPassword})
   }
 
-  useEffect(() => {
-    if (error && !isEqual(error, 'User is not authorized')) {
-      setOpen(true)
-    }
-  }, [error])
 
-  useEffect(() => {
-    if (isAuth && !user.isActivated) {
-      navigate(ROUTES.confirmEmail, { replace: true })
-    } else if (isAuth && !user.isRegistered) {
-      navigate(ROUTES.finishRegistration, { replace: true })
-    } else if (isAuth && user.isRegistered && user.isActivated) {
-      navigate(ROUTES.temporary, { replace: true })
-    }
-  }, [isAuth, navigate])
-
-  useEffect(() => {
-    // clear previous error before making new request
-    dispatch(userAuth.actions.authClearError())
-  }, [])
-
+  if(isUserRegistrationLoading) {
+    return <Loader />
+  }
   return (
     <>
-      {error && <SnackBar open={open} handleClose={handleClose} error={error} />}
       <Backdrop isLoading={isLoading} />
-      <RegistrationContainer>
         <LeftScreenContainer>
           <LoginSignUpContainer>
             <LoginSignUpLinks>
@@ -161,18 +113,6 @@ function RegistrationForm() {
             </AlternativeRegistration>
           </UsernameEmailPasswordContainer>
         </LeftScreenContainer>
-        <SeparateLine />
-        <RightScreenContainer>
-          <ImageContainer>
-            <CodingImage />
-            <TextContainer>
-              <Text>
-                start your coding journey with Team<SpannedLetter>8</SpannedLetter>s!
-              </Text>
-            </TextContainer>
-          </ImageContainer>
-        </RightScreenContainer>
-      </RegistrationContainer>
     </>
   )
 }

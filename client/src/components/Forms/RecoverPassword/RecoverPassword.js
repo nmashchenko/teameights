@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Snackbar from '@mui/material/Snackbar'
-import Alert from '../../../components/Forms/RegistrationPipeline/Alert/Alert'
+import Alert from '../RegistrationPipeline/components/Alert/Alert'
 
 // * Assets
 import SiteLogo from '../../../assets/SiteLogo'

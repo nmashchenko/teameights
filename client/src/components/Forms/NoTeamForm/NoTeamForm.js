@@ -1,11 +1,9 @@
 // * Modules
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 
 // * Styles
 import {
-  Container,
   TextContainer,
   Text,
   ButtonGeneral,
@@ -15,29 +13,38 @@ import {
 } from './NoTeamForm.styles'
 
 // * Assets
-import TopTemplate from '../../TopTemplate/TopTemplate'
+import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
+import ROUTES from "../../../constants/routes";
 
 function NoTeamForm() {
   const navigate = useNavigate()
-  const { user } = useSelector((state) => state.userReducer)
+  const {data: userData} = useCheckAuth()
+  const user = userData?.data
 
   useEffect(() => {
-    if (user.userTeam) {
+    if (user?.userTeam) {
       navigate('/myteam', { replace: true })
     }
   }, [])
 
   const handleCreate = () => {
-    navigate('/create-team', { replace: true })
+    if(!user?.isRegistered){
+      navigate(ROUTES.login)
+    }else {
+      navigate('/create-team', { replace: true })
+    }
+
   }
 
   const handleJoin = () => {
-    navigate('/teams', { replace: true })
+    if(!user?.isRegistered){
+      navigate(ROUTES.login)
+    } else {
+      navigate('/teams', { replace: true })
+    }
   }
 
   return (
-    <Container>
-      <TopTemplate />
       <CardContainer>
         <Card>
           <TextContainer>
@@ -50,7 +57,6 @@ function NoTeamForm() {
           </ButtonContainer>
         </Card>
       </CardContainer>
-    </Container>
   )
 }
 
