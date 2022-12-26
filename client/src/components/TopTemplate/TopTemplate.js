@@ -1,15 +1,17 @@
-import { useEffect } from 'react'
-// * Redux
-import { useDispatch, useSelector } from 'react-redux'
-// * Modules
-import { useNavigate } from 'react-router-dom'
+import { ToolbarContainer, NavContainer } from './TopTemplate.styles'
 
-// * API
-import authApi from '../../api/endpoints/auth'
 import TeameightsLogo from '../../assets/Team/TeameightsLogo.js'
 import NavBar from '../NavBar/NavBar'
 
-import { NavContainer, ToolbarContainer } from './TopTemplate.styles'
+// * API
+import authApi from '../../api/endpoints/auth'
+
+// * Redux
+import { useSelector, useDispatch } from 'react-redux'
+
+// * Modules
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const TopTemplate = () => {
   const navigate = useNavigate()

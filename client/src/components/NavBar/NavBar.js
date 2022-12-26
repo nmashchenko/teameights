@@ -10,31 +10,31 @@ import Notification from '../../assets/Sidebar/Notification'
 
 // * Data
 import { NavBarData } from './NavBar.data'
+import userImg from './tempImg.jpg'
+
 import {
-  BottomContent,
-  ItemTitle,
-  NameNotificationsContainer,
-  NavBarToggle,
   NavIconContainer,
-  NavItem,
-  NavItems,
-  NavMenu,
-  NavMenuItems,
-  NotificationsArea,
-  SingOutButton,
+  NameNotificationsContainer,
+  UserInfo,
   UserData,
   UserImage,
-  UserInfo,
-  UserText,
   UserTextContainer,
+  UserText,
+  NavMenu,
+  NavMenuItems,
+  NavBarToggle,
+  NavItem,
+  ItemTitle,
+  NavItems,
+  BottomContent,
+  SingOutButton,
+  NotificationsArea,
 } from './NavBar.styles'
-import userImg from './tempImg.jpg'
 
 const NavBar = ({ user, handleUserLogout }) => {
   const [sidebar, setSidebar] = useState(false)
 
   const showSidebar = () => setSidebar(!sidebar)
-
   return (
     <>
       <NavIconContainer onClick={showSidebar}>

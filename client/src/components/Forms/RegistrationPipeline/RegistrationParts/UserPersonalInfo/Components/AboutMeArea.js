@@ -4,11 +4,11 @@ import { includes, isEqual } from 'lodash'
 
 // * Styles
 import {
-  AboutMeContainer,
-  Text,
   TextArea,
-  WordsCounter,
+  Text,
   WordsCounterContainer,
+  WordsCounter,
+  AboutMeContainer,
 } from '../UserPersonalInfo.styles'
 
 const AboutMeArea = ({ errors, handleDescription, description }) => {

@@ -91,5 +91,4 @@ const personalInfoHooks = Object.freeze({
   useHandleCountry,
   useHandleDescription,
 })
-
 export default personalInfoHooks

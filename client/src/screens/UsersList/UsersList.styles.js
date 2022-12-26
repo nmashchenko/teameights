@@ -1,6 +1,6 @@
 // * Modules
-import Modal from '@mui/material/Modal'
 import styled, { createGlobalStyle } from 'styled-components'
+import Modal from '@mui/material/Modal'
 
 export const GridContainer = styled.div`
   display: flex;

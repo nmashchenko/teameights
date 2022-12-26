@@ -1,9 +1,8 @@
 import React from 'react'
 import Snackbar from '@mui/material/Snackbar'
-import { isEqual } from 'lodash'
 
 import { AlertBox } from './SnackBar.styles'
-
+import { isEqual } from 'lodash'
 const SnackBar = ({ open, handleClose, error, vertical = 'top' }) => {
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <AlertBox elevation={7} ref={ref} variant="filled" {...props} />

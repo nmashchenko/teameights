@@ -1,19 +1,19 @@
 // * Modules
 import React from 'react'
-import CodeIcon from '@mui/icons-material/Code'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import FormControl from '@mui/material/FormControl'
+import { SelectCustom, Item } from './CustomMultipleSelect.styles'
+import { includes } from 'lodash'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
-import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import { includes } from 'lodash'
+import CodeIcon from '@mui/icons-material/Code'
+
+// * Helpers
+import MenuProps from './MenuProps'
 
 // * Assets
 import ArrowDown from '../../../../assets/Arrows/ArrowDown'
 import ArrowDownRed from '../../../../assets/Arrows/ArrowDownRed'
-
-import { Item, SelectCustom } from './CustomMultipleSelect.styles'
-// * Helpers
-import MenuProps from './MenuProps'
 
 const CustomSelect = ({ data, handleData, options, errors, error, multiple = true }) => {
   const animation = includes(errors, error) ? undefined : 'none'

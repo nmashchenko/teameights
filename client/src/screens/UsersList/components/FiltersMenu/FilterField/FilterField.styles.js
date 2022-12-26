@@ -1,7 +1,7 @@
 // * Modules
+import styled from 'styled-components'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
-import styled from 'styled-components'
 
 export const Item = styled(MenuItem)`
   /* Root */

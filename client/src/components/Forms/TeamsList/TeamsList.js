@@ -1,30 +1,31 @@
 // * Modules
-import { useEffect, useState } from 'react'
-// * Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import isEqual from 'lodash/isEqual'
 import { useSnackbar } from 'notistack'
-
-// * API
-import teamsAPI from '../../../api/endpoints/team'
-import { userAuth } from '../../../store/reducers/UserAuth'
-import TopTemplate from '../../TopTemplate/TopTemplate'
+import isEqual from 'lodash/isEqual'
 
 // * Styles
 import {
-  Card,
-  CardContainer,
-  ColumnNames,
   Container,
-  style,
-  TeamButton,
+  CardContainer,
+  Card,
+  ColumnNames,
+  Text,
   TeamData,
   TeamImage,
-  Text,
+  TeamButton,
+  style,
 } from './TeamsList.styles'
+import TopTemplate from '../../TopTemplate/TopTemplate'
+
+// * Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { userAuth } from '../../../store/reducers/UserAuth'
+
+// * API
+import teamsAPI from '../../../api/endpoints/team'
 
 function TeamsList() {
   const navigate = useNavigate()
@@ -42,7 +43,6 @@ function TeamsList() {
   useEffect(() => {
     const makeRequest = async () => {
       const teams = await teamsAPI.getAllTeams()
-
       setTeams(teams.data)
     }
 
@@ -60,7 +60,6 @@ function TeamsList() {
 
   const handleJoin = async (teamId) => {
     const result = await teamsAPI.addUserToTeam(userId, teamId)
-
     if (isEqual(result.data, {})) {
       enqueueSnackbar('You have joined the team already!', {
         preventDuplicate: true,

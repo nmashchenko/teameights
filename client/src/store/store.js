@@ -1,7 +1,6 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-
-import registrationReducer from './reducers/RegistrationAuth'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from './reducers/UserAuth'
+import registrationReducer from './reducers/RegistrationAuth'
 
 const rootReducer = combineReducers({
   userReducer,
@@ -10,6 +9,6 @@ const rootReducer = combineReducers({
 
 export const setupStore = () => {
   return configureStore({
-    reducer: rootReducer,
+    reducer: rootReducer
   })
 }

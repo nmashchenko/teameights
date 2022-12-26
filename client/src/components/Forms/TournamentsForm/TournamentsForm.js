@@ -1,27 +1,26 @@
 // * Modules
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-import JS from '../../../assets/LanguageLogo/JS'
-// * Assets
-import TopTemplate from '../../TopTemplate/TopTemplate'
 
 // * Styles
 import {
-  BigCard,
-  ButtonGeneral,
   Container,
   Content,
-  InnerText,
-  Language,
   SmallCard,
   SmallCardContainer,
   Text,
+  InnerText,
+  BigCard,
+  Language,
+  ButtonGeneral,
 } from './TournamentsForm.styles'
+
+// * Assets
+import TopTemplate from '../../TopTemplate/TopTemplate'
+import JS from '../../../assets/LanguageLogo/JS'
 
 function TournamentsForm() {
   const navigate = useNavigate()
-
   return (
     <Container>
       <TopTemplate />

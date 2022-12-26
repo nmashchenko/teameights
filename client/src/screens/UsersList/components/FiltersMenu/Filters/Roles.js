@@ -1,8 +1,8 @@
 // * Modules
+import { FilterSection, TitleText, Line } from './Fielters.styles'
+
 // * Assets
 import FilterField from '../FilterField/FilterField'
-
-import { FilterSection, Line, TitleText } from './Fielters.styles'
 
 const Roles = ({ options, data, setRoles }) => {
   /**
@@ -12,7 +12,6 @@ const Roles = ({ options, data, setRoles }) => {
     const {
       target: { value },
     } = event
-
     setRoles(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,

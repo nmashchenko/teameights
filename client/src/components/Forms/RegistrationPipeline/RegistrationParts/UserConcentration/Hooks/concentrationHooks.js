@@ -11,7 +11,6 @@ const useHandleProgrammingLanguages = (setErrors, setProgrammingLanguages) => {
     const {
       target: { value },
     } = event
-
     setProgrammingLanguages(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -34,7 +33,6 @@ const useHandleFrameworks = (setErrors, setFrameworks) => {
     const {
       target: { value },
     } = event
-
     setFrameworks(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -65,5 +63,4 @@ const concentrationHooks = Object.freeze({
   useHandleFrameworks,
   useHandleConcentration,
 })
-
 export default concentrationHooks

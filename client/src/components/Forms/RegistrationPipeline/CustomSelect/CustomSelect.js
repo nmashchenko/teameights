@@ -1,18 +1,19 @@
 // * Modules
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import countryList from 'react-select-country-list'
 import FormControl from '@mui/material/FormControl'
+import { SelectCustom, Item, Line } from './CustomSelect.styles'
 import { includes } from 'lodash'
+
+// * Constants
+import { GREEN, WHITE } from '../../../../constants/colors'
+
+// * Helpers
+import MenuProps from './MenuProps'
 
 // * Assets
 import ArrowDown from '../../../../assets/Arrows/ArrowDown'
 import ArrowDownRed from '../../../../assets/Arrows/ArrowDownRed'
-// * Constants
-import { GREEN, WHITE } from '../../../../constants/colors'
-
-import { Item, Line, SelectCustom } from './CustomSelect.styles'
-// * Helpers
-import MenuProps from './MenuProps'
 
 const CustomSelect = ({ country, handleCountry, errors }) => {
   const [countries, setCountries] = useState([])
@@ -21,10 +22,8 @@ const CustomSelect = ({ country, handleCountry, errors }) => {
 
   useEffect(() => {
     const data = countryList().getData()
-
     setCountries(data)
   }, [])
-
   return (
     <>
       <FormControl sx={{ margin: '10px 0 0 0', width: '240px', padding: '0px' }}>

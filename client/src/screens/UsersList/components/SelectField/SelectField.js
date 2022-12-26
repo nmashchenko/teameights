@@ -1,17 +1,18 @@
 // * Modules
-import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
-
-// * Assets
-import ArrowDown from '../../../../assets/Arrows/ArrowDown'
-
-// * Helpers
-import MenuProps from './MenuProps'
-// * Styles
-import { CustomSelect, Item, PlaceholderText } from './SelectField.styles'
+import FormControl from '@mui/material/FormControl'
 
 // * CSS
 import './SelectField.css'
+
+// * Styles
+import { Item, PlaceholderText, CustomSelect } from './SelectField.styles'
+
+// * Helpers
+import MenuProps from './MenuProps'
+
+// * Assets
+import ArrowDown from '../../../../assets/Arrows/ArrowDown'
 
 export default function MultipleSelect(props) {
   return (
@@ -29,7 +30,6 @@ export default function MultipleSelect(props) {
             if (selected.length === 0) {
               return <PlaceholderText>{props.inputName}</PlaceholderText>
             }
-
             return selected.join(', ')
           }}
           MenuProps={MenuProps}

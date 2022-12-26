@@ -1,5 +1,5 @@
 // * Styles
-import { CardContainer, CardGridContainer, SkeletonCard } from './CardSkeleton.styles'
+import { CardGridContainer, CardContainer, SkeletonCard } from './CardSkeleton.styles'
 
 const CardSkeleton = ({ cards }) => {
   return Array(cards)

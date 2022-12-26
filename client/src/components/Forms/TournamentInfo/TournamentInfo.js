@@ -1,44 +1,45 @@
 // * Modules
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import isEqual from 'lodash/isEqual'
 import { useSnackbar } from 'notistack'
 
-// * API
-import teamsAPI from '../../../api/endpoints/team'
-import tournamentAPI from '../../../api/endpoints/tournament'
+// * Styles
+import {
+  Container,
+  Content,
+  Div,
+  TopContainer,
+  ComeBackBtn,
+  SelectContainer,
+  SelectItem,
+  TournamentInfoContainer,
+  InfoContainer,
+  EntryStartsContainer,
+  ButtonContainer,
+  AvailableSlotsContainer,
+  AvailableSlotsItem,
+  Text,
+  Span,
+  PrimaryButton,
+  style,
+  CloseContainer,
+  CustomSelect,
+  CustomOption,
+} from './TournamentInfo.styles'
+
+// * Assets
+import { data } from './TournamentInfo.data'
 import ArrowLeftReset from '../../../assets/ArrowLeftReset'
 import X from '../../../assets/X'
 import CodingForm from '../CodingForm/CodingForm'
 
-// * Assets
-import { data } from './TournamentInfo.data'
-// * Styles
-import {
-  AvailableSlotsContainer,
-  AvailableSlotsItem,
-  ButtonContainer,
-  CloseContainer,
-  ComeBackBtn,
-  Container,
-  Content,
-  CustomOption,
-  CustomSelect,
-  Div,
-  EntryStartsContainer,
-  InfoContainer,
-  PrimaryButton,
-  SelectContainer,
-  SelectItem,
-  Span,
-  style,
-  Text,
-  TopContainer,
-  TournamentInfoContainer,
-} from './TournamentInfo.styles'
+// * API
+import teamsAPI from '../../../api/endpoints/team'
+import tournamentAPI from '../../../api/endpoints/tournament'
 
 function TournamentInfo() {
   const [open, setOpen] = useState(false)
@@ -82,7 +83,6 @@ function TournamentInfo() {
       })
     } else {
       const res = await tournamentAPI.addTeamToTournament(team._id, frontEnd, backEnd)
-
       console.log(res)
       if (res.data?.error) {
         enqueueSnackbar(res.data.error, {
@@ -107,7 +107,6 @@ function TournamentInfo() {
         const team = await teamsAPI.getTeamById(user.userTeam)
         const users = await teamsAPI.getTeamMembers(team.data.members)
         const checkSignedUp = await tournamentAPI.checkUserSignedUp(user._id)
-
         console.log(checkSignedUp)
         checkSignedUp.data.exists && checkSignedUp.data.exists === true
           ? handleTournamentCheck(checkSignedUp.data.role)
@@ -117,7 +116,6 @@ function TournamentInfo() {
         setUpdating(false)
       }
     }
-
     getData()
   }, [])
 

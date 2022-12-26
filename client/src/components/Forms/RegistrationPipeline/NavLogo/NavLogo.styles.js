@@ -1,6 +1,6 @@
 // * Modules
-import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
+import Toolbar from '@mui/material/Toolbar'
 
 // * Constants
 import { BLACK, WHITE } from '../../../../constants/colors'

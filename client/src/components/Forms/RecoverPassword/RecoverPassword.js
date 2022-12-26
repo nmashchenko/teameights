@@ -1,32 +1,33 @@
 // * Modules
-import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
+import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import Snackbar from '@mui/material/Snackbar'
+import Alert from '../../../components/Forms/RegistrationPipeline/Alert/Alert'
+
+// * Assets
+import SiteLogo from '../../../assets/SiteLogo'
+import ArrowLeftReset from '../../../assets/ArrowLeftReset'
+import emailValidation from './RecoverValidation'
 
 // * Api
 import resetPassword from '../../../api/endpoints/reset'
-import ArrowLeftReset from '../../../assets/ArrowLeftReset'
-// * Assets
-import SiteLogo from '../../../assets/SiteLogo'
-import Alert from '../../../components/Forms/RegistrationPipeline/Alert/Alert'
-import ROUTES from '../../../constants/routes'
 
 import {
-  BackButton,
-  ButtonContainer,
-  Container,
   NavBar,
-  RecoverBox,
-  RecoverButton,
+  Container,
   RecoverContainer,
-  RecoverInput,
-  SubTitleText,
+  RecoverBox,
   TextContainer,
   TitleText,
+  SubTitleText,
+  RecoverInput,
+  RecoverButton,
+  ButtonContainer,
+  BackButton,
 } from './RecoverPassword.styles'
-import emailValidation from './RecoverValidation'
+import ROUTES from '../../../constants/routes'
 
 function RecoverPassword() {
   const navigate = useNavigate()

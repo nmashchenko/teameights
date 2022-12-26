@@ -1,5 +1,5 @@
 // * Modules
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { animateScroll as scroll } from 'react-scroll'
 
 // * Assets
@@ -29,10 +29,8 @@ const SliderToTop = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', listenToScroll)
-
     return () => window.removeEventListener('scroll', listenToScroll)
   }, [])
-
   return (
     <>
       {isVisible && (

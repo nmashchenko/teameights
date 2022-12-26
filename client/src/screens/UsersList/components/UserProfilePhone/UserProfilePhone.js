@@ -4,28 +4,28 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TelegramIcon from '@mui/icons-material/Telegram'
 
-import AddIcon from '../../../../assets/AddIcon'
 // * Assets
 import ComebackArrow from '../../../../assets/ComebackArrow'
+import TempImg from '../../img/tempImg.jpg'
 import LinkIcon from '../../../../assets/LinkIcon'
 import MessageIcon from '../../../../assets/MessageIcon'
-import TempImg from '../../img/tempImg.jpg'
+import AddIcon from '../../../../assets/AddIcon'
 
 // * Styles
 import {
-  Button,
-  ButtonsContainer,
-  ComebackContainer,
-  DescriptionContainer,
-  LinksContainer,
-  ProjectLinkContainer,
-  ProjectsContainer,
-  Text,
-  UserImage,
-  UserInformationContainer,
-  UserInfoTextContainer,
-  UserLink,
   UserProfileContainer,
+  ComebackContainer,
+  UserInformationContainer,
+  UserImage,
+  UserInfoTextContainer,
+  Text,
+  LinksContainer,
+  UserLink,
+  DescriptionContainer,
+  ProjectsContainer,
+  ProjectLinkContainer,
+  ButtonsContainer,
+  Button,
 } from './UserProfilePhone.styles'
 
 const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {

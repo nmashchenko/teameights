@@ -1,13 +1,15 @@
 // * Modules
+import { isEqual } from 'lodash'
+import { useNavigate } from 'react-router-dom'
+
 // * Redux
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { isEqual } from 'lodash'
+
+// * Constants
+import ROUTES from '../constants/routes'
 
 // * API
 import authApi from '../api/endpoints/auth'
-// * Constants
-import ROUTES from '../constants/routes'
 
 const useTokenCheck = () => {
   const dispatch = useDispatch()

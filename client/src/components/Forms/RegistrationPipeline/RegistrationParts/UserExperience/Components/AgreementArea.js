@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
 import { includes } from 'lodash'
+import React, { useState } from 'react'
 
 // * Styles
 import {
+  ExperienceContainer,
   ExperienceButton,
   ExperienceButtonClicked,
-  ExperienceContainer,
 } from '../UserExperience.styles'
 
 const AgreementArea = ({ setLeader, setErrors, errors }) => {

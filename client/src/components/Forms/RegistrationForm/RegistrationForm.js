@@ -1,46 +1,50 @@
 // * Modules
-import React, { useEffect, useState } from 'react'
-// * Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { useNavigate } from 'react-router-dom'
 import isEqual from 'lodash/isEqual'
 
 // * Api
 import authApi from '../../../api/endpoints/auth'
-import CodingImage from '../../../assets/CodingImage'
+
+// * Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { userAuth } from '../../../store/reducers/UserAuth'
+
 // * Constants
 import ROUTES from '../../../constants/routes'
-import { userAuth } from '../../../store/reducers/UserAuth'
-import Backdrop from '../../Backdrop/Backdrop'
+
 // * Assets
 import NavBar from '../../NavBar/NavBar'
 import SnackBar from '../../SnackBar/SnackBar'
+import CodingImage from '../../../assets/CodingImage'
+import Backdrop from '../../Backdrop/Backdrop'
+
 // * Helpers
 import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
 
 // * Styles
 import {
-  AlternativeRegistration,
-  ImageContainer,
+  RegistrationContainer,
   LeftScreenContainer,
   LoginSignUpContainer,
   LoginSignUpLinks,
+  RegistrationLink,
+  UsernameEmailPasswordContainer,
+  RegistrationInput,
+  PasswordContainer,
+  ShowPass,
+  RegistrationButton,
   OrContainer,
   OrLine,
-  PasswordContainer,
-  RegistrationButton,
-  RegistrationContainer,
-  RegistrationInput,
-  RegistrationLink,
+  AlternativeRegistration,
   RightScreenContainer,
-  SeparateLine,
-  ShowPass,
-  SpannedLetter,
-  Text,
+  ImageContainer,
   TextContainer,
-  UsernameEmailPasswordContainer,
+  Text,
+  SpannedLetter,
+  SeparateLine,
 } from './RegistrationForm.styles'
 
 function RegistrationForm() {

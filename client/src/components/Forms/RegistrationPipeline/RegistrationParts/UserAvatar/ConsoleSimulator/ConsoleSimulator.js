@@ -1,14 +1,14 @@
 // * Modules
 import Typewriter from 'react-ts-typewriter'
-
 import { photo } from '../Photo'
+
 // * Styles
 import {
-  AvatarsContainer,
-  CodingArea,
-  DefaultImageArea,
   ImageArea,
+  DefaultImageArea,
+  AvatarsContainer,
   Text,
+  CodingArea,
 } from '../UserAvatar.styles'
 
 const ConsoleSimulator = ({

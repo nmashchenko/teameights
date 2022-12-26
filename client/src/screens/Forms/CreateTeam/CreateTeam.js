@@ -1,7 +1,7 @@
 // * Modules
-import { styled } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import { SnackbarProvider } from 'notistack'
+import { styled } from '@mui/material'
 
 import CreateTeamForm from '../../../components/Forms/CreateTeamForm/CreateTeamForm'
 

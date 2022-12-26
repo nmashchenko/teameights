@@ -1,10 +1,9 @@
-import MuiAlert from '@mui/material/Alert'
-import IconButton from '@mui/material/IconButton'
-import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
-
+import Toolbar from '@mui/material/Toolbar'
+import { LIME, WHITE, BLACK, GREY } from '../../../constants/colors'
 import { device } from '../../../constants/breakpoints'
-import { BLACK, GREY, LIME, WHITE } from '../../../constants/colors'
+import IconButton from '@mui/material/IconButton'
+import MuiAlert from '@mui/material/Alert'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {

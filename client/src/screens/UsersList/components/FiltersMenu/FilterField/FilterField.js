@@ -1,17 +1,18 @@
 // * Modules
-import CodeIcon from '@mui/icons-material/Code'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import FormControl from '@mui/material/FormControl'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
-import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
+import CodeIcon from '@mui/icons-material/Code'
 
-// * Assets
-import ArrowDown from '../../../../../assets/Arrows/ArrowDown'
 //* Constants
 import MenuProps from '../MenuProps'
 
+// * Assets
+import ArrowDown from '../../../../../assets/Arrows/ArrowDown'
+
 // * Styles
-import { CustomSelect, Item } from './FilterField.styles'
+import { Item, CustomSelect } from './FilterField.styles'
 
 export default function MultipleSelect(props) {
   return (

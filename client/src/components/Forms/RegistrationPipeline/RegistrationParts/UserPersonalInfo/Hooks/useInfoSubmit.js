@@ -1,13 +1,14 @@
 // * Modules
-// * Redux
-import { useDispatch } from 'react-redux'
 import { isEqual } from 'lodash'
-
-import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
-import { registrationAuth } from '../../../../../../store/reducers/RegistrationAuth'
 // import { useSnackbar } from 'notistack'
+
 // * Yup validation
 import yupValidation from '../../../YupValidations/YupValidations'
+
+// * Redux
+import { useDispatch } from 'react-redux'
+import { registrationAuth } from '../../../../../../store/reducers/RegistrationAuth'
+import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
 
 /**
  *
@@ -51,7 +52,6 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
       )
       .then(async function () {
         const user = await registerAuthApi.validateUsername(username, userData.email)
-
         if (!isEqual(user, null)) {
           setOpen(true)
           setErrors(['username', 'Username is already taken!'])
@@ -73,7 +73,6 @@ const useInfoSubmit = (userData, username, name, age, country, description, setO
         })
       })
   }
-
   return handleSubmit
 }
 

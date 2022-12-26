@@ -3,7 +3,7 @@ import http from '../../http'
 
 const { api } = http
 
-const getRegistrationEmail = async (email) => {
+const getRegistrationEmail = async (email)  => {
   try {
     await api.post('/reset-password', { email })
   } catch (err) {

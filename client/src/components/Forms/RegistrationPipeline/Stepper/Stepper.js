@@ -1,24 +1,24 @@
 // * Modules
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { styled } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
+import Stepper from '@mui/material/Stepper'
+import StepLabel from '@mui/material/StepLabel'
+import Step from '@mui/material/Step'
+import Check from '@mui/icons-material/Check'
+
 // * Redux
 import { useDispatch, useSelector } from 'react-redux'
-import Check from '@mui/icons-material/Check'
-import Stack from '@mui/material/Stack'
-import Step from '@mui/material/Step'
-import StepLabel from '@mui/material/StepLabel'
-import Stepper from '@mui/material/Stepper'
-import { styled } from '@mui/material/styles'
-import PropTypes from 'prop-types'
-
-import NavigationArrowDown from '../../../../assets/Arrows/NavigationArrowDown'
-import NavigationArrowUp from '../../../../assets/Arrows/NavigationArrowUp'
-// * Constants
-import { GREEN } from '../../../../constants/colors'
 import { registrationAuth } from '../../../../store/reducers/RegistrationAuth'
 
 // * Components
-import { ButtonContainer, StepperContainer } from './Stepper.styles'
+import { StepperContainer, ButtonContainer } from './Stepper.styles'
+import NavigationArrowUp from '../../../../assets/Arrows/NavigationArrowUp'
+import NavigationArrowDown from '../../../../assets/Arrows/NavigationArrowDown'
 
+// * Constants
+import { GREEN } from '../../../../constants/colors'
 const steps = [
   'InitialPart',
   'UserPersonalInfo',
@@ -70,7 +70,6 @@ export default function CustomizedSteppers({ step }) {
   const { completedStates } = useSelector((state) => state.registrationReducer)
 
   const dispatch = useDispatch()
-
   useEffect(() => {}, [completedStates])
 
   const handleCases = (newStep) => {

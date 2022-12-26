@@ -1,6 +1,6 @@
-import Email from '../../../assets/Email'
+import { Container, TextContainer, Text, ImgContainer } from './ConfirmEmail.styles'
 
-import { Container, ImgContainer, Text, TextContainer } from './ConfirmEmail.styles'
+import Email from '../../../assets/Email'
 
 function ConfirmEmail() {
   return (

@@ -1,9 +1,9 @@
 // * Modules
-// * Redux
-import { useDispatch } from 'react-redux'
+import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
 import { useNavigate } from 'react-router-dom'
 
-import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
+// * Redux
+import { useDispatch } from 'react-redux'
 // * Redux
 import { userAuth } from '../../../../../../store/reducers/UserAuth'
 
@@ -25,7 +25,6 @@ const useAvatarSubmit = (userData) => {
     dispatch(registerAuthApi.finishRegistration(userData))
     navigate('/auth/verification')
   }
-
   return handleSubmit
 }
 

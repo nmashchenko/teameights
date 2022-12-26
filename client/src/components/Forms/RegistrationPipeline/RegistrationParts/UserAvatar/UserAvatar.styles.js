@@ -2,7 +2,7 @@
 import styled from 'styled-components'
 
 // * Constants
-import { BLACK, GREEN, WHITE } from '../../../../../constants/colors'
+import { BLACK, WHITE, GREEN } from '../../../../../constants/colors'
 
 export const Container = styled.div`
   display: flex;

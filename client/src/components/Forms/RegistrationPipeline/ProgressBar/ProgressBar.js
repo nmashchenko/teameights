@@ -1,6 +1,6 @@
-import React from 'react'
-
 import { ProgressBarContainer, ProgressDone } from './ProgressBar.styles'
+
+import React from 'react'
 
 const ProgressBar = ({ done }) => {
   const [style, setStyle] = React.useState({})

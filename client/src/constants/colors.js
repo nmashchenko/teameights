@@ -40,4 +40,4 @@ const RED = Object.freeze({
   alert: '#cf625e',
 })
 
-export { BLACK, BLUE, DARK_BLUE, GREEN, GREY, LIME, RED, WHITE }
+export { LIME, BLACK, WHITE, GREY, GREEN, RED, BLUE, DARK_BLUE }

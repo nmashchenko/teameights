@@ -1,25 +1,26 @@
 // * Modules
 import React from 'react'
 
-import Close from '../../../../assets/Close'
 // * Assets
 import Filters from '../../../../assets/Filters'
+import Close from '../../../../assets/Close'
+
+// * Styles
+import {
+  FiltersMenuContainer,
+  TopContent,
+  FiltersContentTop,
+  FilterText,
+  FiltersAmount,
+  CloseContainer,
+  ButtonsContainer,
+  CustomButton,
+} from './FiltersMenu.styles'
 
 // * Components
 import Countries from './Filters/Countries'
-import ProgrammingLanguages from './Filters/ProgrammingLanguages'
 import Roles from './Filters/Roles'
-// * Styles
-import {
-  ButtonsContainer,
-  CloseContainer,
-  CustomButton,
-  FiltersAmount,
-  FiltersContentTop,
-  FiltersMenuContainer,
-  FilterText,
-  TopContent,
-} from './FiltersMenu.styles'
+import ProgrammingLanguages from './Filters/ProgrammingLanguages'
 
 const FiltersMenu = ({
   filterBar,

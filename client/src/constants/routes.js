@@ -7,8 +7,7 @@ const ROUTES = Object.freeze({
   passwordRecoverConfirm: '/auth/password-recover-confirm',
   passwordRecoverSuccess: '/auth/password-recover/:id/:token',
   temporary: '/platform',
-  profile: '/profile',
-  team: '/team',
+  Profile: '/profile'
 })
 
 export default ROUTES

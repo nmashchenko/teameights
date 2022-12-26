@@ -1,24 +1,24 @@
 // * Modules
-import { useLocation, useNavigate } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-
+import { useNavigate, useLocation } from 'react-router-dom'
 import ArrowLeftReset from '../../../assets/ArrowLeftReset'
+
 // * Assets
 import SiteLogo from '../../../assets/SiteLogo'
 import ROUTES from '../../../constants/routes'
 
 import {
-  BackButton,
-  ButtonContainer,
-  Container,
-  MiddleContainer,
-  MiddleText,
   NavBar,
-  RecoverBox,
+  Container,
   RecoverContainer,
+  RecoverBox,
   TextContainer,
   TitleText,
+  MiddleContainer,
+  MiddleText,
+  BackButton,
+  ButtonContainer,
 } from './RecoverConfirmation.styles'
 
 function RecoverPassword() {

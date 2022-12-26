@@ -1,34 +1,36 @@
 // * Modules
 import React, { useState } from 'react'
-// * Redux
-import { useDispatch, useSelector } from 'react-redux'
 import WarningIcon from '@mui/icons-material/Warning'
 import { includes } from 'lodash'
 
-import SkipArrow from '../../../../../assets/Arrows/SkipArrow'
-import GitHubIcon from '../../../../../assets/Links/GitHubIcon'
-import LinkedInIcon from '../../../../../assets/Links/LinkedInIcon'
-import TelegramIcon from '../../../../../assets/Links/TelegramIcon'
-import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
 import Stepper from '../../Stepper/Stepper'
+import GitHubIcon from '../../../../../assets/Links/GitHubIcon'
+import LinkedInIcon from '../../../../../assets/Links/LinkedInIcon'
+import TelegramIcon from '../../../../../assets/Links/TelegramIcon'
+import SkipArrow from '../../../../../assets/Arrows/SkipArrow'
+
+// * Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 
 // * Hooks
 import useLinksSubmit from './Hooks/useLinksSubmit'
+
 // * Styles
 import {
-  BottomContainer,
-  Button,
-  ButtonContainer,
-  ButtonDisabled,
   Container,
   DataContainer,
+  MiddleContainer,
   LinkArea,
   LinkInput,
-  MiddleContainer,
-  Skip,
+  ButtonContainer,
   SkipButton,
+  ButtonDisabled,
+  Button,
+  BottomContainer,
+  Skip,
 } from './Links.styles'
 
 const Links = () => {

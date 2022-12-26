@@ -4,8 +4,9 @@ import { includes } from 'lodash'
 
 // * Other
 import CustomMultipleSelect from '../../../CustomMultipleSelect/CustomMultipleSelect'
+
 // * Styles
-import { ConcetrationContainer, Line, Text } from '../UserConcentration.styles'
+import { Text, ConcetrationContainer, Line } from '../UserConcentration.styles'
 
 const ProgrammingLanguagesArea = ({
   programmingLanguages,

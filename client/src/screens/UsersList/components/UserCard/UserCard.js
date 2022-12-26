@@ -2,29 +2,31 @@
 import CrownImg from '../../img/CrownTest.png'
 import userImg from '../../img/tempImg.jpg'
 
-import LengthFourCase from './FrameworksCases/LengthFourCase'
-import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
-// * Cases
-import LengthOneCase from './FrameworksCases/LengthOneCase'
-import LengthThreeCase from './FrameworksCases/LengthThreeCase'
-import LengthTwoCase from './FrameworksCases/LengthTwoCase'
 // * Colors
 import languageOptions from './ProgrammingLanguages'
+
+// * Cases
+import LengthOneCase from './FrameworksCases/LengthOneCase'
+import LengthTwoCase from './FrameworksCases/LengthTwoCase'
+import LengthThreeCase from './FrameworksCases/LengthThreeCase'
+import LengthFourCase from './FrameworksCases/LengthFourCase'
+
 // * Styles
 import {
-  CardContainer,
-  CountryContainer,
-  CrownContainer,
-  FrameWorksContainer,
-  LanguageContainer,
-  ProgrammingLanguagesContainer,
-  TextContainer,
-  TitleText,
-  UserData,
-  UserImage,
-  UserInformationContainer,
   Wrapper,
+  CardContainer,
+  UserInformationContainer,
+  UserImage,
+  FrameWorksContainer,
+  UserData,
+  TextContainer,
+  CountryContainer,
+  TitleText,
+  ProgrammingLanguagesContainer,
+  LanguageContainer,
+  CrownContainer,
 } from './UserCard.styles'
+import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
 
 function UserCard(props) {
   return (

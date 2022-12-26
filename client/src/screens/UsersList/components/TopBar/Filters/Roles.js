@@ -9,7 +9,6 @@ const Roles = ({ options, data, setRoles }) => {
     const {
       target: { value },
     } = event
-
     setRoles(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,

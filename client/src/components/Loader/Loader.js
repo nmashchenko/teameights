@@ -1,13 +1,13 @@
 // * Modules
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
-// * Redux
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-
-import authApi from '../../api/endpoints/auth'
 import { BLACK } from '../../constants/colors'
+import { useNavigate } from 'react-router-dom'
+
+// * Redux
+import { useSelector, useDispatch } from 'react-redux'
+import authApi from '../../api/endpoints/auth'
 
 // * Styles
 const Container = styled.div`
@@ -33,7 +33,6 @@ const Loader = () => {
         dispatch(authApi.checkAuth())
       }
     }, 2000)
-
     return () => clearTimeout(timer)
   }, [])
 
@@ -45,7 +44,6 @@ const Loader = () => {
         navigate('/auth/login')
       }
     }, 4000)
-
     return () => clearTimeout(timer)
   }, [])
 

@@ -1,7 +1,7 @@
 // * Modules
 import React from 'react'
-
 import CustomSelect from '../../../CustomSelect/CustomSelect'
+
 // * Styles
 import { Text } from '../UserPersonalInfo.styles'
 

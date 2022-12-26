@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components'
-
 import { device } from '../../../../constants/breakpoints'
 
 const linearGradient = keyframes`

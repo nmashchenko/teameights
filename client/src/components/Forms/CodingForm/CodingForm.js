@@ -1,19 +1,21 @@
 // * Modules
 import React, { useEffect, useState } from 'react'
+import isEqual from 'lodash/isEqual'
+import { useNavigate } from 'react-router-dom'
+
+// * Assets
+import Frontend from './Frontend/Frontend'
+import Backend from './Backend/Backend'
+
+// * Styles
+import { Text } from './CodingForm.styles'
+
 // * Redux
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import isEqual from 'lodash/isEqual'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import tournamentAPI from '../../../api/endpoints/tournament'
-
-import Backend from './Backend/Backend'
-// * Assets
-import Frontend from './Frontend/Frontend'
-// * Styles
-import { Text } from './CodingForm.styles'
 
 function CodingForm() {
   const [code, setCode] = useState(``)
@@ -33,14 +35,12 @@ function CodingForm() {
       } else {
         const team = await teamsAPI.getTeamById(user.userTeam)
         const checkSignedUp = await tournamentAPI.checkUserSignedUp(user._id)
-
         setRole(checkSignedUp.data.role)
         setTeam(team.data)
 
         setUpdating(false)
       }
     }
-
     getData()
   }, [])
 

@@ -1,44 +1,48 @@
 // * Modules
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import { useNavigate } from 'react-router-dom'
 import isEqual from 'lodash/isEqual'
 
 // * Api
 import authApi from '../../../api/endpoints/auth'
-import CodingImage from '../../../assets/CodingImage'
-// * Constants
-import ROUTES from '../../../constants/routes'
+
 // * Redux
 import { userAuth } from '../../../store/reducers/UserAuth'
+import { useSelector, useDispatch } from 'react-redux'
+
+// * Constants
+import ROUTES from '../../../constants/routes'
+
 // * Assets
 import NavBar from '../../NavBar/NavBar'
 import SnackBar from '../../SnackBar/SnackBar'
+import CodingImage from '../../../assets/CodingImage'
+
 // * Helpers
 import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
 
 import {
-  AlternativeLogin,
-  EmailPasswordContainer,
-  ImageContainer,
-  LeftScreenContainer,
-  LoginButton,
   LoginContainer,
-  LoginInput,
-  LoginLink,
+  LeftScreenContainer,
   LoginSignUpContainer,
   LoginSignUpLinks,
+  LoginLink,
+  EmailPasswordContainer,
+  LoginInput,
+  PasswordContainer,
+  ShowPass,
+  LoginButton,
   OrContainer,
   OrLine,
-  PasswordContainer,
+  AlternativeLogin,
   RightScreenContainer,
-  SeparateLine,
-  ShowPass,
-  SpannedLetter,
-  Text,
+  ImageContainer,
   TextContainer,
+  Text,
+  SpannedLetter,
+  SeparateLine,
 } from './LoginForm.styles'
 
 function LoginForm() {
