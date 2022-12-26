@@ -10,7 +10,7 @@ import {
     ResetButton
 } from "../../MultiStepRegistration/MultiStepRegistration.styles";
 import {useFormikContext} from "formik";
-import ButtonWithDisabled from "../../MultiStepRegistration/components/ButtonWithDisabled/ButtonWithDisabled";
+import FormButton from "../../MultiStepRegistration/components/FormButton/FormButton";
 import {useDispatch} from "react-redux";
 import {setIsFinishedAvatarLoading} from "../../../../../../store/reducers/RegistrationAuth";
 import {ButtonsContainer} from "../../../../../../shared/styles/Button.styles";
@@ -73,7 +73,7 @@ const UserPersonalInfoForm = () => {
                 <ResetButton type="button" onClick={reset}>
                     Reset all
                 </ResetButton>
-                <ButtonWithDisabled errors={errors}/>
+                <FormButton errors={errors}/>
             </ButtonsContainer>
         </ContentWrapper>
     );

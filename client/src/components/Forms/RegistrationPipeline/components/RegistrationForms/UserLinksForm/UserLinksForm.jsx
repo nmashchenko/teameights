@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {MiddleContainer} from "../../MultiStepRegistration/MultiStepRegistration.styles";
 import CustomInput from "../../../../../../shared/components/CustomInput/CustomInput";
 import {InputWithIConWrapper} from "../../../../../../shared/components/CustomInput/CustomInput.styles";
@@ -10,9 +10,8 @@ import {useFormikContext} from "formik";
 import {ButtonsContainer} from "../../../../../../shared/styles/Button.styles";
 
 const UserLinksForm = () => {
-    const {errors, setErrors} = useFormikContext()
+    const {errors} = useFormikContext()
 
-    useEffect(() => setErrors({}))
     return (
         <>
             <MiddleContainer>

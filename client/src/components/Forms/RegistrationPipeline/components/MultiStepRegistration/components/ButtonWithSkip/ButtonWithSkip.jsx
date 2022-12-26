@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import SkipArrow from "../../../../../../../assets/Arrows/SkipArrow";
-import ButtonWithDisabled from "../ButtonWithDisabled/ButtonWithDisabled";
+import FormButton from "../FormButton/FormButton";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsOptionalStep, setStep} from "../../../../../../../store/reducers/RegistrationAuth";
 import {Skip, SkipButton} from "./ButtonWithSkip.styles";
@@ -29,7 +29,7 @@ const ButtonWithSkip = ({errors, resetFields}) => {
             </SkipButton>
             <SkipArrow />
         </Skip>
-        <ButtonWithDisabled width="6rem" errors={errors}/>
+        <FormButton width="6rem" errors={errors}/>
         </>
 );
 };

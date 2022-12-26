@@ -28,7 +28,7 @@ function NoTeamForm() {
   }, [])
 
   const handleCreate = () => {
-    if(!user.isRegistered){
+    if(!user?.isRegistered){
       navigate(ROUTES.login)
     }else {
       navigate('/create-team', { replace: true })
@@ -37,7 +37,7 @@ function NoTeamForm() {
   }
 
   const handleJoin = () => {
-    if(!user.isRegistered){
+    if(!user?.isRegistered){
       navigate(ROUTES.login)
     } else {
       navigate('/teams', { replace: true })

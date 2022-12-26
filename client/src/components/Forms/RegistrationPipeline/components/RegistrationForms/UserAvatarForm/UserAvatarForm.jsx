@@ -10,7 +10,7 @@ import {useFormikContext} from "formik";
 import {AvatarWrapper} from "./UserAvatarForm.styles";
 import Avatar from "@mikhail2404/react-avatar-edit";
 import {ErrorMessage} from "../../../../../../shared/styles/Tpography.styles";
-import ButtonWithDisabled from "../../MultiStepRegistration/components/ButtonWithDisabled/ButtonWithDisabled";
+import FormButton from "../../MultiStepRegistration/components/FormButton/FormButton";
 import ModalWindow from "../../RegistrationParts/UserAvatar/ModalWindow/ModalWindow";
 import {useDispatch} from "react-redux";
 import {setIsModalOpen} from "../../../../../../store/reducers/Shared";
@@ -112,7 +112,7 @@ const UserAvatarForm = () => {
                         />
                     </Button>
                     :
-                    <ButtonWithDisabled errors={errors}/>
+                    <FormButton errors={errors}/>
                 }
 
             </ButtonContainer>

@@ -8,7 +8,7 @@ import {AlertContainer, ContentContainer} from "./UserExperienceForm.styles";
 import {Button, ButtonDisabled} from "../../MultiStepRegistration/MultiStepRegistration.styles";
 import WarningIcon from "@mui/icons-material/Warning";
 import {useFormikContext} from "formik";
-import ButtonWithDisabled from "../../MultiStepRegistration/components/ButtonWithDisabled/ButtonWithDisabled";
+import FormButton from "../../MultiStepRegistration/components/FormButton/FormButton";
 
 ;
 
@@ -32,7 +32,7 @@ const UserExperienceForm = () => {
                 </Text>
             </AlertContainer>
             <CustomRadioButtonsGroup name="leader" options={userLeaderOptions}/>
-            <ButtonWithDisabled errors={errors}/>
+            <FormButton errors={errors}/>
         </ContentContainer>
     );
 };
