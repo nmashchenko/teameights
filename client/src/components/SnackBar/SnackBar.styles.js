@@ -1,7 +1,8 @@
 import MuiAlert from '@mui/material/Alert'
 import styled from 'styled-components'
-import { RED } from '../../constants/colors'
+
 import { device } from '../../constants/breakpoints'
+import { RED } from '../../constants/colors'
 
 export const AlertBox = styled(MuiAlert)`
   && {

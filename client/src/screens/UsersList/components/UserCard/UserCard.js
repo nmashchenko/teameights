@@ -1,35 +1,34 @@
-import React from "react"
+import React from 'react'
+
 // * Images
 import CrownImg from '../../img/CrownTest.png'
 import userImg from '../../img/tempImg.jpg'
 
-// * Colors
-import languageOptions from './ProgrammingLanguages'
-
+import LengthFourCase from './FrameworksCases/LengthFourCase'
+import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
 // * Cases
 import LengthOneCase from './FrameworksCases/LengthOneCase'
-import LengthTwoCase from './FrameworksCases/LengthTwoCase'
 import LengthThreeCase from './FrameworksCases/LengthThreeCase'
-import LengthFourCase from './FrameworksCases/LengthFourCase'
-
+import LengthTwoCase from './FrameworksCases/LengthTwoCase'
+// * Colors
+import languageOptions from './ProgrammingLanguages'
 // * Styles
 import {
-  Wrapper,
   CardContainer,
-  UserInformationContainer,
-  UserImage,
-  FrameWorksContainer,
-  UserData,
-  TextContainer,
   CountryContainer,
-  TitleText,
-  ProgrammingLanguagesContainer,
-  LanguageContainer,
   CrownContainer,
+  FrameWorksContainer,
+  LanguageContainer,
+  ProgrammingLanguagesContainer,
+  TextContainer,
+  TitleText,
+  UserData,
+  UserImage,
+  UserInformationContainer,
+  Wrapper,
 } from './UserCard.styles'
-import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
 
-const  UserCard = React.forwardRef((props, ref=null) => {
+const UserCard = React.forwardRef((props, ref = null) => {
   return (
     <Wrapper ref={ref}>
       <CardContainer>

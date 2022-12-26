@@ -1,22 +1,23 @@
-import styled from "styled-components";
-import Select from "@mui/material/Select";
-import {GREEN, WHITE, GREY} from "../../../constants/colors";
-import MenuItem from "@mui/material/MenuItem";
-import {shake} from "../../styles/KeyFrames.styles";
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import styled from 'styled-components'
+
+import { GREEN, GREY, WHITE } from '../../../constants/colors'
+import { shake } from '../../styles/KeyFrames.styles'
 
 export const SelectCustom = styled(Select)`
-  animation-name: ${(props) => !props.$isError ? 'none' : shake};
+  animation-name: ${(props) => (!props.$isError ? 'none' : shake)};
   animation-duration: 0.3s;
   background: none;
-  height:  45px;
+  height: 45px;
   border: none;
-  fontSize: 18px;
+  fontsize: 18px;
   color: ${WHITE.main};
-  
+
   svg {
-    color: ${(props) => props.isError ? '#cf625e'  : '#72EB3A'};
+    color: ${(props) => (props.isError ? '#cf625e' : '#72EB3A')};
   }
-  
+
   & .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     padding: 0;
     color: ${WHITE.main};
@@ -66,17 +67,17 @@ export const Item = styled(MenuItem)`
 `
 
 export const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: '250px',
-            background: GREY.selectBackground,
-            boxSizing: 'border-box',
-            padding: '0 5px',
-            margin: '5px 0',
-            borderRadius: '5px',
-            color: WHITE.main,
-            overflow: 'auto',
-            outline: '0px',
-        },
+  PaperProps: {
+    style: {
+      maxHeight: '250px',
+      background: GREY.selectBackground,
+      boxSizing: 'border-box',
+      padding: '0 5px',
+      margin: '5px 0',
+      borderRadius: '5px',
+      color: WHITE.main,
+      overflow: 'auto',
+      outline: '0px',
     },
+  },
 }

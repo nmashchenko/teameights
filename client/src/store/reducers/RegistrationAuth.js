@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import finishRegistrationValidation from "../../schemas";
+
+import finishRegistrationValidation from '../../schemas'
 
 const initialState = {
   step: 0,
@@ -15,7 +16,6 @@ export const registrationAuth = createSlice({
   name: 'registration',
   initialState,
   reducers: {
-
     setIsFinishRegistrationStarted(state, action) {
       state.isFinishRegistrationStarted = action.payload
     },
@@ -48,7 +48,17 @@ export const registrationAuth = createSlice({
   },
 })
 
-export const { setIsLastStep, setIsOptionalStep, setIsFinishedAvatarLoading,  setIsFinishRegistrationStarted,  setUserPersonalInfo, setActiveState, setStep, setStageOneCompleted, finishRegistration, finishRegistrationError } = registrationAuth.actions;
-
+export const {
+  setIsLastStep,
+  setIsOptionalStep,
+  setIsFinishedAvatarLoading,
+  setIsFinishRegistrationStarted,
+  setUserPersonalInfo,
+  setActiveState,
+  setStep,
+  setStageOneCompleted,
+  finishRegistration,
+  finishRegistrationError,
+} = registrationAuth.actions
 
 export default registrationAuth.reducer

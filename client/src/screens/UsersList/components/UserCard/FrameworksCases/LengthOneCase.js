@@ -1,8 +1,7 @@
 // * Styles
-import { Framework } from '../UserCard.styles'
-
 // * Colors
 import { frameworkColors, frameworkTextColors } from '../FrameworkColors'
+import { Framework } from '../UserCard.styles'
 
 const LengthOneCase = ({ userFrameworks }) => {
   return (

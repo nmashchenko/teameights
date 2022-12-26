@@ -1,10 +1,9 @@
-import { ToolbarContainer, NavContainer } from './TopTemplate.styles'
-
 import TeameightsLogo from '../../assets/Team/TeameightsLogo.js'
 import NavBar from '../NavBar/NavBar'
 
-const TopTemplate = () => {
+import { NavContainer, ToolbarContainer } from './TopTemplate.styles'
 
+const TopTemplate = () => {
   return (
     <ToolbarContainer>
       <NavContainer>

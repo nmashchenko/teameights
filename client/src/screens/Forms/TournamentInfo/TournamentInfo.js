@@ -1,8 +1,9 @@
 import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline'
-import TournamentInfo from '../../../components/Forms/TournamentInfo/TournamentInfo'
-import { SnackbarProvider } from 'notistack'
 import { styled } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
+import { SnackbarProvider } from 'notistack'
+
+import TournamentInfo from '../../../components/Forms/TournamentInfo/TournamentInfo'
 
 function TournamentScreen() {
   const SnackbarStyled = styled(SnackbarProvider)`

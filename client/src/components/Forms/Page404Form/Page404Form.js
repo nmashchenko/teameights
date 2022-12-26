@@ -1,21 +1,22 @@
 // * Modules
 import { useNavigate } from 'react-router-dom'
 
-// * Styles
-import {
-  Container,
-  Text,
-  InfoContainer,
-  LeftContainer,
-  RightContainer,
-  Button,
-} from './Page404Form.styles'
-
 // * Assets
 import Page404 from '../../../assets/Page404'
 
+// * Styles
+import {
+  Button,
+  Container,
+  InfoContainer,
+  LeftContainer,
+  RightContainer,
+  Text,
+} from './Page404Form.styles'
+
 const Page404Form = () => {
   const navigate = useNavigate()
+
   return (
     <Container>
       <InfoContainer>
@@ -27,7 +28,7 @@ const Page404Form = () => {
           <Text fontWeight="400" fontSize="1rem">
             Couldn't find the requested page.
           </Text>
-          <Button onClick={() => navigate('/', {replace: true})}>Return Home</Button>
+          <Button onClick={() => navigate('/', { replace: true })}>Return Home</Button>
         </LeftContainer>
         <RightContainer>
           <Page404 width="100%" height="auto" />

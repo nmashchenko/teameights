@@ -9,6 +9,7 @@ const Countries = ({ options, data, setCountries }) => {
     const {
       target: { value },
     } = event
+
     setCountries(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,

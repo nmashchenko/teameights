@@ -1,25 +1,24 @@
 // * Modules
-import Countdown from 'react-countdown'
-import Editor from '@monaco-editor/react'
-import Typewriter from '@mikhail2404/react-ts-typewriter'
 import { useState } from 'react'
+import Countdown from 'react-countdown'
 import { useNavigate } from 'react-router-dom'
-
-// * Styles
-import {
-  Container,
-  Text,
-  LeftContainer,
-  RightContainer,
-  TaskContainer,
-  OutputContainer,
-  ResultContainer,
-  ResultStatus,
-  SubmitButton,
-} from '../CodingForm.styles'
+import Typewriter from '@mikhail2404/react-ts-typewriter'
+import Editor from '@monaco-editor/react'
 
 // * API
 import submissionAPI from '../../../../api/endpoints/submission'
+// * Styles
+import {
+  Container,
+  LeftContainer,
+  OutputContainer,
+  ResultContainer,
+  ResultStatus,
+  RightContainer,
+  SubmitButton,
+  TaskContainer,
+  Text,
+} from '../CodingForm.styles'
 
 // * Assets
 import CodeEvaluation from './CodeEvaluation'
@@ -29,6 +28,7 @@ function CodingForm({ renderer, value, output, handleEditorChange, team, user, s
 
   const makeSubmission = async () => {
     const curPoints = CodeEvaluation(code)
+
     setPoints(points)
 
     curPoints < 70
@@ -46,6 +46,7 @@ function CodingForm({ renderer, value, output, handleEditorChange, team, user, s
       },
     }
     const submission = await submissionAPI.makeSubmission(s_parts, user.userTeam)
+
     if (curPoints === 70) {
       setTimeout(function () {
         setOutput('Redirecting you to the leaderboards...')

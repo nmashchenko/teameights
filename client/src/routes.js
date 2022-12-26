@@ -1,29 +1,28 @@
 // * Modules
 import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
+// * Constants
+import ROUTES from './constants/routes'
+import Confirmation from './screens/Forms/Confirmation/Confirmation'
+import CreateTeam from './screens/Forms/CreateTeam/CreateTeam'
+import FinishRegistration from './screens/Forms/FinishRegistration/FinishRegistration'
+import LeaderboardScreen from './screens/Forms/LeaderboardScreen/LeaderboardScreen'
+import LoaderScreen from './screens/Forms/LoaderScreen/LoaderScreen'
 // * Screens
 import Login from './screens/Forms/Login/Login'
+import NoTeamScreen from './screens/Forms/NoTeamScreen/NoTeamScreen'
+import Profile from './screens/Forms/Profile/Profile'
 import Registration from './screens/Forms/Registration/Registration'
-import Confirmation from './screens/Forms/Confirmation/Confirmation'
-import FinishRegistration from './screens/Forms/FinishRegistration/FinishRegistration'
+import ResetNewPasswords from './screens/Forms/ResetNewPasswords/ResetNewPasswords'
 import ResetPassword from './screens/Forms/ResetPassword/ResetPassword'
 import ResetPasswordConfirmation from './screens/Forms/ResetPasswordConfirmation/ResetPasswordConfirmation'
-import ResetNewPasswords from './screens/Forms/ResetNewPasswords/ResetNewPasswords'
-import UsersList from './screens/UsersList/UsersList'
-import LoaderScreen from './screens/Forms/LoaderScreen/LoaderScreen'
-import NoTeamScreen from './screens/Forms/NoTeamScreen/NoTeamScreen'
 import TeamScreen from './screens/Forms/TeamScreen/TeamScreen'
-import Profile from './screens/Forms/Profile/Profile'
-import CreateTeam from './screens/Forms/CreateTeam/CreateTeam'
 import TeamsScreen from './screens/Forms/TeamsScreen/TeamsScreen'
 import TournamentCodingScreen from './screens/Forms/TournamentCodingScreen/TournamentCodingScreen'
 import TournamentInfo from './screens/Forms/TournamentInfo/TournamentInfo'
 import Tournaments from './screens/Forms/Tournaments/Tournaments'
-import LeaderboardScreen from './screens/Forms/LeaderboardScreen/LeaderboardScreen'
-
-// * Constants
-import ROUTES from './constants/routes'
+import UsersList from './screens/UsersList/UsersList'
 
 export const useRoutes = () => {
   return (

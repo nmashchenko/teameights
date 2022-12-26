@@ -9,6 +9,7 @@ const ProgrammingLanguages = ({ options, data, setProgrammingLanguages }) => {
     const {
       target: { value },
     } = event
+
     setProgrammingLanguages(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,

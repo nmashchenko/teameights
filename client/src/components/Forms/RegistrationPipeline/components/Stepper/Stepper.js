@@ -1,24 +1,24 @@
 // * Modules
-import PropTypes from 'prop-types'
-import { styled } from '@mui/material/styles'
-import Stack from '@mui/material/Stack'
-import Stepper from '@mui/material/Stepper'
-import StepLabel from '@mui/material/StepLabel'
-import Step from '@mui/material/Step'
-import Check from '@mui/icons-material/Check'
-
 // * Redux
 import { useDispatch, useSelector } from 'react-redux'
+import Check from '@mui/icons-material/Check'
+import Stack from '@mui/material/Stack'
+import Step from '@mui/material/Step'
+import StepLabel from '@mui/material/StepLabel'
+import Stepper from '@mui/material/Stepper'
+import { styled } from '@mui/material/styles'
+import { useFormikContext } from 'formik'
+import PropTypes from 'prop-types'
+
+import NavigationArrowDown from '../../../../../assets/Arrows/NavigationArrowDown'
+import NavigationArrowUp from '../../../../../assets/Arrows/NavigationArrowUp'
+// * Constants
+import { GREEN } from '../../../../../constants/colors'
 import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 
 // * Components
-import { StepperContainer, ButtonContainer } from './Stepper.styles'
-import NavigationArrowUp from '../../../../../assets/Arrows/NavigationArrowUp'
-import NavigationArrowDown from '../../../../../assets/Arrows/NavigationArrowDown'
+import { ButtonContainer, StepperContainer } from './Stepper.styles'
 
-// * Constants
-import { GREEN } from '../../../../../constants/colors'
-import {useFormikContext} from "formik";
 const steps = [
   'InitialPart',
   'UserPersonalInfo',
@@ -68,7 +68,7 @@ export default function CustomizedSteppers() {
   const { step, isLastStep, isOptionalStep } = useSelector((state) => state.registrationReducer)
 
   const { setStep } = registrationAuth.actions
-  const {isValid, initialTouched} = useFormikContext()
+  const { isValid, initialTouched } = useFormikContext()
   const dispatch = useDispatch()
 
   const handleDecrement = () => {
@@ -81,7 +81,7 @@ export default function CustomizedSteppers() {
 
   return (
     <StepperContainer>
-      <ButtonContainer type="button" disabled={step === 1 } onClick={handleDecrement}>
+      <ButtonContainer type="button" disabled={step === 1} onClick={handleDecrement}>
         <NavigationArrowUp />
       </ButtonContainer>
       <Stack>
@@ -93,7 +93,11 @@ export default function CustomizedSteppers() {
           ))}
         </Stepper>
       </Stack>
-      <ButtonContainer type="button" disabled={isLastStep || !(isValid || isOptionalStep) } onClick={handleIncrement}>
+      <ButtonContainer
+        type="button"
+        disabled={isLastStep || !(isValid || isOptionalStep)}
+        onClick={handleIncrement}
+      >
         <NavigationArrowDown />
       </ButtonContainer>
     </StepperContainer>

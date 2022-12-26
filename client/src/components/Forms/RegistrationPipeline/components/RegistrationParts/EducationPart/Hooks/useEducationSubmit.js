@@ -1,12 +1,11 @@
 // * Modules
-import { useSnackbar } from 'notistack'
-
 // * Yup validation
-
 // * Redux
 import { useDispatch } from 'react-redux'
+import { useSnackbar } from 'notistack'
+
+import yupValidation from '../../../../../../../schemas'
 import { registrationAuth } from '../../../../../../../store/reducers/RegistrationAuth'
-import yupValidation from "../../../../../../../schemas";
 
 /**
  *
@@ -48,6 +47,7 @@ const useEducationSubmit = (university, major, graduationDate, setOpen, setError
         })
       })
   }
+
   return handleSubmit
 }
 

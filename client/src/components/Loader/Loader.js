@@ -2,6 +2,7 @@
 import React from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
 import styled from 'styled-components'
+
 import { BLACK } from '../../constants/colors'
 
 // * Styles
@@ -19,7 +20,6 @@ const Container = styled.div`
 `
 
 const Loader = () => {
-
   return (
     <Container>
       <InfinitySpin width="200" color="#4fa94d" />

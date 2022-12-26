@@ -1,7 +1,7 @@
 // * Modules
-import styled from 'styled-components'
-import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import styled from 'styled-components'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {

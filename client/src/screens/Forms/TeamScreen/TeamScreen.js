@@ -1,8 +1,9 @@
 import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline'
-import TeamForm from '../../../components/Forms/TeamForm/TeamForm'
-import { SnackbarProvider } from 'notistack'
 import { styled } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
+import { SnackbarProvider } from 'notistack'
+
+import TeamForm from '../../../components/Forms/TeamForm/TeamForm'
 
 function TeamScreen() {
   const SnackbarStyled = styled(SnackbarProvider)`
@@ -10,6 +11,7 @@ function TeamScreen() {
       background-color: #cf625e;
     }
   `
+
   return (
     <>
       <SnackbarStyled

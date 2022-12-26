@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import {GREEN, RED, WHITE} from "../../constants/colors";
+import styled from 'styled-components'
+
+import { GREEN, RED, WHITE } from '../../constants/colors'
 
 export const Button = styled.button`
   font-weight: 400;
@@ -19,13 +20,13 @@ export const Button = styled.button`
     -ms-transform: scale(1.02);
     transform: scale(1.02);
   }
-  
+
   &:disabled {
     cursor: default;
   }
 `
 
-export const ButtonContainer= styled.div`
+export const ButtonContainer = styled.div`
   margin-top: 3rem;
 `
 
@@ -43,7 +44,7 @@ export const ButtonDisabled = styled.button`
   cursor: not-allowed;
 `
 
-export const ButtonsContainer= styled.div`
+export const ButtonsContainer = styled.div`
   width: ${(props) => props.width || 'calc(100% - 300px)'};
   display: flex;
   justify-content: space-between;

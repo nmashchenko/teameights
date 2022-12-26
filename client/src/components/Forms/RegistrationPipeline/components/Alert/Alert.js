@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { AlertBox } from './Alert.styles'
 
 const Alert = React.forwardRef(function Alert(props, ref) {

@@ -1,60 +1,59 @@
 // * Modules
 import React, { useState } from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { useCheckAuth } from '../../api/hooks/useCheckAuth'
+import { useLogoutUser } from '../../api/hooks/useLogoutUser'
 // * Assets
 import NavBarIcon from '../../assets/NavBarIcon'
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
 import Notification from '../../assets/Sidebar/Notification'
+import Routes from '../../constants/routes'
+import { Button } from '../../shared/styles/Button.styles'
+import Loader from '../Loader/Loader'
 
 // * Data
 import { NavBarData } from './NavBar.data'
-import userImg from './tempImg.jpg'
-
 import {
-  NavIconContainer,
+  BottomContent,
+  ItemTitle,
   NameNotificationsContainer,
-  UserInfo,
-  UserData,
-  UserImage,
-  UserTextContainer,
-  UserText,
+  NavBarToggle,
+  NavIconContainer,
+  NavItem,
+  NavItems,
   NavMenu,
   NavMenuItems,
-  NavBarToggle,
-  NavItem,
-  ItemTitle,
-  NavItems,
-  BottomContent,
-  SingOutButton,
   NotificationsArea,
+  SingOutButton,
+  UserData,
+  UserImage,
+  UserInfo,
+  UserText,
+  UserTextContainer,
 } from './NavBar.styles'
-import {useCheckAuth} from "../../api/hooks/useCheckAuth";
-import {useLogoutUser} from "../../api/hooks/useLogoutUser";
-import Loader from "../Loader/Loader";
-import {useSelector} from "react-redux";
-import Routes from "../../constants/routes";
-import {Button} from "../../shared/styles/Button.styles";
+import userImg from './tempImg.jpg'
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
   const { isAuth } = useSelector((state) => state.userReducer)
   const navigate = useNavigate()
-  const {data: userData} = useCheckAuth()
+  const { data: userData } = useCheckAuth()
   const user = userData?.data
 
-
-  const {mutate: logoutUser, isLoading: isUserLoggingOut} = useLogoutUser()
+  const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
 
   const handleUseLogout = () => {
     logoutUser()
   }
 
-  if(isUserLoggingOut ) {
-    return  <Loader />
+  if (isUserLoggingOut) {
+    return <Loader />
   }
   const showSidebar = () => setSidebar(!sidebar)
+
   return (
     <>
       <NavIconContainer onClick={showSidebar}>
@@ -96,7 +95,13 @@ const NavBar = () => {
               })}
             </NavItems>
             <BottomContent>
-                {isAuth ? <SingOutButton onClick={handleUseLogout}><Exit /> Sign Out</SingOutButton>: <Button onClick={() => navigate(Routes.login)} >Login</Button>}
+              {isAuth ? (
+                <SingOutButton onClick={handleUseLogout}>
+                  <Exit /> Sign Out
+                </SingOutButton>
+              ) : (
+                <Button onClick={() => navigate(Routes.login)}>Login</Button>
+              )}
               <UserText
                 fontWeight="400"
                 fontSize="12px"

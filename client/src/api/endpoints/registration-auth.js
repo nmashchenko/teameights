@@ -5,7 +5,6 @@ import { isEqual } from 'lodash'
 // * API
 import api from '../../http'
 import { API_URL } from '../../http'
-
 // * Redux
 import { registrationAuth } from '../../store/reducers/RegistrationAuth'
 
@@ -14,6 +13,7 @@ const checkRegistration = () => async (dispatch) => {
     dispatch(registrationAuth.actions.finishRegistration())
     const response = await axios.get(`${API_URL}/get-user-object`, { withCredentials: true })
     let { isRegistered, email, userUsername } = response.data
+
     dispatch(
       registrationAuth.actions.setUserInitialData({
         email,
@@ -39,6 +39,7 @@ const finishRegistration = (userData) => async (dispatch) => {
 const validateUsername = async (username, email) => {
   try {
     const response = await api.get('/check-username', { params: { username, email } })
+
     return response.data
   } catch (err) {
     console.log(err)

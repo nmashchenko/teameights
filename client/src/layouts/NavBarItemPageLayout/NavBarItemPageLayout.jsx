@@ -1,15 +1,17 @@
-import React from 'react';
-import {Container} from "./NavbarItemPageLayout.styles";
-import TopTemplate from "../../components/TopTemplate/TopTemplate";
-import {Outlet} from "react-router-dom";
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+
+import TopTemplate from '../../components/TopTemplate/TopTemplate'
+
+import { Container } from './NavbarItemPageLayout.styles'
 
 const NavBarItemPageLayout = () => {
-    return (
-        <Container>
-            <TopTemplate />
-            <Outlet />
-        </Container>
-    );
-};
+  return (
+    <Container>
+      <TopTemplate />
+      <Outlet />
+    </Container>
+  )
+}
 
-export default NavBarItemPageLayout;
+export default NavBarItemPageLayout

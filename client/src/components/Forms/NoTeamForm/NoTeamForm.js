@@ -1,24 +1,24 @@
 // * Modules
-import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+// * Assets
+import { useCheckAuth } from '../../../api/hooks/useCheckAuth'
+import ROUTES from '../../../constants/routes'
 
 // * Styles
 import {
-  TextContainer,
-  Text,
-  ButtonGeneral,
   ButtonContainer,
-  CardContainer,
+  ButtonGeneral,
   Card,
+  CardContainer,
+  Text,
+  TextContainer,
 } from './NoTeamForm.styles'
-
-// * Assets
-import {useCheckAuth} from "../../../api/hooks/useCheckAuth";
-import ROUTES from "../../../constants/routes";
 
 function NoTeamForm() {
   const navigate = useNavigate()
-  const {data: userData} = useCheckAuth()
+  const { data: userData } = useCheckAuth()
   const user = userData?.data
 
   useEffect(() => {
@@ -28,16 +28,15 @@ function NoTeamForm() {
   }, [])
 
   const handleCreate = () => {
-    if(!user?.isRegistered){
+    if (!user?.isRegistered) {
       navigate(ROUTES.login)
-    }else {
+    } else {
       navigate('/create-team', { replace: true })
     }
-
   }
 
   const handleJoin = () => {
-    if(!user?.isRegistered){
+    if (!user?.isRegistered) {
       navigate(ROUTES.login)
     } else {
       navigate('/teams', { replace: true })
@@ -45,18 +44,18 @@ function NoTeamForm() {
   }
 
   return (
-      <CardContainer>
-        <Card>
-          <TextContainer>
-            <Text>You don't have a team yet!</Text>
-            <Text>Let's create it...</Text>
-          </TextContainer>
-          <ButtonContainer>
-            <ButtonGeneral onClick={handleCreate}>Create team</ButtonGeneral>
-            <ButtonGeneral onClick={handleJoin}>Join existing</ButtonGeneral>
-          </ButtonContainer>
-        </Card>
-      </CardContainer>
+    <CardContainer>
+      <Card>
+        <TextContainer>
+          <Text>You don't have a team yet!</Text>
+          <Text>Let's create it...</Text>
+        </TextContainer>
+        <ButtonContainer>
+          <ButtonGeneral onClick={handleCreate}>Create team</ButtonGeneral>
+          <ButtonGeneral onClick={handleJoin}>Join existing</ButtonGeneral>
+        </ButtonContainer>
+      </Card>
+    </CardContainer>
   )
 }
 

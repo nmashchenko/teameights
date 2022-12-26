@@ -1,35 +1,36 @@
 // * Modules
 import React, { useEffect } from 'react'
-import {registrationAuth, setIsFinishRegistrationStarted} from '../../../../../../store/reducers/RegistrationAuth'
+// * Redux
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { isEqual } from 'lodash'
 
-// * Redux
-import { useSelector, useDispatch } from 'react-redux'
-
+import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
+import { useCheckAuth } from '../../../../../../api/hooks/useCheckAuth'
+import ROUTES from '../../../../../../constants/routes'
+import {
+  registrationAuth,
+  setIsFinishRegistrationStarted,
+} from '../../../../../../store/reducers/RegistrationAuth'
+import Loader from '../../../../../Loader/Loader'
 // * Assets
 import NavLogo from '../../NavLogo/NavLogo'
 
 import {
   CardContainer,
   Container,
-  TopText,
-  MiddleTextContainer,
   ContinueButton,
+  MiddleTextContainer,
+  TopText,
 } from './InitialPart.styles'
-
-import ROUTES from '../../../../../../constants/routes'
-import registerAuthApi from '../../../../../../api/endpoints/registration-auth'
-import {useCheckAuth} from "../../../../../../api/hooks/useCheckAuth";
-import Loader from "../../../../../Loader/Loader";
 
 function InitialPart() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const { setActiveState, setStep } = registrationAuth.actions
-  const {curRegistration } = useSelector((state) => state.registrationReducer)
-  const {data: userData, isFetching} = useCheckAuth()
+  const { curRegistration } = useSelector((state) => state.registrationReducer)
+  const { data: userData, isFetching } = useCheckAuth()
   const user = userData?.data
   // check if local storage has token that was generated with registration
   // useEffect(() => {
@@ -45,13 +46,14 @@ function InitialPart() {
   useEffect(() => {
     // if user is already registered -> navigate him to the login page
     if (curRegistration) {
-      navigate("/", { replace: true })
+      navigate('/', { replace: true })
     }
   }, [curRegistration, navigate])
 
-  if(isFetching) {
-    return  <Loader />
+  if (isFetching) {
+    return <Loader />
   }
+
   return (
     <>
       <NavLogo />
