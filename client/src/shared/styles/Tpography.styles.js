@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import {WHITE} from "../../constants/colors";
+import styled from 'styled-components'
+
+import { WHITE } from '../../constants/colors'
 
 export const Text = styled.h3`
   font-size: ${(props) => props.fontSize || '18px'};
@@ -12,6 +13,6 @@ export const Text = styled.h3`
 export const ErrorMessage = styled.p`
   font-size: 15px;
   font-weight: 900;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   color: #cf625e;
 `

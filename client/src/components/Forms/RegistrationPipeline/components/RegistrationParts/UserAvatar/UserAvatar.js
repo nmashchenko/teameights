@@ -1,35 +1,32 @@
 // * Modules
-import React, { useState } from 'react'
-import ModalWindow from './ModalWindow/ModalWindow'
+import React, { useEffect, useState } from 'react'
+import { ThreeDots } from 'react-loader-spinner'
+// * Redux
+import { useSelector } from 'react-redux'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import { useSnackbar } from 'notistack'
-import { ThreeDots } from 'react-loader-spinner'
 
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
 import Stepper from '../../Stepper/Stepper'
-import { style } from './ModalWindow/ModalWindow.styles'
+
 import ConsoleSimulator from './ConsoleSimulator/ConsoleSimulator'
-
-// * Redux
-import { useSelector } from 'react-redux'
-
+// * Hooks
+import useAvatarSubmit from './Hooks/useUserAvatarSubmit'
+import ModalWindow from './ModalWindow/ModalWindow'
+import { style } from './ModalWindow/ModalWindow.styles'
 // * Styles
 import {
+  Button,
+  CardContainer,
   Container,
   DataContainer,
   MiddleContainer,
-  CardContainer,
   SelectContainer,
-  UserImageContainer,
-  UploadArea,
   Text,
-  Button,
+  UploadArea,
+  UserImageContainer,
 } from './UserAvatar.styles'
-import { useEffect } from 'react'
-
-// * Hooks
-import useAvatarSubmit from './Hooks/useUserAvatarSubmit'
 
 const UserAvatar = () => {
   // * Redux
@@ -68,6 +65,7 @@ const UserAvatar = () => {
   function onClose() {
     setPreview(null)
   }
+
   function onCrop(pv) {
     setUser({
       ...user,
@@ -75,6 +73,7 @@ const UserAvatar = () => {
     })
     setPreview(pv)
   }
+
   function onBeforeFileLoad(elem) {
     if (elem.target.files[0].size > 2000000) {
       enqueueSnackbar('File is too big!', {

@@ -10,7 +10,6 @@ export const userAuth = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-
     authUserSuccess(state) {
       state.error = ''
       state.isAuth = true
@@ -29,7 +28,6 @@ export const userAuth = createSlice({
     authClearError(state) {
       state.error = ''
     },
-
   },
 })
 

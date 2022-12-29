@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import {BLACK, WHITE} from "../../../../../constants/colors";
+import styled from 'styled-components'
+
+import { BLACK, WHITE } from '../../../../../constants/colors'
 
 export const RegistrationContainer = styled.div`
   width: 100%;
@@ -20,7 +21,7 @@ export const ResetButton = styled.button`
   outline: none;
   font-weight: 400;
   font-size: 18px;
-  margin-top: .8rem;
+  margin-top: 0.8rem;
   cursor: pointer;
   align-self: flex-start;
   &:hover {

@@ -1,41 +1,39 @@
 // * Modules
 import React, { useState } from 'react'
-import AppBar from '@mui/material/AppBar'
 import countryList from 'react-select-country-list'
+import AppBar from '@mui/material/AppBar'
 
+import Filters from '../../../../assets/Filters'
 // * Assets
 import PlatformLogo from '../../../../assets/PlatformLogo'
 import Search from '../../../../assets/SearchIcon'
-import Filters from '../../../../assets/Filters'
-
 // * Components
 import NavBarContainer from '../../../../components/NavBar/NavBar'
 import FiltersMenu from '../FiltersMenu/FiltersMenu'
 
-// * Options
-import { concentrationOptions } from './Contentration.options'
-import { programmingLanguageOptions } from './ProgrammingLanguages.options'
-
-import {
-  NavBar,
-  BoxContainer,
-  LogoContainer,
-  AlternativeLogoContainer,
-  Button,
-  SelectContainer,
-  FilterContainer,
-  FilterText,
-} from './TopBar.styles'
-
 import Countries from './Filters/Countries'
 import ProgrammingLanguages from './Filters/ProgrammingLanguages'
 import Roles from './Filters/Roles'
+// * Options
+import { concentrationOptions } from './Contentration.options'
+import { programmingLanguageOptions } from './ProgrammingLanguages.options'
+import {
+  AlternativeLogoContainer,
+  BoxContainer,
+  Button,
+  FilterContainer,
+  FilterText,
+  LogoContainer,
+  NavBar,
+  SelectContainer,
+} from './TopBar.styles'
 
 function TopBar(props) {
   const countriesOptions = React.useMemo(() => countryList().getData(), [])
 
   const [filterBar, setFilterBar] = useState(false)
   const showFiltersBar = () => setFilterBar(!filterBar)
+
   return (
     <>
       <FiltersMenu
@@ -58,7 +56,7 @@ function TopBar(props) {
             <PlatformLogo />
           </AlternativeLogoContainer>
           <NavBar>
-            <NavBarContainer  />
+            <NavBarContainer />
             <LogoContainer>
               <PlatformLogo />
             </LogoContainer>

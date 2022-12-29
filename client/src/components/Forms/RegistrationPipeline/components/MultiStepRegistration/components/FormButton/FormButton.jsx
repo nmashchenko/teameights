@@ -1,13 +1,12 @@
-import React from 'react';
-import {useSelector} from "react-redux";
-import {Button} from "../../../../../../../shared/styles/Button.styles";
+import React from 'react'
+import { useSelector } from 'react-redux'
+
+import { Button } from '../../../../../../../shared/styles/Button.styles'
 
 const FormButton = () => {
-    const { isLastStep } = useSelector((state) => state.registrationReducer)
+  const { isLastStep } = useSelector((state) => state.registrationReducer)
 
-    return (
-        <Button type="submit">{isLastStep ? "Finish" : "Next"}</Button>
-    );
-};
+  return <Button type="submit">{isLastStep ? 'Finish' : 'Next'}</Button>
+}
 
-export default FormButton;
+export default FormButton

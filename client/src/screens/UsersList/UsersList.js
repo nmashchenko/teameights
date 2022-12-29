@@ -1,35 +1,33 @@
 // * Modules
 import React, { useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
-import isEmpty from 'lodash/isEmpty'
 import { isEqual } from 'lodash'
-
-// * Components
-import TopBar from './components/TopBar/TopBar'
-import CardSkeleton from './components/CardSkeleton/CardSkeleton'
-import NotFound from './components/NotFound/NotFound'
-import UserProfile from './components/UserProfile/UserProfile'
-import SliderToTop from './components/SliderToTop/SliderToTop'
-import Cards from './components/Cards/Cards'
-import FilteredCards from './components/FilteredCards/FilteredCards'
-import UserProfilePhone from './components/UserProfilePhone/UserProfilePhone'
+import isEmpty from 'lodash/isEmpty'
 
 // * API
 import usersApi from '../../api/endpoints/users'
+import { useCheckAuth } from '../../api/hooks/useCheckAuth'
 
+import Cards from './components/Cards/Cards'
+import CardSkeleton from './components/CardSkeleton/CardSkeleton'
+import FilteredCards from './components/FilteredCards/FilteredCards'
+import NotFound from './components/NotFound/NotFound'
+import SliderToTop from './components/SliderToTop/SliderToTop'
+// * Components
+import TopBar from './components/TopBar/TopBar'
+import UserProfile from './components/UserProfile/UserProfile'
+import UserProfilePhone from './components/UserProfilePhone/UserProfilePhone'
 // * Styles
 import {
-  GridContainer,
   CardsContainer,
   CardsZone,
-  InfoContainer,
   GlobalStyle,
+  GridContainer,
+  InfoContainer,
   UserCardModal,
 } from './UsersList.styles'
-import {useCheckAuth} from "../../api/hooks/useCheckAuth";
 
 function UsersList() {
-
   /**
    * Set of states that are used by this component
    */
@@ -57,7 +55,7 @@ function UsersList() {
   /**
    * Get global state from redux
    */
-  const {data: userData, isLoading: isLoadingUseData} = useCheckAuth()
+  const { data: userData, isLoading: isLoadingUseData } = useCheckAuth()
   const user = userData?.data
 
   const showMobileProfile = () => setMobileProfile(!mobileProfile)
@@ -84,6 +82,7 @@ function UsersList() {
     const getUsersFiltered = async () => {
       setIsLoading(true)
       const users = await usersApi.getUsersFiltered(1, countries, roles, programmingLanguages)
+
       // check if user's token expired and redirect
       if (isEqual(localStorage.getItem('token'), null)) {
         // dispatch(authApi.logoutUser())
@@ -102,6 +101,7 @@ function UsersList() {
         setIsLoading(false)
       }
     }
+
     getUsersFiltered()
   }
 
@@ -157,10 +157,7 @@ function UsersList() {
                   trigger={trigger}
                 />
               ) : (
-                <Cards
-                  handleOpen={handleOpen}
-                  isLoadingUseData={isLoadingUseData}
-                />
+                <Cards handleOpen={handleOpen} isLoadingUseData={isLoadingUseData} />
               )}
             </CardsContainer>
           </GridContainer>

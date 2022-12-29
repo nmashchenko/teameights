@@ -1,12 +1,13 @@
-import styled from "styled-components";
-import {WHITE} from "../../../../../../../constants/colors";
+import styled from 'styled-components'
+
+import { WHITE } from '../../../../../../../constants/colors'
 
 export const Skip = styled.div`
   display: flex;
   justify-content: center;
   align-items: baseline;
   gap: 5px;
-  
+
   &:hover {
     cursor: pointer;
     -webkit-transform: scale(1.02);
@@ -24,5 +25,4 @@ export const SkipButton = styled.button`
   margin-bottom: 30px;
   cursor: pointer;
   color: ${WHITE.main};
-
 `

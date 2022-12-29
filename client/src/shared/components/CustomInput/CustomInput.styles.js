@@ -1,6 +1,7 @@
-import styled from "styled-components";
-import {WHITE} from "../../../constants/colors";
-import {shake} from "../../styles/KeyFrames.styles";
+import styled from 'styled-components'
+
+import { WHITE } from '../../../constants/colors'
+import { shake } from '../../styles/KeyFrames.styles'
 
 export const Input = styled.input`
   outline: 0;

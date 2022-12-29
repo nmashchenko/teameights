@@ -19,10 +19,10 @@ export const ButtonContainer = styled.button`
 
   &:disabled {
     cursor: not-allowed;
-      svg {
-        path{
-          stroke: grey;
-        }
+    svg {
+      path {
+        stroke: grey;
       }
+    }
   }
 `

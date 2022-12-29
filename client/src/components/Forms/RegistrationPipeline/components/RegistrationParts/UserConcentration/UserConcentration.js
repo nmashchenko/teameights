@@ -1,36 +1,32 @@
 // * Modules
 import React, { useState } from 'react'
+// * Redux
+import { useSelector } from 'react-redux'
 import WarningIcon from '@mui/icons-material/Warning'
 
+import concentrationsOptions from '../../../../../../constants/concentrations'
+// * Data
+import frameworksOptions from '../../../../../../constants/frameworks'
+import programmingLanguagesOptions from '../../../../../../constants/programmingLanguages'
 // * Other
 import NavLogo from '../../NavLogo/NavLogo'
 import Stepper from '../../Stepper/Stepper'
 
-// * Data
-import frameworksOptions from '../../../../../../constants/frameworks'
-import concentrationsOptions from '../../../../../../constants/concentrations'
-import programmingLanguagesOptions from '../../../../../../constants/programmingLanguages'
-
-// * Redux
-import { useSelector } from 'react-redux'
-
+import ConcentrationArea from './Components/ConcentrationArea'
+import FramewoksArea from './Components/FrameworksArea'
 // * Components
 import ProgrammingLanguagesArea from './Components/ProgrammingLanguagesArea'
-import FramewoksArea from './Components/FrameworksArea'
-import ConcentrationArea from './Components/ConcentrationArea'
-
+import concentrationHooks from './Hooks/concentrationHooks'
 // * Hooks
 import useConcentrationSubmit from './Hooks/useConcentrationSubmit'
-import concentrationHooks from './Hooks/concentrationHooks'
-
 // * Styles
 import {
-  Container,
-  RegistrationContainer,
-  ContentContainer,
   BottomContainer,
   Button,
   ButtonDisabled,
+  Container,
+  ContentContainer,
+  RegistrationContainer,
 } from './UserConcentration.styles'
 
 const UserConcentration = () => {

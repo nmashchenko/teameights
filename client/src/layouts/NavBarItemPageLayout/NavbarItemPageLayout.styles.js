@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import {BLACK} from "../../constants/colors";
+import styled from 'styled-components'
+
+import { BLACK } from '../../constants/colors'
 
 export const Container = styled.div`
   display: flex;

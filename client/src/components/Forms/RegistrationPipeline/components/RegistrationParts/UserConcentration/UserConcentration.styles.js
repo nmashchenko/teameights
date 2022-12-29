@@ -2,7 +2,7 @@
 import styled, { keyframes } from 'styled-components'
 
 // * Constants
-import { BLACK, WHITE, GREEN, GREY, RED } from '../../../../../../constants/colors'
+import { BLACK, GREEN, GREY, RED, WHITE } from '../../../../../../constants/colors'
 
 const shake = keyframes`
   0% { transform: translate(1px, 1px) rotate(0deg); }

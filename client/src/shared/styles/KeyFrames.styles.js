@@ -1,4 +1,4 @@
-import {keyframes} from "styled-components";
+import { keyframes } from 'styled-components'
 
 export const shake = keyframes`
   0% { transform: translate(1px, 1px) rotate(0deg); }

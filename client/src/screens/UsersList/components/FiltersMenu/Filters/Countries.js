@@ -1,8 +1,8 @@
 // * Modules
-import { FilterSection, TitleText, Line } from './Fielters.styles'
-
 // * Assets
 import FilterField from '../FilterField/FilterField'
+
+import { FilterSection, Line, TitleText } from './Fielters.styles'
 
 const Countries = ({ options, data, setCountries }) => {
   /**
@@ -12,6 +12,7 @@ const Countries = ({ options, data, setCountries }) => {
     const {
       target: { value },
     } = event
+
     setCountries(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,

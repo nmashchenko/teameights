@@ -1,37 +1,40 @@
-import React, {useEffect} from 'react';
-import SkipArrow from "../../../../../../../assets/Arrows/SkipArrow";
-import FormButton from "../FormButton/FormButton";
-import {useDispatch, useSelector} from "react-redux";
-import {setIsOptionalStep, setStep} from "../../../../../../../store/reducers/RegistrationAuth";
-import {Skip, SkipButton} from "./ButtonWithSkip.styles";
-import {useFormikContext} from "formik";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useFormikContext } from 'formik'
 
-const ButtonWithSkip = ({errors, resetFields}) => {
-    const { step } = useSelector((state) => state.registrationReducer)
-    const dispatch = useDispatch()
-    const {values, setValues} = useFormikContext()
+import SkipArrow from '../../../../../../../assets/Arrows/SkipArrow'
+import { setIsOptionalStep, setStep } from '../../../../../../../store/reducers/RegistrationAuth'
+import FormButton from '../FormButton/FormButton'
 
-    const skipHandler = () => {
-        dispatch(setStep(step + 1))
-        setValues({...values, ...resetFields})
-    }
+import { Skip, SkipButton } from './ButtonWithSkip.styles'
 
-    useEffect(() => {
-        dispatch(setIsOptionalStep(true))
+const ButtonWithSkip = ({ errors, resetFields }) => {
+  const { step } = useSelector((state) => state.registrationReducer)
+  const dispatch = useDispatch()
+  const { values, setValues } = useFormikContext()
 
-        return () => dispatch(setIsOptionalStep(false))
-    }, [])
-    return (
-        <>
-        <Skip>
-            <SkipButton type="button" onClick={skipHandler}>
-                Skip
-            </SkipButton>
-            <SkipArrow />
-        </Skip>
-        <FormButton width="6rem" errors={errors}/>
-        </>
-);
-};
+  const skipHandler = () => {
+    dispatch(setStep(step + 1))
+    setValues({ ...values, ...resetFields })
+  }
 
-export default ButtonWithSkip;
+  useEffect(() => {
+    dispatch(setIsOptionalStep(true))
+
+    return () => dispatch(setIsOptionalStep(false))
+  }, [])
+
+  return (
+    <>
+      <Skip>
+        <SkipButton type="button" onClick={skipHandler}>
+          Skip
+        </SkipButton>
+        <SkipArrow />
+      </Skip>
+      <FormButton width="6rem" errors={errors} />
+    </>
+  )
+}
+
+export default ButtonWithSkip
