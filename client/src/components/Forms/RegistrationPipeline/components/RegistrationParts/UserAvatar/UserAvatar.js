@@ -1,6 +1,5 @@
 // * Modules
-import React, { useState } from 'react'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 // * Redux
 import { useSelector } from 'react-redux'

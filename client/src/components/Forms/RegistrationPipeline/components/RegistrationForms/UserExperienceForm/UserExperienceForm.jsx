@@ -9,7 +9,6 @@ import {
 import CustomRadioButtonsGroup from '../../../../../../shared/components/CustomRadioButtonsGroup/CustomRadioButtonsGroup'
 import { Text } from '../../../../../../shared/styles/Tpography.styles'
 import FormButton from '../../MultiStepRegistration/components/FormButton/FormButton'
-import { Button, ButtonDisabled } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import { AlertContainer, ContentContainer } from './UserExperienceForm.styles'
 

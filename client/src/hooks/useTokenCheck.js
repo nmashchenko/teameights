@@ -1,21 +1,22 @@
 // * Modules
 // * Redux
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { isEqual } from 'lodash'
 
-// * API
-import authApi from '../api/endpoints/auth'
+// * Hooks
+import { useLogoutUser } from '../api/hooks/useLogoutUser'
 // * Constants
 import ROUTES from '../constants/routes'
 
+// * API
+const { mutate: logoutUser } = useLogoutUser()
+
 const useTokenCheck = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   return () => {
     if (isEqual(localStorage.getItem('token'), null)) {
-      dispatch(authApi.logoutUser())
+      logoutUser()
       navigate(ROUTES.login, { replace: true })
     }
   }
