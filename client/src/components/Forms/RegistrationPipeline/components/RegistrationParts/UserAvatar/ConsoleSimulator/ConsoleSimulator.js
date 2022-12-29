@@ -77,17 +77,6 @@ const ConsoleSimulator = ({ startedUploading, returnedToPreviousSteps, setStarte
             )}
           </>
         )}
-
-        {/* {lineSixActive && (
-            <Text fontSize="10px" color="#5D9D0B" margin="0 0 0 10px">
-              <Typewriter
-                text="teameights@ubuntu:~$ preparing..."
-                cursor={false}
-                speed={20}
-                onFinished={() => setLineSevenActive(true)}
-              />
-            </Text>
-          )} */}
       </CodingArea>
     </AvatarsContainer>
   )

@@ -32,15 +32,6 @@ function InitialPart() {
   const { curRegistration } = useSelector((state) => state.registrationReducer)
   const { data: userData, isFetching } = useCheckAuth()
   const user = userData?.data
-  // check if local storage has token that was generated with registration
-  // useEffect(() => {
-  //   if (localStorage.getItem('token')) {
-  //     // get email of user
-  //     dispatch(registerAuthApi.checkRegistration())
-  //   } else {
-  //     navigate(ROUTES.login, { replace: true })
-  //   }
-  // }, [])
 
   // render component one more time after getting data from global state to make sure
   useEffect(() => {
