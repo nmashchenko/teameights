@@ -1,7 +1,7 @@
 // * Modules
 import axios from 'axios'
 
-// * API_URL
+// * API url is set based on current NODE_ENV var
 const API_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:5000/api'
