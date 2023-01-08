@@ -3,7 +3,7 @@ import React from 'react'
 import { InfinitySpin } from 'react-loader-spinner'
 import styled from 'styled-components'
 
-import { BLACK } from '../../constants/colors'
+import { BLACK } from '../../../constants/colors'
 
 // * Styles
 const Container = styled.div`

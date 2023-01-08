@@ -88,11 +88,15 @@ export const InformationRow = styled.div`
 `
 
 export const SocialRow = styled.div`
-  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: ${(props) => props.marginTop || '30px'};
+  margin-bottom: 10px;
+`
+
+export const SocialWrapper = styled.div`
+  margin-top: 30px;
+  width: 90%;
 `
 
 export const IconTextContainer = styled.div`

@@ -6,21 +6,14 @@ import FileUploadIcon from '@mui/icons-material/FileUpload'
 import { useFormikContext } from 'formik'
 
 import { Button, ButtonContainer } from '../../../../../../shared/styles/Button.styles'
-import { ErrorMessage } from '../../../../../../shared/styles/Tpography.styles'
+import {ErrorMessage, Text} from '../../../../../../shared/styles/Tpography.styles'
 import { setIsFinishedAvatarLoading } from '../../../../../../store/reducers/RegistrationAuth'
 import { setIsModalOpen } from '../../../../../../store/reducers/Shared'
 import FormButton from '../../MultiStepRegistration/components/FormButton/FormButton'
-import ConsoleSimulator from '../../RegistrationParts/UserAvatar/ConsoleSimulator/ConsoleSimulator'
-import ModalWindow from '../../RegistrationParts/UserAvatar/ModalWindow/ModalWindow'
-import {
-  CardContainer,
-  SelectContainer,
-  Text,
-  UploadArea,
-  UserImageContainer,
-} from '../../RegistrationParts/UserAvatar/UserAvatar.styles'
 
-import { AvatarWrapper } from './UserAvatarForm.styles'
+import {AvatarWrapper, CardContainer, SelectContainer, UploadArea, UserImageContainer} from './UserAvatarForm.styles'
+import ModalWindow from "../../../../../../shared/components/ModalWindow/ModalWindow";
+import ConsoleSimulator from "../../ConsoleSimulator/ConsoleSimulator";
 
 const UserAvatarForm = () => {
   const [userAvatar, setUserAvatar] = useState(null)

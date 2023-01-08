@@ -7,7 +7,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useRegister } from '../../../api/hooks/useRegister'
 import Backdrop from '../../Backdrop/Backdrop'
-import Loader from '../../Loader/Loader'
+import Loader from '../../../shared/components/Loader/Loader'
 // * Helpers
 import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
 

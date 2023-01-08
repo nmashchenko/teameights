@@ -13,11 +13,18 @@ export const SelectCustom = styled(Select)`
   border: none;
   fontsize: 18px;
   color: ${WHITE.main};
+  width: 100%;
 
   svg {
     color: ${(props) => (props.isError ? '#cf625e' : '#72EB3A')};
   }
-
+  
+  fieldset{
+    border: none !important;
+    outline: none !important;
+  }
+  
+  
   & .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     padding: 0;
     color: ${WHITE.main};
@@ -79,5 +86,19 @@ export const MenuProps = {
       overflow: 'auto',
       outline: '0px',
     },
+    sx: {
+      '&::-webkit-scrollbar': {
+        width: '9px'
+      },
+      '&::-webkit-scrollbar-thumb': {
+        background: '#365A08',
+        borderRadius: '10px',
+        height: '30px !important'
+      },
+      '&::-webkit-scrollbar-track': {
+        marginTop: '10px',
+        marginBottom: '10px'
+      }
+    }
   },
 }

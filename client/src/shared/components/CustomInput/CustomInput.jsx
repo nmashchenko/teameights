@@ -12,7 +12,7 @@ const CustomInput = ({ label, width = '15rem', ...props }) => {
 
   return (
     <Box>
-      {label && <Text fontWeight="400">{label}</Text>}
+      {label && <Text fontWeight="700">{label}</Text>}
       <Input
         {...field}
         {...props}

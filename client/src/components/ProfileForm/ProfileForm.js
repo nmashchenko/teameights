@@ -15,7 +15,7 @@ import Location from '../../assets/UserProfile/Location'
 import Star from '../../assets/UserProfile/Star'
 import ROUTES from '../../constants/routes'
 import { Button } from '../../shared/styles/Button.styles'
-import Loader from '../Loader/Loader'
+import Loader from '../../shared/components/Loader/Loader'
 
 // * Assets
 import Photo from './Photo.jpg'
@@ -26,7 +26,6 @@ import {
   Container,
   EditBtnDiv,
   EditButton,
-  Framework,
   IconTextContainer,
   ImgContainer,
   Information,
@@ -37,17 +36,22 @@ import {
   RightCard,
   RightCardData,
   RightContainer,
-  SocialRow,
+  SocialRow, SocialWrapper,
   Text,
   TextContainer,
 } from './ProfileForm.styles'
+import {Telegram} from "@mui/icons-material";
+import {CustomLink} from "../../shared/styles/Link.styles";
+import {frameworkColors, frameworkTextColors} from "../../screens/UsersList/components/UserCard/FrameworkColors";
+import {Framework} from "../../screens/UsersList/components/UserCard/UserCard.styles";
+import languageOptions from "../../screens/UsersList/components/UserCard/ProgrammingLanguages";
 
 export const ProfileForm = () => {
   const [team, setTeam] = useState('')
 
   const { data: userData, isLoading: isUserDataLoading } = useCheckAuth()
   const user = userData?.data
-
+  console.log({user})
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -56,7 +60,7 @@ export const ProfileForm = () => {
       //   navigate('/auth/login', { replace: true })
       // } else {
       const team = await teamsAPI.getTeamById(user.userTeam)
-
+      console.log({team})
       setTeam(team.data.name)
       // }
     }
@@ -109,24 +113,35 @@ export const ProfileForm = () => {
             <EditButton>Edit</EditButton>
           </InformationRow>
           {/* TODO: Edit for real usernames */}
-          <SocialRow>
-            <IconTextContainer>
-              <Github />
-              <Text fontSize="15px" color="#5F7ADB">
-                Soon...
-              </Text>
-            </IconTextContainer>
-            <EditButton>Edit</EditButton>
-          </SocialRow>
-          <SocialRow marginTop="10px">
-            <IconTextContainer>
-              <Linkedin />
-              <Text fontSize="15px" color="#5F7ADB">
-                Soon...
-              </Text>
-            </IconTextContainer>
-            <EditButton>Edit</EditButton>
-          </SocialRow>
+          <SocialWrapper>
+            {user.userLinks.github &&  <SocialRow>
+              <IconTextContainer>
+                <Github />
+                <CustomLink href={user.userLinks.github} target="_blank">
+                  Github
+                </CustomLink>
+              </IconTextContainer>
+              <EditButton>Edit</EditButton>
+            </SocialRow> }
+            {user.userLinks.linkedIn &&         <SocialRow marginTop="10px">
+              <IconTextContainer>
+                <Linkedin />
+                <CustomLink href={user.userLinks.linkedIn}  target="_blank">
+                  Linkedin
+                </CustomLink>
+              </IconTextContainer>
+              <EditButton>Edit</EditButton>
+            </SocialRow>}
+            {user.userLinks.telegram && <SocialRow marginTop="10px">
+              <IconTextContainer>
+                <Telegram  style={{color: '#fff'}} />
+                <CustomLink href={user.userLinks.telegram}  target="_blank">
+                  Telegram
+                </CustomLink>
+              </IconTextContainer>
+              <EditButton>Edit</EditButton>
+            </SocialRow>}
+          </SocialWrapper>
         </LeftCard>
 
         {/* TODO: Edit for real lanuguages */}
@@ -140,15 +155,7 @@ export const ProfileForm = () => {
             </EditBtnDiv>
             <BannerLine />
             <RightCardData>
-              <ProgrammingLanguage>
-                <C />
-              </ProgrammingLanguage>
-              <ProgrammingLanguage>
-                <JS />
-              </ProgrammingLanguage>
-              <ProgrammingLanguage>
-                <Cplusplus />
-              </ProgrammingLanguage>
+              {user.userProgrammingLanguages.map(language =>  <ProgrammingLanguage key={language}>{languageOptions[language]}</ProgrammingLanguage>)}
             </RightCardData>
           </RightCard>
 
@@ -162,21 +169,16 @@ export const ProfileForm = () => {
             </EditBtnDiv>
             <BannerLine />
             <RightCardData>
-              <Framework>
-                <Text margin="0x" fontSize="12px" fontWeight="400" color="#7AC408">
-                  Node
-                </Text>
-              </Framework>
-              <Framework background="#00A4D3">
-                <Text margin="0x" fontSize="12px" fontWeight="400" color="white">
-                  React
-                </Text>
-              </Framework>
-              <Framework background="#E24B31">
-                <Text margin="0x" fontSize="12px" fontWeight="400" color="white">
-                  Ember
-                </Text>
-              </Framework>
+              {user.userFrameworks.map(framework => (
+                <Framework
+                    key={framework}
+                    background={frameworkColors[framework]}
+                    color={frameworkTextColors[framework]}
+                    flexGrow='0'
+                >
+                  <h3>{framework}</h3>
+                </Framework>
+              ))}
             </RightCardData>
           </RightCard>
 
@@ -190,7 +192,7 @@ export const ProfileForm = () => {
             <BannerLine />
             <RightCardData justify="center">
               <Text margin="0" fontSize="16px" fontWeight="600" color="rgba(255, 255, 255, 0.7)">
-                {team}
+                {team ? team : 'That\'s where your team will come in'}
               </Text>
             </RightCardData>
           </RightCard>

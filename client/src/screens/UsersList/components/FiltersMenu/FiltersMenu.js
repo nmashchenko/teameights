@@ -5,10 +5,6 @@ import Close from '../../../../assets/Close'
 // * Assets
 import Filters from '../../../../assets/Filters'
 
-// * Components
-import Countries from './Filters/Countries'
-import ProgrammingLanguages from './Filters/ProgrammingLanguages'
-import Roles from './Filters/Roles'
 // * Styles
 import {
   ButtonsContainer,
@@ -20,23 +16,25 @@ import {
   FilterText,
   TopContent,
 } from './FiltersMenu.styles'
+import CustomSelect from "../../../../shared/components/CustomSelect/CustomSelect";
+import {PlaceholderText} from "../SelectField/SelectField.styles";
+import {concentrationOptions} from "../TopBar/Contentration.options";
+import {programmingLanguageOptions} from "../TopBar/ProgrammingLanguages.options";
+import frameworkOptions from "../../../../constants/frameworks";
+import SelectValue from "../../../../shared/components/CustomSelect/components/SelectValue";
+import {useFormikContext} from "formik";
 
 const FiltersMenu = ({
   filterBar,
   showFiltersBar,
-  countries,
-  roles,
-  programmingLanguages,
-  setCountries,
-  setRoles,
-  setProgrammingLanguages,
   handleSubmitFilter,
   countriesOptions,
   concentrationOptions,
   programmingLanguageOptions,
 }) => {
+  const {values, dirty} = useFormikContext()
   const handleSearch = () => {
-    handleSubmitFilter()
+    handleSubmitFilter(values, dirty)
     showFiltersBar()
   }
 
@@ -56,12 +54,37 @@ const FiltersMenu = ({
               <Close />
             </CloseContainer>
           </TopContent>
-          <Roles options={concentrationOptions} data={roles} setRoles={setRoles} />
-          <Countries options={countriesOptions} data={countries} setCountries={setCountries} />
-          <ProgrammingLanguages
-            options={programmingLanguageOptions}
-            data={programmingLanguages}
-            setProgrammingLanguages={setProgrammingLanguages}
+          <CustomSelect
+              multiple={true}
+              label="Country"
+              name="countries"
+              options={countriesOptions}
+              styles={{width: '100%', marginTop: '2rem'}}
+              renderValue={(selected) => <SelectValue selected={selected} />}
+          />
+          <CustomSelect
+              multiple={true}
+              label="Role"
+              name="roles"
+              options={concentrationOptions}
+              styles={{width: '100%', marginTop: '2rem'}}
+              renderValue={(selected) => <SelectValue selected={selected} />}
+          />
+          <CustomSelect
+              multiple={true}
+              label="Language"
+              name="languages"
+              options={programmingLanguageOptions}
+              styles={{width: '100%', marginTop: '2rem'}}
+              renderValue={(selected) => <SelectValue selected={selected} />}
+          />
+          <CustomSelect
+              multiple={true}
+              label="Framework"
+              name="frameworks"
+              options={frameworkOptions}
+              styles={{width: '100%', marginTop: '2rem'}}
+              renderValue={(selected) => <SelectValue selected={selected} />}
           />
           <ButtonsContainer>
             <CustomButton background="none" onClick={showFiltersBar}>

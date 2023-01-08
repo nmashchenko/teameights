@@ -21,40 +21,25 @@ const UserConcentrationForm = () => {
         multiple={true}
         label="Programming Languages"
         name="programmingLanguages"
-        renderValue={(selected) => <SelectValue selected={selected} />}
+        renderValue={(selected) => <SelectValue selected={selected} max={3} />}
+        options={programmingLanguageOptions}
         width="22rem"
-      >
-        {programmingLanguageOptions.map(({ label }) => (
-          <Item key={label} value={label}>
-            {label}
-          </Item>
-        ))}
-      </CustomSelect>
+      />
       <CustomSelect
         multiple={true}
         label="Frameworks"
         name="frameworks"
-        renderValue={(selected) => <SelectValue selected={selected} />}
+        options={frameworkOptions}
+        renderValue={(selected) => <SelectValue selected={selected}  max={3}/>}
         width="22rem"
-      >
-        {frameworkOptions.map(({ label }) => (
-          <Item key={label} value={label}>
-            {label}
-          </Item>
-        ))}
-      </CustomSelect>
+      />
       <CustomSelect
         label="Concentration"
         name="concentration"
-        renderValue={(selected) => <SelectValue selected={selected} />}
+        renderValue={(selected) => <SelectValue selected={selected}  max={3}/>}
+        options={concentrationOptions}
         width="22rem"
-      >
-        {concentrationOptions.map(({ label }) => (
-          <Item key={label} value={label}>
-            {label}
-          </Item>
-        ))}
-      </CustomSelect>
+      />
       <ButtonContainer>
         <FormButton errors={errors} />
       </ButtonContainer>

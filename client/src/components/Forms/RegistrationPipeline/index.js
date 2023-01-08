@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import MultiStepRegistration from './components/MultiStepRegistration/MultiStepRegistration'
-import InitialPart from './components/RegistrationParts/InitialPart/InitialPart'
+import InitialPart from "./components/InitialPart/InitialPart";
 
 function FinishRegistration() {
   const { isFinishRegistrationStarted } = useSelector((state) => state.registrationReducer)

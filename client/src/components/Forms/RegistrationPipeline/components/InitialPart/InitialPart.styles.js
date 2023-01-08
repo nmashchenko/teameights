@@ -1,19 +1,5 @@
-// * Modules
-import styled from 'styled-components'
-
-// * Constants
-import { BLACK, GREEN, WHITE } from '../../../../../../constants/colors'
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 50px;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 88px);
-  width: 100%;
-  background: ${BLACK.background};
-`
+import styled from "styled-components";
+import {BLACK, GREEN, WHITE} from "../../../../../constants/colors";
 
 export const CardContainer = styled.div`
   display: flex;
@@ -28,20 +14,15 @@ export const CardContainer = styled.div`
   box-shadow: 0px 5px 50px rgba(0, 0, 0, 0.1);
 `
 
-export const TopText = styled.h3`
-  font-size: ${(props) => props.fontSize || '18px'};
-  font-weight: ${(props) => props.fontWeight || '700'};
-  margin: ${(props) => props.margin || '0'};
-  color: ${WHITE.main};
-  text-align: center;
-`
-
-export const MiddleTextContainer = styled.div`
+export const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 50px;
   justify-content: center;
-  max-width: 550px;
+  align-items: center;
+  min-height: calc(100vh - 88px);
   width: 100%;
+  background: ${BLACK.background};
 `
 
 export const ContinueButton = styled.button`
@@ -62,4 +43,20 @@ export const ContinueButton = styled.button`
     -ms-transform: scale(1.05);
     transform: scale(1.05);
   }
+`
+
+export const MiddleTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 550px;
+  width: 100%;
+`
+
+export const TopText = styled.h3`
+  font-size: ${(props) => props.fontSize || '18px'};
+  font-weight: ${(props) => props.fontWeight || '700'};
+  margin: ${(props) => props.margin || '0'};
+  color: ${WHITE.main};
+  text-align: center;
 `

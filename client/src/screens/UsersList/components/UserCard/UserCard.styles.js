@@ -69,7 +69,7 @@ export const Framework = styled.div`
   height: 40px;
   margin-right: ${(props) => props.marginRight || '0px'};
   margin-bottom: ${(props) => props.marginBottom || '10px'};
-  flex-grow: 1;
+  flex-grow: ${(props) => props.flexGrow || '1'};
   background: ${(props) => props.background || '#E0FF00'};
   border-radius: 5px;
   display: flex;

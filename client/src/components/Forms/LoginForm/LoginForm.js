@@ -8,7 +8,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import isEqual from 'lodash/isEqual'
 
 import { useLoginUser } from '../../../api/hooks/useLoginUser'
-import Loader from '../../Loader/Loader'
+import Loader from '../../../shared/components/Loader/Loader'
 // * Constants
 // * Assets
 import SnackBar from '../../SnackBar/SnackBar'

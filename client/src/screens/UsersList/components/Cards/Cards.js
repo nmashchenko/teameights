@@ -1,5 +1,5 @@
 // * Modules
-import React, { useCallback, useRef } from 'react'
+import React, {useCallback, useEffect, useRef} from 'react'
 // * Constants
 // * API
 import { useInfiniteQuery } from 'react-query'
@@ -13,31 +13,21 @@ import UserCard from '../UserCard/UserCard'
 // * Redux
 // * Styles
 import { CardContainer } from './Cards.styles'
+import {useLoadUsers} from "../../../../api/hooks/useLoadUsers";
+import c from "../../../../assets/LanguageLogo/C";
 
-const { api } = http
 
-const Cards = ({ handleOpen, isLoadingUseData }) => {
+const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound }) => {
   const intObserver = useRef()
 
-  /**
-   * Lazy loading of the pages, don't touch this part
-   */
-  const getUsers = async ({ pageParam = 1 }) => {
-    return await api.get('/users', { params: { page: pageParam } })
-  }
-  const {
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    data: users,
-  } = useInfiniteQuery('users', getUsers, {
-    getNextPageParam: (lastPage, allPages) => {
-      return 8 !== lastPage.data.next.page ? allPages.length + 1 : undefined
-    },
-    refetchOnWindowFocus: false,
-  })
-  // lastPage.data.next.limit <- set instead of 8
-
+    const {
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isLoading,
+        isFetched,
+        data: users,
+    } = useLoadUsers(displayFiltered)
   const lastUserRef = useCallback(
     (user) => {
       if (isFetchingNextPage) {
@@ -61,9 +51,10 @@ const Cards = ({ handleOpen, isLoadingUseData }) => {
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   )
 
-  const content = users?.pages.map((pg) => {
-    const usersPerPage = pg.data.results
 
+  const content = users?.pages.map((pg) => {
+
+    const usersPerPage = pg.results.filter(user => user.userProgrammingLanguages)
     return usersPerPage.map((user, index) => {
       if (usersPerPage.length === index + 1) {
         return (
@@ -86,11 +77,20 @@ const Cards = ({ handleOpen, isLoadingUseData }) => {
     })
   })
 
+    {/* If nothing was found, show user a NotFound container */}
+
+    useEffect(() => {
+        if(isFetched && !content[0].length){
+            setIsNotFound(true)
+        }
+    }, [isFetched, content])
+
+
   return (
     <>
       {content}
       {/* Load skeleton before showing real cards to improve performance of the app */}
-      {(isFetchingNextPage || isLoadingUseData) && <CardSkeleton cards={9} />}
+      {(isFetchingNextPage || isLoadingUseData || isLoading) && <CardSkeleton cards={9} />}
     </>
   )
 }

@@ -12,7 +12,7 @@ import Exit from '../../assets/Sidebar/Exit'
 import Notification from '../../assets/Sidebar/Notification'
 import Routes from '../../constants/routes'
 import { Button } from '../../shared/styles/Button.styles'
-import Loader from '../Loader/Loader'
+import Loader from '../../shared/components/Loader/Loader'
 
 // * Data
 import { NavBarData } from './NavBar.data'

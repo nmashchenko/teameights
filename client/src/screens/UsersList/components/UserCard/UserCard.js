@@ -29,6 +29,7 @@ import {
 } from './UserCard.styles'
 
 const UserCard = React.forwardRef((props, ref = null) => {
+
   return (
     <Wrapper ref={ref}>
       <CardContainer>
