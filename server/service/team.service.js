@@ -36,7 +36,7 @@ class TeamService {
   }
 
   async getTeamById(teamId) {
-    const foundTeams = await Team.findOne({ _id: teamId });
+    const foundTeams = await Team.findById(teamId);
 
     console.log(foundTeams);
     return foundTeams;
