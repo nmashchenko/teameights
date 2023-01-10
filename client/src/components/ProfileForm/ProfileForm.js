@@ -44,7 +44,7 @@ import {
   TextContainer,
 } from './ProfileForm.styles'
 
-export const ProfileForm = () => {
+const ProfileForm = () => {
   const { data: user, isLoading: isUserDataLoading } = useCheckAuth()
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
 
