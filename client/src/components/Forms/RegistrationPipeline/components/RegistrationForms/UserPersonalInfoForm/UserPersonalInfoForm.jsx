@@ -49,7 +49,7 @@ const UserPersonalInfoForm = () => {
       <CustomTextArea
         label="About me"
         name="description"
-        placeholder="Start typing here..."
+        placeholder="Start typing here...(optional)"
         maxLength={200}
       />
       <ButtonsContainer width="100%">
