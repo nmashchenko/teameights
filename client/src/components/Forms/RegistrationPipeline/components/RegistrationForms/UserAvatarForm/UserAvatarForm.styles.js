@@ -50,4 +50,3 @@ export const UploadArea = styled.div`
   gap: 20px;
 `
 export const UserImageContainer = styled.div``
-

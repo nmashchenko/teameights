@@ -6,8 +6,8 @@ const initialState = {
     countries: [],
     roles: [],
     languages: [],
-    frameworks: []
-  }
+    frameworks: [],
+  },
 }
 
 const sharedSlice = createSlice({

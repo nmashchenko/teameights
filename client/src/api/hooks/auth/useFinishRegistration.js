@@ -3,11 +3,11 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import http from '../../http'
+import http from '../../../http'
 import {
   registrationAuth,
   setIsFinishRegistrationStarted,
-} from '../../store/reducers/RegistrationAuth'
+} from '../../../store/reducers/RegistrationAuth'
 
 const { api } = http
 

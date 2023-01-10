@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode'
 
 // * Redux
 // * Api
-import { useLoginUser } from '../../../api/hooks/useLoginUser'
+import { useLoginUser } from '../../../api/hooks/auth/useLoginUser'
 import Loader from '../../../shared/components/Loader/Loader'
 
 const SocialLoginRegistration = () => {

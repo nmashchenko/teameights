@@ -27,9 +27,10 @@ const getAllTeams = async () => {
   }
 }
 
-const getTeamById = async (teamId) => {
+const getTeamById = async (id) => {
   try {
-    const data = await api.post('/get-team-byid', { teamId })
+    // const data = await api.post('/get-team-byid', { teamId })
+    const data = await api.get(`/get-team-byid/${id}`)
 
     return data
   } catch (err) {

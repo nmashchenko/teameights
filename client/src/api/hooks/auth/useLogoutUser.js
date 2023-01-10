@@ -2,8 +2,8 @@ import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 
-import http from '../../http'
-import { userAuth } from '../../store/reducers/UserAuth'
+import http from '../../../http'
+import { userAuth } from '../../../store/reducers/UserAuth'
 
 const { api } = http
 
@@ -23,11 +23,12 @@ export const useLogoutUser = () => {
       dispatch(userAuth.actions.authUserLogout())
 
       // remove user data
-      queryClient.setQueryData('checkAuth', (oldQueryData) => {
-        return {
-          ...oldQueryData,
-          data: null,
-        }
+      queryClient.setQueryData('checkAuth', () => {
+        return null
+      })
+
+      queryClient.setQueryData('getTeamById', () => {
+        return null
       })
     },
     onError: (error) => {

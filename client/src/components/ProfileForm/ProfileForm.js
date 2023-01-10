@@ -1,29 +1,31 @@
 // * Modules
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Telegram } from '@mui/icons-material'
 
 // * API
-import teamsAPI from '../../api/endpoints/team'
-import { useCheckAuth } from '../../api/hooks/useCheckAuth'
-import C from '../../assets/LanguageLogo/C'
-import Cplusplus from '../../assets/LanguageLogo/Cplusplus'
-import JS from '../../assets/LanguageLogo/JS'
+import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
+import { useGetTeamData } from '../../api/hooks/team/useGetTeamData'
 import Email from '../../assets/UserProfile/Email'
 import Github from '../../assets/UserProfile/Github'
 import Linkedin from '../../assets/UserProfile/Linkedin'
 import Location from '../../assets/UserProfile/Location'
 import Star from '../../assets/UserProfile/Star'
 import ROUTES from '../../constants/routes'
-import { Button } from '../../shared/styles/Button.styles'
+import {
+  frameworkColors,
+  frameworkTextColors,
+} from '../../screens/UsersList/components/UserCard/FrameworkColors'
+import languageOptions from '../../screens/UsersList/components/UserCard/ProgrammingLanguages'
+import { Framework } from '../../screens/UsersList/components/UserCard/UserCard.styles'
 import Loader from '../../shared/components/Loader/Loader'
+import { Button } from '../../shared/styles/Button.styles'
+import { CustomLink } from '../../shared/styles/Link.styles'
 
 // * Assets
 import Photo from './Photo.jpg'
 // * Styles
 import {
   BannerLine,
-  Cards,
-  Container,
   EditBtnDiv,
   EditButton,
   IconTextContainer,
@@ -36,39 +38,19 @@ import {
   RightCard,
   RightCardData,
   RightContainer,
-  SocialRow, SocialWrapper,
+  SocialRow,
+  SocialWrapper,
   Text,
   TextContainer,
 } from './ProfileForm.styles'
-import {Telegram} from "@mui/icons-material";
-import {CustomLink} from "../../shared/styles/Link.styles";
-import {frameworkColors, frameworkTextColors} from "../../screens/UsersList/components/UserCard/FrameworkColors";
-import {Framework} from "../../screens/UsersList/components/UserCard/UserCard.styles";
-import languageOptions from "../../screens/UsersList/components/UserCard/ProgrammingLanguages";
 
 export const ProfileForm = () => {
-  const [team, setTeam] = useState('')
+  const { data: user, isLoading: isUserDataLoading } = useCheckAuth()
+  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
 
-  const { data: userData, isLoading: isUserDataLoading } = useCheckAuth()
-  const user = userData?.data
-  console.log({user})
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const getTeam = async () => {
-      // if (!user) {
-      //   navigate('/auth/login', { replace: true })
-      // } else {
-      const team = await teamsAPI.getTeamById(user.userTeam)
-      console.log({team})
-      setTeam(team.data.name)
-      // }
-    }
-
-    getTeam()
-  }, [])
-
-  if (isUserDataLoading) {
+  if (isUserDataLoading || isUserTeamLoading) {
     return <Loader />
   }
 
@@ -77,44 +59,44 @@ export const ProfileForm = () => {
   }
 
   return (
-    <Cards>
-      <Information>
-        <LeftCard>
-          <div>
-            <ImgContainer src={Photo} />
-          </div>
-          <TextContainer>
-            <Text margin="15px 0 0 0">{user.userRealName}</Text>
-            <Text margin="5px 0 0 0" color="rgba(255, 255, 255, 0.5)" fontSize="16px">
-              {user.userUsername}
-            </Text>
-            <Text margin="5px 0 0 0">{user.userConcentration}</Text>
-          </TextContainer>
-          <ProfileLine />
-          <InformationRow>
-            <IconTextContainer>
-              <Location />
-              <Text fontSize="15px">{user.userCountry}</Text>
-            </IconTextContainer>
-            <EditButton>Edit</EditButton>
-          </InformationRow>
-          <InformationRow>
-            <IconTextContainer>
-              <Star />
-              <Text fontSize="15px">{user.userExperience} years of experiences</Text>
-            </IconTextContainer>
-            <EditButton>Edit</EditButton>
-          </InformationRow>
-          <InformationRow>
-            <IconTextContainer>
-              <Email />
-              <Text fontSize="15px">{user.email}</Text>
-            </IconTextContainer>
-            <EditButton>Edit</EditButton>
-          </InformationRow>
-          {/* TODO: Edit for real usernames */}
-          <SocialWrapper>
-            {user.userLinks.github &&  <SocialRow>
+    <Information>
+      <LeftCard>
+        <div>
+          <ImgContainer src={Photo} />
+        </div>
+        <TextContainer>
+          <Text margin="15px 0 0 0">{user.userRealName}</Text>
+          <Text margin="5px 0 0 0" color="rgba(255, 255, 255, 0.5)" fontSize="16px">
+            {user.userUsername}
+          </Text>
+          <Text margin="5px 0 0 0">{user.userConcentration}</Text>
+        </TextContainer>
+        <ProfileLine />
+        <InformationRow>
+          <IconTextContainer>
+            <Location />
+            <Text fontSize="15px">{user.userCountry}</Text>
+          </IconTextContainer>
+          <EditButton>Edit</EditButton>
+        </InformationRow>
+        <InformationRow>
+          <IconTextContainer>
+            <Star />
+            <Text fontSize="15px">{user.userExperience} years of experiences</Text>
+          </IconTextContainer>
+          <EditButton>Edit</EditButton>
+        </InformationRow>
+        <InformationRow>
+          <IconTextContainer>
+            <Email />
+            <Text fontSize="15px">{user.email}</Text>
+          </IconTextContainer>
+          <EditButton>Edit</EditButton>
+        </InformationRow>
+        {/* TODO: Edit for real usernames */}
+        <SocialWrapper>
+          {user.userLinks.github && (
+            <SocialRow>
               <IconTextContainer>
                 <Github />
                 <CustomLink href={user.userLinks.github} target="_blank">
@@ -122,98 +104,104 @@ export const ProfileForm = () => {
                 </CustomLink>
               </IconTextContainer>
               <EditButton>Edit</EditButton>
-            </SocialRow> }
-            {user.userLinks.linkedIn &&         <SocialRow marginTop="10px">
+            </SocialRow>
+          )}
+          {user.userLinks.linkedIn && (
+            <SocialRow marginTop="10px">
               <IconTextContainer>
                 <Linkedin />
-                <CustomLink href={user.userLinks.linkedIn}  target="_blank">
+                <CustomLink href={user.userLinks.linkedIn} target="_blank">
                   Linkedin
                 </CustomLink>
               </IconTextContainer>
               <EditButton>Edit</EditButton>
-            </SocialRow>}
-            {user.userLinks.telegram && <SocialRow marginTop="10px">
+            </SocialRow>
+          )}
+          {user.userLinks.telegram && (
+            <SocialRow marginTop="10px">
               <IconTextContainer>
-                <Telegram  style={{color: '#fff'}} />
-                <CustomLink href={user.userLinks.telegram}  target="_blank">
+                <Telegram style={{ color: '#fff' }} />
+                <CustomLink href={user.userLinks.telegram} target="_blank">
                   Telegram
                 </CustomLink>
               </IconTextContainer>
               <EditButton>Edit</EditButton>
-            </SocialRow>}
-          </SocialWrapper>
-        </LeftCard>
+            </SocialRow>
+          )}
+        </SocialWrapper>
+      </LeftCard>
+
+      {/* TODO: Edit for real lanuguages */}
+      <RightContainer>
+        <RightCard id="Languages">
+          <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
+            Languages
+          </Text>
+          <EditBtnDiv>
+            <EditButton>Edit</EditButton>
+          </EditBtnDiv>
+          <BannerLine />
+          <RightCardData>
+            {user.userProgrammingLanguages.map((language) => (
+              <ProgrammingLanguage key={language}>{languageOptions[language]}</ProgrammingLanguage>
+            ))}
+          </RightCardData>
+        </RightCard>
 
         {/* TODO: Edit for real lanuguages */}
-        <RightContainer>
-          <RightCard id="Languages">
-            <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
-              Languages
-            </Text>
-            <EditBtnDiv>
-              <EditButton>Edit</EditButton>
-            </EditBtnDiv>
-            <BannerLine />
-            <RightCardData>
-              {user.userProgrammingLanguages.map(language =>  <ProgrammingLanguage key={language}>{languageOptions[language]}</ProgrammingLanguage>)}
-            </RightCardData>
-          </RightCard>
+        <RightCard id="Tools">
+          <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
+            Tools
+          </Text>
+          <EditBtnDiv>
+            <EditButton>Edit</EditButton>
+          </EditBtnDiv>
+          <BannerLine />
+          <RightCardData>
+            {user.userFrameworks.map((framework) => (
+              <Framework
+                key={framework}
+                background={frameworkColors[framework]}
+                color={frameworkTextColors[framework]}
+                flexGrow="0"
+              >
+                <h3>{framework}</h3>
+              </Framework>
+            ))}
+          </RightCardData>
+        </RightCard>
 
-          {/* TODO: Edit for real lanuguages */}
-          <RightCard id="Tools">
-            <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
-              Tools
+        <RightCard id="Team">
+          <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
+            Team
+          </Text>
+          <EditBtnDiv>
+            <EditButton>Edit</EditButton>
+          </EditBtnDiv>
+          <BannerLine />
+          <RightCardData justify="center">
+            <Text margin="0" fontSize="16px" fontWeight="600" color="rgba(255, 255, 255, 0.7)">
+              {team ? team.name : "That's where your team will come in"}
             </Text>
-            <EditBtnDiv>
-              <EditButton>Edit</EditButton>
-            </EditBtnDiv>
-            <BannerLine />
-            <RightCardData>
-              {user.userFrameworks.map(framework => (
-                <Framework
-                    key={framework}
-                    background={frameworkColors[framework]}
-                    color={frameworkTextColors[framework]}
-                    flexGrow='0'
-                >
-                  <h3>{framework}</h3>
-                </Framework>
-              ))}
-            </RightCardData>
-          </RightCard>
+          </RightCardData>
+        </RightCard>
 
-          <RightCard id="Team">
-            <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
-              Team
+        <RightCard id="AboutMe">
+          <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
+            About me
+          </Text>
+          <EditBtnDiv>
+            <EditButton>Edit</EditButton>
+          </EditBtnDiv>
+          <BannerLine />
+          <RightCardData justify={user.userDescription ? 'start' : 'center'}>
+            <Text margin="0" fontSize="16px" fontWeight="600" color="rgba(255, 255, 255, 0.7)">
+              {user.userDescription ? user.userDescription : 'This user is humble'}
             </Text>
-            <EditBtnDiv>
-              <EditButton>Edit</EditButton>
-            </EditBtnDiv>
-            <BannerLine />
-            <RightCardData justify="center">
-              <Text margin="0" fontSize="16px" fontWeight="600" color="rgba(255, 255, 255, 0.7)">
-                {team ? team : 'That\'s where your team will come in'}
-              </Text>
-            </RightCardData>
-          </RightCard>
-
-          <RightCard id="AboutMe">
-            <Text margin="0 0 0 2px" fontSize="16px" fontWeight="400">
-              About me
-            </Text>
-            <EditBtnDiv>
-              <EditButton>Edit</EditButton>
-            </EditBtnDiv>
-            <BannerLine />
-            <RightCardData>
-              <Text margin="10px 0 0 0" fontSize="15px" fontWeight="400" alignment="start">
-                {user.userDescription}
-              </Text>
-            </RightCardData>
-          </RightCard>
-        </RightContainer>
-      </Information>
-    </Cards>
+          </RightCardData>
+        </RightCard>
+      </RightContainer>
+    </Information>
   )
 }
 

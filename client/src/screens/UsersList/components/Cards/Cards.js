@@ -1,10 +1,12 @@
 // * Modules
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 // * Constants
 // * API
 import { useInfiniteQuery } from 'react-query'
 import lookup from 'country-code-lookup'
 
+import { useLoadUsers } from '../../../../api/hooks/temeights/useLoadUsers'
+import c from '../../../../assets/LanguageLogo/C'
 import http from '../../../../http'
 import CardSkeleton from '../CardSkeleton/CardSkeleton'
 // * Components
@@ -13,21 +15,18 @@ import UserCard from '../UserCard/UserCard'
 // * Redux
 // * Styles
 import { CardContainer } from './Cards.styles'
-import {useLoadUsers} from "../../../../api/hooks/useLoadUsers";
-import c from "../../../../assets/LanguageLogo/C";
-
 
 const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound }) => {
   const intObserver = useRef()
 
-    const {
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        isLoading,
-        isFetched,
-        data: users,
-    } = useLoadUsers(displayFiltered)
+  const {
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    isFetched,
+    data: users,
+  } = useLoadUsers(displayFiltered)
   const lastUserRef = useCallback(
     (user) => {
       if (isFetchingNextPage) {
@@ -51,10 +50,9 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   )
 
-
   const content = users?.pages.map((pg) => {
+    const usersPerPage = pg.results.filter((user) => user.userProgrammingLanguages)
 
-    const usersPerPage = pg.results.filter(user => user.userProgrammingLanguages)
     return usersPerPage.map((user, index) => {
       if (usersPerPage.length === index + 1) {
         return (
@@ -77,14 +75,15 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
     })
   })
 
-    {/* If nothing was found, show user a NotFound container */}
+  {
+    /* If nothing was found, show user a NotFound container */
+  }
 
-    useEffect(() => {
-        if(isFetched && !content[0].length){
-            setIsNotFound(true)
-        }
-    }, [isFetched, content])
-
+  useEffect(() => {
+    if (isFetched && !content[0].length) {
+      setIsNotFound(true)
+    }
+  }, [isFetched, content])
 
   return (
     <>

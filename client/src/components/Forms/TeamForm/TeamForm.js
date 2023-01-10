@@ -1,21 +1,16 @@
 // * Modules
 import { useEffect, useState } from 'react'
-import { InfinitySpin } from 'react-loader-spinner'
 // * Redux
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import isEqual from 'lodash/isEqual'
 import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
-import { useCheckAuth } from '../../../api/hooks/useCheckAuth'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
-// * Assets
-import TopTemplate from '../../TopTemplate/TopTemplate'
 
 // * Styles
 import {
@@ -38,35 +33,28 @@ import {
   UserInfo,
 } from './TeamForm.styles'
 import tempImg from './zxc1.jpg'
+import {useGetTeamData} from "../../../api/hooks/team/useGetTeamData";
+import Loader from "../../../shared/components/Loader/Loader";
 
 function TeamForm() {
-  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [inviteActive, setInviteActive] = useState(false)
-  const [team, setTeam] = useState({})
   const [email, setEmail] = useState('')
-  const [updating, setUpdating] = useState(true)
   const [members, setMembers] = useState([])
 
-  const { data: userData } = useCheckAuth()
-  const user = userData?.data
+  const {data: team, isLoading: isUserTeamLoading} = useGetTeamData()
 
   useEffect(() => {
     const getTeam = async () => {
-      if (isEqual(user, {})) {
-        navigate('/auth/login', { replace: true })
-      } else {
-        const team = await teamsAPI.getTeamById(user.userTeam)
-        const users = await teamsAPI.getTeamMembers(team.data.members)
+        if(team){
+            const users = await teamsAPI.getTeamMembers(team.members)
 
-        setTeam(team.data)
-        setMembers(users.data)
-        setUpdating(false)
-      }
+            setMembers(users.data)
+        }
     }
 
     getTeam()
-  }, [])
+  }, [team])
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -83,7 +71,7 @@ function TeamForm() {
   }
 
   const handleInvite = async () => {
-    const result = await teamsAPI.inviteUserByEmail(email, user.userTeam)
+    const result = await teamsAPI.inviteUserByEmail(email, team)
 
     if (result.data.error) {
       enqueueSnackbar(result.data.error, {
@@ -94,6 +82,12 @@ function TeamForm() {
     }
   }
 
+  if(isUserTeamLoading){
+    return  <Loader />
+  }
+  if(!team){
+    return <Navigate to={'/team'} />
+  }
   return (
     <Container>
       <Modal
@@ -121,12 +115,7 @@ function TeamForm() {
           )}
         </Box>
       </Modal>
-      <TopTemplate />
       <CardContainer>
-        {updating ? (
-          <div>
-            <InfinitySpin width="150px" color="#4fa94d" />
-          </div>
         ) : (
           <Card>
             <MainCardContent>

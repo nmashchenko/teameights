@@ -2,13 +2,13 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 
-import http from '../../http'
+import http from '../../../http'
 import {
   finishRegistrationError,
   setActiveState,
   setStageOneCompleted,
   setStep,
-} from '../../store/reducers/RegistrationAuth'
+} from '../../../store/reducers/RegistrationAuth'
 
 const { api } = http
 

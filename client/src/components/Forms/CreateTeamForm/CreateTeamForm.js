@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack'
 
 // API
 import createTeam from '../../../api/endpoints/team'
-import { useCheckAuth } from '../../../api/hooks/useCheckAuth'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import ProfileEditIcon from '../../../assets/ProfileEditIcon'
 // * Assets
 import X from '../../../assets/X'
@@ -37,8 +37,7 @@ function CreateTeamForm() {
   const [teamName, setTeamName] = useState('')
   const [country, setCountry] = useState('')
 
-  const { data: userData } = useCheckAuth()
-  const user = userData?.data
+  const { data: user } = useCheckAuth()
   const { updateUser } = userAuth.actions
   const userId = user._id
 

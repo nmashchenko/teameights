@@ -10,7 +10,9 @@ import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
-import { useCheckAuth } from '../../../api/hooks/useCheckAuth'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
+import Loader from '../../../shared/components/Loader/Loader'
 import { userAuth } from '../../../store/reducers/UserAuth'
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
@@ -31,15 +33,15 @@ function TeamsList() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { data: userData } = useCheckAuth()
-  const user = userData?.data
+  const { data: user } = useCheckAuth()
   const { updateUser } = userAuth.actions
   const { enqueueSnackbar } = useSnackbar()
 
   const [teams, setTeams] = useState([])
   const [open, setOpen] = useState(false)
   const [selectedTeam, setSelectedTeam] = useState({})
-  const userId = user._id
+  const { mutateAsync: joinUser } = useAddUserToTeam()
+  const userId = user?._id
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -61,16 +63,16 @@ function TeamsList() {
   }
 
   const handleJoin = async (teamId) => {
-    const result = await teamsAPI.addUserToTeam(userId, teamId)
+    const result = await joinUser({ userId, teamId })
 
-    if (isEqual(result.data, {})) {
+    console.log({ result })
+    if (result) {
+      handleClose()
+      navigate('/myteam')
+    } else {
       enqueueSnackbar('You have joined the team already!', {
         preventDuplicate: true,
       })
-    } else {
-      dispatch(updateUser(result.data))
-      handleClose()
-      navigate('/myteam')
     }
   }
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { isEqual } from 'lodash'
 
 // * Hooks
-import { useLogoutUser } from '../api/hooks/useLogoutUser'
+import { useLogoutUser } from '../api/hooks/auth/useLogoutUser'
 // * Constants
 import ROUTES from '../constants/routes'
 

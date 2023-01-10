@@ -14,7 +14,6 @@ import { CustomSelect, Item, PlaceholderText } from './SelectField.styles'
 import './SelectField.css'
 
 export default function MultipleSelect(props) {
-
   return (
     <div>
       <FormControl sx={{ m: 1, width: 130, background: 'transparent' }}>

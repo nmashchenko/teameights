@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
 // * API
-import { useCheckAuth } from '../../api/hooks/useCheckAuth'
+import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 
 import Cards from './components/Cards/Cards'
 import NotFound from './components/NotFound/NotFound'
@@ -27,7 +27,6 @@ function UsersList() {
    * Set of states that are used by this component
    */
 
-
   const [open, setOpen] = useState(false)
   const [showUser, setShowUser] = useState({})
   const [isNotFound, setIsNotFound] = useState(false)
@@ -42,8 +41,7 @@ function UsersList() {
   /**
    * Get global state from redux
    */
-  const { data: userData, isLoading: isLoadingUseData } = useCheckAuth()
-  const user = userData?.data
+  const { data: user, isLoading: isLoadingUseData } = useCheckAuth()
 
   const showMobileProfile = () => setMobileProfile(!mobileProfile)
   /**
@@ -65,10 +63,7 @@ function UsersList() {
     <>
       <GlobalStyle />
       <CssBaseline />
-      <TopBar
-        setDisplayFiltered={setDisplayFiltered}
-        displayFiltered={displayFiltered}
-      />
+      <TopBar setDisplayFiltered={setDisplayFiltered} displayFiltered={displayFiltered} />
       {/* ! USED ONLY FOR 730px or more */}
       <UserCardModal
         open={open}
@@ -89,7 +84,12 @@ function UsersList() {
         <CardsZone>
           <GridContainer>
             <CardsContainer>
-                <Cards  setIsNotFound={setIsNotFound} displayFiltered={displayFiltered} handleOpen={handleOpen} isLoadingUseData={isLoadingUseData} />
+              <Cards
+                setIsNotFound={setIsNotFound}
+                displayFiltered={displayFiltered}
+                handleOpen={handleOpen}
+                isLoadingUseData={isLoadingUseData}
+              />
             </CardsContainer>
           </GridContainer>
           <SliderToTop />

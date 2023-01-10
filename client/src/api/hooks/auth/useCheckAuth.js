@@ -2,22 +2,22 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 
-import http from '../../http'
-import { userAuth } from '../../store/reducers/UserAuth'
+import http from '../../../http'
+import { userAuth } from '../../../store/reducers/UserAuth'
 
 const { api } = http
 
 export const useCheckAuth = () => {
   const dispatch = useDispatch()
   const checkAuth = async () => {
-    return await api.get(`/get-user-object`)
+    const response = await api.get(`/get-user-object`)
+
+    return response.data
   }
 
   return useQuery('checkAuth', checkAuth, {
     onSuccess: (data) => {
-      const user = data?.data
-
-      if (user && user.isRegistered) {
+      if (data && data.isRegistered) {
         dispatch(userAuth.actions.authUserSuccess())
       }
     },

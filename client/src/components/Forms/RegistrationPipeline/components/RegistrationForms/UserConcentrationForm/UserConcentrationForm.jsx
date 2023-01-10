@@ -30,13 +30,13 @@ const UserConcentrationForm = () => {
         label="Frameworks"
         name="frameworks"
         options={frameworkOptions}
-        renderValue={(selected) => <SelectValue selected={selected}  max={3}/>}
+        renderValue={(selected) => <SelectValue selected={selected} max={3} />}
         width="22rem"
       />
       <CustomSelect
         label="Concentration"
         name="concentration"
-        renderValue={(selected) => <SelectValue selected={selected}  max={3}/>}
+        renderValue={(selected) => <SelectValue selected={selected} max={3} />}
         options={concentrationOptions}
         width="22rem"
       />

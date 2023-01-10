@@ -7,7 +7,7 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import isEqual from 'lodash/isEqual'
 
-import { useLoginUser } from '../../../api/hooks/useLoginUser'
+import { useLoginUser } from '../../../api/hooks/auth/useLoginUser'
 import Loader from '../../../shared/components/Loader/Loader'
 // * Constants
 // * Assets

@@ -1,9 +1,16 @@
 // * Modules
 import React from 'react'
+import { useFormikContext } from 'formik'
 
 import Close from '../../../../assets/Close'
 // * Assets
 import Filters from '../../../../assets/Filters'
+import frameworkOptions from '../../../../constants/frameworks'
+import SelectValue from '../../../../shared/components/CustomSelect/components/SelectValue'
+import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
+import { PlaceholderText } from '../SelectField/SelectField.styles'
+import { concentrationOptions } from '../TopBar/Contentration.options'
+import { programmingLanguageOptions } from '../TopBar/ProgrammingLanguages.options'
 
 // * Styles
 import {
@@ -16,13 +23,6 @@ import {
   FilterText,
   TopContent,
 } from './FiltersMenu.styles'
-import CustomSelect from "../../../../shared/components/CustomSelect/CustomSelect";
-import {PlaceholderText} from "../SelectField/SelectField.styles";
-import {concentrationOptions} from "../TopBar/Contentration.options";
-import {programmingLanguageOptions} from "../TopBar/ProgrammingLanguages.options";
-import frameworkOptions from "../../../../constants/frameworks";
-import SelectValue from "../../../../shared/components/CustomSelect/components/SelectValue";
-import {useFormikContext} from "formik";
 
 const FiltersMenu = ({
   filterBar,
@@ -32,7 +32,7 @@ const FiltersMenu = ({
   concentrationOptions,
   programmingLanguageOptions,
 }) => {
-  const {values, dirty} = useFormikContext()
+  const { values, dirty } = useFormikContext()
   const handleSearch = () => {
     handleSubmitFilter(values, dirty)
     showFiltersBar()
@@ -55,36 +55,36 @@ const FiltersMenu = ({
             </CloseContainer>
           </TopContent>
           <CustomSelect
-              multiple={true}
-              label="Country"
-              name="countries"
-              options={countriesOptions}
-              styles={{width: '100%', marginTop: '2rem'}}
-              renderValue={(selected) => <SelectValue selected={selected} />}
+            multiple={true}
+            label="Country"
+            name="countries"
+            options={countriesOptions}
+            styles={{ width: '100%', marginTop: '2rem' }}
+            renderValue={(selected) => <SelectValue selected={selected} />}
           />
           <CustomSelect
-              multiple={true}
-              label="Role"
-              name="roles"
-              options={concentrationOptions}
-              styles={{width: '100%', marginTop: '2rem'}}
-              renderValue={(selected) => <SelectValue selected={selected} />}
+            multiple={true}
+            label="Role"
+            name="roles"
+            options={concentrationOptions}
+            styles={{ width: '100%', marginTop: '2rem' }}
+            renderValue={(selected) => <SelectValue selected={selected} />}
           />
           <CustomSelect
-              multiple={true}
-              label="Language"
-              name="languages"
-              options={programmingLanguageOptions}
-              styles={{width: '100%', marginTop: '2rem'}}
-              renderValue={(selected) => <SelectValue selected={selected} />}
+            multiple={true}
+            label="Language"
+            name="languages"
+            options={programmingLanguageOptions}
+            styles={{ width: '100%', marginTop: '2rem' }}
+            renderValue={(selected) => <SelectValue selected={selected} />}
           />
           <CustomSelect
-              multiple={true}
-              label="Framework"
-              name="frameworks"
-              options={frameworkOptions}
-              styles={{width: '100%', marginTop: '2rem'}}
-              renderValue={(selected) => <SelectValue selected={selected} />}
+            multiple={true}
+            label="Framework"
+            name="frameworks"
+            options={frameworkOptions}
+            styles={{ width: '100%', marginTop: '2rem' }}
+            renderValue={(selected) => <SelectValue selected={selected} />}
           />
           <ButtonsContainer>
             <CustomButton background="none" onClick={showFiltersBar}>

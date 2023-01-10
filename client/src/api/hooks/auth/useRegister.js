@@ -3,9 +3,9 @@ import { useMutation } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import ROUTES from '../../constants/routes'
-import http from '../../http'
-import { userAuth } from '../../store/reducers/UserAuth'
+import ROUTES from '../../../constants/routes'
+import http from '../../../http'
+import { userAuth } from '../../../store/reducers/UserAuth'
 
 const { api } = http
 

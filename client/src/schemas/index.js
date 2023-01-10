@@ -7,17 +7,27 @@ const regMatch =
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
 
 const finishRegistrationValidation = [
-  yup.object().shape({
-    username: yup.string().required('Please input your username').max(30),
-    fullName: yup.string().required('Please input your name').max(30),
-    age: yup
-      .number()
-      .required('Please input your age')
-      .typeError('Age must be a number')
-      .positive('Age must be greater than zero'),
-    country: yup.string().required('Please choose your country!'),
-    description: yup.string().required('Please write something about you!').max(220),
-  }),
+  yup.object().shape(
+    {
+      username: yup.string().required('Please input your username').max(30),
+      fullName: yup.string().required('Please input your name').max(30),
+      age: yup
+        .number()
+        .required('Please input your age')
+        .typeError('Age must be a number')
+        .positive('Age must be greater than zero'),
+      country: yup.string().required('Please choose your country!'),
+      description: yup.string().when('description', (value) => {
+        if (value) {
+          return yup.string().max(220)
+        } else {
+          return yup.string().notRequired()
+        }
+      }),
+      // description: yup.string().required('Please write something about you!').max(220),
+    },
+    [['description', 'description']],
+  ),
   yup.object().shape({
     programmingLanguages: yup.array().min(1, 'Select at least one language'),
     frameworks: yup.array().min(1, 'Select at least one framework'),
