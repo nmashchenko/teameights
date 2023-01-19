@@ -13,7 +13,7 @@ export const Container = styled.div`
 `
 
 export const LeftCard = styled.div`
-  height: 565px;
+  min-height: 565px;
   width: 370px;
   background: #1a1c22;
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
@@ -25,17 +25,17 @@ export const LeftCard = styled.div`
 `
 
 export const RightContainer = styled.div`
-  height: 565px;
   width: 470px;
   display: flex;
   border-radius: 15px;
   justify-content: space-between;
   flex-direction: column;
+  gap: 10px;
 `
 
 export const RightCard = styled.div`
   width: 470px;
-  height: 125px;
+  min-height: 125px;
   background: #1a1c22;
   box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -136,7 +136,6 @@ export const Information = styled.div`
   flex-direction: row;
   gap: 50px;
   justify-content: center;
-  align-items: center;
   width: 100%;
 `
 
@@ -144,7 +143,8 @@ export const RightCardData = styled.div`
   display: flex;
   width: 100%;
   gap: 10px;
-  height: 50px;
+  flex-wrap: wrap;
+  min-height: 50px;
   justify-content: ${(props) => props.justify || 'start'};
   align-items: center;
 `
