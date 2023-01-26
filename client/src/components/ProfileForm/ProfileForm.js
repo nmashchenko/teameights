@@ -158,14 +158,14 @@ const ProfileForm = () => {
           </EditBtnDiv>
           <BannerLine />
           <RightCardData>
-            {user.userFrameworks.map((framework) => (
+            {user.userFrameworks.slice(0, 6).map((framework, index) => (
               <Framework
                 key={framework}
                 background={frameworkColors[framework]}
                 color={frameworkTextColors[framework]}
                 flexGrow="0"
               >
-                <h3>{framework}</h3>
+                <h3>{index < 5 ? framework : `+${user.userFrameworks.length - 5}`}</h3>
               </Framework>
             ))}
           </RightCardData>
