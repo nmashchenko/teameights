@@ -8,7 +8,7 @@ import isEqual from 'lodash/isEqual'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import tournamentAPI from '../../../api/endpoints/tournament'
-import { useCheckAuth } from '../../../api/hooks/useCheckAuth'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 
 import Backend from './Backend/Backend'
 // * Assets
@@ -24,8 +24,7 @@ function CodingForm() {
 
   const [team, setTeam] = useState('')
   const [updating, setUpdating] = useState(true)
-  const { data: userData } = useCheckAuth()
-  const user = userData?.data
+  const { data: user } = useCheckAuth()
   const navigate = useNavigate()
 
   useEffect(() => {

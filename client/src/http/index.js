@@ -1,11 +1,12 @@
 // * Modules
 import axios from 'axios'
 
-// * API url is set based on current NODE_ENV var
+// * API url is set based on current DEV_TYPE var
 const API_URL =
-  process.env.NODE_ENV === 'development'
+  process.env.REACT_APP_DEV_TYPE === 'development'
     ? 'http://localhost:5000/api'
     : 'https://teameights-server.herokuapp.com/api'
+
 const api = axios.create({
   withCredentials: true,
   baseURL: API_URL,

@@ -13,7 +13,7 @@ const CustomTextArea = ({ label, options, maxLength, ...props }) => {
 
   return (
     <TextAreaWrapper>
-      <Text fontSize="18px" fontWeight="400">
+      <Text fontSize="18px" fontWeight="700">
         {label}
       </Text>
       <TextArea

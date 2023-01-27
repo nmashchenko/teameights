@@ -3,16 +3,17 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { useCheckAuth } from '../../api/hooks/useCheckAuth'
-import { useLogoutUser } from '../../api/hooks/useLogoutUser'
+import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
+import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
 // * Assets
 import NavBarIcon from '../../assets/NavBarIcon'
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
 import Notification from '../../assets/Sidebar/Notification'
+import Team from '../../assets/Sidebar/Team'
 import Routes from '../../constants/routes'
+import Loader from '../../shared/components/Loader/Loader'
 import { Button } from '../../shared/styles/Button.styles'
-import Loader from '../Loader/Loader'
 
 // * Data
 import { NavBarData } from './NavBar.data'
@@ -40,8 +41,7 @@ const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
   const { isAuth } = useSelector((state) => state.userReducer)
   const navigate = useNavigate()
-  const { data: userData } = useCheckAuth()
-  const user = userData?.data
+  const { data: user } = useCheckAuth()
 
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
 
@@ -93,6 +93,12 @@ const NavBar = () => {
                   </NavItem>
                 )
               })}
+              <NavItem>
+                <Link to={user?.userTeam ? '/myteam' : '/team'}>
+                  <Team />
+                  <ItemTitle>Team</ItemTitle>
+                </Link>
+              </NavItem>
             </NavItems>
             <BottomContent>
               {isAuth ? (

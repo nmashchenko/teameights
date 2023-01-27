@@ -10,7 +10,7 @@ import { useSnackbar } from 'notistack'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import tournamentAPI from '../../../api/endpoints/tournament'
-import { useCheckAuth } from '../../../api/hooks/useCheckAuth'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import ArrowLeftReset from '../../../assets/ArrowLeftReset'
 import X from '../../../assets/X'
 import CodingForm from '../CodingForm/CodingForm'
@@ -51,8 +51,7 @@ function TournamentInfo() {
   const [members, setMembers] = useState([])
   const [userRole, setUserRole] = useState('')
 
-  const { data: userData } = useCheckAuth()
-  const user = userData?.data
+  const { data: user } = useCheckAuth()
   const { enqueueSnackbar } = useSnackbar()
 
   const navigate = useNavigate()

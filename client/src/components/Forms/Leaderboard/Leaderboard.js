@@ -9,7 +9,7 @@ import isEqual from 'lodash/isEqual'
 import submissionAPI from '../../../api/endpoints/submission'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
-import { useCheckAuth } from '../../../api/hooks/useCheckAuth'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 // * Assets
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
@@ -25,8 +25,7 @@ import {
 
 function Leaderboard() {
   const [updating, setUpdating] = useState(true)
-  const { data: userData } = useCheckAuth()
-  const user = userData?.data
+  const { data: user } = useCheckAuth()
   const [submissions, setSubmissions] = useState([])
 
   const navigate = useNavigate()

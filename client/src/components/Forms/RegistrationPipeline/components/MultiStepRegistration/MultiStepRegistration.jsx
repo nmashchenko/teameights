@@ -2,11 +2,11 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Form, Formik } from 'formik'
 
-import { useCheckAuth } from '../../../../../api/hooks/useCheckAuth'
-import { useFinishRegistration } from '../../../../../api/hooks/useFinishRegistration'
+import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
+import { useFinishRegistration } from '../../../../../api/hooks/auth/useFinishRegistration'
 import finishRegistrationValidation from '../../../../../schemas'
+import Loader from '../../../../../shared/components/Loader/Loader'
 import { setStep } from '../../../../../store/reducers/RegistrationAuth'
-import Loader from '../../../../Loader/Loader'
 import CurrentStep from '../CurrentStep/CurrentStep'
 import NavLogo from '../NavLogo/NavLogo'
 import Stepper from '../Stepper/Stepper'
@@ -20,7 +20,7 @@ const MultiStepRegistration = () => {
   const { mutate: finishRegistration, isLoading } = useFinishRegistration()
   const submitFrom = (userData) => {
     const registrationData = {
-      email: userPrimaryRegistrationData.data.email,
+      email: userPrimaryRegistrationData.email,
       userUsername: userData.username,
       userRealName: userData.fullName,
       userPhoto: userData.file,

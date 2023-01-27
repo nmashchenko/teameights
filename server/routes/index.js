@@ -37,7 +37,7 @@ router.post(
 router.post("/create-team", teamController.createTeam);
 router.post("/add-to-team", teamController.addToTeam); // when user clicks on "Join" button
 router.post("/invite-to-team", teamController.inviteByEmail); // when user is invited via email
-router.post("/get-team-byid", teamController.getTeamById);
+router.get("/get-team-byid/:id", teamController.getTeamById);
 router.post("/get-teammembers", teamController.getTeamMembers);
 
 router.get("/get-teams", teamController.getTeams);

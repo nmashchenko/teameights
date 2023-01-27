@@ -21,6 +21,7 @@ import { ContentWrapper } from './UserPersonalInfoForm.styles'
 const UserPersonalInfoForm = () => {
   const dispatch = useDispatch()
   const { errors, handleReset } = useFormikContext()
+  const countriesOptions = React.useMemo(() => countryList().getData(), [])
 
   const reset = () => {
     handleReset()
@@ -34,15 +35,7 @@ const UserPersonalInfoForm = () => {
           <CustomInput label="Full Name" name="fullName" type="text" />
         </GroupContainer>
         <GroupContainer>
-          <CustomSelect label="Сountry" name="country">
-            {countryList()
-              .getData()
-              .map(({ label }) => (
-                <Item key={label} value={label}>
-                  {label}
-                </Item>
-              ))}
-          </CustomSelect>
+          <CustomSelect label="Сountry" name="country" options={countriesOptions} />
         </GroupContainer>
       </SectionContainer>
       <SectionContainer>
@@ -56,7 +49,7 @@ const UserPersonalInfoForm = () => {
       <CustomTextArea
         label="About me"
         name="description"
-        placeholder="Start typing here..."
+        placeholder="Start typing here...(optional)"
         maxLength={200}
       />
       <ButtonsContainer width="100%">

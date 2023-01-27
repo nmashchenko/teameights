@@ -31,9 +31,8 @@ class TeamController {
 
   async getTeamById(req, res, next) {
     try {
-      const { teamId } = req.body;
-      console.log(teamId);
-      const team = await teamService.getTeamById(teamId);
+      const { id } = req.params;
+      const team = await teamService.getTeamById(id);
       return res.json(team);
     } catch (err) {
       next(err);

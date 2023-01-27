@@ -1,10 +1,11 @@
 // * Modules
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 // * Assets
-import { useCheckAuth } from '../../../api/hooks/useCheckAuth'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import ROUTES from '../../../constants/routes'
+import Loader from '../../../shared/components/Loader/Loader'
 
 // * Styles
 import {
@@ -18,14 +19,7 @@ import {
 
 function NoTeamForm() {
   const navigate = useNavigate()
-  const { data: userData } = useCheckAuth()
-  const user = userData?.data
-
-  useEffect(() => {
-    if (user?.userTeam) {
-      navigate('/myteam', { replace: true })
-    }
-  }, [])
+  const { data: user } = useCheckAuth()
 
   const handleCreate = () => {
     if (!user?.isRegistered) {
@@ -41,6 +35,10 @@ function NoTeamForm() {
     } else {
       navigate('/teams', { replace: true })
     }
+  }
+
+  if (user?.userTeam) {
+    return <Navigate to="/myteam" />
   }
 
   return (

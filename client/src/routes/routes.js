@@ -2,6 +2,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
+import { useCheckAuth } from '../api/hooks/auth/useCheckAuth'
 // * Constants
 import ROUTES from '../constants/routes'
 import AuthLayout from '../layouts/AuthLayout/AuthLayout'
@@ -41,9 +42,9 @@ export const useRoutes = () => {
       <Route element={<NavBarItemPageLayout />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/tournament" element={<Tournaments />} />
+        <Route path="/myteam" element={<TeamScreen />} />
         <Route path="/team" element={<NoTeamScreen />} />
       </Route>
-      <Route path="/myteam" element={<TeamScreen />} />
       <Route path="/create-team" element={<CreateTeam />} />
       <Route path="/teams" element={<TeamsScreen />} />
       <Route path="/tournament-info" element={<TournamentInfo />} />
