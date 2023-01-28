@@ -9,31 +9,25 @@ import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
 import NavBarIcon from '../../assets/NavBarIcon'
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
-import Notification from '../../assets/Sidebar/Notification'
 import Team from '../../assets/Sidebar/Team'
-import Routes from '../../constants/routes'
+import TeameightsLogo from '../../assets/Team/TeameightsLogo'
 import Loader from '../../shared/components/Loader/Loader'
-import { Button } from '../../shared/styles/Button.styles'
 
 // * Data
 import { NavBarData } from './NavBar.data'
 import {
   BottomContent,
+  IconNav,
   ItemTitle,
-  NameNotificationsContainer,
   NavBarToggle,
   NavIconContainer,
   NavItem,
   NavItems,
   NavMenu,
   NavMenuItems,
-  NotificationsArea,
   SingOutButton,
-  UserData,
-  UserImage,
   UserInfo,
   UserText,
-  UserTextContainer,
 } from './NavBar.styles'
 import userImg from './tempImg.jpg'
 
@@ -82,34 +76,19 @@ const NavBar = () => {
               })}
               <NavItem>
                 <Link to={user?.userTeam ? '/myteam' : '/team'}>
-                  <Team />
+                  <IconNav>
+                    <Team />
+                  </IconNav>
                   <ItemTitle>Team</ItemTitle>
                 </Link>
               </NavItem>
             </NavItems>
             <BottomContent>
-              {isAuth ? (
-                <SingOutButton onClick={handleUseLogout}>
-                  <Exit /> Sign Out
-                </SingOutButton>
-              ) : (
-                <Button onClick={() => navigate(Routes.login)}>Login</Button>
-              )}
-              <UserText
-                fontWeight="400"
-                fontSize="12px"
-                color="rgba(255, 255, 255, 0.15)"
-                margin="0 0 5px 0"
-              >
-                Copyright © 2022 Teameights.
-              </UserText>
-              <UserText
-                fontWeight="400"
-                fontSize="12px"
-                color="rgba(255, 255, 255, 0.15)"
-                margin="0 0 30px 0"
-              >
-                All rights reserved.
+              <SingOutButton onClick={handleUseLogout}>
+                <Exit /> Sign Out
+              </SingOutButton>
+              <UserText fontWeight="400" fontSize="12px" color="rgba(255, 255, 255, 0.15)">
+                copyright © 2022 Teameights.
               </UserText>
             </BottomContent>
           </NavMenuItems>

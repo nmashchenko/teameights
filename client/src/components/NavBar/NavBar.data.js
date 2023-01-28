@@ -23,9 +23,4 @@ export const NavBarData = [
     path: '/',
     icon: <Project />,
   },
-  // {
-  //   title: 'Team',
-  //   path: '/team',
-  //   icon: <Team />,
-  // },
 ]
