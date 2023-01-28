@@ -1,35 +1,59 @@
 // * Modules
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
+import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
 // * Assets
 import NavBarIcon from '../../assets/NavBarIcon'
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
+import Notification from '../../assets/Sidebar/Notification'
+import Team from '../../assets/Sidebar/Team'
+import Routes from '../../constants/routes'
+import Loader from '../../shared/components/Loader/Loader'
+import { Button } from '../../shared/styles/Button.styles'
 
 // * Data
 import { NavBarData } from './NavBar.data'
-import TeameightsLogo from '../../assets/Team/TeameightsLogo'
-
 import {
+  BottomContent,
+  ItemTitle,
+  NameNotificationsContainer,
+  NavBarToggle,
   NavIconContainer,
-  UserInfo,
-  UserText,
+  NavItem,
+  NavItems,
   NavMenu,
   NavMenuItems,
-  NavBarToggle,
-  NavItem,
-  ItemTitle,
-  NavItems,
-  BottomContent,
+  NotificationsArea,
   SingOutButton,
-  IconNav,
+  UserData,
+  UserImage,
+  UserInfo,
+  UserText,
+  UserTextContainer,
 } from './NavBar.styles'
+import userImg from './tempImg.jpg'
 
-const NavBar = ({ user, handleUserLogout }) => {
+const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
+  const { isAuth } = useSelector((state) => state.userReducer)
+  const navigate = useNavigate()
+  const { data: user } = useCheckAuth()
 
+  const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
+
+  const handleUseLogout = () => {
+    logoutUser()
+  }
+
+  if (isUserLoggingOut) {
+    return <Loader />
+  }
   const showSidebar = () => setSidebar(!sidebar)
+
   return (
     <>
       <NavIconContainer onClick={showSidebar}>
@@ -56,13 +80,36 @@ const NavBar = ({ user, handleUserLogout }) => {
                   </NavItem>
                 )
               })}
+              <NavItem>
+                <Link to={user?.userTeam ? '/myteam' : '/team'}>
+                  <Team />
+                  <ItemTitle>Team</ItemTitle>
+                </Link>
+              </NavItem>
             </NavItems>
             <BottomContent>
-              <SingOutButton onClick={handleUserLogout}>
-                <Exit /> Sign Out
-              </SingOutButton>
-              <UserText fontWeight="400" fontSize="12px" color="rgba(255, 255, 255, 0.15)">
-                copyright © 2022 Teameights.
+              {isAuth ? (
+                <SingOutButton onClick={handleUseLogout}>
+                  <Exit /> Sign Out
+                </SingOutButton>
+              ) : (
+                <Button onClick={() => navigate(Routes.login)}>Login</Button>
+              )}
+              <UserText
+                fontWeight="400"
+                fontSize="12px"
+                color="rgba(255, 255, 255, 0.15)"
+                margin="0 0 5px 0"
+              >
+                Copyright © 2022 Teameights.
+              </UserText>
+              <UserText
+                fontWeight="400"
+                fontSize="12px"
+                color="rgba(255, 255, 255, 0.15)"
+                margin="0 0 30px 0"
+              >
+                All rights reserved.
               </UserText>
             </BottomContent>
           </NavMenuItems>

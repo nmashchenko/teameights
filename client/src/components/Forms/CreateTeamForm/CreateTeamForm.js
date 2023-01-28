@@ -1,32 +1,31 @@
 // * Modules
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useSnackbar } from 'notistack'
-import isEqual from 'lodash/isEqual'
-
 // * Redux
-import { useSelector, useDispatch } from 'react-redux'
-import { userAuth } from '../../../store/reducers/UserAuth'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import isEqual from 'lodash/isEqual'
+import { useSnackbar } from 'notistack'
 
 // API
 import createTeam from '../../../api/endpoints/team'
-
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import ProfileEditIcon from '../../../assets/ProfileEditIcon'
 // * Assets
 import X from '../../../assets/X'
-import ProfileEllipse from './img/zxc1.jpg'
-import ProfileEditIcon from '../../../assets/ProfileEditIcon'
+import { userAuth } from '../../../store/reducers/UserAuth'
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
+import ProfileEllipse from './img/zxc1.jpg'
 import {
-  CreateTeamContainer,
   Card,
-  MainContainer,
-  XContainer,
-  ProfileContainer,
-  Input,
-  ProfileEditContainer,
-  InputContainer,
   CreateButtonContainer,
+  CreateTeamContainer,
+  Input,
+  InputContainer,
+  MainContainer,
+  ProfileContainer,
+  ProfileEditContainer,
+  XContainer,
 } from './CreateTeamForm.styles'
 
 function CreateTeamForm() {
@@ -38,7 +37,7 @@ function CreateTeamForm() {
   const [teamName, setTeamName] = useState('')
   const [country, setCountry] = useState('')
 
-  const { user } = useSelector((state) => state.userReducer)
+  const { data: user } = useCheckAuth()
   const { updateUser } = userAuth.actions
   const userId = user._id
 
@@ -53,6 +52,7 @@ function CreateTeamForm() {
       })
     } else {
       const value = await createTeam.createTeam(teamName, country, [userId])
+
       console.log(value)
       if (isEqual(value.data, {})) {
         enqueueSnackbar('You have a team already!', {

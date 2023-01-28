@@ -1,32 +1,31 @@
 // * Modules
 import { useEffect, useState } from 'react'
-import isEqual from 'lodash/isEqual'
-import { useNavigate } from 'react-router-dom'
 import { InfinitySpin } from 'react-loader-spinner'
-
 // * Redux
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import isEqual from 'lodash/isEqual'
 
-// * Styles
-import {
-  Container,
-  BaseContainer,
-  InfoContainer,
-  Text,
-  TextCTA,
-  Content,
-} from './Leaderboard.styles'
-
+import submissionAPI from '../../../api/endpoints/submission'
+// * API
+import teamsAPI from '../../../api/endpoints/team'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 // * Assets
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
-// * API
-import teamsAPI from '../../../api/endpoints/team'
-import submissionAPI from '../../../api/endpoints/submission'
+// * Styles
+import {
+  BaseContainer,
+  Container,
+  Content,
+  InfoContainer,
+  Text,
+  TextCTA,
+} from './Leaderboard.styles'
 
 function Leaderboard() {
   const [updating, setUpdating] = useState(true)
-  const { user } = useSelector((state) => state.userReducer)
+  const { data: user } = useCheckAuth()
   const [submissions, setSubmissions] = useState([])
 
   const navigate = useNavigate()
@@ -42,6 +41,7 @@ function Leaderboard() {
             let teamrequest = await teamsAPI.getTeamById(result.team_id)
             let teamName = teamrequest.data.name
             let teamScore = 0
+
             if (
               result.submission_parts.backend !== undefined &&
               result.submission_parts.frontend !== undefined
@@ -53,6 +53,7 @@ function Leaderboard() {
             } else if (result.submission_parts.frontend !== undefined) {
               teamScore = result.submission_parts.frontend.points
             }
+
             return { teamName, teamScore }
           }),
         )
@@ -64,6 +65,7 @@ function Leaderboard() {
         setUpdating(false)
       }
     }
+
     getData()
   }, [])
 
@@ -96,7 +98,7 @@ function Leaderboard() {
             </InfoContainer>
 
             {submissions.map((item, i) => (
-              <InfoContainer>
+              <InfoContainer key={i}>
                 <Text fontWeight="600" color="#FFE600">
                   #{i}
                 </Text>

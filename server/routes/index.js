@@ -37,7 +37,7 @@ router.post(
 router.post("/create-team", teamController.createTeam);
 router.post("/add-to-team", teamController.addToTeam); // when user clicks on "Join" button
 router.post("/invite-to-team", teamController.inviteByEmail); // when user is invited via email
-router.post("/get-team-byid", teamController.getTeamById);
+router.get("/get-team-byid/:id", teamController.getTeamById);
 router.post("/get-teammembers", teamController.getTeamMembers);
 
 router.get("/get-teams", teamController.getTeams);
@@ -65,7 +65,11 @@ router.post("/get-leaderboard", leaderboardController.getLeaderboard);
 
 // only for authenticated users
 router.post("/registration-checkout", userController.registrationCompletion);
-router.get("/users-filtered", authMiddleware, userController.getUsersFiltered);
-router.get("/users", authMiddleware, userController.getUsers);
+// router.get("/users-filtered", authMiddleware, userController.getUsersFiltered);
+// router.get("/users", authMiddleware, userController.getUsers);
+
+// temporary => TODO: remove later before merging to dev
+router.get("/users-filtered", userController.getUsersFiltered);
+router.get("/users", userController.getUsers);
 
 module.exports = router;

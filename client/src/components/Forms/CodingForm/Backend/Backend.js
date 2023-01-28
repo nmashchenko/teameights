@@ -1,27 +1,26 @@
 // * Modules
-import Countdown from 'react-countdown'
-import Editor from '@monaco-editor/react'
-import Typewriter from 'react-ts-typewriter'
 import { useState } from 'react'
+import Countdown from 'react-countdown'
+import { useNavigate } from 'react-router-dom'
+import Typewriter from '@mikhail2404/react-ts-typewriter'
+import Editor from '@monaco-editor/react'
 import axios from 'axios'
 import isEqual from 'lodash/isEqual'
-import { useNavigate } from 'react-router-dom'
-
-// * Styles
-import {
-  Container,
-  Text,
-  LeftContainer,
-  RightContainer,
-  TaskContainer,
-  OutputContainer,
-  ResultContainer,
-  ResultStatus,
-  SubmitButton,
-} from '../CodingForm.styles'
 
 // * API
 import submissionAPI from '../../../../api/endpoints/submission'
+// * Styles
+import {
+  Container,
+  LeftContainer,
+  OutputContainer,
+  ResultContainer,
+  ResultStatus,
+  RightContainer,
+  SubmitButton,
+  TaskContainer,
+  Text,
+} from '../CodingForm.styles'
 
 function Backend({ renderer, value, output, handleEditorChange, code, setOutput, user, team }) {
   const [processing, setProcessing] = useState(false)
@@ -58,11 +57,13 @@ function Backend({ renderer, value, output, handleEditorChange, code, setOutput,
       .then(function (response) {
         console.log('res.data', response.data)
         const token = response.data.token
+
         checkStatus(token)
       })
       .catch((err) => {
         console.log(err)
         let error = err.response ? err.response.data : err
+
         setProcessing(false)
         console.log(error)
       })
@@ -78,6 +79,7 @@ function Backend({ renderer, value, output, handleEditorChange, code, setOutput,
         'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
       },
     }
+
     try {
       let response = await axios.request(options)
       let statusId = response.data.status?.id
@@ -88,18 +90,21 @@ function Backend({ renderer, value, output, handleEditorChange, code, setOutput,
         setTimeout(() => {
           checkStatus(token)
         }, 2000)
+
         return
       } else {
         setProcessing(false)
         setResults(response.data)
         // setOutput(atob(response.data.stdout))
         let statusId = response.data?.status?.id
+
         if (statusId === 3) {
           atob(response.data.stdout) !== null
             ? setOutput(atob(response.data.stdout))
             : setOutput('')
 
           const check = atob(response.data.stdout).split(' ')
+
           console.log(check)
           if (check.includes("'juice',") && check.includes("'cs484'")) {
             setPoints(70)
@@ -109,6 +114,7 @@ function Backend({ renderer, value, output, handleEditorChange, code, setOutput,
                 points: 70,
               },
             }
+
             console.log(s_parts)
             const submission = await submissionAPI.makeSubmission(s_parts, user.userTeam)
 
@@ -133,6 +139,7 @@ function Backend({ renderer, value, output, handleEditorChange, code, setOutput,
         setTime(response.data.time)
         setMemory(response.data.memory)
         console.log('response.data', response.data)
+
         return
       }
     } catch (err) {

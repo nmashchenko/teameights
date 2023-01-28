@@ -1,48 +1,52 @@
 // * Modules
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+// * Redux
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { useSnackbar } from 'notistack'
 import isEqual from 'lodash/isEqual'
-
-// * Styles
-import {
-  Container,
-  CardContainer,
-  Card,
-  ColumnNames,
-  Text,
-  TeamData,
-  TeamImage,
-  TeamButton,
-  style,
-} from './TeamsList.styles'
-import TopTemplate from '../../TopTemplate/TopTemplate'
-
-// * Redux
-import { useSelector, useDispatch } from 'react-redux'
-import { userAuth } from '../../../store/reducers/UserAuth'
+import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
+import Loader from '../../../shared/components/Loader/Loader'
+import { userAuth } from '../../../store/reducers/UserAuth'
+import TopTemplate from '../../TopTemplate/TopTemplate'
+
+// * Styles
+import {
+  Card,
+  CardContainer,
+  ColumnNames,
+  Container,
+  style,
+  TeamButton,
+  TeamData,
+  TeamImage,
+  Text,
+} from './TeamsList.styles'
 
 function TeamsList() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user } = useSelector((state) => state.userReducer)
+  const { data: user } = useCheckAuth()
   const { updateUser } = userAuth.actions
   const { enqueueSnackbar } = useSnackbar()
 
   const [teams, setTeams] = useState([])
   const [open, setOpen] = useState(false)
   const [selectedTeam, setSelectedTeam] = useState({})
-  const userId = user._id
+  const { mutateAsync: joinUser } = useAddUserToTeam()
+  const userId = user?._id
 
   useEffect(() => {
     const makeRequest = async () => {
       const teams = await teamsAPI.getAllTeams()
+
       setTeams(teams.data)
     }
 
@@ -59,15 +63,16 @@ function TeamsList() {
   }
 
   const handleJoin = async (teamId) => {
-    const result = await teamsAPI.addUserToTeam(userId, teamId)
-    if (isEqual(result.data, {})) {
+    const result = await joinUser({ userId, teamId })
+
+    console.log({ result })
+    if (result) {
+      handleClose()
+      navigate('/myteam')
+    } else {
       enqueueSnackbar('You have joined the team already!', {
         preventDuplicate: true,
       })
-    } else {
-      dispatch(updateUser(result.data))
-      handleClose()
-      navigate('/myteam')
     }
   }
 
@@ -116,8 +121,8 @@ function TeamsList() {
                 People
               </Text>
             </ColumnNames>
-            {teams.map((team) => (
-              <TeamData margin="60px">
+            {teams.map((team, i) => (
+              <TeamData margin="60px" key={i}>
                 <TeamImage src="https://pbs.twimg.com/profile_images/1406293979323371528/TJ7BseVI_400x400.jpg" />
                 <Text fontSize="18px" color="white">
                   {team.name}

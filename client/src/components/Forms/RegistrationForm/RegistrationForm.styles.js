@@ -1,12 +1,12 @@
 // * Modules
-import styled from 'styled-components'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import isEqual from 'lodash/isEqual'
 import { Link } from 'react-router-dom'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import isEqual from 'lodash/isEqual'
+import styled from 'styled-components'
 
 // * Constants
-import { WHITE, BLACK, GREEN, BLUE } from '../../../constants/colors'
+import { BLACK, BLUE, GREEN, WHITE } from '../../../constants/colors'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
@@ -14,14 +14,6 @@ export const NavBar = styled(Toolbar)`
     padding: 30px 40px;
   }
 `
-
-export const RegistrationContainer = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  background: ${BLACK.background};
-`
-
 export const LeftScreenContainer = styled.div`
   width: 50%;
   display: flex;
@@ -180,38 +172,6 @@ export const AlternativeRegistration = styled.div`
   margin: 20px 0 20px 0;
 `
 
-export const RightScreenContainer = styled.div`
-  width: 50%;
-  height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media screen and (min-width: 0px) and (max-width: 950px) {
-    display: none;
-  }
-`
-
-export const ImageContainer = styled.div`
-  position: relative;
-  text-align: center;
-  width: 500px;
-  height: 610px;
-
-  @media screen and (min-width: 950px) and (max-width: 1200px) {
-    width: 400px;
-    height: 510px;
-  }
-`
-
-export const TextContainer = styled.div`
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-`
-
 export const Text = styled.h3`
   font-weight: ${(props) => props.fontWeight || '700'};
   font-size: ${(props) => props.fontSize || '42px'};
@@ -221,22 +181,6 @@ export const Text = styled.h3`
 
   @media screen and (min-width: 950px) and (max-width: 1200px) {
     font-size: ${(props) => props.fontSize || '32px'};
-  }
-`
-
-export const SpannedLetter = styled.span`
-  color: ${GREEN.text};
-`
-
-export const SeparateLine = styled.div`
-  border: 1px solid rgba(54, 90, 8, 0.5);
-  height: 75vh;
-  position: absolute;
-  left: 50%;
-  top: 12%;
-
-  @media screen and (min-width: 0px) and (max-width: 950px) {
-    display: none;
   }
 `
 

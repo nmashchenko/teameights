@@ -1,45 +1,45 @@
 // * Modules
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import isEqual from 'lodash/isEqual'
 import { useSnackbar } from 'notistack'
 
-// * Styles
-import {
-  Container,
-  Content,
-  Div,
-  TopContainer,
-  ComeBackBtn,
-  SelectContainer,
-  SelectItem,
-  TournamentInfoContainer,
-  InfoContainer,
-  EntryStartsContainer,
-  ButtonContainer,
-  AvailableSlotsContainer,
-  AvailableSlotsItem,
-  Text,
-  Span,
-  PrimaryButton,
-  style,
-  CloseContainer,
-  CustomSelect,
-  CustomOption,
-} from './TournamentInfo.styles'
-
-// * Assets
-import { data } from './TournamentInfo.data'
+// * API
+import teamsAPI from '../../../api/endpoints/team'
+import tournamentAPI from '../../../api/endpoints/tournament'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import ArrowLeftReset from '../../../assets/ArrowLeftReset'
 import X from '../../../assets/X'
 import CodingForm from '../CodingForm/CodingForm'
 
-// * API
-import teamsAPI from '../../../api/endpoints/team'
-import tournamentAPI from '../../../api/endpoints/tournament'
+// * Assets
+import { data } from './TournamentInfo.data'
+// * Styles
+import {
+  AvailableSlotsContainer,
+  AvailableSlotsItem,
+  ButtonContainer,
+  CloseContainer,
+  ComeBackBtn,
+  Container,
+  Content,
+  CustomOption,
+  CustomSelect,
+  Div,
+  EntryStartsContainer,
+  InfoContainer,
+  PrimaryButton,
+  SelectContainer,
+  SelectItem,
+  Span,
+  style,
+  Text,
+  TopContainer,
+  TournamentInfoContainer,
+} from './TournamentInfo.styles'
 
 function TournamentInfo() {
   const [open, setOpen] = useState(false)
@@ -51,7 +51,7 @@ function TournamentInfo() {
   const [members, setMembers] = useState([])
   const [userRole, setUserRole] = useState('')
 
-  const { user } = useSelector((state) => state.userReducer)
+  const { data: user } = useCheckAuth()
   const { enqueueSnackbar } = useSnackbar()
 
   const navigate = useNavigate()
@@ -83,6 +83,7 @@ function TournamentInfo() {
       })
     } else {
       const res = await tournamentAPI.addTeamToTournament(team._id, frontEnd, backEnd)
+
       console.log(res)
       if (res.data?.error) {
         enqueueSnackbar(res.data.error, {
@@ -107,6 +108,7 @@ function TournamentInfo() {
         const team = await teamsAPI.getTeamById(user.userTeam)
         const users = await teamsAPI.getTeamMembers(team.data.members)
         const checkSignedUp = await tournamentAPI.checkUserSignedUp(user._id)
+
         console.log(checkSignedUp)
         checkSignedUp.data.exists && checkSignedUp.data.exists === true
           ? handleTournamentCheck(checkSignedUp.data.role)
@@ -116,6 +118,7 @@ function TournamentInfo() {
         setUpdating(false)
       }
     }
+
     getData()
   }, [])
 
@@ -146,8 +149,10 @@ function TournamentInfo() {
                   <CustomOption value="none" selected disabled hidden>
                     Select frontend
                   </CustomOption>
-                  {members.map((member) => (
-                    <CustomOption value={member._id}>{member.userRealName}</CustomOption>
+                  {members.map((member, i) => (
+                    <CustomOption value={member._id} key={i}>
+                      {member.userRealName}
+                    </CustomOption>
                   ))}
                 </CustomSelect>
                 <Text alignment="center" fontSize="18px" margin="25px 0 0 0">
@@ -157,8 +162,10 @@ function TournamentInfo() {
                   <CustomOption value="none" selected disabled hidden>
                     Select backend
                   </CustomOption>
-                  {members.map((member) => (
-                    <CustomOption value={member._id}>{member.userRealName}</CustomOption>
+                  {members.map((member, i) => (
+                    <CustomOption value={member._id} key={i}>
+                      {member.userRealName}
+                    </CustomOption>
                   ))}
                 </CustomSelect>
                 <PrimaryButton
@@ -171,7 +178,7 @@ function TournamentInfo() {
                   Submit
                 </PrimaryButton>
               </>
-            ) : user.userTeam ? (
+            ) : user?.userTeam ? (
               <Text>You need at least two team members.</Text>
             ) : (
               <Text>You need to join team first</Text>
@@ -239,12 +246,13 @@ function TournamentInfo() {
                   AVAILABLE SLOTS
                 </AvailableSlotsItem>
 
-                {data.map((item) => (
+                {data.map((item, i) => (
                   <AvailableSlotsItem
                     borderb="solid 2px #353535"
                     align="center"
                     background="#1A1C22"
                     height="45px"
+                    key={i}
                   >
                     <Text color="#8A9AB5" fontSize="16px">
                       {item.name}

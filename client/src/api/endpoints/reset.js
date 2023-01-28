@@ -1,7 +1,9 @@
 // * API
-import api from '../../http'
+import http from '../../http'
 
-const getRegistrationEmail = async (email)  => {
+const { api } = http
+
+const getRegistrationEmail = async (email) => {
   try {
     await api.post('/reset-password', { email })
   } catch (err) {
