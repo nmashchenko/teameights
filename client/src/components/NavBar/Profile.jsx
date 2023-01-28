@@ -5,6 +5,7 @@ import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import NoNotifications from '../../assets/NoNotifications'
 import NotificationIcon from '../../assets/NotificationIcon'
 
+import defaultImg from './defaultImg.png'
 import NotificationModal from './NotificationModal'
 // import { UserInfo } from './NavBar.styles'
 import {
@@ -22,6 +23,7 @@ let data = {
   userRealName: 'Unknown',
   userUsername: 'who_are_you?',
   notificationBell: false,
+  userImg: defaultImg,
 }
 
 const changeData = (data) => {
@@ -29,6 +31,7 @@ const changeData = (data) => {
     userRealName: data.userRealName,
     userUsername: data.userUsername,
     notificationBell: true,
+    userImg: userImg,
   }
 }
 
@@ -59,7 +62,7 @@ const Profile = () => {
 
   return (
     <NotificationContainer>
-      <ProfileIcon src={userImg} alt="Profile icon" />
+      <ProfileIcon src={data?.userImg} alt="Profile icon" />
       <UserInfoDiv>
         <UserRealName>{data?.userRealName}</UserRealName>
 
