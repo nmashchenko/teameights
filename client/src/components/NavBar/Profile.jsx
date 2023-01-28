@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
@@ -19,7 +19,7 @@ import {
 } from './Profile.styles'
 import userImg from './tempImg.jpg'
 
-let data = {
+let defaultData = {
   userRealName: 'Unknown',
   userUsername: 'who_are_you?',
   notificationBell: false,
@@ -42,9 +42,13 @@ const Profile = () => {
 
   const [notificationModal, setNotificationModal] = useState(false)
 
-  if (isAuth) {
-    data = changeData(user)
-  }
+  const [data, changeDataState] = useState(defaultData)
+
+  useEffect(() => {
+    if (isAuth) {
+      changeDataState(changeData(user))
+    }
+  }, [isAuth])
 
   const toggleNotificationModal = (e) => {
     e.stopPropagation()

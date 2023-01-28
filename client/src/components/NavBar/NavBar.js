@@ -34,7 +34,7 @@ import userImg from './tempImg.jpg'
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
-  // const { isAuth } = useSelector((state) => state.userReducer)
+  const { isAuth } = useSelector((state) => state.userReducer)
   // const navigate = useNavigate()
   const { data: user } = useCheckAuth()
 
@@ -86,9 +86,14 @@ const NavBar = () => {
               </NavItem>
             </NavItems>
             <BottomContent>
-              <SignOutButton onClick={handleUseLogout}>
-                <Exit /> Sign Out
-              </SignOutButton>
+              {!isAuth ? (
+                <></>
+              ) : (
+                <SignOutButton onClick={handleUseLogout}>
+                  <Exit /> Sign Out
+                </SignOutButton>
+              )}
+
               <UserText fontWeight="400" fontSize="12px" color="rgba(255, 255, 255, 0.15)">
                 copyright © 2022 Teameights.
               </UserText>
