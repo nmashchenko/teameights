@@ -129,7 +129,7 @@ export const BottomContent = styled.div`
   margin-bottom: 3rem;
 `
 
-export const SingOutButton = styled.button`
+export const SignOutButton = styled.button`
   margin-bottom: 20px;
   display: flex;
   justify-content: center;

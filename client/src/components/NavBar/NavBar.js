@@ -13,7 +13,6 @@ import Team from '../../assets/Sidebar/Team'
 import TeameightsLogo from '../../assets/Team/TeameightsLogo'
 import Loader from '../../shared/components/Loader/Loader'
 
-// * Data
 import { NavBarData } from './NavBar.data'
 import {
   BottomContent,
@@ -25,16 +24,18 @@ import {
   NavItems,
   NavMenu,
   NavMenuItems,
-  SingOutButton,
+  SignOutButton,
   UserInfo,
   UserText,
 } from './NavBar.styles'
+// * Data
+import Profile from './Profile'
 import userImg from './tempImg.jpg'
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
-  const { isAuth } = useSelector((state) => state.userReducer)
-  const navigate = useNavigate()
+  // const { isAuth } = useSelector((state) => state.userReducer)
+  // const navigate = useNavigate()
   const { data: user } = useCheckAuth()
 
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
@@ -64,6 +65,7 @@ const NavBar = () => {
               </NavBarToggle>
             </UserInfo>
             <NavItems>
+              <Profile />
               {NavBarData.map((item, index) => {
                 return (
                   <NavItem key={index}>
@@ -84,9 +86,9 @@ const NavBar = () => {
               </NavItem>
             </NavItems>
             <BottomContent>
-              <SingOutButton onClick={handleUseLogout}>
+              <SignOutButton onClick={handleUseLogout}>
                 <Exit /> Sign Out
-              </SingOutButton>
+              </SignOutButton>
               <UserText fontWeight="400" fontSize="12px" color="rgba(255, 255, 255, 0.15)">
                 copyright © 2022 Teameights.
               </UserText>
