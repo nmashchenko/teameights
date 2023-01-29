@@ -65,7 +65,7 @@ export const Notification = styled.li`
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 2px 4px;
+  padding: 5px;
   border-radius: 4px;
   background: #26292b;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.02), 0px 2px 4px rgba(0, 0, 0, 0.08);
@@ -81,18 +81,19 @@ export const NotificationUserImg = styled.img`
 
 export const NotificationUserRealName = styled.strong`
   margin: 0;
-  font-size: 17px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 1;
 `
 
 export const NotificationDesc = styled.p`
   margin: 0;
-  font-size: 14px;
+  font-size: 10px;
   line-height: 1;
 `
 
 export const NotificationUserData = styled.div`
   width: 100%;
   height: 100%;
+  padding-left: 1px;
 `
