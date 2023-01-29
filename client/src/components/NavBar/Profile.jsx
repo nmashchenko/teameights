@@ -9,7 +9,7 @@ import defaultImg from './defaultImg.png'
 import NotificationModal from './NotificationModal'
 // import { UserInfo } from './NavBar.styles'
 import {
-  NotificationContainer,
+  AvatarContainer,
   NotificationIconCenter,
   NotificationToggle,
   ProfileIcon,
@@ -34,7 +34,6 @@ const changeData = (data) => {
     userImg: userImg,
   }
 }
-
 
 // Sidebar profile with notification capability
 const Profile = () => {
@@ -65,7 +64,7 @@ const Profile = () => {
   )
 
   return (
-    <NotificationContainer>
+    <AvatarContainer>
       <ProfileIcon src={data?.userImg} alt="Profile icon" />
       <UserInfoDiv>
         <UserRealName>{data?.userRealName}</UserRealName>
@@ -74,12 +73,15 @@ const Profile = () => {
       </UserInfoDiv>
       <NotificationIconCenter>
         {notificationModal ? (
-          <NotificationModal notificationModal={notificationModal}  toggleNotificationModal={toggleNotificationModal} />
+          <NotificationModal
+            notificationModal={notificationModal}
+            toggleNotificationModal={toggleNotificationModal}
+          />
         ) : (
           bell
         )}
       </NotificationIconCenter>
-    </NotificationContainer>
+    </AvatarContainer>
   )
 }
 

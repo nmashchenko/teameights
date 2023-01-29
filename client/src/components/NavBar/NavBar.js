@@ -1,10 +1,11 @@
 // * Modules
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
+import ChevronRight from '../../assets/ChevronRight'
 // * Assets
 import NavBarIcon from '../../assets/NavBarIcon'
 import Close from '../../assets/Sidebar/Close'
@@ -24,6 +25,7 @@ import {
   NavItems,
   NavMenu,
   NavMenuItems,
+  ShowChevron,
   SignOutButton,
   UserInfo,
   UserText,
@@ -39,6 +41,8 @@ const NavBar = () => {
   const { data: user } = useCheckAuth()
 
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
+
+  const navigate = useNavigate()
 
   const handleUseLogout = () => {
     logoutUser()
@@ -72,6 +76,9 @@ const NavBar = () => {
                     <Link to={item.path}>
                       <IconNav>{item.icon} </IconNav>
                       <ItemTitle>{item.title}</ItemTitle>
+                      <ShowChevron>
+                        <ChevronRight />
+                      </ShowChevron>
                     </Link>
                   </NavItem>
                 )
@@ -82,12 +89,23 @@ const NavBar = () => {
                     <Team />
                   </IconNav>
                   <ItemTitle>Team</ItemTitle>
+                  <ShowChevron>
+                    <ChevronRight />
+                  </ShowChevron>
                 </Link>
               </NavItem>
             </NavItems>
             <BottomContent>
               {!isAuth ? (
-                <></>
+                <SignOutButton
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    navigate('/auth/registration')
+                  }}
+                  color="white"
+                >
+                  <Exit /> Sign Up
+                </SignOutButton>
               ) : (
                 <SignOutButton onClick={handleUseLogout}>
                   <Exit /> Sign Out
@@ -95,7 +113,7 @@ const NavBar = () => {
               )}
 
               <UserText fontWeight="400" fontSize="12px" color="rgba(255, 255, 255, 0.15)">
-                copyright © 2022 Teameights.
+                copyright © {new Date().getFullYear()} Teameights.
               </UserText>
             </BottomContent>
           </NavMenuItems>

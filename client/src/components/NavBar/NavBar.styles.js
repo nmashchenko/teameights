@@ -7,12 +7,14 @@ export const NavIconContainer = styled.div`
 `
 
 export const NavMenu = styled.nav`
-  width: 320px;
+  width: 325px;
   height: 100vh;
   display: flex;
   justify-content: center;
   position: fixed;
   background-color: rgb(26, 28, 34, 0.3);
+
+  background: linear-gradient(180deg, rgba(26, 28, 34, 0.5) 0%, rgba(40, 47, 71, 0.5) 100%);
   top: 0;
   left: ${(props) => props.left || '-100%'};
   transition: ${(props) => props.transition || 'all 0.5s linear'};
@@ -52,6 +54,7 @@ export const NavBarToggle = styled.li`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  padding-left: 15px;
 `
 
 export const UserText = styled.h3`
@@ -101,7 +104,7 @@ export const NavItem = styled.div`
   }
 
   > a:hover {
-    background: #2e3239;
+    background: #5d9d0b;
     font-size: 16.5px;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
@@ -114,10 +117,19 @@ export const NavItem = styled.div`
   a:active {
     background: #5d9d0b;
   }
+  a:hover div {
+    opacity: 1;
+  }
 `
 
 export const ItemTitle = styled.span`
   margin-left: 25px;
+`
+export const ShowChevron = styled.div`
+  margin-left: auto;
+  opacity: 0;
+  display: flex;
+  align-item: center;
 `
 
 export const BottomContent = styled.div`
