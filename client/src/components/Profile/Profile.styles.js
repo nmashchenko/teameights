@@ -62,12 +62,17 @@ export const Text = styled.h3`
   text-align: ${(props) => props.alignment || 'center'};
 `
 
-export const ImgContainer = styled.img`
+export const ImgContainer = styled.div`
+  position: relative;
+`
+
+export const Img = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 50%;
   margin-top: 30px;
 `
+
 export const ProfileLine = styled.hr`
   border: 1px solid rgba(42, 60, 19, 0.5);
   width: 90%;

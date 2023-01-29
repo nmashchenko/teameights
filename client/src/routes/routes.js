@@ -2,7 +2,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { useCheckAuth } from '../api/hooks/auth/useCheckAuth'
 // * Constants
 import ROUTES from '../constants/routes'
 import AuthLayout from '../layouts/AuthLayout/AuthLayout'
@@ -16,7 +15,6 @@ import LoaderScreen from '../screens/Forms/LoaderScreen/LoaderScreen'
 // * Screens
 import Login from '../screens/Forms/Login/Login'
 import NoTeamScreen from '../screens/Forms/NoTeamScreen/NoTeamScreen'
-import Profile from '../screens/Forms/Profile/Profile'
 import Registration from '../screens/Forms/Registration/Registration'
 import ResetNewPasswords from '../screens/Forms/ResetNewPasswords/ResetNewPasswords'
 import ResetPassword from '../screens/Forms/ResetPassword/ResetPassword'
@@ -29,6 +27,7 @@ import Tournaments from '../screens/Forms/Tournaments/Tournaments'
 import UsersList from '../screens/UsersList/UsersList'
 
 import ProtectFinishRegistration from './protected/ProtectFinishRegistration'
+import ProfilePage from "../screens/Forms/Profile/Profile";
 
 export const useRoutes = () => {
   return (
@@ -40,7 +39,7 @@ export const useRoutes = () => {
       </Route>
       <Route path="/auth/verification" element={<LoaderScreen />} />
       <Route element={<NavBarItemPageLayout />}>
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/tournament" element={<Tournaments />} />
         <Route path="/myteam" element={<TeamScreen />} />
         <Route path="/team" element={<NoTeamScreen />} />
