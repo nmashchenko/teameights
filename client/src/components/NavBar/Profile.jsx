@@ -35,6 +35,7 @@ const changeData = (data) => {
   }
 }
 
+
 // Sidebar profile with notification capability
 const Profile = () => {
   const { isAuth } = useSelector((state) => state.userReducer)
@@ -52,7 +53,6 @@ const Profile = () => {
 
   const toggleNotificationModal = (e) => {
     e.stopPropagation()
-
     setNotificationModal((prevState) => !prevState)
   }
 
@@ -74,7 +74,7 @@ const Profile = () => {
       </UserInfoDiv>
       <NotificationIconCenter>
         {notificationModal ? (
-          <NotificationModal toggleNotificationModal={toggleNotificationModal} />
+          <NotificationModal notificationModal={notificationModal}  toggleNotificationModal={toggleNotificationModal} />
         ) : (
           bell
         )}

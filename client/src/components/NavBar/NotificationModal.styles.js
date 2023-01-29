@@ -2,20 +2,29 @@ import styled from 'styled-components'
 
 export const NotificationModalDiv = styled.div`
   background: linear-gradient(180deg, rgba(26, 28, 34, 0.5) 0%, rgba(40, 47, 71, 0.5) 100%);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px rgba(0, 0, 0, 0.04);
-
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
   border-radius: 15px;
   z-index: 9999;
-  right: -2%;
-  top: 13%;
   transform: translate(50%, 0%);
   position: absolute;
   width: 250px;
   height: 60%;
   padding: 15px;
   overflow: hidden;
+  top: 10rem;
+  left: 5rem;
+  outline: none;
+  color: #fff;
+`
+
+export const NotificationBackDrop = styled.div`
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 `
 
 export const NotificationToggle = styled.div`
