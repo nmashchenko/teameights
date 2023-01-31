@@ -1,9 +1,10 @@
 import React from 'react'
 import Modal from '@mui/material/Modal'
+import { v4 as uuidv4 } from 'uuid'
 
-import HollowNotificationBell from '../../assets/hollowNotificationBell'
-import NoNotifications from '../../assets/NotificationIcon'
-import X from '../../assets/X'
+import HollowNotificationBell from '../../../../assets/HollowNotificationBell'
+import X from '../../../../assets/X'
+import userImg from '../../tempImg.jpg'
 
 import {
   Join,
@@ -19,7 +20,6 @@ import {
   NotificationUserRealName,
   TopBar,
 } from './NotificationModal.styles'
-import userImg from './tempImg.jpg'
 
 const userNotificationList = []
 
@@ -52,7 +52,9 @@ const NotificationModal = ({ notificationModal, toggleNotificationModal }) => {
           </NotificationToggle>
         </TopBar>
         <NotificationData>
-          {userNotificationList.map((data, key) => {
+          {userNotificationList.map((data) => {
+            const key = uuidv4()
+
             return (
               <Notification key={key}>
                 <NotificationUserImg src={data.img} alt={`${data.userRealName}`} />

@@ -59,7 +59,7 @@ export const NavBarToggle = styled.li`
 
 export const UserText = styled.h3`
   font-weight: ${(props) => props.fontWeight || '400'};
-  font-size: ${(props) => props.fontSize || '14px'};
+  font-size: ${(props) => props.fontSize || '.875rem'};
   color: ${(props) => props.color || '#FFF'};
   margin: ${(props) => props.margin || '0px'};
 `
@@ -88,7 +88,7 @@ export const NavItem = styled.div`
   > a {
     text-decoration: none;
     color: white;
-    font-size: 16px;
+    font-size: 1rem;
     width: 100%;
     height: 100%;
     display: flex;
@@ -99,18 +99,18 @@ export const NavItem = styled.div`
     transition: background-color 200ms linear;
 
     @media screen and (min-width: 1440px) {
-      font-size: 17px;
+      font-size: 1.0625rem;
     }
   }
 
   > a:hover {
     background: #5d9d0b;
-    font-size: 16.5px;
+    font-size: 1.03125rem;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 
     @media screen and (min-width: 1440px) {
-      font-size: 17.5px;
+      font-size: 1.09375px;
     }
   }
 
@@ -157,7 +157,7 @@ export const SignOutButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    font-size: 14.5px;
+    font-size: 0.90625rem;
   }
 
   @media screen and (min-width: 1440px) {

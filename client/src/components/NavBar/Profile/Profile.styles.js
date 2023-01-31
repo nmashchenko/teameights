@@ -21,14 +21,14 @@ export const UserInfoDiv = styled.div``
 export const UserRealName = styled.strong`
   margin: 0;
   padding: 0;
-  font-size: 16x;
+  font-size: 1rem;
   font-weight: 300;
 `
 
 export const UserUsername = styled.p`
   margin: 0;
   padding: 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #6c6c6c;
   display: block;
   margin-bottom: 10px;

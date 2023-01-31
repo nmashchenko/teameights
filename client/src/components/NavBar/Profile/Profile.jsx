@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
-import NoNotifications from '../../assets/NoNotifications'
-import NotificationIcon from '../../assets/NotificationIcon'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import NoNotifications from '../../../assets/NoNotifications'
+import NotificationIcon from '../../../assets/NotificationIcon'
+import defaultImg from '../defaultImg.png'
+import userImg from '../tempImg.jpg'
 
-import defaultImg from './defaultImg.png'
-import NotificationModal from './NotificationModal'
-// import { UserInfo } from './NavBar.styles'
+import NotificationModal from './NotificationModal/NotificationModal'
 import {
   AvatarContainer,
   NotificationIconCenter,
@@ -17,7 +17,6 @@ import {
   UserRealName,
   UserUsername,
 } from './Profile.styles'
-import userImg from './tempImg.jpg'
 
 let defaultData = {
   userRealName: 'Unknown',

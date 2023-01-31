@@ -14,6 +14,8 @@ import Team from '../../assets/Sidebar/Team'
 import TeameightsLogo from '../../assets/Team/TeameightsLogo'
 import Loader from '../../shared/components/Loader/Loader'
 
+// * Data
+import Profile from './Profile/Profile'
 import { NavBarData } from './NavBar.data'
 import {
   BottomContent,
@@ -30,9 +32,6 @@ import {
   UserInfo,
   UserText,
 } from './NavBar.styles'
-// * Data
-import Profile from './Profile'
-import userImg from './tempImg.jpg'
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)

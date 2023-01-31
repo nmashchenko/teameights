@@ -81,14 +81,14 @@ export const NotificationUserImg = styled.img`
 
 export const NotificationUserRealName = styled.strong`
   margin: 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 1;
 `
 
 export const NotificationDesc = styled.p`
   margin: 0;
-  font-size: 10px;
+  font-size: 0.625rem;
   line-height: 1;
 `
 
