@@ -10,7 +10,7 @@
     "dev": "concurrently \" npm run server \" \" npm run client \"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Nikita Mashchenko, George Vojvodic, Leeza Andryushenko, Zhangir Bekbolat",
+  "author": "Nikita Mashchenko",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",

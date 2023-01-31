@@ -2,25 +2,27 @@
 import styled from 'styled-components'
 
 export const NavIconContainer = styled.div`
-  margin-right: 20px;
+  margin-right: 25px;
   cursor: pointer;
 `
 
 export const NavMenu = styled.nav`
-  width: 320px;
+  width: 325px;
   height: 100vh;
   display: flex;
   justify-content: center;
   position: fixed;
-  background: #1a1c22;
+  background-color: rgb(26, 28, 34, 0.3);
+
+  background: linear-gradient(180deg, rgba(26, 28, 34, 0.5) 0%, rgba(40, 47, 71, 0.5) 100%);
   top: 0;
   left: ${(props) => props.left || '-100%'};
-  transition: ${(props) => props.transition || 'all 0.3s ease'};
+  transition: ${(props) => props.transition || 'all 0.5s linear'};
   z-index: 999;
-`
-export const NameNotificationsContainer = styled.div`
-  display: flex;
-  gap: 15px;
+  border-radius: 0px 25px 25px 0px;
+  -webkit-backdrop-filter: blur(2em);
+  backdrop-filter: blur(2em);
+  padding-top: 4rem;
 `
 
 export const NavMenuItems = styled.div`
@@ -29,13 +31,18 @@ export const NavMenuItems = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
 `
+export const IconNav = styled.div`
+  width: 40px;
+  height: 40px;
+  background: #2e3239;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+`
 
 export const UserInfo = styled.div`
-  width: 320px;
-  height: 200px;
-  background: #2e3239;
-  border-radius: 0px 0px 12px 12px;
-  padding: 0 20px;
+  padding: 0 30px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -43,56 +50,25 @@ export const UserInfo = styled.div`
 
 export const NavBarToggle = styled.li`
   width: 100%;
-  margin-top: 30px;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
-`
-
-export const UserData = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-`
-
-export const UserImage = styled.img`
-  width: 80px;
-  height: 80px;
-  border: 3px solid #365a08;
-  border-radius: 50%;
-`
-
-export const UserTextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 15px;
-  gap: 5px;
+  padding-left: 15px;
 `
 
 export const UserText = styled.h3`
   font-weight: ${(props) => props.fontWeight || '400'};
-  font-size: ${(props) => props.fontSize || '14px'};
+  font-size: ${(props) => props.fontSize || '.875rem'};
   color: ${(props) => props.color || '#FFF'};
   margin: ${(props) => props.margin || '0px'};
-`
-
-export const NotificationsArea = styled.div`
-  cursor: pointer;
-
-  &:hover {
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
-  }
 `
 
 export const NavItems = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
+  margin-top: 35px;
+  padding: 0 30px;
 
   @media screen and (min-width: 1440px) {
     margin-top: 25px;
@@ -102,43 +78,58 @@ export const NavItem = styled.div`
   display: flex;
   align-items: center;
   list-style: none;
-  padding: 30px 39px;
   height: 50px;
+  margin-bottom: 0.7rem;
 
   @media screen and (min-width: 1440px) {
-    padding: 35px 39px;
     height: 60px;
   }
 
   > a {
     text-decoration: none;
     color: white;
-    font-size: 16px;
-    width: 95%;
+    font-size: 1rem;
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 30px 20px;
-    border-radius: 4px;
+    border-radius: 15px;
     font-weight: 500;
+    padding: 0 15px;
+    transition: background-color 200ms linear;
 
     @media screen and (min-width: 1440px) {
-      font-size: 17px;
+      font-size: 1.0625rem;
     }
   }
 
   > a:hover {
-    /* background: green; */
-    font-size: 16.5px;
+    background: #5d9d0b;
+    font-size: 1.03125rem;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 
     @media screen and (min-width: 1440px) {
-      font-size: 17.5px;
+      font-size: 1.09375rem;
     }
+  }
+
+  a:active {
+    background: #5d9d0b;
+  }
+  a:hover div {
+    opacity: 1;
   }
 `
 
 export const ItemTitle = styled.span`
   margin-left: 25px;
+`
+export const ShowChevron = styled.div`
+  margin-left: auto;
+  opacity: 0;
+  display: flex;
+  align-item: center;
 `
 
 export const BottomContent = styled.div`
@@ -147,9 +138,10 @@ export const BottomContent = styled.div`
   flex-grow: 1;
   justify-content: end;
   align-items: center;
+  margin-bottom: 3rem;
 `
 
-export const SingOutButton = styled.button`
+export const SignOutButton = styled.button`
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -165,7 +157,7 @@ export const SingOutButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    font-size: 14.5px;
+    font-size: 0.90625rem;
   }
 
   @media screen and (min-width: 1440px) {
