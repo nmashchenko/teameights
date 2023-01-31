@@ -27,6 +27,7 @@ const userNotification = {
   img: userImg,
   userRealName: 'Dummy Test',
   desc: 'lorem asoidjasodijasoidjasoidajsdioj',
+  key: uuidv4(),
 }
 
 for (let i = 0; i < 5; ++i) {
@@ -53,10 +54,8 @@ const NotificationModal = ({ notificationModal, toggleNotificationModal }) => {
         </TopBar>
         <NotificationData>
           {userNotificationList.map((data) => {
-            const key = uuidv4()
-
             return (
-              <Notification key={key}>
+              <Notification key={data.key}>
                 <NotificationUserImg src={data.img} alt={`${data.userRealName}`} />
                 <NotificationUserData>
                   <NotificationUserRealName>{data.userRealName}</NotificationUserRealName>
