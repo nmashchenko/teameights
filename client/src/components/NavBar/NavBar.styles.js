@@ -110,7 +110,7 @@ export const NavItem = styled.div`
     backdrop-filter: blur(10px);
 
     @media screen and (min-width: 1440px) {
-      font-size: 1.09375px;
+      font-size: 1.09375rem;
     }
   }
 
