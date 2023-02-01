@@ -50,14 +50,14 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
     [isFetchingNextPage, fetchNextPage, hasNextPage],
   )
 
-  // fixPropagation:
+  // clickArea:
   // clickHandler is attached to CardContainer, but we are only allowing clicks in which
   // .closest returns the card figure. (.closest gets the closest parent with the
   // specified argument and returns the DOM element)
   // since UserCard is an HTML figure, it only allows events within the figure to be picked
   // OR we can just attach the onClick event handler to UserCard itself and we dont have to
   // do anything fancy
-  const fixPropagation = (e, user) => {
+  const clickArea = (e, user) => {
     if (e.target.closest('figure') === null) {
       return
     }
@@ -73,7 +73,7 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
         return (
           <CardContainer
             onClick={(e) => {
-              fixPropagation(e, user)
+              clickArea(e, user)
             }}
             key={index}
           >
@@ -90,7 +90,7 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
       return (
         <CardContainer
           onClick={(e) => {
-            fixPropagation(e, user)
+            clickArea(e, user)
           }}
           key={index}
         >
