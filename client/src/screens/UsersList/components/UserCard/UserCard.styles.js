@@ -1,7 +1,7 @@
 // * Modules
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.figure`
   position: relative;
   display: flex;
   justify-content: center;
