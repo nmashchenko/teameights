@@ -20,6 +20,16 @@ export const UserImage = styled.img`
   border-radius: 5px;
 `
 
+export const AndMore = styled.span`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+`
+
 export const ProgrammingLanguagesContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -31,6 +41,7 @@ export const ProgrammingLanguagesContainer = styled.div`
 `
 
 export const LanguageContainer = styled.div`
+  position: relative;
   background: #1b1d24;
   border-radius: 5px;
   width: 50px;
@@ -39,6 +50,7 @@ export const LanguageContainer = styled.div`
   justify-content: center;
   align-items: center;
 `
+
 export const UserData = styled.div`
   display: flex;
   flex-direction: column;
@@ -75,6 +87,7 @@ export const Framework = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   > h3 {
     font-weight: 600;
@@ -125,9 +138,29 @@ export const CardContainer = styled.div`
     transform: scale(1.02);
   }
 
+  &:hover ${Framework}:last-child h3 {
+    transition: 0.1s ease-in-out;
+    opacity: ${(props) => (props.ufLength ? 0.2 : 1)};
+  }
+
   &:hover ${LanguageContainer} {
     background: rgba(46, 50, 57, 0.35);
     transition: 0.1s ease-in-out;
+  }
+
+  &:hover ${LanguageContainer}:last-child svg {
+    background-color: rgba(46, 50, 57, 0.35);
+    opacity: ${(props) => (props.plLength ? 0.2 : 1)};
+    transition: 0.1s ease-in-out;
+  }
+
+  &:hover ${AndMore} {
+    transition: 0.1s ease-in-out;
+    opacity: 1;
+    background-color: rgba(46, 50, 57, 0.35);
+    z-index: 999;
+    color: #5d9d0b;
+    color: #ffffff;
   }
 
   &:hover + ${CrownContainer} {
