@@ -4,7 +4,6 @@ import { useField } from 'formik'
 
 import {
   Item,
-  PlaceholderText,
 } from '../../../screens/UsersList/components/SelectField/SelectField.styles'
 import { ErrorMessage, Text } from '../../styles/Tpography.styles'
 
@@ -15,6 +14,7 @@ const CustomSelect = ({
   options,
   multiple = false,
   width,
+  margin,
   styles,
   line = true,
   hideLabelOnSelect = false,
@@ -24,8 +24,8 @@ const CustomSelect = ({
   const isError = meta.touched && meta.error
 
   return (
-    <FormControl sx={{ margin: '10px 0 0 0', width: width || '15rem', padding: '0px', ...styles }}>
-      {!hideLabelOnSelect && <Text fontWeight="700">{label}</Text>}
+    <FormControl sx={{ margin: margin || '10px 0 0 0', width: width || '15rem', padding: '0px', ...styles }}>
+      {!hideLabelOnSelect &&  label && <Text fontWeight="700">{label}</Text>}
       <SelectCustom
         {...field}
         {...props}

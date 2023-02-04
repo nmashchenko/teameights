@@ -4,7 +4,6 @@ import { Form, Formik } from 'formik'
 
 import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
 import { useFinishRegistration } from '../../../../../api/hooks/auth/useFinishRegistration'
-import finishRegistrationValidation from '../../../../../schemas'
 import Loader from '../../../../../shared/components/Loader/Loader'
 import { setStep } from '../../../../../store/reducers/RegistrationAuth'
 import CurrentStep from '../CurrentStep/CurrentStep'
@@ -12,6 +11,7 @@ import NavLogo from '../NavLogo/NavLogo'
 import Stepper from '../Stepper/Stepper'
 
 import { Container, ContentContainer, RegistrationContainer } from './MultiStepRegistration.styles'
+import {finishRegistrationValidation} from "../../../../../schemas";
 
 const MultiStepRegistration = () => {
   const { step, isLastStep } = useSelector((state) => state.registrationReducer)

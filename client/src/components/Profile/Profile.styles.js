@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {Telegram} from "@mui/icons-material";
 
 import { BLACK, WHITE } from '../../constants/colors'
 
@@ -20,8 +21,14 @@ export const LeftCard = styled.div`
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
+`
+
+export const TelegramIcon = styled(Telegram)`
+  color: #fff;
+  width: 1.25rem !important;
+  height: 1.25rem !important;
 `
 
 export const RightContainer = styled.div`
@@ -64,6 +71,9 @@ export const Text = styled.h3`
 
 export const ImgContainer = styled.div`
   position: relative;
+  -webkit-user-select: none;
+  -ms-user-select: none; 
+  user-select: none;
 `
 
 export const Img = styled.img`
@@ -94,7 +104,6 @@ export const InformationRow = styled.div`
 
 export const SocialRow = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 `
@@ -107,24 +116,7 @@ export const SocialWrapper = styled.div`
 export const IconTextContainer = styled.div`
   display: flex;
   gap: 15px;
-`
-
-export const EditBtnDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  margin: -25px 0 0 0;
-`
-
-export const EditButton = styled.button`
-  outline: none;
-  border: none;
-  font-size: 15px;
-  font-weight: 700;
-  background: none;
-  color: #5d9d0b;
-  cursor: pointer;
+  align-items: center;
 `
 
 export const Cards = styled.div`
@@ -133,7 +125,6 @@ export const Cards = styled.div`
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 78px);
-  width: 100%;
 `
 
 export const Information = styled.div`
@@ -173,4 +164,14 @@ export const Framework = styled.div`
   justify-content: center;
   align-items: center;
   background: ${(props) => props.background || '#42443B'};
+`
+
+export const DetailsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+`
+export const InformationWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `

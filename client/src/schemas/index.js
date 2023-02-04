@@ -6,7 +6,7 @@ const regMatch =
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
 
-const finishRegistrationValidation = [
+export const finishRegistrationValidation = [
   yup.object().shape(
     {
       username: yup.string().required('Please input your username').max(30),
@@ -122,4 +122,57 @@ const finishRegistrationValidation = [
   }),
 ]
 
-export default finishRegistrationValidation
+
+export const editProfileValidation = yup.object().shape(
+        {
+            fullName: yup.string().required('Please input your name').max(30),
+            country: yup.string().required('Please choose your country!'),
+            description: yup.string().when('description', (value) => {
+                if (value) {
+                    return yup.string().max(220)
+                } else {
+                    return yup.string().notRequired()
+                }
+            }),
+            experience: yup.string().required('Please choose your experience'),
+            programmingLanguages: yup.array().min(1, 'Select at least one language'),
+            frameworks: yup.array().min(1, 'Select at least one framework'),
+            concentration: yup.string().required('Select your concentration'),
+            github: yup.string().when('github', (value) => {
+                if (value) {
+                    return yup
+                        .string()
+                        .required()
+                        .matches(regMatch, { message: 'Github link should be a valid URL' })
+                } else {
+                    return yup.string().notRequired()
+                }
+            }),
+            linkedIn: yup.string().when('linkedIn', (value) => {
+                if (value) {
+                    return yup
+                        .string()
+                        .required()
+                        .matches(regMatch, { message: 'LinkedIn link should be a valid URL' })
+                } else {
+                    return yup.string().notRequired()
+                }
+            }),
+            telegram: yup.string().when('telegram', (value) => {
+                if (value) {
+                    return yup
+                        .string()
+                        .required()
+                        .matches(regMatch, { message: 'Telegram link should be a valid URL' })
+                } else {
+                    return yup.string().notRequired()
+                }
+            }),
+        },
+        [
+            ['description', 'description'],
+            ['github', 'github'],
+            ['linkedIn', 'linkedIn'],
+            ['telegram', 'telegram'],
+        ],
+)

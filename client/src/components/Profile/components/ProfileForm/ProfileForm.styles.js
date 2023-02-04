@@ -11,4 +11,11 @@ export const EditUserDetails = styled.div`
   width: 1.875rem;
   height: 1.875rem;
   background: #5D9D0B;
+  cursor: pointer;
+`
+
+export const ConcentrationWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `

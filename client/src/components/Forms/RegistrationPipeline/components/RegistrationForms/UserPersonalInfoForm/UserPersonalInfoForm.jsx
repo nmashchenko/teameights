@@ -9,7 +9,6 @@ import {
   SectionContainer,
 } from '../../../../../../shared/components/CustomInput/CustomInput.styles'
 import CustomSelect from '../../../../../../shared/components/CustomSelect/CustomSelect'
-import { Item } from '../../../../../../shared/components/CustomSelect/CustomSelect.styles'
 import CustomTextArea from '../../../../../../shared/components/CustomTextArea/CustomTextArea'
 import { ButtonsContainer } from '../../../../../../shared/styles/Button.styles'
 import { setIsFinishedAvatarLoading } from '../../../../../../store/reducers/RegistrationAuth'

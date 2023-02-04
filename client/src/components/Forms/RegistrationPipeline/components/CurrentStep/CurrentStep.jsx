@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { useFormikContext } from 'formik'
 
-import finishRegistrationValidation from '../../../../../schemas'
-import NotFound from '../../../../../screens/UsersList/components/NotFound/NotFound'
 import { setIsLastStep } from '../../../../../store/reducers/RegistrationAuth'
 import UserAvatarForm from '../RegistrationForms/UserAvatarForm/UserAvatarForm'
 import UserConcentrationForm from '../RegistrationForms/UserConcentrationForm/UserConcentrationForm'
@@ -12,6 +10,7 @@ import UserEducationForm from '../RegistrationForms/UserEducationForm/UserEducat
 import UserExperienceForm from '../RegistrationForms/UserExperienceForm/UserExperienceForm'
 import UserLinksForm from '../RegistrationForms/UserLinksForm/UserLinksForm'
 import UserPersonalInfoForm from '../RegistrationForms/UserPersonalInfoForm/UserPersonalInfoForm'
+import {finishRegistrationValidation} from "../../../../../schemas";
 
 const CurrentStep = ({ step }) => {
   const dispatch = useDispatch()

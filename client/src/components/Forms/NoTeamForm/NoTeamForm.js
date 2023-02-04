@@ -1,21 +1,19 @@
 // * Modules
-import { useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 // * Assets
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import ROUTES from '../../../constants/routes'
-import Loader from '../../../shared/components/Loader/Loader'
 
 // * Styles
 import {
   ButtonContainer,
-  ButtonGeneral,
   Card,
   CardContainer,
   Text,
   TextContainer,
 } from './NoTeamForm.styles'
+import CustomButton from "../../../shared/components/CustomButton/CustomButton";
 
 function NoTeamForm() {
   const navigate = useNavigate()
@@ -49,8 +47,8 @@ function NoTeamForm() {
           <Text>Let's create it...</Text>
         </TextContainer>
         <ButtonContainer>
-          <ButtonGeneral onClick={handleCreate}>Create team</ButtonGeneral>
-          <ButtonGeneral onClick={handleJoin}>Join existing</ButtonGeneral>
+          <CustomButton onClick={handleCreate}>Create team</CustomButton>
+          <CustomButton onClick={handleJoin}>Join existing</CustomButton>
         </ButtonContainer>
       </Card>
     </CardContainer>
