@@ -64,7 +64,7 @@ router.post("/update-leaderboard", leaderboardController.updateLeaderboard);
 router.post("/get-leaderboard", leaderboardController.getLeaderboard);
 
 // only for authenticated users
-router.post("/registration-checkout", userController.registrationCompletion);
+router.put("/update-user", userController.updateUser);
 // router.get("/users-filtered", authMiddleware, userController.getUsersFiltered);
 // router.get("/users", authMiddleware, userController.getUsers);
 

@@ -158,7 +158,7 @@ class UserController {
     }
   }
 
-  async registrationCompletion(req, res, next) {
+  async updateUser(req, res, next) {
     try {
       const {
         email,
@@ -178,10 +178,9 @@ class UserController {
         userUniversity,
         userMajor,
         userGraduationDate,
-        isRegistered,
       } = req.body;
 
-      const userData = await userService.registrationCompletion(
+      const userData = await userService.updateUser(
         email,
         userUsername,
         userRealName,
@@ -199,7 +198,6 @@ class UserController {
         userUniversity,
         userMajor,
         userGraduationDate,
-        isRegistered
       );
 
       return res.json(userData);

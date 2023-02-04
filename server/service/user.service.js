@@ -193,7 +193,7 @@ class UserService {
     return user;
   }
 
-  async registrationCompletion(
+  async updateUser(
     email,
     userUsername,
     userRealName,
@@ -211,37 +211,33 @@ class UserService {
     userUniversity,
     userMajor,
     userGraduationDate,
-    isRegistered
   ) {
     const candidate = await User.findOne({ email });
     if (!candidate) {
       throw ApiError.BadRequest(`User with email: ${email} is not registered`);
     }
-
-    const userData = await User.findOneAndUpdate(
-      { email },
-      {
-        email,
-        userUsername,
-        userRealName,
-        userPhoto,
-        userAge,
-        userDescription,
-        userConcentration,
-        userCountry,
-        userExperience,
-        userLeader,
-        userLinks,
-        userProgrammingLanguages,
-        userFrameworks,
-        userRole,
-        userUniversity,
-        userMajor,
-        userGraduationDate,
-        isRegistered: true,
-      }
-    );
-
+  
+    const updateData = {...candidate._doc};
+    if (userUsername) updateData.userUsername = userUsername;
+    if (userRealName) updateData.userRealName = userRealName;
+    if (userPhoto) updateData.userPhoto = userPhoto;
+    if (userAge) updateData.userAge = userAge;
+    if (userDescription) updateData.userDescription = userDescription;
+    if (userConcentration) updateData.userConcentration = userConcentration;
+    if (userCountry) updateData.userCountry = userCountry;
+    if (userExperience) updateData.userExperience = userExperience;
+    if (userLeader) updateData.userLeader = userLeader;
+    if (userLinks) updateData.userLinks = userLinks;
+    if (userProgrammingLanguages) updateData.userProgrammingLanguages = userProgrammingLanguages;
+    if (userFrameworks) updateData.userFrameworks = userFrameworks;
+    if (userRole) updateData.userRole = userRole;
+    if (userUniversity) updateData.userUniversity = userUniversity;
+    if (userMajor) updateData.userMajor = userMajor;
+    if (userGraduationDate) updateData.userGraduationDate = userGraduationDate;
+    updateData.isRegistered = true;
+  
+    const userData = await User.findOneAndUpdate({ email }, { $set: updateData }, {new: true});
+  
     return { userData }; // return access&refresh tokens, and user
   }
 
