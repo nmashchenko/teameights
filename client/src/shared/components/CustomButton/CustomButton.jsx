@@ -1,11 +1,11 @@
-import {Button} from "./CustomButon.styles";
+import { Button } from './CustomButon.styles'
 
-const CustomButton = ({onClick, children}) => {
-    return (
-        <Button onClick={onClick}>
-            {children}
-        </Button>
-    );
-};
+const CustomButton = ({ onClick, children, ...props }) => {
+  return (
+    <Button {...props} onClick={onClick}>
+      {children}
+    </Button>
+  )
+}
 
-export default CustomButton;
+export default CustomButton

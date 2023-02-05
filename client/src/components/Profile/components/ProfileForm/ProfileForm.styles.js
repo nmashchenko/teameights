@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const EditUserDetails = styled.div`
- display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -10,7 +10,7 @@ export const EditUserDetails = styled.div`
   border-radius: 50%;
   width: 1.875rem;
   height: 1.875rem;
-  background: #5D9D0B;
+  background: #5d9d0b;
   cursor: pointer;
 `
 

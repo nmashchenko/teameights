@@ -11,20 +11,19 @@ import {
 
 const { api } = http
 
-export const useFinishRegistration = () => {
+export const useEditUserDetails = (successHandler) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
   const finishRegistration = async (userData) => {
-    return await api.post('/registration-checkout', userData)
+    return await api.put('/update-user', userData)
   }
 
   return useMutation(finishRegistration, {
     mutationKey: 'finishRegistration',
     onSuccess: () => {
-      dispatch(setIsFinishRegistrationStarted(false))
-      navigate('/', { replace: true })
+      successHandler()
       queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
     },
     onError: (error) => {

@@ -18,7 +18,7 @@ export const SelectCustom = styled(Select)`
   svg {
     color: ${(props) => (props.isError ? '#cf625e' : '#72EB3A')};
   }
-  
+
   fieldset {
     border: none !important;
     outline: none !important;

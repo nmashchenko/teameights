@@ -4,16 +4,10 @@ import { Navigate, useNavigate } from 'react-router-dom'
 // * Assets
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import ROUTES from '../../../constants/routes'
+import CustomButton from '../../../shared/components/CustomButton/CustomButton'
 
 // * Styles
-import {
-  ButtonContainer,
-  Card,
-  CardContainer,
-  Text,
-  TextContainer,
-} from './NoTeamForm.styles'
-import CustomButton from "../../../shared/components/CustomButton/CustomButton";
+import { ButtonContainer, Card, CardContainer, Text, TextContainer } from './NoTeamForm.styles'
 
 function NoTeamForm() {
   const navigate = useNavigate()

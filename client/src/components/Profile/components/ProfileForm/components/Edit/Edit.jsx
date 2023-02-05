@@ -1,12 +1,13 @@
-import PlusIcon from "../../../../../../assets/PlusIcon";
-import {EditButton} from "./Edit.styles";
+import PlusIcon from '../../../../../../assets/PlusIcon'
 
-const Edit = ({className}) => {
-    return (
-        <EditButton className={className}>
-            <PlusIcon />
-        </EditButton>
-    );
-};
+import { EditButton } from './Edit.styles'
 
-export default Edit;
+const Edit = ({ className }) => {
+  return (
+    <EditButton className={className}>
+      <PlusIcon />
+    </EditButton>
+  )
+}
+
+export default Edit

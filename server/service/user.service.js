@@ -222,7 +222,7 @@ class UserService {
     if (userRealName) updateData.userRealName = userRealName;
     if (userPhoto) updateData.userPhoto = userPhoto;
     if (userAge) updateData.userAge = userAge;
-    if (userDescription) updateData.userDescription = userDescription;
+    if (typeof userDescription === "string") updateData.userDescription = userDescription;
     if (userConcentration) updateData.userConcentration = userConcentration;
     if (userCountry) updateData.userCountry = userCountry;
     if (userExperience) updateData.userExperience = userExperience;

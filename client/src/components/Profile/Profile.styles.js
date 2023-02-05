@@ -1,5 +1,5 @@
+import { Telegram } from '@mui/icons-material'
 import styled from 'styled-components'
-import {Telegram} from "@mui/icons-material";
 
 import { BLACK, WHITE } from '../../constants/colors'
 
@@ -72,7 +72,7 @@ export const Text = styled.h3`
 export const ImgContainer = styled.div`
   position: relative;
   -webkit-user-select: none;
-  -ms-user-select: none; 
+  -ms-user-select: none;
   user-select: none;
 `
 
