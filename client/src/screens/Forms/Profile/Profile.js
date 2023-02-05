@@ -1,18 +1,15 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import ProfileForm from '../../../components/ProfileForm/ProfileForm'
-import { Cards } from '../../../components/ProfileForm/ProfileForm.styles'
+import { Cards } from '../../../components/Profile/Profile.styles'
 
-function Profile() {
+function ProfilePage({ children }) {
   return (
     <>
       <CssBaseline />
-      <Cards>
-        <ProfileForm />
-      </Cards>
+      <Cards>{children}</Cards>
     </>
   )
 }
 
-export default Profile
+export default ProfilePage

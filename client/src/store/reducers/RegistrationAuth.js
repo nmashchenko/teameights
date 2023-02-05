@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import finishRegistrationValidation from '../../schemas'
-
 const initialState = {
   step: 0,
   isLastStep: false,

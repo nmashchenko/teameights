@@ -34,7 +34,8 @@
       "warn",
       {
         "singleQuote": true,
-        "semi": false
+        "semi": false,
+        "endOfLine":"auto"
       }
     ],
     // regex checks 

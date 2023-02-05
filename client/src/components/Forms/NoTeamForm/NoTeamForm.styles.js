@@ -54,22 +54,3 @@ export const ButtonContainer = styled.div`
   margin: 50px 25px 0 0px;
   gap: 30px;
 `
-
-export const ButtonGeneral = styled.button`
-  font-weight: 600;
-  font-size: 16px;
-  border: none;
-  width: 133px;
-  height: 45px;
-  background: ${GREEN.button};
-  color: ${WHITE.main};
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 0px 4px 50px rgba(93, 157, 11, 0.15);
-
-  &:hover {
-    border: none;
-    cursor: pointer;
-    transition: 0.15s;
-  }
-`

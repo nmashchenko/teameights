@@ -1,12 +1,16 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { Form, Formik } from 'formik'
 
 import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
-import { useFinishRegistration } from '../../../../../api/hooks/auth/useFinishRegistration'
-import finishRegistrationValidation from '../../../../../schemas'
+import { useEditUserDetails } from '../../../../../api/hooks/auth/useEditUserDetails'
+import { finishRegistrationValidation } from '../../../../../schemas'
 import Loader from '../../../../../shared/components/Loader/Loader'
-import { setStep } from '../../../../../store/reducers/RegistrationAuth'
+import {
+  setIsFinishRegistrationStarted,
+  setStep,
+} from '../../../../../store/reducers/RegistrationAuth'
 import CurrentStep from '../CurrentStep/CurrentStep'
 import NavLogo from '../NavLogo/NavLogo'
 import Stepper from '../Stepper/Stepper'
@@ -16,8 +20,15 @@ import { Container, ContentContainer, RegistrationContainer } from './MultiStepR
 const MultiStepRegistration = () => {
   const { step, isLastStep } = useSelector((state) => state.registrationReducer)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { data: userPrimaryRegistrationData } = useCheckAuth()
-  const { mutate: finishRegistration, isLoading } = useFinishRegistration()
+  const { mutate: finishRegistration, isLoading } = useEditUserDetails(onSuccess)
+
+  function onSuccess() {
+    dispatch(setIsFinishRegistrationStarted(false))
+    navigate('/', { replace: true })
+  }
+
   const submitFrom = (userData) => {
     const registrationData = {
       email: userPrimaryRegistrationData.email,
