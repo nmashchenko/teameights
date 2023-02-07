@@ -1,6 +1,6 @@
 ## Introduction
 
-Documentation can be found at http://localhost:{PORT}/api/docs 
+Documentation can be found at [DOCUMENTATION](http://localhost:7001/api/docs#/)
 
 As it is swagger automatically-generated schema it is possible that some bugs exist that will be fixed in the future updates. In case any bugs were found, make pull request with description and suggested fix or use discord
 
