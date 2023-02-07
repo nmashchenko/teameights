@@ -38,7 +38,7 @@ As it is swagger automatically-generated schema it is possible that some bugs ex
 # User
 Some schemas was changed, let's start from User:
 
-```
+```ts
 export class User {
 	email: string;
 	password: string;
@@ -77,7 +77,8 @@ so it will be extremely important **to change** all fields in frontend code
 # Team
 Team schema also was changed:
 
-```
+```ts
+  export class Team {
 	name: string;
 	description: string;
 	leader: User;
@@ -87,12 +88,13 @@ Team schema also was changed:
 	wins: Number;
 	points: Number;
 	image: string;
+  }
   ```
 
 # Tournament
 Tournament schema was changed:
 
-```
+```ts
 // helper class used in Tournament schema
 class TournamentParticipants {
 	team_id: mongoose.Types.ObjectId;
@@ -100,21 +102,21 @@ class TournamentParticipants {
 	backend_id: mongoose.Types.ObjectId;
 }
 
-class Tournament {
+export class Tournament {
 	tournament_name: string;
 	tournament_participants: [TournamentParticipants];
 	tournament_startTime: Date;
 	tournament_endTime: Date;
 	status: string;
 	winner: Team;
-	// tournament_prize: Number; (not implemented yet)
+  // tournament_prize: Number; (not implemented yet)
 }
 ```
 
 # Leaderboard
 Leaderboard schema was changed:
 
-```
+```ts
 // helper class for Leaderboard
 class TournamentTeam {
 	team_id: mongoose.Types.ObjectId;
@@ -138,7 +140,7 @@ Please note that notification schema is implemented with polymorphism, meaning t
 
 Basic notification:
 
-```
+```ts
 export class Notifications {
 	user: User;
 	type!: NotificationType;
@@ -150,7 +152,7 @@ export class Notifications {
 
 System notification that extends Basic Notification:
 
-```
+```ts
 export class SystemNotification {
 	type: string;
 	system_message: string;
@@ -159,22 +161,24 @@ export class SystemNotification {
 
 Team invite notification that extends Basic Notification:
 
-```
+```ts
 export class TeamInvitationNotification {
 	type: string;
 	teamid: Team;
 	message: string;
 	from_user_id: User;
 	to_user_email: string;
-	status: string; (one of ['pending', 'accepted', 'rejected')
+  // one of ['pending', 'accepted', 'rejected']
+	status: string;
 }
 ```
 
 # Roles schema
 
-```
+```ts
 export class Role {
-	value: string; (for example 'ADMIN' or 'USER') // should be changed to enum later
+  // should be changed to enum later ['ADMIN', 'USER', ...]
+	value: string;
 	description: string;
 }
 ```
