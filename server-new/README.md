@@ -303,3 +303,6 @@ class User {
 
 Everything else is described in the swagger documentation:
 
+
+<img width="812" alt="Снимок экрана 2023-02-07 в 1 29 46 PM" src="https://user-images.githubusercontent.com/52038455/217346115-68a8ec6b-92a3-43a3-807a-04fdeca78ee4.png">
+<img width="802" alt="Снимок экрана 2023-02-07 в 1 30 20 PM" src="https://user-images.githubusercontent.com/52038455/217346246-4e1f7448-4118-4c95-b3f3-d26345f984b6.png">
