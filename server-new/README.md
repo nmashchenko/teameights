@@ -1,31 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 ## Installation
 
 ```bash
@@ -58,16 +30,153 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## List of significant changes
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Documentation can be found at http://localhost:{PORT}/api/docs 
 
-## Stay in touch
+As it is swagger automatically-generated schema it is possible that some bugs exist that will be fixed in the future updates. In case any bugs were found, make pull request with description and suggested fix or use discord
+# User
+Some schemas was changed, let's start from User:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+export class User {
+	email: string;
+	password: string;
+	username: string;
+	fullName: string;
+	isActivated: Boolean;
+	isRegistered: Boolean;
+	isLeader: Boolean;
+	activationLink: string;
+	country: string;
+	age: string;
+	university: string;
+	major: string;
+	graduationDate: string;
+	concentration: string;
+	description: string;
+	experience: string;
+	image: string;
+	links: {
+		github: string;
+		linkedIn: string;
+		instagram: string;
+		telegram: string;
+	};
+	programmingLanguages: string[];
+	frameworks: string[];
+	roles: Role[];
+	notifications: Notifications[];
+	team: Team;
+}
+```
 
-## License
+Old User looked mostly the same but most of the fields had user in front of every naming, 
+so it will be extremely important **to change** all fields in frontend code
 
-Nest is [MIT licensed](LICENSE).
+# Team
+Team schema also was changed:
+
+```
+	name: string;
+	description: string;
+	leader: User;
+	members: [User];
+	country: string;
+	// tournaments: [Tournament]; (is not connected yet)
+	wins: Number;
+	points: Number;
+	image: string;
+  ```
+
+# Tournament
+Tournament schema was changed:
+
+```
+// helper class used in Tournament schema
+class TournamentParticipants {
+	team_id: mongoose.Types.ObjectId;
+	frontend_id: mongoose.Types.ObjectId;
+	backend_id: mongoose.Types.ObjectId;
+}
+
+class Tournament {
+	tournament_name: string;
+	tournament_participants: [TournamentParticipants];
+	tournament_startTime: Date;
+	tournament_endTime: Date;
+	status: string;
+	winner: Team;
+	// tournament_prize: Number; (not implemented yet)
+}
+```
+
+# Leaderboard
+Leaderboard schema was changed:
+
+```
+// helper class for Leaderboard
+class TournamentTeam {
+	team_id: mongoose.Types.ObjectId;
+	frontendScore: Number;
+	backendScore: Number;
+}
+
+export class Leaderboard {
+	tournament_id: mongoose.Types.ObjectId;
+	tournament_teams: TournamentTeam[];
+}
+```
+
+# New schemas that was implemented:
+
+New update have roles and notifications schemas.
+
+Please note that notification schema is implemented with polymorphism, meaning that you will be able to extend main notification schema class to easily add any new types of notifications in the future.
+
+# Notifications schemas:
+
+Basic notification:
+
+```
+export class Notifications {
+	user: User;
+	type!: NotificationType;
+	read: Boolean;
+	url: string;
+	expiresAt: Date;
+}
+```
+
+System notification that extends Basic Notification:
+
+```
+export class SystemNotification {
+	type: string;
+	system_message: string;
+}
+```
+
+Team invite notification that extends Basic Notification:
+
+```
+export class TeamInvitationNotification {
+	type: string;
+	teamid: Team;
+	message: string;
+	from_user_id: User;
+	to_user_email: string;
+	status: string; (one of ['pending', 'accepted', 'rejected')
+}
+```
+
+# Roles schema
+
+```
+export class Role {
+	value: string; (for example 'ADMIN' or 'USER') // should be changed to enum later
+	description: string;
+}
+```
+
+That's all schema updates that was implemented.
