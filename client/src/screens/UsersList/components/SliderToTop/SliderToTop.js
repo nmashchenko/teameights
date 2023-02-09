@@ -6,13 +6,24 @@ import { animateScroll as scroll } from 'react-scroll'
 import Slider from '../../../../assets/Slider'
 
 // * Styles
-import { SliderContainer } from './SliderToTop.styles'
+import { AccessibilityContainer, AccessibilityWindow, SliderContainer } from './SliderToTop.styles'
+
+const accesibilityMenu = ['Turn on scrollbar']
 
 const SliderToTop = () => {
   const [isVisible, setIsVisible] = useState(false)
 
   const toggleHome = () => {
     scroll.scrollToTop()
+  }
+
+  const [accessibility, showAccessibility] = useState(false)
+
+  const toggleAccessibility = () => {
+    console.log('LOl')
+    showAccessibility((prevState) => {
+      return !prevState
+    })
   }
 
   const listenToScroll = () => {
@@ -33,12 +44,25 @@ const SliderToTop = () => {
     return () => window.removeEventListener('scroll', listenToScroll)
   }, [])
 
+  const accesibilityWindow = (
+    <AccessibilityWindow show={accessibility}>
+      {accesibilityMenu.map((option) => {
+        return <p key={option}>{option}</p>
+      })}
+    </AccessibilityWindow>
+  )
+
   return (
     <>
-      {isVisible && (
+      {isVisible ? (
         <SliderContainer onClick={toggleHome}>
           <Slider />
         </SliderContainer>
+      ) : (
+        <>
+          <AccessibilityContainer onClick={toggleAccessibility}>?</AccessibilityContainer>
+          {accesibilityWindow}
+        </>
       )}
     </>
   )
