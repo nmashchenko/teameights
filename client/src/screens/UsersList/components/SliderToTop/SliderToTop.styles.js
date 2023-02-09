@@ -45,6 +45,7 @@ export const AccessibilityContainer = styled.div`
   font-weight: 700;
   font-size: 18px;
   user-select: none;
+  transform: ${(props) => (props.show ? 'rotate(180deg)' : 'rotate(0deg)')};
 
   @media screen and (min-width: 731px) and (max-width: 980px) {
     margin-right: 35px;
@@ -75,6 +76,14 @@ export const AccessibilityWindow = styled.div`
   p {
     text-align: center;
     cursor: pointer;
-    color: #fff;
   }
+  z-index: 999;
+`
+
+export const ScrollbarOn = styled.p`
+  transition: all 0.2s;
+  font-weight: 700;
+  font-size: 16px;
+  color: ${(props) => (props.isOn ? '#72eb3a' : '#FFF')};
+  user-select: none;
 `
