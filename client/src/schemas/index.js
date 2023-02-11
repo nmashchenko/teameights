@@ -9,8 +9,8 @@ const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
 export const finishRegistrationValidation = [
   yup.object().shape(
     {
-      username: yup.string().required('Please input your username').max(30),
-      fullName: yup.string().required('Please input your name').max(30),
+      username: yup.string().required('Please input your username').max(20),
+      fullName: yup.string().required('Please input your name').min(8).max(20),
       age: yup
         .number()
         .required('Please input your age')

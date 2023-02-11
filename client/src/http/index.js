@@ -4,7 +4,7 @@ import axios from 'axios'
 // * API url is set based on current DEV_TYPE var
 const API_URL =
   process.env.REACT_APP_DEV_TYPE === 'development'
-    ? 'http://localhost:5000/api'
+    ? 'http://localhost:7001/api'
     : 'https://teameights-server.herokuapp.com/api'
 
 const api = axios.create({
@@ -28,7 +28,7 @@ api.interceptors.response.use(
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
       originalRequest._isRetry = true
       try {
-        const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true })
+        const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true })
 
         localStorage.setItem('token', response.data.accessToken)
 

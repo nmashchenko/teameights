@@ -16,7 +16,7 @@ export const useLoginUser = (type) => {
   const queryClient = useQueryClient()
 
   const loginUser = async (loginDetails) => {
-    return await api.post(`/${type}`, loginDetails)
+    return type === 'login' ?  await api.post(`/auth/${type}`, loginDetails) : await api.get(`/auth/${type}/${loginDetails.token}`)
   }
 
   return useMutation(loginUser, {

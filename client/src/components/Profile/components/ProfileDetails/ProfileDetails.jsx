@@ -66,11 +66,11 @@ const ProfileDetails = () => {
           </EditUserDetails>
         </ImgContainer>
         <TextContainer>
-          <Text margin="15px 0 0 0">{user.userRealName}</Text>
+          <Text margin="15px 0 0 0">{user.fullName}</Text>
           <Text margin="5px 0 0 0" color="rgba(255, 255, 255, 0.5)" fontSize="16px">
-            {user.userUsername}
+            {user.username}
           </Text>
-          <Text margin="5px 0 0 0">{user.userConcentration}</Text>
+          <Text margin="5px 0 0 0">{user.concentration}</Text>
         </TextContainer>
         <ProfileLine />
         <DetailsWrapper>
@@ -78,13 +78,13 @@ const ProfileDetails = () => {
             <InformationRow>
               <IconTextContainer>
                 <Location />
-                <Text fontSize="15px">{user.userCountry}</Text>
+                <Text fontSize="15px">{user.country}</Text>
               </IconTextContainer>
             </InformationRow>
             <InformationRow>
               <IconTextContainer>
                 <Star />
-                <Text fontSize="15px">{user.userExperience} years of experiences</Text>
+                <Text fontSize="15px">{user.experience} years of experiences</Text>
               </IconTextContainer>
             </InformationRow>
             <InformationRow>
@@ -95,31 +95,31 @@ const ProfileDetails = () => {
             </InformationRow>
           </InformationWrapper>
           <SocialWrapper>
-            {user.userLinks.github && (
+            {user.links.github && (
               <SocialRow>
                 <IconTextContainer>
                   <Github />
-                  <CustomLink href={user.userLinks.github} target="_blank">
+                  <CustomLink href={user.links.github} target="_blank">
                     Github
                   </CustomLink>
                 </IconTextContainer>
               </SocialRow>
             )}
-            {user.userLinks.linkedIn && (
+            {user.links.linkedIn && (
               <SocialRow marginTop="10px">
                 <IconTextContainer>
                   <Linkedin />
-                  <CustomLink href={user.userLinks.linkedIn} target="_blank">
+                  <CustomLink href={user.links.linkedIn} target="_blank">
                     Linkedin
                   </CustomLink>
                 </IconTextContainer>
               </SocialRow>
             )}
-            {user.userLinks.telegram && (
+            {user.links.telegram && (
               <SocialRow marginTop="10px">
                 <IconTextContainer>
                   <TelegramIcon />
-                  <CustomLink href={user.userLinks.telegram} target="_blank">
+                  <CustomLink href={user.links.telegram} target="_blank">
                     Telegram
                   </CustomLink>
                 </IconTextContainer>
@@ -135,7 +135,7 @@ const ProfileDetails = () => {
           </Text>
           <BannerLine />
           <RightCardData>
-            {user.userProgrammingLanguages.map((language) => (
+            {user.programmingLanguages.map((language) => (
               <ProgrammingLanguage key={language}>{languageOptions[language]}</ProgrammingLanguage>
             ))}
           </RightCardData>
@@ -146,14 +146,14 @@ const ProfileDetails = () => {
           </Text>
           <BannerLine />
           <RightCardData>
-            {user.userFrameworks.slice(0, 5).map((framework, index) => (
+            {user.frameworks.slice(0, 5).map((framework, index) => (
               <Framework
                 key={framework}
                 background={frameworkColors[framework]}
                 color={frameworkTextColors[framework]}
                 flexGrow="0"
               >
-                <h3>{index < 4 ? framework : `+${user.userFrameworks.length - 4}`}</h3>
+                <h3>{index < 4 ? framework : `+${user.frameworks.length - 4}`}</h3>
               </Framework>
             ))}
           </RightCardData>
@@ -174,9 +174,9 @@ const ProfileDetails = () => {
             About me
           </Text>
           <BannerLine />
-          <RightCardData justify={user.userDescription ? 'start' : 'center'}>
+          <RightCardData justify={user.description ? 'start' : 'center'}>
             <Text margin="0" fontSize="16px" fontWeight="600" color="rgba(255, 255, 255, 0.7)">
-              {user.userDescription ? user.userDescription : 'This user is humble'}
+              {user.description ? user.description : 'This user is humble'}
             </Text>
           </RightCardData>
         </RightCard>

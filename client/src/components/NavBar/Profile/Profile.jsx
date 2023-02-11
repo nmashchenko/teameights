@@ -27,8 +27,8 @@ let defaultData = {
 
 const changeData = (data) => {
   return {
-    userRealName: data.userRealName,
-    userUsername: data.userUsername,
+    userRealName: data.fullName,
+    userUsername: data.username,
     notificationBell: true,
     userImg: userImg,
   }

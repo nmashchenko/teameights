@@ -2,12 +2,9 @@
 import React, { useCallback, useEffect, useRef } from 'react'
 // * Constants
 // * API
-import { useInfiniteQuery } from 'react-query'
 import lookup from 'country-code-lookup'
 
 import { useLoadUsers } from '../../../../api/hooks/temeights/useLoadUsers'
-import c from '../../../../assets/LanguageLogo/C'
-import http from '../../../../http'
 import CardSkeleton from '../CardSkeleton/CardSkeleton'
 // * Components
 import UserCard from '../UserCard/UserCard'
@@ -66,9 +63,9 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
   }
 
   const content = users?.pages.map((pg) => {
-    const usersPerPage = pg.results.filter((user) => user.userProgrammingLanguages)
-
+    const usersPerPage = pg.data
     return usersPerPage.map((user, index) => {
+
       if (usersPerPage.length === index + 1) {
         return (
           <CardContainer
@@ -86,7 +83,6 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
           </CardContainer>
         )
       }
-
       return (
         <CardContainer
           onClick={(e) => {
