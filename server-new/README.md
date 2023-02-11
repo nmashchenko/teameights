@@ -1,30 +1,8 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Introduction
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Documentation can be found at [DOCUMENTATION](http://localhost:7001/api/docs#/)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+As it is swagger automatically-generated schema it is possible that some bugs exist that will be fixed in the future updates. In case any bugs were found, make pull request with description and suggested fix or use discord
 
 ## Installation
 
@@ -58,16 +36,273 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## List of significant schema changes
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Here is the list of all schemas that were changed:
+# User
+Some schemas was changed, let's start from User:
 
-## Stay in touch
+```ts
+export class User {
+	email: string;
+	password: string;
+	username: string;
+	fullName: string;
+	isActivated: Boolean;
+	isRegistered: Boolean;
+	isLeader: Boolean;
+	activationLink: string;
+	country: string;
+	age: string;
+	university: string;
+	major: string;
+	graduationDate: string;
+	concentration: string;
+	description: string;
+	experience: string;
+	image: string;
+	links: {
+		github: string;
+		linkedIn: string;
+		instagram: string;
+		telegram: string;
+	};
+	programmingLanguages: string[];
+	frameworks: string[];
+	roles: Role[];
+	notifications: Notifications[];
+	team: Team;
+}
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Old User looked mostly the same but most of the fields had user in front of every naming, 
+so it will be extremely important **to change** all fields in frontend code
 
-## License
+# Team
+Team schema also was changed:
 
-Nest is [MIT licensed](LICENSE).
+```ts
+  export class Team {
+	name: string;
+	description: string;
+	leader: User;
+	members: [User];
+	country: string;
+	// tournaments: [Tournament]; (is not connected yet)
+	wins: Number;
+	points: Number;
+	image: string;
+  }
+  ```
+
+# Tournament
+Tournament schema was changed:
+
+```ts
+// helper class used in Tournament schema
+class TournamentParticipants {
+	team_id: mongoose.Types.ObjectId;
+	frontend_id: mongoose.Types.ObjectId;
+	backend_id: mongoose.Types.ObjectId;
+}
+
+export class Tournament {
+	tournament_name: string;
+	tournament_participants: [TournamentParticipants];
+	tournament_startTime: Date;
+	tournament_endTime: Date;
+	status: string;
+	winner: Team;
+  // tournament_prize: Number; (not implemented yet)
+}
+```
+
+# Leaderboard
+Leaderboard schema was changed:
+
+```ts
+// helper class for Leaderboard
+class TournamentTeam {
+	team_id: mongoose.Types.ObjectId;
+	frontendScore: Number;
+	backendScore: Number;
+}
+
+export class Leaderboard {
+	tournament_id: mongoose.Types.ObjectId;
+	tournament_teams: TournamentTeam[];
+}
+```
+
+# New schemas that was implemented:
+
+New update have roles and notifications schemas.
+
+Please note that notification schema is implemented with polymorphism, meaning that you will be able to extend main notification schema class to easily add any new types of notifications in the future.
+
+# Notifications schemas:
+
+Basic notification:
+
+```ts
+export class Notifications {
+	user: User;
+	type!: NotificationType;
+	read: Boolean;
+	url: string;
+	expiresAt: Date;
+}
+```
+
+System notification that extends Basic Notification:
+
+```ts
+export class SystemNotification {
+	type: string;
+	system_message: string;
+}
+```
+
+Team invite notification that extends Basic Notification:
+
+```ts
+export class TeamInvitationNotification {
+	type: string;
+	teamid: Team;
+	message: string;
+	from_user_id: User;
+	to_user_email: string;
+  // one of ['pending', 'accepted', 'rejected']
+	status: string;
+}
+```
+
+# Roles schema
+
+```ts
+export class Role {
+  // should be changed to enum later ['ADMIN', 'USER', ...]
+	value: string;
+	description: string;
+}
+```
+
+That's all schema updates that was implemented.
+
+## List of significant endpoint changes
+
+# SocialLoginRegistration
+
+Previously, we received a token from the response and immediately decoded it on the front, after that we simply passed the login to the back
+
+Now, we will receive credential from the response and pass it to the server, where the server will validate this token and give the user/access object and the refresh token
+
+How it worked:
+
+```js
+  const createOrGetUser = async (response) => {
+    const decoded = jwt_decode(response.credential)
+    const { picture, email, sub } = decoded
+    const username = email.split('@')[0]
+
+    socialLoginRegisterUser({ username, email, picture, sub })
+  }
+```
+
+How it will work now:
+
+```js
+  const createOrGetUser = async (response) => {
+    const token = response.credential;
+
+    // make get request to /google/:token 
+    
+    // this request will either login user OR sign him up
+  }
+  ```
+
+# Login/Registration endpoints
+
+Now, with a normal login / registration (for Google, Git, etc. it will be different) we will always take only email / password
+Username will be added to the user already during additional registration where he will put a photo / etc.
+
+For example that is what DTO login/registration endpoints will accept:
+
+```ts
+export class AuthUserDto {
+	readonly email: string;
+	readonly password: string;
+}
+```
+
+# /get-user-object endpoint update
+
+In the old one, we sent a request in which there were cookies with a refresh token to /get-user-object, after which it returned the user to us if there was one (or anauthorize)
+
+In the new version of the server there will be a new approach to requesting a user object for the useTokenCheck hook, firstly we will access /users/get-by-token in the header of which there will be a Bearer with an access token that we will check on the back and return anauthorize/user, firstly, we will get rid of the constant jerking of the refresh, and secondly, it will be more logical if we throw out the user after 24 inactivation instead of 30 days
+
+# /users & /users-filtered endpoint endpoint update
+
+Now we will have three endpoints available:
+
+```
+/users/get-all - returns absolutely all users available in the database
+```
+
+```
+/users/get/?page=1 - returns a specific page in the format:
+{
+     "users": [],
+     "total": 100
+     "page": 1,
+     "limit": 8,
+     "last_page": 13
+}
+```
+
+By default, the page will be 1, the limit will always be 9, it cannot be changed, the page can be transferred to queris
+
+```
+/users/get-filtered/?page=1 - returns the same as the previous endpoint but with search filters applied (will also work on its own)
+```
+
+# /registration-checkout update
+
+Now we will refer to two endpoints instead of one:
+
+1) After we get base64 photos on the front, it will look like this: 'data:image/webp;base64,UklGRqIvAABXRUJQVlA4IJYvAAD...', we clean it from data:image/webp:base64, => str. split('base64,')[1] and then we will send it to a separate endpoint which will be called **users/update-avatar** and accept {email: string, image: base64string}
+
+2) And we will send the object itself with the updated info to another endpoint:
+**users/registration-checkout** which will accept dto with fields:
+```ts
+class User {
+  email:string
+  username:string
+  fullName:string
+  age:string
+  description: string
+  concentration:string
+  country:string
+  experience: string
+  isLeader: Boolean
+  links: {
+    github?:string
+    linkedIn?: string
+    instagram?:string
+    telegram?:string
+  }
+  programmingLanguages: string[]
+  frameworks: string[]
+  university?: string
+  major?: string
+  graduationDate?: string
+}
+```
+
+## Other
+
+Everything else is described in the swagger documentation:
+
+
+<img width="812" alt="Снимок экрана 2023-02-07 в 1 29 46 PM" src="https://user-images.githubusercontent.com/52038455/217346115-68a8ec6b-92a3-43a3-807a-04fdeca78ee4.png">
+<img width="802" alt="Снимок экрана 2023-02-07 в 1 30 20 PM" src="https://user-images.githubusercontent.com/52038455/217346246-4e1f7448-4118-4c95-b3f3-d26345f984b6.png">
