@@ -5,7 +5,7 @@ import { RolesService } from '@Roles/roles.service';
 import { User, UserDocument } from './users.schema';
 
 import * as uuid from 'uuid';
-import { AuthUserDto } from './dto/auth-user.dto';
+import { RegisterUserDto } from './dto/register-user.dto';
 import { TokensService } from '@Tokens/tokens.service';
 import { Results } from './dto/results.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -32,7 +32,7 @@ export class UsersService {
 	 * @returns The user object is being returned.
 	 */
 	async createUser(
-		dto: AuthUserDto,
+		dto: RegisterUserDto,
 		session: ClientSession,
 		oauth?: boolean,
 	): Promise<User> {
@@ -270,13 +270,13 @@ export class UsersService {
 			.populate('roles')
 			.exec();
 
-		/* Checking if the users array is empty. If it is, it throws an error. */
-		if (users.length === 0) {
-			throw new HttpException(
-				`Nothing was found!`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
+		// /* Checking if the users array is empty. If it is, it throws an error. */
+		// if (users.length === 0) {
+		// 	throw new HttpException(
+		// 		`Nothing was found!`,
+		// 		HttpStatus.BAD_REQUEST,
+		// 	);
+		// }
 
 		/* Setting the number of users on the current page and the data of the users. */
 		results.on_current_page = users.length;

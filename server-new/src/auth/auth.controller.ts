@@ -11,10 +11,11 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { AuthUserDto } from '@Users/dto/auth-user.dto';
+import { RegisterUserDto } from '@/users/dto/register-user.dto';
 import { ResetUserDto } from '@Users/dto/reset-user.dto';
 import { AuthService } from './auth.service';
-import { Auth } from './dto/auth.dto';
+import { AuthResponseDto } from './dto/auth.dto';
+import { AuthUserDto } from '@/users/dto/auth-user.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -26,12 +27,12 @@ export class AuthController {
 		summary:
 			'Registrer user in the system and returns access/refresh tokens pair & user object',
 	})
-	@ApiResponse({ status: 200, type: Auth })
+	@ApiResponse({ status: 200, type: AuthResponseDto })
 	@Post('/registration')
 	async registration(
-		@Body() dto: AuthUserDto,
+		@Body() dto: RegisterUserDto,
 		@Res({ passthrough: true }) res: Response,
-	): Promise<Auth> {
+	): Promise<AuthResponseDto> {
 		const data = await this.authService.registration(dto);
 		res.cookie('refreshToken', data.refreshToken, {
 			maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -46,12 +47,12 @@ export class AuthController {
 		summary:
 			'Login user in the system and return access/refresh tokens pair & user object',
 	})
-	@ApiResponse({ status: 200, type: Auth })
+	@ApiResponse({ status: 200, type: AuthResponseDto })
 	@Post('/login')
 	async login(
 		@Body() dto: AuthUserDto,
 		@Res({ passthrough: true }) res: Response,
-	): Promise<Auth> {
+	): Promise<AuthResponseDto> {
 		const data = await this.authService.login(dto);
 		res.cookie('refreshToken', data.refreshToken, {
 			maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -66,12 +67,12 @@ export class AuthController {
 		summary:
 			'Get token that we receieve from google on frontend (res.credential) and login / register user',
 	})
-	@ApiResponse({ status: 200, type: Auth })
+	@ApiResponse({ status: 200, type: AuthResponseDto })
 	@Get('/google/:token')
 	async googleAuth(
 		@Param('token') token: string,
 		@Res({ passthrough: true }) res: Response,
-	): Promise<Auth> {
+	): Promise<AuthResponseDto> {
 		const data = await this.authService.googleAuth(token);
 		res.cookie('refreshToken', data.refreshToken, {
 			maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -123,13 +124,13 @@ export class AuthController {
 	@ApiResponse({
 		status: 200,
 		description: 'Successfuly refreshed cookie for user',
-		type: Auth,
+		type: AuthResponseDto,
 	})
 	@Get('/refresh')
 	async refresh(
 		@Req() req: Request,
 		@Res({ passthrough: true }) res: Response,
-	): Promise<Auth> {
+	): Promise<AuthResponseDto> {
 		const { refreshToken } = req.cookies;
 		const data = await this.authService.refresh(refreshToken);
 		res.cookie('refreshToken', data.refreshToken, {

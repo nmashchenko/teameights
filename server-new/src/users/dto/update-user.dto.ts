@@ -4,6 +4,7 @@ import {
 	IsArray,
 	IsBoolean,
 	IsEmail,
+	IsEmpty,
 	IsNotEmpty,
 	IsObject,
 	IsOptional,
@@ -23,7 +24,7 @@ export class UpdateUserDto {
 
 	@ApiProperty({ example: 'teameights', description: 'Username' })
 	@IsString({ message: 'Should be string' })
-	@Length(8, 20, {
+	@Length(1, 20, {
 		message: 'Should be at least 8 and less than 20 characters',
 	})
 	@IsNotEmpty({ message: 'Should not be empty' })
@@ -47,7 +48,6 @@ export class UpdateUserDto {
 		description: 'Description of user',
 	})
 	@IsString({ message: 'Should be string' })
-	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsOptional()
 	readonly description: string;
 

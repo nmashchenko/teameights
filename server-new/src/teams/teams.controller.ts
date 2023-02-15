@@ -72,4 +72,15 @@ export class TeamsController {
 	inviteToTeam(@Body() dto: InviteToTeamDto) {
 		return this.teamsService.inviteToTeam(dto);
 	}
+
+	// @UseGuards(JwtAuthGuard)
+	// @UsePipes(ValidationPipe)
+	// @ApiOperation({
+	// 	summary: 'Invite user to team',
+	// })
+	// @ApiResponse({ status: 200, type: Team })
+	// @Get('/invite-accept/:notificationid')
+	// acceptInvite(@Param('notificationid') notificationid: mongoose.Types.ObjectId) {
+	// 	return this.teamsService.acceptInvite(notificationid);
+	// }
 }

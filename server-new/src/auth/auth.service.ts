@@ -4,16 +4,17 @@ import { passwordStrength } from 'check-password-strength';
 
 import { TokensService } from '@/tokens/tokens.service';
 import { MailsService } from '@/mails/mails.service';
-import { Auth } from './dto/auth.dto';
+import { AuthResponseDto } from './dto/auth.dto';
 import { InjectConnection } from '@nestjs/mongoose';
 import { CreateTokenDto } from '@/tokens/dto/create-token.dto';
-import { AuthUserDto } from '@/users/dto/auth-user.dto';
+import { RegisterUserDto } from '@/users/dto/register-user.dto';
 import { OAuth2Client } from 'google-auth-library';
 
 import mongoose, { Types } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 import * as uuid from 'uuid';
 import { ResetUserDto } from '@/users/dto/reset-user.dto';
+import { AuthUserDto } from '@/users/dto/auth-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -30,7 +31,10 @@ export class AuthService {
 	 * @param {CreateUserDto} dto - CreateUserDto - the data transfer object that contains the user's data.
 	 * @returns an object with the access token, refresh token and the user.
 	 */
-	async registration(dto: AuthUserDto, oauth?: boolean): Promise<Auth> {
+	async registration(
+		dto: RegisterUserDto,
+		oauth?: boolean,
+	): Promise<AuthResponseDto> {
 		const session = await this.connection.startSession();
 		session.startTransaction();
 
@@ -62,7 +66,7 @@ export class AuthService {
 					password: hashPassword,
 				},
 				session,
-				typeof oauth !== 'undefined' ? true : undefined
+				typeof oauth !== 'undefined' ? true : undefined,
 			);
 
 			/* Creating a new instance of the CreateTokenDto class. */
@@ -99,7 +103,7 @@ export class AuthService {
 	 * @param {AuthUserDto} dto - AuthUserDto - the object that contains the user's email and password.
 	 * @returns { ...tokens, user }
 	 */
-	async login(dto: AuthUserDto): Promise<Auth> {
+	async login(dto: AuthUserDto): Promise<AuthResponseDto> {
 		const user = await this.userService.getUserByEmail(dto.email);
 		if (!user) {
 			throw new HttpException(
@@ -111,7 +115,7 @@ export class AuthService {
 		const isPassEquals = await bcrypt.compare(dto.password, user.password);
 		if (!isPassEquals) {
 			throw new HttpException(
-				`Password doesn't match`,
+				`Password doesn't match. Try another one`,
 				HttpStatus.BAD_REQUEST,
 			);
 		}
@@ -134,7 +138,7 @@ export class AuthService {
 	 * @param {string} token - The token that we get from the frontend.
 	 * @returns It returns the access and refresh tokens, and the user.
 	 */
-	async googleAuth(token: string): Promise<Auth> {
+	async googleAuth(token: string): Promise<AuthResponseDto> {
 		try {
 			/* Creating a new instance of the OAuth2Client class. */
 			const client = new OAuth2Client(
@@ -158,10 +162,14 @@ export class AuthService {
 			if (!user) {
 				const pass = uuid.v4();
 
-				const user = await this.registration({
-					email: payload.email,
-					password: pass,
-				}, true);
+				const user = await this.registration(
+					{
+						email: payload.email,
+						password: pass,
+						repeatPassword: pass,
+					},
+					true,
+				);
 				return user;
 			}
 
@@ -190,7 +198,7 @@ export class AuthService {
 	 * @param {string} refreshToken - string - the refresh token that was sent in the request
 	 * @returns { ...tokens, user }
 	 */
-	async refresh(refreshToken: string): Promise<Auth> {
+	async refresh(refreshToken: string): Promise<AuthResponseDto> {
 		if (!refreshToken) {
 			throw new HttpException(
 				`No refresh token was found in the request`,
