@@ -3,7 +3,7 @@ import { IsEmail, IsString, Length } from 'class-validator';
 
 export class AuthUserDto {
 	@ApiProperty({ example: 'test@teameights.com', description: 'Email' })
-	@IsString({ message: 'Should be string' })
+	@IsString({ message: 'Email should be string' })
 	@IsEmail({}, { message: 'Email is not correct' })
 	readonly email: string;
 

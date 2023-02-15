@@ -8,10 +8,13 @@ import { SystemNotification } from './schemas/system.schema';
 import { SystemNotificationDto } from './dto/system-notification.dto';
 import { TeamNotificationsDto } from './dto/team-notification.dto';
 import { MailsService } from '@/mails/mails.service';
+import { Notifications } from './schemas/notifications.schema';
 
 @Injectable()
 export class NotificationsService {
 	constructor(
+		@InjectModel(Notifications.name)
+		private readonly notificationModel: Model<Notifications>,
 		@InjectModel(TeamInvitationNotification.name)
 		private readonly teamNotificationModel: Model<TeamInvitationNotification>,
 		@InjectModel(SystemNotification.name)
@@ -19,6 +22,12 @@ export class NotificationsService {
 		private mailsService: MailsService,
 	) {}
 
+	/**
+	 * It creates a system notification for a user
+	 * @param {SystemNotificationDto} dto - SystemNotificationDto
+	 * @param {ClientSession} [session] - This is the session that is passed to the method.
+	 * @returns The id of the notification that was created.
+	 */
 	async createSystemNotification(
 		dto: SystemNotificationDto,
 		session?: ClientSession,
@@ -45,6 +54,12 @@ export class NotificationsService {
 		}
 	}
 
+	/**
+	 * It creates a notification for a user to join a team
+	 * @param {TeamNotificationsDto} dto - TeamNotificationsDto
+	 * @param {ClientSession} [session] - ClientSession
+	 * @returns The id of the notification
+	 */
 	async createTeamNotification(
 		dto: TeamNotificationsDto,
 		session?: ClientSession,
@@ -71,6 +86,52 @@ export class NotificationsService {
 			const data = await this.teamNotificationModel.create(notification);
 			await this.mailsService.sendTeamInviteEmail(data.to_user_email);
 			return data._id;
+		}
+	}
+
+	/**
+	 * It removes a notification from the database.
+	 * @param notificationid - The id of the notification to be removed.
+	 * @returns The result of the deleteOne() method.
+	 */
+	async removeNotification(notificationid: mongoose.Types.ObjectId) {
+		return await this.notificationModel.deleteOne({ _id: notificationid });
+	}
+
+	/**
+	 * This function returns a TeamNotificationsDto object from the database based on the notificationid
+	 * passed in.
+	 * @param notificationid - mongoose.Types.ObjectId
+	 * @returns TeamNotificationsDto
+	 */
+	async getTeamNotificationById(
+		notificationid: mongoose.Types.ObjectId,
+	): Promise<TeamNotificationsDto> {
+		return await this.notificationModel.findById(notificationid);
+	}
+
+	/**
+	 * It returns an array of TeamNotificationsDto objects, which are notifications that are sent to a
+	 * user, and are related to a team
+	 * @param userid - mongoose.Types.ObjectId,
+	 * @param [teamid] - mongoose.Types.ObjectId
+	 * @returns TeamNotificationsDto[]
+	 */
+	async getTeamNotificationsForUser(
+		userid: mongoose.Types.ObjectId,
+		teamid?: mongoose.Types.ObjectId,
+	): Promise<TeamNotificationsDto[]> {
+		if (typeof teamid !== 'undefined') {
+			return await this.notificationModel.find({
+				user: userid,
+				type: 'TeamInvitationNotification',
+				teamid,
+			});
+		} else {
+			return await this.notificationModel.find({
+				user: userid,
+				type: 'TeamInvitationNotification',
+			});
 		}
 	}
 }

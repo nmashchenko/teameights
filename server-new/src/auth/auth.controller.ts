@@ -7,7 +7,6 @@ import {
 	Req,
 	Res,
 	UsePipes,
-	ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
@@ -16,6 +15,7 @@ import { ResetUserDto } from '@Users/dto/reset-user.dto';
 import { AuthService } from './auth.service';
 import { AuthResponseDto } from './dto/auth.dto';
 import { AuthUserDto } from '@/users/dto/auth-user.dto';
+import { ValidationPipe } from '@Pipes/validation.pipe';
 
 @ApiTags('Auth')
 @Controller('auth')

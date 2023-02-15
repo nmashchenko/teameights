@@ -39,7 +39,9 @@ $ npm run test:cov
 ## List of significant schema changes
 
 Here is the list of all schemas that were changed:
+
 # User
+
 Some schemas was changed, let's start from User:
 
 ```ts
@@ -75,14 +77,15 @@ export class User {
 }
 ```
 
-Old User looked mostly the same but most of the fields had user in front of every naming, 
+Old User looked mostly the same but most of the fields had user in front of every naming,
 so it will be extremely important **to change** all fields in frontend code
 
 # Team
+
 Team schema also was changed:
 
 ```ts
-  export class Team {
+export class Team {
 	name: string;
 	description: string;
 	leader: User;
@@ -92,10 +95,11 @@ Team schema also was changed:
 	wins: Number;
 	points: Number;
 	image: string;
-  }
-  ```
+}
+```
 
 # Tournament
+
 Tournament schema was changed:
 
 ```ts
@@ -113,11 +117,12 @@ export class Tournament {
 	tournament_endTime: Date;
 	status: string;
 	winner: Team;
-  // tournament_prize: Number; (not implemented yet)
+	// tournament_prize: Number; (not implemented yet)
 }
 ```
 
 # Leaderboard
+
 Leaderboard schema was changed:
 
 ```ts
@@ -172,7 +177,7 @@ export class TeamInvitationNotification {
 	message: string;
 	from_user_id: User;
 	to_user_email: string;
-  // one of ['pending', 'accepted', 'rejected']
+	// one of ['pending', 'accepted', 'rejected']
 	status: string;
 }
 ```
@@ -181,7 +186,7 @@ export class TeamInvitationNotification {
 
 ```ts
 export class Role {
-  // should be changed to enum later ['ADMIN', 'USER', ...]
+	// should be changed to enum later ['ADMIN', 'USER', ...]
 	value: string;
 	description: string;
 }
@@ -200,26 +205,26 @@ Now, we will receive credential from the response and pass it to the server, whe
 How it worked:
 
 ```js
-  const createOrGetUser = async (response) => {
-    const decoded = jwt_decode(response.credential)
-    const { picture, email, sub } = decoded
-    const username = email.split('@')[0]
+const createOrGetUser = async (response) => {
+	const decoded = jwt_decode(response.credential);
+	const { picture, email, sub } = decoded;
+	const username = email.split('@')[0];
 
-    socialLoginRegisterUser({ username, email, picture, sub })
-  }
+	socialLoginRegisterUser({ username, email, picture, sub });
+};
 ```
 
 How it will work now:
 
 ```js
-  const createOrGetUser = async (response) => {
-    const token = response.credential;
+const createOrGetUser = async (response) => {
+	const token = response.credential;
 
-    // make get request to /google/:token 
-    
-    // this request will either login user OR sign him up
-  }
-  ```
+	// make get request to /google/:token
+
+	// this request will either login user OR sign him up
+};
+```
 
 # Login/Registration endpoints
 
@@ -270,39 +275,65 @@ By default, the page will be 1, the limit will always be 9, it cannot be changed
 
 Now we will refer to two endpoints instead of one:
 
-1) After we get base64 photos on the front, it will look like this: 'data:image/webp;base64,UklGRqIvAABXRUJQVlA4IJYvAAD...', we clean it from data:image/webp:base64, => str. split('base64,')[1] and then we will send it to a separate endpoint which will be called **users/update-avatar** and accept {email: string, image: base64string}
+1. After we get base64 photos on the front, it will look like this: 'data:image/webp;base64,UklGRqIvAABXRUJQVlA4IJYvAAD...', we clean it from data:image/webp:base64, => str. split('base64,')[1] and then we will send it to a separate endpoint which will be called **users/update-avatar** and accept {email: string, image: base64string}
 
-2) And we will send the object itself with the updated info to another endpoint:
-**users/registration-checkout** which will accept dto with fields:
+2. And we will send the object itself with the updated info to another endpoint:
+   **users/registration-checkout** which will accept dto with fields:
+
 ```ts
 class User {
-  email:string
-  username:string
-  fullName:string
-  age:string
-  description: string
-  concentration:string
-  country:string
-  experience: string
-  isLeader: Boolean
-  links: {
-    github?:string
-    linkedIn?: string
-    instagram?:string
-    telegram?:string
-  }
-  programmingLanguages: string[]
-  frameworks: string[]
-  university?: string
-  major?: string
-  graduationDate?: string
+	email: string;
+	username: string;
+	fullName: string;
+	age: string;
+	description: string;
+	concentration: string;
+	country: string;
+	experience: string;
+	isLeader: Boolean;
+	links: {
+		github?: string;
+		linkedIn?: string;
+		instagram?: string;
+		telegram?: string;
+	};
+	programmingLanguages: string[];
+	frameworks: string[];
+	university?: string;
+	major?: string;
+	graduationDate?: string;
 }
 ```
+
+# /add-to-team update
+
+Now, if user accepts invite to the team, we will send a **put** request to '/invite-accept/:notificationid' with notification id that has this invite
+
+The endpoint will double check if user is not in team already, as well as will double check if invite is not expired & if length of team users are not equal to 8 (which is the limit)
+
+In case of any error throw, it will automatically clear notifications
+
+Will return success status
+
+# /invite-reject/:notificationid
+
+New endpoint that allows user to reject invite request, works almost the same as invite-accept/:notificationid
+
+# Plans for upcoming versions
+
+-- add leave the team function [IN PROGRESS]
+
+-- add delete the team function [IN PROGRESS]
+
+-- add update the team function [IN PROGRESS]
+
+-- update types of team (e.g. closed, invite-only, etc) [IN PROGRESS]
+
+-- update email styling for messages [SOON]
 
 ## Other
 
 Everything else is described in the swagger documentation:
-
 
 <img width="812" alt="Снимок экрана 2023-02-07 в 1 29 46 PM" src="https://user-images.githubusercontent.com/52038455/217346115-68a8ec6b-92a3-43a3-807a-04fdeca78ee4.png">
 <img width="802" alt="Снимок экрана 2023-02-07 в 1 30 20 PM" src="https://user-images.githubusercontent.com/52038455/217346246-4e1f7448-4118-4c95-b3f3-d26345f984b6.png">

@@ -39,12 +39,15 @@ export class Team {
 	@Prop({ required: true })
 	country: string;
 
+	// TODO:  add amount of tournaments played
 	// @ApiProperty({
 	// 	example: [Tournament],
 	// 	description: 'Amount of tournaments played',
 	// })
 	// @Prop({ required: false })
 	// tournaments: [Tournament];
+
+	// TODO:  add type of team ['invite-only', 'closed', 'open']
 
 	@ApiProperty({
 		example: 3,

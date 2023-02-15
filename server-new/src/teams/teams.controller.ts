@@ -6,6 +6,7 @@ import {
 	Get,
 	Param,
 	Post,
+	Put,
 	UseGuards,
 	UsePipes,
 } from '@nestjs/common';
@@ -67,20 +68,39 @@ export class TeamsController {
 	@ApiOperation({
 		summary: 'Invite user to team',
 	})
-	@ApiResponse({ status: 200, type: Team })
+	@ApiResponse({ status: 200, type: Object })
 	@Post('/invite')
 	inviteToTeam(@Body() dto: InviteToTeamDto) {
 		return this.teamsService.inviteToTeam(dto);
 	}
 
-	// @UseGuards(JwtAuthGuard)
-	// @UsePipes(ValidationPipe)
-	// @ApiOperation({
-	// 	summary: 'Invite user to team',
-	// })
-	// @ApiResponse({ status: 200, type: Team })
-	// @Get('/invite-accept/:notificationid')
-	// acceptInvite(@Param('notificationid') notificationid: mongoose.Types.ObjectId) {
-	// 	return this.teamsService.acceptInvite(notificationid);
-	// }
+	@UseGuards(JwtAuthGuard)
+	@ApiOperation({
+		summary: 'Accept invite from user to team',
+	})
+	@ApiResponse({ status: 200, type: Object })
+	@Put('/invite-accept/:notificationid')
+	acceptInvite(
+		@Param('notificationid') notificationid: mongoose.Types.ObjectId,
+	) {
+		return this.teamsService.acceptInvite(notificationid);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@ApiOperation({
+		summary: 'Reject invite from user to team',
+	})
+	@ApiResponse({ status: 200, type: Object })
+	@Put('/invite-reject/:notificationid')
+	rejectInvite(
+		@Param('notificationid') notificationid: mongoose.Types.ObjectId,
+	) {
+		return this.teamsService.rejectTeamInvite(notificationid);
+	}
+
+	// add leave the team function
+
+	// add delete the team function
+
+	// add update the team function
 }

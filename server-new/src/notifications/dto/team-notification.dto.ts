@@ -5,6 +5,10 @@ import mongoose from 'mongoose';
 import { NotificationDto } from './notification.dto';
 
 export class TeamNotificationsDto extends NotificationDto {
+	constructor() {
+		super();
+	}
+
 	@ApiProperty({
 		example: '5f6d8b6db0c6d71be6e0e070',
 		description: 'ID of the team that sent the invitation',

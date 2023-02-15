@@ -70,6 +70,7 @@ export class UsersService {
 		await this.addNotification(user[0]._id, notificationID, session);
 
 		(user[0] as any)._doc.roles = [role];
+		(user[0] as any)._doc.notifications = [notificationID];
 		return user[0];
 	}
 
@@ -270,14 +271,6 @@ export class UsersService {
 			.populate('roles')
 			.exec();
 
-		// /* Checking if the users array is empty. If it is, it throws an error. */
-		// if (users.length === 0) {
-		// 	throw new HttpException(
-		// 		`Nothing was found!`,
-		// 		HttpStatus.BAD_REQUEST,
-		// 	);
-		// }
-
 		/* Setting the number of users on the current page and the data of the users. */
 		results.on_current_page = users.length;
 		results.data = users;
@@ -368,6 +361,33 @@ export class UsersService {
 		} else {
 			await this.userModel.updateOne(query, update);
 		}
+	}
+
+	/**
+	 * It removes a notification from a user's list of notifications
+	 * @param userID - The ID of the user to add the notification to.
+	 * @param notificationID - mongoose.Types.ObjectId
+	 * @param {ClientSession} [session] - This is an optional parameter that is used to create a
+	 * transaction.
+	 */
+	async removeNotification(
+		userID: mongoose.Types.ObjectId,
+		notificationID: mongoose.Types.ObjectId,
+		session?: ClientSession,
+	): Promise<void> {
+		const query = { _id: userID };
+		const update = { $pull: { notifications: notificationID } };
+		if (typeof session !== 'undefined') {
+			await this.userModel.updateOne(query, update).session(session);
+		} else {
+			await this.userModel.updateOne(query, update);
+		}
+	}
+
+	async checkNotifications(notificationID: mongoose.Types.ObjectId) {
+		return await this.userModel.findOne({
+			notifications: { $in: [notificationID] },
+		});
 	}
 
 	/**
