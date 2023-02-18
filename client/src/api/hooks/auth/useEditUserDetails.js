@@ -6,11 +6,13 @@ import http from '../../../http'
 import {
   registrationAuth,
 } from '../../../store/reducers/RegistrationAuth'
+import {useUpdateUserAvatar} from "./useUpdateUserAvatar";
 
 const { api } = http
 
 export const useEditUserDetails = (successHandler) => {
   const dispatch = useDispatch()
+   const {mutate: updateAvatar} =  useUpdateUserAvatar()
   const queryClient = useQueryClient()
 
   const finishRegistration = async (userData) => {
@@ -19,9 +21,9 @@ export const useEditUserDetails = (successHandler) => {
 
   return useMutation(finishRegistration, {
     mutationKey: 'finishRegistration',
-    onSuccess: () => {
+    onSuccess: ({data}) => {
       successHandler()
-      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+      updateAvatar({email: data.email, image: data.image})
     },
     onError: (error) => {
       // set error message

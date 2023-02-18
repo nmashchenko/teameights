@@ -95,7 +95,7 @@ const ProfileDetails = () => {
             </InformationRow>
           </InformationWrapper>
           <SocialWrapper>
-            {user.links.github && (
+            {user.links?.github && (
               <SocialRow>
                 <IconTextContainer>
                   <Github />
@@ -105,7 +105,7 @@ const ProfileDetails = () => {
                 </IconTextContainer>
               </SocialRow>
             )}
-            {user.links.linkedIn && (
+            {user.links?.linkedIn && (
               <SocialRow marginTop="10px">
                 <IconTextContainer>
                   <Linkedin />
@@ -115,7 +115,7 @@ const ProfileDetails = () => {
                 </IconTextContainer>
               </SocialRow>
             )}
-            {user.links.telegram && (
+            {user.links?.telegram && (
               <SocialRow marginTop="10px">
                 <IconTextContainer>
                   <TelegramIcon />

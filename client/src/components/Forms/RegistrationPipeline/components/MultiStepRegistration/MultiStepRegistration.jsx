@@ -30,8 +30,7 @@ const MultiStepRegistration = () => {
   }
 
   const submitFrom = (userData) => {
-      console.log(typeof  userData.leader)
-      console.log(userData.graduationDate)
+
     const registrationData = {
       email: userPrimaryRegistrationData.email,
       username: userData.username,
