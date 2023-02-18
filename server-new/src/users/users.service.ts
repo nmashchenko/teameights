@@ -226,14 +226,6 @@ export class UsersService {
 			.populate('roles')
 			.exec();
 
-		/* Checking if the users array is empty. If it is, it throws an error. */
-		if (users.length === 0) {
-			throw new HttpException(
-				`Nothing was found!`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
-
 		/* Setting the number of users on the current page and the data of the users. */
 		results.on_current_page = users.length;
 		results.data = users;

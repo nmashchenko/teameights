@@ -19,7 +19,6 @@ import { ValidationPipe } from '@Pipes/validation.pipe';
 
 @ApiTags('Auth')
 @Controller('auth')
-@UsePipes(ValidationPipe)
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
@@ -29,6 +28,7 @@ export class AuthController {
 	})
 	@ApiResponse({ status: 200, type: AuthResponseDto })
 	@Post('/registration')
+	@UsePipes(ValidationPipe)
 	async registration(
 		@Body() dto: RegisterUserDto,
 		@Res({ passthrough: true }) res: Response,
@@ -49,6 +49,7 @@ export class AuthController {
 	})
 	@ApiResponse({ status: 200, type: AuthResponseDto })
 	@Post('/login')
+	@UsePipes(ValidationPipe)
 	async login(
 		@Body() dto: AuthUserDto,
 		@Res({ passthrough: true }) res: Response,
@@ -181,6 +182,7 @@ export class AuthController {
 		status: 200,
 		description: 'Updates password for the user',
 	})
+	@UsePipes(ValidationPipe)
 	@Get('/update-password')
 	async updatePassword(
 		@Body() dto: ResetUserDto,
