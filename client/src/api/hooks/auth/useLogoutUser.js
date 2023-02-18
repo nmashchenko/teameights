@@ -12,7 +12,7 @@ export const useLogoutUser = () => {
   const queryClient = useQueryClient()
 
   const logoutUser = async () => {
-    return await api.post('/auth/logout')
+    return await api.get('/auth/logout')
   }
 
   return useMutation(logoutUser, {
