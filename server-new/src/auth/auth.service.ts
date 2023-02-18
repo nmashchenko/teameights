@@ -79,7 +79,7 @@ export class AuthService {
 			if (typeof oauth === 'undefined') {
 				await this.mailsService.sendActivationMail(
 					user.email,
-					`${process.env.API_URL}/auth/activate/${user.activationLink}`,
+					`${process.env.API_URL}/api/auth/activate/${user.activationLink}`,
 				);
 			}
 
@@ -287,7 +287,7 @@ export class AuthService {
 
 		await this.mailsService.sendResetEmail(
 			email,
-			`${process.env.API_URL}/auth/verify-reset/${userDto.email}/${token}`,
+			`${process.env.API_URL}/api/auth/verify-reset/${userDto.email}/${token}`,
 		); // send activation email
 
 		return { status: 'reset email successfuly sent' };
