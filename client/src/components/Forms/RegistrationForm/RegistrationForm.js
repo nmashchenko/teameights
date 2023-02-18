@@ -40,7 +40,7 @@ function RegistrationForm() {
   const { mutate: registerUser, isLoading: isUserRegistrationLoading } = useRegister()
 
   const handleRegistration = () => {
-    registerUser({ username, email, password, repeatPassword: confirmPassword })
+    registerUser({  email, password, repeatPassword: confirmPassword })
   }
 
   if (isUserRegistrationLoading) {
@@ -60,13 +60,6 @@ function RegistrationForm() {
           </LoginSignUpLinks>
         </LoginSignUpContainer>
         <UsernameEmailPasswordContainer>
-          <RegistrationInput
-            placeholder="Username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            margin="0 0 30px 0"
-          />
           <RegistrationInput
             placeholder="Email"
             type="text"

@@ -53,7 +53,6 @@ function CreateTeamForm() {
     } else {
       const value = await createTeam.createTeam(teamName, country, [userId])
 
-      console.log(value)
       if (isEqual(value.data, {})) {
         enqueueSnackbar('You have a team already!', {
           preventDuplicate: true,

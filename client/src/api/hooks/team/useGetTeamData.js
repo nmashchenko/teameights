@@ -10,7 +10,7 @@ export const useGetTeamData = () => {
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
   const teamId = user?.userTeam
   const getTeamById = async () => {
-    const response = await api.get(`/get-team-byid/${teamId}`)
+    const response = await api.get(`/teams/get-team-byid/${teamId}`)
 
     return response.data
   }
