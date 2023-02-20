@@ -45,7 +45,7 @@ const UserCard = React.forwardRef((props, ref = null) => {
         let andMore = <></>
 
         if (i === 1 && plLength > 2) {
-          andMore = <AndMore>{plLength - 2}+</AndMore>
+          andMore = <AndMore makeWhite={false}>{plLength - 2}+</AndMore>
         }
 
         return (

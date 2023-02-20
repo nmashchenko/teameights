@@ -28,6 +28,7 @@ export const AndMore = styled.span`
   justify-content: center;
   align-items: center;
   opacity: 0;
+  color: ${(props) => (props.makeWhite ? '#000' : '#FFF')};
 `
 
 export const ProgrammingLanguagesContainer = styled.div`
@@ -148,8 +149,12 @@ export const CardContainer = styled.div`
     transition: 0.1s ease-in-out;
   }
 
+  &:hover ${LanguageContainer} svg {
+    background: transparent;
+    transition: 0.1s ease-in-out;
+  }
+
   &:hover ${LanguageContainer}:last-child svg {
-    background-color: rgba(46, 50, 57, 0.35);
     opacity: ${(props) => (props.plLength ? 0.2 : 1)};
     transition: 0.1s ease-in-out;
   }
@@ -159,8 +164,6 @@ export const CardContainer = styled.div`
     opacity: 1;
     background-color: rgba(46, 50, 57, 0.35);
     z-index: 999;
-    color: #5d9d0b;
-    color: #ffffff;
   }
 
   &:hover + ${CrownContainer} {

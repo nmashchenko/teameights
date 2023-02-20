@@ -5,7 +5,6 @@ import { AndMore, Framework } from '../UserCard.styles'
 
 const LengthFourSlicedCase = ({ userFrameworks }) => {
   const ufLength = userFrameworks.length - 2
-  const andMore = <AndMore>{ufLength}+</AndMore>
 
   return (
     <>
@@ -25,7 +24,7 @@ const LengthFourSlicedCase = ({ userFrameworks }) => {
             background={frameworkColors[element]}
             color={frameworkTextColors[element]}
           >
-            {index === 3 ? andMore : <></>}
+            {index === 3 ? <AndMore makeWhite={element === 'IOS'}>{ufLength - 2}+</AndMore> : <></>}
             <h3>{element}</h3>
           </Framework>
         ),
