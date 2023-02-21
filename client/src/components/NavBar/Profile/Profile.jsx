@@ -64,7 +64,7 @@ const Profile = () => {
 
   return (
     <AvatarContainer>
-      <ProfileIcon src={user.image ? LOCAL_PATH + '/' +  user.image : userImg} alt="Profile icon" />
+      <ProfileIcon src={user?.image ? LOCAL_PATH + '/' +  user.image : userImg} alt="Profile icon" />
       <UserInfoDiv>
         <UserRealName>{data?.userRealName}</UserRealName>
 

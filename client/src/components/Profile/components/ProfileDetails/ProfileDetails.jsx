@@ -61,7 +61,7 @@ const ProfileDetails = () => {
     <Information>
       <LeftCard>
         <ImgContainer>
-          <Img src={user.image ? LOCAL_PATH + '/' +  user.image : Photo} />
+          <Img src={user?.image ? LOCAL_PATH + '/' +  user.image : Photo} />
           <EditUserDetails onClick={() => navigate('/profile-edit')}>
             <EditIcon />
           </EditUserDetails>
