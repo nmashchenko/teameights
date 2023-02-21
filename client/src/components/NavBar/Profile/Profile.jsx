@@ -17,6 +17,7 @@ import {
   UserRealName,
   UserUsername,
 } from './Profile.styles'
+import {LOCAL_PATH} from "../../../http";
 
 let defaultData = {
   userRealName: 'Unknown',
@@ -42,7 +43,6 @@ const Profile = () => {
   const [notificationModal, setNotificationModal] = useState(false)
 
   const [data, changeDataState] = useState(defaultData)
-
   useEffect(() => {
     if (isAuth) {
       changeDataState(changeData(user))
@@ -64,7 +64,7 @@ const Profile = () => {
 
   return (
     <AvatarContainer>
-      <ProfileIcon src={data?.userImg} alt="Profile icon" />
+      <ProfileIcon src={user.image ? LOCAL_PATH + '/' +  user.image : userImg} alt="Profile icon" />
       <UserInfoDiv>
         <UserRealName>{data?.userRealName}</UserRealName>
 
