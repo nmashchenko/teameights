@@ -18,12 +18,17 @@ export const CardsContainer = styled.div`
   align-items: center;
   margin-top: 15px;
   width: 80%;
+  grid-template-columns: repeat(4, 1fr);
 
-  @media screen and (min-width: 1250px) {
-    grid-template-columns: repeat(3, 1fr);
+  @media screen and (min-width: 1300px) {
+    column-gap: 0px;
+    grid-template-columns: repeat(4, 1fr);
   }
 
-  @media screen and (min-width: 730px) and (max-width: 1250px) {
+  @media screen and (min-width: 1000px) and (max-width: 1300px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (min-width: 730px) and (max-width: 1000px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -63,8 +68,20 @@ export const GlobalStyle = createGlobalStyle`
    scrollbar-width: none; /* Firefox */
    -ms-overflow-style: none;  /* Internet Explorer 10+ */
    ::-webkit-scrollbar { /* WebKit */
-     width: 0;
-     height: 0;
+   transition: all 0.2s;
+     width:  ${(props) => (props.scrollbar ? `10px` : '0')};
+     height:   ${(props) => (props.scrollbar ? `auto` : '0')};
    }
+   ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: 
+    ${(props) => (props.scrollbar ? `#5D9D0B;` : '#000000')};
+    border-radius: 10px;
+  }
+
+
  }
 `

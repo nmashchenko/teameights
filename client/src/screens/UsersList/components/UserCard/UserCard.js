@@ -14,6 +14,7 @@ import LengthTwoCase from './FrameworksCases/LengthTwoCase'
 import languageOptions from './ProgrammingLanguages'
 // * Styles
 import {
+  AndMore,
   CardContainer,
   CountryContainer,
   CrownContainer,
@@ -28,58 +29,81 @@ import {
   Wrapper,
 } from './UserCard.styles'
 
+//programminglanguages  when hovering, change last SVG to +4
+
+// frameworks
+
+// PASS IN PROPS TO RESPECTIVE COMPONENT TO RENDER
 const UserCard = React.forwardRef((props, ref = null) => {
+  const person = props.person
+
+  const plLength = person.programmingLanguages.length
+
+  const programmingLanguages = (
+    <ProgrammingLanguagesContainer>
+      {person.programmingLanguages.slice(0, plLength < 2 ? plLength : 2).map((element, i) => {
+        let andMore = <></>
+
+        if (i === 1 && plLength > 2) {
+          andMore = <AndMore makeWhite={false}>{plLength - 2}+</AndMore>
+        }
+
+        return (
+          <LanguageContainer key={element}>
+            {andMore}
+            {languageOptions[element]}
+          </LanguageContainer>
+        )
+      })}
+    </ProgrammingLanguagesContainer>
+  )
+
+  const ufLength = person.frameworks.length
+  const frameworksContainer = (
+    <FrameWorksContainer>
+      {person.frameworks.length <= 4 ? (
+        (() => {
+          if (person.frameworks.length === 1) {
+            return <LengthOneCase userFrameworks={person.frameworks} />
+          } else if (person.frameworks.length === 2) {
+            return <LengthTwoCase userFrameworks={person.frameworks} />
+          } else if (person.frameworks.length === 3) {
+            return <LengthThreeCase userFrameworks={person.frameworks} />
+          } else if (person.frameworks.length === 4) {
+            return <LengthFourCase userFrameworks={person.frameworks} />
+          }
+        })()
+      ) : (
+        <LengthFourSlicedCase userFrameworks={person.frameworks} />
+      )}
+    </FrameWorksContainer>
+  )
+
   return (
     <Wrapper ref={ref}>
-      <CardContainer>
+      <CardContainer plLength={plLength > 2} ufLength={ufLength > 4}>
         <UserInformationContainer>
           {/* TODO: Change for real image! */}
           <div>
             <UserImage src={userImg} alt="userImg" />
           </div>
-          <ProgrammingLanguagesContainer>
-            {props.person.programmingLanguages.length <= 2
-              ? props.person.programmingLanguages.map((element) => (
-                  <LanguageContainer key={element}>{languageOptions[element]}</LanguageContainer>
-                ))
-              : props.person.programmingLanguages
-                  .slice(0, 2)
-                  .map((element) => (
-                    <LanguageContainer key={element}>{languageOptions[element]}</LanguageContainer>
-                  ))}
-          </ProgrammingLanguagesContainer>
+          {programmingLanguages}
         </UserInformationContainer>
         <TextContainer>
           <UserData>
             <CountryContainer>
               <TitleText fontWeight="500" fontSize="12px" margin="0 7px 0 0">
-                {props.person.fullName}, {props.person.age}
+                {person.fullName}, {person.age}
               </TitleText>
             </CountryContainer>
             <TitleText fontWeight="600" fontSize="12px">
-              {props.person.concentration}
+              {person.concentration}
             </TitleText>
           </UserData>
         </TextContainer>
-        <FrameWorksContainer>
-          {props.person.frameworks.length <= 4 ? (
-            (() => {
-              if (props.person.frameworks.length === 1) {
-                return <LengthOneCase userFrameworks={props.person.frameworks} />
-              } else if (props.person.frameworks.length === 2) {
-                return <LengthTwoCase userFrameworks={props.person.frameworks} />
-              } else if (props.person.frameworks.length === 3) {
-                return <LengthThreeCase userFrameworks={props.person.frameworks} />
-              } else if (props.person.frameworks.length === 4) {
-                return <LengthFourCase userFrameworks={props.person.frameworks} />
-              }
-            })()
-          ) : (
-            <LengthFourSlicedCase userFrameworks={props.person.frameworks} />
-          )}
-        </FrameWorksContainer>
+        {frameworksContainer}
       </CardContainer>
-      {props.person.isLeader === true ? (
+      {person.isLeader === true ? (
         <CrownContainer>
           <img src={CrownImg} alt="crown"></img>
         </CrownContainer>

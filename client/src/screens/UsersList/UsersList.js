@@ -59,9 +59,15 @@ function UsersList() {
     showMobileProfile()
   }
 
+  const [scrollbar, toggleScrollbar] = useState(false)
+
+  const showScrollbar = () => {
+    toggleScrollbar((prevState) => !prevState)
+  }
+
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyle scrollbar={scrollbar} />
       <CssBaseline />
       <TopBar setDisplayFiltered={setDisplayFiltered} displayFiltered={displayFiltered} />
       {/* ! USED ONLY FOR 730px or more */}
@@ -92,7 +98,7 @@ function UsersList() {
               />
             </CardsContainer>
           </GridContainer>
-          <SliderToTop />
+          <SliderToTop scrollbar={scrollbar} toggleScrollbar={showScrollbar} />
         </CardsZone>
       )}
     </>
