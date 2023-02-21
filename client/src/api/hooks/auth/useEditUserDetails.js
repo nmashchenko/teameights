@@ -12,7 +12,6 @@ const { api } = http
 
 export const useEditUserDetails = (successHandler) => {
   const dispatch = useDispatch()
-   const {mutate: updateAvatar} =  useUpdateUserAvatar()
   const queryClient = useQueryClient()
 
   const finishRegistration = async (userData) => {
@@ -21,9 +20,10 @@ export const useEditUserDetails = (successHandler) => {
 
   return useMutation(finishRegistration, {
     mutationKey: 'finishRegistration',
-    onSuccess: ({data}) => {
+    onSuccess: () => {
       successHandler()
-      updateAvatar({email: data.email, image: data.image})
+      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+
     },
     onError: (error) => {
       // set error message

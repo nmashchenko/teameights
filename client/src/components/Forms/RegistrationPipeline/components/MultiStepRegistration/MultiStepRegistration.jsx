@@ -16,6 +16,7 @@ import NavLogo from '../NavLogo/NavLogo'
 import Stepper from '../Stepper/Stepper'
 
 import { Container, ContentContainer, RegistrationContainer } from './MultiStepRegistration.styles'
+import {useUpdateUserAvatar} from "../../../../../api/hooks/auth/useUpdateUserAvatar";
 
 const MultiStepRegistration = () => {
   const { step, isLastStep } = useSelector((state) => state.registrationReducer)
@@ -23,6 +24,7 @@ const MultiStepRegistration = () => {
   const navigate = useNavigate()
   const { data: userPrimaryRegistrationData } = useCheckAuth()
   const { mutate: finishRegistration, isLoading } = useEditUserDetails(onSuccess)
+    const {mutate: updateAvatar} =  useUpdateUserAvatar()
 
   function onSuccess() {
     dispatch(setIsFinishRegistrationStarted(false))
@@ -35,7 +37,6 @@ const MultiStepRegistration = () => {
       email: userPrimaryRegistrationData.email,
       username: userData.username,
       fullName: userData.fullName,
-      image: userData.file,
       age: userData.age,
       description: userData.description,
       concentration: userData.concentration,
@@ -55,6 +56,9 @@ const MultiStepRegistration = () => {
       isRegistered: false,
     }
 
+    if(userData.file){
+        updateAvatar({email: userPrimaryRegistrationData.email, image: userData.file.split(',')[1]})
+    }
     finishRegistration(registrationData)
   }
   const handleSubmit = (values, actions) => {

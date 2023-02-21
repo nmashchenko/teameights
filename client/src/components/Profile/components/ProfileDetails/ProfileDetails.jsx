@@ -41,6 +41,7 @@ import {
   TextContainer,
 } from '../../Profile.styles'
 import { EditUserDetails } from '../ProfileForm/ProfileForm.styles'
+import {LOCAL_PATH} from "../../../../http";
 
 const ProfileDetails = () => {
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
@@ -60,7 +61,7 @@ const ProfileDetails = () => {
     <Information>
       <LeftCard>
         <ImgContainer>
-          <Img src={Photo} />
+          <Img src={user.image ? LOCAL_PATH + '/' +  user.image : Photo} />
           <EditUserDetails onClick={() => navigate('/profile-edit')}>
             <EditIcon />
           </EditUserDetails>

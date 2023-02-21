@@ -27,7 +27,7 @@ export const useLoadUsers = (isFiltered) => {
     const filtersQuery = filteredQueryMaker(
       filters.countries,
       filters.roles,
-      filters.programmingLanguages,
+      filters.languages,
       filters.frameworks,
     )
     let queryString = qs.stringify(filtersQuery)

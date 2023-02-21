@@ -16,7 +16,6 @@ export const useLoginUser = (type) => {
   const queryClient = useQueryClient()
 
   const loginUser = async (loginDetails) => {
-    console.log({type})
     return type === 'login' ?  await api.post(`/auth/${type}`, loginDetails) : await api.get(`/auth/${type}/${loginDetails.token}`)
   }
 

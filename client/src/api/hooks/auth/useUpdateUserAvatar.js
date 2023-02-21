@@ -14,7 +14,6 @@ export const useUpdateUserAvatar = () => {
     const queryClient = useQueryClient()
 
     const updateUserAvatar = async (userData) => {
-        console.log({userData})
         return await api.post('/users/update-avatar', userData)
     }
 

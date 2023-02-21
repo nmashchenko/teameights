@@ -2,10 +2,10 @@
 import axios from 'axios'
 
 // * API url is set based on current DEV_TYPE var
-const API_URL =
-  process.env.REACT_APP_DEV_TYPE === 'development'
-    ? 'http://localhost:7001/api'
-    : 'https://teameights-server.herokuapp.com/api'
+export  const LOCAL_PATH = process.env.REACT_APP_DEV_TYPE === 'development'
+    ? 'http://localhost:7001'
+    : 'https://teameights-server.herokuapp.com'
+const API_URL = LOCAL_PATH + '/api'
 
 const api = axios.create({
   withCredentials: true,
