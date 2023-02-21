@@ -68,7 +68,7 @@ const UserProfile = ({ user, handleClose }) => {
           <UserDescriptionContainer>
             {/* TODO: Change for the REAL description! */}
             <Text fontSize="14px" margin="5px 0 0 0" fontWeight="300">
-              {user.userDescription ? user.userDescription : 'User has no description.'}
+              {user?.description ? user.description : 'User has no description.'}
             </Text>
           </UserDescriptionContainer>
           <Text fontSize="14px" margin="35px 0 0 0">

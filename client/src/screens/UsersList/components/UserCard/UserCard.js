@@ -80,7 +80,6 @@ const UserCard = React.forwardRef((props, ref = null) => {
       )}
     </FrameWorksContainer>
   )
-  console.log(LOCAL_PATH + '/' +  person.image)
   return (
     <Wrapper ref={ref}>
       <CardContainer plLength={plLength > 2} ufLength={ufLength > 4}>
