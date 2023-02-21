@@ -8,6 +8,8 @@ import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
 import { Team, TeamsDocument } from './teams.schema';
 import { NotificationsService } from '@Notifications/notifications.service';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
+import { TeamType } from './types/teams.type';
+import { TeamMembershipDTO } from './dto/membership.dto';
 
 @Injectable()
 export class TeamsService {
@@ -43,6 +45,14 @@ export class TeamsService {
 			);
 		}
 
+		/* It's checking if the type is one of the types in the TeamType enum. */
+		if (!Object.values(TeamType).includes(dto.type as TeamType)) {
+			throw new HttpException(
+				`Type should be of type ${Object.values(TeamType)}`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
 		/* Creating a team with the given data. */
 		const team = await this.teamModel.create({
 			name: dto.name,
@@ -50,6 +60,7 @@ export class TeamsService {
 			leader: dto.leader,
 			members: [dto.leader],
 			country: dto.country,
+			type: dto.type,
 			wins: 0,
 			points: 0,
 		});
@@ -157,6 +168,15 @@ export class TeamsService {
 			);
 		}
 
+		if (team.type === 'closed') {
+			throw new HttpException(
+				`This team is currently closed. Leader should open it to send invites.`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// TODO: check if user who invites is actually in the team (security)
+
 		/* Checking if the user already has an invitation to the team. */
 		const notifications =
 			await this.notificationsService.getTeamNotificationsForUser(
@@ -183,6 +203,8 @@ export class TeamsService {
 			});
 
 		await this.userService.addNotification(candidate._id, notificationID);
+
+		// TODO: send info about invite on email
 
 		return {
 			status: `${candidate.email} invited to team ${team.name} with id ${team._id}!`,
@@ -278,6 +300,8 @@ export class TeamsService {
 			);
 		}
 
+		// TODO: check if after user joined length is equal to 8 => make team type 'closed'
+
 		/* Adding the user to the team. */
 		await this.teamModel.updateOne(
 			{ _id: team._id },
@@ -340,9 +364,110 @@ export class TeamsService {
 		};
 	}
 
-	// TODO: add join the team functionality (if team is open but not invite only)
+	async joinTeam(dto: TeamMembershipDTO): Promise<Object> {
+		const candidate = await this.userService.getUserById(dto.user_id);
 
-	// TODO: add leave the team function
+		/* Checking if the user exists. If it doesn't, it is throwing an error. */
+		if (!candidate) {
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* Checking if the user already has a team. If it does, it is throwing an error. */
+		if (candidate.team) {
+			throw new HttpException(
+				`User with this email: ${candidate.email} already has a team!`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		const team = await this.getTeamById(dto.teamid);
+
+		/* Checking if the user exists. If it doesn't, it is throwing an error. */
+		if (!team) {
+			throw new HttpException(
+				`This team doesn't exist: ${dto.teamid} not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		if (team.type === 'closed' || team.type === 'invite-only') {
+			throw new HttpException(
+				`This team is currently closed or invite-only. You can't join it.`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* Checking if the team has 8 members. If it does, it is throwing an error. */
+		if (Number(team.members.length) === 8) {
+			throw new HttpException(
+				`Team already have 8 members inside!`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// TODO: check if after user joined length is equal to 8 => make team type 'closed'
+
+		/* Adding the user to the team. */
+		await this.teamModel.updateOne(
+			{ _id: team._id },
+			{ $push: { members: candidate._id } },
+		);
+
+		/* Adding the team to the user. */
+		await this.userService.addTeam(candidate._id, team._id);
+
+		return {
+			status: `${candidate.email} joined team ${team.name}!`,
+		};
+	}
+
+	async leaveTeam(dto: TeamMembershipDTO): Promise<Object> {
+		const candidate = await this.userService.getUserById(dto.user_id);
+
+		/* Checking if the user exists. If it doesn't, it is throwing an error. */
+		if (!candidate) {
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* Checking if the user already has a team. If it does, it is throwing an error. */
+		if (!candidate.team) {
+			throw new HttpException(
+				`User with this email: ${candidate.email} has no team!`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		const team = await this.getTeamById(dto.teamid);
+
+		/* Checking if the user exists. If it doesn't, it is throwing an error. */
+		if (!team) {
+			throw new HttpException(
+				`This team doesn't exist: ${dto.teamid} not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// TODO: in the future, check if user is signed up for the tournament before allowing to leave the team
+
+		/* Removing the user to the team. */
+		await this.teamModel.updateOne(
+			{ _id: team._id },
+			{ $pull: { members: candidate._id } },
+		);
+
+		/* Removing the team from the user. */
+		await this.userService.removeTeam(candidate._id);
+
+		return {
+			status: `${candidate.email} left team ${team.name}!`,
+		};
+	}
 
 	// TODO: add delete the team function
 

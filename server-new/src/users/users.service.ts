@@ -48,12 +48,14 @@ export class UsersService {
 					activationLink,
 					isRegistered,
 					isActivated,
-					programmingLanguages: [],
+					// programmingLanguages: [],
 					notifications: [],
 				},
 			],
 			{ session },
 		);
+
+		console.log(user);
 
 		/* Creating a system notification for the user. */
 		const notificationID =
@@ -230,6 +232,7 @@ export class UsersService {
 		results.on_current_page = users.length;
 		results.data = users;
 
+		console.log(results);
 		/* Returning the results object. */
 		return results;
 	}
@@ -376,6 +379,11 @@ export class UsersService {
 		}
 	}
 
+	/**
+	 * Check if notification was already sent.
+	 *
+	 * @param notificationID - The ID of the team.
+	 */
 	async checkNotifications(notificationID: mongoose.Types.ObjectId) {
 		return await this.userModel.findOne({
 			notifications: { $in: [notificationID] },
@@ -394,5 +402,17 @@ export class UsersService {
 		teamID: mongoose.Types.ObjectId,
 	): Promise<void> {
 		await this.userModel.updateOne({ _id: userID }, { team: teamID });
+	}
+
+	/**
+	 * Remove a team from user.
+	 *
+	 * @param userID - The ID of the user you want to add to a team.
+	 */
+	async removeTeam(userID: mongoose.Types.ObjectId): Promise<void> {
+		await this.userModel.updateOne(
+			{ _id: userID },
+			{ $unset: { team: null } },
+		);
 	}
 }

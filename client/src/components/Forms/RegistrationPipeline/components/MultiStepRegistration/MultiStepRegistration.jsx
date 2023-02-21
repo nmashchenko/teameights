@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik'
 
 import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
 import { useEditUserDetails } from '../../../../../api/hooks/auth/useEditUserDetails'
+import { useUpdateUserAvatar } from '../../../../../api/hooks/auth/useUpdateUserAvatar'
 import { finishRegistrationValidation } from '../../../../../schemas'
 import Loader from '../../../../../shared/components/Loader/Loader'
 import {
@@ -16,7 +17,6 @@ import NavLogo from '../NavLogo/NavLogo'
 import Stepper from '../Stepper/Stepper'
 
 import { Container, ContentContainer, RegistrationContainer } from './MultiStepRegistration.styles'
-import {useUpdateUserAvatar} from "../../../../../api/hooks/auth/useUpdateUserAvatar";
 
 const MultiStepRegistration = () => {
   const { step, isLastStep } = useSelector((state) => state.registrationReducer)
@@ -24,7 +24,7 @@ const MultiStepRegistration = () => {
   const navigate = useNavigate()
   const { data: userPrimaryRegistrationData } = useCheckAuth()
   const { mutate: finishRegistration, isLoading } = useEditUserDetails(onSuccess)
-    const {mutate: updateAvatar} =  useUpdateUserAvatar()
+  const { mutate: updateAvatar } = useUpdateUserAvatar()
 
   function onSuccess() {
     dispatch(setIsFinishRegistrationStarted(false))
@@ -32,7 +32,6 @@ const MultiStepRegistration = () => {
   }
 
   const submitFrom = (userData) => {
-
     const registrationData = {
       email: userPrimaryRegistrationData.email,
       username: userData.username,
@@ -56,8 +55,8 @@ const MultiStepRegistration = () => {
       isRegistered: false,
     }
 
-    if(userData.file){
-        updateAvatar({email: userPrimaryRegistrationData.email, image: userData.file.split(',')[1]})
+    if (userData.file) {
+      updateAvatar({ email: userPrimaryRegistrationData.email, image: userData.file.split(',')[1] })
     }
     finishRegistration(registrationData)
   }

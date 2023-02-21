@@ -3,6 +3,7 @@ import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '@/users/users.schema';
+import { TeamType } from './types/teams.type';
 
 export type TeamsDocument = HydratedDocument<Team>;
 
@@ -47,7 +48,17 @@ export class Team {
 	// @Prop({ required: false })
 	// tournaments: [Tournament];
 
-	// TODO:  add type of team ['invite-only', 'closed', 'open']
+	@ApiProperty({
+		example: 'open',
+		description: 'Type of invite',
+	})
+	@Prop({
+		required: true,
+		type: String,
+		enum: TeamType,
+		default: 'open',
+	})
+	type: string;
 
 	@ApiProperty({
 		example: 3,

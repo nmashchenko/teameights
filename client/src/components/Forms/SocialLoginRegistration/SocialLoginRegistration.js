@@ -8,11 +8,9 @@ import { useLoginUser } from '../../../api/hooks/auth/useLoginUser'
 import Loader from '../../../shared/components/Loader/Loader'
 
 const SocialLoginRegistration = () => {
-  const { mutate: socialLoginRegisterUser, isLoading: isLoggingInUser } = useLoginUser(
-    'google',
-  )
+  const { mutate: socialLoginRegisterUser, isLoading: isLoggingInUser } = useLoginUser('google')
   const createOrGetUser = async (response) => {
-    const token = response.credential;
+    const token = response.credential
 
     socialLoginRegisterUser({ token })
   }

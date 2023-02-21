@@ -64,8 +64,8 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
 
   const content = users?.pages.map((pg) => {
     const usersPerPage = pg.data
-    return usersPerPage.map((user, index) => {
 
+    return usersPerPage.map((user, index) => {
       if (usersPerPage.length === index + 1) {
         return (
           <CardContainer
@@ -83,6 +83,7 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
           </CardContainer>
         )
       }
+
       return (
         <CardContainer
           onClick={(e) => {

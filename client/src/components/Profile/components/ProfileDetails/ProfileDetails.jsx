@@ -9,6 +9,7 @@ import Linkedin from '../../../../assets/UserProfile/Linkedin'
 import Location from '../../../../assets/UserProfile/Location'
 import Star from '../../../../assets/UserProfile/Star'
 import ROUTES from '../../../../constants/routes'
+import { LOCAL_PATH } from '../../../../http'
 import {
   frameworkColors,
   frameworkTextColors,
@@ -41,7 +42,6 @@ import {
   TextContainer,
 } from '../../Profile.styles'
 import { EditUserDetails } from '../ProfileForm/ProfileForm.styles'
-import {LOCAL_PATH} from "../../../../http";
 
 const ProfileDetails = () => {
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
@@ -61,7 +61,7 @@ const ProfileDetails = () => {
     <Information>
       <LeftCard>
         <ImgContainer>
-          <Img src={user?.image ? LOCAL_PATH + '/' +  user.image : Photo} />
+          <Img src={user?.image ? LOCAL_PATH + '/' + user.image : Photo} />
           <EditUserDetails onClick={() => navigate('/profile-edit')}>
             <EditIcon />
           </EditUserDetails>

@@ -10,6 +10,7 @@ import AddIcon from '../../../../assets/AddIcon'
 // * Assets
 import LinkIcon from '../../../../assets/LinkIcon'
 import MessageIcon from '../../../../assets/MessageIcon'
+import { LOCAL_PATH } from '../../../../http'
 // * Temporary image
 import AvatarImage from '../../img/tempImg.jpg'
 
@@ -29,7 +30,6 @@ import {
   UserDetailedInfoContainer,
   UserLink,
 } from './UserProfile.styles'
-import {LOCAL_PATH} from "../../../../http";
 
 const UserProfile = ({ user, handleClose }) => {
   return (
@@ -38,7 +38,10 @@ const UserProfile = ({ user, handleClose }) => {
         <LinksAndAvatarContainer>
           {/* TODO: Change for the REAL photo! */}
           <div>
-            <UserAvatar src={user?.image ? LOCAL_PATH + '/' +  user.image : AvatarImage} alt="avatar"></UserAvatar>
+            <UserAvatar
+              src={user?.image ? LOCAL_PATH + '/' + user.image : AvatarImage}
+              alt="avatar"
+            ></UserAvatar>
           </div>
           {/* TODO: Change for real links! & rewrite for the .map() */}
           <UserLink>

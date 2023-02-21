@@ -18,6 +18,7 @@ import frameworkOptions from '../../../../constants/frameworks'
 import programmingLanguageOptions from '../../../../constants/programmingLanguages'
 import ROUTES from '../../../../constants/routes'
 import { usePrompt } from '../../../../hooks/usePrompt'
+import { LOCAL_PATH } from '../../../../http'
 import { editProfileValidation } from '../../../../schemas'
 import {
   frameworkColors,
@@ -32,6 +33,7 @@ import CustomTextArea from '../../../../shared/components/CustomTextArea/CustomT
 import Loader from '../../../../shared/components/Loader/Loader'
 import { Button } from '../../../../shared/styles/Button.styles'
 import { ErrorMessage } from '../../../../shared/styles/Tpography.styles'
+import Photo from '../../Photo.jpg'
 import {
   BannerLine,
   DetailsWrapper,
@@ -56,8 +58,6 @@ import {
 
 import Edit from './components/Edit/Edit'
 import { ConcentrationWrapper, EditUserDetails } from './ProfileForm.styles'
-import {LOCAL_PATH} from "../../../../http";
-import Photo from "../../Photo.jpg";
 
 const inputStyles = {
   border: '1px solid #5E5E5E',
@@ -84,7 +84,18 @@ const ProfileForm = () => {
   }
 
   const handleSubmit = (values) => {
-    const {fullName, description, concentration, country, experience, github, telegram, linkedIn, programmingLanguages, frameworks} = values
+    const {
+      fullName,
+      description,
+      concentration,
+      country,
+      experience,
+      github,
+      telegram,
+      linkedIn,
+      programmingLanguages,
+      frameworks,
+    } = values
     const modifiedUserData = {
       ...user,
       fullName,
@@ -137,7 +148,7 @@ const ProfileForm = () => {
             <Information>
               <LeftCard>
                 <ImgContainer>
-                  <Img src={user.image ? LOCAL_PATH + '/' +  user.image : Photo} />
+                  <Img src={user.image ? LOCAL_PATH + '/' + user.image : Photo} />
                   <EditUserDetails onClick={stopEditing}>
                     <EditIcon />
                   </EditUserDetails>

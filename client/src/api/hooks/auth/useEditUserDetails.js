@@ -3,10 +3,9 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 
 import http from '../../../http'
-import {
-  registrationAuth,
-} from '../../../store/reducers/RegistrationAuth'
-import {useUpdateUserAvatar} from "./useUpdateUserAvatar";
+import { registrationAuth } from '../../../store/reducers/RegistrationAuth'
+
+import { useUpdateUserAvatar } from './useUpdateUserAvatar'
 
 const { api } = http
 
@@ -23,7 +22,6 @@ export const useEditUserDetails = (successHandler) => {
     onSuccess: () => {
       successHandler()
       queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
-
     },
     onError: (error) => {
       // set error message

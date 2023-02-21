@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Photo from '../../../../components/Profile/Photo.jpg'
+import { LOCAL_PATH } from '../../../../http'
 // * Images
 import CrownImg from '../../img/CrownTest.png'
 import userImg from '../../img/tempImg.jpg'
@@ -28,8 +30,6 @@ import {
   UserInformationContainer,
   Wrapper,
 } from './UserCard.styles'
-import {LOCAL_PATH} from "../../../../http";
-import Photo from "../../../../components/Profile/Photo.jpg";
 
 //programminglanguages  when hovering, change last SVG to +4
 
@@ -80,13 +80,17 @@ const UserCard = React.forwardRef((props, ref = null) => {
       )}
     </FrameWorksContainer>
   )
+
   return (
     <Wrapper ref={ref}>
       <CardContainer plLength={plLength > 2} ufLength={ufLength > 4}>
         <UserInformationContainer>
           {/* TODO: Change for real image! */}
           <div>
-            <UserImage src={person?.image ? LOCAL_PATH + '/' +  person.image :  userImg} alt="userImg" />
+            <UserImage
+              src={person?.image ? LOCAL_PATH + '/' + person.image : userImg}
+              alt="userImg"
+            />
           </div>
           {programmingLanguages}
         </UserInformationContainer>

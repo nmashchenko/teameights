@@ -40,7 +40,7 @@ function RegistrationForm() {
   const { mutate: registerUser, isLoading: isUserRegistrationLoading } = useRegister()
 
   const handleRegistration = () => {
-    registerUser({  email, password, repeatPassword: confirmPassword })
+    registerUser({ email, password, repeatPassword: confirmPassword })
   }
 
   if (isUserRegistrationLoading) {

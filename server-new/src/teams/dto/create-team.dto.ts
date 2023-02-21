@@ -25,4 +25,11 @@ export class CreateTeamDto {
 	@ApiProperty({ example: 'Ukraine', description: 'Country of the team' })
 	@IsString()
 	readonly country: string;
+
+	@ApiProperty({
+		example: 'open',
+		description: 'Type of invite: ["invite-only", "closed", "open"]',
+	})
+	@IsString({ message: 'Type of invite: ["invite-only", "closed", "open"]' })
+	type: string;
 }

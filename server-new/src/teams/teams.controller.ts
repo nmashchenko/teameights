@@ -17,6 +17,7 @@ import mongoose from 'mongoose';
 import { Team } from './teams.schema';
 import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
+import { TeamMembershipDTO } from './dto/membership.dto';
 
 @ApiTags('Teams')
 @Controller('/teams')
@@ -29,7 +30,7 @@ export class TeamsController {
 		summary: 'Create team',
 	})
 	@ApiResponse({ status: 200, type: String })
-	@Post('/create-team')
+	@Post('/create')
 	createTeam(@Body() dto: CreateTeamDto) {
 		return this.teamsService.createTeam(dto);
 	}
@@ -98,7 +99,27 @@ export class TeamsController {
 		return this.teamsService.rejectTeamInvite(notificationid);
 	}
 
-	// add leave the team function
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(ValidationPipe)
+	@ApiOperation({
+		summary: 'Join the open team',
+	})
+	@ApiResponse({ status: 200, type: Object })
+	@Post('/join')
+	joinTeam(@Body() dto: TeamMembershipDTO) {
+		return this.teamsService.joinTeam(dto);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(ValidationPipe)
+	@ApiOperation({
+		summary: 'Leave the team',
+	})
+	@ApiResponse({ status: 200, type: Object })
+	@Post('/leave')
+	leaveTeam(@Body() dto: TeamMembershipDTO) {
+		return this.teamsService.leaveTeam(dto);
+	}
 
 	// add delete the team function
 
