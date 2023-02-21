@@ -1,9 +1,11 @@
 // * Styles
 // * Colors
 import { frameworkColors, frameworkTextColors } from '../FrameworkColors'
-import { Framework } from '../UserCard.styles'
+import { AndMore, Framework } from '../UserCard.styles'
 
 const LengthFourSlicedCase = ({ userFrameworks }) => {
+  const ufLength = userFrameworks.length - 2
+
   return (
     <>
       {userFrameworks.slice(0, 4).map((element, index) =>
@@ -22,6 +24,7 @@ const LengthFourSlicedCase = ({ userFrameworks }) => {
             background={frameworkColors[element]}
             color={frameworkTextColors[element]}
           >
+            {index === 3 ? <AndMore makeWhite={element === 'IOS'}>{ufLength - 2}+</AndMore> : <></>}
             <h3>{element}</h3>
           </Framework>
         ),
