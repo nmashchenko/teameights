@@ -18,6 +18,7 @@ import { Team } from './teams.schema';
 import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { TeamMembershipDTO } from './dto/membership.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
 
 @ApiTags('Teams')
 @Controller('/teams')
@@ -41,9 +42,20 @@ export class TeamsController {
 		summary: 'Update avatar of the team',
 	})
 	@ApiResponse({ status: 200 })
-	@Post('/update-avatar')
+	@Put('/update-avatar')
 	updateTeamAvatar(@Body() dto: UpdateTeamAvatarDto) {
 		return this.teamsService.updateTeamAvatar(dto);
+	}
+
+	@UsePipes(ValidationPipe)
+	@UseGuards(JwtAuthGuard)
+	@ApiOperation({
+		summary: 'Update team details',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Put('/update-team')
+	updateUser(@Body() dto: UpdateTeamDto) {
+		return this.teamsService.updateTeam(dto);
 	}
 
 	@ApiOperation({

@@ -12,6 +12,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { FileService, FileType } from '@/files/file.service';
 import { UpdateAvatarDto } from './dto/update-avatar.dto';
 import { NotificationsService } from '@/notifications/notifications.service';
+import { userUpdateValidate } from '@/validation/user-update.validation';
 
 @Injectable()
 export class UsersService {
@@ -54,8 +55,6 @@ export class UsersService {
 			],
 			{ session },
 		);
-
-		console.log(user);
 
 		/* Creating a system notification for the user. */
 		const notificationID =
@@ -281,6 +280,8 @@ export class UsersService {
 	 * @returns The updated user.
 	 */
 	async updateUser(dto: UpdateUserDto): Promise<User> {
+		/* Validating the DTO to prevent additional fields */
+		const filtered = await userUpdateValidate(dto);
 		const candidate = await this.getUserByEmail(dto.email);
 
 		if (!candidate) {
@@ -293,7 +294,7 @@ export class UsersService {
 		/* Updating the user with the given email with the new data and returning the updated user. */
 		const user = await this.userModel.findOneAndUpdate(
 			{ email: dto.email },
-			{ ...dto, isRegistered: true },
+			{ ...filtered, isRegistered: true },
 			{ new: true },
 		);
 

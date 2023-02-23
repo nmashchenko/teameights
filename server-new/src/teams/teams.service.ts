@@ -10,6 +10,9 @@ import { NotificationsService } from '@Notifications/notifications.service';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { TeamType } from './types/teams.type';
 import { TeamMembershipDTO } from './dto/membership.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
+import { plainToClass } from 'class-transformer';
+import { teamUpdateValidate } from '@/validation/team-update.validation';
 
 @Injectable()
 export class TeamsService {
@@ -333,7 +336,6 @@ export class TeamsService {
 				notificationid,
 			);
 
-		console.log(notification);
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
 			const candidate = await this.userService.checkNotifications(
@@ -469,7 +471,49 @@ export class TeamsService {
 		};
 	}
 
-	// TODO: add delete the team function
+	/**
+	 * Updating the team with the given teamid with the new data and returning the updated team
+	 * @param {UpdateTeamDto} dto - UpdateTeamDto - The dto that is passed in from the controller.
+	 * @returns The updated team.
+	 */
+	async updateTeam(dto: UpdateTeamDto): Promise<Team> {
+		// check if dto has extra fields that we don't want to allow
+		const filteredDto = await teamUpdateValidate(dto);
 
-	// TODO: add update the team function
+		const candidate = await this.userService.getUserById(dto.leader);
+
+		if (!candidate) {
+			throw new HttpException(
+				`The candidate with id: ${dto.leader} does not exist`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		const team = await this.getTeamById(dto.teamid);
+
+		if (!team) {
+			throw new HttpException(
+				`The team with id: ${dto.teamid} does not exist`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		if (!team.leader._id.equals(candidate._id as any)) {
+			throw new HttpException(
+				`User that is trying to update is not leader of the team`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* Updating the team with the given teamid with the new data and returning the updated team. */
+		const updated = await this.teamModel.findOneAndUpdate(
+			{ _id: dto.teamid },
+			{ ...filteredDto },
+			{ new: true },
+		);
+
+		return updated;
+	}
+
+	// TODO: add delete the team function
 }

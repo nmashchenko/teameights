@@ -69,6 +69,8 @@ export class AuthService {
 				typeof oauth !== 'undefined' ? true : undefined,
 			);
 
+			console.log(user);
+
 			/* Creating a new instance of the CreateTokenDto class. */
 			const userDto = new CreateTokenDto(user);
 
