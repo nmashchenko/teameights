@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 export class TeamMembershipDTO {
 	@ApiProperty({
 		example: '5f6d336db0c3d71be6e0e071',
-		description: 'ID of user who wants to join',
+		description: 'ID of user',
 	})
 	@IsMongoId()
 	readonly user_id: mongoose.Types.ObjectId;

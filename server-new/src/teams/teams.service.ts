@@ -366,7 +366,7 @@ export class TeamsService {
 		};
 	}
 
-	async joinTeam(dto: TeamMembershipDTO): Promise<Object> {
+	async joinTeam(dto: TeamMembershipDTO): Promise<Team> {
 		const candidate = await this.userService.getUserById(dto.user_id);
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
@@ -413,20 +413,19 @@ export class TeamsService {
 		// TODO: check if after user joined length is equal to 8 => make team type 'closed'
 
 		/* Adding the user to the team. */
-		await this.teamModel.updateOne(
+		const updated = await this.teamModel.findOneAndUpdate(
 			{ _id: team._id },
 			{ $push: { members: candidate._id } },
+			{ new: true },
 		);
 
 		/* Adding the team to the user. */
 		await this.userService.addTeam(candidate._id, team._id);
 
-		return {
-			status: `${candidate.email} joined team ${team.name}!`,
-		};
+		return updated;
 	}
 
-	async leaveTeam(dto: TeamMembershipDTO): Promise<Object> {
+	async leaveTeam(dto: TeamMembershipDTO): Promise<Team> {
 		const candidate = await this.userService.getUserById(dto.user_id);
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
@@ -455,20 +454,28 @@ export class TeamsService {
 			);
 		}
 
+		// check if user is actually in team
+
+		if (!candidate.team._id.equals(dto.teamid)) {
+			throw new HttpException(
+				`The team ${team.name} doesn't have this user: ${candidate.username}`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
 		// TODO: in the future, check if user is signed up for the tournament before allowing to leave the team
 
 		/* Removing the user to the team. */
-		await this.teamModel.updateOne(
+		const updated = await this.teamModel.findOneAndUpdate(
 			{ _id: team._id },
 			{ $pull: { members: candidate._id } },
+			{ new: true },
 		);
 
 		/* Removing the team from the user. */
 		await this.userService.removeTeam(candidate._id);
 
-		return {
-			status: `${candidate.email} left team ${team.name}!`,
-		};
+		return updated;
 	}
 
 	/**
@@ -480,27 +487,11 @@ export class TeamsService {
 		// check if dto has extra fields that we don't want to allow
 		const filteredDto = await teamUpdateValidate(dto);
 
-		const candidate = await this.userService.getUserById(dto.leader);
-
-		if (!candidate) {
-			throw new HttpException(
-				`The candidate with id: ${dto.leader} does not exist`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
-
 		const team = await this.getTeamById(dto.teamid);
 
 		if (!team) {
 			throw new HttpException(
 				`The team with id: ${dto.teamid} does not exist`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
-
-		if (!team.leader._id.equals(candidate._id as any)) {
-			throw new HttpException(
-				`User that is trying to update is not leader of the team`,
 				HttpStatus.BAD_REQUEST,
 			);
 		}
@@ -513,6 +504,10 @@ export class TeamsService {
 		);
 
 		return updated;
+	}
+
+	async removeMember(dto: TeamMembershipDTO): Promise<Team> {
+		return await this.leaveTeam(dto);
 	}
 
 	// TODO: add delete the team function

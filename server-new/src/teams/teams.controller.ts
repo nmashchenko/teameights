@@ -58,6 +58,17 @@ export class TeamsController {
 		return this.teamsService.updateTeam(dto);
 	}
 
+	@UsePipes(ValidationPipe)
+	@UseGuards(JwtAuthGuard)
+	@ApiOperation({
+		summary: 'Remove specific member from the team',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Put('/remove-member')
+	removeMember(@Body() dto: TeamMembershipDTO) {
+		return this.teamsService.removeMember(dto);
+	}
+
 	@ApiOperation({
 		summary: 'Get team by id',
 	})
@@ -116,8 +127,8 @@ export class TeamsController {
 	@ApiOperation({
 		summary: 'Join the open team',
 	})
-	@ApiResponse({ status: 200, type: Object })
-	@Post('/join')
+	@ApiResponse({ status: 200, type: Team })
+	@Put('/join')
 	joinTeam(@Body() dto: TeamMembershipDTO) {
 		return this.teamsService.joinTeam(dto);
 	}
@@ -127,13 +138,11 @@ export class TeamsController {
 	@ApiOperation({
 		summary: 'Leave the team',
 	})
-	@ApiResponse({ status: 200, type: Object })
-	@Post('/leave')
+	@ApiResponse({ status: 200, type: Team })
+	@Put('/leave')
 	leaveTeam(@Body() dto: TeamMembershipDTO) {
 		return this.teamsService.leaveTeam(dto);
 	}
 
 	// add delete the team function
-
-	// add update the team function
 }
