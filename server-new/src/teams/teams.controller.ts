@@ -6,6 +6,7 @@ import {
 	Get,
 	Param,
 	Post,
+	Delete,
 	Put,
 	UseGuards,
 	UsePipes,
@@ -145,4 +146,13 @@ export class TeamsController {
 	}
 
 	// add delete the team function
+	@UseGuards(JwtAuthGuard)
+	@ApiOperation({
+		summary: 'Delete the team',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Delete('/delete/:teamid')
+	deleteTeam(@Param('teamid') teamId: mongoose.Types.ObjectId) {
+		return this.teamsService.deleteTeam(teamId);
+	}
 }

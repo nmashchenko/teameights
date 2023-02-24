@@ -425,6 +425,11 @@ export class TeamsService {
 		return updated;
 	}
 
+	/**
+	 * It removes a user from a team
+	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
+	 * @returns The updated team.
+	 */
 	async leaveTeam(dto: TeamMembershipDTO): Promise<Team> {
 		const candidate = await this.userService.getUserById(dto.user_id);
 
@@ -506,9 +511,47 @@ export class TeamsService {
 		return updated;
 	}
 
+	/**
+	 * "Remove a member from a team."
+	 *
+	 * The first line of the function is a comment. It's a comment that describes the function
+	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
+	 * @returns Team
+	 */
 	async removeMember(dto: TeamMembershipDTO): Promise<Team> {
 		return await this.leaveTeam(dto);
 	}
 
-	// TODO: add delete the team function
+	/**
+	 * It deletes a team
+	 * @param teamId - The id of the team to be deleted.
+	 * @returns The team object
+	 */
+	async deleteTeam(teamId: mongoose.Types.ObjectId): Promise<any> {
+		const team = await this.getTeamById(teamId);
+
+		if (!team) {
+			throw new HttpException(
+				`The team with id: ${teamId} does not exist`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		if (team.members.length > 1) {
+			throw new HttpException(
+				`Before deleting, you must remove all members`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// TODO: Check if team is not in tournament
+
+		// delete team for leader
+		await this.userService.removeTeam(team.leader._id);
+
+		// delete team itself
+		await this.teamModel.findOneAndDelete({ _id: team._id });
+
+		return { status: 'removed' };
+	}
 }
