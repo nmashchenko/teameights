@@ -8,6 +8,7 @@ import { FileModule } from '@/files/file.module';
 import { NotificationsModule } from '@/notifications/notifications.module';
 import {
 	closeInMongodConnection,
+	healthCheck,
 	rootMongooseTestModule,
 } from '@/test-utils/MongooseTestModule';
 import { MailerModule } from '@nestjs-modules/mailer';
@@ -58,7 +59,6 @@ describe('TeamService', () => {
 				UsersModule,
 				FileModule,
 				NotificationsModule,
-				RolesModule,
 			],
 			providers: [TeamsService],
 		}).compile();
@@ -66,6 +66,10 @@ describe('TeamService', () => {
 		teamsService = module.get<TeamsService>(TeamsService);
 		userService = module.get<UsersService>(UsersService);
 		rolesService = module.get<RolesService>(RolesService);
+	});
+
+	afterEach(() => {
+		healthCheck();
 	});
 
 	it('should be defined', () => {

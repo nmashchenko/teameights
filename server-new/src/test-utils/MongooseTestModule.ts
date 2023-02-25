@@ -20,3 +20,7 @@ export const closeInMongodConnection = async () => {
 	await mongoose.disconnect();
 	if (mongod) await mongod.stop();
 };
+
+export const healthCheck = async () => {
+	console.log(mongoose.connections.length);
+};
