@@ -31,5 +31,5 @@ export class CreateTeamDto {
 		description: 'Type of invite: ["invite-only", "closed", "open"]',
 	})
 	@IsString({ message: 'Type of invite: ["invite-only", "closed", "open"]' })
-	type: string;
+	readonly type: string;
 }

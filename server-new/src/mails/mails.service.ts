@@ -1,6 +1,7 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
+import { Global, Injectable } from '@nestjs/common';
 
+@Global()
 @Injectable()
 export class MailsService {
 	constructor(private mailService: MailerService) {}

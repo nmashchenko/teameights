@@ -26,6 +26,7 @@ import { LeaderboardModule } from './leaderboard/leaderboard.module';
 		ServeStaticModule.forRoot({
 			rootPath: path.resolve(__dirname, 'static'),
 		}),
+		/* Configuring the mailer module. */
 		MailerModule.forRoot({
 			transport: {
 				host: process.env.SMTP_HOST,
@@ -37,14 +38,6 @@ import { LeaderboardModule } from './leaderboard/leaderboard.module';
 					pass: process.env.SMTP_PASS,
 				},
 			},
-			// preview: true,
-			// template: {
-			//   dir: process.cwd() + '/template/',
-			//   adapter: new PugAdapter(),
-			//   options: {
-			//     strict: true,
-			//   },
-			// },
 		}),
 		UsersModule,
 		AuthModule,

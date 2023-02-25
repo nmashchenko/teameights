@@ -527,7 +527,7 @@ export class TeamsService {
 	 * @param teamId - The id of the team to be deleted.
 	 * @returns The team object
 	 */
-	async deleteTeam(teamId: mongoose.Types.ObjectId): Promise<any> {
+	async deleteTeam(teamId: mongoose.Types.ObjectId): Promise<Object> {
 		const team = await this.getTeamById(teamId);
 
 		if (!team) {
