@@ -31,7 +31,7 @@ export class TeamsController {
 	@ApiOperation({
 		summary: 'Create team',
 	})
-	@ApiResponse({ status: 200, type: String })
+	@ApiResponse({ status: 200, type: Team })
 	@Post('/create')
 	createTeam(@Body() dto: CreateTeamDto) {
 		return this.teamsService.createTeam(dto);
