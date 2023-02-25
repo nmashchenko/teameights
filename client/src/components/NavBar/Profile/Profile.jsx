@@ -30,7 +30,7 @@ const changeData = (data) => {
     userRealName: data.fullName,
     userUsername: data.username,
     notificationBell: true,
-    userImg: userImg,
+    userImg: defaultImg,
   }
 }
 
