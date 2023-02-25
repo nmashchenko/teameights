@@ -4,7 +4,7 @@ import { passwordStrength } from 'check-password-strength';
 
 import { TokensService } from '@/tokens/tokens.service';
 import { MailsService } from '@/mails/mails.service';
-import { AuthResponseDto } from './dto/auth.dto';
+import { AuthResponseDto } from './dto/auth-response.dto';
 import { InjectConnection } from '@nestjs/mongoose';
 import { CreateTokenDto } from '@/tokens/dto/create-token.dto';
 import { RegisterUserDto } from '@/users/dto/register-user.dto';

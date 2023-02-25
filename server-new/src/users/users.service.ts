@@ -34,7 +34,7 @@ export class UsersService {
 	 */
 	async createUser(
 		dto: RegisterUserDto,
-		session: ClientSession,
+		session?: ClientSession,
 		oauth?: boolean,
 	): Promise<User> {
 		const role = await this.roleService.getRoleByValue('USER');

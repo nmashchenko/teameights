@@ -3,12 +3,12 @@ import { TeamType } from '@/teams/types/teams.type';
 import mongoose from 'mongoose';
 
 export const CreateTeamDtoStub = (
-	leaderId: mongoose.Types.ObjectId,
+	leader: mongoose.Types.ObjectId,
 ): CreateTeamDto => {
 	return {
 		name: 'Test Team',
 		description: 'David fans',
-		leader: leaderId,
+		leader: leader,
 		country: 'Ukraine',
 		type: TeamType.OPEN,
 	};
