@@ -9,7 +9,7 @@ export const useAddUserToTeam = () => {
   const queryClient = useQueryClient()
 
   const addUserToTeam = async (details) => {
-    const response = await api.post('/teams/add-to-team', details)
+    const response = await api.post('/teams/join', details)
 
     return response.data
   }

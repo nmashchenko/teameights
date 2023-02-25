@@ -27,6 +27,8 @@ import {
   UserLink,
   UserProfileContainer,
 } from './UserProfilePhone.styles'
+import {LOCAL_PATH} from "../../../../http";
+import AvatarImage from "../../img/tempImg.jpg";
 
 const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
   return (
@@ -39,14 +41,14 @@ const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
           <UserInformationContainer>
             {/* TODO: Change for the REAL photo! */}
             <div>
-              <UserImage src={TempImg} alt="userImg" />
+              <UserImage src={user?.image ? LOCAL_PATH + '/' + user.image : TempImg} alt="userImg" />
             </div>
             <UserInfoTextContainer>
               <Text fontSize="16px" textAlign="start">
-                {user.userRealName}, {user.userAge}
+                {user.fullName}, {user.age}
               </Text>
               <Text fontSize="16px" fontWeight="600" textAlign="start">
-                {user.userConcentration}
+                {user.concentration}
               </Text>
             </UserInfoTextContainer>
           </UserInformationContainer>
@@ -66,9 +68,7 @@ const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
           {/* TODO: Change for the REAL description! */}
           <DescriptionContainer>
             <Text fontWeight="300" fontSize="15px">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et
-              velit interdum, ac aliquet odio mattis. Class aptent taciti sociosq ad litora torquent
-              per conubia nostra, per incept himenaeos.
+              {user?.description ? user.description : 'User has no description.'}
             </Text>
           </DescriptionContainer>
           <Text margin="50px 0 0 0">My projects</Text>

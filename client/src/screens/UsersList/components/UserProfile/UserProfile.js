@@ -57,14 +57,14 @@ const UserProfile = ({ user, handleClose }) => {
         <UserDetailedInfoContainer>
           <NameAndCloseContainer>
             <Text fontSize="16px" margin="15px 0 0 0">
-              {user.userRealName}, {user.userAge}
+              {user.fullName}, {user.age}
             </Text>
             <CloseContainer onClick={handleClose}>
               <CloseIcon sx={{ color: '#6DB33F', width: '30px', height: '30px' }} />
             </CloseContainer>
           </NameAndCloseContainer>
           <Text fontSize="16px" margin="5px 0 0 0">
-            {user.userConcentration}
+            {user.concentration}
           </Text>
           <Text fontSize="14px" margin="30px 0 0 0">
             About me

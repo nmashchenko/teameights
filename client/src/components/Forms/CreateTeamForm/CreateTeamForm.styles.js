@@ -54,12 +54,6 @@ export const XContainer = styled.div`
   margin: 15px 0 0 0;
 `
 
-export const ProfileContainer = styled.img`
-  width: 125px;
-  height: 125px;
-  border-radius: 50%;
-`
-
 export const CrownContainer = styled.div`
   position: relative;
   display: flex;
@@ -72,17 +66,6 @@ export const CrownContainer = styled.div`
   transform: rotate(32.31deg);
 `
 
-export const ProfileEditContainer = styled.div`
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  left: 90px;
-  bottom: 40px;
-`
 
 export const InputContainer = styled.div`
   display: flex;

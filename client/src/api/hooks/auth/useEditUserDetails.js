@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import http from '../../../http'
 import { registrationAuth } from '../../../store/reducers/RegistrationAuth'
 
-import { useUpdateUserAvatar } from './useUpdateUserAvatar'
+import { useUpdateAvatar } from './useUpdateAvatar'
 
 const { api } = http
 

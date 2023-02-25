@@ -6,7 +6,6 @@ import NoNotifications from '../../../assets/NoNotifications'
 import NotificationIcon from '../../../assets/NotificationIcon'
 import { LOCAL_PATH } from '../../../http'
 import defaultImg from '../defaultImg.png'
-import userImg from '../tempImg.jpg'
 
 import NotificationModal from './NotificationModal/NotificationModal'
 import {
@@ -65,7 +64,7 @@ const Profile = () => {
 
   return (
     <AvatarContainer>
-      <ProfileIcon src={user?.image ? LOCAL_PATH + '/' + user.image : userImg} alt="Profile icon" />
+      <ProfileIcon src={user?.image ? LOCAL_PATH + '/' + user.image : defaultImg} alt="Profile icon" />
       <UserInfoDiv>
         <UserRealName>{data?.userRealName}</UserRealName>
 

@@ -28,7 +28,7 @@ export const UserAvatar = styled.img`
   width: 80px;
   height: 80px;
   box-shadow: 0px 0px 50px rgba(114, 235, 58, 0.1);
-  border-radius: 5px;
+  border-radius: 50%;
 `
 
 export const UserLink = styled.div`

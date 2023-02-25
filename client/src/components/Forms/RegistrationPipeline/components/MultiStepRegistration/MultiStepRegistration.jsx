@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik'
 
 import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
 import { useEditUserDetails } from '../../../../../api/hooks/auth/useEditUserDetails'
-import { useUpdateUserAvatar } from '../../../../../api/hooks/auth/useUpdateUserAvatar'
+import { useUpdateAvatar } from '../../../../../api/hooks/auth/useUpdateAvatar'
 import { finishRegistrationValidation } from '../../../../../schemas'
 import Loader from '../../../../../shared/components/Loader/Loader'
 import {
@@ -24,7 +24,7 @@ const MultiStepRegistration = () => {
   const navigate = useNavigate()
   const { data: userPrimaryRegistrationData } = useCheckAuth()
   const { mutate: finishRegistration, isLoading } = useEditUserDetails(onSuccess)
-  const { mutate: updateAvatar } = useUpdateUserAvatar()
+  const { mutate: updateAvatar } = useUpdateAvatar('users')
 
   function onSuccess() {
     dispatch(setIsFinishRegistrationStarted(false))

@@ -7,12 +7,12 @@ import { registrationAuth } from '../../../store/reducers/RegistrationAuth'
 
 const { api } = http
 
-export const useUpdateUserAvatar = () => {
+export const useUpdateAvatar = (type) => {
   const dispatch = useDispatch()
   const queryClient = useQueryClient()
 
   const updateUserAvatar = async (userData) => {
-    return await api.post('/users/update-avatar', userData)
+    return await api.post(`/${type}/update-avatar`, userData)
   }
 
   return useMutation(updateUserAvatar, {
