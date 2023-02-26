@@ -9,9 +9,11 @@ import { useSnackbar } from 'notistack'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
+import { LOCAL_PATH } from '../../../http'
 import Loader from '../../../shared/components/Loader/Loader'
 
 // * Styles
@@ -35,8 +37,6 @@ import {
   UserInfo,
 } from './TeamForm.styles'
 import tempImg from './zxc1.jpg'
-import {LOCAL_PATH} from "../../../http";
-import {useDelete} from "../../../api/hooks/team/useDelete";
 
 function TeamForm() {
   const [open, setOpen] = useState(false)
@@ -44,20 +44,20 @@ function TeamForm() {
   const [email, setEmail] = useState('')
 
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
-  const {mutate: deleteTeam, isLoading: isDeleting} = useDelete()
-  console.log({team})
+  const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
+
+  console.log({ team })
   const { enqueueSnackbar } = useSnackbar()
   const createDate = new Date(team?.createdAt)
-      .toLocaleDateString({},
-          {timeZone:"UTC",month:"long", day:"2-digit", year:"numeric"}
-      ).replace(',', '')
+    .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
+    .replace(',', '')
   const handleOpenInvite = () => {
     setOpen(true)
     setInviteActive(true)
   }
 
   const handleOpenDelete = () => setOpen(true)
-  const handleDelete = () =>  deleteTeam(team?._id)
+  const handleDelete = () => deleteTeam(team?._id)
   const handleClose = () => {
     setOpen(false)
     setInviteActive(false)
@@ -116,7 +116,13 @@ function TeamForm() {
               {/* TODO: find team members in useEffect. */}
               {team.members.map((member) => (
                 <UserCard key={member._id}>
-                  <UserImg src={member?.image ? LOCAL_PATH + '/' + member.image : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'} />
+                  <UserImg
+                    src={
+                      member?.image
+                        ? LOCAL_PATH + '/' + member.image
+                        : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
+                    }
+                  />
                   <UserInfo>
                     <Text fontSize="14px" fontWeight="100">
                       {member.username}

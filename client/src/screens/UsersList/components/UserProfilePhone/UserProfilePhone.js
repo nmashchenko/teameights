@@ -9,6 +9,7 @@ import AddIcon from '../../../../assets/AddIcon'
 import ComebackArrow from '../../../../assets/ComebackArrow'
 import LinkIcon from '../../../../assets/LinkIcon'
 import MessageIcon from '../../../../assets/MessageIcon'
+import { LOCAL_PATH } from '../../../../http'
 import TempImg from '../../img/tempImg.jpg'
 
 // * Styles
@@ -27,8 +28,6 @@ import {
   UserLink,
   UserProfileContainer,
 } from './UserProfilePhone.styles'
-import {LOCAL_PATH} from "../../../../http";
-import AvatarImage from "../../img/tempImg.jpg";
 
 const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
   return (
@@ -41,7 +40,10 @@ const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
           <UserInformationContainer>
             {/* TODO: Change for the REAL photo! */}
             <div>
-              <UserImage src={user?.image ? LOCAL_PATH + '/' + user.image : TempImg} alt="userImg" />
+              <UserImage
+                src={user?.image ? LOCAL_PATH + '/' + user.image : TempImg}
+                alt="userImg"
+              />
             </div>
             <UserInfoTextContainer>
               <Text fontSize="16px" textAlign="start">

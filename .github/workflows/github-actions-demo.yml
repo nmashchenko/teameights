@@ -1,0 +1,28 @@
+name: Teameights checker, will punish for bad code 🥵
+run-name: ${{ github.actor }} is making deploy 🚀 Let's pray he will pass tests 😉
+on:
+  push:
+    branches: [dev, merge-newbackend-#8677a5wak]
+  pull_request:
+    branches: [dev]
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [17.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Starting Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: install modules
+        working-directory: ./server
+        run: npm install
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: run unit tests
+        working-directory: ./server
+        run: npm run test
+      - run: echo "🍏 This job's status is ${{ job.status }}."
