@@ -46,13 +46,12 @@ export class MailsService {
 			subject: 'You received team invite!' + process.env.API_URL,
 			text: '',
 			html: `
-            <div>
-							<h1>Dear user,</h1>
-              <h2>You were invited to the team.</h2>
-              <a href="${process.env.CLIENT_URL}">${process.env.CLIENT_URL}</a>
-
-							<h3>Teams will allow you to participate in tournaments, get mentorship and more! ❤️</h3>
-            </div>
+					<div>
+					<h1>Dear user,</h1>
+					<h2>You were invited to the team.</h2>
+					<h2>Get to platform ASAP!</h2>
+					<h3>Teams will allow you to participate in tournaments, get mentorship and more! ❤️</h3>
+					</div>
           `,
 		});
 	}

@@ -84,7 +84,7 @@ export class NotificationsService {
 			return data[0]._id;
 		} else {
 			const data = await this.teamNotificationModel.create(notification);
-			// await this.mailsService.sendTeamInviteEmail(data.to_user_email);
+			await this.mailsService.sendTeamInviteEmail(data.to_user_email);
 			return data._id;
 		}
 	}
