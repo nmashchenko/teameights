@@ -194,4 +194,16 @@ describe('TeamService', () => {
 			info.notificationID,
 		);
 	});
+
+	it('should create user, give him role, create team and then delete it immidiately', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		expect((await teamsService.getAllTeams()).length).toBe(1);
+
+		await teamsService.deleteTeam(team._id);
+
+		expect((await teamsService.getAllTeams()).length).toBe(0);
+	});
 });
