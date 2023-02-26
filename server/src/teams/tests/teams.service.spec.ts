@@ -175,6 +175,8 @@ describe('TeamService', () => {
 		expect(updatedTeam.image).toBeDefined();
 	});
 
+	// ! Having error with this test case,  connect ECONNREFUSED 127.0.0.1:587 when trying to send email notification to user about invite in:
+	// ! teams.service.ts => line 217
 	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
 		const user1 = await createUser();
 
