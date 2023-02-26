@@ -144,7 +144,7 @@ export class UsersController {
 		summary: 'Update avatar of the user',
 	})
 	@ApiResponse({ status: 200, type: String })
-	@Post('/update-avatar')
+	@Put('/update-avatar')
 	updateAvatar(@Body() dto: UpdateAvatarDto) {
 		return this.userService.updateAvatar(dto);
 	}
