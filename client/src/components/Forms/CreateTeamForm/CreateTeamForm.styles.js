@@ -66,7 +66,6 @@ export const CrownContainer = styled.div`
   transform: rotate(32.31deg);
 `
 
-
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;

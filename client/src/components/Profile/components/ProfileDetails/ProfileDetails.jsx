@@ -1,3 +1,4 @@
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
@@ -16,9 +17,13 @@ import {
 } from '../../../../screens/UsersList/components/UserCard/FrameworkColors'
 import languageOptions from '../../../../screens/UsersList/components/UserCard/ProgrammingLanguages'
 import { Framework } from '../../../../screens/UsersList/components/UserCard/UserCard.styles'
+import AvatarEditButton from '../../../../shared/components/Forms/UserAvatar/AvatarEditButton/AvatarEditButton'
+import { UserAvatar } from '../../../../shared/components/Forms/UserAvatar/UserAvatar.styles'
 import Loader from '../../../../shared/components/Loader/Loader'
+import ModalWindow from '../../../../shared/components/ModalWindow/ModalWindow'
 import { Button } from '../../../../shared/styles/Button.styles'
 import { CustomLink } from '../../../../shared/styles/Link.styles'
+import { AvatarWrapper } from '../../../Forms/RegistrationPipeline/components/RegistrationForms/UserAvatarForm/UserAvatarForm.styles'
 import Photo from '../../Photo.jpg'
 import {
   BannerLine,
@@ -41,13 +46,6 @@ import {
   Text,
   TextContainer,
 } from '../../Profile.styles'
-import AvatarEditButton from "../../../../shared/components/Forms/UserAvatar/AvatarEditButton/AvatarEditButton";
-import ModalWindow from "../../../../shared/components/ModalWindow/ModalWindow";
-import {
-  AvatarWrapper
-} from "../../../Forms/RegistrationPipeline/components/RegistrationForms/UserAvatarForm/UserAvatarForm.styles";
-import React from "react";
-import {UserAvatar} from "../../../../shared/components/Forms/UserAvatar/UserAvatar.styles";
 
 const ProfileDetails = () => {
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
@@ -67,8 +65,12 @@ const ProfileDetails = () => {
     <Information>
       <LeftCard>
         <ImgContainer>
-          <UserAvatar src={user?.image ? LOCAL_PATH + '/' + user.image : Photo} width={"9.375rem"} height={"9.375rem"}/>
-          <AvatarEditButton  onClick={() => navigate('/profile-edit')}/>
+          <UserAvatar
+            src={user?.image ? LOCAL_PATH + '/' + user.image : Photo}
+            width={'9.375rem'}
+            height={'9.375rem'}
+          />
+          <AvatarEditButton onClick={() => navigate('/profile-edit')} />
         </ImgContainer>
         <TextContainer>
           <Text margin="15px 0 0 0">{user.fullName}</Text>
