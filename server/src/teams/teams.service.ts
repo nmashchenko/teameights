@@ -14,6 +14,7 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 import { plainToClass } from 'class-transformer';
 import { teamUpdateValidate } from '@/validation/team-update.validation';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
+import { MailsService } from '@/mails/mails.service';
 
 @Injectable()
 export class TeamsService {
@@ -22,6 +23,7 @@ export class TeamsService {
 		private readonly userService: UsersService,
 		private readonly filesService: FileService,
 		private readonly notificationsService: NotificationsService,
+		private readonly mailService: MailsService,
 	) {}
 
 	/**
@@ -209,7 +211,7 @@ export class TeamsService {
 
 		await this.userService.addNotification(candidate._id, notificationID);
 
-		// TODO: send info about invite on email
+		await this.mailService.sendTeamInviteEmail(candidate.email);
 
 		return {
 			status: `${candidate.email} invited to team ${team.name} with id ${team._id}!`,

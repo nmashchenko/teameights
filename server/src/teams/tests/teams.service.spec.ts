@@ -24,6 +24,7 @@ import { User } from '@/users/users.schema';
 import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
 import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
 import mongoose from 'mongoose';
+import { MailsModule } from '@/mails/mails.module';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -65,6 +66,7 @@ describe('TeamService', () => {
 				UsersModule,
 				FileModule,
 				NotificationsModule,
+				MailsModule,
 			],
 			providers: [TeamsService],
 		}).compile();

@@ -8,6 +8,7 @@ import { TokensModule } from '@/tokens/tokens.module';
 import { UsersModule } from '@/users/users.module';
 import { FileModule } from '@/files/file.module';
 import { NotificationsModule } from '@/notifications/notifications.module';
+import { MailsModule } from '@/mails/mails.module';
 
 @Module({
 	providers: [TeamsService],
@@ -19,6 +20,7 @@ import { NotificationsModule } from '@/notifications/notifications.module';
 		UsersModule,
 		FileModule,
 		NotificationsModule,
+		MailsModule,
 	],
 	exports: [TeamsService],
 })
