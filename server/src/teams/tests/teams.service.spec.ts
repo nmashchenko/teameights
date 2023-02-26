@@ -173,25 +173,25 @@ describe('TeamService', () => {
 		expect(updatedTeam.image).toBeDefined();
 	});
 
-	// it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
-	// 	const user1 = await createUser();
+	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
+		const user1 = await createUser();
 
-	// 	const team = await teamsService.createTeam(
-	// 		CreateTeamDtoStub(user1._id),
-	// 	);
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(user1._id),
+		);
 
-	// 	const user2 = await userService.createUser(
-	// 		RegisterUserDtoStub('test2@example.com'),
-	// 	);
+		const user2 = await userService.createUser(
+			RegisterUserDtoStub('testemail@example.com'),
+		);
 
-	// 	const info = await teamsService.inviteToTeam(
-	// 		InviteToTeamDtoStub(user2.email, user1._id, team._id),
-	// 	);
+		const info = await teamsService.inviteToTeam(
+			InviteToTeamDtoStub(user2.email, user1._id, team._id),
+		);
 
-	// 	const updatedUser2 = await userService.getUserById(user2._id);
+		const updatedUser2 = await userService.getUserById(user2._id);
 
-	// 	expect(updatedUser2.notifications[1]._id).toStrictEqual(
-	// 		info.notificationID,
-	// 	);
-	// });
+		expect(updatedUser2.notifications[1]._id).toStrictEqual(
+			info.notificationID,
+		);
+	});
 });
