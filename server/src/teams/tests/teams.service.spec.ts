@@ -174,36 +174,27 @@ describe('TeamService', () => {
 	});
 
 	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
-		await rolesService.createRole({
-			value: 'USER',
-			description: 'User role',
-		});
-
-		let users = new Array<User>();
-
-		for (let i = 0; i < 2; i++) {
-			const user = await userService.createUser(
-				RegisterUserDtoStub(uuid() + '@gmail.com'),
-			);
-
-			users.push(user);
-		}
-
-		console.log(users);
+		const user1 = await createUser();
 
 		const team = await teamsService.createTeam(
-			CreateTeamDtoStub(users[0]._id),
+			CreateTeamDtoStub(user1._id),
+		);
+
+		const user2 = await userService.createUser(
+			RegisterUserDtoStub('mmashc2@uic.edu'),
 		);
 
 		const info = await teamsService.inviteToTeam(
-			InviteToTeamDtoStub(users[1].email, users[0]._id, team._id),
+			InviteToTeamDtoStub(user2.email, user1._id, team._id),
 		);
 
-		// const updatedUser2 = await userService.getUserById(users[1]._id);
+		console.log(info);
 
-		// expect(updatedUser2.notifications[1]._id).toStrictEqual(
-		// 	info.notificationID,
-		// );
+		const updatedUser2 = await userService.getUserById(user2._id);
+
+		expect(updatedUser2.notifications[1]._id).toStrictEqual(
+			info.notificationID,
+		);
 	});
 
 	it('should create user, give him role, create team and then delete it immidiately', async () => {
