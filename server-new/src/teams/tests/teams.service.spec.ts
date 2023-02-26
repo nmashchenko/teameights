@@ -19,9 +19,10 @@ import { CreateTeamDtoStub } from './stubs/create-team.dto.stub';
 import { UsersService } from '@/users/users.service';
 import { RegisterUserDtoStub } from '@/users/tests/stubs/register-user.dto.stub';
 import { RolesService } from '@/roles/roles.service';
-import { RolesModule } from '@/roles/roles.module';
 import { uuid } from 'uuidv4';
 import { User } from '@/users/users.schema';
+import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
+import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -72,6 +73,15 @@ describe('TeamService', () => {
 		healthCheck();
 	});
 
+	async function createUser(email: string = 'test@example.com') {
+		await rolesService.createRole({
+			value: 'USER',
+			description: 'User role',
+		});
+
+		return await userService.createUser(RegisterUserDtoStub(email));
+	}
+
 	it('should be defined', () => {
 		expect(teamsService).toBeDefined();
 	});
@@ -85,14 +95,7 @@ describe('TeamService', () => {
 	});
 
 	it('should create role, user and team successfully', async () => {
-		await rolesService.createRole({
-			value: 'USER',
-			description: 'User role',
-		});
-
-		const user = await userService.createUser(
-			RegisterUserDtoStub('test@test.com'),
-		);
+		const user = await createUser();
 
 		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
 
@@ -100,13 +103,7 @@ describe('TeamService', () => {
 	});
 
 	it('should create team and then find it by id', async () => {
-		await rolesService.createRole({
-			value: 'USER',
-			description: 'User role',
-		});
-		const user = await userService.createUser(
-			RegisterUserDtoStub('test@test.com'),
-		);
+		const user = await createUser();
 
 		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
 
@@ -115,14 +112,8 @@ describe('TeamService', () => {
 		expect(search._id).toEqual(team._id);
 	});
 
-	it('should not allow to create team for the same user', async () => {
-		await rolesService.createRole({
-			value: 'USER',
-			description: 'User role',
-		});
-		const user = await userService.createUser(
-			RegisterUserDtoStub('test@test.com'),
-		);
+	it('should return HttpException and not allow to create team for the same user', async () => {
+		const user = await createUser();
 
 		await teamsService.createTeam(CreateTeamDtoStub(user._id));
 
@@ -152,5 +143,43 @@ describe('TeamService', () => {
 		}
 
 		expect((await teamsService.getAllTeams()).length).toBe(500);
+	});
+
+	it('should create user, give him role, create team, double check that it is created without image, make request to update image and double check that image link was given', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		// make sure image was not added
+		expect(team.image).toBe(undefined);
+
+		const updatedTeam = await teamsService.updateTeamAvatar(
+			UpdateTeamAvatarDtoStub(team._id),
+		);
+
+		// make sure image was added
+		expect(updatedTeam.image).toBeDefined();
+	});
+
+	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
+		const user1 = await createUser();
+
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(user1._id),
+		);
+
+		const user2 = await userService.createUser(
+			RegisterUserDtoStub('test2@example.com'),
+		);
+
+		const info = await teamsService.inviteToTeam(
+			InviteToTeamDtoStub(user2.email, user1._id, team._id),
+		);
+
+		const updatedUser2 = await userService.getUserById(user2._id);
+
+		expect(updatedUser2.notifications[1]._id).toStrictEqual(
+			info.notificationID,
+		);
 	});
 });

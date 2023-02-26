@@ -20,6 +20,7 @@ import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { TeamMembershipDTO } from './dto/membership.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
+import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 
 @ApiTags('Teams')
 @Controller('/teams')
@@ -42,7 +43,7 @@ export class TeamsController {
 	@ApiOperation({
 		summary: 'Update avatar of the team',
 	})
-	@ApiResponse({ status: 200 })
+	@ApiResponse({ status: 200, type: Team })
 	@Put('/update-avatar')
 	updateTeamAvatar(@Body() dto: UpdateTeamAvatarDto) {
 		return this.teamsService.updateTeamAvatar(dto);
@@ -93,7 +94,7 @@ export class TeamsController {
 	@ApiOperation({
 		summary: 'Invite user to team',
 	})
-	@ApiResponse({ status: 200, type: Object })
+	@ApiResponse({ status: 200, type: InviteToTeamResponseDto })
 	@Post('/invite')
 	inviteToTeam(@Body() dto: InviteToTeamDto) {
 		return this.teamsService.inviteToTeam(dto);

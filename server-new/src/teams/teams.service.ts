@@ -13,6 +13,7 @@ import { TeamMembershipDTO } from './dto/membership.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { plainToClass } from 'class-transformer';
 import { teamUpdateValidate } from '@/validation/team-update.validation';
+import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 
 @Injectable()
 export class TeamsService {
@@ -94,7 +95,7 @@ export class TeamsService {
 	 * image.
 	 * @returns The file path of the image.
 	 */
-	async updateTeamAvatar(dto: UpdateTeamAvatarDto): Promise<string> {
+	async updateTeamAvatar(dto: UpdateTeamAvatarDto): Promise<Team> {
 		const candidateTeam = await this.getTeamById(dto.teamID);
 
 		if (!candidateTeam) {
@@ -116,12 +117,13 @@ export class TeamsService {
 		);
 
 		/* Updating the user with the given email with the new data and returning the updated user. */
-		await this.teamModel.findOneAndUpdate(
+		const updatedTeam = await this.teamModel.findOneAndUpdate(
 			{ _id: dto.teamID },
 			{ image: filePath },
+			{ new: true },
 		);
 
-		return filePath;
+		return updatedTeam;
 	}
 
 	/**
@@ -142,7 +144,7 @@ export class TeamsService {
 	 * @param {InviteToTeamDto} dto - InviteToTeamDto - this is the object that is passed to the function.
 	 * @returns The status of the invitation.
 	 */
-	async inviteToTeam(dto: InviteToTeamDto): Promise<Object> {
+	async inviteToTeam(dto: InviteToTeamDto): Promise<InviteToTeamResponseDto> {
 		const candidate = await this.userService.getUserByEmail(dto.email);
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
