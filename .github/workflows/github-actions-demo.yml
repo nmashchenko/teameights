@@ -2,7 +2,7 @@ name: Teameights checker, will punish for bad code 🥵
 run-name: ${{ github.actor }} is making deploy 🚀 Let's pray he will pass tests 😉
 on:
   push:
-    branches: [dev, merge-newbackend-#8677a5wak]
+    branches: [dev]
   pull_request:
     branches: [dev]
 jobs:
