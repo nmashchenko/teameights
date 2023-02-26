@@ -20,6 +20,7 @@ import {
   UploadArea,
   UserImageContainer,
 } from './UserAvatarForm.styles'
+import AvatarLoadModal from "../../../../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal";
 
 const UserAvatarForm = () => {
   const [userAvatar, setUserAvatar] = useState(null)
@@ -32,10 +33,10 @@ const UserAvatarForm = () => {
     setReturnedToPreviousSteps(true)
   }, [])
 
-  const onCloseModal = () => {
-    setUserAvatar(null)
-    setStartedUploading(false)
-  }
+  // const onCloseModal = () => {
+  //   setUserAvatar(null)
+  //   setStartedUploading(false)
+  // }
 
   const handleSaveClose = () => {
     setFieldValue('file', userAvatar)
@@ -67,30 +68,7 @@ const UserAvatarForm = () => {
 
   return (
     <>
-      <ModalWindow onClose={onCloseModal}>
-        <AvatarWrapper>
-          <Avatar
-            imageHeight={200}
-            height={200}
-            width={200}
-            onCrop={onCrop}
-            onFileLoad={onFileLoad}
-            onBeforeFileLoad={onBeforeFileLoad}
-            cropRadius={40}
-            onClose={onCloseCropper}
-            minCropRadius={40}
-            labelStyle={{
-              cursor: 'pointer',
-              color: '#5D9D0B',
-              fontWeight: 'bold',
-              fontSize: '20px',
-            }}
-          />
-          <Button marginBottom="0" onClick={handleSaveClose}>
-            save
-          </Button>
-        </AvatarWrapper>
-      </ModalWindow>
+      <AvatarLoadModal handleSaveClose={handleSaveClose} onCrop={onCrop} onFileLoad={onFileLoad} onBeforeFileLoad={onBeforeFileLoad} onClose={onCloseCropper}/>
       <CardContainer>
         <SelectContainer>
           <UserImageContainer>

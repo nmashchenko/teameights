@@ -32,6 +32,7 @@ import {setIsModalOpen} from "../../../store/reducers/Shared";
 import {useDispatch} from "react-redux";
 import Avatar from "@mikhail2404/react-avatar-edit";
 import {UserAvatar} from "../../../shared/components/Forms/UserAvatar/UserAvatar.styles";
+import AvatarLoadModal from "../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal";
 
 function CreateTeamForm() {
   const navigate = useNavigate()
@@ -95,27 +96,7 @@ function CreateTeamForm() {
             </XContainer>
             <div>
               <UserAvatar src={teamAvatar ? teamAvatar : ProfileEllipse} alt="team-avatar" />
-              <ModalWindow>
-                <AvatarWrapper>
-                  <Avatar
-                      imageHeight={200}
-                      height={200}
-                      width={200}
-                      onCrop={onCrop}
-                      cropRadius={40}
-                      minCropRadius={40}
-                      labelStyle={{
-                        cursor: 'pointer',
-                        color: '#5D9D0B',
-                        fontWeight: 'bold',
-                        fontSize: '20px',
-                      }}
-                  />
-                  <Button marginBottom="0" onClick={handleSaveClose}>
-                    save
-                  </Button>
-                </AvatarWrapper>
-              </ModalWindow>
+              <AvatarLoadModal handleSaveClose={handleSaveClose} onCrop={onCrop}/>
               <AvatarEditButton onClick={loadTeamAvatar} />
             </div>
             <InputContainer>

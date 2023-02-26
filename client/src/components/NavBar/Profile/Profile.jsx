@@ -6,6 +6,7 @@ import NoNotifications from '../../../assets/NoNotifications'
 import NotificationIcon from '../../../assets/NotificationIcon'
 import { LOCAL_PATH } from '../../../http'
 import defaultImg from '../defaultImg.png'
+import userImg from '../../../screens/UsersList/img/tempImg.jpg'
 
 import NotificationModal from './NotificationModal/NotificationModal'
 import {
@@ -41,6 +42,7 @@ const Profile = () => {
 
   const [notificationModal, setNotificationModal] = useState(false)
 
+  const userImage = !user?.isRegistered ? defaultImg :  user?.image  ? LOCAL_PATH + '/' +  user?.image :  userImg
   const [data, changeDataState] = useState(defaultData)
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const Profile = () => {
   return (
     <AvatarContainer>
       <ProfileIcon
-        src={user?.image ? LOCAL_PATH + '/' + user.image : defaultImg}
+        src={userImage}
         alt="Profile icon"
       />
       <UserInfoDiv>
