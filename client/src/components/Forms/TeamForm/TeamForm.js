@@ -1,5 +1,5 @@
 // * Modules
-import { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 // * Redux
 import { Navigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
@@ -9,9 +9,12 @@ import { useSnackbar } from 'notistack'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
+import { LOCAL_PATH } from '../../../http'
+import { Button } from '../../../shared/components/CustomButton/CustomButon.styles'
 import Loader from '../../../shared/components/Loader/Loader'
 
 // * Styles
@@ -40,31 +43,22 @@ function TeamForm() {
   const [open, setOpen] = useState(false)
   const [inviteActive, setInviteActive] = useState(false)
   const [email, setEmail] = useState('')
-  const [members, setMembers] = useState([])
 
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
+  const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
 
-  useEffect(() => {
-    const getTeam = async () => {
-      if (team) {
-        const users = await teamsAPI.getTeamMembers(team.members)
-
-        setMembers(users.data)
-      }
-    }
-
-    getTeam()
-  }, [team])
-
+  console.log({ team })
   const { enqueueSnackbar } = useSnackbar()
-
+  const createDate = new Date(team?.createdAt)
+    .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
+    .replace(',', '')
   const handleOpenInvite = () => {
     setOpen(true)
     setInviteActive(true)
   }
 
   const handleOpenDelete = () => setOpen(true)
-
+  const handleDelete = () => deleteTeam(team?._id)
   const handleClose = () => {
     setOpen(false)
     setInviteActive(false)
@@ -82,7 +76,7 @@ function TeamForm() {
     }
   }
 
-  if (isUserTeamLoading) {
+  if (isUserTeamLoading || isDeleting) {
     return <Loader />
   }
   if (!team) {
@@ -111,7 +105,7 @@ function TeamForm() {
           ) : (
             <>
               <Text margin="0">Do you want to delete this team?</Text>
-              <CreateButton>Yes</CreateButton>
+              <CreateButton onClick={handleDelete}>Yes</CreateButton>
             </>
           )}
         </Box>
@@ -121,15 +115,21 @@ function TeamForm() {
           <MainCardContent>
             <LeftContainer>
               {/* TODO: find team members in useEffect. */}
-              {members.map((member, i) => (
-                <UserCard key={i}>
-                  <UserImg src="https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg" />
+              {team.members.map((member) => (
+                <UserCard key={member._id}>
+                  <UserImg
+                    src={
+                      member?.image
+                        ? LOCAL_PATH + '/' + member.image
+                        : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
+                    }
+                  />
                   <UserInfo>
                     <Text fontSize="14px" fontWeight="100">
-                      {member.userUsername}
+                      {member.username}
                     </Text>
                     <Text fontSize="14px" alignment="start">
-                      {member.userConcentration}
+                      {member.concentration}
                     </Text>
                   </UserInfo>
                 </UserCard>
@@ -139,9 +139,9 @@ function TeamForm() {
               <CircleContainer>
                 <Text>{team.name}</Text>
               </CircleContainer>
-              <TeamImgBorder src={tempImg} />
+              <TeamImgBorder src={team?.image ? LOCAL_PATH + '/' + team.image : tempImg} />
               <Text fontSize="16px" fontWeight="400">
-                Creation date: {team.created_at}
+                Creation date: {createDate}
               </Text>
               <CreateButton>Edit</CreateButton>
             </RightContainer>

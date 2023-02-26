@@ -19,7 +19,7 @@ export const useLoadUsers = (isFiltered) => {
   }, [filters])
 
   const getUsers = async ({ pageParam = 1 }) => {
-    const response = await api.get('/users', { params: { page: pageParam } })
+    const response = await api.get('/users/get', { params: { page: pageParam } })
 
     return response.data
   }
@@ -27,11 +27,11 @@ export const useLoadUsers = (isFiltered) => {
     const filtersQuery = filteredQueryMaker(
       filters.countries,
       filters.roles,
-      filters.programmingLanguages,
+      filters.languages,
       filters.frameworks,
     )
     let queryString = qs.stringify(filtersQuery)
-    const response = await api.get('/users-filtered', {
+    const response = await api.get('/users/get-filtered', {
       params: { page: pageParam, filtersQuery: queryString },
     })
 

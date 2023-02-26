@@ -13,7 +13,7 @@ export const useRegister = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const registerUser = async (registrationDetails) => {
-    return await api.post('/registration', registrationDetails)
+    return await api.post('/auth/registration', registrationDetails)
   }
 
   return useMutation(registerUser, {

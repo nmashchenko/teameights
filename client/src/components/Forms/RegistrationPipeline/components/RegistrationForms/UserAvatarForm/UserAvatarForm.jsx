@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useDispatch } from 'react-redux'
-import Avatar from '@mikhail2404/react-avatar-edit'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import { useFormikContext } from 'formik'
 
-import ModalWindow from '../../../../../../shared/components/ModalWindow/ModalWindow'
+import AvatarLoadModal from '../../../../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal'
 import { Button, ButtonContainer } from '../../../../../../shared/styles/Button.styles'
 import { ErrorMessage, Text } from '../../../../../../shared/styles/Tpography.styles'
 import { setIsFinishedAvatarLoading } from '../../../../../../store/reducers/RegistrationAuth'
@@ -14,7 +13,6 @@ import ConsoleSimulator from '../../ConsoleSimulator/ConsoleSimulator'
 import FormButton from '../../MultiStepRegistration/components/FormButton/FormButton'
 
 import {
-  AvatarWrapper,
   CardContainer,
   SelectContainer,
   UploadArea,
@@ -32,10 +30,10 @@ const UserAvatarForm = () => {
     setReturnedToPreviousSteps(true)
   }, [])
 
-  const onCloseModal = () => {
-    setUserAvatar(null)
-    setStartedUploading(false)
-  }
+  // const onCloseModal = () => {
+  //   setUserAvatar(null)
+  //   setStartedUploading(false)
+  // }
 
   const handleSaveClose = () => {
     setFieldValue('file', userAvatar)
@@ -67,30 +65,13 @@ const UserAvatarForm = () => {
 
   return (
     <>
-      <ModalWindow onClose={onCloseModal}>
-        <AvatarWrapper>
-          <Avatar
-            imageHeight={200}
-            height={200}
-            width={200}
-            onCrop={onCrop}
-            onFileLoad={onFileLoad}
-            onBeforeFileLoad={onBeforeFileLoad}
-            cropRadius={40}
-            onClose={onCloseCropper}
-            minCropRadius={40}
-            labelStyle={{
-              cursor: 'pointer',
-              color: '#5D9D0B',
-              fontWeight: 'bold',
-              fontSize: '20px',
-            }}
-          />
-          <Button marginBottom="0" onClick={handleSaveClose}>
-            save
-          </Button>
-        </AvatarWrapper>
-      </ModalWindow>
+      <AvatarLoadModal
+        handleSaveClose={handleSaveClose}
+        onCrop={onCrop}
+        onFileLoad={onFileLoad}
+        onBeforeFileLoad={onBeforeFileLoad}
+        onClose={onCloseCropper}
+      />
       <CardContainer>
         <SelectContainer>
           <UserImageContainer>

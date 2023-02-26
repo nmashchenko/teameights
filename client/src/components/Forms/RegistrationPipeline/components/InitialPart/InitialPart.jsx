@@ -47,10 +47,7 @@ function InitialPart() {
       <Container>
         <CardContainer>
           <div>
-            <TopText>
-              Welcome to the family, {user.userUsername}
-              ❤️
-            </TopText>
+            <TopText>Welcome to the family ❤️</TopText>
           </div>
           <MiddleTextContainer>
             <TopText fontWeight="400" fontSize="17px" margin="45px 0 0 0">

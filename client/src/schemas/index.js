@@ -9,8 +9,8 @@ const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
 export const finishRegistrationValidation = [
   yup.object().shape(
     {
-      username: yup.string().required('Please input your username').max(30),
-      fullName: yup.string().required('Please input your name').max(30),
+      username: yup.string().required('Please input your username').max(20),
+      fullName: yup.string().required('Please input your name').min(8).max(20),
       age: yup
         .number()
         .required('Please input your age')
@@ -107,8 +107,11 @@ export const finishRegistrationValidation = [
         if (!value) {
           return true
         }
+        const stringLength = value.length - 'data:image/png;base64,'.length
 
-        return atob(value.substr(22)).length <= 1024 * 1024 * 10
+        const sizeInBytes = 4 * Math.ceil(stringLength / 3) * 0.5624896334383812
+
+        return sizeInBytes <= 1024 * 1024 * 10
       })
       .test('fileFormat', 'Unsupported Format', (value) => {
         if (!value) {
