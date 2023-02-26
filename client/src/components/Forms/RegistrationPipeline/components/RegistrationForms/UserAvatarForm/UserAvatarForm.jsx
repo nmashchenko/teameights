@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import { useFormikContext } from 'formik'
 
+import AvatarLoadModal from '../../../../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal'
 import { Button, ButtonContainer } from '../../../../../../shared/styles/Button.styles'
 import { ErrorMessage, Text } from '../../../../../../shared/styles/Tpography.styles'
 import { setIsFinishedAvatarLoading } from '../../../../../../store/reducers/RegistrationAuth'
@@ -17,7 +18,6 @@ import {
   UploadArea,
   UserImageContainer,
 } from './UserAvatarForm.styles'
-import AvatarLoadModal from "../../../../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal";
 
 const UserAvatarForm = () => {
   const [userAvatar, setUserAvatar] = useState(null)
@@ -65,7 +65,13 @@ const UserAvatarForm = () => {
 
   return (
     <>
-      <AvatarLoadModal handleSaveClose={handleSaveClose} onCrop={onCrop} onFileLoad={onFileLoad} onBeforeFileLoad={onBeforeFileLoad} onClose={onCloseCropper}/>
+      <AvatarLoadModal
+        handleSaveClose={handleSaveClose}
+        onCrop={onCrop}
+        onFileLoad={onFileLoad}
+        onBeforeFileLoad={onBeforeFileLoad}
+        onClose={onCloseCropper}
+      />
       <CardContainer>
         <SelectContainer>
           <UserImageContainer>

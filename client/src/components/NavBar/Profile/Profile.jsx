@@ -5,8 +5,8 @@ import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import NoNotifications from '../../../assets/NoNotifications'
 import NotificationIcon from '../../../assets/NotificationIcon'
 import { LOCAL_PATH } from '../../../http'
-import defaultImg from '../defaultImg.png'
 import userImg from '../../../screens/UsersList/img/tempImg.jpg'
+import defaultImg from '../defaultImg.png'
 
 import NotificationModal from './NotificationModal/NotificationModal'
 import {
@@ -42,7 +42,11 @@ const Profile = () => {
 
   const [notificationModal, setNotificationModal] = useState(false)
 
-  const userImage = !user?.isRegistered ? defaultImg :  user?.image  ? LOCAL_PATH + '/' +  user?.image :  userImg
+  const userImage = !user?.isRegistered
+    ? defaultImg
+    : user?.image
+    ? LOCAL_PATH + '/' + user?.image
+    : userImg
   const [data, changeDataState] = useState(defaultData)
 
   useEffect(() => {
@@ -66,10 +70,7 @@ const Profile = () => {
 
   return (
     <AvatarContainer>
-      <ProfileIcon
-        src={userImage}
-        alt="Profile icon"
-      />
+      <ProfileIcon src={userImage} alt="Profile icon" />
       <UserInfoDiv>
         <UserRealName>{data?.userRealName}</UserRealName>
 

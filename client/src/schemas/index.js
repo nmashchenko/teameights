@@ -107,9 +107,10 @@ export const finishRegistrationValidation = [
         if (!value) {
           return true
         }
-          const stringLength = value.length - 'data:image/png;base64,'.length;
+        const stringLength = value.length - 'data:image/png;base64,'.length
 
-          const sizeInBytes = 4 * Math.ceil((stringLength / 3))*0.5624896334383812;
+        const sizeInBytes = 4 * Math.ceil(stringLength / 3) * 0.5624896334383812
+
         return sizeInBytes <= 1024 * 1024 * 10
       })
       .test('fileFormat', 'Unsupported Format', (value) => {

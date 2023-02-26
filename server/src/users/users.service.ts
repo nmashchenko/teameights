@@ -231,7 +231,6 @@ export class UsersService {
 		results.on_current_page = users.length;
 		results.data = users;
 
-		console.log(results);
 		/* Returning the results object. */
 		return results;
 	}

@@ -14,7 +14,6 @@ export class RolesController {
 	@ApiResponse({ status: 200, type: Role })
 	@Post('/create-role')
 	create(@Body() roleDto: CreateRoleDto) {
-		console.log(roleDto);
 		return this.roleService.createRole(roleDto);
 	}
 

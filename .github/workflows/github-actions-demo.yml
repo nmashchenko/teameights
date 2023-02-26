@@ -26,3 +26,7 @@ jobs:
         working-directory: ./server
         run: npm run test
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: run coverage tests
+        working-directory: ./server
+        run: npm run test
+      - run: echo "😼 Finished! Good job."

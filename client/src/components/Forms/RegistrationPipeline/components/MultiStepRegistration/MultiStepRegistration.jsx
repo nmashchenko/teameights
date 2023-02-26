@@ -54,6 +54,7 @@ const MultiStepRegistration = () => {
       graduationDate: userData.graduationDate.toString(),
       isRegistered: false,
     }
+
     if (userData.file) {
       updateAvatar({ email: userPrimaryRegistrationData.email, image: userData.file.split(',')[1] })
     }

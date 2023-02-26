@@ -1,5 +1,6 @@
 // * Modules
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 // * Redux
 import { useNavigate } from 'react-router-dom'
 import isEqual from 'lodash/isEqual'
@@ -7,9 +8,15 @@ import { useSnackbar } from 'notistack'
 
 // API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { useCreateTeam } from '../../../api/hooks/team/useCreateTeam'
 import AvatarEditIcon from '../../../assets/AvatarEditIcon'
 // * Assets
 import X from '../../../assets/X'
+import AvatarEditButton from '../../../shared/components/Forms/UserAvatar/AvatarEditButton/AvatarEditButton'
+import AvatarLoadModal from '../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal'
+import { UserAvatar } from '../../../shared/components/Forms/UserAvatar/UserAvatar.styles'
+import Loader from '../../../shared/components/Loader/Loader'
+import { setIsModalOpen } from '../../../store/reducers/Shared'
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
 import ProfileEllipse from './img/zxc1.jpg'
@@ -22,13 +29,6 @@ import {
   MainContainer,
   XContainer,
 } from './CreateTeamForm.styles'
-import {useCreateTeam} from "../../../api/hooks/team/useCreateTeam";
-import Loader from "../../../shared/components/Loader/Loader";
-import AvatarEditButton from "../../../shared/components/Forms/UserAvatar/AvatarEditButton/AvatarEditButton";
-import {setIsModalOpen} from "../../../store/reducers/Shared";
-import {useDispatch} from "react-redux";
-import {UserAvatar} from "../../../shared/components/Forms/UserAvatar/UserAvatar.styles";
-import AvatarLoadModal from "../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal";
 
 function CreateTeamForm() {
   const navigate = useNavigate()
@@ -39,14 +39,12 @@ function CreateTeamForm() {
   const [teamAvatar, setTeamAvatar] = useState(null)
 
   const [country, setCountry] = useState('')
-  const {mutate: createTeam, isLoading: isCreatingTeam} = useCreateTeam(teamAvatar)
-  const { data: user, isLoading: isUserLoading  } = useCheckAuth()
+  const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam(teamAvatar)
+  const { data: user, isLoading: isUserLoading } = useCheckAuth()
   const userId = user?._id
   const handleClose = () => {
     navigate('/team', { replace: true })
   }
-
-
 
   const handleSaveClose = () => {
     dispatch(setIsModalOpen(false))
@@ -61,13 +59,18 @@ function CreateTeamForm() {
         preventDuplicate: true,
       })
     } else {
-
       if (user.team) {
         enqueueSnackbar('You have a team already!', {
           preventDuplicate: true,
         })
       } else {
-        createTeam({name: teamName, country, leader: userId, type: "open", description: "A group of skilled individuals who work together on projects"})
+        createTeam({
+          name: teamName,
+          country,
+          leader: userId,
+          type: 'open',
+          description: 'A group of skilled individuals who work together on projects',
+        })
         setTeamName('')
         setCountry('')
       }
@@ -76,11 +79,12 @@ function CreateTeamForm() {
 
   const loadTeamAvatar = () => {
     dispatch(setIsModalOpen(true))
-
   }
-  if(isUserLoading || isCreatingTeam){
+
+  if (isUserLoading || isCreatingTeam) {
     return <Loader />
   }
+
   return (
     <>
       <CreateTeamContainer>
@@ -92,7 +96,7 @@ function CreateTeamForm() {
             </XContainer>
             <div>
               <UserAvatar src={teamAvatar ? teamAvatar : ProfileEllipse} alt="team-avatar" />
-              <AvatarLoadModal handleSaveClose={handleSaveClose} onCrop={onCrop}/>
+              <AvatarLoadModal handleSaveClose={handleSaveClose} onCrop={onCrop} />
               <AvatarEditButton onClick={loadTeamAvatar} />
             </div>
             <InputContainer>

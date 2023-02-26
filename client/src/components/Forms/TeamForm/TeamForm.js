@@ -14,6 +14,7 @@ import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
 import { LOCAL_PATH } from '../../../http'
+import { Button } from '../../../shared/components/CustomButton/CustomButon.styles'
 import Loader from '../../../shared/components/Loader/Loader'
 
 // * Styles
@@ -37,7 +38,6 @@ import {
   UserInfo,
 } from './TeamForm.styles'
 import tempImg from './zxc1.jpg'
-import {Button} from "../../../shared/components/CustomButton/CustomButon.styles";
 
 function TeamForm() {
   const [open, setOpen] = useState(false)

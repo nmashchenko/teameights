@@ -66,7 +66,7 @@ const ProfileDetails = () => {
       <LeftCard>
         <ImgContainer>
           <UserAvatar
-            src={user?.image ? LOCAL_PATH + '/' + user.image : Photo}
+            src={user?.image ? LOCAL_PATH + '/' + user?.image : Photo}
             width={'9.375rem'}
             height={'9.375rem'}
           />
