@@ -12,7 +12,7 @@ export const useUpdateAvatar = (type) => {
   const queryClient = useQueryClient()
 
   const updateUserAvatar = async (userData) => {
-    return await api.post(`/${type}/update-avatar`, userData)
+    return await api.put(`/${type}/update-avatar`, userData)
   }
 
   return useMutation(updateUserAvatar, {

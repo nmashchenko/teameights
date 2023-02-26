@@ -32,19 +32,17 @@ import {setIsModalOpen} from "../../../store/reducers/Shared";
 import {useDispatch} from "react-redux";
 import Avatar from "@mikhail2404/react-avatar-edit";
 import {UserAvatar} from "../../../shared/components/Forms/UserAvatar/UserAvatar.styles";
-import {useUpdateAvatar} from "../../../api/hooks/auth/useUpdateAvatar";
 
 function CreateTeamForm() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { enqueueSnackbar } = useSnackbar()
-  const { mutate: updateAvatar } = useUpdateAvatar('teams')
 
   const [teamName, setTeamName] = useState('')
   const [teamAvatar, setTeamAvatar] = useState(null)
 
   const [country, setCountry] = useState('')
-  const {mutate: createTeam} = useCreateTeam()
+  const {mutate: createTeam} = useCreateTeam(teamAvatar)
   const { data: user, isLoading: isUserLoading  } = useCheckAuth()
   const userId = user?._id
   const handleClose = () => {
@@ -72,8 +70,7 @@ function CreateTeamForm() {
           preventDuplicate: true,
         })
       } else {
-        const value = createTeam({name: teamName, country, leader: userId, type: "open", description: "A group of skilled individuals who work together on projects",})
-        console.log({value})
+        createTeam({name: teamName, country, leader: userId, type: "open", description: "A group of skilled individuals who work together on projects"})
         setTeamName('')
         setCountry('')
       }
