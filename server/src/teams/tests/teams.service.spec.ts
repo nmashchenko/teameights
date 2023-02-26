@@ -174,21 +174,30 @@ describe('TeamService', () => {
 	});
 
 	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
-		const user1 = await createUser();
+		await rolesService.createRole({
+			value: 'USER',
+			description: 'User role',
+		});
+
+		let users = new Array<User>();
+
+		for (let i = 0; i < 2; i++) {
+			const user = await userService.createUser(
+				RegisterUserDtoStub(uuid() + '@gmail.com'),
+			);
+
+			users.push(user);
+		}
 
 		const team = await teamsService.createTeam(
-			CreateTeamDtoStub(user1._id),
-		);
-
-		const user2 = await userService.createUser(
-			RegisterUserDtoStub('testemail@example.com'),
+			CreateTeamDtoStub(users[0]._id),
 		);
 
 		const info = await teamsService.inviteToTeam(
-			InviteToTeamDtoStub(user2.email, user1._id, team._id),
+			InviteToTeamDtoStub(users[1].email, users[0]._id, team._id),
 		);
 
-		const updatedUser2 = await userService.getUserById(user2._id);
+		const updatedUser2 = await userService.getUserById(users[1]._id);
 
 		expect(updatedUser2.notifications[1]._id).toStrictEqual(
 			info.notificationID,
