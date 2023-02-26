@@ -7,7 +7,7 @@ import { UsersModule } from '@/users/users.module';
 import { FileModule } from '@/files/file.module';
 import { NotificationsModule } from '@/notifications/notifications.module';
 import {
-	closeInMongodConnection,
+	closeMongoConnection,
 	healthCheck,
 	rootMongooseTestModule,
 } from '@/test-utils/MongooseTestModule';
@@ -23,11 +23,16 @@ import { uuid } from 'uuidv4';
 import { User } from '@/users/users.schema';
 import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
 import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
+import mongoose from 'mongoose';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
 	let userService: UsersService;
 	let rolesService: RolesService;
+
+	beforeAll((done) => {
+		done();
+	});
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
@@ -69,8 +74,15 @@ describe('TeamService', () => {
 		rolesService = module.get<RolesService>(RolesService);
 	});
 
-	afterEach(() => {
+	afterEach(async () => {
+		await closeMongoConnection();
 		healthCheck();
+	});
+
+	afterAll(async () => {
+		// Closing the DB connection allows Jest to exit successfully.
+		await closeMongoConnection();
+		// done();
 	});
 
 	async function createUser(email: string = 'test@example.com') {

@@ -1,6 +1,6 @@
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import mongoose from 'mongoose';
+import mongoose, { disconnect } from 'mongoose';
 
 let mongod: MongoMemoryServer;
 
@@ -16,7 +16,7 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
 		},
 	});
 
-export const closeInMongodConnection = async () => {
+export const closeMongoConnection = async () => {
 	await mongoose.disconnect();
 	if (mongod) await mongod.stop();
 };
