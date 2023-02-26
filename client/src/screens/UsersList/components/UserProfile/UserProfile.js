@@ -70,7 +70,6 @@ const UserProfile = ({ user, handleClose }) => {
             About me
           </Text>
           <UserDescriptionContainer>
-            {/* TODO: Change for the REAL description! */}
             <Text fontSize="14px" margin="5px 0 0 0" fontWeight="300">
               {user?.description ? user.description : 'User has no description.'}
             </Text>

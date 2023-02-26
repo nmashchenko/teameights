@@ -1,19 +1,16 @@
 // * Modules
 import { useEffect, useState } from 'react'
 // * Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import isEqual from 'lodash/isEqual'
 import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
-import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
-import Loader from '../../../shared/components/Loader/Loader'
-import { userAuth } from '../../../store/reducers/UserAuth'
+import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
 // * Styles
@@ -34,13 +31,12 @@ function TeamsList() {
   const dispatch = useDispatch()
 
   const { data: user } = useCheckAuth()
-  const { updateUser } = userAuth.actions
   const { enqueueSnackbar } = useSnackbar()
 
   const [teams, setTeams] = useState([])
   const [open, setOpen] = useState(false)
   const [selectedTeam, setSelectedTeam] = useState({})
-  const { mutateAsync: joinUser } = useAddUserToTeam()
+  const { mutateAsync: joinUser } = useJoinTeam()
   const userId = user?._id
 
   useEffect(() => {
@@ -63,9 +59,8 @@ function TeamsList() {
   }
 
   const handleJoin = async (teamId) => {
-    const result = await joinUser({ userId, teamId })
+    const result = await joinUser({ user_id: userId, teamid: teamId })
 
-    console.log({ result })
     if (result) {
       handleClose()
       navigate('/myteam')

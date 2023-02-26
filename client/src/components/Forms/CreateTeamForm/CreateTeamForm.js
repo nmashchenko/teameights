@@ -24,13 +24,9 @@ import {
 } from './CreateTeamForm.styles'
 import {useCreateTeam} from "../../../api/hooks/team/useCreateTeam";
 import Loader from "../../../shared/components/Loader/Loader";
-import ModalWindow from "../../../shared/components/ModalWindow/ModalWindow";
-import {AvatarWrapper} from "../RegistrationPipeline/components/RegistrationForms/UserAvatarForm/UserAvatarForm.styles";
-import {Button} from "../../../shared/styles/Button.styles";
 import AvatarEditButton from "../../../shared/components/Forms/UserAvatar/AvatarEditButton/AvatarEditButton";
 import {setIsModalOpen} from "../../../store/reducers/Shared";
 import {useDispatch} from "react-redux";
-import Avatar from "@mikhail2404/react-avatar-edit";
 import {UserAvatar} from "../../../shared/components/Forms/UserAvatar/UserAvatar.styles";
 import AvatarLoadModal from "../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal";
 
@@ -43,7 +39,7 @@ function CreateTeamForm() {
   const [teamAvatar, setTeamAvatar] = useState(null)
 
   const [country, setCountry] = useState('')
-  const {mutate: createTeam} = useCreateTeam(teamAvatar)
+  const {mutate: createTeam, isLoading: isCreatingTeam} = useCreateTeam(teamAvatar)
   const { data: user, isLoading: isUserLoading  } = useCheckAuth()
   const userId = user?._id
   const handleClose = () => {
@@ -82,7 +78,7 @@ function CreateTeamForm() {
     dispatch(setIsModalOpen(true))
 
   }
-  if(isUserLoading){
+  if(isUserLoading || isCreatingTeam){
     return <Loader />
   }
   return (

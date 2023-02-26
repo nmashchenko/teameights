@@ -18,11 +18,11 @@ export const useCreateTeam = (teamAvatar) => {
 
     return useMutation(createTeam, {
         mutationKey: 'createTeam',
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             if(teamAvatar){
                 updateAvatar({teamID: data._id, image: teamAvatar.split(',')[1]})
             }
-            queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+            await  queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
             navigate('/myteam')
         },
     })

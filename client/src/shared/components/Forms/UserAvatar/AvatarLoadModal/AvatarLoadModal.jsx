@@ -19,6 +19,10 @@ const AvatarLoadModal = ({handleSaveClose, ...props}) => {
                         fontWeight: 'bold',
                         fontSize: '20px',
                     }}
+                    exportAsSquare
+                    exportMimeType={'image/jpeg'}
+                    exportSize={200}
+                    exportQuality={0.7}
                     {...props}
                 />
                 <Button marginBottom="0" onClick={handleSaveClose}>

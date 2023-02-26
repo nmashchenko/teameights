@@ -68,7 +68,7 @@ export const UserCard = styled.div`
 export const UserImg = styled.img`
   width: 82px;
   height: 82px;
-  border-radius: 7.58333px;
+  border-radius: 50%;
 `
 
 export const UserInfo = styled.div`
@@ -112,7 +112,7 @@ export const Text = styled.h3`
 export const TeamImgBorder = styled.img`
   width: 253px;
   height: 253px;
-  border-radius: 20px;
+  border-radius: 50%;
 `
 
 export const CreateButton = styled.button`

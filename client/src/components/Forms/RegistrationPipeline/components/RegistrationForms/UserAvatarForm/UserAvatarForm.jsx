@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useDispatch } from 'react-redux'
-import Avatar from '@mikhail2404/react-avatar-edit'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import { useFormikContext } from 'formik'
 
-import ModalWindow from '../../../../../../shared/components/ModalWindow/ModalWindow'
 import { Button, ButtonContainer } from '../../../../../../shared/styles/Button.styles'
 import { ErrorMessage, Text } from '../../../../../../shared/styles/Tpography.styles'
 import { setIsFinishedAvatarLoading } from '../../../../../../store/reducers/RegistrationAuth'
@@ -14,7 +12,6 @@ import ConsoleSimulator from '../../ConsoleSimulator/ConsoleSimulator'
 import FormButton from '../../MultiStepRegistration/components/FormButton/FormButton'
 
 import {
-  AvatarWrapper,
   CardContainer,
   SelectContainer,
   UploadArea,
