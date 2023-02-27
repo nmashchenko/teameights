@@ -5,7 +5,7 @@ import { ValidationPipe } from './pipes/validation.pipe';
 // import { JwtAuthGuard } from "./auth/jwt-auth.guard";
 // import { ValidationPipe } from "./pipes/validation.pipe";
 
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 async function start() {
 	try {

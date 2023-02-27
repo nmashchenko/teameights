@@ -15,6 +15,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { TeamsModule } from './teams/teams.module';
 import { TournamentsModule } from './tournaments/tournaments.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
+import { MaintenanceModule } from './maintenance/maintenance.module';
 
 @Module({
 	imports: [
@@ -48,6 +49,7 @@ import { LeaderboardModule } from './leaderboard/leaderboard.module';
 		TeamsModule,
 		TournamentsModule,
 		LeaderboardModule,
+		MaintenanceModule,
 	],
 	controllers: [],
 	providers: [],
