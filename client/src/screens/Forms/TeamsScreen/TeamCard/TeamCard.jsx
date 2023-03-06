@@ -3,6 +3,8 @@ import { styled } from '@mui/material'
 
 import ArrowLeft from '../../../../assets/Arrows/ArrowLeft'
 import Crown from '../../../../assets/Crown'
+import tempImg from '../../../../components/Forms/TeamForm/zxc1.jpg'
+import { LOCAL_PATH } from '../../../../http'
 
 import {
   CrownContainer,
@@ -22,8 +24,8 @@ import {
   ToTeams,
 } from './TeamCard.styles'
 
-const TeamCard = ({ user, handleClose, selectedTeam, handleJoin }) => {
-  const members = selectedTeam.members
+const TeamCard = ({ user, handleClose, team, handleJoin }) => {
+  const members = team.members
 
   const leader = members.slice(0, 1)
 
@@ -34,7 +36,7 @@ const TeamCard = ({ user, handleClose, selectedTeam, handleJoin }) => {
       <TeamCardTop>
         <TeamCardTopInfo>
           <h3>Name</h3>
-          <p>{selectedTeam.name}</p>
+          <p>{team.name}</p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
           <h3>Tag</h3>
@@ -46,7 +48,7 @@ const TeamCard = ({ user, handleClose, selectedTeam, handleJoin }) => {
         </TeamCardTopInfo>
         <TeamCardTopInfo>
           <h3>Country</h3>
-          <p>{selectedTeam.country}</p>
+          <p>{team.country}</p>
         </TeamCardTopInfo>
         <TeamCardTopIcon src={require('./defaultImg.png')} />
       </TeamCardTop>
@@ -62,7 +64,7 @@ const TeamCard = ({ user, handleClose, selectedTeam, handleJoin }) => {
                 <Crown />
               </CrownContainer>
               <h3>Leader</h3>
-              <TeamCardPicture src={require('./defaultImg.png')} />
+              <TeamCardPicture src={team?.image ? LOCAL_PATH + '/' + team.image : tempImg} />
             </TeamCardPerson>
           </div>
           <div>
@@ -108,13 +110,13 @@ const TeamCard = ({ user, handleClose, selectedTeam, handleJoin }) => {
       </TeamCardBody>
 
       {/* 
-<Text textAlign="center">Are you sure you want to join {selectedTeam.name}?</Text>
+<Text textAlign="center">Are you sure you want to join {team.name}?</Text>
             <TeamButton
               width="140px"
               height="60px"
               fontSize="20px"
               fontWeight="600"
-              onClick={() => handleJoin(selectedTeam._id)}
+              onClick={() => handleJoin(team._id)}
             >
               Join
             </TeamButton>

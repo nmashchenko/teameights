@@ -10,12 +10,12 @@ import { useSnackbar } from 'notistack'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+// import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
-import TopTemplate from '../../TopTemplate/TopTemplate'
-import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
 import TeamCard from '../../../screens/Forms/TeamsScreen/TeamCard/TeamCard'
 import Loader from '../../../shared/components/Loader/Loader'
 import { userAuth } from '../../../store/reducers/UserAuth'
+import TopTemplate from '../../TopTemplate/TopTemplate'
 
 // * Styles
 import {

@@ -9,6 +9,7 @@ import { useSnackbar } from 'notistack'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import Cake from '../../../assets/Cake'
 import Close from '../../../assets/Close'
@@ -17,6 +18,7 @@ import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
 import UserPlus from '../../../assets/UserPlus'
 import Users from '../../../assets/Users'
+import { LOCAL_PATH } from '../../../http'
 import Loader from '../../../shared/components/Loader/Loader'
 
 import TeamActionModal from './TeamActionModal'
@@ -67,12 +69,19 @@ import {
 import tempImg from './zxc1.jpg'
 
 function TeamForm() {
-  const [open, setOpen] = useState(false)
   const [inviteActive, setInviteActive] = useState(false)
+  const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [members, setMembers] = useState([])
+  const [isMembers, switchIsMembers] = useState(true)
 
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
+
+  const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
+
+  const createDate = new Date(team?.createdAt)
+    .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
+    .replace(',', '')
 
   useEffect(() => {
     const getTeam = async () => {
@@ -93,8 +102,8 @@ function TeamForm() {
     setInviteActive(true)
   }
 
+  const handleDelete = () => deleteTeam(team?._id)
   const handleOpenLeave = () => setOpen(true)
-
   const handleClose = () => {
     setOpen(false)
     setInviteActive(false)
@@ -112,14 +121,12 @@ function TeamForm() {
     }
   }
 
-  if (isUserTeamLoading) {
+  if (isUserTeamLoading || isDeleting) {
     return <Loader />
   }
   if (!team) {
     return <Navigate to={'/team'} />
   }
-
-  const [isMembers, switchIsMembers] = useState(true)
 
   //   <ButtonCardContent>
   //   <ActionButton onClick={handleOpenInvite}>
@@ -134,13 +141,19 @@ function TeamForm() {
     <UserGrid>
       {members.map((member, i) => (
         <UserCard key={i}>
-          <UserImg src="https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg" />
+          <UserImg
+            src={
+              member?.image
+                ? LOCAL_PATH + '/' + member.image
+                : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
+            }
+          />
           <UserInfo>
             <Text fontSize="16px" color="#FFF">
-              {member.userUsername}
+              {member.username}
             </Text>
             <Text fontSize="14px" color="#FFF" fontWeight="100" alignment="start">
-              {member.userConcentration}
+              {member.concentration}
             </Text>
           </UserInfo>
         </UserCard>
