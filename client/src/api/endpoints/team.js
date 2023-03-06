@@ -5,7 +5,7 @@ const { api } = http
 
 const createTeam = async (teamName, teamCountry, teamMembers) => {
   try {
-    const data = await api.post('/create-team', { teamName, teamCountry, teamMembers })
+    const data = await api.post('/teams/create-team', { teamName, teamCountry, teamMembers })
 
     return data
   } catch (err) {
@@ -17,7 +17,7 @@ const createTeam = async (teamName, teamCountry, teamMembers) => {
 
 const getAllTeams = async () => {
   try {
-    const data = await api.get('/get-teams')
+    const data = await api.get('/teams/get-teams')
 
     return data
   } catch (err) {
@@ -66,7 +66,7 @@ const addUserToTeam = async (userId, teamId) => {
 
 const inviteUserByEmail = async (email, teamId) => {
   try {
-    const data = await api.post('/invite-to-team', { email, teamId })
+    const data = await api.post('/teams/invite', { email, teamId })
 
     return data
   } catch (err) {

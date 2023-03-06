@@ -10,7 +10,7 @@ const { api } = http
 export const useCheckAuth = () => {
   const dispatch = useDispatch()
   const checkAuth = async () => {
-    const response = await api.get(`/get-user-object`)
+    const response = await api.get(`/users/get-by-token`)
 
     return response.data
   }

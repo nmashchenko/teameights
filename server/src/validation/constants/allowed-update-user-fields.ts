@@ -1,0 +1,17 @@
+export const allowedUpdateUserFields: string[] = [
+	'email',
+	'username',
+	'fullName',
+	'age',
+	'description',
+	'concentration',
+	'country',
+	'experience',
+	'isLeader',
+	'links',
+	'programmingLanguages',
+	'frameworks',
+	'university',
+	'major',
+	'graduationDate',
+];

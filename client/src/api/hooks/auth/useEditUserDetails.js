@@ -1,23 +1,20 @@
 import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 import http from '../../../http'
-import {
-  registrationAuth,
-  setIsFinishRegistrationStarted,
-} from '../../../store/reducers/RegistrationAuth'
+import { registrationAuth } from '../../../store/reducers/RegistrationAuth'
+
+import { useUpdateAvatar } from './useUpdateAvatar'
 
 const { api } = http
 
 export const useEditUserDetails = (successHandler) => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const queryClient = useQueryClient()
 
   const finishRegistration = async (userData) => {
-    return await api.put('/update-user', userData)
+    return await api.put('/users/update-user', userData)
   }
 
   return useMutation(finishRegistration, {

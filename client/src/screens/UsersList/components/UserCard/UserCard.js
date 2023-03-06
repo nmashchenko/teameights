@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Photo from '../../../../components/Profile/Photo.jpg'
+import { LOCAL_PATH } from '../../../../http'
 // * Images
 import CrownImg from '../../img/CrownTest.png'
 import userImg from '../../img/tempImg.jpg'
@@ -37,11 +39,11 @@ import {
 const UserCard = React.forwardRef((props, ref = null) => {
   const person = props.person
 
-  const plLength = person.userProgrammingLanguages.length
+  const plLength = person.programmingLanguages.length
 
   const programmingLanguages = (
     <ProgrammingLanguagesContainer>
-      {person.userProgrammingLanguages.slice(0, plLength < 2 ? plLength : 2).map((element, i) => {
+      {person.programmingLanguages.slice(0, plLength < 2 ? plLength : 2).map((element, i) => {
         let andMore = <></>
 
         if (i === 1 && plLength > 2) {
@@ -58,23 +60,23 @@ const UserCard = React.forwardRef((props, ref = null) => {
     </ProgrammingLanguagesContainer>
   )
 
-  const ufLength = person.userFrameworks.length
+  const ufLength = person.frameworks.length
   const frameworksContainer = (
     <FrameWorksContainer>
-      {person.userFrameworks.length <= 4 ? (
+      {person.frameworks.length <= 4 ? (
         (() => {
-          if (person.userFrameworks.length === 1) {
-            return <LengthOneCase userFrameworks={person.userFrameworks} />
-          } else if (person.userFrameworks.length === 2) {
-            return <LengthTwoCase userFrameworks={person.userFrameworks} />
-          } else if (person.userFrameworks.length === 3) {
-            return <LengthThreeCase userFrameworks={person.userFrameworks} />
-          } else if (person.userFrameworks.length === 4) {
-            return <LengthFourCase userFrameworks={person.userFrameworks} />
+          if (person.frameworks.length === 1) {
+            return <LengthOneCase userFrameworks={person.frameworks} />
+          } else if (person.frameworks.length === 2) {
+            return <LengthTwoCase userFrameworks={person.frameworks} />
+          } else if (person.frameworks.length === 3) {
+            return <LengthThreeCase userFrameworks={person.frameworks} />
+          } else if (person.frameworks.length === 4) {
+            return <LengthFourCase userFrameworks={person.frameworks} />
           }
         })()
       ) : (
-        <LengthFourSlicedCase userFrameworks={person.userFrameworks} />
+        <LengthFourSlicedCase userFrameworks={person.frameworks} />
       )}
     </FrameWorksContainer>
   )
@@ -85,7 +87,10 @@ const UserCard = React.forwardRef((props, ref = null) => {
         <UserInformationContainer>
           {/* TODO: Change for real image! */}
           <div>
-            <UserImage src={userImg} alt="userImg" />
+            <UserImage
+              src={person?.image ? LOCAL_PATH + '/' + person.image : userImg}
+              alt="userImg"
+            />
           </div>
           {programmingLanguages}
         </UserInformationContainer>
@@ -93,17 +98,17 @@ const UserCard = React.forwardRef((props, ref = null) => {
           <UserData>
             <CountryContainer>
               <TitleText fontWeight="500" fontSize="12px" margin="0 7px 0 0">
-                {person.userRealName}, {person.userAge}
+                {person.fullName}, {person.age}
               </TitleText>
             </CountryContainer>
             <TitleText fontWeight="600" fontSize="12px">
-              {person.userConcentration}
+              {person.concentration}
             </TitleText>
           </UserData>
         </TextContainer>
         {frameworksContainer}
       </CardContainer>
-      {person.userLeader === true ? (
+      {person.isLeader === true ? (
         <CrownContainer>
           <img src={CrownImg} alt="crown"></img>
         </CrownContainer>

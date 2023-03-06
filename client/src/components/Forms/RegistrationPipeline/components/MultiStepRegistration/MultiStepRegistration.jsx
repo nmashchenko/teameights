@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik'
 
 import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
 import { useEditUserDetails } from '../../../../../api/hooks/auth/useEditUserDetails'
+import { useUpdateAvatar } from '../../../../../api/hooks/auth/useUpdateAvatar'
 import { finishRegistrationValidation } from '../../../../../schemas'
 import Loader from '../../../../../shared/components/Loader/Loader'
 import {
@@ -23,6 +24,7 @@ const MultiStepRegistration = () => {
   const navigate = useNavigate()
   const { data: userPrimaryRegistrationData } = useCheckAuth()
   const { mutate: finishRegistration, isLoading } = useEditUserDetails(onSuccess)
+  const { mutate: updateAvatar } = useUpdateAvatar('users')
 
   function onSuccess() {
     dispatch(setIsFinishRegistrationStarted(false))
@@ -32,29 +34,30 @@ const MultiStepRegistration = () => {
   const submitFrom = (userData) => {
     const registrationData = {
       email: userPrimaryRegistrationData.email,
-      userUsername: userData.username,
-      userRealName: userData.fullName,
-      userPhoto: userData.file,
-      userAge: userData.age,
-      userDescription: userData.description,
-      userConcentration: userData.concentration,
-      userCountry: userData.country,
-      userExperience: userData.experience,
-      userLeader: userData.leader,
-      userLinks: {
+      username: userData.username,
+      fullName: userData.fullName,
+      age: userData.age,
+      description: userData.description,
+      concentration: userData.concentration,
+      country: userData.country,
+      experience: userData.experience,
+      isLeader: userData.leader === 'true',
+      links: {
         github: userData.github,
         telegram: userData.telegram,
         linkedIn: userData.linkedIn,
       },
-      userProgrammingLanguages: userData.programmingLanguages,
-      userFrameworks: userData.frameworks,
-      userRole: 'Standard',
-      userUniversity: userData.university,
-      userMajor: userData.major,
-      userGraduationDate: userData.graduationDate,
+      programmingLanguages: userData.programmingLanguages,
+      frameworks: userData.frameworks,
+      university: userData.university,
+      major: userData.major,
+      graduationDate: userData.graduationDate.toString(),
       isRegistered: false,
     }
 
+    if (userData.file) {
+      updateAvatar({ email: userPrimaryRegistrationData.email, image: userData.file.split(',')[1] })
+    }
     finishRegistration(registrationData)
   }
   const handleSubmit = (values, actions) => {

@@ -18,6 +18,7 @@ import frameworkOptions from '../../../../constants/frameworks'
 import programmingLanguageOptions from '../../../../constants/programmingLanguages'
 import ROUTES from '../../../../constants/routes'
 import { usePrompt } from '../../../../hooks/usePrompt'
+import { LOCAL_PATH } from '../../../../http'
 import { editProfileValidation } from '../../../../schemas'
 import {
   frameworkColors,
@@ -83,20 +84,32 @@ const ProfileForm = () => {
   }
 
   const handleSubmit = (values) => {
+    const {
+      fullName,
+      description,
+      concentration,
+      country,
+      experience,
+      github,
+      telegram,
+      linkedIn,
+      programmingLanguages,
+      frameworks,
+    } = values
     const modifiedUserData = {
       ...user,
-      userRealName: values.fullName,
-      userDescription: values.description,
-      userConcentration: values.concentration,
-      userCountry: values.country,
-      userExperience: values.experience,
-      userLinks: {
-        github: values.github,
-        telegram: values.telegram,
-        linkedIn: values.linkedIn,
+      fullName,
+      description,
+      concentration,
+      country,
+      experience,
+      links: {
+        github,
+        telegram,
+        linkedIn,
       },
-      userProgrammingLanguages: values.programmingLanguages,
-      userFrameworks: values.frameworks,
+      programmingLanguages,
+      frameworks,
     }
 
     editUserDetails(modifiedUserData)
@@ -113,16 +126,16 @@ const ProfileForm = () => {
   return (
     <Formik
       initialValues={{
-        fullName: user.userRealName,
-        github: user.userLinks.github,
-        linkedIn: user.userLinks.linkedIn,
-        telegram: user.userLinks.telegram,
-        description: user.userDescription,
-        concentration: user.userConcentration,
-        country: user.userCountry,
-        experience: user.userExperience,
-        programmingLanguages: user.userProgrammingLanguages,
-        frameworks: user.userFrameworks,
+        fullName: user.fullName,
+        github: user.links.github,
+        linkedIn: user.links.linkedIn,
+        telegram: user.links.telegram,
+        description: user.description,
+        concentration: user.concentration,
+        country: user.country,
+        experience: user.experience,
+        programmingLanguages: user.programmingLanguages,
+        frameworks: user.frameworks,
       }}
       validationSchema={editProfileValidation}
       onSubmit={handleSubmit}
@@ -135,7 +148,7 @@ const ProfileForm = () => {
             <Information>
               <LeftCard>
                 <ImgContainer>
-                  <Img src={Photo} />
+                  <Img src={user.image ? LOCAL_PATH + '/' + user.image : Photo} />
                   <EditUserDetails onClick={stopEditing}>
                     <EditIcon />
                   </EditUserDetails>

@@ -10,6 +10,7 @@ import AddIcon from '../../../../assets/AddIcon'
 // * Assets
 import LinkIcon from '../../../../assets/LinkIcon'
 import MessageIcon from '../../../../assets/MessageIcon'
+import { LOCAL_PATH } from '../../../../http'
 // * Temporary image
 import AvatarImage from '../../img/tempImg.jpg'
 
@@ -37,7 +38,10 @@ const UserProfile = ({ user, handleClose }) => {
         <LinksAndAvatarContainer>
           {/* TODO: Change for the REAL photo! */}
           <div>
-            <UserAvatar src={AvatarImage} alt="avatar"></UserAvatar>
+            <UserAvatar
+              src={user?.image ? LOCAL_PATH + '/' + user.image : AvatarImage}
+              alt="avatar"
+            ></UserAvatar>
           </div>
           {/* TODO: Change for real links! & rewrite for the .map() */}
           <UserLink>
@@ -53,22 +57,21 @@ const UserProfile = ({ user, handleClose }) => {
         <UserDetailedInfoContainer>
           <NameAndCloseContainer>
             <Text fontSize="16px" margin="15px 0 0 0">
-              {user.userRealName}, {user.userAge}
+              {user.fullName}, {user.age}
             </Text>
             <CloseContainer onClick={handleClose}>
               <CloseIcon sx={{ color: '#6DB33F', width: '30px', height: '30px' }} />
             </CloseContainer>
           </NameAndCloseContainer>
           <Text fontSize="16px" margin="5px 0 0 0">
-            {user.userConcentration}
+            {user.concentration}
           </Text>
           <Text fontSize="14px" margin="30px 0 0 0">
             About me
           </Text>
           <UserDescriptionContainer>
-            {/* TODO: Change for the REAL description! */}
             <Text fontSize="14px" margin="5px 0 0 0" fontWeight="300">
-              {user.userDescription ? user.userDescription : 'User has no description.'}
+              {user?.description ? user.description : 'User has no description.'}
             </Text>
           </UserDescriptionContainer>
           <Text fontSize="14px" margin="35px 0 0 0">

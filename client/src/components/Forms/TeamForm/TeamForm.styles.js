@@ -84,6 +84,7 @@ export const UserCard = styled.div`
 export const UserImg = styled.img`
   width: 70px;
   height: 70px;
+
   border-radius: 50%;
 `
 

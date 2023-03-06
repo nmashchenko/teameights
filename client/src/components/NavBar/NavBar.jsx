@@ -1,7 +1,7 @@
 // * Modules
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
@@ -36,11 +36,9 @@ import {
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
   const { isAuth } = useSelector((state) => state.userReducer)
-  // const navigate = useNavigate()
   const { data: user } = useCheckAuth()
 
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
-
   const navigate = useNavigate()
 
   const handleUseLogout = () => {

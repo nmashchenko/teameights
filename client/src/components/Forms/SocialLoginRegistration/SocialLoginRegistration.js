@@ -8,15 +8,11 @@ import { useLoginUser } from '../../../api/hooks/auth/useLoginUser'
 import Loader from '../../../shared/components/Loader/Loader'
 
 const SocialLoginRegistration = () => {
-  const { mutate: socialLoginRegisterUser, isLoading: isLoggingInUser } = useLoginUser(
-    'social-login-registration',
-  )
+  const { mutate: socialLoginRegisterUser, isLoading: isLoggingInUser } = useLoginUser('google')
   const createOrGetUser = async (response) => {
-    const decoded = jwt_decode(response.credential)
-    const { picture, email, sub } = decoded
-    const username = email.split('@')[0]
+    const token = response.credential
 
-    socialLoginRegisterUser({ username, email, picture, sub })
+    socialLoginRegisterUser({ token })
   }
 
   if (isLoggingInUser) {
