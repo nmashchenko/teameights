@@ -83,7 +83,7 @@ const NavBar = () => {
                 )
               })}
               <NavItem>
-                <Link to={user?.userTeam ? '/myteam' : '/team'}>
+                <Link to={'/teams'}>
                   <IconNav>
                     <Team />
                   </IconNav>

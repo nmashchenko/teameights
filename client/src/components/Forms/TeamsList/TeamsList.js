@@ -12,9 +12,9 @@ import { useSnackbar } from 'notistack'
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
+import TeamCard from '../../../screens/Forms/TeamsScreen/TeamCard/TeamCard'
 import Loader from '../../../shared/components/Loader/Loader'
 import { userAuth } from '../../../store/reducers/UserAuth'
-import TopTemplate from '../../TopTemplate/TopTemplate'
 
 // * Styles
 import {
@@ -38,10 +38,11 @@ function TeamsList() {
   const { enqueueSnackbar } = useSnackbar()
 
   const [teams, setTeams] = useState([])
-  const [open, setOpen] = useState(false)
   const [selectedTeam, setSelectedTeam] = useState({})
   const { mutateAsync: joinUser } = useAddUserToTeam()
   const userId = user?._id
+
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -68,13 +69,16 @@ function TeamsList() {
     console.log({ result })
     if (result) {
       handleClose()
-      navigate('/myteam')
+      navigate('/team')
     } else {
       enqueueSnackbar('You have joined the team already!', {
         preventDuplicate: true,
       })
     }
   }
+
+  // lol we could move entire teams list to display her implementation
+  // of checking out a team
 
   return (
     <>
@@ -85,29 +89,13 @@ function TeamsList() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <Text textAlign="center">Are you sure you want to join {selectedTeam.name}?</Text>
-            <TeamButton
-              width="140px"
-              height="60px"
-              fontSize="20px"
-              fontWeight="600"
-              onClick={() => handleJoin(selectedTeam._id)}
-            >
-              Join
-            </TeamButton>
-            <TeamButton
-              onClick={handleClose}
-              width="140px"
-              height="60px"
-              fontSize="20px"
-              fontWeight="600"
-            >
-              Cancel
-            </TeamButton>
-          </Box>
+          <TeamCard
+            user={user}
+            handleJoin={handleJoin}
+            selectedTeam={selectedTeam}
+            handleClose={handleClose}
+          />
         </Modal>
-        <TopTemplate />
         <CardContainer>
           <Card>
             <ColumnNames>
@@ -130,7 +118,10 @@ function TeamsList() {
                 <Text fontSize="18px" color="white">
                   {team.members.length}/8
                 </Text>
-                <TeamButton onClick={() => handleClickOpen(team)}>Join</TeamButton>
+                <TeamButton onClick={() => handleClickOpen(team)}>
+                  Show
+                  <span>&nbsp;</span>
+                </TeamButton>
               </TeamData>
             ))}
           </Card>
