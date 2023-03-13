@@ -29,6 +29,17 @@ import {
   MainContainer,
   XContainer,
 } from './CreateTeamForm.styles'
+import MultiStepRegistration from "../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration";
+import InfoForm from "../RegistrationPipeline/components/RegistrationForms/InfoForm";
+import UserConcentrationForm
+  from "../RegistrationPipeline/components/RegistrationForms/UserConcentrationForm/UserConcentrationForm";
+import UserExperienceForm
+  from "../RegistrationPipeline/components/RegistrationForms/UserExperienceForm/UserExperienceForm";
+import UserEducationForm
+  from "../RegistrationPipeline/components/RegistrationForms/UserEducationForm/UserEducationForm";
+import UserLinksForm from "../RegistrationPipeline/components/RegistrationForms/UserLinksForm/UserLinksForm";
+import UserAvatarForm from "../RegistrationPipeline/components/RegistrationForms/UserAvatarForm/UserAvatarForm";
+import {createTeamValidation} from "../../../schemas";
 
 function CreateTeamForm() {
   const navigate = useNavigate()
@@ -42,6 +53,20 @@ function CreateTeamForm() {
   const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam(teamAvatar)
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
   const userId = user?._id
+  const steps  = [
+    {index: 0, component: <InfoForm />},
+
+  ]
+
+  const initialValues = {
+    name: 'string',
+    tag: 'string',
+    type: 'string',
+    country: 'string',
+    description: 'string',
+    members: [],
+    file: null,
+  }
   const handleClose = () => {
     navigate('/team', { replace: true })
   }
@@ -87,37 +112,38 @@ function CreateTeamForm() {
 
   return (
     <>
-      <CreateTeamContainer>
-        <TopTemplate />
-        <Card>
-          <MainContainer>
-            <XContainer onClick={handleClose}>
-              <X />
-            </XContainer>
-            <div>
-              <UserAvatar src={teamAvatar ? teamAvatar : ProfileEllipse} alt="team-avatar" />
-              <AvatarLoadModal handleSaveClose={handleSaveClose} onCrop={onCrop} />
-              <AvatarEditButton onClick={loadTeamAvatar} />
-            </div>
-            <InputContainer>
-              <Input
-                placeholder="Team name"
-                onChange={(e) => setTeamName(e.target.value)}
-                value={teamName}
-              />
-            </InputContainer>
+      <MultiStepRegistration steps={steps} validationSchema={createTeamValidation} initialValues={initialValues}/>
+      {/*<CreateTeamContainer>*/}
+      {/*  <TopTemplate />*/}
+      {/*  <Card>*/}
+      {/*    <MainContainer>*/}
+      {/*      <XContainer onClick={handleClose}>*/}
+      {/*        <X />*/}
+      {/*      </XContainer>*/}
+      {/*      <div>*/}
+      {/*        <UserAvatar src={teamAvatar ? teamAvatar : ProfileEllipse} alt="team-avatar" />*/}
+      {/*        <AvatarLoadModal handleSaveClose={handleSaveClose} onCrop={onCrop} />*/}
+      {/*        <AvatarEditButton onClick={loadTeamAvatar} />*/}
+      {/*      </div>*/}
+      {/*      <InputContainer>*/}
+      {/*        <Input*/}
+      {/*          placeholder="Team name"*/}
+      {/*          onChange={(e) => setTeamName(e.target.value)}*/}
+      {/*          value={teamName}*/}
+      {/*        />*/}
+      {/*      </InputContainer>*/}
 
-            <InputContainer>
-              <Input
-                placeholder="Country"
-                onChange={(e) => setCountry(e.target.value)}
-                value={country}
-              />
-            </InputContainer>
-            <CreateButtonContainer onClick={handleSubmit}>Create</CreateButtonContainer>
-          </MainContainer>
-        </Card>
-      </CreateTeamContainer>
+      {/*      <InputContainer>*/}
+      {/*        <Input*/}
+      {/*          placeholder="Country"*/}
+      {/*          onChange={(e) => setCountry(e.target.value)}*/}
+      {/*          value={country}*/}
+      {/*        />*/}
+      {/*      </InputContainer>*/}
+      {/*      <CreateButtonContainer onClick={handleSubmit}>Create</CreateButtonContainer>*/}
+      {/*    </MainContainer>*/}
+      {/*  </Card>*/}
+      {/*</CreateTeamContainer>*/}
     </>
   )
 }

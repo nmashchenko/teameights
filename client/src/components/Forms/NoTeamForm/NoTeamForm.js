@@ -8,15 +8,19 @@ import CustomButton from '../../../shared/components/CustomButton/CustomButton'
 
 // * Styles
 import { ButtonContainer, Card, CardContainer, Text, TextContainer } from './NoTeamForm.styles'
+import {useDispatch} from "react-redux";
+import {startRegistration} from "../../../store/reducers/RegistrationAuth";
 
 function NoTeamForm() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { data: user } = useCheckAuth()
 
   const handleCreate = () => {
     if (!user?.isRegistered) {
       navigate(ROUTES.login)
     } else {
+      dispatch(startRegistration())
       navigate('/create-team', { replace: true })
     }
   }

@@ -2,9 +2,9 @@ import React from 'react'
 import Stack from '@mui/material/Stack'
 import { useField, useFormikContext } from 'formik'
 
-import { ErrorMessage, Text } from '../../styles/Tpography.styles'
+import {ErrorMessage, Label} from '../../styles/Tpography.styles'
 
-import { TextArea, TextAreaWrapper, TextCounter, TextLimitContainer } from './CustomTextArea.styles'
+import { TextArea, TextAreaWrapper, TextLimitContainer } from './CustomTextArea.styles'
 
 const CustomTextArea = ({ label, options, maxLength, ...props }) => {
   const [field, meta] = useField(props)
@@ -13,13 +13,11 @@ const CustomTextArea = ({ label, options, maxLength, ...props }) => {
 
   return (
     <TextAreaWrapper>
-      <Text fontSize="18px" fontWeight="700">
-        {label}
-      </Text>
+      <Label htmlFor={field.name}>{label}</Label>
       <TextArea
         {...field}
         {...props}
-        border={isError && '1px solid #cf625e'}
+        id={field.name}
         maxLength={maxLength}
         animation={!isError && 'none'}
       />
@@ -30,9 +28,9 @@ const CustomTextArea = ({ label, options, maxLength, ...props }) => {
       >
         {isError && <ErrorMessage>{meta.error}</ErrorMessage>}
         <TextLimitContainer>
-          <TextCounter color={isError ? '#cf625e' : undefined}>
+          <Label>
             {values.description.length}/{maxLength}
-          </TextCounter>
+          </Label>
         </TextLimitContainer>
       </Stack>
     </TextAreaWrapper>

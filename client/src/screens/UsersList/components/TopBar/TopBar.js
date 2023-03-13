@@ -83,17 +83,7 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                       options={countriesOptions}
                       line={false}
                       hideLabelOnSelect={true}
-                      renderValue={(selected) => {
-                        if (selected.length === 0) {
-                          return (
-                            <PlaceholderText style={{ marginRight: '1rem', textAlign: 'end' }}>
-                              Country
-                            </PlaceholderText>
-                          )
-                        }
-
-                        return selected.join(', ')
-                      }}
+                      placeholder="Country"
                       styles={{
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -108,17 +98,7 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                       line={false}
                       hideLabelOnSelect={true}
                       options={concentrationOptions}
-                      renderValue={(selected) => {
-                        if (selected.length === 0) {
-                          return (
-                            <PlaceholderText style={{ marginRight: '1rem', textAlign: 'end' }}>
-                              Role
-                            </PlaceholderText>
-                          )
-                        }
-
-                        return selected.join(', ')
-                      }}
+                      placeholder="Role"
                       styles={{
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -133,17 +113,7 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                       line={false}
                       options={programmingLanguageOptions}
                       hideLabelOnSelect={true}
-                      renderValue={(selected) => {
-                        if (selected.length === 0) {
-                          return (
-                            <PlaceholderText style={{ marginRight: '1rem', textAlign: 'end' }}>
-                              Language
-                            </PlaceholderText>
-                          )
-                        }
-
-                        return selected.join(', ')
-                      }}
+                      placeholder="Language"
                       styles={{
                         flexDirection: 'row',
                         alignItems: 'center',
@@ -158,17 +128,7 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                       line={false}
                       options={frameworkOptions}
                       hideLabelOnSelect={true}
-                      renderValue={(selected) => {
-                        if (selected.length === 0) {
-                          return (
-                            <PlaceholderText style={{ marginRight: '1rem', textAlign: 'end' }}>
-                              Frameworks
-                            </PlaceholderText>
-                          )
-                        }
-
-                        return selected.join(', ')
-                      }}
+                      placeholder="Frameworks"
                       styles={{
                         flexDirection: 'row',
                         alignItems: 'center',

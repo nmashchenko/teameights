@@ -1,6 +1,6 @@
 // * Modules
 // * Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Check from '@mui/icons-material/Check'
 import Stack from '@mui/material/Stack'
 import Step from '@mui/material/Step'
@@ -18,16 +18,6 @@ import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth
 
 // * Components
 import { ButtonContainer, StepperContainer } from './Stepper.styles'
-
-const steps = [
-  'InitialPart',
-  'UserPersonalInfo',
-  'UserConcentration',
-  'UserExperience',
-  'Education',
-  'Links',
-  'UserAvatar',
-]
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   color: GREEN.alternativeBorder,
@@ -64,11 +54,10 @@ function QontoStepIcon(props) {
   )
 }
 
-export default function CustomizedSteppers() {
-  const { step, isLastStep, isOptionalStep } = useSelector((state) => state.registrationReducer)
+export default function CustomizedSteppers({steps, step, isLastStep, isOptionalStep}) {
 
   const { setStep } = registrationAuth.actions
-  const { isValid, initialTouched } = useFormikContext()
+  const { isValid } = useFormikContext()
   const dispatch = useDispatch()
 
   const handleDecrement = () => {
@@ -81,7 +70,7 @@ export default function CustomizedSteppers() {
 
   return (
     <StepperContainer>
-      <ButtonContainer type="button" disabled={step === 1} onClick={handleDecrement}>
+      <ButtonContainer type="button" disabled={step === 1 || step === 0} onClick={handleDecrement}>
         <NavigationArrowUp />
       </ButtonContainer>
       <Stack>

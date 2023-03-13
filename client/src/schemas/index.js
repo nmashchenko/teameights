@@ -6,6 +6,30 @@ const regMatch =
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
 
+const userFileValidation =  yup.object().shape({
+        file: yup
+            .mixed()
+            .notRequired()
+            .test('fileSize', 'File too large', (value) => {
+                if (!value) {
+                    return true
+                }
+                const stringLength = value.length - 'data:image/png;base64,'.length
+
+                const sizeInBytes = 4 * Math.ceil(stringLength / 3) * 0.5624896334383812
+
+                return sizeInBytes <= 1024 * 1024 * 10
+            })
+            .test('fileFormat', 'Unsupported Format', (value) => {
+                if (!value) {
+                    return true
+                }
+
+                return SUPPORTED_FORMATS.includes(
+                    value.substring(value.indexOf(':') + 1, value.indexOf(';')),
+                )
+            }),
+    })
 export const finishRegistrationValidation = [
   yup.object().shape(
     {
@@ -19,7 +43,7 @@ export const finishRegistrationValidation = [
       country: yup.string().required('Please choose your country!'),
       description: yup.string().when('description', (value) => {
         if (value) {
-          return yup.string().max(220)
+          return yup.string().max(200)
         } else {
           return yup.string().notRequired()
         }
@@ -99,30 +123,40 @@ export const finishRegistrationValidation = [
       ['telegram', 'telegram'],
     ],
   ),
-  yup.object().shape({
-    file: yup
-      .mixed()
-      .notRequired()
-      .test('fileSize', 'File too large', (value) => {
-        if (!value) {
-          return true
-        }
-        const stringLength = value.length - 'data:image/png;base64,'.length
+  userFileValidation
+]
 
-        const sizeInBytes = 4 * Math.ceil(stringLength / 3) * 0.5624896334383812
 
-        return sizeInBytes <= 1024 * 1024 * 10
-      })
-      .test('fileFormat', 'Unsupported Format', (value) => {
-        if (!value) {
-          return true
-        }
-
-        return SUPPORTED_FORMATS.includes(
-          value.substring(value.indexOf(':') + 1, value.indexOf(';')),
-        )
-      }),
-  }),
+export const createTeamValidation = [
+    yup.object().shape(
+        {
+            name: yup.string().required('Please input team name').max(20),
+            tag: yup.string().when('tag', (value) => {
+                if (value) {
+                    return yup.string().max(5)
+                } else {
+                    return yup.string().notRequired()
+                }
+            }),
+            type: yup.string().required('Please choose your country!'),
+            country: yup.string().required('Please choose your country!'),
+            description: yup.string().when('description', (value) => {
+                if (value) {
+                    return yup.string().max(200)
+                } else {
+                    return yup.string().notRequired()
+                }
+            }),
+        },
+        [
+            ['tag', 'tag'],
+            ['description', 'description']
+        ],
+    ),
+    yup.object().shape({
+        members: yup.array().max(7, 'You can invite at most 7 users!'),
+    }),
+    userFileValidation
 ]
 
 export const editProfileValidation = yup.object().shape(

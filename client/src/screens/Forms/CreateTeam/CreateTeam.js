@@ -5,6 +5,7 @@ import { SnackbarProvider } from 'notistack'
 
 import CreateTeamForm from '../../../components/Forms/CreateTeamForm/CreateTeamForm'
 
+
 const SnackbarStyled = styled(SnackbarProvider)`
   &.SnackbarItem-contentRoot {
     background-color: #cf625e;
@@ -12,7 +13,7 @@ const SnackbarStyled = styled(SnackbarProvider)`
 `
 
 function CreateTeam() {
-  return (
+    return (
     <>
       <SnackbarStyled
         maxSnack={4}
