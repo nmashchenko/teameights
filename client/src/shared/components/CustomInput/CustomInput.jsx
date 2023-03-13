@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import { useField } from 'formik'
 
-import {ErrorMessage, Label, Text} from '../../styles/Tpography.styles'
+import { ErrorMessage, Label, Text } from '../../styles/Tpography.styles'
 
 import { Input } from './CustomInput.styles'
 

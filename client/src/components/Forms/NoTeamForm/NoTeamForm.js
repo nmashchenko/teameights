@@ -1,15 +1,15 @@
 // * Modules
+import { useDispatch } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
 
 // * Assets
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import ROUTES from '../../../constants/routes'
 import CustomButton from '../../../shared/components/CustomButton/CustomButton'
+import { startRegistration } from '../../../store/reducers/RegistrationAuth'
 
 // * Styles
 import { ButtonContainer, Card, CardContainer, Text, TextContainer } from './NoTeamForm.styles'
-import {useDispatch} from "react-redux";
-import {startRegistration} from "../../../store/reducers/RegistrationAuth";
 
 function NoTeamForm() {
   const navigate = useNavigate()

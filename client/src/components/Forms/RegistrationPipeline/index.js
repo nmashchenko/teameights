@@ -1,20 +1,21 @@
 import React from 'react'
 // * Redux
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { useEditUserDetails } from '../../../api/hooks/auth/useEditUserDetails'
+import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
+import { finishRegistrationValidation } from '../../../schemas'
+import { setIsFinishRegistrationStarted } from '../../../store/reducers/RegistrationAuth'
 
 import InitialPart from './components/InitialPart/InitialPart'
 import MultiStepRegistration from './components/MultiStepRegistration/MultiStepRegistration'
 import InfoForm from './components/RegistrationForms/InfoForm'
-import UserConcentrationForm from './components/RegistrationForms/UserConcentrationForm/UserConcentrationForm'
-import UserExperienceForm from './components/RegistrationForms/UserExperienceForm/UserExperienceForm'
-import UserEducationForm from './components/RegistrationForms/UserEducationForm/UserEducationForm'
-import UserLinksForm from './components/RegistrationForms/UserLinksForm/UserLinksForm'
 import UserAvatarForm from './components/RegistrationForms/UserAvatarForm/UserAvatarForm'
-import { finishRegistrationValidation } from '../../../schemas'
-import { useEditUserDetails } from '../../../api/hooks/auth/useEditUserDetails'
-import { setIsFinishRegistrationStarted } from '../../../store/reducers/RegistrationAuth'
-import { useNavigate } from 'react-router-dom'
-import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
+import UserConcentrationForm from './components/RegistrationForms/UserConcentrationForm/UserConcentrationForm'
+import UserEducationForm from './components/RegistrationForms/UserEducationForm/UserEducationForm'
+import UserExperienceForm from './components/RegistrationForms/UserExperienceForm/UserExperienceForm'
+import UserLinksForm from './components/RegistrationForms/UserLinksForm/UserLinksForm'
 
 function FinishRegistration() {
   const { isFinishRegistrationStarted } = useSelector((state) => state.registrationReducer)
@@ -87,6 +88,7 @@ function FinishRegistration() {
     }
     finishRegistration(registrationData)
   }
+
   return (
     <>
       {isFinishRegistrationStarted ? (

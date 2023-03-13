@@ -2,8 +2,11 @@ import React from 'react'
 import FormControl from '@mui/material/FormControl'
 import { useField } from 'formik'
 
-import {Item, PlaceholderText} from '../../../screens/UsersList/components/SelectField/SelectField.styles'
-import {ErrorMessage, Label, Text} from '../../styles/Tpography.styles'
+import {
+  Item,
+  PlaceholderText,
+} from '../../../screens/UsersList/components/SelectField/SelectField.styles'
+import { ErrorMessage, Label, Text } from '../../styles/Tpography.styles'
 
 import { Line, MenuProps, SelectCustom } from './CustomSelect.styles'
 
@@ -14,7 +17,7 @@ const CustomSelect = ({
   width,
   margin,
   styles,
-  placeholder="Select",
+  placeholder = 'Select',
   displayError = true,
   line = true,
   hideLabelOnSelect = false,
@@ -22,6 +25,7 @@ const CustomSelect = ({
 }) => {
   const [field, meta] = useField(props)
   const isError = meta.touched && meta.error
+
   return (
     <FormControl
       sx={{ margin: margin || '10px 0 0 0', width: width || '15rem', padding: '0px', ...styles }}
@@ -38,11 +42,7 @@ const CustomSelect = ({
         id={field.name}
         renderValue={(selected) => {
           if (selected.length === 0) {
-            return (
-                <PlaceholderText>
-                  {placeholder}
-                </PlaceholderText>
-            )
+            return <PlaceholderText>{placeholder}</PlaceholderText>
           }
 
           return selected

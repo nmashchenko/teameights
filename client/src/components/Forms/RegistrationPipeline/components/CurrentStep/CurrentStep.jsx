@@ -6,7 +6,6 @@ import { useFormikContext } from 'formik'
 import { finishRegistrationValidation } from '../../../../../schemas'
 import { setIsLastStep } from '../../../../../store/reducers/RegistrationAuth'
 
-
 const CurrentStep = ({ step, steps }) => {
   const dispatch = useDispatch()
   const { setTouched } = useFormikContext()
@@ -15,9 +14,9 @@ const CurrentStep = ({ step, steps }) => {
     dispatch(setIsLastStep(step === finishRegistrationValidation.length))
     setTouched({})
   }, [step])
-  const currentStep = steps.find(s => s.index === step)
-  return  currentStep ? currentStep.component :  <Navigate to="/not-found" />
+  const currentStep = steps.find((s) => s.index === step)
 
+  return currentStep ? currentStep.component : <Navigate to="/not-found" />
 }
 
 export default CurrentStep

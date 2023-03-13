@@ -12,12 +12,20 @@ import { useCreateTeam } from '../../../api/hooks/team/useCreateTeam'
 import AvatarEditIcon from '../../../assets/AvatarEditIcon'
 // * Assets
 import X from '../../../assets/X'
+import { createTeamValidation } from '../../../schemas'
 import AvatarEditButton from '../../../shared/components/Forms/UserAvatar/AvatarEditButton/AvatarEditButton'
 import AvatarLoadModal from '../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal'
 import { UserAvatar } from '../../../shared/components/Forms/UserAvatar/UserAvatar.styles'
 import Loader from '../../../shared/components/Loader/Loader'
 import { setIsModalOpen } from '../../../store/reducers/Shared'
 import TopTemplate from '../../TopTemplate/TopTemplate'
+import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
+import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoForm'
+import UserAvatarForm from '../RegistrationPipeline/components/RegistrationForms/UserAvatarForm/UserAvatarForm'
+import UserConcentrationForm from '../RegistrationPipeline/components/RegistrationForms/UserConcentrationForm/UserConcentrationForm'
+import UserEducationForm from '../RegistrationPipeline/components/RegistrationForms/UserEducationForm/UserEducationForm'
+import UserExperienceForm from '../RegistrationPipeline/components/RegistrationForms/UserExperienceForm/UserExperienceForm'
+import UserLinksForm from '../RegistrationPipeline/components/RegistrationForms/UserLinksForm/UserLinksForm'
 
 import ProfileEllipse from './img/zxc1.jpg'
 import {
@@ -29,17 +37,6 @@ import {
   MainContainer,
   XContainer,
 } from './CreateTeamForm.styles'
-import MultiStepRegistration from "../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration";
-import InfoForm from "../RegistrationPipeline/components/RegistrationForms/InfoForm";
-import UserConcentrationForm
-  from "../RegistrationPipeline/components/RegistrationForms/UserConcentrationForm/UserConcentrationForm";
-import UserExperienceForm
-  from "../RegistrationPipeline/components/RegistrationForms/UserExperienceForm/UserExperienceForm";
-import UserEducationForm
-  from "../RegistrationPipeline/components/RegistrationForms/UserEducationForm/UserEducationForm";
-import UserLinksForm from "../RegistrationPipeline/components/RegistrationForms/UserLinksForm/UserLinksForm";
-import UserAvatarForm from "../RegistrationPipeline/components/RegistrationForms/UserAvatarForm/UserAvatarForm";
-import {createTeamValidation} from "../../../schemas";
 
 function CreateTeamForm() {
   const navigate = useNavigate()
@@ -53,10 +50,7 @@ function CreateTeamForm() {
   const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam(teamAvatar)
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
   const userId = user?._id
-  const steps  = [
-    {index: 0, component: <InfoForm />},
-
-  ]
+  const steps = [{ index: 0, component: <InfoForm /> }]
 
   const initialValues = {
     name: 'string',
@@ -112,7 +106,11 @@ function CreateTeamForm() {
 
   return (
     <>
-      <MultiStepRegistration steps={steps} validationSchema={createTeamValidation} initialValues={initialValues}/>
+      <MultiStepRegistration
+        steps={steps}
+        validationSchema={createTeamValidation}
+        initialValues={initialValues}
+      />
       {/*<CreateTeamContainer>*/}
       {/*  <TopTemplate />*/}
       {/*  <Card>*/}

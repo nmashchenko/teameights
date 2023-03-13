@@ -2,7 +2,7 @@ import React from 'react'
 import Stack from '@mui/material/Stack'
 import { useField, useFormikContext } from 'formik'
 
-import {ErrorMessage, Label} from '../../styles/Tpography.styles'
+import { ErrorMessage, Label } from '../../styles/Tpography.styles'
 
 import { TextArea, TextAreaWrapper, TextLimitContainer } from './CustomTextArea.styles'
 

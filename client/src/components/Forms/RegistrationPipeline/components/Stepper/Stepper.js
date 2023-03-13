@@ -54,8 +54,7 @@ function QontoStepIcon(props) {
   )
 }
 
-export default function CustomizedSteppers({steps, step, isLastStep, isOptionalStep}) {
-
+export default function CustomizedSteppers({ steps, step, isLastStep, isOptionalStep }) {
   const { setStep } = registrationAuth.actions
   const { isValid } = useFormikContext()
   const dispatch = useDispatch()

@@ -46,7 +46,7 @@ export const registrationAuth = createSlice({
     startRegistration(state) {
       state.isLastStep = false
       state.step = 0
-    }
+    },
   },
 })
 
@@ -61,7 +61,7 @@ export const {
   setStageOneCompleted,
   finishRegistration,
   finishRegistrationError,
-  startRegistration
+  startRegistration,
 } = registrationAuth.actions
 
 export default registrationAuth.reducer
