@@ -53,11 +53,11 @@ function CreateTeamForm() {
   const steps = [{ index: 0, component: <InfoForm /> }]
 
   const initialValues = {
-    name: 'string',
-    tag: 'string',
-    type: 'string',
-    country: 'string',
-    description: 'string',
+    name: '',
+    tag: '',
+    type: '',
+    country: '',
+    description: '',
     members: [],
     file: null,
   }

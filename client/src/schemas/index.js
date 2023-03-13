@@ -129,13 +129,7 @@ export const createTeamValidation = [
   yup.object().shape(
     {
       name: yup.string().required('Please input team name').max(20),
-      tag: yup.string().when('tag', (value) => {
-        if (value) {
-          return yup.string().max(5)
-        } else {
-          return yup.string().notRequired()
-        }
-      }),
+      tag: yup.string().required('Please input team tag').max(5),
       type: yup.string().required('Please choose your country!'),
       country: yup.string().required('Please choose your country!'),
       description: yup.string().when('description', (value) => {

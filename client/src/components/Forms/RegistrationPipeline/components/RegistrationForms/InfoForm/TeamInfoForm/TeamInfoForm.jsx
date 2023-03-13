@@ -30,7 +30,7 @@ const UserInfoForm = () => {
       <SectionContainer>
         <GroupContainer>
           <CustomInput
-            placeholder="Team tag (optional)"
+            placeholder="Team tag"
             label="Input tag"
             name="username"
             type="text"
