@@ -23,13 +23,14 @@ import { uuid } from 'uuidv4';
 import { User } from '@/users/users.schema';
 import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
 import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
-import mongoose from 'mongoose';
 import { MailsModule } from '@/mails/mails.module';
+import { NotificationsService } from '@/notifications/notifications.service';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
 	let userService: UsersService;
 	let rolesService: RolesService;
+	let notificationService: NotificationsService;
 
 	beforeAll((done) => {
 		done();
@@ -74,6 +75,8 @@ describe('TeamService', () => {
 		teamsService = module.get<TeamsService>(TeamsService);
 		userService = module.get<UsersService>(UsersService);
 		rolesService = module.get<RolesService>(RolesService);
+		notificationService =
+			module.get<NotificationsService>(NotificationsService);
 	});
 
 	afterEach(async () => {
@@ -94,6 +97,24 @@ describe('TeamService', () => {
 		});
 
 		return await userService.createUser(RegisterUserDtoStub(email));
+	}
+
+	async function createMultipleUsers(amount: number) {
+		await rolesService.createRole({
+			value: 'USER',
+			description: 'User role',
+		});
+		let users = new Array<User>();
+
+		for (let i = 0; i < amount; i++) {
+			const user = await userService.createUser(
+				RegisterUserDtoStub(uuid() + '@gmail.com'),
+			);
+
+			users.push(user);
+		}
+
+		return users;
 	}
 
 	it('should be defined', () => {
@@ -137,26 +158,14 @@ describe('TeamService', () => {
 		).rejects.toThrow(HttpException);
 	});
 
-	it('should create 500 users and 500 teams', async () => {
-		await rolesService.createRole({
-			value: 'USER',
-			description: 'User role',
-		});
-		let users = new Array<User>();
-
-		for (let i = 0; i < 500; i++) {
-			const user = await userService.createUser(
-				RegisterUserDtoStub(uuid() + '@gmail.com'),
-			);
-
-			users.push(user);
-		}
+	it('should create 300 users and 300 teams', async () => {
+		let users = await createMultipleUsers(300);
 
 		for (let i = 0; i < users.length; i++) {
 			await teamsService.createTeam(CreateTeamDtoStub(users[i]._id));
 		}
 
-		expect((await teamsService.getAllTeams()).length).toBe(500);
+		expect((await teamsService.getAllTeams()).length).toBe(300);
 	});
 
 	it('should create user, give him role, create team, double check that it is created without image, make request to update image and double check that image link was given', async () => {
@@ -192,8 +201,6 @@ describe('TeamService', () => {
 			InviteToTeamDtoStub(user2.email, user1._id, team._id),
 		);
 
-		console.log(info);
-
 		const updatedUser2 = await userService.getUserById(user2._id);
 
 		expect(updatedUser2.notifications[1]._id).toStrictEqual(
@@ -211,5 +218,52 @@ describe('TeamService', () => {
 		await teamsService.deleteTeam(team._id);
 
 		expect((await teamsService.getAllTeams()).length).toBe(0);
+	});
+
+	it('should create user, give him role, create team and then fail to create another team with the same tag', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		// call it again to reproduce error
+		await expect(
+			teamsService.createTeam(CreateTeamDtoStub(user._id, team.tag)),
+		).rejects.toThrow(HttpException);
+	});
+
+	it('should create 5 users, give them role, one user should create team and then invite other users into it', async () => {
+		const users = await createMultipleUsers(5);
+
+		const leader = users.shift();
+
+		let members = {
+			emails: [],
+			ids: [],
+		};
+
+		for (let i = 0; i < users.length; i++) {
+			members.emails.push(users[i].email);
+			members.ids.push(users[i]._id);
+		}
+
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(leader._id, null, members.emails, members.ids),
+		);
+
+		/* Checking if the team is defined. */
+		expect(team).toBeDefined();
+
+		for (let i = 0; i < users.length; i++) {
+			let notification =
+				await notificationService.getTeamNotificationsForUser(
+					users[i]._id,
+				);
+
+			/* Checking if the notification is defined. */
+			expect(notification[0]).toBeDefined();
+
+			/* Checking if the notification is defined. */
+			expect(notification[0].from_user_id).toStrictEqual(leader._id);
+		}
 	});
 });

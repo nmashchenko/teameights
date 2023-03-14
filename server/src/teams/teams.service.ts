@@ -59,13 +59,25 @@ export class TeamsService {
 			);
 		}
 
+		/* Checking if the tag is unique. */
+		if (await this.checkTagUniqueness(dto.tag)) {
+			throw new HttpException(
+				`Team with tag ${dto.tag} already exist`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* Creating an array of members_id. */
+		let members_id: Array<mongoose.Types.ObjectId> = [dto.leader];
+
 		/* Creating a team with the given data. */
 		const team = await this.teamModel.create({
 			name: dto.name,
 			description: dto.description,
 			leader: dto.leader,
-			members: [dto.leader],
+			members: members_id,
 			country: dto.country,
+			tag: dto.tag,
 			type: dto.type,
 			wins: 0,
 			points: 0,
@@ -74,7 +86,29 @@ export class TeamsService {
 		/* Adding the team to the user. */
 		await this.userService.addTeam(candidate._id, team._id);
 
+		/* Check if there are any members to invite. */
+		if (dto?.members?.emails.length > 0) {
+			/* Inviting all the members of the team to the team. */
+			for (let i = 0; i < dto.members.emails.length; i++) {
+				let candidate = {
+					email: dto.members.emails[i],
+					from_user_id: dto.leader,
+					teamid: team._id,
+				};
+				await this.inviteToTeam(candidate);
+			}
+		}
+
 		return team;
+	}
+
+	/**
+	 * It checks if a team with the given tag already exists
+	 * @param {string} tag - string - the tag of the team
+	 * @returns A team object or null
+	 */
+	private async checkTagUniqueness(tag: string): Promise<Team> | null {
+		return await this.teamModel.findOne({ tag });
 	}
 
 	/**
