@@ -1,7 +1,7 @@
 // * Modules
 import { useEffect, useState } from 'react'
 // * Redux
-import { Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import { useSnackbar } from 'notistack'
@@ -13,6 +13,7 @@ import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import Cake from '../../../assets/Cake'
 import Close from '../../../assets/Close'
+import Crown from '../../../assets/Crown'
 import SearchIcon from '../../../assets/SearchIcon'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
@@ -21,6 +22,8 @@ import Users from '../../../assets/Users'
 import { LOCAL_PATH } from '../../../http'
 import Loader from '../../../shared/components/Loader/Loader'
 
+import About from './About/About'
+import Members from './Members/Members'
 import TeamActionModal from './TeamActionModal'
 import {
   ActionButton,
@@ -29,14 +32,19 @@ import {
   CancelButton,
   Card,
   CardContainer,
+  Center,
   CircleContainer,
   CloseContainer,
   Container,
   CreateButton,
+  CreateTeam,
   CrownContainer,
+  CrownContainer2,
+  EditTeam,
   Input,
   InputBox,
   InviteButton,
+  LeaderActionsBox,
   LeaveTeam,
   LeftContainer,
   MainCardContent,
@@ -48,6 +56,7 @@ import {
   SVGAndText,
   Tab,
   TabContainer,
+  TeamButton,
   TeamCardBody,
   TeamCardBodyPoint,
   TeamCardDesc,
@@ -68,32 +77,36 @@ import {
 } from './TeamForm.styles'
 import tempImg from './zxc1.jpg'
 
-function TeamForm() {
+function TeamForm({ switchPage }) {
+  const navigate = useNavigate()
   const [inviteActive, setInviteActive] = useState(false)
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
-  const [members, setMembers] = useState([])
+  // const [members, setMembers] = useState([])
   const [isMembers, switchIsMembers] = useState(true)
 
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
-
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
 
   const createDate = new Date(team?.createdAt)
     .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
     .replace(',', '')
 
-  useEffect(() => {
-    const getTeam = async () => {
-      if (team) {
-        const users = await teamsAPI.getTeamMembers(team.members)
+  const { data: user } = useCheckAuth()
 
-        setMembers(users.data)
-      }
-    }
+  // We need: Leave team
 
-    getTeam()
-  }, [team])
+  // useEffect(() => {
+  //   const getTeam = async () => {
+  //     if (team) {
+  //       const users = await teamsAPI.getTeamMembers(team.members)
+
+  //       setMembers(users.data)
+  //     }
+  //   }
+
+  //   getTeam()
+  // }, [team])
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -124,102 +137,47 @@ function TeamForm() {
   if (isUserTeamLoading || isDeleting) {
     return <Loader />
   }
-  if (!team) {
-    return <Navigate to={'/team'} />
+
+  const noTeam = (
+    <Center>
+      <Text fontWeight="600" fontSize="24px" margin="0 0 8px 0">
+        You don't have a team yet!
+      </Text>
+      <Text fontSize="16px" margin="0 0 8px 0">
+        You can create a new team or join an existing team.
+      </Text>
+      <Link to={'/create-team'}>
+        <CreateTeam>Create Team</CreateTeam>
+      </Link>
+      <TeamButton onClick={switchPage}>Join Team</TeamButton>
+    </Center>
+  )
+
+  if (user.team === undefined) {
+    return <Container>{noTeam}</Container>
   }
 
-  //   <ButtonCardContent>
-  //   <ActionButton onClick={handleOpenInvite}>
-  //     <Add />
-  //   </ActionButton>
-  //   <ActionButton onClick={handleOpenLeave}>
-  //     <Delete />
-  //   </ActionButton>
-  // </ButtonCardContent>
+  const membersVar = <Members team={team} />
 
-  const membersVar = (
-    <UserGrid>
-      {members.map((member, i) => (
-        <UserCard key={i}>
-          <UserImg
-            src={
-              member?.image
-                ? LOCAL_PATH + '/' + member.image
-                : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
-            }
-          />
-          <UserInfo>
-            <Text fontSize="16px" color="#FFF">
-              {member.username}
-            </Text>
-            <Text fontSize="14px" color="#FFF" fontWeight="100" alignment="start">
-              {member.concentration}
-            </Text>
-          </UserInfo>
-        </UserCard>
-      ))}
-    </UserGrid>
-  )
-  const about = (
-    <TeamCardFigure>
-      <TeamCardTop>
-        <TeamCardTopInfo>
-          <div>
-            <h3>Name</h3>
-            <p>{team.name}</p>
-          </div>
-        </TeamCardTopInfo>
-        <TeamCardTopInfo>
-          <div>
-            <h3>Tag</h3>
-            <p>[TAG]</p>
-          </div>
-        </TeamCardTopInfo>
-        <TeamCardTopInfo>
-          <div>
-            <h3>Status</h3>
-            <p>[STATUS]</p>
-          </div>
-        </TeamCardTopInfo>
-        <TeamCardTopInfo>
-          <div>
-            <h3>Country</h3>
-            <p>{team.country}</p>
-          </div>
-        </TeamCardTopInfo>
-      </TeamCardTop>
-      <TeamCardBody>
-        <TeamCardBodyPoint>
-          <h3>Description</h3>
-          <TeamCardDesc>insert long ass description here</TeamCardDesc>
-        </TeamCardBodyPoint>
-        <TeamCardBodyPoint></TeamCardBodyPoint>
-        <TeamCardBodyPoint>
-          <h3>Statistics</h3>
-          <StatisticsFlex>
-            <Statistic>
-              <p>
-                Tournaments: <span>5</span>
-              </p>
-            </Statistic>
-            <Statistic>
-              <p>
-                Wins: <span>2</span>
-              </p>
-            </Statistic>
-            <Statistic>
-              <p>
-                Points: <span>380</span>
-              </p>
-            </Statistic>
-          </StatisticsFlex>
-        </TeamCardBodyPoint>
-      </TeamCardBody>
-    </TeamCardFigure>
+  const about = <About team={team} />
+
+  const leaderOrMemberAction = (
+    <>
+      {user?.isLeader ? (
+        <LeaderActionsBox>
+          <EditTeam>Edit</EditTeam>
+          <LeaveTeam height="40px" onClick={handleOpenLeave} marginTop="0">
+            Delete
+          </LeaveTeam>
+        </LeaderActionsBox>
+      ) : (
+        <LeaveTeam onClick={handleOpenLeave}>Leave Team</LeaveTeam>
+      )}
+    </>
   )
 
-  return (
-    <Container>
+  const aTeam = (
+    <>
       <Modal
         open={open}
         onClose={handleClose}
@@ -303,13 +261,16 @@ function TeamForm() {
         </Card>
         <RightContainer>
           <TeamImgBorder src={tempImg} />
+          <CrownContainer2>
+            <Crown />
+          </CrownContainer2>
           <Text margin="16px 0 12px 0">{team.name}</Text>
           <SVGAndText>
             <CakeBox>
               <Cake />
             </CakeBox>
             <Text fontSize="16px" fontWeight="400">
-              {team.created_at.split('T')[0]}
+              {team.createdAt.split('T')[0]}
             </Text>
           </SVGAndText>
           <SVGAndText>
@@ -317,14 +278,18 @@ function TeamForm() {
               <Users />
             </CakeBox>
             <Text fontSize="16px" fontWeight="400">
-              8/{team.members.length}
+              {team.members.length}/8
             </Text>
           </SVGAndText>
-          <LeaveTeam onClick={handleOpenLeave}>Leave Team</LeaveTeam>
+          {leaderOrMemberAction}
         </RightContainer>
       </CardContainer>
-    </Container>
+    </>
   )
+
+  console.log(user)
+
+  return <Container>{aTeam}</Container>
 }
 
 export default TeamForm

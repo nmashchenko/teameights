@@ -98,7 +98,7 @@ export const TeamCardDesc = styled.p`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  transform: rotate(45deg) translate(80%, 0) scale(0.5);
+  transform: rotate(0deg) translate(15%, 1%) scale(0.5);
 `
 
 export const TeamCardPerson = styled.div`

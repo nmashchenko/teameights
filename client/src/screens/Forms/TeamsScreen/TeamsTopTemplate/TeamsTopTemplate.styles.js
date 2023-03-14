@@ -22,6 +22,9 @@ export const CurrentTeam = styled.div`
   gap: 16px;
   font-size: 20px;
   line-height: 24px;
+  position: absolute;
+  top: 2.5%;
+  right: 5%;
 `
 
 export const Textbox = styled.div`

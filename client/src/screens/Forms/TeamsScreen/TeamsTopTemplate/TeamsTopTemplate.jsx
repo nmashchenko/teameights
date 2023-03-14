@@ -14,34 +14,34 @@ const TeamsTopTemplate = ({ myTeam, switchMyTeam }) => {
   }
 
   return (
-    <ToolbarContainer>
-      <NavContainer>
-        <NavBar />
-      </NavContainer>
-      <TeameightsLogo />
-      <CurrentTeam>
-        <Textbox isMyTeam={myTeam}>
-          <Text
-            onClick={switchPage.bind(null, true)}
-            fontSize="20px"
-            color={`${myTeam ? '#5BD424' : 'white'}`}
-          >
-            My Team
-          </Text>
-          <span></span>
-        </Textbox>
-        <Textbox isMyTeam={!myTeam}>
-          <Text
-            onClick={switchPage.bind(null, false)}
-            fontSize="20px"
-            color={`${!myTeam ? '#5BD424' : 'white'}`}
-          >
-            All Teams
-          </Text>
-          <span></span>
-        </Textbox>
-      </CurrentTeam>
-    </ToolbarContainer>
+    //  <ToolbarContainer>
+    //   <NavContainer>
+    //     <NavBar />
+    //   </NavContainer>
+    //   <TeameightsLogo />
+    <CurrentTeam>
+      <Textbox isMyTeam={myTeam}>
+        <Text
+          onClick={switchPage.bind(null, true)}
+          fontSize="20px"
+          color={`${myTeam ? '#5BD424' : 'white'}`}
+        >
+          My Team
+        </Text>
+        <span></span>
+      </Textbox>
+      <Textbox isMyTeam={!myTeam}>
+        <Text
+          onClick={switchPage.bind(null, false)}
+          fontSize="20px"
+          color={`${!myTeam ? '#5BD424' : 'white'}`}
+        >
+          All Teams
+        </Text>
+        <span></span>
+      </Textbox>
+    </CurrentTeam>
+    // </ToolbarContainer>
   )
 }
 

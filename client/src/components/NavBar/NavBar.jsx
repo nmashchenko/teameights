@@ -50,6 +50,8 @@ const NavBar = () => {
   }
   const showSidebar = () => setSidebar(!sidebar)
 
+  console.log(user)
+
   return (
     <>
       <NavIconContainer onClick={showSidebar}>

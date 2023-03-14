@@ -24,6 +24,10 @@ function TeamsScreen() {
 
   const [curTeamPage, switchPage] = useState(true)
 
+  const switchPageHandler = () => {
+    switchPage((prevState) => !prevState)
+  }
+
   return (
     <>
       <SnackbarStyled
@@ -37,10 +41,9 @@ function TeamsScreen() {
         <GlobalStyle />
         <TeamsTopTemplate myTeam={curTeamPage} switchMyTeam={switchPage} />
         {curTeamPage ? (
-          <TeamForm />
+          <TeamForm switchPage={switchPageHandler} />
         ) : (
           <>
-            <CssBaseline />
             <TeamSearchBar />
             <TeamsList />
           </>

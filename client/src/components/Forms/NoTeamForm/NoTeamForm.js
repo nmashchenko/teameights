@@ -22,16 +22,19 @@ function NoTeamForm() {
   }
 
   const handleJoin = () => {
-    if (!user?.isRegistered) {
-      navigate(ROUTES.login)
-    } else {
-      navigate('/teams', { replace: true })
-    }
+    navigate('/teams')
+    // if (!user?.isRegistered) {
+    //   navigate(ROUTES.login)
+    //   console.log('LOL')
+    // } else {
+    //   console.log('ok')
+    //   navigate('/teams')
+    // }
   }
 
-  if (user?.userTeam) {
-    return <Navigate to="/myteam" />
-  }
+  // if (user?.userTeam) {
+  //   return <Navigate to="/myteam" />
+  // }
 
   return (
     <CardContainer>

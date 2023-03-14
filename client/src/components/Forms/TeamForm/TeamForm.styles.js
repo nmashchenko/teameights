@@ -135,8 +135,9 @@ export const TeamImgBorder = styled.img`
 `
 
 export const LeaveTeam = styled.button`
+
   width: 100%;
-  height: 44px;
+  height: ${(props) => props.height || '44px'};
   background: transparent;
   border: 2px solid #A5211F;
   border-radius: 10px;
@@ -144,7 +145,7 @@ export const LeaveTeam = styled.button`
   font-weight: 500;
   color: white;
   outline: none;
-  margin-top: 34px;
+  margin-top: ${(props) => props.marginTop || '34px'};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -159,6 +160,23 @@ export const LeaveTeam = styled.button`
   }
 
 `
+export const EditTeam = styled.button`
+  background-color: #46a11b;
+  padding: 10px 16px 8px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+
+  box-shadow: 0px 4px 25px rgba(93, 157, 11, 0.25);
+  &:hover {
+    transform: translateY(-1.25px);
+    box-shadow: 0px 5px 31.25px rgba(93, 157, 11, 0.3125);
+  }
+`
+
 export const CancelButton = styled.button`
   width: 100%;
   height: 44px;
@@ -465,7 +483,11 @@ export const TeamCardDesc = styled.p`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  transform: rotate(45deg) translate(80%, 0) scale(0.5);
+  transform: rotate(0deg) translate(-95%, -50%) scale(0.5);
+`
+export const CrownContainer2 = styled.div`
+  position: absolute;
+  transform: rotate(0deg) translate(100%, -300%) scale(1.5);
 `
 
 export const TeamCardPerson = styled.div`
@@ -499,5 +521,88 @@ export const Statistic = styled.div`
     margin: 0;
     color: #5bd424;
     display: inline !important;
+  }
+`
+
+export const CreateTeam = styled.button`
+ 
+  
+width: 306px;
+  height: 44px;
+  background: #46A11B;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  outline: none;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap 6px;
+
+  cursor: pointer;
+
+  transition: all .2s;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 2px 25px  #46A11B60;
+  }
+
+
+
+`
+export const TeamButton = styled.button`
+width: 306px;
+  height: 44px;
+  background: transparent;
+  border: 2px solid #46A11B;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  outline: none;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap 6px;
+
+  cursor: pointer;
+
+  transition: all .2s;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 2px 25px  #46A11B60;
+  }
+
+
+
+`
+
+export const Center = styled.div`
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  a {
+    text-decoration: none;
+  }
+`
+
+export const LeaderActionsBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  button {
+    width: 120px;
   }
 `

@@ -48,6 +48,7 @@ function TeamsList() {
     const makeRequest = async () => {
       const teams = await teamsAPI.getAllTeams()
 
+      console.log(teams)
       setTeams(teams.data)
     }
 
@@ -64,12 +65,15 @@ function TeamsList() {
   }
 
   const handleJoin = async (teamId) => {
+    console.log('1')
     const result = await joinUser({ user_id: userId, teamid: teamId })
 
     if (result) {
+      console.log('2')
       handleClose()
       navigate('/team')
     } else {
+      console.log('3')
       enqueueSnackbar('You have joined the team already!', {
         preventDuplicate: true,
       })
@@ -91,7 +95,7 @@ function TeamsList() {
           <TeamCard
             user={user}
             handleJoin={handleJoin}
-            selectedTeam={selectedTeam}
+            team={selectedTeam}
             handleClose={handleClose}
           />
         </Modal>

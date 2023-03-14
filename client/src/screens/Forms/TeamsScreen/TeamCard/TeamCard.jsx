@@ -31,6 +31,8 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
 
   const teammates = members.slice(1, members.length)
 
+  console.log(team)
+
   return (
     <TeamCardFigure>
       <TeamCardTop>
@@ -44,7 +46,7 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
         </TeamCardTopInfo>
         <TeamCardTopInfo>
           <h3>Status</h3>
-          <p>[STATUS]</p>
+          <p>{team.type}</p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
           <h3>Country</h3>
@@ -55,7 +57,7 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
       <TeamCardBody>
         <TeamCardBodyPoint>
           <h3>Description</h3>
-          <TeamCardDesc>insert long ass description here</TeamCardDesc>
+          <TeamCardDesc>{team.description}</TeamCardDesc>
         </TeamCardBodyPoint>
         <TeamCardBodyPoint>
           <div>
@@ -85,17 +87,17 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
           <StatisticsFlex>
             <Statistic>
               <p>
-                Tournaments: <span>5</span>
+                Tournaments: <span>[NUMBER]</span>
               </p>
             </Statistic>
             <Statistic>
               <p>
-                Wins: <span>2</span>
+                Wins: <span>{team.wins}</span>
               </p>
             </Statistic>
             <Statistic>
               <p>
-                Points: <span>380</span>
+                Points: <span>{team.points}</span>
               </p>
             </Statistic>
           </StatisticsFlex>
