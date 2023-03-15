@@ -80,8 +80,14 @@ import tempImg from './zxc1.jpg'
 function TeamForm({ switchPage }) {
   const navigate = useNavigate()
   const [inviteActive, setInviteActive] = useState(false)
+  const [deleteActive, setDeleteActive] = useState(false)
+  const [leaveActive, setLeaveActive] = useState(false)
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
+  const [isEditing, setIsEditing] = useState(false)
+  const [hasUpdate, update] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   // const [members, setMembers] = useState([])
   const [isMembers, switchIsMembers] = useState(true)
 
@@ -96,30 +102,46 @@ function TeamForm({ switchPage }) {
 
   // We need: Leave team
 
-  // useEffect(() => {
-  //   const getTeam = async () => {
-  //     if (team) {
-  //       const users = await teamsAPI.getTeamMembers(team.members)
+  // useEffect(() => {  // maybe we need to turn off edits if we switch tabs
+  //   setIsEditing(false)
 
-  //       setMembers(users.data)
-  //     }
-  //   }
+  // }, [isMembers])
 
-  //   getTeam()
-  // }, [team])
+  useEffect(() => {
+    const saveUpdates = async () => {
+      setLoading(true)
+
+      update(false)
+      setLoading(false)
+    }
+
+    if (hasUpdate) {
+      saveUpdates()
+    }
+  }, [hasUpdate])
 
   const { enqueueSnackbar } = useSnackbar()
+  const handleDelete = () => deleteTeam(team?._id)
 
   const handleOpenInvite = () => {
     setOpen(true)
     setInviteActive(true)
   }
 
-  const handleDelete = () => deleteTeam(team?._id)
-  const handleOpenLeave = () => setOpen(true)
+  const handleOpenDelete = () => {
+    setOpen(true)
+    setDeleteActive(true)
+  }
+
+  const handleOpenLeave = () => {
+    setOpen(true)
+    setLeaveActive(true)
+  }
   const handleClose = () => {
     setOpen(false)
     setInviteActive(false)
+    setDeleteActive(false)
+    setLeaveActive(false)
   }
 
   const handleInvite = async () => {
@@ -157,17 +179,37 @@ function TeamForm({ switchPage }) {
     return <Container>{noTeam}</Container>
   }
 
-  const membersVar = <Members team={team} />
-
-  const about = <About team={team} />
+  const membersVar = <Members isEditing={isEditing} team={team} />
+  const about = <About isEditing={isEditing} team={team} />
 
   const leaderOrMemberAction = (
     <>
       {user?.isLeader ? (
         <LeaderActionsBox>
-          <EditTeam>Edit</EditTeam>
-          <LeaveTeam height="40px" onClick={handleOpenLeave} marginTop="0">
-            Delete
+          <EditTeam
+            onClick={() => {
+              if (isEditing) {
+                update(true)
+              }
+
+              setIsEditing((prevState) => !prevState)
+            }}
+          >
+            {isEditing ? 'Save' : 'Edit'}
+          </EditTeam>
+          {loading ? Loader : <></>}
+          <LeaveTeam
+            height="40px"
+            onClick={() => {
+              if (isEditing) {
+                setIsEditing((prevState) => !prevState)
+              } else {
+                handleOpenDelete()
+              }
+            }}
+            marginTop="0"
+          >
+            {isEditing ? 'Cancel' : 'Delete'}
           </LeaveTeam>
         </LeaderActionsBox>
       ) : (
@@ -176,6 +218,25 @@ function TeamForm({ switchPage }) {
     </>
   )
 
+  const canDelete =
+    team.members.length > 1 ? (
+      <TeamActionModal
+        firstText="You can't delete team"
+        secondText="Before deleting team, you must delete all members"
+        firstButton="Okay"
+        firstButtonHandler={handleClose}
+      />
+    ) : (
+      <TeamActionModal
+        firstText="Delete Team"
+        secondText="Are you sure you want to delete?"
+        firstButton="Delete"
+        firstButtonHandler={handleDelete}
+        secondButton="Cancel"
+        secondButtonHandler={handleClose}
+      />
+    )
+  // by the modal logic, the default is the
   const aTeam = (
     <>
       <Modal
@@ -212,16 +273,20 @@ function TeamForm({ switchPage }) {
               </CreateButton>
             </>
           ) : (
-            <>
-              <TeamActionModal
-                firstText="Leave Team"
-                secondText="Are you sure you want to leave?"
-                firstButton="Leave"
-                firstButtonHandler={handleOpenLeave}
-                secondButton="Cancel"
-                secondButtonHandler={handleClose}
-              />
-            </>
+            <></>
+          )}
+          {deleteActive ? canDelete : <></>}
+          {leaveActive ? (
+            <TeamActionModal
+              firstText="Leave Team"
+              secondText="Are you sure you want to leave?"
+              firstButton="Leave"
+              firstButtonHandler={handleOpenLeave}
+              secondButton="Cancel"
+              secondButtonHandler={handleClose}
+            />
+          ) : (
+            <></>
           )}
         </Box>
       </Modal>
@@ -286,8 +351,6 @@ function TeamForm({ switchPage }) {
       </CardContainer>
     </>
   )
-
-  console.log(user)
 
   return <Container>{aTeam}</Container>
 }

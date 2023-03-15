@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import {
   Statistic,
@@ -15,7 +15,9 @@ import {
   TeamCardTopInfo,
 } from '../TeamForm.styles'
 
-const About = ({ team }) => {
+const About = ({ team, isEditing }) => {
+  console.log(isEditing)
+
   return (
     <TeamCardFigure>
       <TeamCardTop>

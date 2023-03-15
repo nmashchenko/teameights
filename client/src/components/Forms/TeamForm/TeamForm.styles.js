@@ -161,6 +161,8 @@ export const LeaveTeam = styled.button`
 
 `
 export const EditTeam = styled.button`
+  width: ${(props) => props.width || ''};
+  margin-top: ${(props) => props.marginTop || '0'};
   background-color: #46a11b;
   padding: 10px 16px 8px;
   border-radius: 10px;
@@ -385,7 +387,7 @@ export const UserPlusContainer = styled.div`
 `
 // stolen from TeamCards
 
-export const TeamCardFigure = styled.figure`
+export const TeamCardFigure = styled.form`
   background-color: transparent;
   padding: 0 32px 24px 32px;
   margin: 0;

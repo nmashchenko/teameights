@@ -22,7 +22,9 @@ function TeamsScreen() {
   const { data: user } = useCheckAuth()
   const { updateUser } = userAuth.actions
 
-  const [curTeamPage, switchPage] = useState(true)
+  console.log(user)
+  const [curTeamPage, switchPage] = useState(user !== undefined)
+  // user !== undefined means we want to go to teams page
 
   const switchPageHandler = () => {
     switchPage((prevState) => !prevState)
