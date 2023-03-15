@@ -26,19 +26,23 @@ export class Team {
 	leader: User;
 
 	@ApiProperty({
-		example: ['5f6d8b6db0c6d71be6e0e071', '5f6d8b6db0c6d71be6e0e072'],
-		description: 'IDs of the members of the team',
+		example: ['5f6d8b6db0c6d71be6e0e071'],
+		description: 'ID of the members of the team',
 	})
 	@Prop({
 		type: [mongoose.Schema.Types.ObjectId],
 		ref: 'User',
-		required: true,
+		required: false,
 	})
 	members: [User];
 
 	@ApiProperty({ example: 'Ukraine', description: 'Country of the team' })
 	@Prop({ required: true })
 	country: string;
+
+	@ApiProperty({ example: 'KhaG', description: 'Unique TAG of the team' })
+	@Prop({ required: true, unique: true, maxlength: 5, minlength: 1 })
+	tag: string;
 
 	// TODO:  add amount of tournaments played
 	// @ApiProperty({

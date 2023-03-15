@@ -1,7 +1,34 @@
-import { User } from '@/users/users.schema';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsMongoId, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+	IsArray,
+	IsMongoId,
+	IsObject,
+	IsOptional,
+	IsString,
+	MaxLength,
+	MinLength,
+	ValidateNested,
+} from 'class-validator';
 import mongoose from 'mongoose';
+
+class TeamMembersDto {
+	@ApiProperty({
+		example: '["vasya@test.com", "sanya@test.com"]',
+		description: 'Emails of members',
+	})
+	@IsArray()
+	@IsOptional()
+	readonly emails: string[];
+
+	@ApiProperty({
+		example: '["6410a4ac77acfab9a0ca2d27", "6410a4b6d66125f0d4e9183b"]',
+		description: 'Ids of members',
+	})
+	@IsArray()
+	@IsOptional()
+	readonly ids: mongoose.Types.ObjectId[];
+}
 
 export class CreateTeamDto {
 	@ApiProperty({ example: 'The A-Team', description: 'Name of the team' })
@@ -32,4 +59,23 @@ export class CreateTeamDto {
 	})
 	@IsString({ message: 'Type of invite: ["invite-only", "closed", "open"]' })
 	readonly type: string;
+
+	@ApiProperty({ example: 'KhaG', description: 'Tag of the team' })
+	@IsString()
+	@MaxLength(5)
+	@MinLength(1)
+	readonly tag: string;
+
+	@ApiProperty({
+		example: {
+			ids: ['6410b7119be9df54961c036e'],
+			emails: ['test@test.com'],
+		},
+		description: 'Members of team',
+	})
+	@IsObject({ message: 'Should be object of type TeamMembersDto' })
+	@ValidateNested()
+	@Type(() => TeamMembersDto)
+	@IsOptional()
+	readonly members: TeamMembersDto;
 }

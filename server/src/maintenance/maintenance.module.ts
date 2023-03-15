@@ -1,4 +1,5 @@
 import { RolesModule } from '@/roles/roles.module';
+import { TeamsModule } from '@/teams/teams.module';
 import { UsersModule } from '@/users/users.module';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -12,6 +13,7 @@ import { MaintenanceService } from './maintenance.service';
 		UsersModule,
 		MongooseModule.forRoot(process.env.DB_URL),
 		RolesModule,
+		TeamsModule,
 	],
 })
 export class MaintenanceModule {}
