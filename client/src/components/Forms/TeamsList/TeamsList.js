@@ -64,9 +64,9 @@ function TeamsList() {
     setOpen(false)
   }
 
-  const handleJoin = async (teamId) => {
+  const handleJoin = async () => {
     console.log('1')
-    const result = await joinUser({ user_id: userId, teamid: teamId })
+    const result = await joinUser({ user_id: userId, teamid: selectedTeam._id })
 
     if (result) {
       console.log('2')
