@@ -65,15 +65,12 @@ function TeamsList() {
   }
 
   const handleJoin = async () => {
-    console.log('1')
     const result = await joinUser({ user_id: userId, teamid: selectedTeam._id })
 
     if (result) {
-      console.log('2')
       handleClose()
-      navigate('/team')
+      navigate('/teams')
     } else {
-      console.log('3')
       enqueueSnackbar('You have joined the team already!', {
         preventDuplicate: true,
       })

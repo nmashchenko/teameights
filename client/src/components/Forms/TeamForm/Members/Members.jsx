@@ -24,9 +24,11 @@ const Members = ({ team }) => {
                 : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
             }
           />
-          <CrownContainer>
-            <Crown />
-          </CrownContainer>
+          {team.leader._id === member._id && (
+            <CrownContainer>
+              <Crown />
+            </CrownContainer>
+          )}
           <UserInfo>
             <Text fontSize="16px" color="#FFF">
               {member.username}

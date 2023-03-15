@@ -182,9 +182,11 @@ function TeamForm({ switchPage }) {
   const membersVar = <Members isEditing={isEditing} team={team} />
   const about = <About isEditing={isEditing} team={team} />
 
+  console.log(team)
+
   const leaderOrMemberAction = (
     <>
-      {user?.isLeader ? (
+      {team.leader_id === user._id ? (
         <LeaderActionsBox>
           <EditTeam
             onClick={() => {
