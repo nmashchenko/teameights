@@ -12,7 +12,7 @@
     "start": "cross-env NODE_ENV=production nest start",
     "start:dev": "cross-env NODE_ENV=dev nest start --watch",
     "start:full": "concurrently \" cross-env NODE_ENV=dev nest start --watch \" \" npm run client \"",
-    "start:debug": "nest start --debug --watch",
+    "start:debug": "cross-env NODE_ENV=dev nest start --debug --watch",
     "start:prod": "node dist/main",
     "client": "npm run start --prefix ../client",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",

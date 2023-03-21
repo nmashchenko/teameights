@@ -10,6 +10,8 @@ import cookieParser from 'cookie-parser';
 async function start() {
 	try {
 		const PORT = process.env.PORT || 5001;
+		console.log(process.env.CLIENT_URL);
+
 		const app = await NestFactory.create(AppModule);
 
 		// checking cors
