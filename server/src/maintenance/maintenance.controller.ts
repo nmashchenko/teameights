@@ -1,7 +1,9 @@
 import { Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
 import { MaintenanceService } from './maintenance.service';
 
+@ApiTags('Maintenance')
 @Controller('maintenance')
 export class MaintenanceController {
 	constructor(private maintenanceService: MaintenanceService) {}
