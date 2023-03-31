@@ -1,17 +1,16 @@
+import { useNavigate } from 'react-router-dom'
+
 import TeameightsLogo from '../../../../assets/Team/TeameightsLogo.js'
-import { Text } from '../../../../components/Forms/TeamsList/TeamsList.styles.js'
 import NavBar from '../../../../components/NavBar/NavBar.jsx'
 import {
   NavContainer,
   ToolbarContainer,
 } from '../../../../components/TopTemplate/TopTemplate.styles.js'
 
-import { CurrentTeam, Textbox } from './TeamsTopTemplate.styles.js'
+import { CurrentTeam, Text, Textbox } from './TeamsTopTemplate.styles.js'
 
-const TeamsTopTemplate = ({ myTeam, switchMyTeam }) => {
-  const switchPage = (isMyTeam) => {
-    switchMyTeam(isMyTeam)
-  }
+const TeamsTopTemplate = ({ myTeam }) => {
+  const navigate = useNavigate()
 
   return (
     //  <ToolbarContainer>
@@ -20,25 +19,29 @@ const TeamsTopTemplate = ({ myTeam, switchMyTeam }) => {
     //   </NavContainer>
     //   <TeameightsLogo />
     <CurrentTeam>
-      <Textbox isMyTeam={myTeam}>
+      <Textbox>
         <Text
-          onClick={switchPage.bind(null, true)}
+          isMyTeam={myTeam}
+          onClick={() => {
+            navigate('/my-team')
+          }}
           fontSize="20px"
-          color={`${myTeam ? '#5BD424' : 'white'}`}
         >
           My Team
+          <span></span>
         </Text>
-        <span></span>
       </Textbox>
-      <Textbox isMyTeam={!myTeam}>
+      <Textbox>
         <Text
-          onClick={switchPage.bind(null, false)}
+          onClick={() => {
+            navigate('/teams')
+          }}
           fontSize="20px"
-          color={`${!myTeam ? '#5BD424' : 'white'}`}
+          isMyTeam={!myTeam}
         >
           All Teams
+          <span></span>
         </Text>
-        <span></span>
       </Textbox>
     </CurrentTeam>
     // </ToolbarContainer>

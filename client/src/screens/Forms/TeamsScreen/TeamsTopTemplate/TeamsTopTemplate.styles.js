@@ -29,15 +29,22 @@ export const CurrentTeam = styled.div`
 
 export const Textbox = styled.div`
   cursor: pointer;
+`
+
+export const Text = styled.p`
+  transition: all 0.2s;
   position: relative;
+  display: inline-block;
+  color: ${(props) => (props.isMyTeam ? '#5bd424' : `white`)};
 
   span {
     width: 100%;
     height: 2px;
     position: absolute;
     bottom: -20%;
+    left: 50%;
     background-color: #5bd424;
-    transition: all 5s;
-    transform: ${(props) => (props.isMyTeam ? `scaleX(100%)` : `scaleX(0)`)};
+    transition: all 0.2s;
+    transform: translateX(-50%) ${(props) => (props.isMyTeam ? `scaleX(100%)` : `scaleX(0)`)};
   }
 `

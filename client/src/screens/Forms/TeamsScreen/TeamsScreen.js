@@ -23,12 +23,7 @@ function TeamsScreen() {
   const { updateUser } = userAuth.actions
 
   console.log(user)
-  const [curTeamPage, switchPage] = useState(user !== undefined)
   // user !== undefined means we want to go to teams page
-
-  const switchPageHandler = () => {
-    switchPage((prevState) => !prevState)
-  }
 
   return (
     <>
@@ -41,15 +36,9 @@ function TeamsScreen() {
         variant="error"
       >
         <GlobalStyle />
-        <TeamsTopTemplate myTeam={curTeamPage} switchMyTeam={switchPage} />
-        {curTeamPage ? (
-          <TeamForm switchPage={switchPageHandler} />
-        ) : (
-          <>
-            <TeamSearchBar />
-            <TeamsList />
-          </>
-        )}
+        <TeamsTopTemplate myTeam={false} />
+        <TeamSearchBar />
+        <TeamsList />
       </SnackbarStyled>
     </>
   )

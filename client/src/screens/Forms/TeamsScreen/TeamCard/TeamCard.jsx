@@ -31,7 +31,21 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
 
   const teammates = members.slice(1, members.length)
 
-  console.log(team)
+  const getTeam = () => {
+    if (user.team === undefined || user.team._id !== team._id) {
+      return 'Join'
+    }
+
+    const teamid = user.team._id
+
+    if (team._id === teamid) {
+      return 'Your'
+    }
+  }
+
+  const usersTeam = getTeam()
+
+  console.log(usersTeam === 'Your')
 
   return (
     <TeamCardFigure>
@@ -107,7 +121,9 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
             <ArrowLeft />
             All Teams
           </ToTeams>
-          <JoinTeam onClick={handleJoin}>Join Team</JoinTeam>
+          <JoinTeam disabled={usersTeam === 'Your'} onClick={handleJoin}>
+            {usersTeam} Team
+          </JoinTeam>
         </TeamCardBodyPoint>
       </TeamCardBody>
 

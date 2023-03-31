@@ -16,13 +16,13 @@ import LeaderboardScreen from '../screens/Forms/LeaderboardScreen/LeaderboardScr
 import LoaderScreen from '../screens/Forms/LoaderScreen/LoaderScreen'
 // * Screens
 import Login from '../screens/Forms/Login/Login'
+import MyTeam from '../screens/Forms/MyTeam/MyTeam'
 import NoTeamScreen from '../screens/Forms/NoTeamScreen/NoTeamScreen'
 import ProfilePage from '../screens/Forms/Profile/Profile'
 import Registration from '../screens/Forms/Registration/Registration'
 import ResetNewPasswords from '../screens/Forms/ResetNewPasswords/ResetNewPasswords'
 import ResetPassword from '../screens/Forms/ResetPassword/ResetPassword'
 import ResetPasswordConfirmation from '../screens/Forms/ResetPasswordConfirmation/ResetPasswordConfirmation'
-import TeamScreen from '../screens/Forms/TeamScreen/TeamScreen'
 import TeamsScreen from '../screens/Forms/TeamsScreen/TeamsScreen'
 import TournamentCodingScreen from '../screens/Forms/TournamentCodingScreen/TournamentCodingScreen'
 import TournamentInfo from '../screens/Forms/TournamentInfo/TournamentInfo'
@@ -60,6 +60,7 @@ export const useRoutes = () => {
         <Route path="/tournament" element={<Tournaments />} />
         {/* <Route path="/teams" element={<TeamScreen />} /> */}
         <Route path="/teams" element={<TeamsScreen />} />
+        <Route path="/my-team" element={<MyTeam />} />
       </Route>
       <Route path="/create-team" element={<CreateTeam />} />
       {/* <Route path="/teams" element={<TeamsScreen />} /> */}

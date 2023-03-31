@@ -25,7 +25,6 @@ export const Card = styled.div`
   width: 700px;
   height: 425px;
   background: #1a1c22;
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   display: flex;
   justify-content: center;
@@ -66,19 +65,40 @@ export const UserGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-content: start;
   justify-items: start;
-  align-items: start;
-  align-content: start;
+  align-items: center;
+  align-content: center;
   column-gap: 45px;
   row-gap: 32px;
   padding: 40px;
-  margin-top: 175px;
+  // margin-top: 175px;
 `
 
 export const UserCard = styled.div`
   display: flex;
   gap: 15px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  position: relative;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.isEditing && !props.isTeamLeader ? `#2F3239` : 'transparent'};
+    cursor: ${(props) => (props.isEditing && !props.isTeamLeader ? `pointer` : 'initial')};
+  }
+
+  &:hover div svg {
+    // this gets the svg
+    path {
+      stroke: ${(props) => (props.isEditing && !props.isTeamLeader ? `#D42422` : '#FFF')};
+      background-color: ${(props) => (props.isEditing && !props.isTeamLeader ? `#D42422` : '#FFF')};
+    }
+    cursor: ${(props) => (props.isEditing && !props.isTeamLeader ? `pointer` : 'initial')};
+  }
+
+  opacity: ${(props) => (props.isTeamLeader && props.isEditing ? '.3' : '1')};
 `
 
 export const UserImg = styled.img`
@@ -93,6 +113,7 @@ export const UserInfo = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: start;
+  width: 100%;
 `
 
 export const RightContainer = styled.div`
@@ -288,9 +309,15 @@ export const CloseContainer = styled.div`
   svg {
     width: 18px;
     height: 18px;
+    path {
+      fill: ${(props) => props.color || '#46A11B'};
+    }
   }
 
-  right: 5%;
+  opacity: ${(props) => (props.isEditing ? '1' : '0')};
+
+  transition: all 0.2s ease-in-out;
+  right: 2%;
   top: 5%;
 `
 
@@ -485,7 +512,7 @@ export const TeamCardDesc = styled.p`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  transform: rotate(0deg) translate(-95%, -50%) scale(0.5);
+  transform: rotate(0deg) translate(60%, -50%) scale(0.5);
 `
 export const CrownContainer2 = styled.div`
   position: absolute;
@@ -607,4 +634,7 @@ export const LeaderActionsBox = styled.div`
   button {
     width: 120px;
   }
+
+  opacity: ${(props) => props.opacity || '1'};
+  pointer-events: ${(props) => (props.opacity === '1' ? 'auto' : 'none')};
 `

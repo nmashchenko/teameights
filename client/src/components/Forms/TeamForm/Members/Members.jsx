@@ -1,8 +1,11 @@
 import React from 'react'
 
+import Close from '../../../../assets/Close'
 import Crown from '../../../../assets/Crown'
+import { ThinClose } from '../../../../assets/ThinClose'
 import { LOCAL_PATH } from '../../../../http'
 import {
+  CloseContainer,
   CrownContainer,
   CrownContainer2,
   Text,
@@ -12,11 +15,22 @@ import {
   UserInfo,
 } from '../TeamForm.styles'
 
-const Members = ({ team }) => {
+const Members = ({ team, isEditing, handleRemoveMembers }) => {
   return (
     <UserGrid>
       {team.members.map((member, i) => (
-        <UserCard key={i}>
+        <UserCard
+          onClick={() => {
+            // only able to open modal window
+            // when isEditing and member isnt leader
+            if (isEditing && team.leader._id !== member._id) {
+              handleRemoveMembers(member._id)
+            }
+          }}
+          isTeamLeader={team.leader._id === member._id}
+          isEditing={isEditing}
+          key={i}
+        >
           <UserImg
             src={
               member?.image
@@ -37,6 +51,9 @@ const Members = ({ team }) => {
               {member.concentration}
             </Text>
           </UserInfo>
+          <CloseContainer isEditing={isEditing} color="#fff">
+            <ThinClose />
+          </CloseContainer>
         </UserCard>
       ))}
     </UserGrid>

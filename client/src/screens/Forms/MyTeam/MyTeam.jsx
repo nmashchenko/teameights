@@ -4,6 +4,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { SnackbarProvider } from 'notistack'
 
 import TeamForm from '../../../components/Forms/TeamForm/TeamForm'
+import { GlobalStyle } from '../TeamsScreen/TeamsScreen.styles'
+import TeamsTopTemplate from '../TeamsScreen/TeamsTopTemplate/TeamsTopTemplate'
 
 function TeamScreen() {
   const SnackbarStyled = styled(SnackbarProvider)`
@@ -22,7 +24,9 @@ function TeamScreen() {
         }}
         variant="error"
       >
-        <CssBaseline />
+        <GlobalStyle />
+        {/* <CssBaseline /> */}
+        <TeamsTopTemplate myTeam={true} />
         <TeamForm />
       </SnackbarStyled>
     </>

@@ -144,6 +144,9 @@ export const JoinTeam = styled.button`
   cursor: pointer;
   border: none;
   transition: all 0.2s;
+  opacity: ${(props) => (props.disabled ? '.5' : '1')};
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
+  user-select: ${(props) => (props.disabled ? 'none' : 'auto')};
 
   box-shadow: 0px 4px 25px rgba(93, 157, 11, 0.25);
   &:hover {

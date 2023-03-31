@@ -18,7 +18,7 @@ export const useDelete = () => {
     mutationKey: 'deleteTeam',
     onSuccess: () => {
       queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
-      navigate('/team')
+      navigate('/teams')
     },
   })
 }

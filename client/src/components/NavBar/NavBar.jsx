@@ -106,7 +106,12 @@ const NavBar = () => {
                   <Exit /> Sign Up
                 </SignOutButton>
               ) : (
-                <SignOutButton onClick={handleUseLogout}>
+                <SignOutButton
+                  onClick={() => {
+                    navigate('/')
+                    handleUseLogout()
+                  }}
+                >
                   <Exit /> Sign Out
                 </SignOutButton>
               )}

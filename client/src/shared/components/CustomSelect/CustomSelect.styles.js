@@ -43,7 +43,7 @@ export const Item = styled(MenuItem)`
   /* Root */
   &.MuiMenuItem-root {
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 400;
     list-style: none;
     padding: 8px;
     border-radius: 0.45em;
@@ -58,17 +58,15 @@ export const Item = styled(MenuItem)`
   /* Selected item inside the filter */
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
     background: ${GREEN.alternativeBorder} !important;
-    color: white !important;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   /* Hover for the selected item inside the filter */
   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected:hover {
     background: ${GREEN.alternativeBorder} !important;
-    color: white !important;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 400;
   }
 `
 
@@ -76,7 +74,7 @@ export const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: '250px',
-      background: GREY.selectBackground,
+      background: '#2F3239',
       boxSizing: 'border-box',
       padding: '0 5px',
       margin: '5px 0',

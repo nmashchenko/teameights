@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
+import { useFormikContext } from 'formik'
 import { useSnackbar } from 'notistack'
 
 // * API
@@ -11,6 +12,8 @@ import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
+import { useLeave } from '../../../api/hooks/team/useLeave'
+import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
 import Cake from '../../../assets/Cake'
 import Close from '../../../assets/Close'
 import Crown from '../../../assets/Crown'
@@ -82,6 +85,7 @@ function TeamForm({ switchPage }) {
   const [inviteActive, setInviteActive] = useState(false)
   const [deleteActive, setDeleteActive] = useState(false)
   const [leaveActive, setLeaveActive] = useState(false)
+  const [removeMemberActive, setRemoveMemberActive] = useState('')
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [isEditing, setIsEditing] = useState(false)
@@ -93,13 +97,14 @@ function TeamForm({ switchPage }) {
 
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
+  const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
+  const { mutate: removeFromTeam, isLoading: isRemoving } = useRemoveMember()
 
   const createDate = new Date(team?.createdAt)
     .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
     .replace(',', '')
 
   const { data: user } = useCheckAuth()
-
   // We need: Leave team
 
   // useEffect(() => {  // maybe we need to turn off edits if we switch tabs
@@ -111,7 +116,11 @@ function TeamForm({ switchPage }) {
     const saveUpdates = async () => {
       setLoading(true)
 
-      update(false)
+      setTimeout(function () {
+        // update(false)
+        // setIsEditing(false)
+      }, 2000)
+
       setLoading(false)
     }
 
@@ -120,8 +129,32 @@ function TeamForm({ switchPage }) {
     }
   }, [hasUpdate])
 
+  const handleClose = () => {
+    setOpen(false)
+    setInviteActive(false)
+    setDeleteActive(false)
+    setLeaveActive(false)
+    setRemoveMemberActive('')
+  }
+
   const { enqueueSnackbar } = useSnackbar()
   const handleDelete = () => deleteTeam(team?._id)
+
+  const handleLeave = () => {
+    leaveTeam({
+      user_id: user?._id,
+      teamid: team?._id,
+    })
+    handleClose()
+  }
+
+  const removeMember = () => {
+    removeFromTeam({
+      user_id: removeMemberActive,
+      teamid: team?._id,
+    })
+    handleClose()
+  }
 
   const handleOpenInvite = () => {
     setOpen(true)
@@ -137,13 +170,11 @@ function TeamForm({ switchPage }) {
     setOpen(true)
     setLeaveActive(true)
   }
-  const handleClose = () => {
-    setOpen(false)
-    setInviteActive(false)
-    setDeleteActive(false)
-    setLeaveActive(false)
-  }
 
+  const handleRemoveMembers = (member) => {
+    setOpen(true)
+    setRemoveMemberActive(member)
+  }
   const handleInvite = async () => {
     const result = await teamsAPI.inviteUserByEmail(email, team)
 
@@ -156,7 +187,7 @@ function TeamForm({ switchPage }) {
     }
   }
 
-  if (isUserTeamLoading || isDeleting) {
+  if (isUserTeamLoading || isDeleting || isLeaving || isRemoving) {
     return <Loader />
   }
 
@@ -171,30 +202,56 @@ function TeamForm({ switchPage }) {
       <Link to={'/create-team'}>
         <CreateTeam>Create Team</CreateTeam>
       </Link>
-      <TeamButton onClick={switchPage}>Join Team</TeamButton>
+      <TeamButton
+        onClick={() => {
+          navigate('/teams')
+        }}
+      >
+        Join Team
+      </TeamButton>
     </Center>
   )
 
-  if (user.team === undefined) {
+  if (team === undefined) {
     return <Container>{noTeam}</Container>
   }
 
-  const membersVar = <Members isEditing={isEditing} team={team} />
-  const about = <About isEditing={isEditing} team={team} />
+  const membersVar = (
+    <Members handleRemoveMembers={handleRemoveMembers} isEditing={isEditing} team={team} />
+  )
+  const about = (
+    <About
+      isEditing={isEditing}
+      setIsEditing={setIsEditing}
+      handleOpenDelete={handleOpenDelete}
+      team={team}
+    />
+  )
 
-  console.log(team)
+  const removeMemberModal = (
+    <TeamActionModal
+      firstText="Remove Member"
+      secondText="Are you sure you want to remove member from team?"
+      firstButton="Remove"
+      firstButtonHandler={removeMember}
+      secondButton="Cancel"
+      secondButtonHandler={handleClose}
+    />
+  )
 
   const leaderOrMemberAction = (
     <>
-      {team.leader_id === user._id ? (
-        <LeaderActionsBox>
+      {team.leader._id === user._id ? (
+        <LeaderActionsBox opacity={!isEditing ? '1' : '0'}>
+          {/* // <LeaderActionsBox> */}
           <EditTeam
             onClick={() => {
-              if (isEditing) {
-                update(true)
+              if (!isEditing) {
+                // only update state if you are not editing
+                setIsEditing((prevState) => {
+                  return !prevState
+                })
               }
-
-              setIsEditing((prevState) => !prevState)
             }}
           >
             {isEditing ? 'Save' : 'Edit'}
@@ -283,13 +340,14 @@ function TeamForm({ switchPage }) {
               firstText="Leave Team"
               secondText="Are you sure you want to leave?"
               firstButton="Leave"
-              firstButtonHandler={handleOpenLeave}
+              firstButtonHandler={handleLeave}
               secondButton="Cancel"
               secondButtonHandler={handleClose}
             />
           ) : (
             <></>
           )}
+          {removeMemberActive ? removeMemberModal : <></>}
         </Box>
       </Modal>
       <CardContainer>

@@ -12,10 +12,13 @@ import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 // import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
+import { useLeave } from '../../../api/hooks/team/useLeave'
 import TeamCard from '../../../screens/Forms/TeamsScreen/TeamCard/TeamCard'
 import Loader from '../../../shared/components/Loader/Loader'
 import { userAuth } from '../../../store/reducers/UserAuth'
 import TopTemplate from '../../TopTemplate/TopTemplate'
+import TeamActionModal from '../TeamForm/TeamActionModal'
+import { style } from '../TeamForm/TeamForm.styles'
 
 // * Styles
 import {
@@ -23,7 +26,6 @@ import {
   CardContainer,
   ColumnNames,
   Container,
-  style,
   TeamButton,
   TeamData,
   TeamImage,
@@ -39,10 +41,16 @@ function TeamsList() {
 
   const [teams, setTeams] = useState([])
   const [selectedTeam, setSelectedTeam] = useState({})
-  const { mutateAsync: joinUser } = useJoinTeam()
+  const { mutateAsync: joinUser, isLoading: isUserTeamLoading } = useJoinTeam()
   const userId = user?._id
 
   const [open, setOpen] = useState(false)
+
+  const [isTeamsLoading, setIsTeamsLoading] = useState(true)
+
+  const [changeModal, setChangeModal] = useState('')
+
+  const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -50,6 +58,7 @@ function TeamsList() {
 
       console.log(teams)
       setTeams(teams.data)
+      setIsTeamsLoading(false)
     }
 
     makeRequest()
@@ -58,6 +67,15 @@ function TeamsList() {
   const handleClickOpen = (team) => {
     setSelectedTeam(team)
     setOpen(true)
+    setChangeModal('joinTeam')
+  }
+
+  const handleLeave = () => {
+    leaveTeam({
+      user_id: user?._id,
+      teamid: user?.team._id,
+    })
+    handleClose()
   }
 
   const handleClose = () => {
@@ -65,20 +83,57 @@ function TeamsList() {
   }
 
   const handleJoin = async () => {
-    const result = await joinUser({ user_id: userId, teamid: selectedTeam._id })
+    if (user.team !== undefined) {
+      // already on a team
 
-    if (result) {
-      handleClose()
-      navigate('/teams')
+      setChangeModal('alreadyOnTeam')
     } else {
-      enqueueSnackbar('You have joined the team already!', {
-        preventDuplicate: true,
-      })
+      await joinUser({ user_id: userId, teamid: selectedTeam._id })
+      handleClose()
+      navigate('/my-team')
     }
+
+    // } else {
+    //   enqueueSnackbar('You have joined the team already!', {
+    //     preventDuplicate: true,
+    //   })
+    // }
+  }
+
+  if (isUserTeamLoading || isTeamsLoading || isLeaving) {
+    return <Loader />
   }
 
   // lol we could move entire teams list to display her implementation
   // of checking out a team
+
+  const getModalState = () => {
+    if (changeModal === 'alreadyOnTeam') {
+      return (
+        <Box sx={style}>
+          <TeamActionModal
+            firstText="You're already on a team."
+            secondText="Do you want to leave current team?"
+            firstButton="Leave Current Team"
+            firstButtonHandler={handleLeave}
+            secondButton="Cancel"
+            secondButtonHandler={handleClose}
+          />
+        </Box>
+      )
+    } else if (changeModal === 'joinTeam') {
+      return (
+        <TeamCard
+          user={user}
+          handleJoin={handleJoin}
+          team={selectedTeam}
+          handleClose={handleClose}
+        />
+      )
+    } else {
+      return <></>
+    }
+  }
 
   return (
     <>
@@ -89,12 +144,7 @@ function TeamsList() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <TeamCard
-            user={user}
-            handleJoin={handleJoin}
-            team={selectedTeam}
-            handleClose={handleClose}
-          />
+          {getModalState()}
         </Modal>
         <CardContainer>
           <Card>
