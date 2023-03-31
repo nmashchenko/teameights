@@ -15,6 +15,7 @@ import { plainToClass } from 'class-transformer';
 import { teamUpdateValidate } from '@/validation/team-update.validation';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { MailsService } from '@/mails/mails.service';
+import { TeamSearchDto } from './dto/team-search.dto';
 
 @Injectable()
 export class TeamsService {
@@ -594,5 +595,23 @@ export class TeamsService {
 		await this.teamModel.findOneAndDelete({ _id: team._id });
 
 		return { status: 'removed' };
+	}
+
+	/**
+	 * > If the `membersLength` property is present in the `TeamSearchDto` object, then we'll use it to
+	 * filter the results, otherwise we'll just use the `TeamSearchDto` object as is
+	 * @param {TeamSearchDto} dto - TeamSearchDto
+	 * @returns An array of teams
+	 */
+	async findTeam(dto: TeamSearchDto): Promise<Team[]> {
+		if ('membersLength' in dto) {
+			const { membersLength, ...searchQueury } = dto;
+			return await this.teamModel.find({
+				...searchQueury,
+				members: { $size: membersLength },
+			});
+		} else {
+			return await this.teamModel.find(dto);
+		}
 	}
 }
