@@ -175,7 +175,7 @@ export class TeamsController {
 		summary: 'Transfer leadership for the team',
 	})
 	@ApiResponse({ status: 200, type: Team })
-	@Post('/leader/transfer')
+	@Put('/leader/transfer')
 	transferLeader(@Body() dto: TransferLeaderDto) {
 		return this.teamsService.transferLeader(dto);
 	}

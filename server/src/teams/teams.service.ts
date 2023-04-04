@@ -627,7 +627,9 @@ export class TeamsService {
 		}
 
 		// check if new_leader is valid user
-		const new_leader = await this.userService.getUserById(dto.leader_id);
+		const new_leader = await this.userService.getUserById(
+			dto.new_leader_id,
+		);
 		if (!new_leader) {
 			throw new HttpException(
 				`User was not found`,
@@ -637,8 +639,8 @@ export class TeamsService {
 
 		// check if both leader and new_leader belogn to the same team
 		if (
-			leader.team._id !== dto.teamid ||
-			new_leader.team._id !== dto.teamid
+			!leader.team._id.equals(dto.teamid) ||
+			!new_leader.team._id.equals(dto.teamid)
 		) {
 			throw new HttpException(
 				`${dto.leader_id} and ${dto.new_leader_id} are not from the same team: ${dto.teamid}`,
@@ -649,13 +651,15 @@ export class TeamsService {
 		// check if leader is actually leader of the team
 		const team = await this.getTeamById(dto.teamid);
 
-		if (team.leader._id !== leader._id) {
+		if (!team.leader._id.equals(leader._id)) {
 			throw new HttpException(
 				`${dto.leader_id} is not leader of team ${dto.teamid}`,
 				HttpStatus.BAD_REQUEST,
 			);
 		}
 
+		console.log(leader._id);
+		console.log(new_leader._id);
 		// update leader of the team
 		const newTeam = await this.teamModel.findOneAndUpdate(
 			{ _id: team._id },

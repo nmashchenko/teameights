@@ -25,6 +25,7 @@ import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
 import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
 import { MailsModule } from '@/mails/mails.module';
 import { NotificationsService } from '@/notifications/notifications.service';
+import { TransferLeaderDtoStub } from './stubs/transfer-leader.dto.stub';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -267,15 +268,42 @@ describe('TeamService', () => {
 		}
 	});
 
+	// todo add more tests to cover edge cases
+
 	// create 2 users, one should create a team and another should join, then leader should transfer ownership to newly joined user
 	it('should create 2 users, one should create a team and another should join, then leader should transfer ownership to newly joined user', async () => {
-		const user = await createMultipleUsers(2);
+		const users = await createMultipleUsers(2);
 
-		// const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+		const leader = users.shift();
 
-		// // call it again to reproduce error
-		// await expect(
-		// 	teamsService.createTeam(CreateTeamDtoStub(user._id, team.tag)),
-		// ).rejects.toThrow(HttpException);
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(leader._id, null, [], []),
+		);
+
+		/* Checking if the team is defined. */
+		expect(team).toBeDefined();
+
+		const teamAfterJoin = await teamsService.joinTeam({
+			user_id: users[0]._id,
+			teamid: team._id,
+		});
+
+		/* Checking if the teamAfterJoin is defined. */
+		expect(teamAfterJoin).toBeDefined();
+
+		// make sure we got 2 people inside
+		expect(teamAfterJoin.members.length).toBe(2);
+
+		// make sure leader is the same
+		expect(teamAfterJoin.leader._id).toEqual(leader._id);
+
+		const updatedTeam = await teamsService.transferLeader(
+			TransferLeaderDtoStub(leader._id, users[0]._id, team._id),
+		);
+
+		// make sure leader was transferred
+		expect(updatedTeam.leader._id).toEqual(users[0]._id);
 	});
+
+	// todo add more tests to cover edge cases for transfer
 });
