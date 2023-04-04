@@ -24,12 +24,12 @@ const InfoForm = () => {
   return (
     <ContentWrapper>
       {user.isRegistered ? <TeamInfoForm /> : <UserInfoForm />}
-      <ButtonsContainer width="100%">
-        <ResetButton type="button" onClick={reset}>
-          Reset all
-        </ResetButton>
-        <FormButton errors={errors} />
-      </ButtonsContainer>
+      {/*<ButtonsContainer width="100%">*/}
+      {/*  <ResetButton type="button" onClick={reset}>*/}
+      {/*    Reset all*/}
+      {/*  </ResetButton>*/}
+      {/*  <FormButton errors={errors} />*/}
+      {/*</ButtonsContainer>*/}
     </ContentWrapper>
   )
 }

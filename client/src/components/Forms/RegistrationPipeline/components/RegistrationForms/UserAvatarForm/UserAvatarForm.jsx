@@ -87,23 +87,23 @@ const UserAvatarForm = () => {
           returnedToPreviousSteps={returnedToPreviousSteps}
         />
       </CardContainer>
-      <ButtonContainer>
-        {startedUploading ? (
-          <Button disabled={true}>
-            <ThreeDots
-              height="40"
-              width="40"
-              radius="9"
-              color="white"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{ justifyContent: 'center' }}
-              visible={true}
-            />
-          </Button>
-        ) : (
-          <FormButton errors={errors} />
-        )}
-      </ButtonContainer>
+      {/*<ButtonContainer>*/}
+      {/*  {startedUploading ? (*/}
+      {/*    <Button disabled={true}>*/}
+      {/*      <ThreeDots*/}
+      {/*        height="40"*/}
+      {/*        width="40"*/}
+      {/*        radius="9"*/}
+      {/*        color="white"*/}
+      {/*        ariaLabel="three-dots-loading"*/}
+      {/*        wrapperStyle={{ justifyContent: 'center' }}*/}
+      {/*        visible={true}*/}
+      {/*      />*/}
+      {/*    </Button>*/}
+      {/*  ) : (*/}
+      {/*    <FormButton errors={errors} />*/}
+      {/*  )}*/}
+      {/*</ButtonContainer>*/}
     </>
   )
 }

@@ -10,6 +10,7 @@ import NavLogo from '../NavLogo/NavLogo'
 import Stepper from '../Stepper/Stepper'
 
 import { Container, ContentContainer, RegistrationContainer } from './MultiStepRegistration.styles'
+import NavigationButtons from "../NavigationButtons/NavigationButtons";
 
 const MultiStepRegistration = ({
   steps,
@@ -18,9 +19,11 @@ const MultiStepRegistration = ({
   isFinishingRegistration,
   submitForm,
 }) => {
-  const { step, isLastStep, isOptionalStep } = useSelector((state) => state.registrationReducer)
+  const { step, isOptionalStep } = useSelector((state) => state.registrationReducer)
   const dispatch = useDispatch()
   const { data: userData } = useCheckAuth()
+  const currentStep = steps[step - 1]
+  const isLastStep = step === steps.length
 
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
@@ -48,18 +51,18 @@ const MultiStepRegistration = ({
               <Stepper
                 steps={steps}
                 step={step}
-                isLastStep={isLastStep}
                 isOptionalStep={isOptionalStep}
               />
               <RegistrationContainer>
-                <NavLogo sectionName={'User Profile'} />
+                <NavLogo sectionName={currentStep.name} />
                 <ContentContainer>
                   <CurrentStep steps={steps} step={step} />
                 </ContentContainer>
+                <NavigationButtons step={step} isLastStep={isLastStep} steps={steps} isOptionalStep={currentStep.isOptional}/>
               </RegistrationContainer>
             </Container>
           </Form>
-        )
+        );
       }}
     </Formik>
   )

@@ -44,9 +44,9 @@ const UserLinksForm = () => {
           />
         </InputWithIConWrapper>
       </MiddleContainer>
-      <ButtonsContainer marginTop="0">
-        <ButtonWithSkip resetFields={{ github: '', linkedIn: '', telegram: '' }} errors={errors} />
-      </ButtonsContainer>
+      {/*<ButtonsContainer marginTop="0">*/}
+      {/*  <ButtonWithSkip resetFields={{ github: '', linkedIn: '', telegram: '' }} errors={errors} />*/}
+      {/*</ButtonsContainer>*/}
     </>
   )
 }

@@ -64,14 +64,15 @@ export default function CustomizedSteppers({ steps, step, isLastStep, isOptional
   }
 
   const handleIncrement = () => {
+    console.log(1)
     dispatch(setStep(step + 1))
   }
 
   return (
     <StepperContainer>
-      <ButtonContainer type="button" disabled={step === 1 || step === 0} onClick={handleDecrement}>
-        <NavigationArrowUp />
-      </ButtonContainer>
+      {/*<ButtonContainer type="button" disabled={step === 1 || step === 0} onClick={handleDecrement}>*/}
+      {/*  <NavigationArrowUp />*/}
+      {/*</ButtonContainer>*/}
       <Stack>
         <Stepper activeStep={step} orientation="vertical" connector={null}>
           {steps.map((label, i) => (
@@ -81,13 +82,13 @@ export default function CustomizedSteppers({ steps, step, isLastStep, isOptional
           ))}
         </Stepper>
       </Stack>
-      <ButtonContainer
-        type="button"
-        disabled={isLastStep || !(isValid || isOptionalStep)}
-        onClick={handleIncrement}
-      >
-        <NavigationArrowDown />
-      </ButtonContainer>
+      {/*<ButtonContainer*/}
+      {/*  type="button"*/}
+      {/*  disabled={isLastStep || !(isValid || isOptionalStep)}*/}
+      {/*  onClick={handleIncrement}*/}
+      {/*>*/}
+      {/*  <NavigationArrowDown />*/}
+      {/*</ButtonContainer>*/}
     </StepperContainer>
   )
 }

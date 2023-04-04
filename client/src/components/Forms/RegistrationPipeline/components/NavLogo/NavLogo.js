@@ -8,7 +8,8 @@ import InfoIcon from '../../../../../assets/InfoIcon'
 import SiteLogo from '../../../../../assets/SiteLogo'
 
 import Hover from './Hover'
-import { InfoContainer, InfoText, NavBar } from './NavLogo.styles'
+import {InfoContainer, InfoText, NavBar, SectionName} from './NavLogo.styles'
+import {Text} from "../../../../../shared/styles/Tpography.styles";
 
 function NavLogo({ sectionName }) {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -26,18 +27,12 @@ function NavLogo({ sectionName }) {
   return (
     <Box>
       <AppBar position="static" elevation={0}>
-        <NavBar
-          sx={{
-            background: '#26292B',
-            padding: '30px 40px',
-            borderBottom: '1px solid #2e3239 !important',
-          }}
-        >
+        <NavBar>
           {/* <SiteLogo /> */}
-          <InfoText fontSize="20px">{sectionName}</InfoText>
+          <SectionName fontSize="20px">{sectionName}</SectionName>
           <div style={{ flexGrow: 1 }}></div>
           <InfoContainer onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-            <InfoText fontSize="18px">Need Help</InfoText>
+            <Text fontSize="18px">Need Help</Text>
             <InfoIcon />
           </InfoContainer>
           <Hover anchorEl={anchorEl} handlePopoverClose={handlePopoverClose} open={open} />

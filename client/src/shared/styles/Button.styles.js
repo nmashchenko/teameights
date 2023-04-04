@@ -44,10 +44,4 @@ export const ButtonDisabled = styled.button`
   cursor: not-allowed;
 `
 
-export const ButtonsContainer = styled.div`
-  width: ${(props) => props.width || 'calc(100% - 300px)'};
-  display: flex;
-  justify-content: space-between;
-  margin-top: ${(props) => props.marginTop || '3rem'};
-  align-items: center;
-`
+

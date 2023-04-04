@@ -26,12 +26,12 @@ function FinishRegistration() {
   const navigate = useNavigate()
 
   const steps = [
-    { index: 1, component: <InfoForm /> },
-    { index: 2, component: <UserConcentrationForm /> },
-    { index: 3, component: <UserExperienceForm /> },
-    { index: 4, component: <UserEducationForm /> },
-    { index: 5, component: <UserLinksForm /> },
-    { index: 6, component: <UserAvatarForm /> },
+    { component: <InfoForm />, name: 'User Profile', isOptional: false },
+    { component: <UserConcentrationForm />, name: 'Concentration', isOptional: false },
+    { component: <UserExperienceForm />, name: 'Experience', isOptional: false },
+    { component: <UserEducationForm />, name: 'Education', isOptional: true },
+    { component: <UserLinksForm />, name: 'Links', isOptional: true },
+    { component: <UserAvatarForm />, name: 'Avatar', isOptional: true },
   ]
 
   const initialValues = {
@@ -47,7 +47,7 @@ function FinishRegistration() {
     leader: '',
     university: '',
     major: '',
-    graduationDate: 0,
+    graduationDate: '',
     github: '',
     linkedIn: '',
     telegram: '',

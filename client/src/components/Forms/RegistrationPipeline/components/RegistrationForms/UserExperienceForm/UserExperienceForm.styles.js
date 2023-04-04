@@ -2,11 +2,10 @@ import styled from 'styled-components'
 
 export const ContentContainer = styled.div`
   display: flex;
+  justify-content: space-evenly;
+  align-self: flex-start;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: left;
-  margin: auto;
-  gap: 40px;
+  gap: 3.5rem;
 `
 
 export const AlertContainer = styled.div`

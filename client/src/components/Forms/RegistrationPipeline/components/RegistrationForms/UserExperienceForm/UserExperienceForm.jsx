@@ -1,5 +1,4 @@
 import React from 'react'
-import { useFormikContext } from 'formik'
 
 import {
   userExperienceOptions,
@@ -7,12 +6,10 @@ import {
 } from '../../../../../../constants/finishRegistrationData'
 import CustomRadioButtonsGroup from '../../../../../../shared/components/CustomRadioButtonsGroup/CustomRadioButtonsGroup'
 import { Text } from '../../../../../../shared/styles/Tpography.styles'
-import FormButton from '../../MultiStepRegistration/components/FormButton/FormButton'
 
 import { AlertContainer, ContentContainer } from './UserExperienceForm.styles'
 
 const UserExperienceForm = () => {
-  const { errors } = useFormikContext()
 
   return (
     <ContentContainer>
@@ -30,7 +27,6 @@ const UserExperienceForm = () => {
         </Text>
       </AlertContainer>
       <CustomRadioButtonsGroup name="leader" options={userLeaderOptions} />
-      <FormButton errors={errors} />
     </ContentContainer>
   )
 }

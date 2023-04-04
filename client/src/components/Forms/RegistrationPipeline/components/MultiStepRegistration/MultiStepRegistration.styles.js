@@ -7,6 +7,7 @@ export const RegistrationContainer = styled.div`
   background: ${BLACK.background};
   display: flex;
   flex-direction: column;
+  padding: 3rem 9.6875rem 5rem 8.125rem;
 `
 
 export const Container = styled.div`
@@ -42,8 +43,9 @@ export const ContentContainer = styled.div`
 
 export const MiddleContainer = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: space-evenly;
-  height: calc(100vh - 185px);
-  align-items: ${(props) => props.alignItems || 'center'};
+  align-self: flex-start;
+  flex-direction: column;
+  width: 100%;
+  gap: 3.5rem;
 `

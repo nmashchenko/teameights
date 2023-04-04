@@ -50,7 +50,7 @@ function CreateTeamForm() {
   const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam(teamAvatar)
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
   const userId = user?._id
-  const steps = [{ index: 0, component: <InfoForm /> }]
+  const steps = [{ index: 0, component: <InfoForm />, name: 'Create team' }]
 
   const initialValues = {
     name: '',
