@@ -26,6 +26,7 @@ import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
 import { MailsModule } from '@/mails/mails.module';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { TransferLeaderDtoStub } from './stubs/transfer-leader.dto.stub';
+import { UpdateTeamDtoStub } from './stubs/update-team.dto.stub';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -306,4 +307,24 @@ describe('TeamService', () => {
 	});
 
 	// todo add more tests to cover edge cases for transfer
+
+	it('should create user, then create team and then update the fields in team', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		const incoming_update_data = UpdateTeamDtoStub(team._id);
+
+		const updatedTeam = await teamsService.updateTeam(incoming_update_data);
+
+		expect(updatedTeam.name).toEqual(incoming_update_data.name);
+		expect(updatedTeam.description).toEqual(
+			incoming_update_data.description,
+		);
+		expect(updatedTeam.country).toEqual(incoming_update_data.country);
+		expect(updatedTeam.tag).toEqual(incoming_update_data.tag);
+		expect(updatedTeam.type).toEqual(incoming_update_data.type);
+		expect(updatedTeam.wins).toEqual(incoming_update_data.wins);
+		expect(updatedTeam.points).toEqual(incoming_update_data.points);
+	});
 });
