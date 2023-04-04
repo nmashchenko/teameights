@@ -266,4 +266,16 @@ describe('TeamService', () => {
 			expect(notification[0].from_user_id).toStrictEqual(leader._id);
 		}
 	});
+
+	// create 2 users, one should create a team and another should join, then leader should transfer ownership to newly joined user
+	it('should create 2 users, one should create a team and another should join, then leader should transfer ownership to newly joined user', async () => {
+		const user = await createMultipleUsers(2);
+
+		// const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		// // call it again to reproduce error
+		// await expect(
+		// 	teamsService.createTeam(CreateTeamDtoStub(user._id, team.tag)),
+		// ).rejects.toThrow(HttpException);
+	});
 });

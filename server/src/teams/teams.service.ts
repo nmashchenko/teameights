@@ -16,6 +16,7 @@ import { teamUpdateValidate } from '@/validation/team-update.validation';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { MailsService } from '@/mails/mails.service';
 import { TeamSearchDto } from './dto/team-search.dto';
+import { TransferLeaderDto } from './dto/transfer-leader.dto';
 
 @Injectable()
 export class TeamsService {
@@ -613,5 +614,57 @@ export class TeamsService {
 		} else {
 			return await this.teamModel.find(dto);
 		}
+	}
+
+	async transferLeader(dto: TransferLeaderDto): Promise<Team> {
+		// check if leader is valid user
+		const leader = await this.userService.getUserById(dto.leader_id);
+		if (!leader) {
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// check if new_leader is valid user
+		const new_leader = await this.userService.getUserById(dto.leader_id);
+		if (!new_leader) {
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// check if both leader and new_leader belogn to the same team
+		if (
+			leader.team._id !== dto.teamid ||
+			new_leader.team._id !== dto.teamid
+		) {
+			throw new HttpException(
+				`${dto.leader_id} and ${dto.new_leader_id} are not from the same team: ${dto.teamid}`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// check if leader is actually leader of the team
+		const team = await this.getTeamById(dto.teamid);
+
+		if (team.leader._id !== leader._id) {
+			throw new HttpException(
+				`${dto.leader_id} is not leader of team ${dto.teamid}`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// update leader of the team
+		const newTeam = await this.teamModel.findOneAndUpdate(
+			{ _id: team._id },
+			{ leader: new_leader._id },
+			{ new: true },
+		);
+
+		// TODO: add notification here to new leader that he is now leader of the team
+
+		return newTeam;
 	}
 }
