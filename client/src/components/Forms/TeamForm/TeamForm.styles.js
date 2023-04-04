@@ -1,6 +1,41 @@
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
 import { BLACK, GREEN, WHITE } from '../../../constants/colors'
+
+export const GlobalStyle = createGlobalStyle`
+html {
+  --H1-f: "NoirPro-Medium"
+  --H1-s: "38px"
+  --H1-lh: "45.6px"
+  
+  --H2-f: "NoirPro-Medium"
+  --H2-s: "32px"
+  --H2-lh: "38.4px"
+  
+  --H3-f: "NoirPro-Medium"
+  --H3-s: "24px"
+  --H3-lh: "28.8px"
+  
+  --H4-f: "NoirPro-Medium"
+  --H4-s: "20px"
+  --H4-lh: "24px"
+
+  --B-f: "NoirPro-Regular"
+  --B1-s: "24px"
+  --B1-lh: "33.6px"
+  
+  --B2-f: "NoirPro-Regular"
+  --B2-s: "16px"
+  --B2-lh: "22.4px"
+
+  --B3-f: "NoirPro-Light"
+  --B3-s: "14px"
+  --B3-lh: "16.8px"
+}
+
+
+
+`
 
 export const Container = styled.div`
   width: 100%;
@@ -22,24 +57,21 @@ export const CardContainer = styled.div`
 `
 
 export const Card = styled.div`
-  width: 700px;
-  height: 425px;
+  width: 570px;
+  height: 400px;
   background: #1a1c22;
   border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // flex-direction: column;
   gap: 30px;
   position: relative;
-  padding: 64px 0;
+  padding: 24px 32px;
 `
 
 export const MainCardContent = styled.div`
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  // padding: 24px 32px;
+  height: auto;
 `
 
 export const ButtonCardContent = styled.div`
@@ -51,13 +83,13 @@ export const ButtonCardContent = styled.div`
 `
 
 export const LeftContainer = styled.div`
-  width: 50%;
-  display: grid;
-  margin: 0 auto;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  row-gap: 40px;
-  align-items: start;
+  // width: 50%;
+  // display: grid;
+  // margin: 0 auto;
+  // grid-template-columns: repeat(2, 1fr);
+  // grid-template-rows: repeat(4, 1fr);
+  // row-gap: 40px;
+  // align-items: start;
 `
 
 export const UserGrid = styled.div`
@@ -67,43 +99,44 @@ export const UserGrid = styled.div`
   justify-items: start;
   align-items: center;
   align-content: center;
-  column-gap: 45px;
-  row-gap: 32px;
-  padding: 40px;
+  column-gap: 36px;
+  row-gap: 16px;
+  // padding: 40px;
   // margin-top: 175px;
 `
 
 export const UserCard = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 12px;
   justify-content: space-between;
   align-items: center;
   position: relative;
   width: 100%;
   transition: all 0.2s ease-in-out;
   user-select: none;
+  padding: 4px;
 
   &:hover {
     background-color: ${(props) =>
-      props.isEditing && !props.isTeamLeader ? `#2F3239` : 'transparent'};
-    cursor: ${(props) => (props.isEditing && !props.isTeamLeader ? `pointer` : 'initial')};
+      props.selectLeader && props.isTeamLeader ? `transparent` : '#2f3239'};
+    // background-color: #2f3239;
+    cursor: pointer;
   }
 
   &:hover div svg {
     // this gets the svg
     path {
-      stroke: ${(props) => (props.isEditing && !props.isTeamLeader ? `#D42422` : '#FFF')};
-      background-color: ${(props) => (props.isEditing && !props.isTeamLeader ? `#D42422` : '#FFF')};
+      stroke: ${(props) => (props.isEditing && !props.isTeamLeader ? `#D42422` : '#46a11b')};
     }
-    cursor: ${(props) => (props.isEditing && !props.isTeamLeader ? `pointer` : 'initial')};
+    cursor: ${(props) => (props.isEditing ? `pointer` : 'initial')};
   }
 
-  opacity: ${(props) => (props.isTeamLeader && props.isEditing ? '.3' : '1')};
+  opacity: 1;
 `
 
 export const UserImg = styled.img`
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
 
   border-radius: 50%;
 `
@@ -114,19 +147,80 @@ export const UserInfo = styled.div`
   justify-content: flex-start;
   align-items: start;
   width: 100%;
+  gap: 4px;
 `
+export const ListBackdrop = styled.div`
+  position: absolute;
+  background: #2f3239;
+  padding: 8px 0;
+  width: 235px;
+  max-height: 144px;
+  overflow-y: scroll;
+  // overflow-x: none;
+  z-index: 10;
+
+  transform: ${(props) => (props.selectLeader ? 'translate(-50%, 100%)' : 'translate(-50%, 50%)')};
+  opacity: ${(props) => (props.selectLeader ? '1' : '0')};
+  pointer-events: ${(props) => (props.selectLeader ? 'auto' : 'none')};
+  transition: all 0.2s;
+
+  left: 50%;
+  bottom: 0%;
+  border-radius: 5px;
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #5d9d0b;
+    border-radius: 10px;
+  }
+`
+
+export const UserAccordionCard = styled.div`
+  display: flex;
+  font-size: var(--B3-s);
+  font-family: var(--B3-f);
+  line-height: var(--B3-lh);
+  align-items: center;
+  gap: 8px;
+  // justify-content: center;
+  &:hover {
+    background-color: #27431f;
+  }
+  height: 32px;
+  padding: 4px 8px 4px 16px;
+  color: white;
+`
+
+export const UserAccordionImg = styled.img`
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+`
+export const UserAccordionUsername = styled.p``
 
 export const RightContainer = styled.div`
   padding: 48px 24px 24px 24px;
-  height: 480px;
-  width: 300px;
-  display: flex;
+  height: 400px;
+  width: 270px;
   border-radius: 15px;
-  justify-content: space-evenly;
   align-items: center;
+  justify-content: space-between;
   flex-direction: column;
   background: #26292b;
   background: #1a1c22;
+  position: relative;
+  display: flex;
+`
+export const TeamInformationContainer = styled.div`
+  text-align: center;
 `
 
 export const CircleContainer = styled.div`
@@ -147,12 +241,15 @@ export const Text = styled.h3`
   color: ${(props) => props.color || WHITE.main};
   text-align: ${(props) => props.alignment || 'center'};
   margin: ${(props) => props.margin || '0'};
+
+  line-height: ${(props) => props.lineHeight || '1'};
 `
 
 export const TeamImgBorder = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
+  margin-bottom: 24px;
 `
 
 export const LeaveTeam = styled.button`
@@ -166,7 +263,7 @@ export const LeaveTeam = styled.button`
   font-weight: 500;
   color: white;
   outline: none;
-  margin-top: ${(props) => props.marginTop || '34px'};
+  margin-top: ${(props) => props.marginTop || '24px'};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -185,7 +282,8 @@ export const EditTeam = styled.button`
   width: ${(props) => props.width || ''};
   margin-top: ${(props) => props.marginTop || '0'};
   background-color: #46a11b;
-  padding: 10px 16px 8px;
+  padding: 10px 16px 8px 16px;
+
   border-radius: 10px;
   color: #fff;
   font-size: 16px;
@@ -279,6 +377,7 @@ export const style = {
   borderRadius: '15px',
   boxShadow: 14,
   p: 4,
+  padding: '72.5px 32px',
 }
 
 export const InputBox = styled.div`
@@ -303,12 +402,60 @@ export const SearchIconContainer = styled.div`
     stroke: #86878b;
   }
 `
-export const CloseContainer = styled.div`
+
+export const SpaceBetween = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`
+
+export const CaretContainer = styled.div`
+  transition: all 0.2s;
+  cursor: pointer;
+  svg {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    transition: all 0.2s;
+
+    transform: ${(props) => (props.selectLeader ? 'rotate(180deg)' : 'rotate(0)')};
+    path {
+      cursor: pointer;
+      stroke: #fff;
+    }
+  }
+
+  opacity: ${(props) => (props.isEditing ? '1' : '0')};
+
+  transition: all 0.2s ease-in-out;
+  right: 2%;
+  top: 5%;
+`
+
+export const CloseContainerModal = styled.div`
   position: absolute;
   cursor: pointer;
   svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
+    path {
+      fill: ${(props) => props.color || '#46A11B'};
+    }
+  }
+
+  opacity: 1;
+
+  transition: all 0.2s ease-in-out;
+  right: 5%;
+  top: 5%;
+`
+
+export const CloseContainer = styled.div`
+  // position: absolute;
+  cursor: pointer;
+  svg {
+    width: 20px;
+    height: 20px;
     path {
       fill: ${(props) => props.color || '#46A11B'};
     }
@@ -338,29 +485,41 @@ export const Input = styled.input`
 export const CakeBox = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 `
 
 export const SVGAndText = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin: ${(props) => props.margin || '0'};
 `
 
 export const TabContainer = styled.div`
   display: flex;
   gap: 16px;
-  font-size: 20px;
+  font-family: var(--H4-f);
+  line-height: var(--H4-lh);
+  font-size: var(--H4-s);
   justify-content: start;
-  position: ${(props) => (props.about ? 'absolute' : 'relative')};
+  position: relative;
   top: 0%;
-  margin-left: 36px;
-  margin-top: 15px;
   span {
     width: 100%;
-    height: 2px;
+    height: 1px;
     color: #fff;
     background-color: #fff;
   }
 `
+export const TopContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: ${(props) => (props.isMembers ? '32px' : '24px')};
+`
+
 export const Tab = styled.p`
   color: ${(props) => (!props.isMembers ? '#fff' : '#5BD424')};
   cursor: pointer;
@@ -382,52 +541,46 @@ export const Tab = styled.p`
 `
 
 export const InviteButton = styled.button`
-  margin-top: 15px;
-  height: 40px;
   border: 2px solid #5bd424;
   color: #fff;
   background: transparent;
-  padding: 4px 16px 4px 16px;
+  padding: 6px 16px 4px 16px;
   cursor: pointer;
   border-radius: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  transform: translateX(300px);
-  font-size: 20px;
+  font-size: var(--B2-s)
+  line-height: var(--B2-lh)
+  width: 101px;
+  height: 32px;
 
   transition: all 0.2s;
 
   &:hover {
-    // background: #2f3239;
     svg path:nth-child(3),
     svg path:nth-child(4) {
-      transform: translateY(-2px);
+      transform: translateY(-1px);
       transition: all 0.2s;
     }
   }
 `
 export const UserPlusContainer = styled.div`
-  width: 24px;
-  height: 24px;
-  margin-top: 4px;
+  width: 20px;
+  height: 20px;
 `
 // stolen from TeamCards
 
-export const TeamCardFigure = styled.form`
+export const TeamCardFigure = styled.div`
   background-color: transparent;
-  padding: 0 32px 24px 32px;
   margin: 0;
-  // position: absolute;
-  // left: 50%;
-  // top: 50%;
-  // transform: translate(-50%, -50%);
 `
 
 export const TeamCardTop = styled.div`
-  display: flex;
-  gap: 18px;
-  transform: translateY(-50%);
+  display: grid;
+  grid-template-columns: 140px 80px 100px 140px;
+  margin-bottom: 16px;
 `
 export const TeamCardTopInfo = styled.div`
   // &:nth-child(1) {
@@ -443,17 +596,20 @@ export const TeamCardTopInfo = styled.div`
   //   width: 140px;
   // }
 
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  height: 47px;
 
   h3 {
-    font-size: 17px;
+    margin: 0;
+    font-size: var(--B3-s);
+    line-height: var(--B3-lh);
     color: #86878b;
     font-weight: 400;
   }
 
   p {
-    font-size: 16px;
+    margin: 0;
+    font-size: var(--B2-s);
+    line-height: var(--B2-lh);
     color: #fff;
   }
 `
@@ -465,11 +621,11 @@ export const TeamCardTopIcon = styled.img`
 `
 
 export const TeamCardBody = styled.div`
-  diplay: flex;
+  display: flex;
   flex-direction: column;
-  gap: 40px;
+  justify-content: space-between;
   background-color: transparent;
-  margin-top: 10px;
+  height: 100%;
 `
 
 export const TeamCardBodyPoint = styled.div`
@@ -478,28 +634,35 @@ export const TeamCardBodyPoint = styled.div`
     color: #86878b;
     margin: 0;
     font-weight: 400;
-    margin-bottom: 12px;
+    // margin-bottom: 12px;
   }
   background-color: transparent;
 
-  margin-bottom: 16px;
+  // margin-bottom: 16px;
 
   div :not(div div) {
     display: flex;
     gap: 36px;
   }
-
-  :nth-child(2) {
-    display: flex;
-    gap: 48px;
+  :nth-child(1) {
     h3 {
       margin-bottom: 8px;
     }
+    max-height: 100%;
   }
 
-  :nth-child(3) {
+  :nth-child(2) {
     position: absolute;
     bottom: 5%;
+
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    h3 {
+      margin: 0;
+    }
+
+    margin-top: auto;
   }
 `
 
@@ -512,11 +675,25 @@ export const TeamCardDesc = styled.p`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  transform: rotate(0deg) translate(60%, -50%) scale(0.5);
+  width: 21px;
+  height: 21px;
+  transform: rotate(0deg) translate(180%, -107%);
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 export const CrownContainer2 = styled.div`
   position: absolute;
-  transform: rotate(0deg) translate(100%, -300%) scale(1.5);
+  width: 59px;
+  height: 59px;
+  right: -8%;
+  top: -19%;
+  transform: rotate(0deg);
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export const TeamCardPerson = styled.div`
@@ -632,9 +809,95 @@ export const LeaderActionsBox = styled.div`
   align-items: center;
   gap: 8px;
   button {
-    width: 120px;
+    width: 107px;
+    font-size: 16px;
   }
 
-  opacity: ${(props) => props.opacity || '1'};
-  pointer-events: ${(props) => (props.opacity === '1' ? 'auto' : 'none')};
+  opacity: ${(props) => (props.opacity ? '1' : '0')};
+  z-index: ${(props) => (props.opacity ? '1' : '0')};
+  // display: ${(props) => (props.opacity ? 'flex' : 'none')};
+  pointer-events: ${(props) => (props.opacity ? 'auto' : 'none')};
+`
+
+export const FormikContainer = styled.div`
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+`
+
+export const EditImageButton = styled.button`
+  position: absolute;
+  right: 10%;
+  bottom: 19%;
+  cursor: pointer;
+  background: #46a11b;
+  border-radius: 50%;
+  border: none;
+  // padding: 2.4rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  opacity: ${(props) => (props.editImage ? '0' : '1')};
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+`
+
+export const DefaultImg = styled.img`
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  &:after {
+    display: block;
+    content: '?';
+    width: 20px;
+    height: 20px;
+    background-color: green;
+    position: absolute;
+  }
+`
+
+export const MyRadioGroup = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2.4rem;
+`
+
+export const FileButton = styled.div`
+  border: 2px dashed #86878b;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+`
+
+export const ImageBox = styled.div`
+  position: relative;
+  opacity: ${(props) => (props.myKey ? '1' : '.50')};
+  transition: all 0.2s;
+
+  span {
+    display: block;
+    position: absolute;
+
+    svg {
+      width: 14.29px;
+      height: 14.29px;
+    }
+    // background-color: green;
+    right: 0%;
+    bottom: 0%;
+
+    opacity: ${(props) => (props.myKey ? '1' : '0')};
+  }
 `

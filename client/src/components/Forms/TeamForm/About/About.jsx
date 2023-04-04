@@ -45,12 +45,9 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
 
   const [loading, setLoading] = useState(false)
 
-  const changeBackgroundColor = (newStateArray) => {
-    const newState = newStateArray[0]
-    const number = newStateArray[1]
-
+  const changeBackgroundColor = (number) => {
     setBackgroundColor((prevState) => {
-      prevState[number] = newState
+      prevState[number] = prevState[number] === 'transparent' ? '#2F3239' : 'transparent'
 
       return [...prevState]
     })
@@ -64,8 +61,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
       options={countriesOptions}
       line={false}
       hideLabelOnSelect={true}
-      onMouseEnter={changeBackgroundColor.bind(null, ['#2F3239', 2])}
-      onMouseLeave={changeBackgroundColor.bind(null, ['transparent', 2])}
       renderValue={(selected) => {
         if (selected.length === 0) {
           return (
@@ -96,8 +91,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
       options={typeOptions}
       line={false}
       hideLabelOnSelect={true}
-      onMouseEnter={changeBackgroundColor.bind(null, ['#2F3239', 3])}
-      onMouseLeave={changeBackgroundColor.bind(null, ['transparent', 3])}
       renderValue={(selected) => {
         if (selected.length === 0) {
           return (
@@ -127,7 +120,9 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
           name: team.name,
           tag: team.tag,
           countries: team.country,
-          type: team.type,
+          type: [team.type.slice(0, 1).toUpperCase(), team.type.slice(1, team.type.length)].join(
+            '',
+          ),
           desc: team.description,
         }}
         onSubmit={(values, actions) => {
@@ -165,9 +160,8 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                     }}
                     id="name"
                     name="name"
-                    onMouseEnter={changeBackgroundColor.bind(null, ['#2F3239', 0])}
-                    onMouseLeave={changeBackgroundColor.bind(null, ['transparent', 0])}
-                    onBlur={changeBackgroundColor.bind(null, ['transparent', 0])}
+                    onFocus={changeBackgroundColor.bind(null, 0)}
+                    onBlur={changeBackgroundColor.bind(null, 0)}
                   />
                 </LabelFieldContainer>
                 <LabelFieldContainer>
@@ -186,9 +180,8 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                     // onChange={(e) => {
                     //   // setTag(e.value)
                     // }}
-                    onMouseEnter={changeBackgroundColor.bind(null, ['#2F3239', 1])}
-                    onMouseLeave={changeBackgroundColor.bind(null, ['transparent', 1])}
-                    onBlur={changeBackgroundColor.bind(null, ['transparent', 1])}
+                    onFocus={changeBackgroundColor.bind(null, 1)}
+                    onBlur={changeBackgroundColor.bind(null, 1)}
                   />
                 </LabelFieldContainer>
                 <LabelFieldContainer>
@@ -216,7 +209,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                   />
                 </LabelTextFieldContainer>
 
-                <LeaderActionsBox>
+                <LeaderActionsBox opacity={isEditing}>
                   <EditTeam type={`submit`}>{isEditing ? 'Save' : 'Edit'}</EditTeam>
                   {loading ? Loader : <></>}
                   <LeaveTeam
@@ -245,28 +238,22 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
     <TeamCardFigure>
       <TeamCardTop>
         <TeamCardTopInfo>
-          <div>
-            <h3>Name</h3>
-            <p>{team.name}</p>
-          </div>
+          <h3>Name</h3>
+          <p>{team.name.replaceAll(' ', '\u00a0')}</p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
-          <div>
-            <h3>Tag</h3>
-            <p>{team.tag}</p>
-          </div>
+          <h3>Tag</h3>
+          <p>{team.tag}</p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
-          <div>
-            <h3>Type</h3>
-            <p>{team.type}</p>
-          </div>
+          <h3>Type</h3>
+          <p>
+            {[team.type.slice(0, 1).toUpperCase(), team.type.slice(1, team.type.length)].join('')}
+          </p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
-          <div>
-            <h3>Country</h3>
-            <p>{team.country}</p>
-          </div>
+          <h3>Country</h3>
+          <p>{team.country}</p>
         </TeamCardTopInfo>
       </TeamCardTop>
       <TeamCardBody>
@@ -274,7 +261,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
           <h3>Description</h3>
           <TeamCardDesc>{team.description}</TeamCardDesc>
         </TeamCardBodyPoint>
-        <TeamCardBodyPoint></TeamCardBodyPoint>
         <TeamCardBodyPoint>
           <h3>Statistics</h3>
           <StatisticsFlex>

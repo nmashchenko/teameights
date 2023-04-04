@@ -25,7 +25,9 @@ const TeamsTopTemplate = ({ myTeam }) => {
           onClick={() => {
             navigate('/my-team')
           }}
-          fontSize="20px"
+          fontSize="var(--H4-s)"
+          lineHeight="var(--H4-lh)"
+          fontFamily="var(--H4-f)"
         >
           My Team
           <span></span>
@@ -36,7 +38,9 @@ const TeamsTopTemplate = ({ myTeam }) => {
           onClick={() => {
             navigate('/teams')
           }}
-          fontSize="20px"
+          fontSize="var(--H4-s)"
+          lineHeight="var(--H4-lh)"
+          fontFamily="var(--H4-f)"
           isMyTeam={!myTeam}
         >
           All Teams

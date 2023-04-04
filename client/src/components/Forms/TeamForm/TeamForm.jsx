@@ -2,24 +2,31 @@
 import { useEffect, useState } from 'react'
 // * Redux
 import { Link, useNavigate } from 'react-router-dom'
+import { CssBaseline, Radio, RadioGroup } from '@mui/material'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { useFormikContext } from 'formik'
+import { Field, Form, Formik, useFormikContext } from 'formik'
 import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
+import { useUpdateTeamsAvatar } from '../../../api/hooks/auth/useUpdateTeamsAvatar'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import { useLeave } from '../../../api/hooks/team/useLeave'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
 import Cake from '../../../assets/Cake'
+import { CheckCircle } from '../../../assets/CheckCircle'
 import Close from '../../../assets/Close'
 import Crown from '../../../assets/Crown'
+import { defaultTeamImages } from '../../../assets/defaults/defaults'
+import { PencilSimple } from '../../../assets/PencilSimple'
 import SearchIcon from '../../../assets/SearchIcon'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
+import { UploadSymbol } from '../../../assets/UploadSymbol'
 import UserPlus from '../../../assets/UserPlus'
 import Users from '../../../assets/Users'
 import { LOCAL_PATH } from '../../../http'
@@ -38,12 +45,19 @@ import {
   Center,
   CircleContainer,
   CloseContainer,
+  CloseContainerModal,
   Container,
   CreateButton,
   CreateTeam,
   CrownContainer,
   CrownContainer2,
+  DefaultImg,
+  EditImageButton,
   EditTeam,
+  FileButton,
+  FormikContainer,
+  GlobalStyle,
+  ImageBox,
   Input,
   InputBox,
   InviteButton,
@@ -51,6 +65,7 @@ import {
   LeaveTeam,
   LeftContainer,
   MainCardContent,
+  MyRadioGroup,
   RightContainer,
   SearchIconContainer,
   Statistic,
@@ -71,7 +86,9 @@ import {
   TeamCardTopIcon,
   TeamCardTopInfo,
   TeamImgBorder,
+  TeamInformationContainer,
   Text,
+  TopContainer,
   UserCard,
   UserGrid,
   UserImg,
@@ -91,6 +108,7 @@ function TeamForm({ switchPage }) {
   const [isEditing, setIsEditing] = useState(false)
   const [hasUpdate, update] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [editImage, setEditImage] = useState(false)
 
   // const [members, setMembers] = useState([])
   const [isMembers, switchIsMembers] = useState(true)
@@ -99,6 +117,7 @@ function TeamForm({ switchPage }) {
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
   const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
   const { mutate: removeFromTeam, isLoading: isRemoving } = useRemoveMember()
+  const { mutate: updateTeamsAvatar } = useUpdateTeamsAvatar()
 
   const createDate = new Date(team?.createdAt)
     .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
@@ -107,10 +126,15 @@ function TeamForm({ switchPage }) {
   const { data: user } = useCheckAuth()
   // We need: Leave team
 
-  // useEffect(() => {  // maybe we need to turn off edits if we switch tabs
-  //   setIsEditing(false)
+  useEffect(() => {
+    console.log(isEditing)
+    // maybe we need to turn off edits if we switch tabs
+    if (!isEditing) {
+      setEditImage(false)
+    }
+  }, [isEditing])
 
-  // }, [isMembers])
+  // When we press the cancel button, we need to turn Off
 
   useEffect(() => {
     const saveUpdates = async () => {
@@ -128,6 +152,49 @@ function TeamForm({ switchPage }) {
       saveUpdates()
     }
   }, [hasUpdate])
+
+  // START IMAGES
+  const [selectedImage, changeSelectedImage] = useState('')
+  const defaultTeamImages = ['defaultGreen', 'defaultPink', 'defaultOrange', 'defaultBlue']
+  const [picture, setPicture] = useState(null)
+  const [imgData, setImgData] = useState(null)
+
+  useEffect(() => {
+    setPicture(null)
+    setImgData(null)
+    changeSelectedImage('')
+  }, [isEditing])
+
+  const selectedImgJSX =
+    imgData === null ? (
+      <>
+        <UploadSymbol />
+        <br></br>
+        Drop here or click to upload
+      </>
+    ) : (
+      <div>{picture === null ? '' : picture.name}</div>
+    )
+
+  const getServedProfilePic = () => {
+    // if we have no picture chosen, choose team image.
+    // if we dont have image, choose temp
+    if (picture === null && selectedImage === '') {
+      return tempImg
+    }
+
+    // if we have a default, choose default
+    if (selectedImage !== '') {
+      return require(`../../../assets/defaults/${defaultTeamImages[selectedImage]}.png`)
+    }
+
+    if (picture !== null) {
+      return imgData
+    }
+  }
+
+  const servedProfilePic = getServedProfilePic()
+  // END IMAGES
 
   const handleClose = () => {
     setOpen(false)
@@ -242,8 +309,7 @@ function TeamForm({ switchPage }) {
   const leaderOrMemberAction = (
     <>
       {team.leader._id === user._id ? (
-        <LeaderActionsBox opacity={!isEditing ? '1' : '0'}>
-          {/* // <LeaderActionsBox> */}
+        <LeaderActionsBox opacity={!isEditing || isMembers || editImage}>
           <EditTeam
             onClick={() => {
               if (!isEditing) {
@@ -251,6 +317,10 @@ function TeamForm({ switchPage }) {
                 setIsEditing((prevState) => {
                   return !prevState
                 })
+              } else {
+                // console.log(team)
+                // console.log(servedProfilePic)
+                // updateTeamsAvatar({ teamID: team._id, image: servedProfilePic })
               }
             }}
           >
@@ -295,6 +365,155 @@ function TeamForm({ switchPage }) {
         secondButtonHandler={handleClose}
       />
     )
+
+  const updateImageContainer = (
+    <FormikContainer>
+      <Formik
+        initialValues={{
+          image: team?.image ? team?.image : '',
+          default: '',
+        }}
+        onSubmit={(values, actions) => {}}
+      >
+        {({ values, dirty, resetForm }) => {
+          return (
+            <Form
+              style={{
+                marginTop: '8px',
+                color: '#FFFFFF',
+              }}
+              id="saveForm"
+            >
+              <label htmlFor="defaults" style={{ marginBottom: '10px', display: 'inline-block' }}>
+                Select Defaults
+              </label>
+              <MyRadioGroup
+                name="default"
+                style={{ marginBottom: '10px' }}
+                onClick={(e) => {
+                  const pic = e.target.dataset.pic
+
+                  if (pic === undefined) {
+                    return
+                  }
+                  const nextPic = pic === selectedImage ? '' : pic
+
+                  setPicture(null)
+                  setImgData(null)
+                  changeSelectedImage(nextPic)
+                }}
+              >
+                {defaultTeamImages.map((image, key) => (
+                  <ImageBox key={key} myKey={String(key) === selectedImage}>
+                    <DefaultImg
+                      data-pic={key}
+                      src={require(`../../../assets/defaults/${image}.png`)}
+                    />
+                    <span>
+                      <CheckCircle />
+                    </span>
+                  </ImageBox>
+                ))}
+              </MyRadioGroup>
+
+              <label htmlFor="image" style={{ marginBottom: '10px', display: 'inline-block' }}>
+                image
+              </label>
+              <Field
+                style={{
+                  color: '#FFF',
+                  border: 'none',
+                  padding: '8px 4px',
+                  borderBottom: '1px solid #86878B',
+                  width: `98%`,
+                  transition: 'all .2s',
+                  // display: 'none',
+                  position: 'absolute',
+                  opacity: '0',
+                  pointerEvents: 'none',
+                }}
+                type="file"
+                id="image"
+                name="image"
+                onChange={(ev) => {
+                  console.log('onChange')
+                  ev.preventDefault()
+                  const file = ev.target.files[0]
+
+                  // do not accept HEIC
+                  if (String(file.name).includes('HEIC') || String(file.name).includes('heic')) {
+                    return
+                  }
+                  setPicture(file)
+                  const reader = new FileReader()
+
+                  reader.addEventListener('load', () => {
+                    changeSelectedImage('')
+                    setImgData(reader.result)
+                  })
+                  reader.readAsDataURL(file)
+                }}
+              />
+              <FileButton
+                onClick={() => {
+                  document.querySelector('#image').click()
+                }}
+                onDrop={(ev) => {
+                  console.log('DROPPED')
+                  ev.preventDefault()
+
+                  if (ev.dataTransfer.items) {
+                    // Use DataTransferItemList interface to access the file(s)
+                    ;[...ev.dataTransfer.items].forEach((item, i) => {
+                      // If dropped items aren't files, reject them
+                      if (item.kind === 'file') {
+                        const file = item.getAsFile()
+
+                        // do not accept HEIC
+                        if (
+                          String(file.name).includes('HEIC') ||
+                          String(file.name).includes('heic')
+                        ) {
+                          return
+                        }
+                        setPicture(file)
+                        const reader = new FileReader()
+
+                        reader.addEventListener('load', () => {
+                          changeSelectedImage('')
+                          setImgData(reader.result)
+                        })
+                        reader.readAsDataURL(file)
+                      }
+                    })
+                  } else {
+                    // Use DataTransfer interface to access the file(s)
+                    ;[...ev.dataTransfer.files].forEach((file, i) => {
+                      console.log(`… file[${i}].name = ${file.name}`)
+                    })
+                  }
+                }}
+                onDragOver={(e) => {
+                  e.preventDefault()
+                  console.log('drag over')
+                  document.querySelector('#image').click()
+                }}
+                dropzone="move"
+              >
+                {selectedImgJSX}
+              </FileButton>
+            </Form>
+          )
+        }}
+      </Formik>
+    </FormikContainer>
+  )
+
+  // const aboutInput = !isMembers ? about : <></>
+  const input = isMembers ? membersVar : about
+
+  // const totalInput = <>{/* {aboutInput} {membersInput} */}</>
+
   // by the modal logic, the default is the
   const aTeam = (
     <>
@@ -305,9 +524,9 @@ function TeamForm({ switchPage }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CloseContainer onClick={handleClose}>
+          <CloseContainerModal onClick={handleClose}>
             <Close />
-          </CloseContainer>
+          </CloseContainerModal>
           {inviteActive ? (
             <>
               <Text fontSize="24px" margin="0">
@@ -352,7 +571,7 @@ function TeamForm({ switchPage }) {
       </Modal>
       <CardContainer>
         <Card>
-          <MainCardContent>
+          <TopContainer isMembers={isMembers}>
             <TabContainer about={about}>
               <Tab
                 onClick={() => {
@@ -372,47 +591,72 @@ function TeamForm({ switchPage }) {
                 About
                 <span></span>
               </Tab>
-              <InviteButton onClick={handleOpenInvite}>
-                <UserPlusContainer>
-                  <UserPlus />
-                </UserPlusContainer>
-                invite
-              </InviteButton>
             </TabContainer>
-            {!isMembers ? about : <></>}
-            {isMembers ? membersVar : <></>}
-            <LeftContainer>{/* TODO: find team members in useEffect. */}</LeftContainer>
-          </MainCardContent>
+            <InviteButton onClick={handleOpenInvite}>
+              <UserPlusContainer>
+                <UserPlus />
+              </UserPlusContainer>
+              Invite
+            </InviteButton>
+          </TopContainer>
+          <>
+            {/* {input} */}
+            {editImage ? updateImageContainer : input}
+          </>
         </Card>
         <RightContainer>
-          <TeamImgBorder src={tempImg} />
-          <CrownContainer2>
-            <Crown />
-          </CrownContainer2>
-          <Text margin="16px 0 12px 0">{team.name}</Text>
-          <SVGAndText>
-            <CakeBox>
-              <Cake />
-            </CakeBox>
-            <Text fontSize="16px" fontWeight="400">
-              {team.createdAt.split('T')[0]}
+          <TeamInformationContainer>
+            <div style={{ position: 'relative' }}>
+              <TeamImgBorder src={servedProfilePic} />
+              {isEditing ? (
+                <EditImageButton
+                  editImage={editImage}
+                  onClick={() => {
+                    setEditImage((prevState) => !prevState)
+                  }}
+                >
+                  <PencilSimple />
+                </EditImageButton>
+              ) : (
+                <></>
+              )}
+              <CrownContainer2>
+                <Crown />
+              </CrownContainer2>
+            </div>
+            <Text margin="0 0 17px 0" lineHeight="24px">
+              {team.name}
             </Text>
-          </SVGAndText>
-          <SVGAndText>
-            <CakeBox>
-              <Users />
-            </CakeBox>
-            <Text fontSize="16px" fontWeight="400">
-              {team.members.length}/8
-            </Text>
-          </SVGAndText>
+            <SVGAndText margin="0 0 17px 0">
+              <CakeBox>
+                <Cake />
+              </CakeBox>
+              <Text margin="0 0 0 0" fontSize="16px" lineHeight="22.4px" fontWeight="400">
+                {team.createdAt.split('T')[0]}
+              </Text>
+            </SVGAndText>
+            <SVGAndText>
+              <CakeBox>
+                <Users />
+              </CakeBox>
+              <Text fontSize="16px" fontWeight="400">
+                {team.members.length}/8
+              </Text>
+            </SVGAndText>
+          </TeamInformationContainer>
           {leaderOrMemberAction}
         </RightContainer>
       </CardContainer>
     </>
   )
 
-  return <Container>{aTeam}</Container>
+  return (
+    <Container>
+      {aTeam}
+
+      <CssBaseline />
+    </Container>
+  )
 }
 
 export default TeamForm

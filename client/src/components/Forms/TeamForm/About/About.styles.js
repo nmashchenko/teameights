@@ -42,6 +42,10 @@ export const LeaderActionsBox = styled.div`
   position: absolute;
   bottom: 10.2%;
   right: -46.9%;
+  opacity: ${(props) => (props.opacity ? '1' : '0')};
+  z-index: ${(props) => (props.opacity ? '9999' : '0')};
+  // display: ${(props) => (props.opacity ? 'flex' : 'none')};
+  pointer-events: ${(props) => (props.opacity ? 'auto' : 'none')};
 `
 
 export const LeaveTeam = styled.button`
