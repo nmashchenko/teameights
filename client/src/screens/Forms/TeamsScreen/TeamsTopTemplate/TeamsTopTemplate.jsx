@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
+import { H4fs, H4fw, H4lh } from '../../../../assets/fonts.js'
 import TeameightsLogo from '../../../../assets/Team/TeameightsLogo.js'
 import NavBar from '../../../../components/NavBar/NavBar.jsx'
 import {
@@ -25,9 +26,9 @@ const TeamsTopTemplate = ({ myTeam }) => {
           onClick={() => {
             navigate('/my-team')
           }}
-          fontSize="var(--H4-s)"
-          lineHeight="var(--H4-lh)"
-          fontFamily="var(--H4-f)"
+          fontSize={`${H4fs}`}
+          fontWeight={`${H4fw}`}
+          lineHeight={`${H4lh}`}
         >
           My Team
           <span></span>
@@ -38,9 +39,9 @@ const TeamsTopTemplate = ({ myTeam }) => {
           onClick={() => {
             navigate('/teams')
           }}
-          fontSize="var(--H4-s)"
-          lineHeight="var(--H4-lh)"
-          fontFamily="var(--H4-f)"
+          fontSize={`${H4fs}`}
+          fontWeight={`${H4fw}`}
+          lineHeight={`${H4lh}`}
           isMyTeam={!myTeam}
         >
           All Teams

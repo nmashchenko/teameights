@@ -1,41 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
+import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../assets/fonts'
 import { BLACK, GREEN, WHITE } from '../../../constants/colors'
-
-export const GlobalStyle = createGlobalStyle`
-html {
-  --H1-f: "NoirPro-Medium"
-  --H1-s: "38px"
-  --H1-lh: "45.6px"
-  
-  --H2-f: "NoirPro-Medium"
-  --H2-s: "32px"
-  --H2-lh: "38.4px"
-  
-  --H3-f: "NoirPro-Medium"
-  --H3-s: "24px"
-  --H3-lh: "28.8px"
-  
-  --H4-f: "NoirPro-Medium"
-  --H4-s: "20px"
-  --H4-lh: "24px"
-
-  --B-f: "NoirPro-Regular"
-  --B1-s: "24px"
-  --B1-lh: "33.6px"
-  
-  --B2-f: "NoirPro-Regular"
-  --B2-s: "16px"
-  --B2-lh: "22.4px"
-
-  --B3-f: "NoirPro-Light"
-  --B3-s: "14px"
-  --B3-lh: "16.8px"
-}
-
-
-
-`
 
 export const Container = styled.div`
   width: 100%;
@@ -184,9 +150,9 @@ export const ListBackdrop = styled.div`
 
 export const UserAccordionCard = styled.div`
   display: flex;
-  font-size: var(--B3-s);
-  font-family: var(--B3-f);
-  line-height: var(--B3-lh);
+  font-size: ${B3fs};
+  font-weight: ${B3fw};
+  line-height: ${B3lh};
   align-items: center;
   gap: 8px;
   // justify-content: center;
@@ -284,9 +250,12 @@ export const EditTeam = styled.button`
   background-color: #46a11b;
   padding: 10px 16px 8px 16px;
 
+  font-size: ${B2fs};
+  font-weight: ${B2fw};
+  line-height: ${B2lh};
+
   border-radius: 10px;
   color: #fff;
-  font-size: 16px;
   cursor: pointer;
   border: none;
   transition: all 0.2s;
@@ -304,8 +273,9 @@ export const CancelButton = styled.button`
   background: transparent;
   border: 2px solid #46A11B;
   border-radius: 10px;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: ${B2fs};
+  font-weight: ${B2fw};
+  line-height: ${B2lh};
   color: white;
   outline: none;
   margin-top: 24px;
@@ -499,9 +469,9 @@ export const SVGAndText = styled.div`
 export const TabContainer = styled.div`
   display: flex;
   gap: 16px;
-  font-family: var(--H4-f);
-  line-height: var(--H4-lh);
-  font-size: var(--H4-s);
+  font-weight: ${B2fw};
+  line-height: ${B2lh};
+  font-size: ${B2fs};
   justify-content: start;
   position: relative;
   top: 0%;
@@ -527,6 +497,8 @@ export const Tab = styled.p`
   transition: all 0.2s;
   display: inline-block;
   position: relative;
+  margin: 0;
+  margin-bottom: 8px;
 
   span {
     width: 100%;
@@ -551,8 +523,9 @@ export const InviteButton = styled.button`
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: var(--B2-s)
-  line-height: var(--B2-lh)
+  font-size: ${B2fs};
+  line-height: ${B2lh};
+  font-weight: ${B2fw};
   width: 101px;
   height: 32px;
 
@@ -577,9 +550,16 @@ export const TeamCardFigure = styled.div`
   margin: 0;
 
   h3 {
-    font-size: var(--B2-s) !important;
-    line-height: var(--B2-lh) !important;
-    font-family: var(--B2-f) !important;
+    font-size: ${B3fs};
+    line-height: ${B3lh};
+    font-weight: ${B3fw};
+  }
+  p {
+    margin: 0;
+    font-size: ${B2fs};
+    line-height: ${B2lh};
+    font-weight: ${B2fw};
+    color: #fff;
   }
 `
 
@@ -608,14 +588,6 @@ export const TeamCardTopInfo = styled.div`
     margin: 0;
     margin-bottom: 8px;
     color: #86878b;
-    font-weight: 400;
-  }
-
-  p {
-    margin: 0;
-    font-size: var(--B2-s);
-    line-height: var(--B2-lh);
-    color: #fff;
   }
 `
 
@@ -635,15 +607,10 @@ export const TeamCardBody = styled.div`
 
 export const TeamCardBodyPoint = styled.div`
   h3 {
-    font-size: 19px;
     color: #86878b;
     margin: 0;
-    font-weight: 400;
-    // margin-bottom: 12px;
   }
   background-color: transparent;
-
-  // margin-bottom: 16px;
 
   div :not(div div) {
     display: flex;
@@ -672,7 +639,6 @@ export const TeamCardBodyPoint = styled.div`
 `
 
 export const TeamCardDesc = styled.p`
-  font-size: 17px;
   color: #fff;
   line-height: 1.4;
   margin: 0;
@@ -722,8 +688,9 @@ export const StatisticsFlex = styled.div`
 `
 export const Statistic = styled.div`
   p {
-    font-size: 17px;
-    color: #fff;
+    font-size: ${B2fs};
+    line-height: ${B2lh};
+    font-weight: ${B2fw};
     margin: 0;
     display: inline !important;
   }
@@ -826,9 +793,9 @@ export const LeaderActionsBox = styled.div`
 
 export const FormikContainer = styled.div`
   label {
-    font-size: var(--B2-s) !important;
-    line-height: var(--B2-lh) !important;
-    font-family: var(--B2-f) !important;
+    font-size: ${B2fs};
+    line-height: ${B2lh};
+    font-weight: ${B2fw};
   }
 `
 

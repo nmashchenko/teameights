@@ -12,17 +12,18 @@ import { useSnackbar } from 'notistack'
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
-import { useUpdateTeamsAvatar } from '../../../api/hooks/auth/useUpdateTeamsAvatar'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import { useLeave } from '../../../api/hooks/team/useLeave'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
 import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
+import { useUpdateTeamsAvatar } from '../../../api/hooks/team/useUpdateTeamsAvatar'
 import Cake from '../../../assets/Cake'
 import { CheckCircle } from '../../../assets/CheckCircle'
 import Close from '../../../assets/Close'
 import Crown from '../../../assets/Crown'
 import { defaultTeamImages } from '../../../assets/defaults/defaults'
+import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../assets/fonts'
 import { PencilSimple } from '../../../assets/PencilSimple'
 import SearchIcon from '../../../assets/SearchIcon'
 import Add from '../../../assets/TeamPage/Add'
@@ -30,7 +31,7 @@ import Delete from '../../../assets/TeamPage/Delete'
 import { UploadSymbol } from '../../../assets/UploadSymbol'
 import UserPlus from '../../../assets/UserPlus'
 import Users from '../../../assets/Users'
-import { LOCAL_PATH } from '../../../http'
+import http, { LOCAL_PATH } from '../../../http'
 import Loader from '../../../shared/components/Loader/Loader'
 
 import About from './About/About'
@@ -57,7 +58,6 @@ import {
   EditTeam,
   FileButton,
   FormikContainer,
-  GlobalStyle,
   ImageBox,
   Input,
   InputBox,
@@ -323,11 +323,19 @@ function TeamForm({ switchPage }) {
               if (!isEditing) {
                 // only update state if you are not editing
               } else {
-                transferLeader({
-                  leader_id: team.leader._id,
-                  new_leader_id: chosenLeader.id,
-                  teamid: team._id,
-                })
+                if (chosenLeader.username !== '') {
+                  transferLeader({
+                    leader_id: team.leader._id,
+                    new_leader_id: chosenLeader.id,
+                    teamid: team._id,
+                  })
+                }
+
+                console.log(servedProfilePic)
+                console.log(servedProfilePic)
+                console.log(btoa(servedProfilePic))
+
+                updateTeamsAvatar({ teamID: team._id, image: btoa(servedProfilePic) })
               }
               setIsEditing((prevState) => {
                 return !prevState
@@ -380,7 +388,7 @@ function TeamForm({ switchPage }) {
     <FormikContainer>
       <Formik
         initialValues={{
-          image: team?.image ? team?.image : '',
+          image: '',
           default: '',
         }}
         onSubmit={(values, actions) => {}}
@@ -489,11 +497,11 @@ function TeamForm({ switchPage }) {
                         setPicture(file)
                         const reader = new FileReader()
 
+                        reader.readAsDataURL(file)
                         reader.addEventListener('load', () => {
                           changeSelectedImage('')
                           setImgData(reader.result)
                         })
-                        reader.readAsDataURL(file)
                       }
                     })
                   } else {
@@ -556,6 +564,7 @@ function TeamForm({ switchPage }) {
       )}
     </TopContainer>
   )
+
   // by the modal logic, the default is the
   const aTeam = (
     <>
@@ -619,8 +628,10 @@ function TeamForm({ switchPage }) {
         <RightContainer>
           <TeamInformationContainer>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div style={{ position: 'relative', width: '100px' }}>
-                <TeamImgBorder src={servedProfilePic} />
+              <div style={{ position: 'relative', width: '100px', height: '124px' }}>
+                <TeamImgBorder
+                  src={picture !== null || selectedImage !== '' ? servedProfilePic : team.image} // not currently
+                />
                 {isEditing ? (
                   <EditImageButton
                     editImage={editImage}
@@ -638,14 +649,24 @@ function TeamForm({ switchPage }) {
                 </CrownContainer2>
               </div>
             </div>
-            <Text margin="0 0 17px 0" lineHeight="24px">
+            <Text
+              margin="0 0 17px 0"
+              fontSize={`${H4fs}`}
+              lineHeight={`${H4lh}`}
+              fontWeight={`${H4fw}`}
+            >
               {team.name}
             </Text>
             <SVGAndText margin="0 0 17px 0">
               <CakeBox>
                 <Cake />
               </CakeBox>
-              <Text margin="0 0 0 0" fontSize="16px" lineHeight="22.4px" fontWeight="400">
+              <Text
+                margin="0 0 0 0"
+                fontSize={`${B2fs}`}
+                lineHeight={`${B2lh}`}
+                fontWeight={`${B2fw}`}
+              >
                 {team.createdAt.split('T')[0]}
               </Text>
             </SVGAndText>
@@ -653,7 +674,7 @@ function TeamForm({ switchPage }) {
               <CakeBox>
                 <Users />
               </CakeBox>
-              <Text fontSize="16px" fontWeight="400">
+              <Text fontSize={`${B2fs}`} lineHeight={`${B2lh}`} fontWeight={`${B2fw}`}>
                 {team.members.length}/8
               </Text>
             </SVGAndText>

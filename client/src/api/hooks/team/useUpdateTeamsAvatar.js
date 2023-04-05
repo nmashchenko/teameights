@@ -18,11 +18,7 @@ export const useUpdateTeamsAvatar = () => {
   return useMutation(updateTeamsAvatar, {
     mutationKey: 'updateTeamsAvatar',
     onSuccess: () => {
-      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
-    },
-    onError: (error) => {
-      // set error message
-      dispatch(registrationAuth.actions.finishRegistrationError(error.response?.data?.message))
+      queryClient.invalidateQueries('getTeamById')
     },
   })
 }

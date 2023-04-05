@@ -3,6 +3,7 @@ import countryList from 'react-select-country-list'
 import { Field, Form, Formik } from 'formik'
 
 import { useUpdateTeam } from '../../../../api/hooks/team/userUpdateTeam'
+import { B2fs, B2fw, B2lh } from '../../../../assets/fonts'
 import typeOptions from '../../../../constants/types'
 import { PlaceholderText } from '../../../../screens/UsersList/components/SelectField/SelectField.styles'
 import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
@@ -73,12 +74,16 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
         return selected
       }}
       styles={{
+        height: '38px',
         flexDirection: 'row',
         alignItems: 'center',
         margin: 0,
         borderBottom: '1px solid #86878B',
         backgroundColor: `${backgroundColor[2]}`,
         width: '100%',
+        fontSize: B2fs,
+        fontWeight: B2fw,
+        lineHeight: B2lh,
       }}
     />
   )
@@ -103,6 +108,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
         return selected
       }}
       styles={{
+        height: '38px',
         flexDirection: 'row',
         alignItems: 'center',
         margin: 0,
@@ -155,6 +161,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                       borderBottom: '1px solid #86878B',
                       width: `98%`,
                       transition: 'all .2s',
+                      height: '34px',
                     }}
                     id="name"
                     name="name"
@@ -172,6 +179,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                       padding: '8px 4px',
                       borderBottom: '1px solid #86878B',
                       width: `98%`,
+                      height: '34px',
                     }}
                     id="tag"
                     name="tag"
@@ -260,7 +268,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
       </TeamCardTop>
       <TeamCardBody>
         <TeamCardBodyPoint>
-          <h3 style={{}}>Description</h3>
+          <h3>Description</h3>
           <TeamCardDesc>{team.description}</TeamCardDesc>
         </TeamCardBodyPoint>
         <TeamCardBodyPoint>

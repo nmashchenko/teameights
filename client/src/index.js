@@ -12,9 +12,12 @@ import App from './App'
 
 const GlobalStyle = createGlobalStyle`
  * {  
-   font-family: "Montserrat" !important;
+font-family: 'NoirPro' !important;
+font-style: normal !important;
  }
+
 `
+
 const store = setupStore()
 const queryClient = new QueryClient()
 

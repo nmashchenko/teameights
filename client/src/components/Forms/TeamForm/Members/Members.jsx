@@ -4,6 +4,7 @@ import CaretDown from '../../../../assets/CaretDown'
 import CaretUp from '../../../../assets/CaretUp'
 import Close from '../../../../assets/Close'
 import Crown from '../../../../assets/Crown'
+import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../../assets/fonts'
 import { ThinClose } from '../../../../assets/ThinClose'
 import { LOCAL_PATH } from '../../../../http'
 import {
@@ -96,7 +97,7 @@ const Members = ({ chosenLeader, changeChosenLeader, team, isEditing, handleRemo
           )}
           <UserInfo>
             <SpaceBetween>
-              <Text fontSize="var(--B2-s)" color="#FFF" lineHeight="var(--B2-lh)">
+              <Text fontSize={`${B2fs}`} color="#FFF" lineHeight={`${B2lh}`} fontWeight={`${B2fw}`}>
                 {member.username}
               </Text>
               {team.leader._id === member._id ? (
@@ -110,10 +111,10 @@ const Members = ({ chosenLeader, changeChosenLeader, team, isEditing, handleRemo
               )}
             </SpaceBetween>
             <Text
-              fontSize="var(--B3-s)"
+              fontSize={`${B3fs}`}
               color="#FFF"
-              fontWeight="100"
-              lineHeight="var(--B3-lh)"
+              fontWeight={`${B3fw}`}
+              lineHeight={`${B3lh}`}
               alignment="start"
             >
               {member.concentration.length > 16
