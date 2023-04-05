@@ -1,13 +1,5 @@
-import { User } from '@/users/users.schema';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-	Allow,
-	IsArray,
-	IsEnum,
-	IsMongoId,
-	IsString,
-	ValidateNested,
-} from 'class-validator';
+import { IsEnum, IsMongoId, IsNumber, IsString } from 'class-validator';
 import mongoose from 'mongoose';
 import { TeamType } from '../types/teams.type';
 
@@ -43,4 +35,23 @@ export class UpdateTeamDto {
 		message: 'Type of invite: ["invite-only", "closed", "open"]',
 	})
 	readonly type: TeamType;
+
+	@ApiProperty({
+		example: 3,
+		description: 'Number of tournaments that the team has won',
+	})
+	@IsNumber()
+	readonly wins: Number;
+
+	@ApiProperty({
+		example: 10,
+		description:
+			'Number of points that the team has earned in the tournaments',
+	})
+	@IsNumber()
+	readonly points: Number;
+
+	@ApiProperty({ example: 'KhaG', description: 'Unique TAG of the team' })
+	@IsString()
+	tag: string;
 }
