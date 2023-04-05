@@ -575,6 +575,12 @@ export const UserPlusContainer = styled.div`
 export const TeamCardFigure = styled.div`
   background-color: transparent;
   margin: 0;
+
+  h3 {
+    font-size: var(--B2-s) !important;
+    line-height: var(--B2-lh) !important;
+    font-family: var(--B2-f) !important;
+  }
 `
 
 export const TeamCardTop = styled.div`
@@ -596,12 +602,11 @@ export const TeamCardTopInfo = styled.div`
   //   width: 140px;
   // }
 
-  height: 47px;
+  // height: 47px;
 
   h3 {
     margin: 0;
-    font-size: var(--B3-s);
-    line-height: var(--B3-lh);
+    margin-bottom: 8px;
     color: #86878b;
     font-weight: 400;
   }
@@ -687,7 +692,7 @@ export const CrownContainer2 = styled.div`
   position: absolute;
   width: 59px;
   height: 59px;
-  right: -8%;
+  right: -15%;
   top: -19%;
   transform: rotate(0deg);
   svg {
@@ -820,10 +825,11 @@ export const LeaderActionsBox = styled.div`
 `
 
 export const FormikContainer = styled.div`
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
+  label {
+    font-size: var(--B2-s) !important;
+    line-height: var(--B2-lh) !important;
+    font-family: var(--B2-f) !important;
+  }
 `
 
 export const EditImageButton = styled.button`
@@ -867,7 +873,8 @@ export const MyRadioGroup = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  gap: 2.4rem;
+  gap: 15px;
+  margin-bottom: 24px;
 `
 
 export const FileButton = styled.div`
@@ -879,6 +886,7 @@ export const FileButton = styled.div`
   align-items: center;
   gap: 0;
   cursor: pointer;
+  height: 184px;
 `
 
 export const ImageBox = styled.div`

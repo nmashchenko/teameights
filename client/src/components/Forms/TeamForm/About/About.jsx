@@ -126,12 +126,15 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
           desc: team.description,
         }}
         onSubmit={(values, actions) => {
+          console.log(values)
+
           updateTeam({
             teamid: team._id,
             name: values.name,
             description: values.desc,
             country: values.countries,
             type: values.type.toLowerCase(),
+            tag: values.tag,
           })
 
           setIsEditing(false)
@@ -139,12 +142,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
       >
         {({ values, dirty, resetForm }) => {
           return (
-            <Form
-              style={{
-                marginTop: '8px',
-              }}
-              id="saveForm"
-            >
+            <Form id="saveForm">
               <FormContainer>
                 <LabelFieldContainer>
                   <label htmlFor="name">Name</label>
@@ -193,7 +191,11 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                   {typeSelect}
                 </LabelFieldContainer>
 
-                <LabelTextFieldContainer>
+                <LabelTextFieldContainer
+                  style={{
+                    marginTop: '8px',
+                  }}
+                >
                   <label htmlFor="desc">Description</label>
                   <Field
                     as="textarea"
@@ -202,8 +204,8 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                       background: `transparent`,
                       width: `100%`,
                       borderRadius: `5px`,
-                      height: '100%',
-                      // marginTop: '8px',
+                      height: '113px',
+                      resize: 'none',
                       color: '#FFFFFF',
                     }}
                   />
@@ -239,11 +241,11 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
       <TeamCardTop>
         <TeamCardTopInfo>
           <h3>Name</h3>
-          <p>{team.name.replaceAll(' ', '\u00a0')}</p>
+          <p>{team.name.length > 10 ? team.name.slice(0, 10) + '...' : team.name}</p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
           <h3>Tag</h3>
-          <p>{team.tag}</p>
+          <p>{team.tag.toUpperCase()}</p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
           <h3>Type</h3>
@@ -258,7 +260,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
       </TeamCardTop>
       <TeamCardBody>
         <TeamCardBodyPoint>
-          <h3>Description</h3>
+          <h3 style={{}}>Description</h3>
           <TeamCardDesc>{team.description}</TeamCardDesc>
         </TeamCardBodyPoint>
         <TeamCardBodyPoint>

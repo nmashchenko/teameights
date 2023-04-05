@@ -4,8 +4,14 @@ import http from '../../http'
 const { api } = http
 
 const createTeam = async (teamName, teamCountry, teamMembers) => {
+  const sending = {
+    teamName,
+    teamCountry,
+    teamMembers,
+  }
+
   try {
-    const data = await api.post('/teams/create-team', { teamName, teamCountry, teamMembers })
+    const data = await api.post('/teams/create-team')
 
     return data
   } catch (err) {

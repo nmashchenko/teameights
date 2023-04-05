@@ -12,7 +12,7 @@ export const useCreateTeam = (teamAvatar) => {
 
   const navigate = useNavigate()
   const createTeam = async (details) => {
-    const response = await api.post('/teams/create', details)
+    const response = await api.post('/teams/create')
 
     return response.data
   }

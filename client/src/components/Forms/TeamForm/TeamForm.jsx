@@ -17,6 +17,7 @@ import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import { useLeave } from '../../../api/hooks/team/useLeave'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
+import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
 import Cake from '../../../assets/Cake'
 import { CheckCircle } from '../../../assets/CheckCircle'
 import Close from '../../../assets/Close'
@@ -109,6 +110,7 @@ function TeamForm({ switchPage }) {
   const [hasUpdate, update] = useState(false)
   const [loading, setLoading] = useState(false)
   const [editImage, setEditImage] = useState(false)
+  const [chosenLeader, changeChosenLeader] = useState({ username: '', id: '' })
 
   // const [members, setMembers] = useState([])
   const [isMembers, switchIsMembers] = useState(true)
@@ -118,6 +120,7 @@ function TeamForm({ switchPage }) {
   const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
   const { mutate: removeFromTeam, isLoading: isRemoving } = useRemoveMember()
   const { mutate: updateTeamsAvatar } = useUpdateTeamsAvatar()
+  const { mutate: transferLeader, isLoading: isTransferring } = useTransferLeader()
 
   const createDate = new Date(team?.createdAt)
     .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
@@ -169,8 +172,7 @@ function TeamForm({ switchPage }) {
     imgData === null ? (
       <>
         <UploadSymbol />
-        <br></br>
-        Drop here or click to upload
+        <p style={{ margin: '0', marginTop: '12px' }}>Drop here or click to upload</p>
       </>
     ) : (
       <div>{picture === null ? '' : picture.name}</div>
@@ -254,7 +256,7 @@ function TeamForm({ switchPage }) {
     }
   }
 
-  if (isUserTeamLoading || isDeleting || isLeaving || isRemoving) {
+  if (isUserTeamLoading || isDeleting || isLeaving || isRemoving || isTransferring) {
     return <Loader />
   }
 
@@ -284,7 +286,13 @@ function TeamForm({ switchPage }) {
   }
 
   const membersVar = (
-    <Members handleRemoveMembers={handleRemoveMembers} isEditing={isEditing} team={team} />
+    <Members
+      chosenLeader={chosenLeader}
+      changeChosenLeader={changeChosenLeader}
+      handleRemoveMembers={handleRemoveMembers}
+      isEditing={isEditing}
+      team={team}
+    />
   )
   const about = (
     <About
@@ -314,14 +322,16 @@ function TeamForm({ switchPage }) {
             onClick={() => {
               if (!isEditing) {
                 // only update state if you are not editing
-                setIsEditing((prevState) => {
-                  return !prevState
-                })
               } else {
-                // console.log(team)
-                // console.log(servedProfilePic)
-                // updateTeamsAvatar({ teamID: team._id, image: servedProfilePic })
+                transferLeader({
+                  leader_id: team.leader._id,
+                  new_leader_id: chosenLeader.id,
+                  teamid: team._id,
+                })
               }
+              setIsEditing((prevState) => {
+                return !prevState
+              })
             }}
           >
             {isEditing ? 'Save' : 'Edit'}
@@ -384,12 +394,11 @@ function TeamForm({ switchPage }) {
               }}
               id="saveForm"
             >
-              <label htmlFor="defaults" style={{ marginBottom: '10px', display: 'inline-block' }}>
-                Select Defaults
+              <label htmlFor="defaults" style={{ marginBottom: '16px', display: 'inline-block' }}>
+                Select a default
               </label>
               <MyRadioGroup
                 name="default"
-                style={{ marginBottom: '10px' }}
                 onClick={(e) => {
                   const pic = e.target.dataset.pic
 
@@ -416,8 +425,8 @@ function TeamForm({ switchPage }) {
                 ))}
               </MyRadioGroup>
 
-              <label htmlFor="image" style={{ marginBottom: '10px', display: 'inline-block' }}>
-                image
+              <label htmlFor="image" style={{ marginBottom: '16px', display: 'inline-block' }}>
+                Or add your own
               </label>
               <Field
                 style={{
@@ -455,7 +464,8 @@ function TeamForm({ switchPage }) {
                 }}
               />
               <FileButton
-                onClick={() => {
+                onClick={(ev) => {
+                  ev.preventDefault()
                   document.querySelector('#image').click()
                 }}
                 onDrop={(ev) => {
@@ -514,6 +524,38 @@ function TeamForm({ switchPage }) {
 
   // const totalInput = <>{/* {aboutInput} {membersInput} */}</>
 
+  const topContainer = (
+    <TopContainer isMembers={isMembers}>
+      <TabContainer about={about}>
+        <Tab
+          onClick={() => {
+            switchIsMembers(true)
+          }}
+          isMembers={isMembers}
+        >
+          Members
+          <span></span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            switchIsMembers(false)
+          }}
+          isMembers={!isMembers}
+        >
+          About
+          <span></span>
+        </Tab>
+      </TabContainer>
+      {isMembers && (
+        <InviteButton onClick={handleOpenInvite}>
+          <UserPlusContainer>
+            <UserPlus />
+          </UserPlusContainer>
+          Invite
+        </InviteButton>
+      )}
+    </TopContainer>
+  )
   // by the modal logic, the default is the
   const aTeam = (
     <>
@@ -571,58 +613,30 @@ function TeamForm({ switchPage }) {
       </Modal>
       <CardContainer>
         <Card>
-          <TopContainer isMembers={isMembers}>
-            <TabContainer about={about}>
-              <Tab
-                onClick={() => {
-                  switchIsMembers(true)
-                }}
-                isMembers={isMembers}
-              >
-                Members
-                <span></span>
-              </Tab>
-              <Tab
-                onClick={() => {
-                  switchIsMembers(false)
-                }}
-                isMembers={!isMembers}
-              >
-                About
-                <span></span>
-              </Tab>
-            </TabContainer>
-            <InviteButton onClick={handleOpenInvite}>
-              <UserPlusContainer>
-                <UserPlus />
-              </UserPlusContainer>
-              Invite
-            </InviteButton>
-          </TopContainer>
-          <>
-            {/* {input} */}
-            {editImage ? updateImageContainer : input}
-          </>
+          {editImage ? <></> : topContainer}
+          <>{editImage ? updateImageContainer : input}</>
         </Card>
         <RightContainer>
           <TeamInformationContainer>
-            <div style={{ position: 'relative' }}>
-              <TeamImgBorder src={servedProfilePic} />
-              {isEditing ? (
-                <EditImageButton
-                  editImage={editImage}
-                  onClick={() => {
-                    setEditImage((prevState) => !prevState)
-                  }}
-                >
-                  <PencilSimple />
-                </EditImageButton>
-              ) : (
-                <></>
-              )}
-              <CrownContainer2>
-                <Crown />
-              </CrownContainer2>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ position: 'relative', width: '100px' }}>
+                <TeamImgBorder src={servedProfilePic} />
+                {isEditing ? (
+                  <EditImageButton
+                    editImage={editImage}
+                    onClick={() => {
+                      setEditImage((prevState) => !prevState)
+                    }}
+                  >
+                    <PencilSimple />
+                  </EditImageButton>
+                ) : (
+                  <></>
+                )}
+                <CrownContainer2>
+                  <Crown />
+                </CrownContainer2>
+              </div>
             </div>
             <Text margin="0 0 17px 0" lineHeight="24px">
               {team.name}

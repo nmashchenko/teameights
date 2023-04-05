@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import CaretDown from '../../../../assets/CaretDown'
 import CaretUp from '../../../../assets/CaretUp'
@@ -23,9 +23,12 @@ import {
   UserInfo,
 } from '../TeamForm.styles'
 
-const Members = ({ team, isEditing, handleRemoveMembers }) => {
+const Members = ({ chosenLeader, changeChosenLeader, team, isEditing, handleRemoveMembers }) => {
   const [selectLeader, openSelectLeader] = useState(false)
-  const [chosenLeader, changeChosenLeader] = useState('')
+
+  useEffect(() => {
+    changeChosenLeader({ username: '', id: '' })
+  }, [isEditing])
 
   const listAccordion = (
     <ListBackdrop
@@ -35,14 +38,15 @@ const Members = ({ team, isEditing, handleRemoveMembers }) => {
           return
         }
         const newLeader = e.target.innerHTML
-        changeChosenLeader(newLeader)
+
+        changeChosenLeader({ username: newLeader, id: e.target.closest('div').id })
       }}
     >
       {team.members
         .filter((member) => member.isLeader && team.leader._id !== member._id)
         .map((member, key) => {
           return (
-            <UserAccordionCard key={key}>
+            <UserAccordionCard key={member._id} id={member._id}>
               <UserAccordionImg
                 src={
                   member?.image
@@ -50,7 +54,7 @@ const Members = ({ team, isEditing, handleRemoveMembers }) => {
                     : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
                 }
               />
-              <UserAccordionUsername> {member.username}</UserAccordionUsername>
+              <UserAccordionUsername>{member.username}</UserAccordionUsername>
             </UserAccordionCard>
           )
         })}
@@ -82,10 +86,13 @@ const Members = ({ team, isEditing, handleRemoveMembers }) => {
                 : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
             }
           />
-          {team.leader._id === member._id && (
+          {(chosenLeader.username === '' && team.leader._id === member._id) ||
+          chosenLeader.username === member.username ? (
             <CrownContainer>
               <Crown />
             </CrownContainer>
+          ) : (
+            <> </>
           )}
           <UserInfo>
             <SpaceBetween>
