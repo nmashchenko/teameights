@@ -43,7 +43,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
   ])
 
   const { mutate: updateTeam, isLoading: isUpdating } = useUpdateTeam()
-
   const [loading, setLoading] = useState(false)
 
   const changeBackgroundColor = (number) => {
@@ -132,8 +131,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
           desc: team.description,
         }}
         onSubmit={(values, actions) => {
-          console.log(values)
-
           updateTeam({
             teamid: team._id,
             name: values.name,
@@ -141,6 +138,8 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
             country: values.countries,
             type: values.type.toLowerCase(),
             tag: values.tag,
+            wins: team.wins,
+            points: team.points,
           })
 
           setIsEditing(false)

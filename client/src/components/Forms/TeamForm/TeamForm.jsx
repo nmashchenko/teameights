@@ -111,8 +111,9 @@ function TeamForm({ switchPage }) {
   const [loading, setLoading] = useState(false)
   const [editImage, setEditImage] = useState(false)
   const [chosenLeader, changeChosenLeader] = useState({ username: '', id: '' })
+  const [selectLeader, openSelectLeader] = useState(false)
+  const [transferActive, setTransferActive] = useState(false)
 
-  // const [members, setMembers] = useState([])
   const [isMembers, switchIsMembers] = useState(true)
 
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
@@ -130,13 +131,21 @@ function TeamForm({ switchPage }) {
   // We need: Leave team
 
   useEffect(() => {
-    console.log(isEditing)
     // maybe we need to turn off edits if we switch tabs
     if (!isEditing) {
       setEditImage(false)
     }
   }, [isEditing])
 
+  useEffect(() => {
+    if (chosenLeader.username !== '') {
+      // new leader chosen
+      console.log('SET ACTIVE')
+
+      setOpen((prevState) => !prevState)
+      setTransferActive(true)
+    }
+  }, [chosenLeader])
   // When we press the cancel button, we need to turn Off
 
   useEffect(() => {
@@ -204,6 +213,8 @@ function TeamForm({ switchPage }) {
     setDeleteActive(false)
     setLeaveActive(false)
     setRemoveMemberActive('')
+    setTransferActive(false)
+    changeChosenLeader({ username: '', id: '' })
   }
 
   const { enqueueSnackbar } = useSnackbar()
@@ -214,6 +225,17 @@ function TeamForm({ switchPage }) {
       user_id: user?._id,
       teamid: team?._id,
     })
+    handleClose()
+  }
+
+  const handleTransfer = () => {
+    transferLeader({
+      leader_id: team.leader._id,
+      new_leader_id: chosenLeader.id,
+      teamid: team._id,
+    })
+
+    setIsEditing(false)
     handleClose()
   }
 
@@ -244,6 +266,7 @@ function TeamForm({ switchPage }) {
     setOpen(true)
     setRemoveMemberActive(member)
   }
+
   const handleInvite = async () => {
     const result = await teamsAPI.inviteUserByEmail(email, team)
 
@@ -292,6 +315,8 @@ function TeamForm({ switchPage }) {
       handleRemoveMembers={handleRemoveMembers}
       isEditing={isEditing}
       team={team}
+      selectLeader={selectLeader}
+      openSelectLeader={openSelectLeader}
     />
   )
   const about = (
@@ -323,18 +348,6 @@ function TeamForm({ switchPage }) {
               if (!isEditing) {
                 // only update state if you are not editing
               } else {
-                if (chosenLeader.username !== '') {
-                  transferLeader({
-                    leader_id: team.leader._id,
-                    new_leader_id: chosenLeader.id,
-                    teamid: team._id,
-                  })
-                }
-
-                console.log(servedProfilePic)
-                console.log(servedProfilePic)
-                console.log(btoa(servedProfilePic))
-
                 updateTeamsAvatar({ teamID: team._id, image: btoa(servedProfilePic) })
               }
               setIsEditing((prevState) => {
@@ -453,7 +466,6 @@ function TeamForm({ switchPage }) {
                 id="image"
                 name="image"
                 onChange={(ev) => {
-                  console.log('onChange')
                   ev.preventDefault()
                   const file = ev.target.files[0]
 
@@ -477,7 +489,6 @@ function TeamForm({ switchPage }) {
                   document.querySelector('#image').click()
                 }}
                 onDrop={(ev) => {
-                  console.log('DROPPED')
                   ev.preventDefault()
 
                   if (ev.dataTransfer.items) {
@@ -507,13 +518,12 @@ function TeamForm({ switchPage }) {
                   } else {
                     // Use DataTransfer interface to access the file(s)
                     ;[...ev.dataTransfer.files].forEach((file, i) => {
-                      console.log(`… file[${i}].name = ${file.name}`)
+                      // console.log(`… file[${i}].name = ${file.name}`)
                     })
                   }
                 }}
                 onDragOver={(e) => {
                   e.preventDefault()
-                  console.log('drag over')
                   document.querySelector('#image').click()
                 }}
                 dropzone="move"
@@ -617,6 +627,18 @@ function TeamForm({ switchPage }) {
           ) : (
             <></>
           )}
+          {transferActive ? (
+            <TeamActionModal
+              firstText="Transfer leadership"
+              secondText={`Are you sure you want to transfer leadership to ${chosenLeader.username}? You will lose management rights.`}
+              firstButton="Confirm"
+              firstButtonHandler={handleTransfer}
+              secondButton="Cancel"
+              secondButtonHandler={handleClose}
+            />
+          ) : (
+            <></>
+          )}
           {removeMemberActive ? removeMemberModal : <></>}
         </Box>
       </Modal>
@@ -630,7 +652,12 @@ function TeamForm({ switchPage }) {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div style={{ position: 'relative', width: '100px', height: '124px' }}>
                 <TeamImgBorder
-                  src={picture !== null || selectedImage !== '' ? servedProfilePic : team.image} // not currently
+                  alt={team.username}
+                  src={
+                    picture !== null || selectedImage !== ''
+                      ? servedProfilePic
+                      : LOCAL_PATH + '/' + team?.image
+                  } // not currently
                 />
                 {isEditing ? (
                   <EditImageButton

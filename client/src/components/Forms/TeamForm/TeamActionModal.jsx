@@ -1,3 +1,5 @@
+import { B2fs, B2fw, B2lh, H3fs, H3fw, H3lh } from '../../../assets/fonts'
+
 import { CancelButton, EditTeam, LeaveTeam, Text } from './TeamForm.styles'
 
 const TeamActionModal = ({
@@ -20,10 +22,20 @@ const TeamActionModal = ({
         }}
       >
         <div>
-          <Text fontWeight="600" fontSize="24px" lineHeight="28.8px" margin={`0 0 0 0`}>
+          <Text
+            fontSize={`${H3fs}`}
+            lineHeight={`${H3lh}`}
+            fontWeight={`${H3fw}`}
+            margin={`0 0 0 0`}
+          >
             {firstText}
           </Text>
-          <Text fontSize="16px" lineHeight="22px" margin="12px 0 0 0">
+          <Text
+            fontSize={`${B2fs}`}
+            lineHeight={`${B2lh}`}
+            fontWeight={`${B2fw}`}
+            margin="12px 0 0 0"
+          >
             {secondText}
           </Text>
           <EditTeam marginTop="24px" width="100%" onClick={firstButtonHandler}>

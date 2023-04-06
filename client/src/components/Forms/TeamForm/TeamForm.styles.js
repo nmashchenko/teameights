@@ -115,7 +115,8 @@ export const UserInfo = styled.div`
   width: 100%;
   gap: 4px;
 `
-export const ListBackdrop = styled.div`
+export const ListBackdrop = styled.figure`
+  margin: 0;
   position: absolute;
   background: #2f3239;
   padding: 8px 0;
