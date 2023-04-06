@@ -327,4 +327,52 @@ describe('TeamService', () => {
 		expect(updatedTeam.wins).toEqual(incoming_update_data.wins);
 		expect(updatedTeam.points).toEqual(incoming_update_data.points);
 	});
+
+	it('should create user, then create team and then call updateTeam with only required teamid', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		const updatedTeam = await teamsService.updateTeam({ teamid: team._id });
+
+		expect(team.name).toEqual(updatedTeam.name);
+		expect(team.description).toEqual(updatedTeam.description);
+		expect(team.country).toEqual(updatedTeam.country);
+		expect(team.tag).toEqual(updatedTeam.tag);
+		expect(team.type).toEqual(updatedTeam.type);
+		expect(team.wins).toEqual(updatedTeam.wins);
+		expect(team.points).toEqual(updatedTeam.points);
+	});
+
+	it('should create user, then create team and then call updateTeam without required teamid', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		// @ts-ignore
+		await expect(teamsService.updateTeam({})).rejects.toThrow(
+			HttpException,
+		);
+	});
+
+	it('should create user, then create team and then call updateTeam with only required teamid', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		const updatedTeam = await teamsService.updateTeam({
+			teamid: team._id,
+			name: 'test name',
+			wins: 1,
+		});
+
+		expect(updatedTeam.name).toEqual('test name');
+		expect(updatedTeam.wins).toEqual(1);
+
+		expect(updatedTeam.description).toEqual(team.description);
+		expect(updatedTeam.country).toEqual(team.country);
+		expect(updatedTeam.tag).toEqual(team.tag);
+		expect(updatedTeam.type).toEqual(team.type);
+		expect(updatedTeam.points).toEqual(team.points);
+	});
 });

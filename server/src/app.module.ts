@@ -26,6 +26,7 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
 		/* Serving the static files. */
 		ServeStaticModule.forRoot({
 			rootPath: path.resolve(__dirname, 'static'),
+			exclude: ['/api/(.*)'],
 		}),
 		/* Configuring the mailer module. */
 		MailerModule.forRoot({

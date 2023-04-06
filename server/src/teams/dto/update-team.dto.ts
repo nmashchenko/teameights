@@ -1,5 +1,12 @@
+import { User } from '@/users/users.schema';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsMongoId, IsNumber, IsString } from 'class-validator';
+import {
+	IsEnum,
+	IsMongoId,
+	IsNumber,
+	IsOptional,
+	IsString,
+} from 'class-validator';
 import mongoose from 'mongoose';
 import { TeamType } from '../types/teams.type';
 
@@ -13,45 +20,52 @@ export class UpdateTeamDto {
 
 	@ApiProperty({ example: 'The A-Team', description: 'Name of the team' })
 	@IsString()
-	readonly name: string;
+	@IsOptional()
+	readonly name?: string;
 
 	@ApiProperty({
 		example: 'A group of skilled individuals who work together on projects',
 		description: 'Description of the team',
 	})
 	@IsString()
-	readonly description: string;
+	@IsOptional()
+	readonly description?: string;
 
 	@ApiProperty({ example: 'Ukraine', description: 'Country of the team' })
 	@IsString()
-	readonly country: string;
+	@IsOptional()
+	readonly country?: string;
 
 	@ApiProperty({
 		example: 'open',
 		description: 'Type of invite: ["invite-only", "closed", "open"]',
 		enum: TeamType,
 	})
+	@IsOptional()
 	@IsEnum(TeamType, {
 		message: 'Type of invite: ["invite-only", "closed", "open"]',
 	})
-	readonly type: TeamType;
+	readonly type?: TeamType;
+
+	@ApiProperty({ example: 'KhaG', description: 'Unique TAG of the team' })
+	@IsString()
+	@IsOptional()
+	tag?: string;
 
 	@ApiProperty({
 		example: 3,
 		description: 'Number of tournaments that the team has won',
 	})
+	@IsOptional()
 	@IsNumber()
-	readonly wins: Number;
+	readonly wins?: Number;
 
 	@ApiProperty({
 		example: 10,
 		description:
 			'Number of points that the team has earned in the tournaments',
 	})
+	@IsOptional()
 	@IsNumber()
-	readonly points: Number;
-
-	@ApiProperty({ example: 'KhaG', description: 'Unique TAG of the team' })
-	@IsString()
-	tag: string;
+	readonly points?: Number;
 }
