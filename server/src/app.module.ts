@@ -10,12 +10,13 @@ import { TokensModule } from './tokens/tokens.module';
 import { MailsModule } from './mails/mails.module';
 import * as path from 'path';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { APP_FILTER } from '@nestjs/core';
 import { NotificationsModule } from './notifications/notifications.module';
 import { TeamsModule } from './teams/teams.module';
 import { TournamentsModule } from './tournaments/tournaments.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { MaintenanceModule } from './maintenance/maintenance.module';
+import { NotFoundExceptionFilter } from './exceptions/not-found-exception.filter';
 
 @Module({
 	imports: [
@@ -26,6 +27,7 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
 		/* Serving the static files. */
 		ServeStaticModule.forRoot({
 			rootPath: path.resolve(__dirname, 'static'),
+			exclude: ['/api/(.*)'],
 		}),
 		/* Configuring the mailer module. */
 		MailerModule.forRoot({
@@ -52,6 +54,12 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
 		MaintenanceModule,
 	],
 	controllers: [],
-	providers: [],
+	providers: [
+		// handle 404
+		{
+			provide: APP_FILTER,
+			useClass: NotFoundExceptionFilter,
+		},
+	],
 })
 export class AppModule {}

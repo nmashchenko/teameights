@@ -616,6 +616,14 @@ export class TeamsService {
 		}
 	}
 
+	/**
+	 * This function transfers the leadership of a team to a new user, after checking if the new leader and
+	 * the current leader belong to the same team and if the current leader is actually the leader of the
+	 * team.
+	 * @param {TransferLeaderDto} dto - TransferLeaderDto, which is a data transfer object containing the
+	 * IDs of the current leader, the new leader, and the team they both belong to.
+	 * @returns The `transferLeader` function returns a Promise that resolves to a `Team` object.
+	 */
 	async transferLeader(dto: TransferLeaderDto): Promise<Team> {
 		// check if leader is valid user
 		const leader = await this.userService.getUserById(dto.leader_id);
@@ -658,8 +666,6 @@ export class TeamsService {
 			);
 		}
 
-		console.log(leader._id);
-		console.log(new_leader._id);
 		// update leader of the team
 		const newTeam = await this.teamModel.findOneAndUpdate(
 			{ _id: team._id },
