@@ -21,7 +21,9 @@ export const useUpdateAvatar = (type) => {
         queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
       } else {
         const user = queryClient.getQueryData("checkAuth")
-        queryClient.invalidateQueries(['getTeamById', user?.team?._id], { refetchInactive: true })
+        if(user?.team){
+          queryClient.invalidateQueries(['getTeamById', user?.team?._id], { refetchInactive: true })
+        }
       }
     },
     onError: (error) => {
