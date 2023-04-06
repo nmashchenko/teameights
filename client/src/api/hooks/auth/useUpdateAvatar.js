@@ -14,11 +14,15 @@ export const useUpdateAvatar = (type) => {
   const updateUserAvatar = async (userData) => {
     return await api.put(`/${type}/update-avatar`, userData)
   }
-
   return useMutation(updateUserAvatar, {
     mutationKey: 'updateUserAvatar',
     onSuccess: () => {
-      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+      if(type === 'users'){
+        queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+      } else {
+        const user = queryClient.getQueryData("checkAuth")
+        queryClient.invalidateQueries(['getTeamById', user?.team?._id], { refetchInactive: true })
+      }
     },
     onError: (error) => {
       // set error message

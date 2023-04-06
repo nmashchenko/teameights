@@ -70,6 +70,7 @@ function CreateTeamForm() {
           leader: userId,
           type: 'open',
           description: 'A group of skilled individuals who work together on projects',
+          tag: '12122'
         })
         setTeamName('')
         setCountry('')
