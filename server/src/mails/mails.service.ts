@@ -1,58 +1,49 @@
+import { Team } from '@/teams/teams.schema';
+import { User } from '@/users/users.schema';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import { activationEmail } from './templates/activation';
+import { resetEmail } from './templates/reset';
+import { teamInviteEmail } from './templates/team-invite';
 
 @Injectable()
 export class MailsService {
 	constructor(private mailService: MailerService) {}
 
-	async sendActivationMail(to: string, link: string) {
+	async sendActivationMail(user: User, link: string) {
 		await this.mailService.sendMail({
 			from: process.env.SMTP_USER,
-			to,
+			to: user.email,
 			subject: 'Account activation on ' + process.env.API_URL,
 			text: '',
-			html: `
-            <div>
-							<h1>Welcome to teameights ❤️</h1>
-              <h2>To activate account, click the link below:</h2>
-              <a href="${link}">${link}</a>
-            </div>
-          `,
+			html: activationEmail(user, link),
 		});
 	}
 
-	async sendResetEmail(to: string, link: string) {
+	async sendResetEmail(user: User, link: string, ip: ParameterDecorator) {
 		await this.mailService.sendMail({
 			from: process.env.SMTP_USER,
-			to,
+			to: user.email,
 			subject: 'Password reset on ' + process.env.API_URL,
 			text: '',
-			html: `
-            <div>
-							<h1>Dear user,</h1>
-              <h2>To reset password to your account, click the link below:</h2>
-              <a href="${link}">${link}</a>
-
-							<h3>The link is valid for 15 minutes ❤️</h3>
-            </div>
-          `,
+			html: resetEmail(user, link, ip),
 		});
 	}
 
-	async sendTeamInviteEmail(to: string) {
-		await this.mailService.sendMail({
+	async sendTeamInviteEmail(
+		link: string,
+		receiver: User,
+		inviter: User,
+		team: Team,
+	) {
+		const res = await this.mailService.sendMail({
 			from: process.env.SMTP_USER,
-			to,
-			subject: 'You received team invite!' + process.env.API_URL,
+			to: receiver.email,
+			subject: 'You received team invite on ' + process.env.API_URL,
 			text: '',
-			html: `
-					<div>
-					<h1>Dear user,</h1>
-					<h2>You were invited to the team.</h2>
-					<h2>Get to platform ASAP!</h2>
-					<h3>Teams will allow you to participate in tournaments, get mentorship and more! ❤️</h3>
-					</div>
-          `,
+			html: teamInviteEmail(link, receiver, inviter, team),
 		});
+
+		console.log(res);
 	}
 }

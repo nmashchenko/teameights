@@ -247,10 +247,13 @@ export class TeamsService {
 
 		await this.userService.addNotification(candidate._id, notificationID);
 
-		// ! ERROR: getting error when trying to add this, on github acions:
-		// ! connect ECONNREFUSED 127.0.0.1:587
-		// ! Investigate later
-		// await this.mailService.sendTeamInviteEmail(candidate.email);
+		const from_user = await this.userService.getUserById(dto.from_user_id);
+		await this.mailService.sendTeamInviteEmail(
+			'http://localhost:3000',
+			candidate,
+			from_user,
+			team,
+		);
 
 		return {
 			status: `${candidate.email} invited to team ${team.name} with id ${team._id}!`,

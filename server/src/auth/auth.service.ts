@@ -78,7 +78,7 @@ export class AuthService {
 			/* Sending an email to the user with a link to activate the account. */
 			if (typeof oauth === 'undefined') {
 				await this.mailsService.sendActivationMail(
-					user.email,
+					user,
 					`${process.env.API_URL}/api/auth/activate/${user.activationLink}`,
 				);
 			}
@@ -272,7 +272,10 @@ export class AuthService {
 	 * @param {string} email - The email of the user who wants to reset their password.
 	 * @returns return { status: 'reset email successfuly sent' };
 	 */
-	async resetPassword(email: string): Promise<Object> {
+	async resetPassword(
+		email: string,
+		ip: ParameterDecorator,
+	): Promise<Object> {
 		const user = await this.userService.getUserByEmail(email);
 
 		if (!user) {
@@ -286,8 +289,9 @@ export class AuthService {
 		const token = this.tokensService.generateResetToken({ ...userDto });
 
 		await this.mailsService.sendResetEmail(
-			email,
+			user,
 			`${process.env.API_URL}/api/auth/verify-reset/${userDto.email}/${token}`,
+			ip,
 		); // send activation email
 
 		return { status: 'reset email successfuly sent' };
