@@ -10,19 +10,3 @@ export const StepperContainer = styled.div`
   align-items: center;
   flex-grow: 1;
 `
-
-export const ButtonContainer = styled.button`
-  cursor: pointer;
-  background: none;
-  outline: none;
-  border: none;
-
-  &:disabled {
-    cursor: not-allowed;
-    svg {
-      path {
-        stroke: grey;
-      }
-    }
-  }
-`

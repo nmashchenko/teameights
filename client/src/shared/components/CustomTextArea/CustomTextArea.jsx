@@ -6,13 +6,13 @@ import { ErrorMessage, Label } from '../../styles/Tpography.styles'
 
 import { TextArea, TextAreaWrapper, TextLimitContainer } from './CustomTextArea.styles'
 
-const CustomTextArea = ({ label, options, maxLength, ...props }) => {
+const CustomTextArea = ({ label, options, maxLength, margin, ...props }) => {
   const [field, meta] = useField(props)
   const { values } = useFormikContext()
   const isError = meta.touched && meta.error
 
   return (
-    <TextAreaWrapper>
+    <TextAreaWrapper margin={margin}>
       <Label htmlFor={field.name}>{label}</Label>
       <TextArea
         {...field}

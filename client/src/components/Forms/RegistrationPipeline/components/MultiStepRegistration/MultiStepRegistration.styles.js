@@ -37,8 +37,8 @@ export const ContentContainer = styled.div`
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  margin-top: 5rem;
 `
 
 export const MiddleContainer = styled.div`
