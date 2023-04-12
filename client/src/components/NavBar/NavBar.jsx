@@ -1,7 +1,7 @@
 // * Modules
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
@@ -34,16 +34,18 @@ const NavBar = () => {
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user } = useCheckAuth()
 
-  const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    NavBarData.splice(1, 0, {
+  const newNavData = [
+    NavBarData[0],
+    {
       title: 'Team',
       icon: <Team />,
       path: user?.team ? '/myteam' : '/team',
-    })
-  }, [])
+    },
+    ...NavBarData.slice(1),
+  ]
+
+  const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
+  const navigate = useNavigate()
 
   const handleUseLogout = () => {
     logoutUser()
@@ -69,10 +71,9 @@ const NavBar = () => {
             </NavBarToggle>
             <NavItems>
               <Profile />
-              {NavBarData.map((item, index) => {
+              {newNavData.map((item, index) => {
                 return <NavItem key={index} {...item} path={item.path} />
               })}
-              <div></div>
             </NavItems>
             <BottomContent>
               {!isAuth ? (
