@@ -6,23 +6,30 @@ export const NavIconContainer = styled.div`
   cursor: pointer;
 `
 
-export const NavMenu = styled.nav`
-  width: 325px;
+export const NavWrapper = styled.div`
+  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  width: 100vw;
   height: 100vh;
+  background: rgba(${(props) => (props.active ? '0, 0, 0, 0.25' : '0, 0, 0, 0')});
+  backdrop-filter: ${(props) => (props.active ? 'blur(5px)' : 'none')};
+  -webkit-backdrop-filter: ${(props) => (props.active ? 'blur(5px)' : 'none')};
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+`
+
+export const NavMenu = styled.nav`
+  pointer-events: all;
+  width: 100%;
+  height: 100%;
+  max-width: ${(props) => (props.active ? '270px' : '88px')};
   display: flex;
   justify-content: center;
-  position: fixed;
-  background-color: rgb(26, 28, 34, 0.3);
-
-  background: linear-gradient(180deg, rgba(26, 28, 34, 0.5) 0%, rgba(40, 47, 71, 0.5) 100%);
-  top: 0;
-  left: ${(props) => props.left || '-100%'};
+  background: linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%);
   transition: ${(props) => props.transition || 'all 0.5s linear'};
-  z-index: 999;
-  border-radius: 0px 25px 25px 0px;
-  -webkit-backdrop-filter: blur(2em);
-  backdrop-filter: blur(2em);
-  padding-top: 4rem;
+  padding: 0 16px;
+  padding-top: 48px;
 `
 
 export const NavMenuItems = styled.div`
@@ -31,35 +38,32 @@ export const NavMenuItems = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
 `
-export const IconNav = styled.div`
-  width: 40px;
-  height: 40px;
-  background: #2e3239;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-`
 
-export const UserInfo = styled.div`
-  padding: 0 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-`
-
-export const NavBarToggle = styled.li`
+export const NavBarToggle = styled.div`
+  position: relative;
+  justify-content: flex-end;
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding-left: 15px;
+`
+
+export const NavBarLogo = styled.div`
+  transition: opacity 0.2s;
+  opacity: ${(props) => (props.active ? 1 : 0)};
+  position: absolute;
+  left: 0;
+`
+
+export const NavBarClose = styled.div`
+  transform: rotateY(${(props) => (props.active ? '0deg' : '180deg')});
+  padding: 0 12px;
 `
 
 export const UserText = styled.h3`
   font-weight: ${(props) => props.fontWeight || '400'};
   font-size: ${(props) => props.fontSize || '.875rem'};
+  text-transform: ${(props) => props.textTransform || 'none'};
   color: ${(props) => props.color || '#FFF'};
   margin: ${(props) => props.margin || '0px'};
 `
@@ -73,63 +77,6 @@ export const NavItems = styled.div`
   @media screen and (min-width: 1440px) {
     margin-top: 25px;
   }
-`
-export const NavItem = styled.div`
-  display: flex;
-  align-items: center;
-  list-style: none;
-  height: 50px;
-  margin-bottom: 0.7rem;
-
-  @media screen and (min-width: 1440px) {
-    height: 60px;
-  }
-
-  > a {
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    border-radius: 15px;
-    font-weight: 500;
-    padding: 0 15px;
-    transition: background-color 200ms linear;
-
-    @media screen and (min-width: 1440px) {
-      font-size: 1.0625rem;
-    }
-  }
-
-  > a:hover {
-    background: #5d9d0b;
-    font-size: 1.03125rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-
-    @media screen and (min-width: 1440px) {
-      font-size: 1.09375rem;
-    }
-  }
-
-  a:active {
-    background: #5d9d0b;
-  }
-  a:hover div {
-    opacity: 1;
-  }
-`
-
-export const ItemTitle = styled.span`
-  margin-left: 25px;
-`
-export const ShowChevron = styled.div`
-  margin-left: auto;
-  opacity: 0;
-  display: flex;
-  align-item: center;
 `
 
 export const BottomContent = styled.div`

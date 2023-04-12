@@ -9,9 +9,9 @@ import Tournament from '../../assets/Sidebar/Tournament'
 
 export const NavBarData = [
   {
-    title: 'Profile',
-    path: '/profile',
-    icon: <Person />,
+    title: 'Teammates',
+    path: '/',
+    icon: <Project />,
   },
   {
     title: 'Tournaments',
@@ -19,8 +19,8 @@ export const NavBarData = [
     icon: <Tournament />,
   },
   {
-    title: 'Teameights',
-    path: '/',
-    icon: <Project />,
+    title: 'Profile',
+    path: '/profile',
+    icon: <Person />,
   },
 ]

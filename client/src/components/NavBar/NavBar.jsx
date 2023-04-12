@@ -1,35 +1,31 @@
 // * Modules
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
-import ChevronRight from '../../assets/ChevronRight'
 // * Assets
-import NavBarIcon from '../../assets/NavBarIcon'
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
+import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
-import TeameightsLogo from '../../assets/Team/TeameightsLogo'
 import Loader from '../../shared/components/Loader/Loader'
 
 // * Data
+import NavItem from './NavItem/NavItem'
 import Profile from './Profile/Profile'
 import { NavBarData } from './NavBar.data'
 import {
   BottomContent,
-  IconNav,
-  ItemTitle,
+  NavBarClose,
+  NavBarLogo,
   NavBarToggle,
-  NavIconContainer,
-  NavItem,
   NavItems,
   NavMenu,
   NavMenuItems,
-  ShowChevron,
+  NavWrapper,
   SignOutButton,
-  UserInfo,
   UserText,
 } from './NavBar.styles'
 
@@ -40,6 +36,14 @@ const NavBar = () => {
 
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    NavBarData.splice(1, 0, {
+      title: 'Team',
+      icon: <Team />,
+      path: user?.team ? '/myteam' : '/team',
+    })
+  }, [])
 
   const handleUseLogout = () => {
     logoutUser()
@@ -52,45 +56,23 @@ const NavBar = () => {
 
   return (
     <>
-      <NavIconContainer onClick={showSidebar}>
-        <NavBarIcon />
-      </NavIconContainer>
-
-      {sidebar ? (
-        <NavMenu left="0" transition="250ms">
+      <NavWrapper onClick={() => setSidebar(false)} active={sidebar}>
+        <NavMenu onClick={(e) => e.stopPropagation()} active={sidebar} left="0" transition="250ms">
           <NavMenuItems onClick={showSidebar}>
-            <UserInfo>
-              <NavBarToggle>
-                <TeameightsLogo />
+            <NavBarToggle>
+              <NavBarLogo active={sidebar}>
+                <ShortLogo />
+              </NavBarLogo>
+              <NavBarClose active={sidebar}>
                 <Close />
-              </NavBarToggle>
-            </UserInfo>
+              </NavBarClose>
+            </NavBarToggle>
             <NavItems>
               <Profile />
               {NavBarData.map((item, index) => {
-                return (
-                  <NavItem key={index}>
-                    <Link to={item.path}>
-                      <IconNav>{item.icon} </IconNav>
-                      <ItemTitle>{item.title}</ItemTitle>
-                      <ShowChevron>
-                        <ChevronRight />
-                      </ShowChevron>
-                    </Link>
-                  </NavItem>
-                )
+                return <NavItem key={index} {...item} path={item.path} />
               })}
-              <NavItem>
-                <Link to={user?.team ? '/myteam' : '/team'}>
-                  <IconNav>
-                    <Team />
-                  </IconNav>
-                  <ItemTitle>Team</ItemTitle>
-                  <ShowChevron>
-                    <ChevronRight />
-                  </ShowChevron>
-                </Link>
-              </NavItem>
+              <div></div>
             </NavItems>
             <BottomContent>
               {!isAuth ? (
@@ -108,16 +90,13 @@ const NavBar = () => {
                   <Exit /> Sign Out
                 </SignOutButton>
               )}
-
-              <UserText fontWeight="400" fontSize="12px" color="rgba(255, 255, 255, 0.15)">
+              <UserText fontWeight="500" textTransform="capitalize" fontSize="11px" color="#86878B">
                 copyright © {new Date().getFullYear()} Teameights.
               </UserText>
             </BottomContent>
           </NavMenuItems>
         </NavMenu>
-      ) : (
-        <NavMenu />
-      )}
+      </NavWrapper>
     </>
   )
 }
