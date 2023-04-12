@@ -45,7 +45,6 @@ export const NavBarToggle = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  cursor: pointer;
 `
 
 export const NavBarLogo = styled.div`
@@ -56,6 +55,7 @@ export const NavBarLogo = styled.div`
 `
 
 export const NavBarClose = styled.div`
+  cursor: pointer;
   transform: rotateY(${(props) => (props.active ? '0deg' : '180deg')});
   padding: 0 12px;
 `

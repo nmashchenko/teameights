@@ -58,12 +58,12 @@ const NavBar = () => {
     <>
       <NavWrapper onClick={() => setSidebar(false)} active={sidebar}>
         <NavMenu onClick={(e) => e.stopPropagation()} active={sidebar} left="0" transition="250ms">
-          <NavMenuItems onClick={showSidebar}>
+          <NavMenuItems>
             <NavBarToggle>
               <NavBarLogo active={sidebar}>
                 <ShortLogo />
               </NavBarLogo>
-              <NavBarClose active={sidebar}>
+              <NavBarClose active={sidebar} onClick={showSidebar}>
                 <Close />
               </NavBarClose>
             </NavBarToggle>
