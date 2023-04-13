@@ -11,13 +11,15 @@ export class MailsService {
 	constructor(private mailService: MailerService) {}
 
 	async sendActivationMail(user: User, link: string) {
-		await this.mailService.sendMail({
+		const status = await this.mailService.sendMail({
 			from: process.env.SMTP_USER,
 			to: user.email,
 			subject: 'Account activation on ' + process.env.API_URL,
 			text: '',
 			html: activationEmail(user, link),
 		});
+
+		console.log(status);
 	}
 
 	async sendResetEmail(user: User, link: string, ip: ParameterDecorator) {
@@ -36,14 +38,18 @@ export class MailsService {
 		inviter: User,
 		team: Team,
 	) {
-		const res = await this.mailService.sendMail({
-			from: process.env.SMTP_USER,
-			to: receiver.email,
-			subject: 'You received team invite on ' + process.env.API_URL,
-			text: '',
-			html: teamInviteEmail(link, receiver, inviter, team),
-		});
+		try {
+			const status = await this.mailService.sendMail({
+				from: process.env.SMTP_USER,
+				to: receiver.email,
+				subject: 'You received team invite on ' + process.env.API_URL,
+				text: '',
+				html: teamInviteEmail(link, receiver, inviter, team),
+			});
 
-		console.log(res);
+			console.log(status);
+		} catch (err) {
+			console.log(err.message);
+		}
 	}
 }

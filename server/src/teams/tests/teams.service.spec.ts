@@ -199,6 +199,7 @@ describe('TeamService', () => {
 			RegisterUserDtoStub('mmashc2@uic.edu'),
 		);
 
+		console.log('something happening here');
 		const info = await teamsService.inviteToTeam(
 			InviteToTeamDtoStub(user2.email, user1._id, team._id),
 		);
