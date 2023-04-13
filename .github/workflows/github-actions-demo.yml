@@ -28,6 +28,7 @@ jobs:
           cat .env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🎉 testing secrets ${{ secrets.API_URL }}"
+      - run: echo "🎉 testing secrets ${{ secrets.SMTP_PORT }}"
       - name: install modules
         working-directory: ./server
         run: npm install
