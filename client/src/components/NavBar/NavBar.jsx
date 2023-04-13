@@ -29,11 +29,14 @@ import {
   NavItems,
   NavMenu,
   NavWrapper,
+  NotificationBtn,
+  NotificationsCount,
   SignOutButton,
 } from './NavBar.styles'
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
+  const [notificationsModal, setNotificationsModal] = useState(false)
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user } = useCheckAuth()
 
@@ -78,12 +81,22 @@ const NavBar = () => {
             })}
           </NavItems>
           <NavInteractions>
-            <NavInteractBtn active={sidebar}>
+            <NotificationBtn onClick={() => setNotificationsModal(true)} active={sidebar}>
               <NavIconWrapper>
                 <Notification />
               </NavIconWrapper>
               <p>Notifications</p>
-            </NavInteractBtn>
+              {user?.notifications.length && (
+                <>
+                  <NotificationsCount active={!sidebar} top="6px" left="28px">
+                    {user.notifications.length}
+                  </NotificationsCount>
+                  <NotificationsCount active={sidebar} top="auto" right="16px">
+                    {user.notifications.length}
+                  </NotificationsCount>
+                </>
+              )}
+            </NotificationBtn>
             {!isAuth ? (
               <NavInteractBtn
                 active={sidebar}

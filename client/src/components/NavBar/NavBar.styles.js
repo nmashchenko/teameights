@@ -20,6 +20,7 @@ export const NavWrapper = styled.div`
 `
 
 export const NavMenu = styled.nav`
+  --menu-animation-time: 0.35s;
   pointer-events: all;
   width: 100%;
   height: 100%;
@@ -28,7 +29,7 @@ export const NavMenu = styled.nav`
   flex-direction: column;
   align-items: center;
   background: linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%);
-  transition: ${(props) => props.transition || 'all 0.35s linear'};
+  transition: all var(--menu-animation-time) linear;
   padding: 0 16px;
   padding-top: 48px;
 `
@@ -97,6 +98,33 @@ export const NavInteractBtn = styled.div`
     margin: 0;
     white-space: nowrap;
   }
+`
+
+export const NotificationBtn = styled(NavInteractBtn)`
+  position: relative;
+`
+
+export const NotificationsCount = styled.div`
+  position: absolute;
+  transition: opacity var(--menu-animation-time);
+  opacity: ${(props) => (props.active ? 1 : 0)};
+  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  top: ${(props) => props.top || 'auto'};
+  right: ${(props) => props.right || 'auto'};
+  left: ${(props) => props.left || 'auto'};
+  min-width: 14px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5px 3.5px;
+  background: #5bd424;
+  border-radius: 50%;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 100%;
+  color: #1a1c22;
 `
 
 export const NavIconWrapper = styled.div`

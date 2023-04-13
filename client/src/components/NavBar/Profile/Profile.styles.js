@@ -24,6 +24,7 @@ export const UserContent = styled.div`
 
 export const UserRealName = styled.strong`
   transition: opacity 0.2s;
+  white-space: nowrap;
   pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   opacity: ${(props) => (props.active ? 1 : 0)};
   font-size: 16px;
@@ -33,6 +34,7 @@ export const UserRealName = styled.strong`
 
 export const UserUsername = styled.p`
   transition: opacity 0.2s;
+  white-space: nowrap;
   pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   opacity: ${(props) => (props.active ? 1 : 0)};
   margin: 0;
