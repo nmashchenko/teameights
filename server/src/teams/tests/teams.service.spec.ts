@@ -120,6 +120,7 @@ describe('TeamService', () => {
 	}
 
 	it('should be defined', () => {
+		console.log(process.env.SMTP_HOST);
 		expect(teamsService).toBeDefined();
 	});
 
