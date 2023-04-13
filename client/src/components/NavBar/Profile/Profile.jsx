@@ -21,7 +21,7 @@ import {
 
 let defaultData = {
   userRealName: 'Unknown',
-  userUsername: 'who_are_you?',
+  userUsername: 'unknown@email.com',
   notificationBell: false,
   userImg: defaultImg,
 }

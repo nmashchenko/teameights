@@ -68,15 +68,15 @@ export const UserText = styled.h3`
   margin: ${(props) => props.margin || '0px'};
 `
 
-export const NavItems = styled.div`
+export const NavItems = styled.ul`
+  padding: 0;
+  margin: 0;
+  margin-top: 36px;
+  list-style: none;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 35px;
-  padding: 0 30px;
-
-  @media screen and (min-width: 1440px) {
-    margin-top: 25px;
-  }
+  gap: 8px;
 `
 
 export const BottomContent = styled.div`
