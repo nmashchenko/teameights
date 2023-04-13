@@ -27,7 +27,7 @@ jobs:
           echo SMTP_PORT=${{ secrets.SMTP_PORT }} > .env
           cat .env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🎉 testing secrets ${{ secrets.SMTP_HOST }}"
+      - run: echo "🎉 testing secrets ${{ secrets.API_URL }}"
       - name: install modules
         working-directory: ./server
         run: npm install
