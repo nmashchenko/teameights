@@ -25,18 +25,12 @@ export const NavMenu = styled.nav`
   height: 100%;
   max-width: ${(props) => (props.active ? '270px' : '88px')};
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background: linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%);
-  transition: ${(props) => props.transition || 'all 0.5s linear'};
+  transition: ${(props) => props.transition || 'all 0.35s linear'};
   padding: 0 16px;
   padding-top: 48px;
-`
-
-export const NavMenuItems = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
 `
 
 export const NavBarToggle = styled.div`
@@ -60,23 +54,59 @@ export const NavBarClose = styled.div`
   padding: 0 12px;
 `
 
-export const UserText = styled.h3`
-  font-weight: ${(props) => props.fontWeight || '400'};
-  font-size: ${(props) => props.fontSize || '.875rem'};
-  text-transform: ${(props) => props.textTransform || 'none'};
-  color: ${(props) => props.color || '#FFF'};
-  margin: ${(props) => props.margin || '0px'};
-`
-
 export const NavItems = styled.ul`
-  padding: 0;
-  margin: 0;
-  margin-top: 36px;
   list-style: none;
+  margin: 0;
+  padding: 36px 0;
+  border-bottom: 1px solid #2f3239;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
+`
+
+export const NavInteractions = styled.div`
+  padding-top: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
+
+export const NavInteractBtn = styled.div`
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 140%;
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #2f3239;
+  }
+  &:active {
+    background-color: #5d9d0b;
+  }
+  p {
+    transition: opacity 0.2s;
+    opacity: ${(props) => (props.active ? 1 : 0)};
+    pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+    margin: 0;
+    white-space: nowrap;
+  }
+`
+
+export const NavIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & svg {
+    width: 24px;
+    height: 24px;
+  }
 `
 
 export const BottomContent = styled.div`
@@ -111,4 +141,17 @@ export const SignOutButton = styled.button`
     margin-bottom: 30px;
     height: 45px;
   }
+`
+export const NavBarCopyright = styled.h3`
+  transition: opacity 0.2s;
+  opacity: ${(props) => (props.active ? 1 : 0)};
+  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  display: block;
+  margin-top: auto;
+  margin-bottom: 32px;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: capitalize;
+  color: #86878b;
+  white-space: nowrap;
 `
