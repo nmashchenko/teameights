@@ -34,7 +34,7 @@ import { NotFoundExceptionFilter } from './exceptions/not-found-exception.filter
 			transport: {
 				host: process.env.SMTP_HOST,
 				port: process.env.SMTP_PORT,
-				requireTLS: true,
+				// requireTLS: true,
 				secure: false,
 				auth: {
 					user: process.env.SMTP_USER,
