@@ -17,15 +17,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Create env file
+      - name: Create .dev.env file
         run: |
-          touch .env
-          echo API_URL=${{ secrets.API_URL }} >> .env
-          echo SMTP_HOST=${{ secrets.SMTP_HOST }} >> .env
-          echo SMTP_USER=${{ secrets.SMTP_USER }} >> .env
-          echo SMTP_PASS=${{ secrets.SMTP_PASS }} >> .env
-          echo SMTP_PORT=${{ secrets.SMTP_PORT }} >> .env
-          cat .env
+          touch .dev.env
+          echo API_URL=${{ secrets.API_URL }} >> .dev.env
+          echo SMTP_HOST=${{ secrets.SMTP_HOST }} >> .dev.env
+          echo SMTP_USER=${{ secrets.SMTP_USER }} >> .dev.env
+          echo SMTP_PASS=${{ secrets.SMTP_PASS }} >> .dev.env
+          echo SMTP_PORT=${{ secrets.SMTP_PORT }} >> .dev.env
+          cat .dev.env
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🎉 testing secrets ${{ secrets.API_URL }}"
       - run: echo "🎉 testing secrets ${{ secrets.SMTP_PORT }}"
