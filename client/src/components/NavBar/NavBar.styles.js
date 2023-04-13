@@ -51,7 +51,7 @@ export const NavBarLogo = styled.div`
   transition: opacity 0.2s;
   opacity: ${(props) => (props.active ? 1 : 0)};
   position: absolute;
-  left: 0;
+  left: 12px;
 `
 
 export const NavBarClose = styled.div`

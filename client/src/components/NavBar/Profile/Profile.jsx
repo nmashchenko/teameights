@@ -10,11 +10,11 @@ import defaultImg from '../defaultImg.png'
 
 import NotificationModal from './NotificationModal/NotificationModal'
 import {
-  AvatarContainer,
   NotificationIconCenter,
   NotificationToggle,
   ProfileIcon,
-  UserInfoDiv,
+  UserContent,
+  UserInfo,
   UserRealName,
   UserUsername,
 } from './Profile.styles'
@@ -36,7 +36,7 @@ const changeData = (data) => {
 }
 
 // Sidebar profile with notification capability
-const Profile = () => {
+const Profile = ({ sidebar }) => {
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user } = useCheckAuth()
 
@@ -69,14 +69,13 @@ const Profile = () => {
   )
 
   return (
-    <AvatarContainer>
+    <UserInfo>
       <ProfileIcon src={userImage} alt="Profile icon" />
-      <UserInfoDiv>
-        <UserRealName>{data?.userRealName}</UserRealName>
-
-        <UserUsername>@{data?.userUsername}</UserUsername>
-      </UserInfoDiv>
-      <NotificationIconCenter>
+      <UserContent>
+        <UserRealName active={sidebar}>{data?.userRealName}</UserRealName>
+        <UserUsername active={sidebar}>@{data?.userUsername}</UserUsername>
+      </UserContent>
+      {/* <NotificationIconCenter>
         {notificationModal ? (
           <NotificationModal
             notificationModal={notificationModal}
@@ -85,8 +84,8 @@ const Profile = () => {
         ) : (
           bell
         )}
-      </NotificationIconCenter>
-    </AvatarContainer>
+      </NotificationIconCenter> */}
+    </UserInfo>
   )
 }
 

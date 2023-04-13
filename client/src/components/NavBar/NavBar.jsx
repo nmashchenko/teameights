@@ -69,8 +69,8 @@ const NavBar = () => {
                 <Close />
               </NavBarClose>
             </NavBarToggle>
+            <Profile sidebar={sidebar} />
             <NavItems>
-              <Profile />
               {newNavData.map((item, index) => {
                 return <NavItem key={index} {...item} path={item.path} />
               })}
