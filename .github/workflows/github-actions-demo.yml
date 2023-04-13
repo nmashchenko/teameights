@@ -19,7 +19,14 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Create env file
         run: |
-          echo "${{ secrets.ENV_FILE }}" > .env
+          touch .env
+          echo API_URL=${{ secrets.API_URL }} > .env
+          echo SMTP_HOST=${{ secrets.SMTP_HOST }} > .env
+          echo SMTP_USER=${{ secrets.SMTP_USER }} > .env
+          echo SMTP_PASS=${{ secrets.SMTP_PASS }} > .env
+          echo SMTP_PORT=${{ secrets.SMTP_PORT }} > .env
+          cat .env
+
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: install modules
         working-directory: ./server
