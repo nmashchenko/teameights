@@ -11,15 +11,19 @@ export class MailsService {
 	constructor(private mailService: MailerService) {}
 
 	async sendActivationMail(user: User, link: string) {
-		const status = await this.mailService.sendMail({
-			from: process.env.SMTP_USER,
-			to: user.email,
-			subject: 'Account activation on ' + process.env.API_URL,
-			text: '',
-			html: activationEmail(user, link),
-		});
+		try {
+			const status = await this.mailService.sendMail({
+				from: process.env.SMTP_USER,
+				to: user.email,
+				subject: 'Account activation on ' + process.env.API_URL,
+				text: '',
+				html: activationEmail(user, link),
+			});
 
-		console.log(status);
+			console.log(status);
+		} catch (err) {
+			console.log(err.message);
+		}
 	}
 
 	async sendResetEmail(user: User, link: string, ip: ParameterDecorator) {
