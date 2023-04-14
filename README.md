@@ -14,7 +14,7 @@
 **Technologies we are going to use:** <br>
 
 ✨ *Front:* ReactJS, Redux Toolkit, styled-components, axios, material ui <br>
-✨ *Backend:* NodeJS, express, joi(validation), etc -> Currently transfering to NestJS <br>
+✨ *Backend:* NestJS, MongoDB <br>
 ✨ *Database:* MongoDB <br>
 ✨ *Codeversions:* Github <br>
 ✨ *Design:* Figma <br>
@@ -24,6 +24,8 @@
 ✨ Google / Github API for quick login
 
 ✨ MongoDB api for database operations
+
+✨ Judge0 API (Docker container) to compile code
 
 # Instructions on how to run:
 
@@ -51,8 +53,15 @@ emergencyacc2
 
 
 # MVP Review
+**💼 By June 1 2023 we plan to:**
+- Completely finish the teams functionality / logic based on new design -- *IN PROGRESS* 🛠
+- Implement reusable filters by different paramaters
+- Implement tournaments functionality (duels for the first release)
+- Cover all backend code with tests and perform manual QA assurance -- *IN PROGRESS* 🛠
+- Release first version of the project and start working with on redesign of profile / registration / other screens
+- Clear all frontend code and fix all bugs -- *IN PROGRESS* 🛠
 
-**🥳 By November 18 we did:**
+**🥳 By November 18 2022 we did:**
 - Complete the profiles page -- *DONE* ✅
 - Complete the user profile page where he can change information about him --  *DONE* ✅
 - Start working on the tournaments system, integrate the Judge0 + monaco-editor into the platform --  *DONE* ✅
@@ -68,15 +77,17 @@ emergencyacc2
 
 # Links to the deployed app
 
-📌 Backend: https://teameights-server.herokuapp.com/api/users
+📌 Backend: [Backend](https://teameights-server.herokuapp.com/api/docs)
 
-📌 Application: https://willowy-moonbeam-13cda4.netlify.app/
+📌 Frontend: [Frontend](https://willowy-moonbeam-13cda4.netlify.app/)
 
-📌 Figma: https://www.figma.com/file/6HjJzha9c7h2XixxlAIbSM/TEAM8S?t=MrVzUoWAaf4UORvw-0
+📌 Figma: [Figma](https://www.figma.com/file/HysE72qusvZ3spHQlv1gT1/Team8s?node-id=65-2628&t=WNCxVlYl5Nb5lqoJ-0)
 
 # Idea
 
 🎧 Overall idea - platform for student developers (probably skilled also) to find each other and work together on pet projects/real projects from project pool of customers (will be available only for skilled teams), tournaments between them will determine skill level, etc. Also possible mentorship, premium projects, AI code review, etc. basic functionality is described below.
+
+Link for details: https://youtu.be/TrilQtWWmCI
 
 # Why teameights?
 
@@ -152,13 +163,9 @@ Regarding the **platform** paging, currently we are 100% sure that this list of 
 🔧 Team edit page (this will also be a module window that will pop-up whenever team’s founder will click on edit button) <br>
 ⚠️ **TODO: Add the team edit page here**
 
-❌ Incoming invites (in this page user will be able how many teams invited him, reject or accept invites) <br>
-⚠️ **TODO: Add incoming invite page here**
-
 🔧 Your personal page (in this page user will be able to see information about him and change it) <br>
 ⚠️ **TODO: Add incoming invite page here**
 ![image](https://user-images.githubusercontent.com/52038455/202818292-e36ab1f4-50a7-4e41-be29-f1bd59272468.png)
-
 
 TBD.
 
@@ -170,7 +177,18 @@ We might redesign some pages but for now they should exist in any form, also we 
 ⚠️ **TODO: Add screenshots here**
 
 # Team
+### Devs
+🎉 Nikita (Backend)
+🎉 Mike (Frontend)
+🎉 David (Frontend)
+🎉 Sergey (Frontend)
+🎉 Stas (Mobile / IOS)
 
+### Design
+🎉 Jenifer (Designer)
+
+### Business
+🎉 Taras (Business)
 
 # Questions
 
