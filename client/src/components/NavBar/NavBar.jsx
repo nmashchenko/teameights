@@ -8,30 +8,26 @@ import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
 // * Assets
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
-import Notification from '../../assets/Sidebar/Notification'
 import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
 import Loader from '../../shared/components/Loader/Loader'
 
 // * Data
 import NavItem from './NavItem/NavItem'
+import NotificationsContent from './NotificationsContent/NotificationsContent'
 import Profile from './Profile/Profile'
 import { NavBarData } from './NavBar.data'
 import {
-  BottomContent,
+  IconWrapper,
   NavBarClose,
   NavBarCopyright,
   NavBarLogo,
   NavBarToggle,
-  NavIconWrapper,
   NavInteractBtn,
   NavInteractions,
   NavItems,
   NavMenu,
   NavWrapper,
-  NotificationBtn,
-  NotificationsCount,
-  SignOutButton,
 } from './NavBar.styles'
 
 const NavBar = () => {
@@ -60,11 +56,19 @@ const NavBar = () => {
   if (isUserLoggingOut) {
     return <Loader />
   }
-  const showSidebar = () => setSidebar(!sidebar)
+  const showSidebar = () => {
+    setSidebar((prev) => !prev)
+    setNotificationsModal(false)
+  }
+
+  const closeSidebar = () => {
+    setSidebar((prev) => false)
+    setNotificationsModal(false)
+  }
 
   return (
     <>
-      <NavWrapper onClick={() => setSidebar(false)} active={sidebar}>
+      <NavWrapper onClick={closeSidebar} active={sidebar}>
         <NavMenu onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
             <NavBarLogo active={sidebar}>
@@ -81,62 +85,32 @@ const NavBar = () => {
             })}
           </NavItems>
           <NavInteractions>
-            <NotificationBtn onClick={() => setNotificationsModal(true)} active={sidebar}>
-              <NavIconWrapper>
-                <Notification />
-              </NavIconWrapper>
-              <p>Notifications</p>
-              {user?.notifications.length && (
-                <>
-                  <NotificationsCount active={!sidebar} top="6px" left="28px">
-                    {user.notifications.length}
-                  </NotificationsCount>
-                  <NotificationsCount active={sidebar} top="auto" right="16px">
-                    {user.notifications.length}
-                  </NotificationsCount>
-                </>
-              )}
-            </NotificationBtn>
+            <NotificationsContent
+              user={user}
+              modal={notificationsModal}
+              setModal={setNotificationsModal}
+              sidebar={sidebar}
+            />
             {!isAuth ? (
               <NavInteractBtn
                 active={sidebar}
                 onClick={() => navigate('/auth/registration')}
                 color="white"
               >
-                <NavIconWrapper>
+                <IconWrapper width="24px" height="24px">
                   <Exit />
-                </NavIconWrapper>
+                </IconWrapper>
                 <p>Sign Up</p>
               </NavInteractBtn>
             ) : (
               <NavInteractBtn active={sidebar} onClick={handleUseLogout}>
-                <NavIconWrapper>
+                <IconWrapper width="24px" height="24px">
                   <Exit />
-                </NavIconWrapper>
+                </IconWrapper>
                 <p>Sign Out</p>
               </NavInteractBtn>
             )}
           </NavInteractions>
-          {/* <BottomContent>
-            {!isAuth ? (
-              <SignOutButton
-                onClick={(e) => {
-                  e.stopPropagation()
-                  navigate('/auth/registration')
-                }}
-                color="white"
-              >
-                <Exit /> Sign Up
-              </SignOutButton>
-            ) : (
-              <SignOutButton onClick={handleUseLogout}>
-                <Exit /> Sign Out
-              </SignOutButton>
-            )}
-            <UserText fontWeight="500" textTransform="capitalize" fontSize="11px" color="#86878B">
-              copyright © {new Date().getFullYear()} Teameights.
-            </UserText>
-          </BottomContent> */}
           <NavBarCopyright active={sidebar}>
             copyright © {new Date().getFullYear()} Teameights.
           </NavBarCopyright>

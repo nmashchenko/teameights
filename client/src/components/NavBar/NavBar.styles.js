@@ -1,6 +1,16 @@
 // * Modules
 import styled from 'styled-components'
 
+export const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & svg {
+    width: ${(props) => props.width || 'auto'};
+    height: ${(props) => props.height || 'auto'};
+  }
+`
+
 export const NavIconContainer = styled.div`
   margin-right: 25px;
   cursor: pointer;
@@ -85,8 +95,9 @@ export const NavInteractBtn = styled.div`
   gap: 8px;
   align-items: center;
   transition: background-color 0.2s;
+  background-color: ${(props) => props.modalActive && '#5d9d0b'};
   &:hover {
-    background-color: #2f3239;
+    background-color: ${(props) => !props.modalActive && '#2f3239'};
   }
   &:active {
     background-color: #5d9d0b;
@@ -100,76 +111,6 @@ export const NavInteractBtn = styled.div`
   }
 `
 
-export const NotificationBtn = styled(NavInteractBtn)`
-  position: relative;
-`
-
-export const NotificationsCount = styled.div`
-  position: absolute;
-  transition: opacity var(--menu-animation-time);
-  opacity: ${(props) => (props.active ? 1 : 0)};
-  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
-  top: ${(props) => props.top || 'auto'};
-  right: ${(props) => props.right || 'auto'};
-  left: ${(props) => props.left || 'auto'};
-  min-width: 14px;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5px 3.5px;
-  background: #5bd424;
-  border-radius: 50%;
-  font-family: Inter;
-  font-weight: 500;
-  font-size: 11px;
-  line-height: 100%;
-  color: #1a1c22;
-`
-
-export const NavIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & svg {
-    width: 24px;
-    height: 24px;
-  }
-`
-
-export const BottomContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: end;
-  align-items: center;
-  margin-bottom: 3rem;
-`
-
-export const SignOutButton = styled.button`
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border: none;
-  width: 230px;
-  height: 40px;
-  background: #2e3239;
-  border-radius: 5px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    font-size: 0.90625rem;
-  }
-
-  @media screen and (min-width: 1440px) {
-    margin-bottom: 30px;
-    height: 45px;
-  }
-`
 export const NavBarCopyright = styled.h3`
   transition: opacity 0.2s;
   opacity: ${(props) => (props.active ? 1 : 0)};
