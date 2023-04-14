@@ -43,8 +43,10 @@ function TeamForm() {
   const [open, setOpen] = useState(false)
   const [inviteActive, setInviteActive] = useState(false)
   const [email, setEmail] = useState('')
+  const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
+  const teamId = user?.team?._id
 
-  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
+  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
 
   console.log({ team })
@@ -76,7 +78,7 @@ function TeamForm() {
     }
   }
 
-  if (isUserTeamLoading || isDeleting) {
+  if (isUserTeamLoading || isDeleting || isUserDataLoading) {
     return <Loader />
   }
   if (!team) {
