@@ -13,8 +13,8 @@
 
 **Technologies we are going to use:** <br>
 
-✨ *Front:* ReactJS, Redux Toolkit, styled-components, axios, material ui <br>
-✨ *Backend:* NestJS, MongoDB <br>
+✨ *Front:* ReactJS, Redux Toolkit, Styled-Components, Axios, Material UI, React Query  <br>
+✨ *Backend:* NestJS, MongoDB, Docker <br>
 ✨ *Database:* MongoDB <br>
 ✨ *Codeversions:* Github <br>
 ✨ *Design:* Figma <br>
