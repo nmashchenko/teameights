@@ -49,12 +49,36 @@ export const NotificationsHeader = styled.div`
 `
 
 export const NotificationsList = styled.ul`
+  margin: 0;
+  padding: 0;
   border-bottom: 1px solid #2f3239;
   list-style: none;
-  margin: 0;
 `
 
-export const NotificationsItem = styled.li``
+export const NotificationsItem = styled.li`
+  padding: 16px;
+  color: #fff;
+  border-top: 1px solid #2f3239;
+  width: 100%;
+`
+export const NotificationMessage = styled.div`
+  display: flex;
+  gap: 12px;
+  p {
+    margin: 0;
+    font-family: 'NoirPro-Light';
+    font-size: 14px;
+    line-height: 120%;
+    color: #fff;
+  }
+`
+
+export const MessagePicture = styled.div`
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+`
 
 export const IconWrapper = styled.div`
   display: flex;

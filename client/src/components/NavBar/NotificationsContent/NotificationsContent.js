@@ -3,6 +3,7 @@ import Checks from '../../../assets/Sidebar/Checks'
 import Cross from '../../../assets/Sidebar/Cross'
 import Notification from '../../../assets/Sidebar/Notification'
 import { IconWrapper, NavInteractBtn } from '../NavBar.styles'
+import NotificationsItem from '../NotificationsItem/NotificationsItem'
 
 // this component styles
 import {
@@ -13,7 +14,7 @@ import {
   NotificationsList,
   NotificationsModal,
   StyledNotificationsContent,
-} from './NotificationsBtn.styles'
+} from './NotificationsContent.styles'
 
 const NotificationsContent = ({ user, modal, setModal, sidebar }) => {
   return (
@@ -51,7 +52,10 @@ const NotificationsContent = ({ user, modal, setModal, sidebar }) => {
           </CrossBtn>
         </NotificationsHeader>
         <NotificationsList>
-          
+          {user?.notifications &&
+            user.notifications.map((item) => (
+              <NotificationsItem key={item.id} notification={item} />
+            ))}
         </NotificationsList>
       </NotificationsModal>
     </StyledNotificationsContent>
