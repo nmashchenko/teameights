@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 // assets
 import Checks from '../../../assets/Sidebar/Checks'
 import Cross from '../../../assets/Sidebar/Cross'
@@ -16,7 +18,17 @@ import {
   StyledNotificationsContent,
 } from './NotificationsContent.styles'
 
-const NotificationsContent = ({ user, modal, setModal, sidebar }) => {
+const NotificationsContent = ({ user, sidebar }) => {
+  const [modal, setModal] = useState(false)
+
+  useEffect(() => {
+    const handleClick = document.body.addEventListener('click', () => {
+      setModal(false)
+    })
+
+    return () => removeEventListener(handleClick)
+  }, [])
+
   return (
     <StyledNotificationsContent>
       <NavInteractBtn
@@ -39,7 +51,7 @@ const NotificationsContent = ({ user, modal, setModal, sidebar }) => {
           </>
         )}
       </NavInteractBtn>
-      <NotificationsModal active={modal}>
+      <NotificationsModal active={modal} onClick={(e) => e.stopPropagation()}>
         <NotificationsHeader>
           <MarkAllBtn>
             <IconWrapper width="20px" height="20px">

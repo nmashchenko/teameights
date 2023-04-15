@@ -32,7 +32,6 @@ import {
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
-  const [notificationsModal, setNotificationsModal] = useState(false)
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user } = useCheckAuth()
 
@@ -58,17 +57,11 @@ const NavBar = () => {
   }
   const showSidebar = () => {
     setSidebar((prev) => !prev)
-    setNotificationsModal(false)
-  }
-
-  const closeSidebar = () => {
-    setSidebar((prev) => false)
-    setNotificationsModal(false)
   }
 
   return (
     <>
-      <NavWrapper onClick={closeSidebar} active={sidebar}>
+      <NavWrapper active={sidebar} onClick={() => setSidebar(false)}>
         <NavMenu onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
             <NavBarLogo active={sidebar}>
@@ -85,12 +78,7 @@ const NavBar = () => {
             })}
           </NavItems>
           <NavInteractions>
-            <NotificationsContent
-              user={user}
-              modal={notificationsModal}
-              setModal={setNotificationsModal}
-              sidebar={sidebar}
-            />
+            <NotificationsContent user={user} sidebar={sidebar} />
             {!isAuth ? (
               <NavInteractBtn
                 active={sidebar}

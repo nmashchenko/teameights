@@ -19,5 +19,5 @@ export const useGetTeamData = (teamId) => {
     enabled: !!teamId,
   })
 
-  return { data, isLoading: isTeamLoading  }
+  return { data, isLoading: isTeamLoading }
 }

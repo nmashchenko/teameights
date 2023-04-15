@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { IconWrapper } from '../NavBar.styles'
+
 export const StyledNotificationsContent = styled.div`
   position: relative;
 `
@@ -52,42 +54,8 @@ export const NotificationsList = styled.ul`
   margin: 0;
   padding: 0;
   border-bottom: 1px solid #2f3239;
+  overflow-y: auto;
   list-style: none;
-`
-
-export const NotificationsItem = styled.li`
-  padding: 16px;
-  color: #fff;
-  border-top: 1px solid #2f3239;
-  width: 100%;
-`
-export const NotificationMessage = styled.div`
-  display: flex;
-  gap: 12px;
-  p {
-    margin: 0;
-    font-family: 'NoirPro-Light';
-    font-size: 14px;
-    line-height: 120%;
-    color: #fff;
-  }
-`
-
-export const MessagePicture = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  overflow: hidden;
-`
-
-export const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & svg {
-    width: ${(props) => props.width || 'auto'};
-    height: ${(props) => props.height || 'auto'};
-  }
 `
 
 export const CrossBtn = styled(IconWrapper)`

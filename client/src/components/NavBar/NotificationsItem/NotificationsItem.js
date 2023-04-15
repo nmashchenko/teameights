@@ -1,35 +1,69 @@
-import { useQuery } from 'react-query'
-
-import teamsApi from '../../../api/endpoints/team'
+import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
+import LightningIcon from '../../../assets/Sidebar/LightningIcon'
+import WarningIcon from '../../../assets/Sidebar/WarningIcon'
+import { LOCAL_PATH } from '../../../http'
+import { getPastTime } from '../../../utils/getPastTime'
+import FlexWrapper from '../FlexWrapper/FlexWrapper'
 
 import {
+  MessageButton,
+  MessageCircle,
+  MessageContentWrapper,
   MessagePicture,
-  NotificationMessage,
-  StyledNotificationsItem
+  MessageText,
+  SendingTime,
+  StyledNotificationsItem,
 } from './NotificationsItem.styles'
 
 const NotificationsItem = ({ notification }) => {
+  const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
 
   const render = () => {
     switch (notification.type) {
       case 'SystemNotification':
         return (
-          <NotificationMessage>
-            <MessagePicture>
-              <img src="" alt="" width="100%" height="100%" />
-            </MessagePicture>
-            <p></p>
-          </NotificationMessage>
+          <>
+            <FlexWrapper gap="12px">
+              <MessagePicture width="20px" height="20px">
+                {!notification.read && <MessageCircle />}
+                <LightningIcon />
+              </MessagePicture>
+              <MessageText>{notification.system_message}</MessageText>
+            </FlexWrapper>
+            <SendingTime>{getPastTime(notification.createdAt)}</SendingTime>
+          </>
         )
       case 'TeamInvitationNotification':
+        if (isLoading) {
+          return <p>loading</p>
+        } else if (error) {
+          return (
+            <FlexWrapper gap="12px">
+              <MessagePicture width="20px" height="20px" color="#CD3633">
+                <WarningIcon />
+              </MessagePicture>
+              <MessageText>The notification failed to load</MessageText>
+            </FlexWrapper>
+          )
+        }
+        console.log(teamData)
+
         return (
           <>
-            <NotificationMessage>
+            <FlexWrapper gap="12px">
               <MessagePicture>
-                <img src="" alt="" width="100%" height="100%" />
+                {!notification.read && <MessageCircle />}
+                <img src={LOCAL_PATH + '/' + teamData.image} alt="" />
               </MessagePicture>
-              <p></p>
-            </NotificationMessage>
+              <MessageContentWrapper>
+                <MessageText>{notification.message}</MessageText>
+                <FlexWrapper gap="8px">
+                  <MessageButton bgColor="#46a11b">Accept</MessageButton>
+                  <MessageButton>Reject</MessageButton>
+                </FlexWrapper>
+              </MessageContentWrapper>
+            </FlexWrapper>
+            <SendingTime>{getPastTime(notification.createdAt)}</SendingTime>
           </>
         )
     }
