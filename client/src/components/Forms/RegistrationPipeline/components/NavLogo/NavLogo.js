@@ -8,7 +8,7 @@ import { Text } from '../../../../../shared/styles/Tpography.styles'
 
 // * Assets
 import Hover from './Hover'
-import { InfoContainer, InfoText, NavBar, SectionName } from './NavLogo.styles'
+import { InfoContainer, NavBar, SectionName } from './NavLogo.styles'
 
 function NavLogo({ sectionName }) {
   const [anchorEl, setAnchorEl] = useState(null)
