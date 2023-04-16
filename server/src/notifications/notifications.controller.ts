@@ -1,4 +1,4 @@
-import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+// import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
 import { Controller, Param, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
@@ -10,7 +10,8 @@ import { Notifications } from './schemas/notifications.schema';
 export class NotificationsController {
 	constructor(private notificationsService: NotificationsService) {}
 
-	@UseGuards(JwtAuthGuard)
+	// TODO: ADD here
+	// @UseGuards(JwtAuthGuard)
 	@ApiOperation({
 		summary: 'Read notification by ID',
 	})

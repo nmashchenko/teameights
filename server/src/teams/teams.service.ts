@@ -238,17 +238,17 @@ export class TeamsService {
 			await this.notificationsService.createTeamNotification({
 				userid: candidate._id,
 				teamid: team._id,
-				message: `You were invited to the team ${team.name}!`,
 				from_user_id: dto.from_user_id,
 				to_user_email: candidate.email,
 				status: 'pending',
+				// TODO: remove this later
+				image: team.hasOwnProperty('image')
+					? team.image
+					: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Style_-_Wouldn%27t_It_Be_Nice.png',
 			});
 
 		await this.userService.addNotification(candidate._id, notificationID);
 
-		// ! ERROR: getting error when trying to add this, on github acions:
-		// ! connect ECONNREFUSED 127.0.0.1:587
-		// ! Investigate later
 		const from_user = await this.userService.getUserById(dto.from_user_id);
 		await this.mailService.sendTeamInviteEmail(
 			'http://localhost:3000',

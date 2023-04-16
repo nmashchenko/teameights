@@ -68,12 +68,12 @@ export class NotificationsService {
 			user: dto.userid,
 			type: NotificationType.team_invite,
 			teamid: dto.teamid,
-			message: dto.message,
 			from_user_id: dto.from_user_id,
 			to_user_email: dto.to_user_email,
 			status: dto.status,
 			read: false,
 			expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+			image: dto.image,
 		};
 
 		if (typeof session !== 'undefined') {

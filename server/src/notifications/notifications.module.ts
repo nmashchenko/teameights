@@ -42,8 +42,8 @@ import { TokensModule } from '@/tokens/tokens.module';
 		]),
 		MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
 		MailsModule,
-		AuthModule,
-		TokensModule,
+		// AuthModule,
+		// TokensModule,
 	],
 	controllers: [NotificationsController],
 })
