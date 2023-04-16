@@ -11,10 +11,11 @@ import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { TeamType } from './types/teams.type';
 import { TeamMembershipDTO } from './dto/membership.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
-import { plainToClass } from 'class-transformer';
 import { teamUpdateValidate } from '@/validation/team-update.validation';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { MailsService } from '@/mails/mails.service';
+import { TeamSearchDto } from './dto/team-search.dto';
+import { TransferLeaderDto } from './dto/transfer-leader.dto';
 
 @Injectable()
 export class TeamsService {
@@ -237,18 +238,24 @@ export class TeamsService {
 			await this.notificationsService.createTeamNotification({
 				userid: candidate._id,
 				teamid: team._id,
-				message: `You were invited to the team ${team.name}!`,
 				from_user_id: dto.from_user_id,
 				to_user_email: candidate.email,
 				status: 'pending',
+				// TODO: remove this later
+				image: team.hasOwnProperty('image')
+					? team.image
+					: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Style_-_Wouldn%27t_It_Be_Nice.png',
 			});
 
 		await this.userService.addNotification(candidate._id, notificationID);
 
-		// ! ERROR: getting error when trying to add this, on github acions:
-		// ! connect ECONNREFUSED 127.0.0.1:587
-		// ! Investigate later
-		// await this.mailService.sendTeamInviteEmail(candidate.email);
+		const from_user = await this.userService.getUserById(dto.from_user_id);
+		await this.mailService.sendTeamInviteEmail(
+			'http://localhost:3000',
+			candidate,
+			from_user,
+			team,
+		);
 
 		return {
 			status: `${candidate.email} invited to team ${team.name} with id ${team._id}!`,
@@ -594,5 +601,85 @@ export class TeamsService {
 		await this.teamModel.findOneAndDelete({ _id: team._id });
 
 		return { status: 'removed' };
+	}
+
+	/**
+	 * > If the `membersLength` property is present in the `TeamSearchDto` object, then we'll use it to
+	 * filter the results, otherwise we'll just use the `TeamSearchDto` object as is
+	 * @param {TeamSearchDto} dto - TeamSearchDto
+	 * @returns An array of teams
+	 */
+	async findTeam(dto: TeamSearchDto): Promise<Team[]> {
+		if ('membersLength' in dto) {
+			const { membersLength, ...searchQueury } = dto;
+			return await this.teamModel.find({
+				...searchQueury,
+				members: { $size: membersLength },
+			});
+		} else {
+			return await this.teamModel.find(dto);
+		}
+	}
+
+	/**
+	 * This function transfers the leadership of a team to a new user, after checking if the new leader and
+	 * the current leader belong to the same team and if the current leader is actually the leader of the
+	 * team.
+	 * @param {TransferLeaderDto} dto - TransferLeaderDto, which is a data transfer object containing the
+	 * IDs of the current leader, the new leader, and the team they both belong to.
+	 * @returns The `transferLeader` function returns a Promise that resolves to a `Team` object.
+	 */
+	async transferLeader(dto: TransferLeaderDto): Promise<Team> {
+		// check if leader is valid user
+		const leader = await this.userService.getUserById(dto.leader_id);
+		if (!leader) {
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// check if new_leader is valid user
+		const new_leader = await this.userService.getUserById(
+			dto.new_leader_id,
+		);
+		if (!new_leader) {
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// check if both leader and new_leader belogn to the same team
+		if (
+			!leader.team._id.equals(dto.teamid) ||
+			!new_leader.team._id.equals(dto.teamid)
+		) {
+			throw new HttpException(
+				`${dto.leader_id} and ${dto.new_leader_id} are not from the same team: ${dto.teamid}`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// check if leader is actually leader of the team
+		const team = await this.getTeamById(dto.teamid);
+
+		if (!team.leader._id.equals(leader._id)) {
+			throw new HttpException(
+				`${dto.leader_id} is not leader of team ${dto.teamid}`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		// update leader of the team
+		const newTeam = await this.teamModel.findOneAndUpdate(
+			{ _id: team._id },
+			{ leader: new_leader._id },
+			{ new: true },
+		);
+
+		// TODO: add notification here to new leader that he is now leader of the team
+
+		return newTeam;
 	}
 }

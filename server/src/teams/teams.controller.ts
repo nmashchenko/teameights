@@ -21,6 +21,8 @@ import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { TeamMembershipDTO } from './dto/membership.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
+import { TeamSearchDto } from './dto/team-search.dto';
+import { TransferLeaderDto } from './dto/transfer-leader.dto';
 
 @ApiTags('Teams')
 @Controller('/teams')
@@ -146,7 +148,6 @@ export class TeamsController {
 		return this.teamsService.leaveTeam(dto);
 	}
 
-	// add delete the team function
 	@UseGuards(JwtAuthGuard)
 	@ApiOperation({
 		summary: 'Delete the team',
@@ -155,5 +156,27 @@ export class TeamsController {
 	@Delete('/delete/:teamid')
 	deleteTeam(@Param('teamid') teamId: mongoose.Types.ObjectId) {
 		return this.teamsService.deleteTeam(teamId);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(ValidationPipe)
+	@ApiOperation({
+		summary: 'Search for the team',
+	})
+	@ApiResponse({ status: 200, type: [Team] })
+	@Post('/search')
+	findTeam(@Body() dto: TeamSearchDto) {
+		return this.teamsService.findTeam(dto);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(ValidationPipe)
+	@ApiOperation({
+		summary: 'Transfer leadership for the team',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Put('/leader/transfer')
+	transferLeader(@Body() dto: TransferLeaderDto) {
+		return this.teamsService.transferLeader(dto);
 	}
 }

@@ -25,6 +25,10 @@ import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
 import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
 import { MailsModule } from '@/mails/mails.module';
 import { NotificationsService } from '@/notifications/notifications.service';
+import { TransferLeaderDtoStub } from './stubs/transfer-leader.dto.stub';
+import { UpdateTeamDtoStub } from './stubs/update-team.dto.stub';
+import { TokensModule } from '@/tokens/tokens.module';
+import { AuthModule } from '@/auth/auth.module';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -56,7 +60,7 @@ describe('TeamService', () => {
 					transport: {
 						host: process.env.SMTP_HOST,
 						port: process.env.SMTP_PORT,
-						requireTLS: true,
+						// requireTLS: true,
 						secure: false,
 						auth: {
 							user: process.env.SMTP_USER,
@@ -64,6 +68,8 @@ describe('TeamService', () => {
 						},
 					},
 				}),
+				AuthModule,
+				TokensModule,
 				UsersModule,
 				FileModule,
 				NotificationsModule,
@@ -118,6 +124,7 @@ describe('TeamService', () => {
 	}
 
 	it('should be defined', () => {
+		console.log(process.env.SMTP_HOST);
 		expect(teamsService).toBeDefined();
 	});
 
@@ -184,8 +191,6 @@ describe('TeamService', () => {
 		expect(updatedTeam.image).toBeDefined();
 	});
 
-	// ! Having error with this test case,  connect ECONNREFUSED 127.0.0.1:587 when trying to send email notification to user about invite in:
-	// ! teams.service.ts => line 217
 	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
 		const user1 = await createUser();
 
@@ -203,9 +208,32 @@ describe('TeamService', () => {
 
 		const updatedUser2 = await userService.getUserById(user2._id);
 
+		console.log(updatedUser2);
+
 		expect(updatedUser2.notifications[1]._id).toStrictEqual(
 			info.notificationID,
 		);
+	});
+
+	it('should create user, give him role, create team, then create another user invite him to team and double check invite has image field', async () => {
+		const user1 = await createUser();
+
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(user1._id),
+		);
+
+		const user2 = await userService.createUser(
+			RegisterUserDtoStub('mmashc2@uic.edu'),
+		);
+
+		const info = await teamsService.inviteToTeam(
+			InviteToTeamDtoStub(user2.email, user1._id, team._id),
+		);
+
+		const updatedUser2 = await userService.getUserById(user2._id);
+
+		// @ts-ignore
+		expect(updatedUser2.notifications[1].image).toBeDefined();
 	});
 
 	it('should create user, give him role, create team and then delete it immidiately', async () => {
@@ -265,5 +293,112 @@ describe('TeamService', () => {
 			/* Checking if the notification is defined. */
 			expect(notification[0].from_user_id).toStrictEqual(leader._id);
 		}
+	});
+
+	// todo add more tests to cover edge cases
+
+	// create 2 users, one should create a team and another should join, then leader should transfer ownership to newly joined user
+	it('should create 2 users, one should create a team and another should join, then leader should transfer ownership to newly joined user', async () => {
+		const users = await createMultipleUsers(2);
+
+		const leader = users.shift();
+
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(leader._id, null, [], []),
+		);
+
+		/* Checking if the team is defined. */
+		expect(team).toBeDefined();
+
+		const teamAfterJoin = await teamsService.joinTeam({
+			user_id: users[0]._id,
+			teamid: team._id,
+		});
+
+		/* Checking if the teamAfterJoin is defined. */
+		expect(teamAfterJoin).toBeDefined();
+
+		// make sure we got 2 people inside
+		expect(teamAfterJoin.members.length).toBe(2);
+
+		// make sure leader is the same
+		expect(teamAfterJoin.leader._id).toEqual(leader._id);
+
+		const updatedTeam = await teamsService.transferLeader(
+			TransferLeaderDtoStub(leader._id, users[0]._id, team._id),
+		);
+
+		// make sure leader was transferred
+		expect(updatedTeam.leader._id).toEqual(users[0]._id);
+	});
+
+	// todo add more tests to cover edge cases for transfer
+
+	it('should create user, then create team and then update the fields in team', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		const incoming_update_data = UpdateTeamDtoStub(team._id);
+
+		const updatedTeam = await teamsService.updateTeam(incoming_update_data);
+
+		expect(updatedTeam.name).toEqual(incoming_update_data.name);
+		expect(updatedTeam.description).toEqual(
+			incoming_update_data.description,
+		);
+		expect(updatedTeam.country).toEqual(incoming_update_data.country);
+		expect(updatedTeam.tag).toEqual(incoming_update_data.tag);
+		expect(updatedTeam.type).toEqual(incoming_update_data.type);
+		expect(updatedTeam.wins).toEqual(incoming_update_data.wins);
+		expect(updatedTeam.points).toEqual(incoming_update_data.points);
+	});
+
+	it('should create user, then create team and then call updateTeam with only required teamid', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		const updatedTeam = await teamsService.updateTeam({ teamid: team._id });
+
+		expect(team.name).toEqual(updatedTeam.name);
+		expect(team.description).toEqual(updatedTeam.description);
+		expect(team.country).toEqual(updatedTeam.country);
+		expect(team.tag).toEqual(updatedTeam.tag);
+		expect(team.type).toEqual(updatedTeam.type);
+		expect(team.wins).toEqual(updatedTeam.wins);
+		expect(team.points).toEqual(updatedTeam.points);
+	});
+
+	it('should create user, then create team and then call updateTeam without required teamid', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		// @ts-ignore
+		await expect(teamsService.updateTeam({})).rejects.toThrow(
+			HttpException,
+		);
+	});
+
+	it('should create user, then create team and then call updateTeam with only required teamid', async () => {
+		const user = await createUser();
+
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+
+		const updatedTeam = await teamsService.updateTeam({
+			teamid: team._id,
+			name: 'test name',
+			wins: 1,
+		});
+
+		expect(updatedTeam.name).toEqual('test name');
+		expect(updatedTeam.wins).toEqual(1);
+
+		expect(updatedTeam.description).toEqual(team.description);
+		expect(updatedTeam.country).toEqual(team.country);
+		expect(updatedTeam.tag).toEqual(team.tag);
+		expect(updatedTeam.type).toEqual(team.type);
+		expect(updatedTeam.points).toEqual(team.points);
 	});
 });

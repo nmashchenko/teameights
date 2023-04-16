@@ -37,13 +37,6 @@ export class Notifications {
 	read: Boolean;
 
 	@ApiProperty({
-		example: '/teams/5f6d8b6db0c6d71be6e0e070',
-		description: 'URL of the relevant content',
-	})
-	@Prop({ required: false, type: String })
-	url: string;
-
-	@ApiProperty({
 		example: '2022-01-01T00:00:00.000Z',
 		description: 'Date when the notification will expire',
 	})

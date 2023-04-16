@@ -5,8 +5,11 @@ import { faker } from '@faker-js/faker';
 import { UpdateUserDto } from '@/users/dto/update-user.dto';
 import { performance } from 'perf_hooks';
 import { getConnectionToken } from '@nestjs/mongoose';
-import { Connection } from 'mongoose';
+import mongoose, { Connection } from 'mongoose';
 import { RolesService } from '@/roles/roles.service';
+import { TeamsService } from '@/teams/teams.service';
+import { CreateTeamDto } from '@/teams/dto/create-team.dto';
+import { uuid } from 'uuidv4';
 
 @Injectable()
 export class MaintenanceService {
@@ -14,6 +17,7 @@ export class MaintenanceService {
 		private usersService: UsersService,
 		@Inject(getConnectionToken()) private readonly connection: Connection,
 		private rolesService: RolesService,
+		private teamsService: TeamsService,
 	) {}
 
 	programmingLanguages: string[] = [
@@ -58,6 +62,24 @@ export class MaintenanceService {
 		return shuffled.slice(0, numEntries);
 	}
 
+	private generateTeam(leader: mongoose.Types.ObjectId) {
+		const dto = new CreateTeamDto();
+		type RemoveReadonly = {
+			-readonly [key in keyof CreateTeamDto]: CreateTeamDto[key];
+		};
+
+		let team: RemoveReadonly = dto;
+
+		team.name = faker.internet.userName();
+		team.description = faker.lorem.paragraph();
+		team.leader = leader;
+		team.country = faker.address.country();
+		team.type = 'open';
+		team.tag = uuid().substring(0, 5).toUpperCase();
+
+		return team;
+	}
+
 	private generateInitialUser(): RegisterUserDto {
 		const dto = new RegisterUserDto();
 		type RemoveReadonly = {
@@ -83,6 +105,7 @@ export class MaintenanceService {
 		initialUser.email = email;
 		initialUser.username = faker.internet.userName();
 		initialUser.fullName = faker.name.fullName();
+		initialUser.birthDate = faker.date.birthdate();
 		initialUser.age = String(faker.datatype.number({ min: 18, max: 65 }));
 		initialUser.description = faker.lorem.sentence();
 		initialUser.concentration = faker.name.jobTitle();
@@ -102,9 +125,21 @@ export class MaintenanceService {
 			this.programmingLanguages,
 		);
 		initialUser.frameworks = this.getRandomEntries(this.frameworks);
-		initialUser.university = faker.random.words(2);
-		initialUser.major = faker.random.words(2);
-		initialUser.graduationDate = faker.date.future().toISOString();
+
+		initialUser.universityData = {
+			university: faker.random.words(2),
+			major: faker.random.words(2),
+			degree: 'Bachelor',
+			addmissionDate: new Date(),
+			graduationDate: new Date(),
+		};
+
+		initialUser.jobData = {
+			title: faker.random.words(2),
+			company: faker.company.name(),
+			startDate: new Date(),
+			endDate: new Date(),
+		};
 
 		return initialUser;
 	}
@@ -132,6 +167,52 @@ export class MaintenanceService {
 
 		return {
 			status: `generated ${amount} users and took ${
+				endTime - startTime
+			} milliseconds`,
+		};
+	}
+
+	async generateTeams(amount: number): Promise<Object> {
+		let startTime = performance.now();
+
+		for (let i = 0; i < amount; i++) {
+			let newUser = this.generateInitialUser();
+			const user = await this.usersService.createUser(newUser);
+			const update = this.updateGeneratedUser(user.email);
+			await this.usersService.updateUser(update);
+			let team = this.generateTeam(user._id);
+
+			await this.teamsService.createTeam(team);
+		}
+
+		let endTime = performance.now();
+		return {
+			status: `generated ${amount} teams and took ${
+				endTime - startTime
+			} milliseconds`,
+		};
+	}
+
+	async generateUsersInTeam(amount: number, teamid: mongoose.Types.ObjectId) {
+		let startTime = performance.now();
+
+		for (let i = 0; i < amount; i++) {
+			let newUser = this.generateInitialUser();
+			const user = await this.usersService.createUser(newUser);
+			const update = this.updateGeneratedUser(user.email);
+			await this.usersService.updateUser(update);
+
+			let joinDto = {
+				user_id: user._id,
+				teamid,
+			};
+			await this.teamsService.joinTeam(joinDto);
+		}
+
+		let endTime = performance.now();
+
+		return {
+			status: `added ${amount} users successfuly and took ${
 				endTime - startTime
 			} milliseconds`,
 		};

@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import {
 	IsArray,
 	IsBoolean,
+	IsDate,
 	IsEmail,
 	IsEmpty,
 	IsNotEmpty,
@@ -13,7 +14,9 @@ import {
 	Length,
 	ValidateNested,
 } from 'class-validator';
+import { JobDataDto } from './job-data.dto';
 import { LinksUserDto } from './links-user.dto';
+import { UniversityDataDto } from './university-data.dto';
 
 export class UpdateUserDto {
 	@ApiProperty({ example: 'test@teameights.com', description: 'Email' })
@@ -59,6 +62,14 @@ export class UpdateUserDto {
 	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsOptional()
 	readonly concentration: string;
+
+	@ApiProperty({
+		example: '2016-05-18T14:10:30Z',
+		description: 'Birthday of user',
+	})
+	@IsDate()
+	@IsOptional()
+	readonly birthDate: Date;
 
 	@ApiProperty({ example: 'Ukraine', description: 'Country of user' })
 	@IsString({ message: 'Should be string' })
@@ -114,24 +125,38 @@ export class UpdateUserDto {
 	@IsOptional()
 	readonly frameworks: string[];
 
-	@ApiProperty({ example: 'UIC', description: 'University (if any)' })
-	@IsString({ message: 'Should be string' })
+	@ApiProperty({
+		example: [
+			{
+				university: 'UIC',
+				degree: `Bachelor's degree`,
+				major: 'Computer Science',
+				addmissionDate: '2016-05-18T14:10:30Z',
+				graduationDate: '2020-05-18T14:10:30Z',
+			},
+		],
+		description: 'University data of the user',
+	})
+	@IsObject({ message: 'Should be object' })
+	@ValidateNested()
+	@Type(() => UniversityDataDto)
 	@IsOptional()
-	readonly university: string;
+	readonly universityData: UniversityDataDto;
 
 	@ApiProperty({
-		example: 'Computer Science',
-		description: 'Area of studies of user',
+		example: [
+			{
+				title: 'SWE',
+				company: `Spotify`,
+				startDate: '2016-05-18T14:10:30Z',
+				endDate: '2020-05-18T14:10:30Z',
+			},
+		],
+		description: 'Job data of the user',
 	})
-	@IsString({ message: 'Should be string' })
+	@IsObject({ message: 'Should be object' })
+	@ValidateNested()
+	@Type(() => JobDataDto)
 	@IsOptional()
-	readonly major: string;
-
-	@ApiProperty({
-		example: 'UNIX Date',
-		description: 'Date when user graudates',
-	})
-	@IsString({ message: 'Should be string' })
-	@IsOptional()
-	readonly graduationDate: string;
+	readonly jobData: JobDataDto;
 }
