@@ -1,23 +1,19 @@
-import {
-    Avatar,
-    AvatarSelectionContainer,
-} from "./AvatarSelection.styles";
+import { useFormikContext } from 'formik'
 
-import {useFormikContext} from "formik";
-import ChooseAvatar from "../ChooseAvatar/ChooseAvatar";
+import ChooseAvatar from '../ChooseAvatar/ChooseAvatar'
 
+import { Avatar, AvatarSelectionContainer } from './AvatarSelection.styles'
 
+const AvatarSelection = ({ defaultAvatars }) => {
+  const { getFieldProps } = useFormikContext()
+  const currentAvatar = getFieldProps('file').value
 
-const AvatarSelection = ({defaultAvatars}) => {
-    const { getFieldProps } = useFormikContext()
-    const currentAvatar = getFieldProps('file').value
+  return (
+    <AvatarSelectionContainer>
+      <Avatar src={currentAvatar} alt="Avatar" />
+      <ChooseAvatar defaultAvatars={defaultAvatars} />
+    </AvatarSelectionContainer>
+  )
+}
 
-    return (
-        <AvatarSelectionContainer>
-            <Avatar src={currentAvatar}   alt="Avatar"/>
-            <ChooseAvatar defaultAvatars={defaultAvatars}/>
-        </AvatarSelectionContainer>
-    );
-};
-
-export default AvatarSelection;
+export default AvatarSelection

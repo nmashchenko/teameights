@@ -43,5 +43,3 @@ export const ButtonDisabled = styled.button`
   border-radius: 25px;
   cursor: not-allowed;
 `
-
-

@@ -60,53 +60,51 @@ export const finishRegistrationValidation = [
     experience: yup.string().required('Please choose your experience'),
     leader: yup.string().required('Decide if you want to be a leader'),
   }),
-    yup.object().shape({
-        university: yup
-            .string()
-            .when(['major', 'graduationDate'], {
-                is: (major, graduationDate) => !major && !graduationDate,
-                then: yup.string(),
-                otherwise: yup.string().required('Please input your educational institution'),
-            })
-            .matches(/^[aA-zZ\s]+$/, {
-                message: 'Only alphabets are allowed for this field',
-            })
-            .nullable(),
-        major: yup
-            .string()
-            .test('all-required', 'Please fill out all fields', function(value) {
-                const { university, graduationDate } = this.parent;
-                 if(!university && !graduationDate && !value ){
-                    return true;
-                }
-                else if (!university || !graduationDate || !value) {
-                    return false;
-                }
-                 else {
-                     return  true
-                 }
-            })
-            .matches(/^[aA-zZ\s]+$/, {
-                message: 'Only alphabets are allowed for this field',
-                excludeEmptyString: true,
-            })
-            .nullable(),
-        graduationDate: yup
-            .string()
-            .test('all-required', 'Please fill out all fields', function(value) {
-                const { university, major } = this.parent;
-                 if(!university && !value && !university || !major){
-                    return true;
-                }
-                else if (!university || !major || !value) {
-                    return false;
-                }
-                else {
-                    return  true
-                 }
-            })
-            .nullable(),
-    }),
+  yup.object().shape({
+    university: yup
+      .string()
+      .when(['major', 'graduationDate'], {
+        is: (major, graduationDate) => !major && !graduationDate,
+        then: yup.string(),
+        otherwise: yup.string().required('Please input your educational institution'),
+      })
+      .matches(/^[aA-zZ\s]+$/, {
+        message: 'Only alphabets are allowed for this field',
+      })
+      .nullable(),
+    major: yup
+      .string()
+      .test('all-required', 'Please fill out all fields', function (value) {
+        const { university, graduationDate } = this.parent
+
+        if (!university && !graduationDate && !value) {
+          return true
+        } else if (!university || !graduationDate || !value) {
+          return false
+        } else {
+          return true
+        }
+      })
+      .matches(/^[aA-zZ\s]+$/, {
+        message: 'Only alphabets are allowed for this field',
+        excludeEmptyString: true,
+      })
+      .nullable(),
+    graduationDate: yup
+      .string()
+      .test('all-required', 'Please fill out all fields', function (value) {
+        const { university, major } = this.parent
+
+        if ((!university && !value && !university) || !major) {
+          return true
+        } else if (!university || !major || !value) {
+          return false
+        } else {
+          return true
+        }
+      })
+      .nullable(),
+  }),
   yup.object().shape(
     {
       github: yup.string().when('github', (value) => {
@@ -172,9 +170,9 @@ export const createTeamValidation = [
       ['description', 'description'],
     ],
   ),
-  yup.object().shape({
-    members: yup.object(),
-  }),
+  // yup.object().shape({
+  //   members: yup.object(),
+  // }),
   userFileValidation,
 ]
 

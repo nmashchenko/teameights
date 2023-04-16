@@ -7,12 +7,11 @@ import StepLabel from '@mui/material/StepLabel'
 import { styled } from '@mui/material/styles'
 import PropTypes from 'prop-types'
 
-
 // * Constants
 import { GREEN } from '../../../../../constants/colors'
 
 // * Components
-import {CustomStepper, StepperContainer} from './Stepper.styles'
+import { CustomStepper, StepperContainer } from './Stepper.styles'
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   color: GREEN.alternativeBorder,
@@ -35,7 +34,7 @@ const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   },
 }))
 
-function QontoStepIcon({active, completed, className}) {
+function QontoStepIcon({ active, completed, className }) {
   return (
     <QontoStepIconRoot ownerState={{ active }} className={className}>
       {completed ? (
@@ -48,11 +47,10 @@ function QontoStepIcon({active, completed, className}) {
 }
 
 export default function CustomizedSteppers({ steps, step }) {
-
   return (
     <StepperContainer>
       <Stack>
-        <CustomStepper  activeStep={step - 1} orientation="vertical" connector={null}>
+        <CustomStepper activeStep={step - 1} orientation="vertical" connector={null}>
           {steps.map((label, i) => (
             <Step key={i}>
               <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>

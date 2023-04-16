@@ -40,10 +40,13 @@ export const StepContainer = styled.div`
 
 export const ContentContainer = styled.div`
   display: grid;
-  ${props => props.rows  ? `grid-template-rows: repeat(${props.rows - 1}, 1fr) 2fr;`: 'grid-auto-rows: auto'};
+  ${(props) =>
+    props.rows
+      ? `grid-template-rows: repeat(${props.rows - 1}, 1fr) 2fr;`
+      : 'grid-auto-rows: auto'};
   grid-template-columns: 1fr;
   width: 100%;
   height: 100%;
-  
+
   gap: ${(props) => props.gap || '3.5rem'};
 `

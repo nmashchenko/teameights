@@ -1,6 +1,6 @@
-import styled, {css} from "styled-components";
-import selectedIcon from "../../../../../../../../assets/defaultAvatarSelectedIcon.svg"
+import styled, { css } from 'styled-components'
 
+import selectedIcon from '../../../../../../../../assets/defaultAvatarSelectedIcon.svg'
 
 export const ChooseAvatarContainer = styled.div`
   flex: 1;
@@ -8,9 +8,8 @@ export const ChooseAvatarContainer = styled.div`
 
 export const DefaultAvatarList = styled.ul`
   display: flex;
-  gap: 0.75rem
+  gap: 0.75rem;
 `
-
 
 export const DefaultAvatarContainer = styled.li`
   cursor: pointer;
@@ -23,22 +22,24 @@ export const DefaultAvatarContainer = styled.li`
     }
   }
   
-  ${({ selected }) => selected && css`
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: 5px;
-      z-index: 1;
-      right: 5px;
-      width: 1rem;
-      height: 1rem;
-      background-image: url(${selectedIcon});
-    }
-    
-    img{
-      mix-blend-mode: overlay;
-    }
-  `}}
+  ${({ selected }) =>
+    selected &&
+    css`
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        z-index: 1;
+        right: 5px;
+        width: 1rem;
+        height: 1rem;
+        background-image: url(${selectedIcon});
+      }
+
+      img {
+        mix-blend-mode: overlay;
+      }
+    `}}
 
 `
 

@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { GREEN, WHITE } from '../../../constants/colors'
 
 export const Button = styled.button`
-  background-color: ${props => props.background ? props.background : GREEN.button};
-  border: ${props => props.border ? props.border : 'none'};
-  color: ${props => props.transparent ? '#007bff' : '#fff'};
+  background-color: ${(props) => (props.background ? props.background : GREEN.button)};
+  border: ${(props) => (props.border ? props.border : 'none')};
+  color: ${(props) => (props.transparent ? '#007bff' : '#fff')};
   padding: 0.875rem 0;
   width: 10.625rem;
   border-radius: 10px;
@@ -14,7 +14,7 @@ export const Button = styled.button`
   justify-content: center;
   line-height: 140%;
   cursor: pointer;
-  opacity: ${props => props.disabled ? '0.4' : '1'};
+  opacity: ${(props) => (props.disabled ? '0.4' : '1')};
 
   //&:hover {
   //  border: none;
@@ -23,9 +23,8 @@ export const Button = styled.button`
   //}
 `
 
-
 export const IconWrapper = styled.span`
   display: flex;
-  margin-right: ${props => props.iconPosition === 'right' ? 0 : '0.5rem'};
-  margin-left: ${props => props.iconPosition === 'left' ? 0 : '0.5rem'};
-`;
+  margin-right: ${(props) => (props.iconPosition === 'right' ? 0 : '0.5rem')};
+  margin-left: ${(props) => (props.iconPosition === 'left' ? 0 : '0.5rem')};
+`

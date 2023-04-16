@@ -5,11 +5,11 @@ import { Form, Formik } from 'formik'
 import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
 import Loader from '../../../../../shared/components/Loader/Loader'
 import CurrentStep from '../CurrentStep/CurrentStep'
+import NavigationButtons from '../NavigationButtons/NavigationButtons'
 import NavLogo from '../NavLogo/NavLogo'
 import Stepper from '../Stepper/Stepper'
 
-import { Container, StepContainer, RegistrationContainer } from './MultiStepRegistration.styles'
-import NavigationButtons from "../NavigationButtons/NavigationButtons";
+import { Container, RegistrationContainer, StepContainer } from './MultiStepRegistration.styles'
 
 const MultiStepRegistration = ({
   steps,
@@ -23,8 +23,7 @@ const MultiStepRegistration = ({
   const currentStepData = steps[step - 1]
   const isLastStep = step === steps.length
   const handleSubmit = (values) => {
-      submitForm(values, userData)
-
+    submitForm(values, userData)
   }
 
   if (isFinishingRegistration) {
@@ -41,21 +40,22 @@ const MultiStepRegistration = ({
         return (
           <Form>
             <Container>
-              <Stepper
-                steps={steps}
-                step={step}
-                isOptionalStep={isOptionalStep}
-              />
+              <Stepper steps={steps} step={step} isOptionalStep={isOptionalStep} />
               <RegistrationContainer>
                 <NavLogo sectionName={currentStepData.name} />
                 <StepContainer>
                   <CurrentStep steps={steps} step={step} />
                 </StepContainer>
-                <NavigationButtons step={step} isLastStep={isLastStep} steps={steps} isOptionalStep={currentStepData.isOptional}/>
+                <NavigationButtons
+                  step={step}
+                  isLastStep={isLastStep}
+                  steps={steps}
+                  isOptionalStep={currentStepData.isOptional}
+                />
               </RegistrationContainer>
             </Container>
           </Form>
-        );
+        )
       }}
     </Formik>
   )

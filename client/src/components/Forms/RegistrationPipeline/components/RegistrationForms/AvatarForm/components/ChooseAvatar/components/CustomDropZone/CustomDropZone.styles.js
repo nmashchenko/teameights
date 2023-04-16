@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export  const DropzoneContent = styled.div`
+export const DropzoneContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,9 +8,9 @@ export  const DropzoneContent = styled.div`
   cursor: pointer;
   width: 100%;
   padding: 2rem 1rem;
-  border: 2px dashed #86878B;
+  border: 2px dashed #86878b;
   border-radius: 10px;
-  background: #2F3239;
+  background: #2f3239;
 `
 
 export const DropzoneText = styled.p`

@@ -8,7 +8,7 @@ export const Input = styled.input`
   border-width: 0 0 1.5px;
   border-color: ${(props) => props.borderColor || '#4b4b4b'};
   background: inherit;
-  width: ${(props) => props.inputWidth };
+  width: ${(props) => props.inputWidth};
   height: ${(props) => props.height || '2.375rem'};
   font-size: 18px;
   color: ${WHITE.main};
@@ -24,7 +24,6 @@ export const GroupContainer = styled.div`
   display: flex;
   flex-basis: 33.3%;
   flex-direction: column;
-  
 `
 export const SectionContainer = styled.div`
   display: flex;

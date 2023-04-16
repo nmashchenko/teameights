@@ -1,6 +1,6 @@
 // * Modules
+import { Stepper } from '@mui/material'
 import styled from 'styled-components'
-import {Stepper} from "@mui/material";
 
 export const StepperContainer = styled.div`
   width: 14.0625rem;
@@ -12,7 +12,7 @@ export const StepperContainer = styled.div`
   flex-shrink: 0;
 `
 
-export  const CustomStepper =  styled(Stepper)`
+export const CustomStepper = styled(Stepper)`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);

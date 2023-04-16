@@ -14,7 +14,7 @@ const CurrentStep = ({ step, steps }) => {
     dispatch(setIsLastStep(step === finishRegistrationValidation.length))
     setTouched({})
   }, [step])
-  const currentStep = steps[step -1]
+  const currentStep = steps[step - 1]
 
   return currentStep ? currentStep.component : <Navigate to="/not-found" />
 }

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
+
 import { Text } from '../../../../../../shared/styles/Tpography.styles'
 
-export const QuestionSection  = styled.div`
+export const QuestionSection = styled.div`
   display: flex;
   flex-direction: column;
 `
@@ -16,7 +17,7 @@ export const NoteContainer = styled.div`
 `
 
 export const NoteText = styled(Text)`
-  font-weight: 200; 
+  font-weight: 200;
   opacity: 0.4;
   margin-top: 2.25rem;
 `

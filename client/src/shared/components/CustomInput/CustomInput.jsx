@@ -6,7 +6,7 @@ import { ErrorMessage, Label } from '../../styles/Tpography.styles'
 
 import { Input } from './CustomInput.styles'
 
-const CustomInput = ({ label, containerWidth= 'auto', inputWidth = "100%", ...props }) => {
+const CustomInput = ({ label, containerWidth = 'auto', inputWidth = '100%', ...props }) => {
   const [field, meta] = useField(props)
   const isError = meta.touched && meta.error
 

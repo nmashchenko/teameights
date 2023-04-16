@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const ContentWrapper = styled.div`
-
   display: grid;
   grid-auto-rows: auto;
 

@@ -20,7 +20,6 @@ export const useCreateTeam = (teamAvatar) => {
   return useMutation(createTeam, {
     mutationKey: 'createTeam',
     onSuccess: async (data) => {
-      console.log(2)
       if (teamAvatar) {
         updateAvatar({ teamID: data._id, image: teamAvatar.split(',')[1] })
       }

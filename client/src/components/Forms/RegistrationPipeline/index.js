@@ -5,18 +5,18 @@ import { useNavigate } from 'react-router-dom'
 
 import { useEditUserDetails } from '../../../api/hooks/auth/useEditUserDetails'
 import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
+import { defaultUserAvatars } from '../../../constants/finishRegistrationData'
 import { finishRegistrationValidation } from '../../../schemas'
 import { setIsFinishRegistrationStarted } from '../../../store/reducers/RegistrationAuth'
 
 import InitialPart from './components/InitialPart/InitialPart'
 import MultiStepRegistration from './components/MultiStepRegistration/MultiStepRegistration'
-import InfoForm from './components/RegistrationForms/InfoForm'
 import AvatarForm from './components/RegistrationForms/AvatarForm/AvatarForm'
+import InfoForm from './components/RegistrationForms/InfoForm'
 import UserConcentrationForm from './components/RegistrationForms/UserConcentrationForm/UserConcentrationForm'
 import UserEducationForm from './components/RegistrationForms/UserEducationForm/UserEducationForm'
 import UserExperienceForm from './components/RegistrationForms/UserExperienceForm/UserExperienceForm'
 import UserLinksForm from './components/RegistrationForms/UserLinksForm/UserLinksForm'
-import {defaultUserAvatars} from "../../../constants/finishRegistrationData";
 
 function FinishRegistration() {
   const { isFinishRegistrationStarted } = useSelector((state) => state.registrationReducer)
@@ -32,7 +32,16 @@ function FinishRegistration() {
     { component: <UserExperienceForm />, name: 'Experience', isOptional: false },
     { component: <UserEducationForm />, name: 'Education', isOptional: true },
     { component: <UserLinksForm />, name: 'Links', isOptional: true },
-    { component: <AvatarForm text="You can upload an image to personalize your profile or select one of our default options. The avatar can be changed at any time." defaultAvatars={defaultUserAvatars}/>, name: 'Avatar', isOptional: true },
+    {
+      component: (
+        <AvatarForm
+          text="You can upload an image to personalize your profile or select one of our default options. The avatar can be changed at any time."
+          defaultAvatars={defaultUserAvatars}
+        />
+      ),
+      name: 'Avatar',
+      isOptional: true,
+    },
   ]
 
   const initialValues = {
