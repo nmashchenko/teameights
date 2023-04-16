@@ -178,17 +178,22 @@ We might redesign some pages but for now they should exist in any form, also we 
 
 # Team
 ### Devs
-🎉 Nikita (Backend)
-🎉 Mike (Frontend)
-🎉 David (Frontend)
-🎉 Sergey (Frontend)
-🎉 Stas (Mobile / IOS)
+
+🎉 Nikita (*Backend*)
+<br>
+🎉 Mike (*Frontend*)
+<br>
+🎉 David (*Frontend*)
+<br>
+🎉 Sergey (*Frontend*)
+<br>
+🎉 Stas (*Mobile* / *IOS*)
 
 ### Design
-🎉 Jenifer (Designer)
+🎉 Jenifer (*Designer*)
 
 ### Business
-🎉 Taras (Business)
+🎉 Taras (*Business*)
 
 # Questions
 
