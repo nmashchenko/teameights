@@ -29,6 +29,7 @@
     "react-countdown": "^2.3.5",
     "react-country-flag": "^3.0.2",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-loader-spinner": "^5.3.4",
     "react-loading-skeleton": "^3.1.0",
     "react-query": "^3.39.2",

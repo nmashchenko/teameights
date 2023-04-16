@@ -28,7 +28,7 @@ const CustomSelect = ({
 
   return (
     <FormControl
-      sx={{ margin: margin || '10px 0 0 0', width: width || '15rem', padding: '0px', ...styles }}
+      sx={{ margin: margin || '10px 0 0 0', width: width || '100%', padding: '0px', ...styles }}
     >
       {!hideLabelOnSelect && label && <Label htmlFor={field.name}>{label}</Label>}
 
@@ -40,13 +40,13 @@ const CustomSelect = ({
         $isError={isError}
         MenuProps={MenuProps}
         id={field.name}
-        renderValue={(selected) => {
-          if (selected.length === 0) {
-            return <PlaceholderText>{placeholder}</PlaceholderText>
-          }
-
-          return selected
-        }}
+        // renderValue={(selected) => {
+        //   if (selected.length === 0) {
+        //     return <PlaceholderText>{placeholder}</PlaceholderText>
+        //   }
+        //
+        //   return selected
+        // }}
       >
         {options.map(({ label }) => (
           <Item key={label} value={label}>

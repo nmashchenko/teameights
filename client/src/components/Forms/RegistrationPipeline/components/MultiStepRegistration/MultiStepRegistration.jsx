@@ -8,7 +8,7 @@ import CurrentStep from '../CurrentStep/CurrentStep'
 import NavLogo from '../NavLogo/NavLogo'
 import Stepper from '../Stepper/Stepper'
 
-import { Container, ContentContainer, RegistrationContainer } from './MultiStepRegistration.styles'
+import { Container, StepContainer, RegistrationContainer } from './MultiStepRegistration.styles'
 import NavigationButtons from "../NavigationButtons/NavigationButtons";
 
 const MultiStepRegistration = ({
@@ -48,9 +48,9 @@ const MultiStepRegistration = ({
               />
               <RegistrationContainer>
                 <NavLogo sectionName={currentStepData.name} />
-                <ContentContainer>
+                <StepContainer>
                   <CurrentStep steps={steps} step={step} />
-                </ContentContainer>
+                </StepContainer>
                 <NavigationButtons step={step} isLastStep={isLastStep} steps={steps} isOptionalStep={currentStepData.isOptional}/>
               </RegistrationContainer>
             </Container>

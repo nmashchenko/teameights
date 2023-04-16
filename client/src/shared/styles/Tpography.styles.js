@@ -12,9 +12,9 @@ export const Text = styled.h3`
 
 export const Label = styled.label`
   color: #86878b;
-  font-size: 16px;
+  font-size: 14px;
   display: block;
-  margin-bottom: 0.75rem; ;
+  margin-bottom: ${(props) => props.marginBottom || '0.25rem'}; ;
 `
 
 export const ErrorMessage = styled.p`

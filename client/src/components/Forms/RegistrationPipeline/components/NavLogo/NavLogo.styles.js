@@ -9,6 +9,7 @@ import {Text} from "../../../../../shared/styles/Tpography.styles";
 export const NavBar = styled(Toolbar)`
   background: #26292B;
   padding: 0 !important;
+  min-height: 2.375rem !important;
 `
 
 

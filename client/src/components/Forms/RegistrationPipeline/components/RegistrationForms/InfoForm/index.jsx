@@ -3,7 +3,7 @@ import { useCheckAuth } from '../../../../../../api/hooks/auth/useCheckAuth'
 
 import TeamInfoForm from './TeamInfoForm/TeamInfoForm'
 import UserInfoForm from './UserInfoForm/UserInfoForm'
-import { ContentWrapper } from './InfoForm.styles'
+import {ContentContainer} from "../../MultiStepRegistration/MultiStepRegistration.styles";
 
 const InfoForm = () => {
 
@@ -11,9 +11,9 @@ const InfoForm = () => {
 
 
   return (
-    <ContentWrapper>
+    <ContentContainer>
       {user.isRegistered ? <TeamInfoForm /> : <UserInfoForm />}
-    </ContentWrapper>
+    </ContentContainer>
   )
 }
 

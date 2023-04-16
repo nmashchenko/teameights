@@ -21,7 +21,7 @@ import { setIsModalOpen } from '../../../store/reducers/Shared'
 import TopTemplate from '../../TopTemplate/TopTemplate'
 import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
 import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoForm'
-import UserAvatarForm from '../RegistrationPipeline/components/RegistrationForms/UserAvatarForm/UserAvatarForm'
+import UserAvatarForm from '../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm'
 import UserConcentrationForm from '../RegistrationPipeline/components/RegistrationForms/UserConcentrationForm/UserConcentrationForm'
 import UserEducationForm from '../RegistrationPipeline/components/RegistrationForms/UserEducationForm/UserEducationForm'
 import UserExperienceForm from '../RegistrationPipeline/components/RegistrationForms/UserExperienceForm/UserExperienceForm'
@@ -37,6 +37,8 @@ import {
   MainContainer,
   XContainer,
 } from './CreateTeamForm.styles'
+import AvatarForm from "../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm";
+import {defaultTeamAvatars} from "../../../constants/teamFormData";
 
 function CreateTeamForm() {
   const navigate = useNavigate()
@@ -50,7 +52,7 @@ function CreateTeamForm() {
   const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam(teamAvatar)
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
   const userId = user?._id
-  const steps = [{ index: 0, component: <InfoForm />, name: 'Create team' }]
+  const steps = [{ component: <InfoForm />, name: 'Create team', isOptional: false }, { component: <AvatarForm  text="You can upload an image to represent your team on the platform, or select one of our default options. The avatar can be changed at any time." defaultAvatars={defaultTeamAvatars}/>, name: 'Add team avatar', isOptional: true }]
 
   const initialValues = {
     name: '',
@@ -58,7 +60,10 @@ function CreateTeamForm() {
     type: '',
     country: '',
     description: '',
-    members: [],
+    members: {
+      ids: [userId],
+      emails: [user.email]
+    },
     file: null,
   }
   const handleClose = () => {
@@ -100,6 +105,22 @@ function CreateTeamForm() {
     dispatch(setIsModalOpen(true))
   }
 
+
+  const submitForm = (formData) => {
+    const teamData =  {
+      name: formData.name,
+      description: formData.description,
+      leader: userId,
+      country: formData.country,
+      type: formData.type.toLowerCase(),
+      tag: formData.tag,
+      members: formData.members
+    }
+    setTeamAvatar(formData.file)
+
+    createTeam(teamData)
+  }
+
   if (isUserLoading || isCreatingTeam) {
     return <Loader />
   }
@@ -110,6 +131,8 @@ function CreateTeamForm() {
         steps={steps}
         validationSchema={createTeamValidation}
         initialValues={initialValues}
+        submitForm={submitForm}
+
       />
       {/*<CreateTeamContainer>*/}
       {/*  <TopTemplate />*/}

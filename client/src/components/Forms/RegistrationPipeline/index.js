@@ -11,11 +11,12 @@ import { setIsFinishRegistrationStarted } from '../../../store/reducers/Registra
 import InitialPart from './components/InitialPart/InitialPart'
 import MultiStepRegistration from './components/MultiStepRegistration/MultiStepRegistration'
 import InfoForm from './components/RegistrationForms/InfoForm'
-import UserAvatarForm from './components/RegistrationForms/UserAvatarForm/UserAvatarForm'
+import AvatarForm from './components/RegistrationForms/AvatarForm/AvatarForm'
 import UserConcentrationForm from './components/RegistrationForms/UserConcentrationForm/UserConcentrationForm'
 import UserEducationForm from './components/RegistrationForms/UserEducationForm/UserEducationForm'
 import UserExperienceForm from './components/RegistrationForms/UserExperienceForm/UserExperienceForm'
 import UserLinksForm from './components/RegistrationForms/UserLinksForm/UserLinksForm'
+import {defaultUserAvatars} from "../../../constants/finishRegistrationData";
 
 function FinishRegistration() {
   const { isFinishRegistrationStarted } = useSelector((state) => state.registrationReducer)
@@ -31,7 +32,7 @@ function FinishRegistration() {
     { component: <UserExperienceForm />, name: 'Experience', isOptional: false },
     { component: <UserEducationForm />, name: 'Education', isOptional: true },
     { component: <UserLinksForm />, name: 'Links', isOptional: true },
-    { component: <UserAvatarForm />, name: 'Avatar', isOptional: true },
+    { component: <AvatarForm text="You can upload an image to personalize your profile or select one of our default options. The avatar can be changed at any time." defaultAvatars={defaultUserAvatars}/>, name: 'Avatar', isOptional: true },
   ]
 
   const initialValues = {

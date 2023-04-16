@@ -39,6 +39,7 @@ const UserInfoForm = () => {
               </SectionContainer>
           </Stack>
           <CustomTextArea
+            style={{height: 'calc(100% - 5rem)'}}
             label="About me (optional)"
             name="description"
             placeholder="Write something about yourself..."

@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
 export const ContentWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+
+  display: grid;
+  grid-auto-rows: auto;
+
+  grid-template-columns: 1fr;
   width: 100%;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
+  height: 100%;
+  gap: 3.5rem;
 `

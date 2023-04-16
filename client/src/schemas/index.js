@@ -173,7 +173,7 @@ export const createTeamValidation = [
     ],
   ),
   yup.object().shape({
-    members: yup.array().max(7, 'You can invite at most 7 users!'),
+    members: yup.object(),
   }),
   userFileValidation,
 ]

@@ -33,19 +33,17 @@ export const ResetButton = styled.button`
   }
 `
 
-export const ContentContainer = styled.div`
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
+export const StepContainer = styled.div`
   margin-top: 5rem;
+  height: 100%;
 `
 
-export const MiddleContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-self: flex-start;
-  flex-direction: column;
+export const ContentContainer = styled.div`
+  display: grid;
+  ${props => props.rows  ? `grid-template-rows: repeat(${props.rows - 1}, 1fr) 2fr;`: 'grid-auto-rows: auto'};
+  grid-template-columns: 1fr;
   width: 100%;
-  gap: 3.5rem;
+  height: 100%;
+  
+  gap: ${(props) => props.gap || '3.5rem'};
 `

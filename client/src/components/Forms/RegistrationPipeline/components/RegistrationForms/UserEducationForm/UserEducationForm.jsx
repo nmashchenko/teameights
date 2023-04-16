@@ -1,16 +1,16 @@
 import React from 'react'
 
 import CustomInput from '../../../../../../shared/components/CustomInput/CustomInput'
-import { MiddleContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
+import {ContentContainer} from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 const UserEducationForm = () => {
 
   return (
-      <MiddleContainer alignItems="baseline">
-        <CustomInput width="100%" label="University/School" name="university" type="text" />
-        <CustomInput width="100%" label="Major" name="major" type="text" />
-        <CustomInput width="100%" label="Expected Graduation" name="graduationDate" type="text" />
-      </MiddleContainer>
+      <ContentContainer rows={3}>
+        <CustomInput  label="University/School" name="university" type="text" />
+        <CustomInput  label="Major" name="major" type="text" />
+        <CustomInput  label="Expected Graduation" name="graduationDate" type="text" />
+      </ContentContainer>
   )
 }
 

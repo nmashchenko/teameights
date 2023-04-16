@@ -4,6 +4,7 @@ import { WHITE } from '../../../constants/colors'
 import { shake } from '../../styles/KeyFrames.styles'
 
 export const TextAreaWrapper = styled.div`
+  width: 100%;
   margin: ${(props) => props.margin || `0`};
 `
 

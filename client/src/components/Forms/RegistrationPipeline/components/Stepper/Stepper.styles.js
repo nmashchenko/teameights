@@ -1,12 +1,19 @@
 // * Modules
 import styled from 'styled-components'
+import {Stepper} from "@mui/material";
 
 export const StepperContainer = styled.div`
-  width: 300px;
+  width: 14.0625rem;
   background: #1a1c22;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  flex-grow: 1;
+  flex-shrink: 0;
+`
+
+export  const CustomStepper =  styled(Stepper)`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 `

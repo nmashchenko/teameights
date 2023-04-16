@@ -5,7 +5,6 @@ import Box from '@mui/material/Box'
 
 import InfoIcon from '../../../../../assets/InfoIcon'
 // * Assets
-import SiteLogo from '../../../../../assets/SiteLogo'
 
 import Hover from './Hover'
 import {InfoContainer, InfoText, NavBar, SectionName} from './NavLogo.styles'

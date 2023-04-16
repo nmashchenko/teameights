@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import { GREEN, WHITE } from '../../../constants/colors'
 
 export const Button = styled.button`
-  background-color: ${props => props.background ? props.background : 'transparent'};
+  background-color: ${props => props.background ? props.background : GREEN.button};
   border: ${props => props.border ? props.border : 'none'};
   color: ${props => props.transparent ? '#007bff' : '#fff'};
   padding: 0.875rem 0;
   width: 10.625rem;
-  border-radius: 0.25rem;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;

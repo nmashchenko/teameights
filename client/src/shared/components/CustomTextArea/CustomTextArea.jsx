@@ -13,7 +13,7 @@ const CustomTextArea = ({ label, options, maxLength, margin, ...props }) => {
 
   return (
     <TextAreaWrapper margin={margin}>
-      <Label htmlFor={field.name}>{label}</Label>
+      <Label marginBottom='0.5rem' htmlFor={field.name}>{label}</Label>
       <TextArea
         {...field}
         {...props}
