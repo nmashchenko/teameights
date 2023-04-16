@@ -1,6 +1,7 @@
 # teameights.com
 
 🦉 This is platform for developers to find each other.
+![01](https://user-images.githubusercontent.com/52038455/232286679-bbffa9bc-ff13-4163-b752-a11d68eaed75.png)
 
 # Diagram
 
