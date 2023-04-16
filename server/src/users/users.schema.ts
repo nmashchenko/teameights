@@ -29,6 +29,13 @@ export class User {
 	fullName: string;
 
 	@ApiProperty({
+		example: '2016-05-18T14:10:30Z',
+		description: 'Date of Birth',
+	})
+	@Prop()
+	birthDate: Date;
+
+	@ApiProperty({
 		example: 'true',
 		description: 'Did user click on confirmation email?',
 	})

@@ -15,7 +15,7 @@ import { UsersService } from '@/users/users.service';
 import { RolesService } from '@/roles/roles.service';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { AuthModule } from '@/auth/auth.module';
-import { forwardRef } from '@nestjs/common';
+import { forwardRef, HttpException } from '@nestjs/common';
 import { User, UserSchema } from '../users.schema';
 import { Role, RoleSchema } from '@/roles/roles.schema';
 import { RolesModule } from '@/roles/roles.module';
@@ -111,5 +111,87 @@ describe('UserService', () => {
 	it('should create user', async () => {
 		const user = await createUser();
 		expect(user.email).toBe('test@example.com');
+	});
+
+	it('should create user and update birthday date', async () => {
+		const user = await createUser();
+		expect(user.email).toBe('test@example.com');
+
+		const updateBirthdayData = {
+			email: 'test@example.com',
+			birthDate: new Date(2002, 0),
+		};
+		// @ts-ignore
+		const updateUser = await userService.updateUser(updateBirthdayData);
+		expect(updateUser.birthDate).toEqual(updateBirthdayData.birthDate);
+	});
+
+	it('should create user and then update university fields', async () => {
+		const user = await createUser();
+		expect(user.email).toBe('test@example.com');
+
+		const updateUniversityData = {
+			email: 'test@example.com',
+			universityData: {
+				university: 'UIC',
+				degree: `Bachelor's degree`,
+				major: 'Computer Science',
+				addmissionDate: new Date(),
+				graduationDate: new Date(),
+			},
+		};
+
+		// @ts-ignore
+		const updateUser = await userService.updateUser(updateUniversityData);
+
+		// compare all fields
+		expect(updateUser.universityData[0].university).toBe(
+			updateUniversityData.universityData.university,
+		);
+		expect(updateUser.universityData[0].degree).toBe(
+			updateUniversityData.universityData.degree,
+		);
+		expect(updateUser.universityData[0].major).toBe(
+			updateUniversityData.universityData.major,
+		);
+		expect(updateUser.universityData[0].addmissionDate).toEqual(
+			updateUniversityData.universityData.addmissionDate,
+		);
+		expect(updateUser.universityData[0].graduationDate).toEqual(
+			updateUniversityData.universityData.graduationDate,
+		);
+	});
+
+	it('should create user and then update job fields', async () => {
+		const user = await createUser();
+		expect(user.email).toBe('test@example.com');
+
+		const updateJobData = {
+			email: 'test@example.com',
+			jobData: {
+				title: 'SWE',
+				company: `Spotify`,
+				startDate: new Date(2017, 0),
+				endDate: new Date(2022, 0),
+			},
+		};
+
+		// @ts-ignore
+		const updateUser = await userService.updateUser(updateJobData);
+
+		// compare all fields
+		expect(updateUser.jobData[0].title).toBe(updateJobData.jobData.title);
+
+		expect(updateUser.jobData[0].company).toBe(
+			updateJobData.jobData.company,
+		);
+
+		expect(updateUser.jobData[0].startDate).toEqual(
+			updateJobData.jobData.startDate,
+		);
+
+		expect(updateUser.jobData[0].endDate).toEqual(
+			updateJobData.jobData.endDate,
+		);
 	});
 });
