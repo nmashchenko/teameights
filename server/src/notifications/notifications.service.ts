@@ -1,5 +1,5 @@
 import { UsersService } from '@Users/users.service';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { ClientSession, Model } from 'mongoose';
 import { TeamInvitationNotification } from './schemas/team-invite.schema';
@@ -132,5 +132,32 @@ export class NotificationsService {
 				type: 'TeamInvitationNotification',
 			});
 		}
+	}
+
+	/**
+	 * This function reads a notification by updating its "read" status to true and returning the updated
+	 * notification.
+	 * @param notificationid - The ID of the notification that needs to be read. It is of type
+	 * mongoose.Types.ObjectId, which is a unique identifier used by MongoDB.
+	 * @returns A `Promise` that resolves to a `Notification` object after updating the `read` property of
+	 * the notification with the given `notificationid` to `true`.
+	 */
+	async readNotification(
+		notificationid: mongoose.Types.ObjectId,
+	): Promise<Notification> {
+		const notification = await this.getTeamNotificationById(notificationid);
+
+		if (!notification) {
+			throw new HttpException(
+				`Notification with this id: ${notificationid} not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		return await this.notificationModel.findOneAndUpdate(
+			{ _id: notificationid },
+			{ read: true },
+			{ new: true },
+		);
 	}
 }
