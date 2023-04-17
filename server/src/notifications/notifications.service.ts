@@ -9,6 +9,7 @@ import { SystemNotificationDto } from './dto/system-notification.dto';
 import { TeamNotificationsDto } from './dto/team-notification.dto';
 import { MailsService } from '@/mails/mails.service';
 import { Notifications } from './schemas/notifications.schema';
+import { ReadNotificationsDto } from './dto/read-notifications.dto';
 
 @Injectable()
 export class NotificationsService {
@@ -134,30 +135,31 @@ export class NotificationsService {
 		}
 	}
 
-	/**
-	 * This function reads a notification by updating its "read" status to true and returning the updated
-	 * notification.
-	 * @param notificationid - The ID of the notification that needs to be read. It is of type
-	 * mongoose.Types.ObjectId, which is a unique identifier used by MongoDB.
-	 * @returns A `Promise` that resolves to a `Notification` object after updating the `read` property of
-	 * the notification with the given `notificationid` to `true`.
-	 */
-	async readNotification(
-		notificationid: mongoose.Types.ObjectId,
-	): Promise<Notification> {
-		const notification = await this.getTeamNotificationById(notificationid);
+	async readNotification(dto: ReadNotificationsDto): Promise<Object> {
+		let error: number = 0;
+		let success: number = 0;
 
-		if (!notification) {
-			throw new HttpException(
-				`Notification with this id: ${notificationid} not found`,
-				HttpStatus.BAD_REQUEST,
+		for (let i = 0; i < dto.notifications.length; i++) {
+			const notification = await this.getTeamNotificationById(
+				dto.notifications[i],
 			);
+
+			if (!notification) {
+				error++;
+			} else {
+				const test = await this.notificationModel.findOneAndUpdate(
+					{ _id: dto.notifications[i] },
+					{ read: true },
+					{ new: true },
+				);
+				console.log(test);
+				success++;
+			}
 		}
 
-		return await this.notificationModel.findOneAndUpdate(
-			{ _id: notificationid },
-			{ read: true },
-			{ new: true },
-		);
+		return {
+			staus: `Updated ${success} notifications: `,
+			errors: `We didn't find ${error} notifications`,
+		};
 	}
 }
