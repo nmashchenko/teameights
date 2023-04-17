@@ -1,5 +1,5 @@
 // * Modules
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,6 +10,7 @@ import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
 import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
+import { useOutsideClick } from '../../hooks/useOutsideClick'
 import Loader from '../../shared/components/Loader/Loader'
 
 // * Data
@@ -47,6 +48,9 @@ const NavBar = () => {
 
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
   const navigate = useNavigate()
+  const navMenuRef = useRef(null)
+
+  useOutsideClick(navMenuRef, () => setSidebar(false))
 
   const handleUseLogout = () => {
     logoutUser()
@@ -61,8 +65,8 @@ const NavBar = () => {
 
   return (
     <>
-      <NavWrapper active={sidebar} onClick={() => setSidebar(false)}>
-        <NavMenu onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
+      <NavWrapper active={sidebar}>
+        <NavMenu ref={navMenuRef} onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
             <NavBarLogo active={sidebar}>
               <ShortLogo />
@@ -74,7 +78,15 @@ const NavBar = () => {
           <Profile sidebar={sidebar} />
           <NavItems>
             {newNavData.map((item, index) => {
-              return <NavItem active={sidebar} key={index} {...item} path={item.path} />
+              return (
+                <NavItem
+                  onClick={() => setSidebar(false)}
+                  active={sidebar}
+                  key={index}
+                  {...item}
+                  path={item.path}
+                />
+              )
             })}
           </NavItems>
           <NavInteractions>

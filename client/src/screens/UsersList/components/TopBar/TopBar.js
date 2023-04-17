@@ -72,9 +72,9 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                 </AlternativeLogoContainer>
                 <NavBar>
                   <NavBarContainer />
-                  <LogoContainer>
+                  {/* <LogoContainer>
                     <PlatformLogo />
-                  </LogoContainer>
+                  </LogoContainer> */}
                   <SelectContainer>
                     <CustomSelect
                       multiple={true}
