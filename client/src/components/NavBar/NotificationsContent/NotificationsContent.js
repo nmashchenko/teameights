@@ -1,29 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 // assets
-import Checks from '../../../assets/Sidebar/Checks'
-import Cross from '../../../assets/Sidebar/Cross'
 import Notification from '../../../assets/Sidebar/Notification'
-import { useOutsideClick } from '../../../hooks/useOutsideClick'
 import { IconWrapper, NavInteractBtn } from '../NavBar.styles'
-import NotificationsItem from '../NotificationsItem/NotificationsItem'
+import NotificationsModal from '../NotificationsModal/NotificationsModal'
 
 // this component styles
-import {
-  CrossBtn,
-  MarkAllBtn,
-  NotificationsCount,
-  NotificationsHeader,
-  NotificationsList,
-  NotificationsModal,
-  StyledNotificationsContent,
-} from './NotificationsContent.styles'
+import { NotificationsCount, StyledNotificationsContent } from './NotificationsContent.styles'
 
 const NotificationsContent = ({ user, sidebar }) => {
   const [modal, setModal] = useState(false)
-  const modalRef = useRef(null)
-
-  useOutsideClick(modalRef, () => setModal(false))
 
   return (
     <StyledNotificationsContent>
@@ -47,25 +33,7 @@ const NotificationsContent = ({ user, sidebar }) => {
           </>
         )}
       </NavInteractBtn>
-      <NotificationsModal ref={modalRef} active={modal} onClick={(e) => e.stopPropagation()}>
-        <NotificationsHeader>
-          <MarkAllBtn>
-            <IconWrapper width="20px" height="20px">
-              <Checks />
-            </IconWrapper>
-            <p>Mark all as read</p>
-          </MarkAllBtn>
-          <CrossBtn width="20px" height="20px" onClick={() => setModal(false)}>
-            <Cross />
-          </CrossBtn>
-        </NotificationsHeader>
-        <NotificationsList>
-          {user?.notifications &&
-            user.notifications.map((item) => (
-              <NotificationsItem key={item.id} notification={item} />
-            ))}
-        </NotificationsList>
-      </NotificationsModal>
+      <NotificationsModal modal={modal} setModal={setModal} />
     </StyledNotificationsContent>
   )
 }

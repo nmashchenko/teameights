@@ -69,7 +69,14 @@ const NotificationsItem = ({ notification }) => {
     }
   }
 
-  return <StyledNotificationsItem>{render()}</StyledNotificationsItem>
+  return (
+    <StyledNotificationsItem
+      data-notification-read={notification.read}
+      data-notification-id={notification._id}
+    >
+      {render()}
+    </StyledNotificationsItem>
+  )
 }
 
 export default NotificationsItem
