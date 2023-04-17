@@ -163,7 +163,6 @@ export const Input = styled.input`
   border-width: 0 0 1.5px;
   border-color: ${(props) => props.borderColor || 'rgba(93, 157, 11, 0.5)'};
   background: inherit;
-  width: ${(props) => props.width || '250px'};
   height: ${(props) => props.height || '40px'};
   font-size: 18px;
   margin: ${(props) => props.margin || '0'};

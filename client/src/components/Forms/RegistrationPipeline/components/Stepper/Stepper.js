@@ -1,33 +1,17 @@
 // * Modules
 // * Redux
-import { useDispatch, useSelector } from 'react-redux'
 import Check from '@mui/icons-material/Check'
 import Stack from '@mui/material/Stack'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
-import Stepper from '@mui/material/Stepper'
 import { styled } from '@mui/material/styles'
-import { useFormikContext } from 'formik'
 import PropTypes from 'prop-types'
 
-import NavigationArrowDown from '../../../../../assets/Arrows/NavigationArrowDown'
-import NavigationArrowUp from '../../../../../assets/Arrows/NavigationArrowUp'
 // * Constants
 import { GREEN } from '../../../../../constants/colors'
-import { registrationAuth } from '../../../../../store/reducers/RegistrationAuth'
 
 // * Components
-import { ButtonContainer, StepperContainer } from './Stepper.styles'
-
-const steps = [
-  'InitialPart',
-  'UserPersonalInfo',
-  'UserConcentration',
-  'UserExperience',
-  'Education',
-  'Links',
-  'UserAvatar',
-]
+import { CustomStepper, StepperContainer } from './Stepper.styles'
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   color: GREEN.alternativeBorder,
@@ -50,9 +34,7 @@ const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   },
 }))
 
-function QontoStepIcon(props) {
-  const { active, completed, className } = props
-
+function QontoStepIcon({ active, completed, className }) {
   return (
     <QontoStepIconRoot ownerState={{ active }} className={className}>
       {completed ? (
@@ -64,42 +46,18 @@ function QontoStepIcon(props) {
   )
 }
 
-export default function CustomizedSteppers() {
-  const { step, isLastStep, isOptionalStep } = useSelector((state) => state.registrationReducer)
-
-  const { setStep } = registrationAuth.actions
-  const { isValid, initialTouched } = useFormikContext()
-  const dispatch = useDispatch()
-
-  const handleDecrement = () => {
-    dispatch(setStep(step - 1))
-  }
-
-  const handleIncrement = () => {
-    dispatch(setStep(step + 1))
-  }
-
+export default function CustomizedSteppers({ steps, step }) {
   return (
     <StepperContainer>
-      <ButtonContainer type="button" disabled={step === 1} onClick={handleDecrement}>
-        <NavigationArrowUp />
-      </ButtonContainer>
       <Stack>
-        <Stepper activeStep={step} orientation="vertical" connector={null}>
+        <CustomStepper activeStep={step - 1} orientation="vertical" connector={null}>
           {steps.map((label, i) => (
             <Step key={i}>
               <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
             </Step>
           ))}
-        </Stepper>
+        </CustomStepper>
       </Stack>
-      <ButtonContainer
-        type="button"
-        disabled={isLastStep || !(isValid || isOptionalStep)}
-        onClick={handleIncrement}
-      >
-        <NavigationArrowDown />
-      </ButtonContainer>
     </StepperContainer>
   )
 }

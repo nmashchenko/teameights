@@ -25,7 +25,7 @@ function InitialPart() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { setActiveState, setStep } = registrationAuth.actions
+  const { setActiveState } = registrationAuth.actions
   const { curRegistration } = useSelector((state) => state.registrationReducer)
   const { data: user, isFetching } = useCheckAuth()
 
@@ -62,7 +62,6 @@ function InitialPart() {
             // change the global states
             onClick={() => {
               dispatch(setActiveState('UserPersonalInfo'))
-              dispatch(setStep(1))
               dispatch(setIsFinishRegistrationStarted(true))
             }}
           >

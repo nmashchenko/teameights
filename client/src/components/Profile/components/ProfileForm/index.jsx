@@ -97,7 +97,7 @@ const ProfileForm = () => {
       frameworks,
     } = values
     const modifiedUserData = {
-      ...user,
+      email: user.email,
       fullName,
       description,
       concentration,

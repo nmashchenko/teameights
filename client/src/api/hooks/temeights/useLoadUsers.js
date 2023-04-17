@@ -43,7 +43,7 @@ export const useLoadUsers = (isFiltered) => {
     isFiltered ? getUsersFiltered : getUsers,
     {
       getNextPageParam: (lastPage, allPages) => {
-        return lastPage.next && lastPage.results.length === lastPage.next.limit
+        return Math.ceil(lastPage.total / lastPage.limit) !== allPages.length
           ? allPages.length + 1
           : undefined
       },

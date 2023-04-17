@@ -34,11 +34,14 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
         intObserver.current.disconnect()
       }
 
-      intObserver.current = new IntersectionObserver((usersPerPage) => {
-        if (usersPerPage[0].isIntersecting && hasNextPage) {
-          fetchNextPage()
-        }
-      })
+      intObserver.current = new IntersectionObserver(
+        (usersPerPage) => {
+          if (usersPerPage[0].isIntersecting && hasNextPage) {
+            fetchNextPage()
+          }
+        },
+        { threshold: 0.9 },
+      )
 
       if (user) {
         intObserver.current.observe(user)

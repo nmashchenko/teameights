@@ -1,14 +1,23 @@
 import styled from 'styled-components'
 
-export const ContentContainer = styled.div`
+import { Text } from '../../../../../../shared/styles/Tpography.styles'
+
+export const QuestionSection = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: left;
-  margin: auto;
-  gap: 40px;
 `
 
-export const AlertContainer = styled.div`
+export const QuestionText = styled(Text)`
+  margin-bottom: 1.5rem;
+  font-size: 24px;
+`
+
+export const NoteContainer = styled.div`
   width: 70%;
+`
+
+export const NoteText = styled(Text)`
+  font-weight: 200;
+  opacity: 0.4;
+  margin-top: 2.25rem;
 `

@@ -4,7 +4,8 @@ import { WHITE } from '../../../constants/colors'
 import { shake } from '../../styles/KeyFrames.styles'
 
 export const TextAreaWrapper = styled.div`
-  flex-basis: 100%;
+  width: 100%;
+  margin: ${(props) => props.margin || `0`};
 `
 
 export const TextArea = styled.textarea`
