@@ -8,9 +8,9 @@ import { Text } from '../../../../../shared/styles/Tpography.styles'
 
 // * Assets
 import Hover from './Hover'
-import { InfoContainer, NavBar, SectionName } from './NavLogo.styles'
+import { InfoContainer, NavBar, SectionName, SectionNameOptionalText } from './NavLogo.styles'
 
-function NavLogo({ sectionName }) {
+function NavLogo({ sectionName, isOptionalStep, oneOfOptionalFieldsHasValue }) {
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handlePopoverOpen = (event) => {
@@ -28,7 +28,12 @@ function NavLogo({ sectionName }) {
       <AppBar position="static" elevation={0}>
         <NavBar>
           {/* <SiteLogo /> */}
-          <SectionName fontSize="20px">{sectionName}</SectionName>
+          <SectionName fontSize="20px">
+            {sectionName}{' '}
+            {isOptionalStep && !oneOfOptionalFieldsHasValue && (
+              <SectionNameOptionalText>(Optional)</SectionNameOptionalText>
+            )}
+          </SectionName>
           <div style={{ flexGrow: 1 }}></div>
           <InfoContainer onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
             <Text fontSize="18px">Need Help</Text>

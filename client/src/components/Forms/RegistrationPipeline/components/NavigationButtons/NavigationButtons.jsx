@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useFormikContext } from 'formik'
@@ -11,11 +11,30 @@ import { setStep } from '../../../../../store/reducers/RegistrationAuth'
 
 import { ButtonsContainer } from './NavigationButtons.styles'
 
-const NavigationButtons = ({ step, isOptionalStep, isLastStep }) => {
+const NavigationButtons = ({
+  step,
+  isOptionalStep,
+  isLastStep,
+  validationSchema,
+  setOneOfOptionalFieldsHasValue,
+  oneOfOptionalFieldsHasValue,
+}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isValid } = useFormikContext()
+  const { isValid, values } = useFormikContext()
 
+  useEffect(() => {
+    if (isOptionalStep) {
+      const currentStepFields = validationSchema[step - 1]._nodes
+      const hasValue = currentStepFields.some((field) => {
+        const value = values[field]
+
+        return !!value
+      })
+
+      setOneOfOptionalFieldsHasValue(hasValue)
+    }
+  }, [values])
   const navigateBack = () => {
     if (step === 1) {
       navigate('/')
@@ -50,7 +69,7 @@ const NavigationButtons = ({ step, isOptionalStep, isLastStep }) => {
           iconPosition="right"
           background={GREEN.button}
         >
-          Next Step
+          {isOptionalStep && !oneOfOptionalFieldsHasValue ? 'Skip' : 'Next Step'}
         </CustomButton>
       )}
       {isLastStep && (

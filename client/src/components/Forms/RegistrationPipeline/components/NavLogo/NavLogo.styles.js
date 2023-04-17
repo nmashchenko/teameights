@@ -25,3 +25,8 @@ export const SectionName = styled(Text)`
   color: ${GREEN.text};
   line-height: 120%;
 `
+
+export const SectionNameOptionalText = styled.span`
+  color: #86878b;
+  font-size: 16px;
+`
