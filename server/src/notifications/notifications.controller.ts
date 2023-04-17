@@ -1,7 +1,8 @@
 // import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
-import { Controller, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
+import { ReadNotificationsDto } from './dto/read-notifications.dto';
 import { NotificationsService } from './notifications.service';
 import { Notifications } from './schemas/notifications.schema';
 
@@ -16,10 +17,8 @@ export class NotificationsController {
 		summary: 'Read notification by ID',
 	})
 	@ApiResponse({ status: 200, type: Notifications })
-	@Put('/read/:notificationid')
-	readNotification(
-		@Param('notificationid') notificationid: mongoose.Types.ObjectId,
-	) {
-		return this.notificationsService.readNotification(notificationid);
+	@Put('/read')
+	readNotification(@Body() dto: ReadNotificationsDto) {
+		return this.notificationsService.readNotification(dto);
 	}
 }
