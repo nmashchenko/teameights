@@ -10,6 +10,13 @@ export const Text = styled.h3`
   opacity: ${(props) => props.opacity || '1'};
 `
 
+export const Label = styled.label`
+  color: #86878b;
+  font-size: 14px;
+  display: block;
+  margin-bottom: ${(props) => props.marginBottom || '0.25rem'}; ;
+`
+
 export const ErrorMessage = styled.p`
   font-size: 15px;
   font-weight: 900;

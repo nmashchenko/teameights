@@ -80,8 +80,8 @@ export const TitleText = styled.h3`
 export const Framework = styled.div`
   width: ${(props) => props.width || '65px'};
   height: 40px;
-  margin-right: ${(props) => props.marginRight || '0px'};
-  margin-bottom: ${(props) => props.marginBottom || '10px'};
+  margin-right: ${(props) => props.marginRight || '0'};
+  margin-bottom: ${(props) => props.marginBottom || '0'};
   flex-grow: ${(props) => props.flexGrow || '1'};
   background: ${(props) => props.background || '#E0FF00'};
   border-radius: 5px;

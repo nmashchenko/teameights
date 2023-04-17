@@ -13,20 +13,28 @@ jobs:
         node-version: [17.x]
     steps:
       - uses: actions/checkout@v3
-      - name: Starting Node.js ${{ matrix.node-version }}
+      - name: 🚧 Starting Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - name: install modules
+      - name: 🪖 Creating .dev.env for nodemailer
+        working-directory: ./server
+        run: |
+          touch .dev.env
+          echo API_URL=${{ secrets.API_URL }} >> .dev.env
+          echo SMTP_HOST=${{ secrets.SMTP_HOST }} >> .dev.env
+          echo SMTP_USER=${{ secrets.SMTP_USER }} >> .dev.env
+          echo SMTP_PASS=${{ secrets.SMTP_PASS }} >> .dev.env
+          echo SMTP_PORT=${{ secrets.SMTP_PORT }} >> .dev.env
+          cat .dev.env
+      - name: 🎧 Install modules
         working-directory: ./server
         run: npm install
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: run unit tests
+      - name: 🚀 Run unit tests
         working-directory: ./server
         run: npm run test
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: run coverage tests
+      - name: 🚀 Run coverage tests
         working-directory: ./server
         run: npm run test:cov
       - run: echo "😼 Finished! Good job."

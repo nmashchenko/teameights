@@ -9,26 +9,14 @@ import { useSnackbar } from 'notistack'
 // API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useCreateTeam } from '../../../api/hooks/team/useCreateTeam'
-import AvatarEditIcon from '../../../assets/AvatarEditIcon'
+import { defaultTeamAvatars } from '../../../constants/teamFormData'
 // * Assets
-import X from '../../../assets/X'
-import AvatarEditButton from '../../../shared/components/Forms/UserAvatar/AvatarEditButton/AvatarEditButton'
-import AvatarLoadModal from '../../../shared/components/Forms/UserAvatar/AvatarLoadModal/AvatarLoadModal'
-import { UserAvatar } from '../../../shared/components/Forms/UserAvatar/UserAvatar.styles'
+import { createTeamValidation } from '../../../schemas'
 import Loader from '../../../shared/components/Loader/Loader'
 import { setIsModalOpen } from '../../../store/reducers/Shared'
-import TopTemplate from '../../TopTemplate/TopTemplate'
-
-import ProfileEllipse from './img/zxc1.jpg'
-import {
-  Card,
-  CreateButtonContainer,
-  CreateTeamContainer,
-  Input,
-  InputContainer,
-  MainContainer,
-  XContainer,
-} from './CreateTeamForm.styles'
+import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
+import AvatarForm from '../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm'
+import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoForm'
 
 function CreateTeamForm() {
   const navigate = useNavigate()
@@ -42,43 +30,47 @@ function CreateTeamForm() {
   const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam(teamAvatar)
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
   const userId = user?._id
-  const handleClose = () => {
-    navigate('/team', { replace: true })
+  const steps = [
+    { component: <InfoForm />, name: 'Create team', isOptional: false },
+    {
+      component: (
+        <AvatarForm
+          text="You can upload an image to represent your team on the platform, or select one of our default options. The avatar can be changed at any time."
+          defaultAvatars={defaultTeamAvatars}
+        />
+      ),
+      name: 'Add team avatar',
+      isOptional: true,
+    },
+  ]
+
+  const initialValues = {
+    name: '',
+    tag: '',
+    type: '',
+    country: '',
+    description: '',
+    // members: {
+    //   ids: [userId],
+    //   emails: [user.email]
+    // },
+    file: null,
   }
 
-  const handleSaveClose = () => {
-    dispatch(setIsModalOpen(false))
-  }
-
-  const onCrop = (preview) => {
-    setTeamAvatar(preview)
-  }
-  const handleSubmit = async () => {
-    if (isEqual(teamName, '') || isEqual(country, '')) {
-      enqueueSnackbar('Fill in empty fields!', {
-        preventDuplicate: true,
-      })
-    } else {
-      if (user.team) {
-        enqueueSnackbar('You have a team already!', {
-          preventDuplicate: true,
-        })
-      } else {
-        createTeam({
-          name: teamName,
-          country,
-          leader: userId,
-          type: 'open',
-          description: 'A group of skilled individuals who work together on projects',
-        })
-        setTeamName('')
-        setCountry('')
-      }
+  const submitForm = async (formData) => {
+    const teamData = {
+      name: formData.name,
+      description: formData.description,
+      leader: userId,
+      country: formData.country,
+      type: formData.type.toLowerCase(),
+      tag: formData.tag,
+      members: formData.members,
     }
-  }
 
-  const loadTeamAvatar = () => {
-    dispatch(setIsModalOpen(true))
+    await setTeamAvatar(formData.file)
+
+    createTeam(teamData)
   }
 
   if (isUserLoading || isCreatingTeam) {
@@ -87,37 +79,12 @@ function CreateTeamForm() {
 
   return (
     <>
-      <CreateTeamContainer>
-        <TopTemplate />
-        <Card>
-          <MainContainer>
-            <XContainer onClick={handleClose}>
-              <X />
-            </XContainer>
-            <div>
-              <UserAvatar src={teamAvatar ? teamAvatar : ProfileEllipse} alt="team-avatar" />
-              <AvatarLoadModal handleSaveClose={handleSaveClose} onCrop={onCrop} />
-              <AvatarEditButton onClick={loadTeamAvatar} />
-            </div>
-            <InputContainer>
-              <Input
-                placeholder="Team name"
-                onChange={(e) => setTeamName(e.target.value)}
-                value={teamName}
-              />
-            </InputContainer>
-
-            <InputContainer>
-              <Input
-                placeholder="Country"
-                onChange={(e) => setCountry(e.target.value)}
-                value={country}
-              />
-            </InputContainer>
-            <CreateButtonContainer onClick={handleSubmit}>Create</CreateButtonContainer>
-          </MainContainer>
-        </Card>
-      </CreateTeamContainer>
+      <MultiStepRegistration
+        steps={steps}
+        validationSchema={createTeamValidation}
+        initialValues={initialValues}
+        submitForm={submitForm}
+      />
     </>
   )
 }

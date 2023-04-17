@@ -23,7 +23,7 @@ import Loader from '../../../../shared/components/Loader/Loader'
 import ModalWindow from '../../../../shared/components/ModalWindow/ModalWindow'
 import { Button } from '../../../../shared/styles/Button.styles'
 import { CustomLink } from '../../../../shared/styles/Link.styles'
-import { AvatarWrapper } from '../../../Forms/RegistrationPipeline/components/RegistrationForms/UserAvatarForm/UserAvatarForm.styles'
+import { AvatarWrapper } from '../../../Forms/RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm.styles'
 import Photo from '../../Photo.jpg'
 import {
   BannerLine,

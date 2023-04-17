@@ -36,7 +36,7 @@ import {
 // frameworks
 
 // PASS IN PROPS TO RESPECTIVE COMPONENT TO RENDER
-const UserCard = React.forwardRef((props, ref = null) => {
+const UserCard = React.forwardRef((props, ref) => {
   const person = props.person
 
   const plLength = person.programmingLanguages.length

@@ -11,7 +11,7 @@ export const allowedUpdateUserFields: string[] = [
 	'links',
 	'programmingLanguages',
 	'frameworks',
-	'university',
-	'major',
-	'graduationDate',
+	'universityData',
+	'jobData',
+	'birthDate',
 ];

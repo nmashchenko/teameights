@@ -6,7 +6,14 @@ import { useCheckAuth } from '../auth/useCheckAuth'
 
 const { api } = http
 
+<<<<<<< HEAD
 export const useGetTeamData = (teamId) => {
+=======
+export const useGetTeamData = () => {
+  const { data: user, isLoading: isUserLoading } = useCheckAuth()
+  const teamId = user?.team?._id
+
+>>>>>>> dev
   const getTeamById = async () => {
     const response = await api.get(`/teams/get-team/${teamId}`)
 

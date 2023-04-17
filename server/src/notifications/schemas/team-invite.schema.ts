@@ -16,13 +16,6 @@ export class TeamInvitationNotification {
 	teamid: Team;
 
 	@ApiProperty({
-		example: 'You were invited to team!',
-		description: 'Notification message',
-	})
-	@Prop({ required: true, type: String })
-	message: string;
-
-	@ApiProperty({
 		example: '5f6d8b6db0c6d71be6e0e070',
 		description: 'ID of user that sent invite',
 		required: true,
@@ -49,6 +42,17 @@ export class TeamInvitationNotification {
 		default: 'pending',
 	})
 	status: string;
+
+	@ApiProperty({
+		example:
+			'${SERVER.URL}/image/users/29ae40b5-96ff-47e2-89bc-61060386f252.jpg',
+		description: 'Image of notification',
+	})
+	@Prop({
+		required: true,
+		type: String,
+	})
+	image: string;
 }
 
 export const TeamInvitationNotificationSchema = SchemaFactory.createForClass(

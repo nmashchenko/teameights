@@ -11,8 +11,19 @@ import { setupStore } from './store/store'
 import App from './App'
 
 const GlobalStyle = createGlobalStyle`
- * {  
+
+ *,
+ *::before,
+ *::after {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
    font-family: "Montserrat" !important;
+ }
+
+
+ ul{
+   list-style-type: none;
  }
 `
 const store = setupStore()

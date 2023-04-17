@@ -27,6 +27,8 @@ import { MailsModule } from '@/mails/mails.module';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { TransferLeaderDtoStub } from './stubs/transfer-leader.dto.stub';
 import { UpdateTeamDtoStub } from './stubs/update-team.dto.stub';
+import { TokensModule } from '@/tokens/tokens.module';
+import { AuthModule } from '@/auth/auth.module';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -58,7 +60,7 @@ describe('TeamService', () => {
 					transport: {
 						host: process.env.SMTP_HOST,
 						port: process.env.SMTP_PORT,
-						requireTLS: true,
+						// requireTLS: true,
 						secure: false,
 						auth: {
 							user: process.env.SMTP_USER,
@@ -66,6 +68,8 @@ describe('TeamService', () => {
 						},
 					},
 				}),
+				AuthModule,
+				TokensModule,
 				UsersModule,
 				FileModule,
 				NotificationsModule,
@@ -120,6 +124,7 @@ describe('TeamService', () => {
 	}
 
 	it('should be defined', () => {
+		console.log(process.env.SMTP_HOST);
 		expect(teamsService).toBeDefined();
 	});
 
@@ -186,8 +191,6 @@ describe('TeamService', () => {
 		expect(updatedTeam.image).toBeDefined();
 	});
 
-	// ! Having error with this test case,  connect ECONNREFUSED 127.0.0.1:587 when trying to send email notification to user about invite in:
-	// ! teams.service.ts => line 217
 	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
 		const user1 = await createUser();
 
@@ -205,9 +208,32 @@ describe('TeamService', () => {
 
 		const updatedUser2 = await userService.getUserById(user2._id);
 
+		console.log(updatedUser2);
+
 		expect(updatedUser2.notifications[1]._id).toStrictEqual(
 			info.notificationID,
 		);
+	});
+
+	it('should create user, give him role, create team, then create another user invite him to team and double check invite has image field', async () => {
+		const user1 = await createUser();
+
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(user1._id),
+		);
+
+		const user2 = await userService.createUser(
+			RegisterUserDtoStub('mmashc2@uic.edu'),
+		);
+
+		const info = await teamsService.inviteToTeam(
+			InviteToTeamDtoStub(user2.email, user1._id, team._id),
+		);
+
+		const updatedUser2 = await userService.getUserById(user2._id);
+
+		// @ts-ignore
+		expect(updatedUser2.notifications[1].image).toBeDefined();
 	});
 
 	it('should create user, give him role, create team and then delete it immidiately', async () => {

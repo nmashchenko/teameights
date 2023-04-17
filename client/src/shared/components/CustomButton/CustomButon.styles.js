@@ -3,20 +3,28 @@ import styled from 'styled-components'
 import { GREEN, WHITE } from '../../../constants/colors'
 
 export const Button = styled.button`
-  font-weight: 600;
-  font-size: 16px;
-  border: none;
-  width: 133px;
-  height: 45px;
-  background: ${GREEN.button};
-  color: ${WHITE.main};
-  text-align: center;
+  background-color: ${(props) => (props.background ? props.background : GREEN.button)};
+  border: ${(props) => (props.border ? props.border : 'none')};
+  color: ${(props) => (props.transparent ? '#007bff' : '#fff')};
+  padding: 0.875rem 0;
+  width: 10.625rem;
   border-radius: 10px;
-  box-shadow: 0px 4px 50px rgba(93, 157, 11, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 140%;
+  cursor: pointer;
+  opacity: ${(props) => (props.disabled ? '0.4' : '1')};
 
-  &:hover {
-    border: none;
-    cursor: pointer;
-    transition: 0.15s;
-  }
+  //&:hover {
+  //  border: none;
+  //  cursor: pointer;
+  //  transition: 0.15s;
+  //}
+`
+
+export const IconWrapper = styled.span`
+  display: flex;
+  margin-right: ${(props) => (props.iconPosition === 'right' ? 0 : '0.5rem')};
+  margin-left: ${(props) => (props.iconPosition === 'left' ? 0 : '0.5rem')};
 `

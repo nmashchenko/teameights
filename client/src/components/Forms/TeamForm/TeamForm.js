@@ -49,7 +49,6 @@ function TeamForm() {
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
 
-  console.log({ team })
   const { enqueueSnackbar } = useSnackbar()
   const createDate = new Date(team?.createdAt)
     .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })

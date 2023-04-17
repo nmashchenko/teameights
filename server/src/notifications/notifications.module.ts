@@ -16,6 +16,9 @@ import {
 	SystemNotificationSchema,
 } from './schemas/system.schema';
 import { MailsModule } from '@/mails/mails.module';
+import { NotificationsController } from './notifications.controller';
+import { AuthModule } from '@/auth/auth.module';
+import { TokensModule } from '@/tokens/tokens.module';
 
 @Module({
 	providers: [NotificationsService],
@@ -39,6 +42,9 @@ import { MailsModule } from '@/mails/mails.module';
 		]),
 		MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
 		MailsModule,
+		// AuthModule,
+		// TokensModule,
 	],
+	controllers: [NotificationsController],
 })
 export class NotificationsModule {}
