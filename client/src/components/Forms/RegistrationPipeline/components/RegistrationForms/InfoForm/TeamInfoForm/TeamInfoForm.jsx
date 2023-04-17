@@ -46,9 +46,9 @@ const UserInfoForm = () => {
       </Stack>
       <CustomTextArea
         style={{ height: 'calc(100% - 5rem)' }}
-        label="About me (optional)"
+        label="About team (optional)"
         name="description"
-        placeholder="Write something about yourself..."
+        placeholder="Describe your team..."
         maxLength={200}
         margin="0 0 5rem 0"
       />

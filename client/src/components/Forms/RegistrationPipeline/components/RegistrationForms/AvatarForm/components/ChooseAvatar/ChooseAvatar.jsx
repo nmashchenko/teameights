@@ -25,6 +25,7 @@ const ChooseAvatar = ({ defaultAvatars }) => {
   useEffect(() => {
     if (userAvatar) {
       setFieldValue('file', userAvatar)
+      setDefaultAvatarSelected(null)
     } else {
       setFieldValue('file', defaultAvatarSelected?.path)
     }
