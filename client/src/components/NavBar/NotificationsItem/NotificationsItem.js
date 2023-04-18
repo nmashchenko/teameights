@@ -18,8 +18,7 @@ import {
 
 const NotificationsItem = ({ notification }) => {
   const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
-  const teamInviteMutation = useChangeMessageStatus()
-
+  const teamInviteMutation = useChangeMessageStatus(notification.teamid)
   const render = () => {
     switch (notification.type) {
       case 'SystemNotification':

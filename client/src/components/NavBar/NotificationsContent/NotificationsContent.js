@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // assets
 import Notification from '../../../assets/Sidebar/Notification'
@@ -12,6 +12,10 @@ const NotificationsContent = ({ user, sidebar }) => {
   const [modal, setModal] = useState(false)
 
   const unreadMessages = user.notifications.filter((item) => !item.read)
+
+  useEffect(() => {
+    console.log(1)
+  }, [user.notifications])
 
   return (
     <StyledNotificationsContent>

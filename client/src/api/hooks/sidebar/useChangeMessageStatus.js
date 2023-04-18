@@ -6,7 +6,7 @@ import { registrationAuth } from '../../../store/reducers/RegistrationAuth'
 
 const { api } = http
 
-export const useChangeMessageStatus = () => {
+export const useChangeMessageStatus = (teamId) => {
   const dispatch = useDispatch()
   const queryClient = useQueryClient()
 
@@ -22,6 +22,7 @@ export const useChangeMessageStatus = () => {
     mutationKey: 'finishRegistration',
     onSuccess: () => {
       queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+      queryClient.invalidateQueries(['getTeamById', teamId], { refetchInactive: true })
     },
     onError: (error) => {
       // set error message

@@ -7,15 +7,14 @@ import Modal from '@mui/material/Modal'
 import { useSnackbar } from 'notistack'
 
 // * API
-import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
+import { useInviteUser } from '../../../api/hooks/team/useInviteUser'
 import { useTeamMembership } from '../../../api/hooks/team/useTeamMembership'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
 import { LOCAL_PATH } from '../../../http'
-import { Button } from '../../../shared/components/CustomButton/CustomButon.styles'
 import Loader from '../../../shared/components/Loader/Loader'
 
 // * Styles
@@ -49,8 +48,8 @@ function TeamForm() {
   const userId = user?._id
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
-  const { mutateAsync: leaveTeam } = useTeamMembership('leave')
-
+  const { mutate: leaveTeam } = useTeamMembership('leave')
+  const { mutate: inviteUser, isLoading: isInviting } = useInviteUser(handleClose)
   const { enqueueSnackbar } = useSnackbar()
   const createDate = new Date(team?.createdAt)
     .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
@@ -62,26 +61,19 @@ function TeamForm() {
 
   const handleOpenDelete = () => setOpen(true)
   const handleDelete = () => deleteTeam(team?._id)
-  const handleClose = () => {
+
+  function handleClose() {
     setOpen(false)
     setInviteActive(false)
   }
 
   const handleInvite = async () => {
-    const result = await teamsAPI.inviteUserByEmail(email, team?._id, user?._id)
-
-    if (result.data.error) {
-      enqueueSnackbar(result.data.error, {
-        preventDuplicate: true,
-      })
-    } else {
-      handleClose()
-    }
+    const result = inviteUser({ email, userId, teamId })
   }
 
   const handleLeave = () => leaveTeam({ userId, teamId })
 
-  if (isUserTeamLoading || isDeleting || isUserDataLoading) {
+  if (isUserTeamLoading || isDeleting || isUserDataLoading || isInviting) {
     return <Loader />
   }
   if (!team) {

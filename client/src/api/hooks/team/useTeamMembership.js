@@ -13,8 +13,6 @@ export const useTeamMembership = (action) => {
       user_id: details.userId,
       teamid: details.teamId,
     })
-
-    return response.data
   }
 
   return useMutation(toggleMembership, {
