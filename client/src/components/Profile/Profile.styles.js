@@ -141,6 +141,7 @@ export const RightCardData = styled.div`
   gap: 10px;
   flex-wrap: wrap;
   min-height: 50px;
+  height: 100%;
   justify-content: ${(props) => props.justify || 'start'};
   align-items: center;
 `

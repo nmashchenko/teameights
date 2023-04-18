@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  step: 0,
+  step: 1,
   isLastStep: false,
   isFinishRegistrationStarted: false,
   isOptionalStep: false,
@@ -43,6 +43,10 @@ export const registrationAuth = createSlice({
       state.error = action.payload
       state.userData.isRegistered = false
     },
+    startRegistration(state) {
+      state.isLastStep = false
+      state.step = 1
+    },
   },
 })
 
@@ -57,6 +61,7 @@ export const {
   setStageOneCompleted,
   finishRegistration,
   finishRegistrationError,
+  startRegistration,
 } = registrationAuth.actions
 
 export default registrationAuth.reducer

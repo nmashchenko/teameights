@@ -442,11 +442,13 @@ export const CloseContainer = styled.div`
 export const Input = styled.input`
   margin: 0;
   outline: 0;
-  border: none;
-  background: transparent;
-  font-size: 16px;
-  width: 100%;
-  color: #fff;
+  border-width: 0 0 1.5px;
+  border-color: ${(props) => props.borderColor || 'rgba(93, 157, 11, 0.5)'};
+  background: inherit;
+  height: ${(props) => props.height || '40px'};
+  font-size: 18px;
+  margin: ${(props) => props.margin || '0'};
+  color: ${WHITE.main};
 
   &:focus {
     border-color: ${WHITE.main};

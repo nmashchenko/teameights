@@ -3,9 +3,14 @@ import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
 
 // * Constants
-import { BLACK, WHITE } from '../../../../../constants/colors'
+import { GREEN } from '../../../../../constants/colors'
+import { Text } from '../../../../../shared/styles/Tpography.styles'
 
-export const NavBar = styled(Toolbar)``
+export const NavBar = styled(Toolbar)`
+  background: #26292b;
+  padding: 0 !important;
+  min-height: 2.375rem !important;
+`
 
 export const InfoContainer = styled.div`
   display: flex;
@@ -15,9 +20,13 @@ export const InfoContainer = styled.div`
   cursor: pointer;
 `
 
-export const InfoText = styled.h3`
-  font-size: ${(props) => props.fontSize || `16px`};
-  font-weight: 500;
-  margin: 0;
-  color: ${WHITE.main};
+export const SectionName = styled(Text)`
+  font-size: 2rem;
+  color: ${GREEN.text};
+  line-height: 120%;
+`
+
+export const SectionNameOptionalText = styled.span`
+  color: #86878b;
+  font-size: 16px;
 `

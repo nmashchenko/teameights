@@ -29,6 +29,13 @@ export class User {
 	fullName: string;
 
 	@ApiProperty({
+		example: '2016-05-18T14:10:30Z',
+		description: 'Date of Birth',
+	})
+	@Prop()
+	birthDate: Date;
+
+	@ApiProperty({
 		example: 'true',
 		description: 'Did user click on confirmation email?',
 	})
@@ -64,23 +71,72 @@ export class User {
 	@Prop()
 	age: string;
 
-	@ApiProperty({ example: 'UIC', description: 'University (if any)' })
-	@Prop()
-	university: string;
-
+	/* UNIVERSITY DATA */
 	@ApiProperty({
-		example: 'Computer Science',
-		description: 'Area of studies of user',
+		example: [
+			{
+				university: 'UIC',
+				degree: `Bachelor's degree`,
+				major: 'Computer Science',
+				addmissionDate: '2016-05-18T14:10:30Z',
+				graduationDate: '2020-05-18T14:10:30Z',
+			},
+		],
+		description: 'University data of the user',
 	})
-	@Prop()
-	major: string;
+	@Prop({
+		_id: false,
+		type: [
+			{
+				university: { type: String },
+				degree: { type: String },
+				major: { type: String },
+				addmissionDate: { type: Date },
+				graduationDate: { type: Date },
+			},
+		],
+	})
+	universityData: [
+		{
+			university: string;
+			degree: string;
+			major: string;
+			addmissionDate: Date;
+			graduationDate: Date;
+		},
+	];
 
+	/* JOB DATA */
 	@ApiProperty({
-		example: 'UNIX Date',
-		description: 'Date when user graudates',
+		example: [
+			{
+				title: 'SWE',
+				company: `Spotify`,
+				startDate: '2016-05-18T14:10:30Z',
+				endDate: '2020-05-18T14:10:30Z',
+			},
+		],
+		description: 'University data of the user',
 	})
-	@Prop()
-	graduationDate: string;
+	@Prop({
+		_id: false,
+		type: [
+			{
+				title: { type: String },
+				company: { type: String },
+				startDate: { type: Date },
+				endDate: { type: Date },
+			},
+		],
+	})
+	jobData: [
+		{
+			title: string;
+			company: string;
+			startDate: Date;
+			endDate: Date;
+		},
+	];
 
 	@ApiProperty({
 		example: 'Frontend Developer',

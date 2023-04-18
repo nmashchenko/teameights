@@ -11,7 +11,6 @@ import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { TeamType } from './types/teams.type';
 import { TeamMembershipDTO } from './dto/membership.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
-import { plainToClass } from 'class-transformer';
 import { teamUpdateValidate } from '@/validation/team-update.validation';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { MailsService } from '@/mails/mails.service';
@@ -239,18 +238,24 @@ export class TeamsService {
 			await this.notificationsService.createTeamNotification({
 				userid: candidate._id,
 				teamid: team._id,
-				message: `You were invited to the team ${team.name}!`,
 				from_user_id: dto.from_user_id,
 				to_user_email: candidate.email,
 				status: 'pending',
+				// TODO: remove this later
+				image: team.hasOwnProperty('image')
+					? team.image
+					: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Style_-_Wouldn%27t_It_Be_Nice.png',
 			});
 
 		await this.userService.addNotification(candidate._id, notificationID);
 
-		// ! ERROR: getting error when trying to add this, on github acions:
-		// ! connect ECONNREFUSED 127.0.0.1:587
-		// ! Investigate later
-		// await this.mailService.sendTeamInviteEmail(candidate.email);
+		const from_user = await this.userService.getUserById(dto.from_user_id);
+		await this.mailService.sendTeamInviteEmail(
+			'http://localhost:3000',
+			candidate,
+			from_user,
+			team,
+		);
 
 		return {
 			status: `${candidate.email} invited to team ${team.name} with id ${team._id}!`,

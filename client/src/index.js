@@ -11,13 +11,21 @@ import { setupStore } from './store/store'
 import App from './App'
 
 const GlobalStyle = createGlobalStyle`
- * {  
-font-family: 'NoirPro' !important;
-font-style: normal !important;
+
+ *,
+ *::before,
+ *::after {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: "Montserrat" !important;
  }
 
-`
 
+ ul{
+   list-style-type: none;
+ }
+`
 const store = setupStore()
 const queryClient = new QueryClient()
 

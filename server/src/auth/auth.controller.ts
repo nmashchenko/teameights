@@ -2,6 +2,7 @@ import {
 	Body,
 	Controller,
 	Get,
+	Ip,
 	Param,
 	Post,
 	Req,
@@ -34,6 +35,7 @@ export class AuthController {
 		@Res({ passthrough: true }) res: Response,
 	): Promise<AuthResponseDto> {
 		const data = await this.authService.registration(dto);
+
 		res.cookie('refreshToken', data.refreshToken, {
 			maxAge: 30 * 24 * 60 * 60 * 1000,
 			httpOnly: true,
@@ -151,8 +153,11 @@ export class AuthController {
 		description: 'Generated link',
 	})
 	@Get('/reset-password/:email')
-	async resetPassword(@Param('email') email: string): Promise<Object> {
-		return await this.authService.resetPassword(email);
+	async resetPassword(
+		@Ip() ip: ParameterDecorator,
+		@Param('email') email: string,
+	): Promise<Object> {
+		return await this.authService.resetPassword(email, ip);
 	}
 
 	@ApiOperation({

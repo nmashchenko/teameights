@@ -59,15 +59,15 @@ const getTeamMembers = async (teamMembers) => {
 }
 
 const addUserToTeam = async (userId, teamId) => {
-  try {
-    const data = await api.post('/add-to-team', { teamId, userId })
-
-    return data
-  } catch (err) {
-    console.log(err)
-
-    return err.message
-  }
+  // try {
+  //   const data = await api.post('/add-to-team', { teamId, userId })
+  //
+  //   return data
+  // } catch (err) {
+  //   console.log(err)
+  //
+  //   return err.message
+  // }
 }
 
 const inviteUserByEmail = async (email, teamId) => {

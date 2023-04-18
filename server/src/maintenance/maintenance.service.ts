@@ -105,6 +105,7 @@ export class MaintenanceService {
 		initialUser.email = email;
 		initialUser.username = faker.internet.userName();
 		initialUser.fullName = faker.name.fullName();
+		initialUser.birthDate = faker.date.birthdate();
 		initialUser.age = String(faker.datatype.number({ min: 18, max: 65 }));
 		initialUser.description = faker.lorem.sentence();
 		initialUser.concentration = faker.name.jobTitle();
@@ -124,9 +125,21 @@ export class MaintenanceService {
 			this.programmingLanguages,
 		);
 		initialUser.frameworks = this.getRandomEntries(this.frameworks);
-		initialUser.university = faker.random.words(2);
-		initialUser.major = faker.random.words(2);
-		initialUser.graduationDate = faker.date.future().toISOString();
+
+		initialUser.universityData = {
+			university: faker.random.words(2),
+			major: faker.random.words(2),
+			degree: 'Bachelor',
+			addmissionDate: new Date(),
+			graduationDate: new Date(),
+		};
+
+		initialUser.jobData = {
+			title: faker.random.words(2),
+			company: faker.company.name(),
+			startDate: new Date(),
+			endDate: new Date(),
+		};
 
 		return initialUser;
 	}
