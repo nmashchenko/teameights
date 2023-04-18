@@ -65,7 +65,6 @@ function CreateTeamForm() {
       country: formData.country,
       type: formData.type.toLowerCase(),
       tag: formData.tag,
-      tag: '12122',
       members: formData.members,
     }
 

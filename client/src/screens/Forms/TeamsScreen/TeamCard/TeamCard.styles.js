@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 
+import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../../assets/fonts'
+
 export const TeamCardFigure = styled.figure`
   background-color: #1a1c22;
   width: 670px;
-  height: 468px;
+  height: 470px;
   padding: 24px 32px;
   border-radius: 15px;
   position: absolute;
@@ -11,6 +13,19 @@ export const TeamCardFigure = styled.figure`
   top: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
+
+  h3 {
+    font-size: ${B3fs} !important;
+    font-weight: ${B3fw} !important;
+    line-height: ${B3lh} !important;
+    color: #86878b;
+  }
+  p {
+    font-size: ${B2fs} !important;
+    font-weight: ${B2fw} !important;
+    line-height: ${B2lh} !important;
+    color: #ffffff;
+  }
 `
 
 export const TeamCardTop = styled.div`
@@ -31,15 +46,12 @@ export const TeamCardTopInfo = styled.div`
     width: 140px;
   }
 
-  h3 {
-    font-size: 17px;
-    color: #86878b;
-    font-weight: 400;
-  }
-
-  p {
-    font-size: 16px;
-    color: #fff;
+  display: flex;
+  align-items: center;
+  div {
+    h3 {
+      margin-bottom: 8px;
+    }
   }
 `
 
@@ -54,7 +66,7 @@ export const TeamCardBody = styled.div`
   flex-direction: column;
   gap: 40px;
   background-color: transparent;
-  margin-top: 10px;
+  margin-top: 16px;
 `
 
 export const TeamCardBodyPoint = styled.div`
@@ -63,18 +75,38 @@ export const TeamCardBodyPoint = styled.div`
     color: #86878b;
     margin: 0;
     font-weight: 400;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   background-color: transparent;
 
-  margin-bottom: 16px;
+  // margin-bottom: 8px;
 
   div :not(div div) {
     display: flex;
     gap: 36px;
   }
 
+  :nth-child(1) {
+    p {
+      height: 88px;
+      overflow-y: scroll;
+      padding-right: 8px;
+      ::-webkit-scrollbar {
+        transition: all 0.2s;
+        width: 8px;
+        height: auto;
+      }
+      ::-webkit-scrollbar-track {
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: #5d9d0b;
+        border-radius: 10px;
+      }
+    }
+  }
   :nth-child(2) {
+    margin: 16px 0;
     display: flex;
     gap: 48px;
     h3 {
@@ -83,8 +115,8 @@ export const TeamCardBodyPoint = styled.div`
   }
 
   :nth-child(4) {
+    margin-top: 32px;
     display: flex;
-    padding-top: 24px;
     justify-content: space-between;
   }
 `

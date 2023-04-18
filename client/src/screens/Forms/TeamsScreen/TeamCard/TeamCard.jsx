@@ -27,7 +27,7 @@ import {
 const TeamCard = ({ user, handleClose, team, handleJoin }) => {
   const members = team.members
 
-  const leader = members.slice(0, 1)
+  const leader = members.slice(0, 1)[0]
 
   const teammates = members.slice(1, members.length)
 
@@ -45,28 +45,34 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
 
   const usersTeam = getTeam()
 
-  console.log(usersTeam === 'Your')
-
   return (
     <TeamCardFigure>
       <TeamCardTop>
         <TeamCardTopInfo>
-          <h3>Name</h3>
-          <p>{team.name}</p>
+          <div>
+            <h3>Name</h3>
+            <p>{team.name}</p>
+          </div>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
-          <h3>Tag</h3>
-          <p>[TAG]</p>
+          <div>
+            <h3>Tag</h3>
+            <p>{team.tag}</p>
+          </div>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
-          <h3>Status</h3>
-          <p>{team.type}</p>
+          <div>
+            <h3>Status</h3>
+            <p>{team.type}</p>
+          </div>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
-          <h3>Country</h3>
-          <p>{team.country}</p>
+          <div>
+            <h3>Country</h3>
+            <p>{team.country}</p>
+          </div>
         </TeamCardTopInfo>
-        <TeamCardTopIcon src={require('./defaultImg.png')} />
+        <TeamCardTopIcon src={LOCAL_PATH + '/' + team?.image} />
       </TeamCardTop>
       <TeamCardBody>
         <TeamCardBodyPoint>
@@ -80,7 +86,7 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
                 <Crown />
               </CrownContainer>
               <h3>Leader</h3>
-              <TeamCardPicture src={team?.image ? LOCAL_PATH + '/' + team.image : tempImg} />
+              <TeamCardPicture src={leader?.image ? LOCAL_PATH + '/' + leader.image : tempImg} />
             </TeamCardPerson>
           </div>
           <div>
@@ -89,7 +95,13 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
               {teammates.map((teammates, index) => {
                 return (
                   <TeamCardPerson key={index}>
-                    <TeamCardPicture src={require('./defaultImg.png')} />
+                    <TeamCardPicture
+                      src={
+                        teammates?.image
+                          ? LOCAL_PATH + '/' + teammates.image
+                          : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
+                      }
+                    />
                   </TeamCardPerson>
                 )
               })}
@@ -101,7 +113,7 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
           <StatisticsFlex>
             <Statistic>
               <p>
-                Tournaments: <span>[NUMBER]</span>
+                Tournaments: <span>5</span>
               </p>
             </Statistic>
             <Statistic>

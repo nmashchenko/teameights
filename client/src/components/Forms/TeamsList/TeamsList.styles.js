@@ -27,7 +27,6 @@ export const Card = styled.div`
   align-items: start;
   width: 774px;
   background: #1a1c22;
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   padding: 25px 40px;
 `
@@ -40,6 +39,7 @@ export const ColumnNames = styled.div`
 `
 
 export const Text = styled.h3`
+  line-height: ${(props) => props.lineHeight || '500'};
   font-weight: ${(props) => props.fontWeight || '500'};
   font-size: ${(props) => props.fontSize || '24px'};
   margin: ${(props) => props.margin || '0 0 0 0'};
@@ -53,6 +53,9 @@ export const TeamData = styled.div`
   // justify-content: space-between;
   // align-items: center;
   grid-template-columns: 1.2fr 1.3fr 0.9fr 0.5fr;
+
+  justify-content: center;
+  align-items: center;
 
   margin-top: ${(props) => props.margin || '0'};
 `

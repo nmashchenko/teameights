@@ -13,6 +13,8 @@ import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 // import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeave } from '../../../api/hooks/team/useLeave'
+import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../assets/fonts'
+import { LOCAL_PATH } from '../../../http'
 import TeamCard from '../../../screens/Forms/TeamsScreen/TeamCard/TeamCard'
 import Loader from '../../../shared/components/Loader/Loader'
 import { userAuth } from '../../../store/reducers/UserAuth'
@@ -149,23 +151,29 @@ function TeamsList() {
         <CardContainer>
           <Card>
             <ColumnNames>
-              <Text fontSize="16px" color="#5D9D0B">
+              <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
                 Photo
               </Text>
-              <Text fontSize="16px" color="#5D9D0B">
+              <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
                 Name
               </Text>
-              <Text fontSize="16px" color="#5D9D0B">
+              <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
                 People
               </Text>
             </ColumnNames>
             {teams.map((team, i) => (
               <TeamData margin="60px" key={i}>
-                <TeamImage src="https://pbs.twimg.com/profile_images/1406293979323371528/TJ7BseVI_400x400.jpg" />
-                <Text fontSize="18px" color="white">
+                <TeamImage
+                  src={
+                    team?.image
+                      ? LOCAL_PATH + '/' + team?.image
+                      : 'https://pbs.twimg.com/profile_images/1406293979323371528/TJ7BseVI_400x400.jpg'
+                  }
+                />
+                <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
                   {team.name}
                 </Text>
-                <Text fontSize="18px" color="white">
+                <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
                   {team.members.length}/8
                 </Text>
                 <TeamButton onClick={() => handleClickOpen(team)}>
