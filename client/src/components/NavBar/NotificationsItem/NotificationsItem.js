@@ -54,7 +54,7 @@ const NotificationsItem = ({ notification }) => {
             <FlexWrapper gap="12px">
               <MessagePicture>
                 {!notification.read && <MessageCircle />}
-                <img src={LOCAL_PATH + '/' + notification.image} alt="" />
+                <img src={notification.image} alt="" />
               </MessagePicture>
               <MessageContentWrapper>
                 <MessageText>{notification.message}</MessageText>

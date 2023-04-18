@@ -11,6 +11,7 @@ import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
+import { useTeamMembership } from '../../../api/hooks/team/useTeamMembership'
 import Add from '../../../assets/TeamPage/Add'
 import Delete from '../../../assets/TeamPage/Delete'
 import { LOCAL_PATH } from '../../../http'
@@ -38,7 +39,6 @@ import {
   UserInfo,
 } from './TeamForm.styles'
 import tempImg from './zxc1.jpg'
-import {useTeamMembership} from "../../../api/hooks/team/useTeamMembership";
 
 function TeamForm() {
   const [open, setOpen] = useState(false)
@@ -46,7 +46,7 @@ function TeamForm() {
   const [email, setEmail] = useState('')
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
   const teamId = user?.team?._id
-  const userId =  user?._id
+  const userId = user?._id
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
   const { mutateAsync: leaveTeam } = useTeamMembership('leave')
@@ -79,7 +79,7 @@ function TeamForm() {
     }
   }
 
-  const handleLeave =  () => leaveTeam({userId, teamId})
+  const handleLeave = () => leaveTeam({ userId, teamId })
 
   if (isUserTeamLoading || isDeleting || isUserDataLoading) {
     return <Loader />
@@ -158,7 +158,7 @@ function TeamForm() {
             <ActionButton onClick={handleOpenDelete}>
               <Delete />
             </ActionButton>
-            <ActionButton style={{color: 'red'}} onClick={handleLeave}>
+            <ActionButton style={{ color: 'red' }} onClick={handleLeave}>
               Leave
             </ActionButton>
           </ButtonCardContent>

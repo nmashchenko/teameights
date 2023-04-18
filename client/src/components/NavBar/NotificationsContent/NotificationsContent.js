@@ -24,7 +24,7 @@ const NotificationsContent = ({ user, sidebar }) => {
           <Notification />
         </IconWrapper>
         <p>Notifications</p>
-        {unreadMessages.length && !modal && (
+        {!!unreadMessages.length && !modal && (
           <>
             <NotificationsCount active={!sidebar} top="6px" left="28px">
               {unreadMessages.length}
