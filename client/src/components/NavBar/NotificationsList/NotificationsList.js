@@ -5,7 +5,7 @@ import NotificationsItem from '../NotificationsItem/NotificationsItem'
 
 import { StyledNotificationsList } from './NotificationsList.styles'
 
-const NotificationsList = ({ unreadIds, setUnreadIds }) => {
+const NotificationsList = ({ setUnreadIds }) => {
   const { data: user } = useCheckAuth()
   const listRef = useRef(null)
 
@@ -31,8 +31,6 @@ const NotificationsList = ({ unreadIds, setUnreadIds }) => {
       observer.disconnect()
     }
   }, [user.notifications])
-
-  console.log(unreadIds)
 
   return (
     <StyledNotificationsList ref={listRef}>

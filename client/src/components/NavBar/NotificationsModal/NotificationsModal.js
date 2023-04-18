@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-import { useReadMessages } from '../../../api/hooks/auth/useReadMessages'
+import { useReadMessages } from '../../../api/hooks/sidebar/useReadMessages'
 import Checks from '../../../assets/Sidebar/Checks'
 import Cross from '../../../assets/Sidebar/Cross'
 import { useOutsideClick } from '../../../hooks/useOutsideClick'
@@ -47,7 +47,7 @@ const NotificationsModal = ({ modal, setModal }) => {
           <Cross />
         </CrossBtn>
       </NotificationsHeader>
-      {modal && <NotificationsList unreadIds={unreadIds} setUnreadIds={setUnreadIds} />}
+      {modal && <NotificationsList setUnreadIds={setUnreadIds} />}
     </StyledNotificationsModal>
   )
 }

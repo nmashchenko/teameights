@@ -1,3 +1,4 @@
+import { useChangeMessageStatus } from '../../../api/hooks/sidebar/useChangeMessageStatus'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import LightningIcon from '../../../assets/Sidebar/LightningIcon'
 import WarningIcon from '../../../assets/Sidebar/WarningIcon'
@@ -17,6 +18,7 @@ import {
 
 const NotificationsItem = ({ notification }) => {
   const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
+  const teamInviteMutation = useChangeMessageStatus()
 
   const render = () => {
     switch (notification.type) {
@@ -34,32 +36,50 @@ const NotificationsItem = ({ notification }) => {
           </>
         )
       case 'TeamInvitationNotification':
-        if (isLoading) {
-          return <p>loading</p>
-        } else if (error) {
-          return (
-            <FlexWrapper gap="12px">
-              <MessagePicture width="20px" height="20px" color="#CD3633">
-                <WarningIcon />
-              </MessagePicture>
-              <MessageText>The notification failed to load</MessageText>
-            </FlexWrapper>
-          )
-        }
-        console.log(teamData)
+        // if (isLoading) {
+        //   return <p>Loading</p>
+        // } else if (error) {
+        //   return (
+        //     <FlexWrapper gap="12px">
+        //       <MessagePicture width="20px" height="20px" color="#CD3633">
+        //         <WarningIcon />
+        //       </MessagePicture>
+        //       <MessageText>The notification failed to load</MessageText>
+        //     </FlexWrapper>
+        //   )
+        // }
 
         return (
           <>
             <FlexWrapper gap="12px">
               <MessagePicture>
                 {!notification.read && <MessageCircle />}
-                <img src={LOCAL_PATH + '/' + teamData.image} alt="" />
+                <img src={LOCAL_PATH + '/' + notification.image} alt="" />
               </MessagePicture>
               <MessageContentWrapper>
                 <MessageText>{notification.message}</MessageText>
                 <FlexWrapper gap="8px">
-                  <MessageButton bgColor="#46a11b">Accept</MessageButton>
-                  <MessageButton>Reject</MessageButton>
+                  <MessageButton
+                    onClick={() =>
+                      teamInviteMutation.mutate({
+                        status: true,
+                        messageId: notification._id,
+                      })
+                    }
+                    bgColor="#46a11b"
+                  >
+                    Accept
+                  </MessageButton>
+                  <MessageButton
+                    onClick={() =>
+                      teamInviteMutation.mutate({
+                        status: false,
+                        messageId: notification._id,
+                      })
+                    }
+                  >
+                    Reject
+                  </MessageButton>
                 </FlexWrapper>
               </MessageContentWrapper>
             </FlexWrapper>
