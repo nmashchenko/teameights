@@ -10,7 +10,6 @@ import { useSnackbar } from 'notistack'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
-import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import TopTemplate from '../../TopTemplate/TopTemplate'
 
 // * Styles
@@ -25,6 +24,7 @@ import {
   TeamImage,
   Text,
 } from './TeamsList.styles'
+import {useTeamMembership} from "../../../api/hooks/team/useTeamMembership";
 
 function TeamsList() {
   const navigate = useNavigate()
@@ -36,7 +36,7 @@ function TeamsList() {
   const [teams, setTeams] = useState([])
   const [open, setOpen] = useState(false)
   const [selectedTeam, setSelectedTeam] = useState({})
-  const { mutateAsync: joinUser } = useJoinTeam()
+  const { mutateAsync: joinUser } = useTeamMembership('join')
   const userId = user?._id
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function TeamsList() {
   }
 
   const handleJoin = async (teamId) => {
-    const result = await joinUser({ user_id: userId, teamid: teamId })
+    const result = await joinUser({userId, teamId})
 
     if (result) {
       handleClose()

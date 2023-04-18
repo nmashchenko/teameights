@@ -38,6 +38,7 @@ import {
   UserInfo,
 } from './TeamForm.styles'
 import tempImg from './zxc1.jpg'
+import {useTeamMembership} from "../../../api/hooks/team/useTeamMembership";
 
 function TeamForm() {
   const [open, setOpen] = useState(false)
@@ -45,9 +46,10 @@ function TeamForm() {
   const [email, setEmail] = useState('')
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
   const teamId = user?.team?._id
-
+  const userId =  user?._id
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
+  const { mutateAsync: leaveTeam } = useTeamMembership('leave')
 
   const { enqueueSnackbar } = useSnackbar()
   const createDate = new Date(team?.createdAt)
@@ -66,7 +68,7 @@ function TeamForm() {
   }
 
   const handleInvite = async () => {
-    const result = await teamsAPI.inviteUserByEmail(email, team)
+    const result = await teamsAPI.inviteUserByEmail(email, team?._id, user?._id)
 
     if (result.data.error) {
       enqueueSnackbar(result.data.error, {
@@ -76,6 +78,8 @@ function TeamForm() {
       handleClose()
     }
   }
+
+  const handleLeave =  () => leaveTeam({userId, teamId})
 
   if (isUserTeamLoading || isDeleting || isUserDataLoading) {
     return <Loader />
@@ -153,6 +157,9 @@ function TeamForm() {
             </ActionButton>
             <ActionButton onClick={handleOpenDelete}>
               <Delete />
+            </ActionButton>
+            <ActionButton style={{color: 'red'}} onClick={handleLeave}>
+              Leave
             </ActionButton>
           </ButtonCardContent>
         </Card>
