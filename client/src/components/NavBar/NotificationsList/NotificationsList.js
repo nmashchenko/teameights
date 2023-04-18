@@ -17,7 +17,6 @@ const NotificationsList = ({ unreadIds, setUnreadIds }) => {
           const isRead = entry.target.getAttribute('data-notification-read')
 
           if (isRead === 'false') {
-            console.log(unreadIds)
             setUnreadIds((prev) => prev.add(itemId))
           }
         }
@@ -35,51 +34,10 @@ const NotificationsList = ({ unreadIds, setUnreadIds }) => {
 
   console.log(unreadIds)
 
-  const mockNotifications = [
-    {
-      _id: 228,
-      type: 'SystemNotification',
-      read: false,
-      system_message: 'This is mock message',
-      createdAt: new Date(),
-    },
-    {
-      _id: 1337,
-      type: 'SystemNotification',
-      read: false,
-      system_message: 'This is mock message',
-      createdAt: new Date(),
-    },
-    {
-      _id: 13123123,
-      type: 'SystemNotification',
-      read: false,
-      system_message: 'This is mock message',
-      createdAt: new Date(),
-    },
-    {
-      _id: 7324242,
-      type: 'SystemNotification',
-      read: false,
-      system_message: 'This is mock message',
-      createdAt: new Date(),
-    },
-    {
-      _id: 81231231,
-      type: 'SystemNotification',
-      read: false,
-      system_message: 'This is mock message',
-      createdAt: new Date(),
-    },
-  ]
-
   return (
     <StyledNotificationsList ref={listRef}>
       {user?.notifications &&
-        user.notifications.map((item) => <NotificationsItem key={item.id} notification={item} />)}
-      {mockNotifications.map((item) => (
-        <NotificationsItem key={item.id} notification={item} />
-      ))}
+        user.notifications.map((item) => <NotificationsItem key={item._id} notification={item} />)}
     </StyledNotificationsList>
   )
 }

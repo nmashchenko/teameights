@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 
+import { useReadMessages } from '../../../api/hooks/auth/useReadMessages'
 import Checks from '../../../assets/Sidebar/Checks'
 import Cross from '../../../assets/Sidebar/Cross'
 import { useOutsideClick } from '../../../hooks/useOutsideClick'
@@ -16,6 +17,7 @@ import {
 const NotificationsModal = ({ modal, setModal }) => {
   const [unreadIds, setUnreadIds] = useState(new Set())
   const modalRef = useRef(null)
+  const notificationsMutation = useReadMessages()
 
   useOutsideClick(modalRef, closeNotificationsModal)
 
@@ -24,7 +26,9 @@ const NotificationsModal = ({ modal, setModal }) => {
       setModal(false)
       if (unreadIds.size) {
         // Request to the server is here
-        console.log(Array.from(unreadIds))
+        notificationsMutation.mutate({
+          notifications: Array.from(unreadIds),
+        })
         setUnreadIds(new Set())
       }
     }
