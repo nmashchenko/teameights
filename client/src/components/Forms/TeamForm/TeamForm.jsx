@@ -1,11 +1,9 @@
 // * Modules
 import { useEffect, useState } from 'react'
 // * Redux
-import { Link, useNavigate } from 'react-router-dom'
-import { CssBaseline, Radio, RadioGroup } from '@mui/material'
+import { CssBaseline } from '@mui/material'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { Field, Form, Formik, useFormikContext } from 'formik'
 import { useSnackbar } from 'notistack'
 
 // * API
@@ -17,102 +15,48 @@ import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import { useLeave } from '../../../api/hooks/team/useLeave'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
 import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
-import { useUpdateTeamsAvatar } from '../../../api/hooks/team/useUpdateTeamsAvatar'
-import Cake from '../../../assets/Cake'
-import { CheckCircle } from '../../../assets/CheckCircle'
 import Close from '../../../assets/Close'
-import Crown from '../../../assets/Crown'
-import { defaultTeamImages } from '../../../assets/defaults/defaults'
 import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../assets/fonts'
-import { PencilSimple } from '../../../assets/PencilSimple'
 import SearchIcon from '../../../assets/SearchIcon'
-import Add from '../../../assets/TeamPage/Add'
-import Delete from '../../../assets/TeamPage/Delete'
 import { UploadSymbol } from '../../../assets/UploadSymbol'
 import UserPlus from '../../../assets/UserPlus'
-import Users from '../../../assets/Users'
-import http, { LOCAL_PATH } from '../../../http'
 import Loader from '../../../shared/components/Loader/Loader'
 
 import About from './About/About'
+import EditImage from './EditImage/EditImage'
 import Members from './Members/Members'
+import NoTeam from './NoTeam/NoTeam'
+import TopContainerComponent from './TopContainer/TopContainer'
+import RightMain from './RightMain'
 import TeamActionModal from './TeamActionModal'
 import {
-  ActionButton,
-  ButtonCardContent,
-  CakeBox,
-  CancelButton,
   Card,
   CardContainer,
-  Center,
-  CircleContainer,
-  CloseContainer,
   CloseContainerModal,
   Container,
   CreateButton,
-  CreateTeam,
-  CrownContainer,
-  CrownContainer2,
-  DefaultImg,
-  EditImageButton,
   EditTeam,
-  FileButton,
-  FormikContainer,
-  ImageBox,
   Input,
   InputBox,
-  InviteButton,
   LeaderActionsBox,
   LeaveTeam,
-  LeftContainer,
-  MainCardContent,
-  MyRadioGroup,
-  RightContainer,
   SearchIconContainer,
-  Statistic,
-  StatisticsFlex,
   style,
-  SVGAndText,
-  Tab,
-  TabContainer,
-  TeamButton,
-  TeamCardBody,
-  TeamCardBodyPoint,
-  TeamCardDesc,
-  TeamCardFigure,
-  TeamCardMembers,
-  TeamCardPerson,
-  TeamCardPicture,
-  TeamCardTop,
-  TeamCardTopIcon,
-  TeamCardTopInfo,
-  TeamImgBorder,
-  TeamInformationContainer,
   Text,
-  TopContainer,
-  UserCard,
-  UserGrid,
-  UserImg,
-  UserInfo,
   UserPlusContainer,
 } from './TeamForm.styles'
 import tempImg from './zxc1.jpg'
 
-function TeamForm({ switchPage }) {
-  const navigate = useNavigate()
-  const [inviteActive, setInviteActive] = useState(false)
-  const [deleteActive, setDeleteActive] = useState(false)
-  const [leaveActive, setLeaveActive] = useState(false)
+function TeamForm() {
   const [removeMemberActive, setRemoveMemberActive] = useState('')
+  const [modalActive, setModalActive] = useState('')
+
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [isEditing, setIsEditing] = useState(false)
-  const [hasUpdate, update] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [editImage, setEditImage] = useState(false)
   const [chosenLeader, changeChosenLeader] = useState({ username: '', id: '' })
   const [selectLeader, openSelectLeader] = useState(false)
-  const [transferActive, setTransferActive] = useState(false)
 
   const [isMembers, switchIsMembers] = useState(true)
 
@@ -122,10 +66,6 @@ function TeamForm({ switchPage }) {
   const { mutate: removeFromTeam, isLoading: isRemoving } = useRemoveMember()
   const { mutate: updateTeamsAvatar, isLoading: isUpdatingTeamsAvatar } = useUpdateAvatar('teams')
   const { mutate: transferLeader, isLoading: isTransferring } = useTransferLeader()
-
-  const createDate = new Date(team?.createdAt)
-      .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
-      .replace(',', '')
 
   const { data: user } = useCheckAuth()
   // We need: Leave team
@@ -140,30 +80,12 @@ function TeamForm({ switchPage }) {
   useEffect(() => {
     if (chosenLeader.username !== '') {
       // new leader chosen
-      console.log('SET ACTIVE')
 
       setOpen((prevState) => !prevState)
-      setTransferActive(true)
+      setModalActive('TransferLeader')
     }
   }, [chosenLeader])
   // When we press the cancel button, we need to turn Off
-
-  useEffect(() => {
-    const saveUpdates = async () => {
-      setLoading(true)
-
-      setTimeout(function () {
-        // update(false)
-        // setIsEditing(false)
-      }, 2000)
-
-      setLoading(false)
-    }
-
-    if (hasUpdate) {
-      saveUpdates()
-    }
-  }, [hasUpdate])
 
   // START IMAGES
   const [selectedImage, changeSelectedImage] = useState('')
@@ -178,14 +100,14 @@ function TeamForm({ switchPage }) {
   }, [isEditing])
 
   const selectedImgJSX =
-      imgData === null ? (
-          <>
-            <UploadSymbol />
-            <p style={{ margin: '0', marginTop: '12px' }}>Drop here or click to upload</p>
-          </>
-      ) : (
-          <div>{picture === null ? '' : picture.name}</div>
-      )
+    imgData === null ? (
+      <>
+        <UploadSymbol />
+        <p style={{ margin: '0', marginTop: '12px' }}>Drop here or click to upload</p>
+      </>
+    ) : (
+      <div>{picture === null ? '' : picture.name}</div>
+    )
 
   const getServedProfilePic = () => {
     // if we have no picture chosen, choose team image.
@@ -205,20 +127,144 @@ function TeamForm({ switchPage }) {
   }
 
   const servedProfilePic = getServedProfilePic()
+
   // END IMAGES
-  console.log({servedProfilePic})
   const handleClose = () => {
     setOpen(false)
-    setInviteActive(false)
-    setDeleteActive(false)
-    setLeaveActive(false)
     setRemoveMemberActive('')
-    setTransferActive(false)
     changeChosenLeader({ username: '', id: '' })
+    setModalActive('')
   }
 
   const { enqueueSnackbar } = useSnackbar()
   const handleDelete = () => deleteTeam(team?._id)
+
+  const handleActions = () => {
+    console.log('Actions')
+
+    if (modalActive === 'Leave') {
+      console.log('Leave')
+      leaveTeam({
+        user_id: user?._id,
+        teamid: team?._id,
+      })
+    } else if (modalActive === 'TransferLeader') {
+      console.log('Transfer')
+      transferLeader({
+        leader_id: team.leader._id,
+        new_leader_id: chosenLeader.id,
+        teamid: team._id,
+      })
+
+      setIsEditing(false)
+    } else if (modalActive === 'RemoveMember') {
+      console.log('Remove')
+      removeFromTeam({
+        user_id: removeMemberActive,
+        teamid: team?._id,
+      })
+    } else if (modalActive === 'Invite') {
+      console.log('Invite')
+      handleInvite()
+    } else if (modalActive === 'Delete') {
+      console.log('Delete')
+      deleteTeam(team?._id)
+    }
+    handleClose()
+    setModalActive('')
+  }
+  const handleModal = () => {
+    console.log('Open modal')
+    if (modalActive === 'Leave') {
+      console.log('Leave')
+
+      return (
+        <TeamActionModal
+          firstText="Leave Team"
+          secondText="Are you sure you want to leave?"
+          firstButton="Leave"
+          firstButtonHandler={handleActions}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+        />
+      )
+    } else if (modalActive === 'TransferLeader') {
+      console.log('TransferLeader')
+
+      return (
+        <TeamActionModal
+          firstText="Transfer leadership"
+          secondText={`Are you sure you want to transfer leadership to ${chosenLeader.username}? You will lose management rights.`}
+          firstButton="Confirm"
+          firstButtonHandler={handleActions}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+        />
+      )
+    } else if (modalActive === 'RemoveMember') {
+      console.log('RemoveMember')
+
+      return (
+        <TeamActionModal
+          firstText="Remove Member"
+          secondText="Are you sure you want to remove member from team?"
+          firstButton="Remove"
+          firstButtonHandler={handleActions}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+        />
+      )
+    } else if (modalActive === 'Invite') {
+      console.log('Invite')
+
+      return (
+        <>
+          <Text fontSize="24px" margin="0">
+            Send invite
+          </Text>
+
+          <InputBox>
+            <SearchIconContainer>
+              <SearchIcon />
+            </SearchIconContainer>
+            <Input
+              placeholder="Search username or email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            ></Input>
+          </InputBox>
+          <CreateButton onClick={handleActions}>
+            <UserPlusContainer>
+              <UserPlus />
+            </UserPlusContainer>
+            Invite
+          </CreateButton>
+        </>
+      )
+    } else if (modalActive === 'Delete') {
+      console.log('Delete')
+
+      return team.members.length > 1 ? (
+        <TeamActionModal
+          firstText="You can't delete team"
+          secondText="Before deleting team, you must delete all members"
+          firstButton="Okay"
+          firstButtonHandler={handleClose}
+        />
+      ) : (
+        <TeamActionModal
+          firstText="Delete Team"
+          secondText="Are you sure you want to delete?"
+          firstButton="Delete"
+          firstButtonHandler={handleActions}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+        />
+      )
+    }
+
+    return <></>
+  }
 
   const handleLeave = () => {
     leaveTeam({
@@ -249,22 +295,23 @@ function TeamForm({ switchPage }) {
 
   const handleOpenInvite = () => {
     setOpen(true)
-    setInviteActive(true)
+    setModalActive('Invite')
   }
 
   const handleOpenDelete = () => {
     setOpen(true)
-    setDeleteActive(true)
+    setModalActive('Delete')
   }
 
   const handleOpenLeave = () => {
     setOpen(true)
-    setLeaveActive(true)
+    setModalActive('Leave')
   }
 
   const handleRemoveMembers = (member) => {
     setOpen(true)
     setRemoveMemberActive(member)
+    setModalActive('RemoveMember')
   }
 
   const handleInvite = async () => {
@@ -279,445 +326,152 @@ function TeamForm({ switchPage }) {
     }
   }
 
-  if (isUserTeamLoading || isDeleting || isLeaving || isRemoving || isTransferring || isUpdatingTeamsAvatar) {
+  if (
+    isUserTeamLoading ||
+    isDeleting ||
+    isLeaving ||
+    isRemoving ||
+    isTransferring ||
+    isUpdatingTeamsAvatar
+  ) {
     return <Loader />
   }
 
-  const noTeam = (
-      <Center>
-        <Text fontWeight="600" fontSize="24px" margin="0 0 8px 0">
-          You don't have a team yet!
-        </Text>
-        <Text fontSize="16px" margin="0 0 8px 0">
-          You can create a new team or join an existing team.
-        </Text>
-        <Link to={'/create-team'}>
-          <CreateTeam>Create Team</CreateTeam>
-        </Link>
-        <TeamButton
-            onClick={() => {
-              navigate('/teams')
-            }}
-        >
-          Join Team
-        </TeamButton>
-      </Center>
-  )
-
   if (team === undefined) {
-    return <Container>{noTeam}</Container>
+    return <NoTeam />
   }
 
   const membersVar = (
-      <Members
-          chosenLeader={chosenLeader}
-          changeChosenLeader={changeChosenLeader}
-          handleRemoveMembers={handleRemoveMembers}
-          isEditing={isEditing}
-          team={team}
-          selectLeader={selectLeader}
-          openSelectLeader={openSelectLeader}
-      />
+    <Members
+      chosenLeader={chosenLeader}
+      changeChosenLeader={changeChosenLeader}
+      handleRemoveMembers={handleRemoveMembers}
+      isEditing={isEditing}
+      team={team}
+      selectLeader={selectLeader}
+      openSelectLeader={openSelectLeader}
+    />
   )
   const about = (
-      <About
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-          handleOpenDelete={handleOpenDelete}
-          team={team}
-      />
+    <About
+      isEditing={isEditing}
+      setIsEditing={setIsEditing}
+      handleOpenDelete={handleOpenDelete}
+      team={team}
+    />
   )
 
   const removeMemberModal = (
-      <TeamActionModal
-          firstText="Remove Member"
-          secondText="Are you sure you want to remove member from team?"
-          firstButton="Remove"
-          firstButtonHandler={removeMember}
-          secondButton="Cancel"
-          secondButtonHandler={handleClose}
-      />
+    <TeamActionModal
+      firstText="Remove Member"
+      secondText="Are you sure you want to remove member from team?"
+      firstButton="Remove"
+      firstButtonHandler={removeMember}
+      secondButton="Cancel"
+      secondButtonHandler={handleClose}
+    />
   )
 
   const leaderOrMemberAction = (
-      <>
-        {team.leader._id === user._id ? (
-            <LeaderActionsBox opacity={!isEditing || isMembers || editImage}>
-              <EditTeam
-                  onClick={() => {
-                    if (!isEditing) {
-                      // only update state if you are not editing
-                    } else {
-                      updateTeamsAvatar({ teamID: team._id, image: servedProfilePic.split(',')[1] })
-                    }
-                    setIsEditing((prevState) => {
-                      return !prevState
-                    })
-                  }}
-              >
-                {isEditing ? 'Save' : 'Edit'}
-              </EditTeam>
-              {loading ? Loader : <></>}
-              <LeaveTeam
-                  height="40px"
-                  onClick={() => {
-                    if (isEditing) {
-                      setIsEditing((prevState) => !prevState)
-                    } else {
-                      handleOpenDelete()
-                    }
-                  }}
-                  marginTop="0"
-              >
-                {isEditing ? 'Cancel' : 'Delete'}
-              </LeaveTeam>
-            </LeaderActionsBox>
-        ) : (
-            <LeaveTeam onClick={handleOpenLeave}>Leave Team</LeaveTeam>
-        )}
-      </>
-  )
-
-  const canDelete =
-      team.members.length > 1 ? (
-          <TeamActionModal
-              firstText="You can't delete team"
-              secondText="Before deleting team, you must delete all members"
-              firstButton="Okay"
-              firstButtonHandler={handleClose}
-          />
-      ) : (
-          <TeamActionModal
-              firstText="Delete Team"
-              secondText="Are you sure you want to delete?"
-              firstButton="Delete"
-              firstButtonHandler={handleDelete}
-              secondButton="Cancel"
-              secondButtonHandler={handleClose}
-          />
-      )
-
-  const updateImageContainer = (
-      <FormikContainer>
-        <Formik
-            initialValues={{
-              image: '',
-              default: '',
+    <>
+      {team.leader._id === user._id ? (
+        <LeaderActionsBox opacity={!isEditing || isMembers || editImage}>
+          <EditTeam
+            onClick={() => {
+              if (!isEditing) {
+                // only update state if you are not editing
+              } else {
+                updateTeamsAvatar({ teamID: team._id, image: servedProfilePic.split(',')[1] })
+              }
+              setIsEditing((prevState) => {
+                return !prevState
+              })
             }}
-            onSubmit={(values, actions) => {}}
-        >
-          {({ values, dirty, resetForm }) => {
-            return (
-                <Form
-                    style={{
-                      marginTop: '8px',
-                      color: '#FFFFFF',
-                    }}
-                    id="saveForm"
-                >
-                  <label htmlFor="defaults" style={{ marginBottom: '16px', display: 'inline-block' }}>
-                    Select a default
-                  </label>
-                  <MyRadioGroup
-                      name="default"
-                      onClick={(e) => {
-                        const pic = e.target.dataset.pic
-
-                        if (pic === undefined) {
-                          return
-                        }
-                        const nextPic = pic === selectedImage ? '' : pic
-
-                        setPicture(null)
-                        setImgData(null)
-                        changeSelectedImage(nextPic)
-                      }}
-                  >
-                    {defaultTeamImages.map((image, key) => (
-                        <ImageBox key={key} myKey={String(key) === selectedImage}>
-                          <DefaultImg
-                              data-pic={key}
-                              src={require(`../../../assets/defaults/${image}.png`)}
-                          />
-                          <span>
-                      <CheckCircle />
-                    </span>
-                        </ImageBox>
-                    ))}
-                  </MyRadioGroup>
-
-                  <label htmlFor="image" style={{ marginBottom: '16px', display: 'inline-block' }}>
-                    Or add your own
-                  </label>
-                  <Field
-                      style={{
-                        color: '#FFF',
-                        border: 'none',
-                        padding: '8px 4px',
-                        borderBottom: '1px solid #86878B',
-                        width: `98%`,
-                        transition: 'all .2s',
-                        // display: 'none',
-                        position: 'absolute',
-                        opacity: '0',
-                        pointerEvents: 'none',
-                      }}
-                      type="file"
-                      id="image"
-                      name="image"
-                      onChange={(ev) => {
-                        ev.preventDefault()
-                        const file = ev.target.files[0]
-
-                        // do not accept HEIC
-                        if (String(file.name).includes('HEIC') || String(file.name).includes('heic')) {
-                          return
-                        }
-                        setPicture(file)
-                        const reader = new FileReader()
-
-                        reader.addEventListener('load', () => {
-                          changeSelectedImage('')
-                          setImgData(reader.result)
-                        })
-                        reader.readAsDataURL(file)
-                      }}
-                  />
-                  <FileButton
-                      onClick={(ev) => {
-                        ev.preventDefault()
-                        document.querySelector('#image').click()
-                      }}
-                      onDrop={(ev) => {
-                        ev.preventDefault()
-
-                        if (ev.dataTransfer.items) {
-                          // Use DataTransferItemList interface to access the file(s)
-                          ;[...ev.dataTransfer.items].forEach((item, i) => {
-                            // If dropped items aren't files, reject them
-                            if (item.kind === 'file') {
-                              const file = item.getAsFile()
-
-                              // do not accept HEIC
-                              if (
-                                  String(file.name).includes('HEIC') ||
-                                  String(file.name).includes('heic')
-                              ) {
-                                return
-                              }
-                              setPicture(file)
-                              const reader = new FileReader()
-
-                              reader.readAsDataURL(file)
-                              reader.addEventListener('load', () => {
-                                changeSelectedImage('')
-                                setImgData(reader.result)
-                              })
-                            }
-                          })
-                        } else {
-                          // Use DataTransfer interface to access the file(s)
-                          ;[...ev.dataTransfer.files].forEach((file, i) => {
-                            // console.log(`… file[${i}].name = ${file.name}`)
-                          })
-                        }
-                      }}
-                      onDragOver={(e) => {
-                        e.preventDefault()
-                        document.querySelector('#image').click()
-                      }}
-                      dropzone="move"
-                  >
-                    {selectedImgJSX}
-                  </FileButton>
-                </Form>
-            )
-          }}
-        </Formik>
-      </FormikContainer>
+          >
+            {isEditing ? 'Save' : 'Edit'}
+          </EditTeam>
+          <LeaveTeam
+            height="40px"
+            onClick={() => {
+              if (isEditing) {
+                setIsEditing((prevState) => !prevState)
+              } else {
+                handleOpenDelete()
+              }
+            }}
+            marginTop="0"
+          >
+            {isEditing ? 'Cancel' : 'Delete'}
+          </LeaveTeam>
+        </LeaderActionsBox>
+      ) : (
+        <LeaveTeam onClick={handleOpenLeave}>Leave Team</LeaveTeam>
+      )}
+    </>
   )
 
-  // const aboutInput = !isMembers ? about : <></>
+  const updateImageContainer2 = (
+    <EditImage
+      selectedImage={selectedImage}
+      setImgData={setImgData}
+      setPicture={setPicture}
+      changeSelectedImage={changeSelectedImage}
+      defaultTeamImages={defaultTeamImages}
+      selectedImgJSX={selectedImgJSX}
+    />
+  )
+
   const input = isMembers ? membersVar : about
 
-  // const totalInput = <>{/* {aboutInput} {membersInput} */}</>
-
   const topContainer = (
-      <TopContainer isMembers={isMembers}>
-        <TabContainer about={about}>
-          <Tab
-              onClick={() => {
-                switchIsMembers(true)
-              }}
-              isMembers={isMembers}
-          >
-            Members
-            <span></span>
-          </Tab>
-          <Tab
-              onClick={() => {
-                switchIsMembers(false)
-              }}
-              isMembers={!isMembers}
-          >
-            About
-            <span></span>
-          </Tab>
-        </TabContainer>
-        {isMembers && (
-            <InviteButton onClick={handleOpenInvite}>
-              <UserPlusContainer>
-                <UserPlus />
-              </UserPlusContainer>
-              Invite
-            </InviteButton>
-        )}
-      </TopContainer>
+    <TopContainerComponent
+      isMembers={isMembers}
+      about={about}
+      switchIsMembers={switchIsMembers}
+      handleOpenInvite={handleOpenInvite}
+    />
   )
 
   // by the modal logic, the default is the
   const aTeam = (
-      <>
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <CloseContainerModal onClick={handleClose}>
-              <Close />
-            </CloseContainerModal>
-            {inviteActive ? (
-                <>
-                  <Text fontSize="24px" margin="0">
-                    Send invite
-                  </Text>
-
-                  <InputBox>
-                    <SearchIconContainer>
-                      <SearchIcon />
-                    </SearchIconContainer>
-                    <Input
-                        placeholder="Search username or email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                    ></Input>
-                  </InputBox>
-                  <CreateButton onClick={handleInvite}>
-                    <UserPlusContainer>
-                      <UserPlus />
-                    </UserPlusContainer>
-                    Invite
-                  </CreateButton>
-                </>
-            ) : (
-                <></>
-            )}
-            {deleteActive ? canDelete : <></>}
-            {leaveActive ? (
-                <TeamActionModal
-                    firstText="Leave Team"
-                    secondText="Are you sure you want to leave?"
-                    firstButton="Leave"
-                    firstButtonHandler={handleLeave}
-                    secondButton="Cancel"
-                    secondButtonHandler={handleClose}
-                />
-            ) : (
-                <></>
-            )}
-            {transferActive ? (
-                <TeamActionModal
-                    firstText="Transfer leadership"
-                    secondText={`Are you sure you want to transfer leadership to ${chosenLeader.username}? You will lose management rights.`}
-                    firstButton="Confirm"
-                    firstButtonHandler={handleTransfer}
-                    secondButton="Cancel"
-                    secondButtonHandler={handleClose}
-                />
-            ) : (
-                <></>
-            )}
-            {removeMemberActive ? removeMemberModal : <></>}
-          </Box>
-        </Modal>
-        <CardContainer>
-          <Card>
-            {editImage ? <></> : topContainer}
-            <>{editImage ? updateImageContainer : input}</>
-          </Card>
-          <RightContainer>
-            <TeamInformationContainer>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div style={{ position: 'relative', width: '100px', height: '124px' }}>
-                  <TeamImgBorder
-                      alt={team.username}
-                      src={
-                        picture !== null || selectedImage !== ''
-                            ? servedProfilePic
-                            : LOCAL_PATH + '/' + team?.image
-                      } // not currently
-                  />
-                  {isEditing ? (
-                      <EditImageButton
-                          editImage={editImage}
-                          onClick={() => {
-                            setEditImage((prevState) => !prevState)
-                          }}
-                      >
-                        <PencilSimple />
-                      </EditImageButton>
-                  ) : (
-                      <></>
-                  )}
-                  <CrownContainer2>
-                    <Crown />
-                  </CrownContainer2>
-                </div>
-              </div>
-              <Text
-                  margin="0 0 17px 0"
-                  fontSize={`${H4fs}`}
-                  lineHeight={`${H4lh}`}
-                  fontWeight={`${H4fw}`}
-              >
-                {team.name}
-              </Text>
-              <SVGAndText margin="0 0 17px 0">
-                <CakeBox>
-                  <Cake />
-                </CakeBox>
-                <Text
-                    margin="0 0 0 0"
-                    fontSize={`${B2fs}`}
-                    lineHeight={`${B2lh}`}
-                    fontWeight={`${B2fw}`}
-                >
-                  {team.createdAt.split('T')[0]}
-                </Text>
-              </SVGAndText>
-              <SVGAndText>
-                <CakeBox>
-                  <Users />
-                </CakeBox>
-                <Text fontSize={`${B2fs}`} lineHeight={`${B2lh}`} fontWeight={`${B2fw}`}>
-                  {team.members.length}/8
-                </Text>
-              </SVGAndText>
-            </TeamInformationContainer>
-            {leaderOrMemberAction}
-          </RightContainer>
-        </CardContainer>
-      </>
+    <>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <CloseContainerModal onClick={handleClose}>
+            <Close />
+          </CloseContainerModal>
+          {handleModal()}
+        </Box>
+      </Modal>
+      <CardContainer>
+        <Card>
+          {editImage ? <></> : topContainer}
+          <>{editImage ? updateImageContainer2 : input}</>
+        </Card>
+        <RightMain
+          team={team}
+          picture={picture}
+          selectedImage={selectedImage}
+          isEditing={isEditing}
+          setEditImage={setEditImage}
+          leaderOrMemberAction={leaderOrMemberAction}
+          editImage={editImage}
+        />
+      </CardContainer>
+    </>
   )
 
   return (
-      <Container>
-        {aTeam}
+    <Container>
+      {aTeam}
 
-        <CssBaseline />
-      </Container>
+      <CssBaseline />
+    </Container>
   )
 }
 
