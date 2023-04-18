@@ -11,6 +11,8 @@ import { NotificationsCount, StyledNotificationsContent } from './NotificationsC
 const NotificationsContent = ({ user, sidebar }) => {
   const [modal, setModal] = useState(false)
 
+  const unreadMessages = user.notifications.filter((item) => !item.read)
+
   return (
     <StyledNotificationsContent>
       <NavInteractBtn
@@ -22,18 +24,18 @@ const NotificationsContent = ({ user, sidebar }) => {
           <Notification />
         </IconWrapper>
         <p>Notifications</p>
-        {user?.notifications.length && !modal && (
+        {unreadMessages.length && !modal && (
           <>
             <NotificationsCount active={!sidebar} top="6px" left="28px">
-              {user.notifications.length}
+              {unreadMessages.length}
             </NotificationsCount>
             <NotificationsCount active={sidebar} top="auto" right="16px">
-              {user.notifications.length}
+              {unreadMessages.length}
             </NotificationsCount>
           </>
         )}
       </NavInteractBtn>
-      <NotificationsModal modal={modal} setModal={setModal} />
+      <NotificationsModal user={user} modal={modal} setModal={setModal} />
     </StyledNotificationsContent>
   )
 }

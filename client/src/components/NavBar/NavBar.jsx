@@ -90,7 +90,7 @@ const NavBar = () => {
             })}
           </NavItems>
           <NavInteractions>
-            <NotificationsContent user={user} sidebar={sidebar} />
+            {isAuth && user && <NotificationsContent user={user} sidebar={sidebar} />}
             {!isAuth ? (
               <NavInteractBtn
                 active={sidebar}

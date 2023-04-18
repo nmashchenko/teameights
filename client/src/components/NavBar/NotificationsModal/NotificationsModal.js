@@ -14,7 +14,7 @@ import {
   StyledNotificationsModal,
 } from './NotificationsModal.styles'
 
-const NotificationsModal = ({ modal, setModal }) => {
+const NotificationsModal = ({ user, modal, setModal }) => {
   const [unreadIds, setUnreadIds] = useState(new Set())
   const modalRef = useRef(null)
   const notificationsMutation = useReadMessages()
@@ -34,10 +34,23 @@ const NotificationsModal = ({ modal, setModal }) => {
     }
   }
 
+  const markAllAsRead = () => {
+    const allUnreadIds = new Set(
+      user.notifications.filter((item) => !item.read).map((item) => item._id),
+    )
+
+    if (allUnreadIds.size) {
+      notificationsMutation.mutate({
+        notifications: Array.from(allUnreadIds),
+      })
+      setUnreadIds(new Set())
+    }
+  }
+
   return (
     <StyledNotificationsModal ref={modalRef} active={modal} onClick={(e) => e.stopPropagation()}>
       <NotificationsHeader>
-        <MarkAllBtn>
+        <MarkAllBtn onClick={markAllAsRead}>
           <IconWrapper width="20px" height="20px">
             <Checks />
           </IconWrapper>
