@@ -10,6 +10,14 @@ import { RolesService } from '@/roles/roles.service';
 import { TeamsService } from '@/teams/teams.service';
 import { CreateTeamDto } from '@/teams/dto/create-team.dto';
 import { uuid } from 'uuidv4';
+import {
+	avatar_blue,
+	avatar_green,
+	avatar_pink,
+	avatar_purple,
+	avatar_orange,
+	avatar_yellow,
+} from './maintenance.data';
 
 @Injectable()
 export class MaintenanceService {
@@ -54,6 +62,15 @@ export class MaintenanceService {
 		'Backbone',
 		'Figma',
 		'Photoshop',
+	];
+
+	images: string[] = [
+		avatar_blue,
+		avatar_green,
+		avatar_pink,
+		avatar_purple,
+		avatar_orange,
+		avatar_yellow,
 	];
 
 	private getRandomEntries(arr: string[]): string[] {
@@ -160,6 +177,12 @@ export class MaintenanceService {
 			let newUser = this.generateInitialUser();
 			const user = await this.usersService.createUser(newUser);
 			const update = this.updateGeneratedUser(user.email);
+
+			const randomIndex = Math.floor(Math.random() * this.images.length);
+			await this.usersService.updateAvatar({
+				email: user.email,
+				image: this.images[randomIndex],
+			});
 			await this.usersService.updateUser(update);
 		}
 
