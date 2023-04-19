@@ -14,16 +14,16 @@ import {
   StyledNotificationsModal,
 } from './NotificationsModal.styles'
 
-const NotificationsModal = ({ user, modal, setModal }) => {
+const NotificationsModal = ({ user, notificationModal, setNotificationModal }) => {
   const [unreadIds, setUnreadIds] = useState(new Set())
-  const modalRef = useRef(null)
+  const notificationModalRef = useRef(null)
   const notificationsMutation = useReadMessages()
 
-  useOutsideClick(modalRef, closeNotificationsModal)
+  useOutsideClick(notificationModalRef, closeNotificationsModal)
 
   function closeNotificationsModal() {
-    if (modal) {
-      setModal(false)
+    if (notificationModal) {
+      setNotificationModal(false)
       if (unreadIds.size) {
         // Request to the server is here
         notificationsMutation.mutate({
@@ -48,7 +48,11 @@ const NotificationsModal = ({ user, modal, setModal }) => {
   }
 
   return (
-    <StyledNotificationsModal ref={modalRef} active={modal} onClick={(e) => e.stopPropagation()}>
+    <StyledNotificationsModal
+      ref={notificationModalRef}
+      active={notificationModal}
+      onClick={(e) => e.stopPropagation()}
+    >
       <NotificationsHeader>
         <MarkAllBtn onClick={markAllAsRead}>
           <IconWrapper width="20px" height="20px">
@@ -60,7 +64,7 @@ const NotificationsModal = ({ user, modal, setModal }) => {
           <Cross />
         </CrossBtn>
       </NotificationsHeader>
-      {modal && <NotificationsList setUnreadIds={setUnreadIds} />}
+      {notificationModal && <NotificationsList setUnreadIds={setUnreadIds} />}
     </StyledNotificationsModal>
   )
 }

@@ -33,6 +33,8 @@ import {
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
+  const [notificationModal, setNotificationModal] = useState(false)
+
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user } = useCheckAuth()
 
@@ -50,7 +52,7 @@ const NavBar = () => {
   const navigate = useNavigate()
   const navMenuRef = useRef(null)
 
-  useOutsideClick(navMenuRef, () => setSidebar(false))
+  useOutsideClick(navMenuRef, () => setSidebar(false), notificationModal)
 
   const handleUseLogout = () => {
     logoutUser()
@@ -90,7 +92,14 @@ const NavBar = () => {
             })}
           </NavItems>
           <NavInteractions>
-            {isAuth && user && <NotificationsContent user={user} sidebar={sidebar} />}
+            {isAuth && user && (
+              <NotificationsContent
+                user={user}
+                sidebar={sidebar}
+                notificationModal={notificationModal}
+                setNotificationModal={setNotificationModal}
+              />
+            )}
             {!isAuth ? (
               <NavInteractBtn
                 active={sidebar}
