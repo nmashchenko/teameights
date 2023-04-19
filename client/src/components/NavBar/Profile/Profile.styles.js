@@ -7,6 +7,7 @@ export const UserInfo = styled.div`
   padding: 0 12px;
   align-items: center;
   gap: 12px;
+  overflow: hidden;
 `
 
 export const ProfileIcon = styled.img`

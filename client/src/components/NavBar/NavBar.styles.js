@@ -42,7 +42,6 @@ export const NavMenu = styled.nav`
   transition: all var(--menu-animation-time) linear;
   padding: 0 16px;
   padding-top: 48px;
-  overflow: hidden;
 `
 
 export const NavBarToggle = styled.div`
@@ -75,6 +74,7 @@ export const NavItems = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow: hidden;
 `
 
 export const NavInteractions = styled.div`
@@ -95,6 +95,7 @@ export const NavInteractBtn = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+  overflow: hidden;
   transition: background-color 0.2s;
   background-color: ${(props) => props.modalActive && '#5d9d0b'};
   &:hover {
@@ -123,5 +124,6 @@ export const NavBarCopyright = styled.h3`
   font-size: 11px;
   text-transform: capitalize;
   color: #86878b;
+  overflow: hidden;
   white-space: nowrap;
 `
