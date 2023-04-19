@@ -5,7 +5,7 @@ import NotificationsItem from '../NotificationsItem/NotificationsItem'
 
 import { StyledNotificationsList } from './NotificationsList.styles'
 
-const NotificationsList = ({ setUnreadIds }) => {
+const NotificationsList = ({ setUnreadIds, closeNotificationsModal }) => {
   const { data: user } = useCheckAuth()
   const listRef = useRef(null)
 
@@ -35,7 +35,13 @@ const NotificationsList = ({ setUnreadIds }) => {
   return (
     <StyledNotificationsList ref={listRef}>
       {user?.notifications &&
-        user.notifications.map((item) => <NotificationsItem key={item._id} notification={item} />)}
+        user.notifications.map((item) => (
+          <NotificationsItem
+            key={item._id}
+            closeNotificationsModal={closeNotificationsModal}
+            notification={item}
+          />
+        ))}
     </StyledNotificationsList>
   )
 }

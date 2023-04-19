@@ -17,11 +17,19 @@ import {
   StyledNotificationsItem,
 } from './NotificationsItem.styles'
 
-const NotificationsItem = ({ notification }) => {
+const NotificationsItem = ({ notification, closeNotificationsModal }) => {
   const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
   const { mutate: teamInviteMutation, isLoading: isHandlingInvite } = useChangeMessageStatus(
     notification.teamid,
   )
+
+  const handleAccept = () => {
+    teamInviteMutation({
+      action: 'accept',
+      messageId: notification._id,
+    })
+    closeNotificationsModal()
+  }
   const render = () => {
     switch (notification.type) {
       case 'SystemNotification':
@@ -61,21 +69,13 @@ const NotificationsItem = ({ notification }) => {
               <MessageContentWrapper>
                 <MessageText>{notification.message}</MessageText>
                 <FlexWrapper gap="8px">
-                  <MessageButton
-                    onClick={() =>
-                      teamInviteMutation({
-                        status: true,
-                        messageId: notification._id,
-                      })
-                    }
-                    bgColor="#46a11b"
-                  >
+                  <MessageButton onClick={handleAccept} bgColor="#46a11b">
                     Accept
                   </MessageButton>
                   <MessageButton
                     onClick={() =>
                       teamInviteMutation({
-                        status: false,
+                        action: 'reject',
                         messageId: notification._id,
                       })
                     }

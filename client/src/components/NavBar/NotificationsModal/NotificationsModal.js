@@ -64,7 +64,12 @@ const NotificationsModal = ({ user, notificationModal, setNotificationModal }) =
           <Cross />
         </CrossBtn>
       </NotificationsHeader>
-      {notificationModal && <NotificationsList setUnreadIds={setUnreadIds} />}
+      {notificationModal && (
+        <NotificationsList
+          closeNotificationsModal={closeNotificationsModal}
+          setUnreadIds={setUnreadIds}
+        />
+      )}
     </StyledNotificationsModal>
   )
 }
