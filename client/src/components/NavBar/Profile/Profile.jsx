@@ -25,8 +25,8 @@ const changeData = (data) => {
 
 const Profile = ({ sidebar }) => {
   const { data: user } = useCheckAuth()
-
-  const userImage = !user?.isRegistered
+  const isUserRegistered = user?.isRegistered
+  const userImage = !isUserRegistered
     ? defaultImg
     : user?.image
     ? LOCAL_PATH + '/' + user?.image
@@ -34,8 +34,10 @@ const Profile = ({ sidebar }) => {
   const [data, setData] = useState(defaultData)
 
   useEffect(() => {
-    if (user) {
+    if (isUserRegistered) {
       setData(changeData(user))
+    } else {
+      setData(defaultData)
     }
   }, [user])
 

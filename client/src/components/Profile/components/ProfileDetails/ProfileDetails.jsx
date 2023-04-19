@@ -59,7 +59,7 @@ const ProfileDetails = () => {
     return <Loader />
   }
 
-  if (!user) {
+  if (!user?.isRegistered) {
     return <Button onClick={() => navigate(ROUTES.login)}>Login</Button>
   }
 

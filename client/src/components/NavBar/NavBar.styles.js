@@ -42,6 +42,7 @@ export const NavMenu = styled.nav`
   transition: all var(--menu-animation-time) linear;
   padding: 0 16px;
   padding-top: 48px;
+  overflow: hidden;
 `
 
 export const NavBarToggle = styled.div`
