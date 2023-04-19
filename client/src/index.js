@@ -27,8 +27,7 @@ const GlobalStyle = createGlobalStyle`
  }
 
  body{
-   font-family: "NoirPro-Regular" !important;
-
+   font-family: "Montserrat" !important;
  }
 
  ul{
