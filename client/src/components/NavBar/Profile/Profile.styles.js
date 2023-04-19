@@ -1,37 +1,48 @@
 import styled from 'styled-components'
 
-export const AvatarContainer = styled.div`
+export const UserInfo = styled.div`
+  margin-top: 28px;
   width: 100%;
   display: flex;
-  gap: 0.6rem;
-  color: #fff;
-  padding-left: 15px;
-  margin-top: 10px;
-  margin-bottom: 40px;
+  padding: 0 12px;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
 `
 
 export const ProfileIcon = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 `
 
-export const UserInfoDiv = styled.div``
+export const UserContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+`
 
 export const UserRealName = styled.strong`
-  margin: 0;
-  padding: 0;
-  font-size: 1rem;
-  font-weight: 300;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  opacity: ${(props) => (props.active ? 1 : 0)};
+  font-size: 16px;
+  line-height: 140%;
+  color: #fff;
 `
 
 export const UserUsername = styled.p`
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  opacity: ${(props) => (props.active ? 1 : 0)};
   margin: 0;
-  padding: 0;
-  font-size: 0.75rem;
-  color: #6c6c6c;
-  display: block;
-  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 100%;
+  color: #86878b;
 `
 
 export const NotificationIconCenter = styled.div`

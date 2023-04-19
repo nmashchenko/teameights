@@ -29,6 +29,7 @@ import { TransferLeaderDtoStub } from './stubs/transfer-leader.dto.stub';
 import { UpdateTeamDtoStub } from './stubs/update-team.dto.stub';
 import { TokensModule } from '@/tokens/tokens.module';
 import { AuthModule } from '@/auth/auth.module';
+import { UpdateUserAvatarDtoStub } from '@/users/tests/stubs/update-avatar.dto.stub';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -198,6 +199,8 @@ describe('TeamService', () => {
 			CreateTeamDtoStub(user1._id),
 		);
 
+		await userService.updateAvatar(UpdateUserAvatarDtoStub(user1.email, 1));
+
 		const user2 = await userService.createUser(
 			RegisterUserDtoStub('mmashc2@uic.edu'),
 		);
@@ -205,6 +208,8 @@ describe('TeamService', () => {
 		const info = await teamsService.inviteToTeam(
 			InviteToTeamDtoStub(user2.email, user1._id, team._id),
 		);
+
+		await userService.updateAvatar(UpdateUserAvatarDtoStub(user2.email, 2));
 
 		const updatedUser2 = await userService.getUserById(user2._id);
 

@@ -12,6 +12,12 @@ import App from './App'
 
 const GlobalStyle = createGlobalStyle`
 
+  @font-face {
+    font-family: NoirPro-Regular;
+    src: local('NoirPro-Regular'),  url(./fonts/FontsFree-Net-Noir_regular.woff) format('woff');
+    font-display: swap;
+  }
+  
  *,
  *::before,
  *::after {
@@ -19,9 +25,9 @@ const GlobalStyle = createGlobalStyle`
    padding: 0;
    box-sizing: border-box;
    font-family: "Montserrat" !important;
+
  }
-
-
+  
  ul{
    list-style-type: none;
  }

@@ -5,17 +5,18 @@ import http from '../../../http'
 
 const { api } = http
 
-export const useJoinTeam = () => {
+export const useTeamMembership = (action) => {
   const queryClient = useQueryClient()
 
-  const addUserToTeam = async (details) => {
-    const response = await api.put('/teams/join', details)
-
-    return response.data
+  const toggleMembership = async (details) => {
+    const response = await api.put(`/teams/${action}`, {
+      user_id: details.userId,
+      teamid: details.teamId,
+    })
   }
 
-  return useMutation(addUserToTeam, {
-    mutationKey: 'addUserToTeam',
+  return useMutation(toggleMembership, {
+    mutationKey: 'toggleMembership',
     onSuccess: async () => {
       await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
     },

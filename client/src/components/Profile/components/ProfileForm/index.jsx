@@ -70,7 +70,9 @@ const ProfileForm = () => {
   const navigate = useNavigate()
   const { mutate: editUserDetails, isLoading } = useEditUserDetails(onSuccess)
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
-  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
+  const teamId = user?.team?._id
+
+  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
   const countriesOptions = useMemo(() => countryList().getData(), [])
 
   const stopEditing = () => navigate('/profile')

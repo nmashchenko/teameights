@@ -2,25 +2,25 @@
 import React from 'react'
 
 // * Assets
-import Person from '../../assets/Sidebar/Person'
-import Project from '../../assets/Sidebar/Project'
+import SearchIcon from '../../assets/Sidebar/SearchIcon'
 // import Team from '../../assets/Sidebar/Team' unused
-import Tournament from '../../assets/Sidebar/Tournament'
+import TrophyIcon from '../../assets/Sidebar/TrophyIcon'
+import UserIcon from '../../assets/Sidebar/UserIcon'
 
 export const NavBarData = [
   {
-    title: 'Profile',
-    path: '/profile',
-    icon: <Person />,
+    title: 'Teammates',
+    path: '/',
+    icon: <SearchIcon />,
   },
   {
     title: 'Tournaments',
     path: '/tournament',
-    icon: <Tournament />,
+    icon: <TrophyIcon />,
   },
   {
-    title: 'Teameights',
-    path: '/',
-    icon: <Project />,
+    title: 'Profile',
+    path: '/profile',
+    icon: <UserIcon />,
   },
 ]

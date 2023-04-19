@@ -40,6 +40,7 @@ export class MailsService {
 		inviter: User,
 		team: Team,
 	) {
+		console.log(process.env.API_URL + '/' + inviter.image);
 		const status = await this.mailService.sendMail({
 			from: process.env.SMTP_USER,
 			to: receiver.email,

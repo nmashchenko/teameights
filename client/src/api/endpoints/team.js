@@ -30,7 +30,7 @@ const getAllTeams = async () => {
 const getTeamById = async (id) => {
   try {
     // const data = await api.post('/get-team-byid', { teamId })
-    const data = await api.get(`/get-team-byid/${id}`)
+    const data = await api.get(`/teams/get-team/${id}`)
 
     return data
   } catch (err) {
@@ -64,9 +64,9 @@ const addUserToTeam = async (userId, teamId) => {
   // }
 }
 
-const inviteUserByEmail = async (email, teamId) => {
+const inviteUserByEmail = async (email, teamId, userId) => {
   try {
-    const data = await api.post('/teams/invite', { email, teamId })
+    const data = await api.post('/teams/invite', { email, teamid: teamId, from_user_id: userId })
 
     return data
   } catch (err) {
