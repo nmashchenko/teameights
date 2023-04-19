@@ -19,9 +19,10 @@ import { MailsModule } from '@/mails/mails.module';
 import { NotificationsController } from './notifications.controller';
 import { AuthModule } from '@/auth/auth.module';
 import { TokensModule } from '@/tokens/tokens.module';
+import { NotificationsGateway } from './notifications.gateway';
 
 @Module({
-	providers: [NotificationsService],
+	providers: [NotificationsService, NotificationsGateway],
 	exports: [NotificationsService],
 	imports: [
 		MongooseModule.forFeature([

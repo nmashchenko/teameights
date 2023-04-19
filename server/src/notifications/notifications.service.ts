@@ -1,7 +1,7 @@
 import { UsersService } from '@Users/users.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { ClientSession, Model } from 'mongoose';
+import mongoose, { ClientSession, Model, ObjectId } from 'mongoose';
 import { TeamInvitationNotification } from './schemas/team-invite.schema';
 import { NotificationType } from './notifications.enums';
 import { SystemNotification } from './schemas/system.schema';
@@ -10,6 +10,7 @@ import { TeamNotificationsDto } from './dto/team-notification.dto';
 import { MailsService } from '@/mails/mails.service';
 import { Notifications } from './schemas/notifications.schema';
 import { ReadNotificationsDto } from './dto/read-notifications.dto';
+import { Server } from 'socket.io';
 
 @Injectable()
 export class NotificationsService {
@@ -135,6 +136,16 @@ export class NotificationsService {
 		}
 	}
 
+	/**
+	 * This function reads notifications and updates their status to "read" if they exist, and returns a
+	 * message indicating the number of notifications successfully updated and the number of notifications
+	 * that were not found.
+	 * @param {ReadNotificationsDto} dto - ReadNotificationsDto object that contains an array of
+	 * notification IDs to be marked as read.
+	 * @returns An object with two properties: "status" and "errors". The "status" property contains a
+	 * string indicating how many notifications were successfully updated, while the "errors" property
+	 * contains a string indicating how many notifications were not found.
+	 */
 	async readNotification(dto: ReadNotificationsDto): Promise<Object> {
 		let error: number = 0;
 		let success: number = 0;
@@ -161,5 +172,32 @@ export class NotificationsService {
 			staus: `Updated ${success} notifications: `,
 			errors: `We didn't find ${error} notifications`,
 		};
+	}
+
+	/**
+	 * This function watches for changes in notifications for a specific user and emits the changes to
+	 * subscribed clients.
+	 * @param userid - The `userid` parameter is a `mongoose.Types.ObjectId` type, which is a unique
+	 * identifier for a MongoDB document. It is used to filter the notifications collection and only watch
+	 * for changes related to the user with the specified `userid`.
+	 */
+	async watchNotifications(
+		userid: mongoose.Types.ObjectId,
+		server: Server,
+	): Promise<void> {
+		const changeStream = this.notificationModel.watch(
+			[{ $match: { 'fullDocument.user': userid } }],
+			{ fullDocument: 'updateLookup' },
+		);
+		changeStream.on('change', (change) => {
+			console.log('Notification changed:', change);
+			// Emit the change to subscribed clients
+
+			server.emit(`notification-${userid}`, change);
+		});
+
+		changeStream.on('error', (error) => {
+			console.error('Change stream error:', error);
+		});
 	}
 }
