@@ -47,4 +47,12 @@ export class TeamNotificationsDto extends NotificationDto {
 		required: true,
 	})
 	image: string;
+
+	@ApiProperty({
+		example: 'You were invited to team!',
+		description: 'Notification message',
+		required: true,
+	})
+	@IsString()
+	message: string;
 }

@@ -75,6 +75,7 @@ export class NotificationsService {
 			read: false,
 			expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
 			image: dto.image,
+			message: dto.message,
 		};
 
 		if (typeof session !== 'undefined') {

@@ -244,7 +244,8 @@ export class TeamsService {
 				// TODO: remove this later
 				image: team.hasOwnProperty('image')
 					? team.image
-					: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Style_-_Wouldn%27t_It_Be_Nice.png',
+					: 'https://i.ibb.co/rGvKsMG/ava-03.png',
+				message: `You were invited to the team ${team.name}!`,
 			});
 
 		await this.userService.addNotification(candidate._id, notificationID);
