@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { LOCAL_PATH } from '../../../http'
@@ -25,7 +24,6 @@ const changeData = (data) => {
 }
 
 const Profile = ({ sidebar }) => {
-  const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user } = useCheckAuth()
 
   const userImage = !user?.isRegistered
@@ -33,15 +31,13 @@ const Profile = ({ sidebar }) => {
     : user?.image
     ? LOCAL_PATH + '/' + user?.image
     : userImg
-  const [data, changeDataState] = useState(defaultData)
+  const [data, setData] = useState(defaultData)
 
   useEffect(() => {
-    if (isAuth) {
-      if (user) {
-        changeDataState(changeData(user))
-      }
+    if (user) {
+      setData(changeData(user))
     }
-  }, [isAuth])
+  }, [user])
 
   return (
     <UserInfo>

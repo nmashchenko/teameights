@@ -109,14 +109,14 @@ const NavBar = () => {
                 <IconWrapper width="24px" height="24px">
                   <Exit />
                 </IconWrapper>
-                <p>Sign Up</p>
+                <p>Login</p>
               </NavInteractBtn>
             ) : (
               <NavInteractBtn active={sidebar} onClick={handleUseLogout}>
                 <IconWrapper width="24px" height="24px">
                   <Exit />
                 </IconWrapper>
-                <p>Sign Out</p>
+                <p>Logout</p>
               </NavInteractBtn>
             )}
           </NavInteractions>
