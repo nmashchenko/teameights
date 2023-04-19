@@ -3,6 +3,7 @@ import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import LightningIcon from '../../../assets/Sidebar/LightningIcon'
 import WarningIcon from '../../../assets/Sidebar/WarningIcon'
 import { LOCAL_PATH } from '../../../http'
+import Loader from '../../../shared/components/Loader/Loader'
 import { getPastTime } from '../../../utils/getPastTime'
 import FlexWrapper from '../FlexWrapper/FlexWrapper'
 
@@ -18,7 +19,9 @@ import {
 
 const NotificationsItem = ({ notification }) => {
   const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
-  const teamInviteMutation = useChangeMessageStatus(notification.teamid)
+  const { mutate: teamInviteMutation, isLoading: isHandlingInvite } = useChangeMessageStatus(
+    notification.teamid,
+  )
   const render = () => {
     switch (notification.type) {
       case 'SystemNotification':
@@ -60,7 +63,7 @@ const NotificationsItem = ({ notification }) => {
                 <FlexWrapper gap="8px">
                   <MessageButton
                     onClick={() =>
-                      teamInviteMutation.mutate({
+                      teamInviteMutation({
                         status: true,
                         messageId: notification._id,
                       })
@@ -71,7 +74,7 @@ const NotificationsItem = ({ notification }) => {
                   </MessageButton>
                   <MessageButton
                     onClick={() =>
-                      teamInviteMutation.mutate({
+                      teamInviteMutation({
                         status: false,
                         messageId: notification._id,
                       })
@@ -86,6 +89,10 @@ const NotificationsItem = ({ notification }) => {
           </>
         )
     }
+  }
+
+  if (isHandlingInvite) {
+    return <Loader />
   }
 
   return (
