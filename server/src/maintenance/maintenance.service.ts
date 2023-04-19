@@ -223,6 +223,11 @@ export class MaintenanceService {
 
 		await this.connection.dropDatabase();
 
+		await this.rolesService.createRole({
+			value: 'USER',
+			description: 'Default user role',
+		});
+
 		let endTime = performance.now();
 
 		return {
