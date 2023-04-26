@@ -1,13 +1,13 @@
 // * Modules
 import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
 
-export const NavBar = styled(Toolbar)`
-  &.css-hyum1k-MuiToolbar-root {
-    background: transparent;
-    justify-content: center;
-  }
+export const NavBar = styled.div`
+  display: flex;
+  padding: 0 24px;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
 `
 
 export const BoxContainer = styled(Box)`
