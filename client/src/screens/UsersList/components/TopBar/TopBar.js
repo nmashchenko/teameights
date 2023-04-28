@@ -15,6 +15,7 @@ import frameworkOptions from '../../../../constants/frameworks'
 import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
 import { setFilters } from '../../../../store/reducers/Shared'
 import FiltersMenu from '../FiltersMenu/FiltersMenu'
+import SearchPanel from '../SearchPanel/SearchPanel'
 import { PlaceholderText } from '../SelectField/SelectField.styles'
 
 // * Options
@@ -35,6 +36,8 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
   const [filterBar, setFilterBar] = useState(false)
   const dispatch = useDispatch()
   const countriesOptions = useMemo(() => countryList().getData(), [])
+
+  console.log(countriesOptions)
 
   const showFiltersBar = () => setFilterBar(!filterBar)
   const handleSubmitFilter = (values, dirty) => {
@@ -57,6 +60,7 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
 
         return (
           <Form>
+            {/* Mobile filters menu */}
             <FiltersMenu
               filterBar={filterBar}
               showFiltersBar={showFiltersBar}
@@ -75,7 +79,8 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                   {/* <LogoContainer>
                     <PlatformLogo />
                   </LogoContainer> */}
-                  <SelectContainer>
+                  {/* Old filters */}
+                  {/* <SelectContainer>
                     <CustomSelect
                       multiple={true}
                       label="Country"
@@ -176,10 +181,12 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                         margin: 0,
                       }}
                     />
-                  </SelectContainer>
-                  <Button type="button" onClick={() => handleSubmitFilter(values, dirty)}>
+                  </SelectContainer> */}
+                  <SearchPanel />
+                  {/* <Button type="button" onClick={() => handleSubmitFilter(values, dirty)}>
                     <Search sx={{ width: '32px', height: '32px', color: 'white' }} />
-                  </Button>
+                  </Button> */}
+                  {/* Mobile filters button */}
                   <FilterContainer onClick={showFiltersBar}>
                     <Filters />
                     <FilterText>Filters</FilterText>
