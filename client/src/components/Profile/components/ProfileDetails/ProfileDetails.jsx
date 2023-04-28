@@ -49,7 +49,9 @@ import {
 
 const ProfileDetails = () => {
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
-  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
+  const teamId = user?.team?._id
+
+  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
 
   const navigate = useNavigate()
 
@@ -57,7 +59,7 @@ const ProfileDetails = () => {
     return <Loader />
   }
 
-  if (!user) {
+  if (!user?.isRegistered) {
     return <Button onClick={() => navigate(ROUTES.login)}>Login</Button>
   }
 

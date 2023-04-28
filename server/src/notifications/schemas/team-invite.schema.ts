@@ -53,6 +53,13 @@ export class TeamInvitationNotification {
 		type: String,
 	})
 	image: string;
+
+	@ApiProperty({
+		example: 'You were invited to team!',
+		description: 'Notification message',
+	})
+	@Prop({ required: true, type: String })
+	message: string;
 }
 
 export const TeamInvitationNotificationSchema = SchemaFactory.createForClass(

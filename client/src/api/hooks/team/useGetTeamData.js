@@ -1,15 +1,10 @@
-import React from 'react'
 import { useQuery } from 'react-query'
 
 import http from '../../../http'
-import { useCheckAuth } from '../auth/useCheckAuth'
 
 const { api } = http
 
-export const useGetTeamData = () => {
-  const { data: user, isLoading: isUserLoading } = useCheckAuth()
-  const teamId = user?.team?._id
-
+export const useGetTeamData = (teamId) => {
   const getTeamById = async () => {
     const response = await api.get(`/teams/get-team/${teamId}`)
 
@@ -22,5 +17,5 @@ export const useGetTeamData = () => {
     enabled: !!teamId,
   })
 
-  return { data, isLoading: isTeamLoading || isUserLoading }
+  return { data, isLoading: isTeamLoading }
 }

@@ -1,45 +1,58 @@
 // * Modules
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
-import ChevronRight from '../../assets/ChevronRight'
 // * Assets
-import NavBarIcon from '../../assets/NavBarIcon'
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
+import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
-import TeameightsLogo from '../../assets/Team/TeameightsLogo'
+import { useOutsideClick } from '../../hooks/useOutsideClick'
 import Loader from '../../shared/components/Loader/Loader'
 
 // * Data
+import NavItem from './NavItem/NavItem'
+import NotificationsContent from './NotificationsContent/NotificationsContent'
 import Profile from './Profile/Profile'
 import { NavBarData } from './NavBar.data'
 import {
-  BottomContent,
-  IconNav,
-  ItemTitle,
+  IconWrapper,
+  NavBarClose,
+  NavBarCopyright,
+  NavBarLogo,
   NavBarToggle,
-  NavIconContainer,
-  NavItem,
+  NavInteractBtn,
+  NavInteractions,
   NavItems,
   NavMenu,
-  NavMenuItems,
-  ShowChevron,
-  SignOutButton,
-  UserInfo,
-  UserText,
+  NavWrapper,
 } from './NavBar.styles'
 
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
+  const [notificationModal, setNotificationModal] = useState(false)
+
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user } = useCheckAuth()
 
+  const newNavData = [
+    NavBarData[0],
+    {
+      title: 'Team',
+      icon: <Team />,
+      path: user?.team ? '/myteam' : '/team',
+    },
+    ...NavBarData.slice(1),
+  ]
+
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
   const navigate = useNavigate()
+  const navMenuRef = useRef(null)
+
+  useOutsideClick(navMenuRef, () => setSidebar(false), notificationModal)
 
   const handleUseLogout = () => {
     logoutUser()
@@ -48,76 +61,70 @@ const NavBar = () => {
   if (isUserLoggingOut) {
     return <Loader />
   }
-  const showSidebar = () => setSidebar(!sidebar)
+  const showSidebar = () => {
+    setSidebar((prev) => !prev)
+  }
 
   return (
     <>
-      <NavIconContainer onClick={showSidebar}>
-        <NavBarIcon />
-      </NavIconContainer>
-
-      {sidebar ? (
-        <NavMenu left="0" transition="250ms">
-          <NavMenuItems onClick={showSidebar}>
-            <UserInfo>
-              <NavBarToggle>
-                <TeameightsLogo />
-                <Close />
-              </NavBarToggle>
-            </UserInfo>
-            <NavItems>
-              <Profile />
-              {NavBarData.map((item, index) => {
-                return (
-                  <NavItem key={index}>
-                    <Link to={item.path}>
-                      <IconNav>{item.icon} </IconNav>
-                      <ItemTitle>{item.title}</ItemTitle>
-                      <ShowChevron>
-                        <ChevronRight />
-                      </ShowChevron>
-                    </Link>
-                  </NavItem>
-                )
-              })}
-              <NavItem>
-                <Link to={user?.team ? '/myteam' : '/team'}>
-                  <IconNav>
-                    <Team />
-                  </IconNav>
-                  <ItemTitle>Team</ItemTitle>
-                  <ShowChevron>
-                    <ChevronRight />
-                  </ShowChevron>
-                </Link>
-              </NavItem>
-            </NavItems>
-            <BottomContent>
-              {!isAuth ? (
-                <SignOutButton
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    navigate('/auth/registration')
-                  }}
-                  color="white"
-                >
-                  <Exit /> Sign Up
-                </SignOutButton>
-              ) : (
-                <SignOutButton onClick={handleUseLogout}>
-                  <Exit /> Sign Out
-                </SignOutButton>
-              )}
-
-              <UserText fontWeight="400" fontSize="12px" color="rgba(255, 255, 255, 0.15)">
-                copyright © {new Date().getFullYear()} Teameights.
-              </UserText>
-            </BottomContent>
-          </NavMenuItems>
+      <NavWrapper active={sidebar}>
+        <NavMenu ref={navMenuRef} onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
+          <NavBarToggle>
+            <NavBarLogo active={sidebar}>
+              <ShortLogo />
+            </NavBarLogo>
+            <NavBarClose active={sidebar} onClick={showSidebar}>
+              <Close />
+            </NavBarClose>
+          </NavBarToggle>
+          <Profile sidebar={sidebar} />
+          <NavItems>
+            {newNavData.map((item, index) => {
+              return (
+                <NavItem
+                  onClick={() => setSidebar(false)}
+                  active={sidebar}
+                  key={index}
+                  {...item}
+                  path={item.path}
+                />
+              )
+            })}
+          </NavItems>
+          <NavInteractions>
+            {isAuth && user && (
+              <NotificationsContent
+                user={user}
+                sidebar={sidebar}
+                notificationModal={notificationModal}
+                setNotificationModal={setNotificationModal}
+              />
+            )}
+            {!isAuth ? (
+              <NavInteractBtn
+                active={sidebar}
+                onClick={() => navigate('/auth/registration')}
+                color="white"
+              >
+                <IconWrapper width="24px" height="24px">
+                  <Exit />
+                </IconWrapper>
+                <p>Login</p>
+              </NavInteractBtn>
+            ) : (
+              <NavInteractBtn active={sidebar} onClick={handleUseLogout}>
+                <IconWrapper width="24px" height="24px">
+                  <Exit />
+                </IconWrapper>
+                <p>Logout</p>
+              </NavInteractBtn>
+            )}
+          </NavInteractions>
+          <NavBarCopyright active={sidebar}>
+            copyright © {new Date().getFullYear()} Teameights.
+          </NavBarCopyright>
         </NavMenu>
-      ) : (
-        <NavMenu />
-      )}
+      </NavWrapper>
     </>
   )
 }

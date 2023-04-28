@@ -1,11 +1,6 @@
+import Stack from '@mui/material/Stack'
 import styled from 'styled-components'
 
-export const ContentWrapper = styled.div`
-  display: grid;
-  grid-auto-rows: auto;
-
-  grid-template-columns: 1fr;
-  width: 100%;
-  height: 100%;
-  gap: 3.5rem;
+export const InputsContainer = styled(Stack)`
+  gap: 2.25rem;
 `

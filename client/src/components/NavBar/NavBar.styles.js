@@ -1,167 +1,129 @@
 // * Modules
 import styled from 'styled-components'
 
+export const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & svg {
+    width: ${(props) => props.width || 'auto'};
+    height: ${(props) => props.height || 'auto'};
+  }
+`
+
 export const NavIconContainer = styled.div`
   margin-right: 25px;
   cursor: pointer;
 `
 
-export const NavMenu = styled.nav`
-  width: 325px;
+export const NavWrapper = styled.div`
+  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
+  background: rgba(${(props) => (props.active ? '0, 0, 0, 0.25' : '0, 0, 0, 0')});
+  backdrop-filter: ${(props) => (props.active ? 'blur(5px)' : 'none')};
+  -webkit-backdrop-filter: ${(props) => (props.active ? 'blur(5px)' : 'none')};
   position: fixed;
-  background-color: rgb(26, 28, 34, 0.3);
-
-  background: linear-gradient(180deg, rgba(26, 28, 34, 0.5) 0%, rgba(40, 47, 71, 0.5) 100%);
   top: 0;
-  left: ${(props) => props.left || '-100%'};
-  transition: ${(props) => props.transition || 'all 0.5s linear'};
+  left: 0;
   z-index: 999;
-  border-radius: 0px 25px 25px 0px;
-  -webkit-backdrop-filter: blur(2em);
-  backdrop-filter: blur(2em);
-  padding-top: 4rem;
 `
 
-export const NavMenuItems = styled.div`
+export const NavMenu = styled.nav`
+  --menu-animation-time: 0.35s;
+  pointer-events: all;
   width: 100%;
+  height: 100%;
+  max-width: ${(props) => (props.active ? '270px' : '88px')};
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-`
-export const IconNav = styled.div`
-  width: 40px;
-  height: 40px;
-  background: #2e3239;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
+  background: linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%);
+  transition: all var(--menu-animation-time) linear;
+  padding: 0 16px;
+  padding-top: 48px;
 `
 
-export const UserInfo = styled.div`
-  padding: 0 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-`
-
-export const NavBarToggle = styled.li`
+export const NavBarToggle = styled.div`
+  position: relative;
+  justify-content: flex-end;
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+`
+
+export const NavBarLogo = styled.div`
+  transition: opacity 0.2s;
+  opacity: ${(props) => (props.active ? 1 : 0)};
+  position: absolute;
+  left: 12px;
+`
+
+export const NavBarClose = styled.div`
   cursor: pointer;
-  padding-left: 15px;
+  transform: rotateY(${(props) => (props.active ? '0deg' : '180deg')});
+  padding: 0 12px;
 `
 
-export const UserText = styled.h3`
-  font-weight: ${(props) => props.fontWeight || '400'};
-  font-size: ${(props) => props.fontSize || '.875rem'};
-  color: ${(props) => props.color || '#FFF'};
-  margin: ${(props) => props.margin || '0px'};
-`
-
-export const NavItems = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 35px;
-  padding: 0 30px;
-
-  @media screen and (min-width: 1440px) {
-    margin-top: 25px;
-  }
-`
-export const NavItem = styled.div`
-  display: flex;
-  align-items: center;
+export const NavItems = styled.ul`
   list-style: none;
-  height: 50px;
-  margin-bottom: 0.7rem;
-
-  @media screen and (min-width: 1440px) {
-    height: 60px;
-  }
-
-  > a {
-    text-decoration: none;
-    color: white;
-    font-size: 1rem;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    border-radius: 15px;
-    font-weight: 500;
-    padding: 0 15px;
-    transition: background-color 200ms linear;
-
-    @media screen and (min-width: 1440px) {
-      font-size: 1.0625rem;
-    }
-  }
-
-  > a:hover {
-    background: #5d9d0b;
-    font-size: 1.03125rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-
-    @media screen and (min-width: 1440px) {
-      font-size: 1.09375rem;
-    }
-  }
-
-  a:active {
-    background: #5d9d0b;
-  }
-  a:hover div {
-    opacity: 1;
-  }
-`
-
-export const ItemTitle = styled.span`
-  margin-left: 25px;
-`
-export const ShowChevron = styled.div`
-  margin-left: auto;
-  opacity: 0;
-  display: flex;
-  align-item: center;
-`
-
-export const BottomContent = styled.div`
+  margin: 0;
+  padding: 36px 0;
+  border-bottom: 1px solid #2f3239;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  justify-content: end;
-  align-items: center;
-  margin-bottom: 3rem;
+  gap: 8px;
+  overflow: hidden;
 `
 
-export const SignOutButton = styled.button`
-  margin-bottom: 20px;
+export const NavInteractions = styled.div`
+  padding-top: 16px;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
-  border: none;
-  width: 230px;
-  height: 40px;
-  background: #2e3239;
-  border-radius: 5px;
-  color: white;
-  font-weight: 600;
+`
+
+export const NavInteractBtn = styled.div`
   cursor: pointer;
-
+  font-size: 16px;
+  line-height: 140%;
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  overflow: hidden;
+  transition: background-color 0.2s;
+  background-color: ${(props) => props.modalActive && '#5d9d0b'};
   &:hover {
-    font-size: 0.90625rem;
+    background-color: ${(props) => !props.modalActive && '#2f3239'};
   }
+  &:active {
+    background-color: #5d9d0b;
+  }
+  p {
+    transition: opacity 0.2s;
+    opacity: ${(props) => (props.active ? 1 : 0)};
+    pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+    margin: 0;
+    white-space: nowrap;
+  }
+`
 
-  @media screen and (min-width: 1440px) {
-    margin-bottom: 30px;
-    height: 45px;
-  }
+export const NavBarCopyright = styled.h3`
+  transition: opacity 0.2s;
+  opacity: ${(props) => (props.active ? 1 : 0)};
+  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  display: block;
+  margin-top: auto;
+  margin-bottom: 32px;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: capitalize;
+  color: #86878b;
+  overflow: hidden;
+  white-space: nowrap;
 `

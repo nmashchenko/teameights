@@ -6,6 +6,7 @@ import styled from 'styled-components'
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {
     background: transparent;
+    justify-content: center;
   }
 `
 
@@ -55,7 +56,7 @@ export const Button = styled.button`
 export const SelectContainer = styled.div`
   width: 70%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
   @media screen and (min-width: 0px) and (max-width: 980px) {
