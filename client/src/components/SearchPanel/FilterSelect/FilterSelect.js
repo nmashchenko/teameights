@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
-import ArrowDown from '../../../../../assets/SearchPanel/ArrowDown'
-import { filtersList } from '../filtersList.options'
+import ArrowDown from '../../../assets/SearchPanel/ArrowDown'
 
 import { FilterSelectBox, FilterSelectBtn, OptionItem, OptionsList } from './FilterSelect.styles'
 
-const FilterSelect = ({ filter, setFilter }) => {
+const FilterSelect = ({ filtersArr, filter, setFilter }) => {
   const [selectActive, setSelectActive] = useState(false)
 
   const onChangeFilter = (filter) => {
@@ -21,7 +20,7 @@ const FilterSelect = ({ filter, setFilter }) => {
       </FilterSelectBtn>
       {selectActive && (
         <OptionsList>
-          {filtersList.map((item) => {
+          {filtersArr.map((item) => {
             return (
               <OptionItem onClick={() => onChangeFilter(item)} key={item.name}>
                 {item.text}

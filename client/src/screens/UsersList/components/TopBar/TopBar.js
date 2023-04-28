@@ -11,11 +11,11 @@ import PlatformLogo from '../../../../assets/PlatformLogo'
 import Search from '../../../../assets/SearchIcon'
 // * Components
 import NavBarContainer from '../../../../components/NavBar/NavBar'
+import SearchPanel from '../../../../components/SearchPanel/SearchPanel'
 import frameworkOptions from '../../../../constants/frameworks'
 import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
 import { setFilters } from '../../../../store/reducers/Shared'
 import FiltersMenu from '../FiltersMenu/FiltersMenu'
-import SearchPanel from '../SearchPanel/SearchPanel'
 import { PlaceholderText } from '../SelectField/SelectField.styles'
 
 // * Options
@@ -31,13 +31,12 @@ import {
   NavBar,
   SelectContainer,
 } from './TopBar.styles'
+import { usersFiltersArr } from './usersFilters.options'
 
 const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
   const [filterBar, setFilterBar] = useState(false)
   const dispatch = useDispatch()
   const countriesOptions = useMemo(() => countryList().getData(), [])
-
-  console.log(countriesOptions)
 
   const showFiltersBar = () => setFilterBar(!filterBar)
   const handleSubmitFilter = (values, dirty) => {
@@ -181,11 +180,11 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                         margin: 0,
                       }}
                     />
-                  </SelectContainer> */}
-                  <SearchPanel />
-                  {/* <Button type="button" onClick={() => handleSubmitFilter(values, dirty)}>
+                  </SelectContainer>
+                  <Button type="button" onClick={() => handleSubmitFilter(values, dirty)}>
                     <Search sx={{ width: '32px', height: '32px', color: 'white' }} />
                   </Button> */}
+                  <SearchPanel filtersArr={usersFiltersArr} />
                   {/* Mobile filters button */}
                   <FilterContainer onClick={showFiltersBar}>
                     <Filters />

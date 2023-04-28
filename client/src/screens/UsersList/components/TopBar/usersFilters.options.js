@@ -1,4 +1,4 @@
-export const filtersList = [
+export const usersFiltersArr = [
   {
     name: 'name',
     text: 'Name',

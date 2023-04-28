@@ -25,7 +25,6 @@ export const SearchInput = styled.input`
 export const SearchBtn = styled.div`
   width: 20px;
   height: 20px;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
