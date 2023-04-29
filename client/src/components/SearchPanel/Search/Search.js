@@ -1,13 +1,18 @@
 import SearchByText from './SearchByText/SearchByText'
 
-const Search = ({ filterName }) => {
-  switch (filterName) {
-    case 'name':
-      return <SearchByText filterName={filterName} placeholder="Search by name" />
-    case 'tag':
-      return <SearchByText filterName={filterName} placeholder="Search by tag" />
+const Search = ({ currFilter, setCurrFilter, setFilterValue }) => {
+  switch (currFilter.type) {
+    case 'text':
+      return (
+        <SearchByText
+          placeholder={`Search by ${currFilter.name}`}
+          currFilter={currFilter}
+          setCurrFilter={setCurrFilter}
+          setFilterValue={setFilterValue}
+        />
+      )
     default:
-      return <SearchByText filterName={filterName} placeholder="" />
+      return <p>Filter is not defined</p>
   }
 }
 

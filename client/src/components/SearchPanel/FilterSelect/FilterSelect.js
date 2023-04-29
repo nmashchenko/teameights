@@ -4,18 +4,18 @@ import ArrowDown from '../../../assets/SearchPanel/ArrowDown'
 
 import { FilterSelectBox, FilterSelectBtn, OptionItem, OptionsList } from './FilterSelect.styles'
 
-const FilterSelect = ({ filtersArr, filter, setFilter }) => {
+const FilterSelect = ({ filtersArr, currFilter, setCurrFilter }) => {
   const [selectActive, setSelectActive] = useState(false)
 
   const onChangeFilter = (filter) => {
-    setFilter(filter)
+    setCurrFilter(filter)
     setSelectActive(false)
   }
 
   return (
     <FilterSelectBox>
       <FilterSelectBtn active={selectActive} onClick={() => setSelectActive((prev) => !prev)}>
-        <p>{filter.text}</p>
+        <p>{currFilter.text}</p>
         <ArrowDown />
       </FilterSelectBtn>
       {selectActive && (

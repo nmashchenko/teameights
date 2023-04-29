@@ -15,6 +15,7 @@ import SearchPanel from '../../../../components/SearchPanel/SearchPanel'
 import frameworkOptions from '../../../../constants/frameworks'
 import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
 import { setFilters } from '../../../../store/reducers/Shared'
+import { setUsersFilter } from '../../../../store/reducers/UsersFiltersSlice'
 import FiltersMenu from '../FiltersMenu/FiltersMenu'
 import { PlaceholderText } from '../SelectField/SelectField.styles'
 
@@ -31,7 +32,6 @@ import {
   NavBar,
   SelectContainer,
 } from './TopBar.styles'
-import { usersFiltersArr } from './usersFilters.options'
 
 const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
   const [filterBar, setFilterBar] = useState(false)
@@ -184,7 +184,7 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                   <Button type="button" onClick={() => handleSubmitFilter(values, dirty)}>
                     <Search sx={{ width: '32px', height: '32px', color: 'white' }} />
                   </Button> */}
-                  <SearchPanel filtersArr={usersFiltersArr} />
+                  <SearchPanel sliceName={'usersFilters'} setFilterValueAction={setUsersFilter} />
                   {/* Mobile filters button */}
                   <FilterContainer onClick={showFiltersBar}>
                     <Filters />
