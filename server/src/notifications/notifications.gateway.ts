@@ -3,38 +3,58 @@ import {
 	WebSocketServer,
 	SubscribeMessage,
 	MessageBody,
+	OnGatewayConnection,
+	OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { NotificationsService } from './notifications.service';
-import { Types } from 'mongoose';
-import { OnModuleInit } from '@nestjs/common';
+import { isValidObjectId, Types } from 'mongoose';
+import { Subject } from 'rxjs';
 
 @WebSocketGateway()
-export class NotificationsGateway implements OnModuleInit {
+export class NotificationsGateway
+	implements OnGatewayConnection, OnGatewayDisconnect
+{
 	constructor(private readonly notificationsService: NotificationsService) {}
 	@WebSocketServer()
 	server: Server;
 
-	onModuleInit() {
-		this.server.on('connection', (socket) => {
+	private connectedUsers: Map<string, Date> = new Map();
+	private subject = new Subject<string>();
+
+	@SubscribeMessage('subscribeToNotifications')
+	async subscribeToNotifications(client: any, data: any) {
+		try {
+			let user = JSON.parse(data);
+			if (isValidObjectId(user.id)) {
+				await this.notificationsService.watchNotifications(
+					new Types.ObjectId(user.id),
+					this.server,
+					this.subject,
+				);
+			}
 			console.log(
-				`New client with id: ${socket.id} connected to notifications WebSocket server`,
+				`Client ${client.id} subscribed to notifications for user ${user.id}`,
 			);
-		});
+		} catch (e) {
+			console.log(e.message);
+			this.server.emit(`subscribeToNotificationsError`, e.message);
+			this.handleDisconnect(client);
+		}
 	}
 
-	@SubscribeMessage('notificationUpdates')
-	async handleConnection(@MessageBody() body: any) {
-		// todo: make sure id passed is actual ID
-
-		console.log(body);
-		await this.notificationsService.watchNotifications(
-			new Types.ObjectId('640c4dc2f0e1e2aa528b2b7b'),
-			this.server,
+	handleConnection(client: any) {
+		console.log(
+			`Client ${client.id} connected to notifications WebSocket server`,
 		);
+		this.connectedUsers.set(client.id, new Date());
 	}
 
-	async handleDisconnect() {
-		console.log('Client disconnected from notifications WebSocket server');
+	handleDisconnect(client: any) {
+		console.log(
+			`Client with id ${client.id} disconnected from notifications WebSocket server`,
+		);
+		this.subject.next(client.id);
+		this.connectedUsers.delete(client.id);
 	}
 }

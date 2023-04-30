@@ -11,6 +11,7 @@ import { MailsService } from '@/mails/mails.service';
 import { Notifications } from './schemas/notifications.schema';
 import { ReadNotificationsDto } from './dto/read-notifications.dto';
 import { Server } from 'socket.io';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class NotificationsService {
@@ -185,19 +186,26 @@ export class NotificationsService {
 	async watchNotifications(
 		userid: mongoose.Types.ObjectId,
 		server: Server,
+		subject: Subject<string>,
 	): Promise<void> {
-		const changeStream = this.notificationModel.watch(
+		console.log(userid);
+		const watchCursor = this.notificationModel.watch(
 			[{ $match: { 'fullDocument.user': userid } }],
 			{ fullDocument: 'updateLookup' },
 		);
-		changeStream.on('change', (change) => {
+
+		subject.subscribe({
+			next: (v) => console.log(v),
+		});
+
+		watchCursor.on('change', (change) => {
 			console.log('Notification changed:', change);
 			// Emit the change to subscribed clients
 
 			server.emit(`notification-${userid}`, change);
 		});
 
-		changeStream.on('error', (error) => {
+		watchCursor.on('error', (error) => {
 			console.error('Change stream error:', error);
 		});
 	}
