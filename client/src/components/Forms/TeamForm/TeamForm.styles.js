@@ -300,7 +300,7 @@ export const CreateButton = styled.button`
   width: 100%;
   height: 44px;
   background: #46A11B;
-  opacity: .4;
+  opacity: ${(props) => props.color};
   border-radius: 10px;
   font-size: 16px;
   font-weight: 500;
@@ -381,11 +381,11 @@ export const SearchIconContainer = styled.div`
   width: 20px;
   height: 20px;
   cursor: pointer;
-  color: #86878b;
+  color: ${(props) => props.color || '#86878b'};
   svg,
   svg path,
   svg circle {
-    stroke: #86878b;
+    stroke: ${(props) => props.color || '#86878b'};
   }
 `
 

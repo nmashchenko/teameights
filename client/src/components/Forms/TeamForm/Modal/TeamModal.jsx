@@ -130,7 +130,7 @@ const TeamModal = ({
             </Text>
 
             <InputBox>
-              <SearchIconContainer>
+              <SearchIconContainer color={email !== '' ? '#5BD424' : '#86878b'}>
                 <SearchIcon />
               </SearchIconContainer>
               <Input
@@ -140,7 +140,7 @@ const TeamModal = ({
               ></Input>
             </InputBox>
           </div>
-          <CreateButton onClick={handleActions}>
+          <CreateButton color={email !== '' ? '1' : '.4'} onClick={handleActions}>
             <UserPlusContainer>
               <UserPlus />
             </UserPlusContainer>
