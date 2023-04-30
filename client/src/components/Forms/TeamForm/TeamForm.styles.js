@@ -307,7 +307,7 @@ export const CreateButton = styled.button`
   color: white;
   border: none;
   outline: none;
-  margin-top: 200px;
+  // margin-top: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -337,7 +337,7 @@ export const ActionButton = styled.button`
   cursor: pointer;
 `
 
-export const style = {
+export let style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -351,6 +351,13 @@ export const style = {
   padding: '72.5px 32px',
 }
 
+export const SpaceBetweenColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`
+
 export const InputBox = styled.div`
   display: flex;
 
@@ -358,8 +365,16 @@ export const InputBox = styled.div`
   border-radius: 10px;
   align-items: center;
   gap: 14px;
-  margin-top: 33px;
-  padding: 9px 12px;
+  margin-top: 32px;
+  padding: 9px 9px;
+  input {
+    font-size: ${B2fs};
+    line-height: ${B2lh};
+    font-weight: ${B2fw};
+    width: 100%;
+    height: 22px;
+    border: none;
+  }
 `
 
 export const SearchIconContainer = styled.div`
@@ -410,9 +425,10 @@ export const CloseContainerModal = styled.div`
     width: 20px;
     height: 20px;
     path {
-      fill: ${(props) => props.color || '#46A11B'};
+      stroke: ${(props) => props.color || '#46A11B'};
     }
   }
+  color: #fff;
 
   opacity: 1;
 

@@ -1,18 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Field, Form, Formik } from 'formik'
 
 import { CheckCircle } from '../../../../assets/CheckCircle'
+import { UploadSymbol } from '../../../../assets/UploadSymbol'
 
 import { DefaultImg, FileButton, FormikContainer, ImageBox, MyRadioGroup } from './EditImage.styles'
 
 const EditImage = ({
   selectedImage,
+  imgData,
+  picture,
   setImgData,
   setPicture,
   changeSelectedImage,
   defaultTeamImages,
-  selectedImgJSX,
 }) => {
+  const [errorMessage, updateErrorMessage] = useState('')
+
+  useEffect(() => {
+    if (errorMessage === '') {
+      return
+    }
+
+    const timer = () => {
+      updateErrorMessage('')
+    }
+
+    const timeout = setTimeout(timer, 2000)
+
+    return () => clearTimeout(timeout)
+  }, [errorMessage])
+
+  const selectedImgJSX =
+    imgData === null ? (
+      <>
+        <UploadSymbol />
+        <p style={{ margin: '0', marginTop: '12px' }}>
+          {errorMessage.length > 0 ? errorMessage : 'Drop here or click to upload'}
+        </p>
+      </>
+    ) : (
+      <div>{picture === null ? '' : picture.name}</div>
+    )
+
   return (
     <FormikContainer>
       <Formik
@@ -87,8 +117,17 @@ const EditImage = ({
 
                   // do not accept HEIC
                   if (String(file.name).includes('HEIC') || String(file.name).includes('heic')) {
+                    updateErrorMessage('HEIC not accepted.')
+
                     return
                   }
+
+                  if (file.size > 100000) {
+                    updateErrorMessage('Image too big')
+
+                    return
+                  }
+
                   setPicture(file)
                   const reader = new FileReader()
 
@@ -121,6 +160,8 @@ const EditImage = ({
                         ) {
                           return
                         }
+                        console.log(item)
+
                         setPicture(file)
                         const reader = new FileReader()
 

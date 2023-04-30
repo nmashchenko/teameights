@@ -24,7 +24,7 @@ export const useCreateTeam = (teamAvatar) => {
         updateAvatar({ teamID: data._id, image: teamAvatar.split(',')[1] })
       }
       await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
-      navigate('/myteam')
+      navigate('/my-team')
     },
   })
 }

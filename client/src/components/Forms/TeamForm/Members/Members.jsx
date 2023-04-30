@@ -38,6 +38,7 @@ const Members = ({
 }) => {
   useEffect(() => {
     changeChosenLeader({ username: '', id: '' })
+    openSelectLeader(false)
   }, [isEditing])
 
   const listModal = (
