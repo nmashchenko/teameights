@@ -1,7 +1,3 @@
-import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
-import { Roles } from '@/auth/guards/roles-auth.decorator';
-import { RolesGuard } from '@/auth/guards/roles.guard';
-import { ValidationPipe } from '@/pipes/validation.pipe';
 import {
 	Body,
 	Controller,
@@ -13,6 +9,12 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
+
+import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+import { RolesGuard } from '@/auth/guards/roles.guard';
+import { Roles } from '@/auth/guards/roles-auth.decorator';
+import { ValidationPipe } from '@/pipes/validation.pipe';
+
 import { CreateTournamentDto } from './dto/create-tournament.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { Tournament } from './tournaments.schema';

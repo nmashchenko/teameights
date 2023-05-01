@@ -1,15 +1,17 @@
-import { UsersService } from '@Users/users.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { UsersService } from '@Users/users.service';
 import mongoose, { ClientSession, Model } from 'mongoose';
-import { TeamInvitationNotification } from './schemas/team-invite.schema';
-import { NotificationType } from './notifications.enums';
-import { SystemNotification } from './schemas/system.schema';
+
+import { MailsService } from '@/mails/mails.service';
+
+import { ReadNotificationsDto } from './dto/read-notifications.dto';
 import { SystemNotificationDto } from './dto/system-notification.dto';
 import { TeamNotificationsDto } from './dto/team-notification.dto';
-import { MailsService } from '@/mails/mails.service';
+import { NotificationType } from './notifications.enums';
 import { Notifications } from './schemas/notifications.schema';
-import { ReadNotificationsDto } from './dto/read-notifications.dto';
+import { SystemNotification } from './schemas/system.schema';
+import { TeamInvitationNotification } from './schemas/team-invite.schema';
 
 @Injectable()
 export class NotificationsService {
@@ -44,7 +46,9 @@ export class NotificationsService {
 		if (typeof session !== 'undefined') {
 			const data = await this.systemNotificationModel.create(
 				[notification],
-				{ session },
+				{
+					session,
+				},
 			);
 			return data[0]._id;
 		} else {
@@ -81,7 +85,9 @@ export class NotificationsService {
 		if (typeof session !== 'undefined') {
 			const data = await this.teamNotificationModel.create(
 				[notification],
-				{ session },
+				{
+					session,
+				},
 			);
 			return data[0]._id;
 		} else {
@@ -137,8 +143,8 @@ export class NotificationsService {
 	}
 
 	async readNotification(dto: ReadNotificationsDto): Promise<Object> {
-		let error: number = 0;
-		let success: number = 0;
+		let error = 0;
+		let success = 0;
 
 		for (let i = 0; i < dto.notifications.length; i++) {
 			const notification = await this.getTeamNotificationById(

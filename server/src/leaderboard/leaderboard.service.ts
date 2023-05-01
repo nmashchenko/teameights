@@ -1,9 +1,9 @@
-import { TeamsService } from '@/teams/teams.service';
-import { TournamentsService } from '@/tournaments/tournaments.service';
-import { UsersService } from '@/users/users.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
+
+import { TeamsService } from '@/teams/teams.service';
+
 import { UpdateTournamentDto } from './dto/update-tournament.dto';
 import { Leaderboard, LeaderboardDocument } from './leaderboard.schema';
 

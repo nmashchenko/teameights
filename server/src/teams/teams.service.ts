@@ -1,21 +1,23 @@
 import { FileService, FileType } from '@Files/file.service';
-import { UsersService } from '@Users/users.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
-import { CreateTeamDto } from './dto/create-team.dto';
-import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
-import { Team, TeamsDocument } from './teams.schema';
 import { NotificationsService } from '@Notifications/notifications.service';
-import { InviteToTeamDto } from './dto/invite-to-team.dto';
-import { TeamType } from './types/teams.type';
-import { TeamMembershipDTO } from './dto/membership.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
-import { teamUpdateValidate } from '@/validation/team-update.validation';
-import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
+import { UsersService } from '@Users/users.service';
+import mongoose, { Model } from 'mongoose';
+
 import { MailsService } from '@/mails/mails.service';
+import { teamUpdateValidate } from '@/validation/team-update.validation';
+
+import { CreateTeamDto } from './dto/create-team.dto';
+import { InviteToTeamDto } from './dto/invite-to-team.dto';
+import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
+import { TeamMembershipDTO } from './dto/membership.dto';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
+import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
+import { Team, TeamsDocument } from './teams.schema';
+import { TeamType } from './types/teams.type';
 
 @Injectable()
 export class TeamsService {
@@ -69,7 +71,7 @@ export class TeamsService {
 		}
 
 		/* Creating an array of members_id. */
-		let members_id: Array<mongoose.Types.ObjectId> = [dto.leader];
+		const members_id: Array<mongoose.Types.ObjectId> = [dto.leader];
 
 		/* Creating a team with the given data. */
 		const team = await this.teamModel.create({
@@ -91,7 +93,7 @@ export class TeamsService {
 		if (dto?.members?.emails.length > 0) {
 			/* Inviting all the members of the team to the team. */
 			for (let i = 0; i < dto.members.emails.length; i++) {
-				let candidate = {
+				const candidate = {
 					email: dto.members.emails[i],
 					from_user_id: dto.leader,
 					teamid: team._id,

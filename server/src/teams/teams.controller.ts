@@ -1,28 +1,29 @@
 import { JwtAuthGuard } from '@Auth/guards/jwt-auth.guard';
-import { ValidationPipe } from '@Pipes/validation.pipe';
 import {
 	Body,
 	Controller,
+	Delete,
 	Get,
 	Param,
 	Post,
-	Delete,
 	Put,
 	UseGuards,
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TeamsService } from './teams.service';
-import { CreateTeamDto } from './dto/create-team.dto';
+import { ValidationPipe } from '@Pipes/validation.pipe';
 import mongoose from 'mongoose';
-import { Team } from './teams.schema';
-import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
+
+import { CreateTeamDto } from './dto/create-team.dto';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
-import { TeamMembershipDTO } from './dto/membership.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
+import { TeamMembershipDTO } from './dto/membership.dto';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
+import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
+import { Team } from './teams.schema';
+import { TeamsService } from './teams.service';
 
 @ApiTags('Teams')
 @Controller('/teams')

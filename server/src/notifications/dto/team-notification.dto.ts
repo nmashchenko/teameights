@@ -1,7 +1,9 @@
-import { Team } from '@/teams/teams.schema';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsMongoId, IsString } from 'class-validator';
 import mongoose from 'mongoose';
+
+import { Team } from '@/teams/teams.schema';
+
 import { NotificationDto } from './notification.dto';
 
 export class TeamNotificationsDto extends NotificationDto {

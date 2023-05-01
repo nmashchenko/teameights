@@ -10,13 +10,15 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Request, Response } from 'express';
-import { RegisterUserDto } from '@/users/dto/register-user.dto';
+import { ValidationPipe } from '@Pipes/validation.pipe';
 import { ResetUserDto } from '@Users/dto/reset-user.dto';
+import { Request, Response } from 'express';
+
+import { AuthUserDto } from '@/users/dto/auth-user.dto';
+import { RegisterUserDto } from '@/users/dto/register-user.dto';
+
 import { AuthService } from './auth.service';
 import { AuthResponseDto } from './dto/auth-response.dto';
-import { AuthUserDto } from '@/users/dto/auth-user.dto';
-import { ValidationPipe } from '@Pipes/validation.pipe';
 
 @ApiTags('Auth')
 @Controller('auth')

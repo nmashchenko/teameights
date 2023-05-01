@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-import { ValidationPipe } from './pipes/validation.pipe';
 // import { JwtAuthGuard } from "./auth/jwt-auth.guard";
 // import { ValidationPipe } from "./pipes/validation.pipe";
-
 import cookieParser from 'cookie-parser';
+
+import { AppModule } from './app.module';
+import { ValidationPipe } from './pipes/validation.pipe';
 
 async function start() {
 	try {

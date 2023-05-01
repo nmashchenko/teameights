@@ -1,35 +1,37 @@
 import { HttpException } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { TeamsService } from '../teams.service';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Team, TeamsSchema } from '../teams.schema';
-import { UsersModule } from '@/users/users.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { Test, TestingModule } from '@nestjs/testing';
+import { MailerModule } from '@nestjs-modules/mailer';
+import * as path from 'path';
+import { uuid } from 'uuidv4';
+
+import { AuthModule } from '@/auth/auth.module';
 import { FileModule } from '@/files/file.module';
+import { MailsModule } from '@/mails/mails.module';
 import { NotificationsModule } from '@/notifications/notifications.module';
+import { NotificationsService } from '@/notifications/notifications.service';
+import { RolesService } from '@/roles/roles.service';
 import {
 	closeMongoConnection,
 	healthCheck,
 	rootMongooseTestModule,
 } from '@/test-utils/MongooseTestModule';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { ConfigModule } from '@nestjs/config';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import * as path from 'path';
-import { CreateTeamDtoStub } from './stubs/create-team.dto.stub';
-import { UsersService } from '@/users/users.service';
+import { TokensModule } from '@/tokens/tokens.module';
 import { RegisterUserDtoStub } from '@/users/tests/stubs/register-user.dto.stub';
-import { RolesService } from '@/roles/roles.service';
-import { uuid } from 'uuidv4';
+import { UpdateUserAvatarDtoStub } from '@/users/tests/stubs/update-avatar.dto.stub';
+import { UsersModule } from '@/users/users.module';
 import { User } from '@/users/users.schema';
-import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
+import { UsersService } from '@/users/users.service';
+
+import { Team, TeamsSchema } from '../teams.schema';
+import { TeamsService } from '../teams.service';
+import { CreateTeamDtoStub } from './stubs/create-team.dto.stub';
 import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
-import { MailsModule } from '@/mails/mails.module';
-import { NotificationsService } from '@/notifications/notifications.service';
 import { TransferLeaderDtoStub } from './stubs/transfer-leader.dto.stub';
 import { UpdateTeamDtoStub } from './stubs/update-team.dto.stub';
-import { TokensModule } from '@/tokens/tokens.module';
-import { AuthModule } from '@/auth/auth.module';
-import { UpdateUserAvatarDtoStub } from '@/users/tests/stubs/update-avatar.dto.stub';
+import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -97,7 +99,7 @@ describe('TeamService', () => {
 		// done();
 	});
 
-	async function createUser(email: string = 'test@example.com') {
+	async function createUser(email = 'test@example.com') {
 		await rolesService.createRole({
 			value: 'USER',
 			description: 'User role',
@@ -111,7 +113,7 @@ describe('TeamService', () => {
 			value: 'USER',
 			description: 'User role',
 		});
-		let users = new Array<User>();
+		const users = new Array<User>();
 
 		for (let i = 0; i < amount; i++) {
 			const user = await userService.createUser(
@@ -167,7 +169,7 @@ describe('TeamService', () => {
 	});
 
 	it('should create 300 users and 300 teams', async () => {
-		let users = await createMultipleUsers(300);
+		const users = await createMultipleUsers(300);
 
 		for (let i = 0; i < users.length; i++) {
 			await teamsService.createTeam(CreateTeamDtoStub(users[i]._id));
@@ -269,7 +271,7 @@ describe('TeamService', () => {
 
 		const leader = users.shift();
 
-		let members = {
+		const members = {
 			emails: [],
 			ids: [],
 		};
@@ -287,7 +289,7 @@ describe('TeamService', () => {
 		expect(team).toBeDefined();
 
 		for (let i = 0; i < users.length; i++) {
-			let notification =
+			const notification =
 				await notificationService.getTeamNotificationsForUser(
 					users[i]._id,
 				);

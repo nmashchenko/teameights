@@ -1,3 +1,6 @@
+import { JwtAuthGuard } from '@Auth/guards/jwt-auth.guard';
+import { RolesGuard } from '@Auth/guards/roles.guard';
+import { Roles } from '@Auth/guards/roles-auth.decorator';
 import {
 	Body,
 	Controller,
@@ -12,20 +15,18 @@ import {
 	UseInterceptors,
 	UsePipes,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Request } from 'express';
-import { JwtAuthGuard } from '@Auth/guards/jwt-auth.guard';
-import { Roles } from '@Auth/guards/roles-auth.decorator';
-import { RolesGuard } from '@Auth/guards/roles.guard';
 import { ValidationPipe } from '@Pipes/validation.pipe';
+import { Request } from 'express';
+import mongoose from 'mongoose';
+import * as qs from 'qs';
+
+import { Results } from './dto/results.dto';
+import { UpdateAvatarDto } from './dto/update-avatar.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './users.schema';
 import { UsersService } from './users.service';
-import { Results } from './dto/results.dto';
-import * as qs from 'qs';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { UpdateAvatarDto } from './dto/update-avatar.dto';
-import mongoose from 'mongoose';
 
 @ApiTags('Users')
 @Controller('/users')
@@ -92,7 +93,7 @@ export class UsersController {
 	getUsersByPage(@Query('page') pageNumber?: number) {
 		/* A way to check if the pageNumber is a number or not. If it is not a number, it will return 1. */
 		const page: number = parseInt(pageNumber as any) || 1;
-		const limit: number = 9;
+		const limit = 9;
 		return this.userService.getUsersByPage(page, limit);
 	}
 
@@ -116,7 +117,7 @@ export class UsersController {
 		@Query('page') pageNumber?: number,
 	) {
 		const page: number = parseInt(pageNumber as any) || 1;
-		const limit: number = 9;
+		const limit = 9;
 		/* Parsing the query string into an object. */
 		const parsedQuery = qs.parse(filtersQuery);
 

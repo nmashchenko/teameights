@@ -1,18 +1,19 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { ClientSession, FilterQuery, Model } from 'mongoose';
 import { RolesService } from '@Roles/roles.service';
-import { User, UserDocument } from './users.schema';
-
-import * as uuid from 'uuid';
-import { RegisterUserDto } from './dto/register-user.dto';
 import { TokensService } from '@Tokens/tokens.service';
-import { Results } from './dto/results.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import mongoose, { ClientSession, FilterQuery, Model } from 'mongoose';
+import * as uuid from 'uuid';
+
 import { FileService, FileType } from '@/files/file.service';
-import { UpdateAvatarDto } from './dto/update-avatar.dto';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { userUpdateValidate } from '@/validation/user-update.validation';
+
+import { RegisterUserDto } from './dto/register-user.dto';
+import { Results } from './dto/results.dto';
+import { UpdateAvatarDto } from './dto/update-avatar.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User, UserDocument } from './users.schema';
 
 @Injectable()
 export class UsersService {
@@ -211,7 +212,7 @@ export class UsersService {
 	 */
 	async getUsersByPage(page: number, limit: number): Promise<Results> {
 		/* A type assertion. */
-		let results = {} as Results;
+		const results = {} as Results;
 
 		/* Calculating the total number of users, the last page and the limit. */
 		results.total = await this.userModel.count();
@@ -241,7 +242,7 @@ export class UsersService {
 		parsedQuery: FilterQuery<any>,
 	): Promise<Results> {
 		/* A type assertion. */
-		let results = {} as Results;
+		const results = {} as Results;
 
 		/* Getting the total number of users that match the query. */
 		results.total = await this.userModel

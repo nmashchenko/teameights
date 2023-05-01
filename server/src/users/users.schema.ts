@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
-import * as mongoose from 'mongoose';
-import { Role } from '@Roles/roles.schema';
 import { ApiProperty } from '@nestjs/swagger';
 import { Notifications } from '@Notifications/schemas/notifications.schema';
+import { Role } from '@Roles/roles.schema';
 import { Team } from '@Teams/teams.schema';
+import { HydratedDocument } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -40,21 +40,21 @@ export class User {
 		description: 'Did user click on confirmation email?',
 	})
 	@Prop()
-	isActivated: Boolean;
+	isActivated: boolean;
 
 	@ApiProperty({
 		example: 'true',
 		description: 'Did user complete the registration?',
 	})
 	@Prop()
-	isRegistered: Boolean;
+	isRegistered: boolean;
 
 	@ApiProperty({
 		example: 'true',
 		description: 'Does user want to be leader of team?',
 	})
 	@Prop()
-	isLeader: Boolean;
+	isLeader: boolean;
 
 	@ApiProperty({
 		example: 'zczx-324j-skdf-xxcd',

@@ -7,12 +7,11 @@ import {
 	UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { JwtService } from '@nestjs/jwt';
-import { ObjectId } from 'mongoose';
 import { Observable } from 'rxjs';
-import { RolesService } from '@Roles/roles.service';
-import { ROLES_KEY } from './roles-auth.decorator';
+
 import { TokensService } from '@/tokens/tokens.service';
+
+import { ROLES_KEY } from './roles-auth.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

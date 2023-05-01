@@ -4,8 +4,8 @@ import {
 	Injectable,
 	UnauthorizedException,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { TokensService } from '@Tokens/tokens.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {

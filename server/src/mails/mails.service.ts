@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
+
 import { Team } from '@/teams/teams.schema';
 import { User } from '@/users/users.schema';
-import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
+
 import { activationEmail } from './templates/activation';
 import { resetEmail } from './templates/reset';
 import { teamInviteEmail } from './templates/team-invite';

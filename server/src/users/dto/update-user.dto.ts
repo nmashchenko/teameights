@@ -14,6 +14,7 @@ import {
 	Length,
 	ValidateNested,
 } from 'class-validator';
+
 import { JobDataDto } from './job-data.dto';
 import { LinksUserDto } from './links-user.dto';
 import { UniversityDataDto } from './university-data.dto';
@@ -93,7 +94,7 @@ export class UpdateUserDto {
 	@IsBoolean({ message: 'Should be boolean' })
 	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsOptional()
-	readonly isLeader: Boolean;
+	readonly isLeader: boolean;
 
 	@ApiProperty({
 		example: {

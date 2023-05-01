@@ -2,6 +2,7 @@
 import { Body, Controller, Param, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
+
 import { ReadNotificationsDto } from './dto/read-notifications.dto';
 import { NotificationsService } from './notifications.service';
 import { Notifications } from './schemas/notifications.schema';

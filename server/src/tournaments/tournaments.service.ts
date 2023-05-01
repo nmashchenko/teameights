@@ -1,12 +1,14 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { isEqual } from 'lodash';
+import mongoose, { Model } from 'mongoose';
+
 import { FileService } from '@/files/file.service';
 import { LeaderboardService } from '@/leaderboard/leaderboard.service';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { TeamsService } from '@/teams/teams.service';
 import { UsersService } from '@/users/users.service';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { isEqual } from 'lodash';
-import mongoose, { Model } from 'mongoose';
+
 import { CreateTournamentDto } from './dto/create-tournament.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { Tournament, TournamentDocument } from './tournaments.schema';

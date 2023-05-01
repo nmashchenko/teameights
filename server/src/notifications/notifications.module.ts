@@ -1,24 +1,26 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsersModule } from '@Users/users.module';
+import { User, UserSchema } from '@Users/users.schema';
+
+import { AuthModule } from '@/auth/auth.module';
+import { MailsModule } from '@/mails/mails.module';
+import { TokensModule } from '@/tokens/tokens.module';
+
+import { NotificationsController } from './notifications.controller';
+import { NotificationsService } from './notifications.service';
 import {
 	Notifications,
 	NotificationsSchema,
 } from './schemas/notifications.schema';
-import { NotificationsService } from './notifications.service';
-import {
-	TeamInvitationNotification,
-	TeamInvitationNotificationSchema,
-} from './schemas/team-invite.schema';
-import { User, UserSchema } from '@Users/users.schema';
-import { UsersModule } from '@Users/users.module';
 import {
 	SystemNotification,
 	SystemNotificationSchema,
 } from './schemas/system.schema';
-import { MailsModule } from '@/mails/mails.module';
-import { NotificationsController } from './notifications.controller';
-import { AuthModule } from '@/auth/auth.module';
-import { TokensModule } from '@/tokens/tokens.module';
+import {
+	TeamInvitationNotification,
+	TeamInvitationNotificationSchema,
+} from './schemas/team-invite.schema';
 
 @Module({
 	providers: [NotificationsService],
