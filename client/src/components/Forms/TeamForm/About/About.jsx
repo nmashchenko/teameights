@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState } from 'react'
 import countryList from 'react-select-country-list'
 import { Field, Form, Formik } from 'formik'
 
-import { useUpdateTeam } from '../../../../api/hooks/team/userUpdateTeam'
+import { useUpdateTeam } from '../../../../api/hooks/team/useUpdateTeam'
 import { B2fs, B2fw, B2lh } from '../../../../assets/fonts'
 import typeOptions from '../../../../constants/types'
 import { PlaceholderText } from '../../../../screens/UsersList/components/SelectField/SelectField.styles'

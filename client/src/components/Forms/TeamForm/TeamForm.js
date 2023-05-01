@@ -10,8 +10,8 @@ import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
+import { useLeave } from '../../../api/hooks/team/useLeaveTeam'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
-import { useTeamMembership } from '../../../api/hooks/team/useTeamMembership'
 import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
 import Loader from '../../../shared/components/Loader/Loader'
 
@@ -51,7 +51,7 @@ function TeamForm() {
 
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
 
-  const { mutate: leaveTeam, isLoading: isLeaving } = useTeamMembership('leave')
+  const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
   const { mutate: removeFromTeam, isLoading: isRemoving } = useRemoveMember()
   const { mutate: updateTeamsAvatar, isLoading: isUpdatingTeamsAvatar } = useUpdateAvatar('teams')
   const { mutate: transferLeader, isLoading: isTransferring } = useTransferLeader()
@@ -77,7 +77,15 @@ function TeamForm() {
 
   // START IMAGES
   const [selectedImage, changeSelectedImage] = useState('')
-  const defaultTeamImages = ['defaultGreen', 'defaultPink', 'defaultOrange', 'defaultBlue']
+  const defaultTeamImages = [
+    'default-green',
+    'default-pink',
+    'default-blue',
+    'default-orange',
+    'default-pink',
+    'default-purple',
+    'default-yellow',
+  ]
   const [picture, setPicture] = useState(null)
   const [imgData, setImgData] = useState(null)
 
@@ -96,7 +104,7 @@ function TeamForm() {
 
     // if we have a default, choose default
     if (selectedImage !== '') {
-      return require(`../../../assets/defaults/${defaultTeamImages[selectedImage]}.png`)
+      return require(`../../../assets/defaultAvatars/team/${defaultTeamImages[selectedImage]}.png`)
     }
 
     if (picture !== null) {

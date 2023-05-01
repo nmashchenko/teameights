@@ -7,7 +7,6 @@ const { api } = http
 
 export const useLeave = () => {
   const queryClient = useQueryClient()
-  const navigate = useNavigate()
   const leaveTeam = async (details) => {
     const response = await api.put(`/teams/leave`, details)
 

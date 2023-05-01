@@ -820,7 +820,7 @@ export const FormikContainer = styled.div`
 
 export const EditImageButton = styled.button`
   position: absolute;
-  right: 10%;
+  right: -5%;
   bottom: 19%;
   cursor: pointer;
   background: #46a11b;
@@ -836,62 +836,7 @@ export const EditImageButton = styled.button`
   opacity: ${(props) => (props.editImage ? '0' : '1')};
 
   svg {
-    width: 28px;
-    height: 28px;
-  }
-`
-
-export const DefaultImg = styled.img`
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  &:after {
-    display: block;
-    content: '?';
     width: 20px;
     height: 20px;
-    background-color: green;
-    position: absolute;
-  }
-`
-
-export const MyRadioGroup = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 24px;
-`
-
-export const FileButton = styled.div`
-  border: 2px dashed #86878b;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0;
-  cursor: pointer;
-  height: 184px;
-`
-
-export const ImageBox = styled.div`
-  position: relative;
-  opacity: ${(props) => (props.myKey ? '1' : '.50')};
-  transition: all 0.2s;
-
-  span {
-    display: block;
-    position: absolute;
-
-    svg {
-      width: 14.29px;
-      height: 14.29px;
-    }
-    // background-color: green;
-    right: 0%;
-    bottom: 0%;
-
-    opacity: ${(props) => (props.myKey ? '1' : '0')};
   }
 `

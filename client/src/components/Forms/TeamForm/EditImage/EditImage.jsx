@@ -83,7 +83,7 @@ const EditImage = ({
                   <ImageBox key={key} myKey={String(key) === selectedImage}>
                     <DefaultImg
                       data-pic={key}
-                      src={require(`../../../../assets/defaults/${image}.png`)}
+                      src={require(`../../../../assets/defaultAvatars/team/${image}.png`)}
                     />
                     <span>
                       <CheckCircle />
