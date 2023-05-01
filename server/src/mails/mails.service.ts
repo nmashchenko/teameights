@@ -12,7 +12,7 @@ import { teamInviteEmail } from './templates/team-invite';
 export class MailsService {
 	constructor(private mailService: MailerService) {}
 
-	async sendActivationMail(user: User, link: string) {
+	async sendActivationMail(user: User, link: string): Promise<void> {
 		const status = await this.mailService.sendMail({
 			from: process.env.SMTP_USER,
 			to: user.email,
@@ -24,7 +24,11 @@ export class MailsService {
 		console.log(status);
 	}
 
-	async sendResetEmail(user: User, link: string, ip: ParameterDecorator) {
+	async sendResetEmail(
+		user: User,
+		link: string,
+		ip: ParameterDecorator,
+	): Promise<void> {
 		const status = await this.mailService.sendMail({
 			from: process.env.SMTP_USER,
 			to: user.email,
@@ -41,7 +45,7 @@ export class MailsService {
 		receiver: User,
 		inviter: User,
 		team: Team,
-	) {
+	): Promise<void> {
 		console.log(process.env.API_URL + '/' + inviter.image);
 		const status = await this.mailService.sendMail({
 			from: process.env.SMTP_USER,

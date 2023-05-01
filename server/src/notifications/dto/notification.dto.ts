@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDate, IsMongoId, IsOptional } from 'class-validator';
+import { IsMongoId, IsOptional } from 'class-validator';
 import mongoose from 'mongoose';
-
-import { NotificationType } from '../notifications.enums';
 
 export class NotificationDto {
 	constructor() {}

@@ -39,7 +39,7 @@ describe('TeamService', () => {
 	let rolesService: RolesService;
 	let notificationService: NotificationsService;
 
-	beforeAll((done) => {
+	beforeAll(done => {
 		done();
 	});
 
@@ -51,9 +51,7 @@ describe('TeamService', () => {
 					envFilePath: `.dev.env`,
 				}),
 				rootMongooseTestModule(),
-				MongooseModule.forFeature([
-					{ name: Team.name, schema: TeamsSchema },
-				]),
+				MongooseModule.forFeature([{ name: Team.name, schema: TeamsSchema }]),
 				/* Serving the static files. */
 				ServeStaticModule.forRoot({
 					rootPath: path.resolve(__dirname, 'static'),
@@ -99,7 +97,7 @@ describe('TeamService', () => {
 		// done();
 	});
 
-	async function createUser(email = 'test@example.com') {
+	async function createUser(email = 'test@example.com'): Promise<User> {
 		await rolesService.createRole({
 			value: 'USER',
 			description: 'User role',
@@ -108,7 +106,7 @@ describe('TeamService', () => {
 		return await userService.createUser(RegisterUserDtoStub(email));
 	}
 
-	async function createMultipleUsers(amount: number) {
+	async function createMultipleUsers(amount: number): Promise<User[]> {
 		await rolesService.createRole({
 			value: 'USER',
 			description: 'User role',
@@ -119,7 +117,6 @@ describe('TeamService', () => {
 			const user = await userService.createUser(
 				RegisterUserDtoStub(uuid() + '@gmail.com'),
 			);
-
 			users.push(user);
 		}
 
@@ -197,9 +194,7 @@ describe('TeamService', () => {
 	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
 		const user1 = await createUser();
 
-		const team = await teamsService.createTeam(
-			CreateTeamDtoStub(user1._id),
-		);
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user1._id));
 
 		await userService.updateAvatar(UpdateUserAvatarDtoStub(user1.email, 1));
 
@@ -225,15 +220,13 @@ describe('TeamService', () => {
 	it('should create user, give him role, create team, then create another user invite him to team and double check invite has image field', async () => {
 		const user1 = await createUser();
 
-		const team = await teamsService.createTeam(
-			CreateTeamDtoStub(user1._id),
-		);
+		const team = await teamsService.createTeam(CreateTeamDtoStub(user1._id));
 
 		const user2 = await userService.createUser(
 			RegisterUserDtoStub('mmashc2@uic.edu'),
 		);
 
-		const info = await teamsService.inviteToTeam(
+		await teamsService.inviteToTeam(
 			InviteToTeamDtoStub(user2.email, user1._id, team._id),
 		);
 
@@ -290,9 +283,7 @@ describe('TeamService', () => {
 
 		for (let i = 0; i < users.length; i++) {
 			const notification =
-				await notificationService.getTeamNotificationsForUser(
-					users[i]._id,
-				);
+				await notificationService.getTeamNotificationsForUser(users[i]._id);
 
 			/* Checking if the notification is defined. */
 			expect(notification[0]).toBeDefined();
@@ -351,9 +342,7 @@ describe('TeamService', () => {
 		const updatedTeam = await teamsService.updateTeam(incoming_update_data);
 
 		expect(updatedTeam.name).toEqual(incoming_update_data.name);
-		expect(updatedTeam.description).toEqual(
-			incoming_update_data.description,
-		);
+		expect(updatedTeam.description).toEqual(incoming_update_data.description);
 		expect(updatedTeam.country).toEqual(incoming_update_data.country);
 		expect(updatedTeam.tag).toEqual(incoming_update_data.tag);
 		expect(updatedTeam.type).toEqual(incoming_update_data.type);
@@ -380,12 +369,10 @@ describe('TeamService', () => {
 	it('should create user, then create team and then call updateTeam without required teamid', async () => {
 		const user = await createUser();
 
-		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+		await teamsService.createTeam(CreateTeamDtoStub(user._id));
 
 		// @ts-ignore
-		await expect(teamsService.updateTeam({})).rejects.toThrow(
-			HttpException,
-		);
+		await expect(teamsService.updateTeam({})).rejects.toThrow(HttpException);
 	});
 
 	it('should create user, then create team and then call updateTeam with only required teamid', async () => {

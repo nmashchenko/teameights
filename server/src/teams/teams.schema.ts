@@ -75,8 +75,7 @@ export class Team {
 
 	@ApiProperty({
 		example: 10,
-		description:
-			'Number of points that the team has earned in the tournaments',
+		description: 'Number of points that the team has earned in the tournaments',
 	})
 	@Prop({ required: false })
 	points: number;

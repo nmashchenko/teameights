@@ -4,7 +4,7 @@ export const resetEmail = (
 	user: User,
 	link: string,
 	ip: ParameterDecorator,
-) => `
+): string => `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
 <html lang="en">
@@ -26,8 +26,8 @@ export const resetEmail = (
           </table>
           <h1 style="margin-left:0px;margin-right:0px;margin-top:30px;margin-bottom:30px;padding:0px;text-align:center;font-size:24px;font-weight:400;color:rgb(0,0,0)">Reset <strong>password</strong> on <strong>Teameights</strong> 🔧</h1>
           <p style="font-size:14px;line-height:24px;margin:16px 0;color:rgb(0,0,0)">Hello ${
-				user.username
-			},</p>
+						user.username
+					},</p>
           <p style="font-size:14px;line-height:24px;margin:16px 0;color:rgb(0,0,0)"><strong>We</strong> recieved a request at ${new Date().toISOString()} (UTC) to <strong>reset</strong> your password on <strong>Teameights</strong>. If you made this request, please confirm it by clicking button below.</p>
           <table align="center" border="0" cellPadding="0" cellSpacing="0" role="presentation" width="100%" style="margin-bottom:32px;margin-top:32px;text-align:center">
             <tbody>
@@ -39,8 +39,8 @@ export const resetEmail = (
           <p style="font-size:14px;line-height:24px;margin:16px 0;color:rgb(0,0,0)">or copy and paste this URL into your browser: <a target="_blank" style="color:rgb(37,99,235);text-decoration:none;text-decoration-line:none" href="${link}">${link}</a></p>
           <hr style="width:100%;border:none;border-top:1px solid #eaeaea;margin-left:0px;margin-right:0px;margin-top:26px;margin-bottom:26px;border-width:1px;border-style:solid;border-color:rgb(234,234,234)" />
           <p style="font-size:12px;line-height:24px;margin:16px 0;color:rgb(102,102,102)">This request was made by <span style="color:rgb(0,0,0)">${
-				user.username
-			}</span> from ${ip}. If you were not expecting this reset, you can ignore this email. If you are concerned about your account&#x27;s safety, please reply to this email to get in touch with us.</p>
+						user.username
+					}</span> from ${ip}. If you were not expecting this reset, you can ignore this email. If you are concerned about your account&#x27;s safety, please reply to this email to get in touch with us.</p>
           <p style="font-size:12px;line-height:24px;margin:16px 0;color:rgb(102,102,102)">Teameights Support Team 🎉 </p>
         </td>
       </tr>

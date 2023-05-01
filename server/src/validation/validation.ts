@@ -3,21 +3,19 @@ import { validate } from 'class-validator';
 import { ValidationException } from '@/exceptions/validation.exception';
 
 export class ManualValidatorHook {
-	static async validateDtoByClassValidator(obj: any) {
-		const res = await validate(obj).then((errors) => {
+	static async validateDtoByClassValidator(obj: any): Promise<boolean> {
+		const res = await validate(obj).then(errors => {
 			if (errors.length) {
-				const messages = errors.map((err) => {
+				const messages = errors.map(err => {
 					/* Checking if there are any errors in the children of the error object. If there are, it will return
                     the error message. Used for nested objects validation inside the orginial object*/
 					return err.children.length === 0
-						? `${err.property} - ${Object.values(
-								err.constraints,
-						  ).join(', ')}`
+						? `${err.property} - ${Object.values(err.constraints).join(', ')}`
 						: err.children.map(
-								(err) =>
-									`${err.property} - ${Object.values(
-										err.constraints,
-									).join(', ')}`,
+								err =>
+									`${err.property} - ${Object.values(err.constraints).join(
+										', ',
+									)}`,
 						  );
 				});
 				return messages;

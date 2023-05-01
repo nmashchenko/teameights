@@ -1,11 +1,8 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersModule } from '@Users/users.module';
 import { User, UserSchema } from '@Users/users.schema';
 
-import { AuthModule } from '@/auth/auth.module';
 import { MailsModule } from '@/mails/mails.module';
-import { TokensModule } from '@/tokens/tokens.module';
 
 import { NotificationsController } from './notifications.controller';
 import { NotificationsService } from './notifications.service';

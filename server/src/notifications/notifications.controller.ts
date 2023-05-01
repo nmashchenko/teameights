@@ -1,9 +1,9 @@
 // import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
-import { Body, Controller, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Put } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import mongoose from 'mongoose';
 
 import { ReadNotificationsDto } from './dto/read-notifications.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 import { NotificationsService } from './notifications.service';
 import { Notifications } from './schemas/notifications.schema';
 
@@ -19,7 +19,9 @@ export class NotificationsController {
 	})
 	@ApiResponse({ status: 200, type: Notifications })
 	@Put('/read')
-	readNotification(@Body() dto: ReadNotificationsDto) {
+	async readNotification(
+		@Body() dto: ReadNotificationsDto,
+	): Promise<StatusResponseDto> {
 		return this.notificationsService.readNotification(dto);
 	}
 }

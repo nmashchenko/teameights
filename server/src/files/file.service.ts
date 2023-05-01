@@ -36,10 +36,7 @@ export class FileService {
 			fs.writeFileSync(path.resolve(filePath, fileName), buffer);
 			return type + '/' + fileName;
 		} catch (err) {
-			throw new HttpException(
-				err.message,
-				HttpStatus.INTERNAL_SERVER_ERROR,
-			);
+			throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -52,10 +49,7 @@ export class FileService {
 			const filePath = path.resolve(__dirname, '..', 'static', fileName);
 			await fs.promises.unlink(filePath);
 		} catch (err) {
-			throw new HttpException(
-				err.message,
-				HttpStatus.INTERNAL_SERVER_ERROR,
-			);
+			throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

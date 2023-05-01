@@ -1,12 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { Team } from '@Teams/teams.schema';
 import { User } from '@Users/users.schema';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 
 import { NotificationType } from '../notifications.enums';
-import { TeamInvitationNotification } from './team-invite.schema';
 
 export type NotificationsDocument = HydratedDocument<Notifications>;
 

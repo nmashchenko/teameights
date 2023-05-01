@@ -10,18 +10,16 @@ export class ValidationPipe implements PipeTransform<any> {
 		const errors = await validate(obj);
 
 		if (errors.length) {
-			const messages = errors.map((err) => {
+			const messages = errors.map(err => {
 				/* Checking if there are any errors in the children of the error object. If there are, it will return
 				the error message. Used for nested objects validation inside the orginial object*/
 				return err.children.length === 0
-					? `${err.property} - ${Object.values(err.constraints).join(
-							', ',
-					  )}`
+					? `${err.property} - ${Object.values(err.constraints).join(', ')}`
 					: err.children.map(
-							(err) =>
-								`${err.property} - ${Object.values(
-									err.constraints,
-								).join(', ')}`,
+							err =>
+								`${err.property} - ${Object.values(err.constraints).join(
+									', ',
+								)}`,
 					  );
 			});
 			throw new ValidationException(messages);

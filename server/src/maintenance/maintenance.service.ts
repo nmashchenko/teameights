@@ -12,6 +12,7 @@ import { RegisterUserDto } from '@/users/dto/register-user.dto';
 import { UpdateUserDto } from '@/users/dto/update-user.dto';
 import { UsersService } from '@/users/users.service';
 
+import { StatusResponseDto } from './dto/status-response.dto';
 import {
 	avatar_blue,
 	avatar_green,
@@ -81,8 +82,9 @@ export class MaintenanceService {
 		return shuffled.slice(0, numEntries);
 	}
 
-	private generateTeam(leader: mongoose.Types.ObjectId) {
+	private generateTeam(leader: mongoose.Types.ObjectId): any {
 		const dto = new CreateTeamDto();
+
 		type RemoveReadonly = {
 			-readonly [key in keyof CreateTeamDto]: CreateTeamDto[key];
 		};
@@ -163,7 +165,7 @@ export class MaintenanceService {
 		return initialUser;
 	}
 
-	async generateUsers(amount: number): Promise<Object> {
+	async generateUsers(amount: number): Promise<StatusResponseDto> {
 		const startTime = performance.now();
 
 		const roleCheck = await this.rolesService.getRoleByValue('USER');
@@ -197,7 +199,7 @@ export class MaintenanceService {
 		};
 	}
 
-	async generateTeams(amount: number): Promise<Object> {
+	async generateTeams(amount: number): Promise<StatusResponseDto> {
 		const startTime = performance.now();
 
 		for (let i = 0; i < amount; i++) {
@@ -218,7 +220,10 @@ export class MaintenanceService {
 		};
 	}
 
-	async generateUsersInTeam(amount: number, teamid: mongoose.Types.ObjectId) {
+	async generateUsersInTeam(
+		amount: number,
+		teamid: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
 		const startTime = performance.now();
 
 		for (let i = 0; i < amount; i++) {
@@ -243,7 +248,7 @@ export class MaintenanceService {
 		};
 	}
 
-	async dropDatabase() {
+	async dropDatabase(): Promise<StatusResponseDto> {
 		const startTime = performance.now();
 
 		await this.connection.dropDatabase();

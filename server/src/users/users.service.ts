@@ -81,7 +81,7 @@ export class UsersService {
 	 * @param {string} activationLink - The activation link that was sent to the user's email.
 	 * @returns The user document that was updated.
 	 */
-	async verifyActivationLink(activationLink: string) {
+	async verifyActivationLink(activationLink: string): Promise<User> {
 		return await this.userModel.findOneAndUpdate(
 			{ activationLink },
 			{ isActivated: true },
@@ -94,10 +94,7 @@ export class UsersService {
 	 * @param {ClientSession} [session] - This is the session that will be used to run the query.
 	 * @returns A user object
 	 */
-	async getUserByEmail(
-		email: string,
-		session?: ClientSession,
-	): Promise<User> {
+	async getUserByEmail(email: string, session?: ClientSession): Promise<User> {
 		/* Checking if the session is undefined. If it is, it is returning the user. If it is not, it is
 		returning the user with the session. */
 		const user =
@@ -183,10 +180,7 @@ export class UsersService {
 	 * @param {string} email - The email of the user whose password we want to update.
 	 * @returns The updated user.
 	 */
-	async updateUserPassword(
-		hashPassword: string,
-		email: string,
-	): Promise<User> {
+	async updateUserPassword(hashPassword: string, email: string): Promise<User> {
 		return await this.userModel.findOneAndUpdate(
 			{ email },
 			{ password: hashPassword },
@@ -385,7 +379,9 @@ export class UsersService {
 	 *
 	 * @param notificationID - The ID of the team.
 	 */
-	async checkNotifications(notificationID: mongoose.Types.ObjectId) {
+	async checkNotifications(
+		notificationID: mongoose.Types.ObjectId,
+	): Promise<User> {
 		return await this.userModel.findOne({
 			notifications: { $in: [notificationID] },
 		});
@@ -411,9 +407,6 @@ export class UsersService {
 	 * @param userID - The ID of the user you want to add to a team.
 	 */
 	async removeTeam(userID: mongoose.Types.ObjectId): Promise<void> {
-		await this.userModel.updateOne(
-			{ _id: userID },
-			{ $unset: { team: null } },
-		);
+		await this.userModel.updateOne({ _id: userID }, { $unset: { team: null } });
 	}
 }

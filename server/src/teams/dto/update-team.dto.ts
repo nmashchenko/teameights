@@ -8,8 +8,6 @@ import {
 } from 'class-validator';
 import mongoose from 'mongoose';
 
-import { User } from '@/users/users.schema';
-
 import { TeamType } from '../types/teams.type';
 
 export class UpdateTeamDto {
@@ -64,8 +62,7 @@ export class UpdateTeamDto {
 
 	@ApiProperty({
 		example: 10,
-		description:
-			'Number of points that the team has earned in the tournaments',
+		description: 'Number of points that the team has earned in the tournaments',
 	})
 	@IsOptional()
 	@IsNumber()

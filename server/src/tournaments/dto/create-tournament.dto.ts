@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
 	IsArray,
-	IsDate,
 	IsDateString,
 	IsMongoId,
 	IsOptional,
@@ -10,7 +9,6 @@ import {
 import mongoose from 'mongoose';
 
 import { Team } from '@/teams/teams.schema';
-import { User } from '@/users/users.schema';
 
 class TournamentParticipantsDto {
 	@ApiProperty({

@@ -41,10 +41,7 @@ export class TournamentsService {
 		}
 
 		/* It checks if the tournament end time is later than the start time. */
-		if (
-			new Date(dto.tournament_endTime) <
-			new Date(dto.tournament_startTime)
-		) {
+		if (new Date(dto.tournament_endTime) < new Date(dto.tournament_startTime)) {
 			throw new HttpException(
 				`Start time can't be later than end time`,
 				HttpStatus.BAD_REQUEST,
@@ -84,16 +81,14 @@ export class TournamentsService {
 	 * @param t_id - mongoose.Types.ObjectId
 	 * @returns A tournament object
 	 */
-	async getTournamentById(
-		t_id: mongoose.Types.ObjectId,
-	): Promise<Tournament> {
+	async getTournamentById(t_id: mongoose.Types.ObjectId): Promise<Tournament> {
 		return await this.tournamentModel.findById(t_id);
 	}
 
 	async checkExistance(
 		t_id: mongoose.Types.ObjectId,
 		userid: mongoose.Types.ObjectId,
-	): Promise<Object> {
+	): Promise<any> {
 		const candidateTournament = await this.getTournamentById(t_id);
 
 		/* It checks if the tournament exists. */
@@ -140,10 +135,7 @@ export class TournamentsService {
 
 		/* It checks if the team exists. */
 		if (!candidateTeam) {
-			throw new HttpException(
-				`Team was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`Team was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		const candidateTournament = await this.getTournamentById(dto.t_id);
@@ -195,10 +187,9 @@ export class TournamentsService {
 			);
 		} else {
 			/* It's filtering the participants array and pushing the new participant to the array. */
-			const filtered =
-				checkTeamInTournament.tournament_participants.filter(
-					(participant) => participant.team_id !== dto.team_id,
-				);
+			const filtered = checkTeamInTournament.tournament_participants.filter(
+				participant => participant.team_id !== dto.team_id,
+			);
 			const newParticipants = {
 				team_id: dto.team_id,
 				frontend_id: dto.frontend_id,

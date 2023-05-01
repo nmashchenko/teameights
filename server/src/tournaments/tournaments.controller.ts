@@ -33,7 +33,7 @@ export class TournamentsController {
 	})
 	@ApiResponse({ status: 200, type: Tournament })
 	@Post('/create-tournament')
-	createTournament(@Body() dto: CreateTournamentDto) {
+	createTournament(@Body() dto: CreateTournamentDto): Promise<Tournament> {
 		return this.tournamentsService.createTournament(dto);
 	}
 
@@ -44,20 +44,19 @@ export class TournamentsController {
 	})
 	@ApiResponse({ status: 200, type: Tournament })
 	@Post('/sign-up')
-	signUp(@Body() dto: SignUpDto) {
+	signUp(@Body() dto: SignUpDto): Promise<Tournament> {
 		return this.tournamentsService.signUp(dto);
 	}
 
 	@ApiOperation({
-		summary:
-			'Get all tournaments in the form /check-existance/:tournament/:id',
+		summary: 'Get all tournaments in the form /check-existance/:tournament/:id',
 	})
 	@ApiResponse({ status: 200, type: Object })
 	@Get('/check-existance/:tournament_id/:user_id')
 	checkExistance(
 		@Param('tournament_id') t_id: mongoose.Types.ObjectId,
 		@Param('user_id') userid: mongoose.Types.ObjectId,
-	) {
+	): Promise<any> {
 		return this.tournamentsService.checkExistance(t_id, userid);
 	}
 
@@ -66,7 +65,7 @@ export class TournamentsController {
 	})
 	@ApiResponse({ status: 200, type: [Tournament] })
 	@Get('/get-tournaments')
-	getTournament() {
+	getTournament(): Promise<Tournament[]> {
 		return this.tournamentsService.getTournaments();
 	}
 
@@ -75,7 +74,9 @@ export class TournamentsController {
 	})
 	@ApiResponse({ status: 200, type: Tournament })
 	@Get('/get-tournament/:id')
-	getTournamentById(@Param('id') t_id: mongoose.Types.ObjectId) {
+	getTournamentById(
+		@Param('id') t_id: mongoose.Types.ObjectId,
+	): Promise<Tournament> {
 		return this.tournamentsService.getTournamentById(t_id);
 	}
 

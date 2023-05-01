@@ -5,12 +5,10 @@ import {
 	IsBoolean,
 	IsDate,
 	IsEmail,
-	IsEmpty,
 	IsNotEmpty,
 	IsObject,
 	IsOptional,
 	IsString,
-	IsUrl,
 	Length,
 	ValidateNested,
 } from 'class-validator';

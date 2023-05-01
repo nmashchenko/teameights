@@ -12,6 +12,7 @@ import { CreateTeamDto } from './dto/create-team.dto';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { TeamMembershipDTO } from './dto/membership.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
@@ -170,10 +171,7 @@ export class TeamsService {
 	 * @returns An array of Team objects.
 	 */
 	async getAllTeams(): Promise<Team[]> {
-		return await this.teamModel
-			.find({})
-			.populate('members')
-			.populate('leader');
+		return await this.teamModel.find({}).populate('members').populate('leader');
 	}
 
 	/**
@@ -274,10 +272,8 @@ export class TeamsService {
 	private async removeNotification(
 		userId: mongoose.Types.ObjectId,
 		notificationid: mongoose.Types.ObjectId,
-	) {
-		console.debug(
-			`Removing notification ${notificationid} from user ${userId}`,
-		);
+	): Promise<void> {
+		console.log(`Removing notification ${notificationid} from user ${userId}`);
 		/* Removing the notification from the database. */
 		await this.notificationsService.removeNotification(notificationid);
 
@@ -294,11 +290,9 @@ export class TeamsService {
 	 */
 	async acceptInvite(
 		notificationid: mongoose.Types.ObjectId,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(
-				notificationid,
-			);
+			await this.notificationsService.getTeamNotificationById(notificationid);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -381,11 +375,9 @@ export class TeamsService {
 	 */
 	async rejectTeamInvite(
 		notificationid: mongoose.Types.ObjectId,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(
-				notificationid,
-			);
+			await this.notificationsService.getTeamNotificationById(notificationid);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -422,10 +414,7 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(
-				`User was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -486,10 +475,7 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(
-				`User was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -578,7 +564,9 @@ export class TeamsService {
 	 * @param teamId - The id of the team to be deleted.
 	 * @returns The team object
 	 */
-	async deleteTeam(teamId: mongoose.Types.ObjectId): Promise<Object> {
+	async deleteTeam(
+		teamId: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
 		const team = await this.getTeamById(teamId);
 
 		if (!team) {
@@ -603,7 +591,7 @@ export class TeamsService {
 		// delete team itself
 		await this.teamModel.findOneAndDelete({ _id: team._id });
 
-		return { status: 'removed' };
+		return { status: `Team ${teamId} was successfully deleted` };
 	}
 
 	/**
@@ -636,21 +624,13 @@ export class TeamsService {
 		// check if leader is valid user
 		const leader = await this.userService.getUserById(dto.leader_id);
 		if (!leader) {
-			throw new HttpException(
-				`User was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		// check if new_leader is valid user
-		const new_leader = await this.userService.getUserById(
-			dto.new_leader_id,
-		);
+		const new_leader = await this.userService.getUserById(dto.new_leader_id);
 		if (!new_leader) {
-			throw new HttpException(
-				`User was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		// check if both leader and new_leader belogn to the same team

@@ -15,6 +15,7 @@ import { ResetUserDto } from '@/users/dto/reset-user.dto';
 import { UsersService } from '@/users/users.service';
 
 import { AuthResponseDto } from './dto/auth-response.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -234,9 +235,7 @@ export class AuthService {
 	 * @param {string} activationLink - string - The activation link that was sent to the user's email.
 	 */
 	async activate(activationLink: string): Promise<void> {
-		const user = await this.userService.verifyActivationLink(
-			activationLink,
-		);
+		const user = await this.userService.verifyActivationLink(activationLink);
 
 		/* It's checking if the user exists. */
 		if (!user) {
@@ -252,7 +251,7 @@ export class AuthService {
 	 * @param {string} refreshToken - string - the refresh token that was sent from the client.
 	 * @returns It's returning the status of the refresh token deletion.
 	 */
-	async logout(refreshToken: string): Promise<Object> {
+	async logout(refreshToken: string): Promise<StatusResponseDto> {
 		const token = await this.tokensService.removeToken(refreshToken); // remove refresh token from DB if user logs out
 
 		/* It's checking if the refresh token was deleted from the database. */
@@ -275,7 +274,7 @@ export class AuthService {
 	async resetPassword(
 		email: string,
 		ip: ParameterDecorator,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const user = await this.userService.getUserByEmail(email);
 
 		if (!user) {
@@ -294,7 +293,7 @@ export class AuthService {
 			ip,
 		); // send activation email
 
-		return { status: 'reset email successfuly sent' };
+		return { status: 'Reset email successfuly sent' };
 	}
 
 	/**

@@ -18,6 +18,7 @@ import { CreateTeamDto } from './dto/create-team.dto';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { TeamMembershipDTO } from './dto/membership.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
@@ -37,7 +38,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Post('/create')
-	createTeam(@Body() dto: CreateTeamDto) {
+	createTeam(@Body() dto: CreateTeamDto): Promise<Team> {
 		return this.teamsService.createTeam(dto);
 	}
 
@@ -48,7 +49,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/update-avatar')
-	updateTeamAvatar(@Body() dto: UpdateTeamAvatarDto) {
+	updateTeamAvatar(@Body() dto: UpdateTeamAvatarDto): Promise<Team> {
 		return this.teamsService.updateTeamAvatar(dto);
 	}
 
@@ -59,7 +60,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/update-team')
-	updateUser(@Body() dto: UpdateTeamDto) {
+	updateUser(@Body() dto: UpdateTeamDto): Promise<Team> {
 		return this.teamsService.updateTeam(dto);
 	}
 
@@ -70,7 +71,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/remove-member')
-	removeMember(@Body() dto: TeamMembershipDTO) {
+	removeMember(@Body() dto: TeamMembershipDTO): Promise<Team> {
 		return this.teamsService.removeMember(dto);
 	}
 
@@ -79,7 +80,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Get('/get-team/:id')
-	getTeam(@Param('id') id: mongoose.Types.ObjectId) {
+	getTeam(@Param('id') id: mongoose.Types.ObjectId): Promise<Team> {
 		return this.teamsService.getTeamById(id);
 	}
 
@@ -88,7 +89,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: [Team] })
 	@Get('/get-teams')
-	getAllTeams() {
+	getAllTeams(): Promise<Team[]> {
 		return this.teamsService.getAllTeams();
 	}
 
@@ -99,7 +100,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: InviteToTeamResponseDto })
 	@Post('/invite')
-	inviteToTeam(@Body() dto: InviteToTeamDto) {
+	inviteToTeam(@Body() dto: InviteToTeamDto): Promise<InviteToTeamResponseDto> {
 		return this.teamsService.inviteToTeam(dto);
 	}
 
@@ -111,7 +112,7 @@ export class TeamsController {
 	@Put('/invite-accept/:notificationid')
 	acceptInvite(
 		@Param('notificationid') notificationid: mongoose.Types.ObjectId,
-	) {
+	): Promise<StatusResponseDto> {
 		return this.teamsService.acceptInvite(notificationid);
 	}
 
@@ -123,7 +124,7 @@ export class TeamsController {
 	@Put('/invite-reject/:notificationid')
 	rejectInvite(
 		@Param('notificationid') notificationid: mongoose.Types.ObjectId,
-	) {
+	): Promise<StatusResponseDto> {
 		return this.teamsService.rejectTeamInvite(notificationid);
 	}
 
@@ -134,7 +135,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/join')
-	joinTeam(@Body() dto: TeamMembershipDTO) {
+	joinTeam(@Body() dto: TeamMembershipDTO): Promise<Team> {
 		return this.teamsService.joinTeam(dto);
 	}
 
@@ -145,7 +146,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/leave')
-	leaveTeam(@Body() dto: TeamMembershipDTO) {
+	leaveTeam(@Body() dto: TeamMembershipDTO): Promise<Team> {
 		return this.teamsService.leaveTeam(dto);
 	}
 
@@ -155,7 +156,9 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Delete('/delete/:teamid')
-	deleteTeam(@Param('teamid') teamId: mongoose.Types.ObjectId) {
+	deleteTeam(
+		@Param('teamid') teamId: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
 		return this.teamsService.deleteTeam(teamId);
 	}
 
@@ -166,7 +169,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: [Team] })
 	@Post('/search')
-	findTeam(@Body() dto: TeamSearchDto) {
+	findTeam(@Body() dto: TeamSearchDto): Promise<Team[]> {
 		return this.teamsService.findTeam(dto);
 	}
 
@@ -177,7 +180,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/leader/transfer')
-	transferLeader(@Body() dto: TransferLeaderDto) {
+	transferLeader(@Body() dto: TransferLeaderDto): Promise<Team> {
 		return this.teamsService.transferLeader(dto);
 	}
 }

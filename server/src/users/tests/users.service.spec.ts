@@ -1,4 +1,4 @@
-import { forwardRef, HttpException } from '@nestjs/common';
+import { forwardRef } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -96,7 +96,7 @@ describe('UserService', () => {
 		// done();
 	});
 
-	async function createUser(email = 'test@example.com') {
+	async function createUser(email = 'test@example.com'): Promise<User> {
 		await rolesService.createRole({
 			value: 'USER',
 			description: 'User role',

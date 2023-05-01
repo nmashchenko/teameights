@@ -7,7 +7,7 @@ import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { ValidationPipe } from './pipes/validation.pipe';
 
-async function start() {
+async function start(): Promise<void> {
 	try {
 		const PORT = process.env.PORT || 5001;
 
@@ -32,16 +32,16 @@ async function start() {
 		SwaggerModule.setup('/api/docs', app, document);
 
 		/*
-    For the future reference: if we need to globally close access to the application
-    (e.g. make it only for authorized users only):
+		For the future reference: if we need to globally close access to the application
+		(e.g. make it only for authorized users only):
 
-    app.useGlobalGuards(JwtAuthGuard)
+		app.useGlobalGuards(JwtAuthGuard)
 
-    Global pipes:
-    (e.g. validation on every endpoint)
+		Global pipes:
+		(e.g. validation on every endpoint)
 
-    app.useGlobalPipes(new ValidationPipe())
-    */
+		app.useGlobalPipes(new ValidationPipe())
+		*/
 
 		await app.listen(PORT, () =>
 			console.log(`Server started on port: ${PORT}`),
