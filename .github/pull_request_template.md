@@ -1,10 +1,11 @@
 ## 🛠 Clickup tickets
 <!--- List clickup tickets resolved --->
-* Resolves [#8677dqa8r](https://app.clickup.com/t/8677dqa8r)
+<!-- [#8677dqa8r](https://app.clickup.com/t/8677dqa8r) -->
+* Resolves []()
 
 ## ✨ Overview
 <!--- Brief description of changes --->
-* This PR implements David's part for the Teams ticket
+* 
 
 <!--- If there are any database changes, please check the box and describe them --->
 - [ ] This PR includes database changes
