@@ -10,8 +10,8 @@ import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
-import { useLeave } from '../../../api/hooks/team/useLeave'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
+import { useTeamMembership } from '../../../api/hooks/team/useTeamMembership'
 import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
 import Loader from '../../../shared/components/Loader/Loader'
 
@@ -42,17 +42,20 @@ function TeamForm() {
   const [editImage, setEditImage] = useState(false)
   const [chosenLeader, changeChosenLeader] = useState({ username: '', id: '' })
   const [selectLeader, openSelectLeader] = useState(false)
+  const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
+  const teamId = user?.team?._id
+  const userId = user?._id
+  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
 
   const [isMembers, switchIsMembers] = useState(true)
 
-  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData()
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
-  const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
+
+  const { mutate: leaveTeam, isLoading: isLeaving } = useTeamMembership('leave')
   const { mutate: removeFromTeam, isLoading: isRemoving } = useRemoveMember()
   const { mutate: updateTeamsAvatar, isLoading: isUpdatingTeamsAvatar } = useUpdateAvatar('teams')
   const { mutate: transferLeader, isLoading: isTransferring } = useTransferLeader()
 
-  const { data: user } = useCheckAuth()
   // We need: Leave team
 
   useEffect(() => {
