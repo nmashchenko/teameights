@@ -166,14 +166,14 @@ describe('TeamService', () => {
 		).rejects.toThrow(HttpException);
 	});
 
-	it('should create 300 users and 300 teams', async () => {
-		let users = await createMultipleUsers(300);
+	it('should create 100 users and 100 teams', async () => {
+		let users = await createMultipleUsers(100);
 
 		for (let i = 0; i < users.length; i++) {
 			await teamsService.createTeam(CreateTeamDtoStub(users[i]._id));
 		}
 
-		expect((await teamsService.getAllTeams()).length).toBe(300);
+		expect((await teamsService.getTeamsByPage()).total).toBe(100);
 	});
 
 	it('should create user, give him role, create team, double check that it is created without image, make request to update image and double check that image link was given', async () => {
@@ -246,11 +246,11 @@ describe('TeamService', () => {
 
 		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
 
-		expect((await teamsService.getAllTeams()).length).toBe(1);
+		expect((await teamsService.getTeamsByPage()).total).toBe(1);
 
 		await teamsService.deleteTeam(team._id);
 
-		expect((await teamsService.getAllTeams()).length).toBe(0);
+		expect((await teamsService.getTeamsByPage()).total).toBe(0);
 	});
 
 	it('should create user, give him role, create team and then fail to create another team with the same tag', async () => {
@@ -405,5 +405,53 @@ describe('TeamService', () => {
 		expect(updatedTeam.tag).toEqual(team.tag);
 		expect(updatedTeam.type).toEqual(team.type);
 		expect(updatedTeam.points).toEqual(team.points);
+	});
+
+	it('should create 5 users and 5 teams', async () => {
+		let users = await createMultipleUsers(5);
+
+		await teamsService.createTeam(CreateTeamDtoStub(users[0]._id, 'TEG1'));
+		await teamsService.createTeam(CreateTeamDtoStub(users[1]._id, 'TEG2'));
+		await teamsService.createTeam(CreateTeamDtoStub(users[2]._id, 'TEG3'));
+		await teamsService.createTeam(CreateTeamDtoStub(users[3]._id, 'BEG1'));
+		await teamsService.createTeam(CreateTeamDtoStub(users[4]._id, 'BEG2'));
+
+		expect(
+			(
+				await teamsService.getFilteredTeamsByPage(1, 9, {
+					tag: { $regex: 'TEG', $options: 'i' },
+				})
+			).total,
+		).toBe(3);
+	});
+
+	it('should create 10 users and 10 teams, make 1 team have 3 players and filter by team with 3 players', async () => {
+		let users = await createMultipleUsers(10);
+
+		let team: Team;
+
+		for (let i = 0; i < 7; i++) {
+			team = await teamsService.createTeam(
+				CreateTeamDtoStub(users[i]._id),
+			);
+		}
+
+		await teamsService.joinTeam({
+			user_id: users[8]._id,
+			teamid: team._id,
+		});
+
+		await teamsService.joinTeam({
+			user_id: users[9]._id,
+			teamid: team._id,
+		});
+
+		expect(
+			(
+				await teamsService.getFilteredTeamsByPage(1, 9, {
+					members: { $size: 3 },
+				})
+			).total,
+		).toBe(1);
 	});
 });

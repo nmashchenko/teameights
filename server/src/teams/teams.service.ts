@@ -174,7 +174,10 @@ export class TeamsService {
 	 * limit, the number of teams on the current page, and an array of team objects with their members and
 	 * leader populated.
 	 */
-	async getTeamsByPage(page: number, limit: number): Promise<Results> {
+	async getTeamsByPage(
+		page: number = 1,
+		limit: number = 9,
+	): Promise<Results> {
 		/* A type assertion. */
 		let results = {} as Results;
 
@@ -212,9 +215,9 @@ export class TeamsService {
 	 * @returns This function returns a Promise that resolves to a Results object.
 	 */
 	async getFilteredTeamsByPage(
-		page: number,
-		limit: number,
-		parsedQuery: FilterQuery<any>,
+		page: number = 1,
+		limit: number = 9,
+		parsedQuery: FilterQuery<any> = {},
 	): Promise<Results> {
 		/* A type assertion. */
 		let results = {} as Results;
