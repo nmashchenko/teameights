@@ -10,8 +10,9 @@ import {
 	Put,
 	UseGuards,
 	UsePipes,
+	Query,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TeamsService } from './teams.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import mongoose from 'mongoose';
@@ -23,6 +24,8 @@ import { UpdateTeamDto } from './dto/update-team.dto';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
+import { Results } from './dto/results.dto';
+import * as qs from 'qs';
 
 @ApiTags('Teams')
 @Controller('/teams')
@@ -38,6 +41,62 @@ export class TeamsController {
 	@Post('/create')
 	createTeam(@Body() dto: CreateTeamDto) {
 		return this.teamsService.createTeam(dto);
+	}
+
+	@ApiOperation({ summary: 'Get teams by page' })
+	@ApiResponse({ status: 200, type: Results })
+	@ApiQuery({
+		name: 'page',
+		description: 'The page number to get',
+		required: false,
+		type: Number,
+	})
+	@Get()
+	getTeamsByPage(@Query('page') pageNumber?: number) {
+		/* A way to check if the pageNumber is a number or not. If it is not a number, it will return 1. */
+		const page: number = parseInt(pageNumber as any) || 1;
+		const limit: number = 9;
+		return this.teamsService.getTeamsByPage(page, limit);
+	}
+
+	@ApiOperation({ summary: 'Get filtered teams by page' })
+	@ApiResponse({ status: 200, type: Results })
+	@ApiQuery({
+		name: 'page',
+		description: 'The page number to get',
+		required: false,
+		type: Number,
+	})
+	@ApiQuery({
+		name: 'filtersQuery',
+		description: `The filters that we get front end, don't forget to use let queryString = qs.stringify(filtersQuery) before sending to backend`,
+		required: true,
+		type: String,
+	})
+	@Get('/filtered')
+	getFilteredTeamsByPage(
+		@Query('filtersQuery') filtersQuery: string,
+		@Query('page') pageNumber?: number,
+	) {
+		const page: number = parseInt(pageNumber as any) || 1;
+		const limit: number = 9;
+		/* Parsing the query string into an object. */
+		const parsedQuery = qs.parse(filtersQuery);
+
+		return this.teamsService.getFilteredTeamsByPage(
+			page,
+			limit,
+			parsedQuery,
+		);
+	}
+
+	@ApiOperation({
+		summary: 'Get team by id',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Get('/:id')
+	getTeam(@Param('id') id: mongoose.Types.ObjectId) {
+		return this.teamsService.getTeamById(id);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -71,24 +130,6 @@ export class TeamsController {
 	@Put('/remove-member')
 	removeMember(@Body() dto: TeamMembershipDTO) {
 		return this.teamsService.removeMember(dto);
-	}
-
-	@ApiOperation({
-		summary: 'Get team by id',
-	})
-	@ApiResponse({ status: 200, type: Team })
-	@Get('/get-team/:id')
-	getTeam(@Param('id') id: mongoose.Types.ObjectId) {
-		return this.teamsService.getTeamById(id);
-	}
-
-	@ApiOperation({
-		summary: 'Get all teams',
-	})
-	@ApiResponse({ status: 200, type: [Team] })
-	@Get('/get-teams')
-	getAllTeams() {
-		return this.teamsService.getAllTeams();
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -156,17 +197,6 @@ export class TeamsController {
 	@Delete('/delete/:teamid')
 	deleteTeam(@Param('teamid') teamId: mongoose.Types.ObjectId) {
 		return this.teamsService.deleteTeam(teamId);
-	}
-
-	@UseGuards(JwtAuthGuard)
-	@UsePipes(ValidationPipe)
-	@ApiOperation({
-		summary: 'Search for the team',
-	})
-	@ApiResponse({ status: 200, type: [Team] })
-	@Post('/search')
-	findTeam(@Body() dto: TeamSearchDto) {
-		return this.teamsService.findTeam(dto);
 	}
 
 	@UseGuards(JwtAuthGuard)

@@ -2,7 +2,7 @@ import { FileService, FileType } from '@Files/file.service';
 import { UsersService } from '@Users/users.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import mongoose, { FilterQuery, Model } from 'mongoose';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
 import { Team, TeamsDocument } from './teams.schema';
@@ -16,6 +16,7 @@ import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { MailsService } from '@/mails/mails.service';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
+import { Results } from './dto/results.dto';
 
 @Injectable()
 export class TeamsService {
@@ -164,14 +165,87 @@ export class TeamsService {
 	}
 
 	/**
-	 * > Get all teams from the database, populate the members and leader fields with the user data
-	 * @returns An array of Team objects.
+	 * This function retrieves a list of teams with their members and leader, based on a given page and
+	 * limit, and returns the results as a Promise.
+	 * @param {number} page - The page number of the results to retrieve.
+	 * @param {number} limit - The maximum number of teams to be returned per page.
+	 * @returns a Promise that resolves to an object of type Results, which contains information about the
+	 * teams retrieved from the database, including the total number of teams, the last page number, the
+	 * limit, the number of teams on the current page, and an array of team objects with their members and
+	 * leader populated.
 	 */
-	async getAllTeams(): Promise<Team[]> {
-		return await this.teamModel
+	async getTeamsByPage(page: number, limit: number): Promise<Results> {
+		/* A type assertion. */
+		let results = {} as Results;
+
+		/* Calculating the total number of users, the last page and the limit. */
+		results.total = await this.teamModel.count();
+		results.last_page = Math.ceil(results.total / limit);
+		results.limit = limit;
+
+		/* Getting all the users that are registered. */
+		const teams = await this.teamModel
 			.find({})
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.limit(limit)
 			.populate('members')
-			.populate('leader');
+			.populate('leader')
+			.exec();
+
+		/* Setting the number of users on the current page and the data of the users. */
+		results.on_current_page = teams.length;
+		results.data = teams;
+
+		/* Returning the results object. */
+		return results;
+	}
+
+	/**
+	 * This function retrieves a filtered list of teams based on a query, with pagination and population of
+	 * related data.
+	 * @param {number} page - The current page number of the results being requested.
+	 * @param {number} limit - The maximum number of results to be returned per page.
+	 * @param parsedQuery - parsedQuery is a filter query object that is used to filter the results of the
+	 * query. It is of type FilterQuery<any>, which means it can accept any type of filter query. It is
+	 * used to specify the conditions that the documents must meet in order to be included in the results.
+	 * @returns This function returns a Promise that resolves to a Results object.
+	 */
+	async getFilteredTeamsByPage(
+		page: number,
+		limit: number,
+		parsedQuery: FilterQuery<any>,
+	): Promise<Results> {
+		/* A type assertion. */
+		let results = {} as Results;
+
+		/* Getting the total number of users that match the query. */
+		results.total = await this.teamModel
+			.find(parsedQuery as FilterQuery<any>)
+			.count();
+
+		/* Calculating the last page and the limit. */
+		results.last_page = Math.ceil(results.total / limit);
+		results.limit = limit;
+
+		/* Getting all the users that match the query, limiting the number of users to the limit, skipping the
+		users that are not on the current page, limiting the number of users to the limit, populating the
+		roles and executing the query. */
+		const teams = await this.teamModel
+			/* Casting the parsedQuery to FilterQuery<any> */
+			.find(parsedQuery as FilterQuery<any>)
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.limit(limit)
+			.populate('members')
+			.populate('leader')
+			.exec();
+
+		/* Setting the number of users on the current page and the data of the users. */
+		results.on_current_page = teams.length;
+		results.data = teams;
+		/* Returning the results object. */
+		return results;
 	}
 
 	/**
@@ -602,24 +676,6 @@ export class TeamsService {
 		await this.teamModel.findOneAndDelete({ _id: team._id });
 
 		return { status: 'removed' };
-	}
-
-	/**
-	 * > If the `membersLength` property is present in the `TeamSearchDto` object, then we'll use it to
-	 * filter the results, otherwise we'll just use the `TeamSearchDto` object as is
-	 * @param {TeamSearchDto} dto - TeamSearchDto
-	 * @returns An array of teams
-	 */
-	async findTeam(dto: TeamSearchDto): Promise<Team[]> {
-		if ('membersLength' in dto) {
-			const { membersLength, ...searchQueury } = dto;
-			return await this.teamModel.find({
-				...searchQueury,
-				members: { $size: membersLength },
-			});
-		} else {
-			return await this.teamModel.find(dto);
-		}
 	}
 
 	/**
