@@ -1,11 +1,11 @@
-import { FileService, FileType } from '@Files/file.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { NotificationsService } from '@Notifications/notifications.service';
-import { UsersService } from '@Users/users.service';
 import mongoose, { Model } from 'mongoose';
 
+import { FileService, FileType } from '@/files/file.service';
 import { MailsService } from '@/mails/mails.service';
+import { NotificationsService } from '@/notifications/notifications.service';
+import { UsersService } from '@/users/users.service';
 import { teamUpdateValidate } from '@/validation/team-update.validation';
 
 import { CreateTeamDto } from './dto/create-team.dto';

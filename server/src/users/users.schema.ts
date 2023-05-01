@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { Notifications } from '@Notifications/schemas/notifications.schema';
-import { Role } from '@Roles/roles.schema';
-import { Team } from '@Teams/teams.schema';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
+
+import { Notifications } from '@/notifications/schemas/notifications.schema';
+import { Role } from '@/roles/roles.schema';
+import { Team } from '@/teams/teams.schema';
 
 export type UserDocument = HydratedDocument<User>;
 

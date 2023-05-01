@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '@Users/users.schema';
+
+import { User } from '@/users/users.schema';
 
 export class AuthResponseDto {
 	@ApiProperty({ example: User, description: `Initial user object` })

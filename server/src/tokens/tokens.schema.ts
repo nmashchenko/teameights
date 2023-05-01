@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '@Users/users.schema';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
+
+import { User } from '@/users/users.schema';
 
 export type TokenDocument = HydratedDocument<Token>;
 

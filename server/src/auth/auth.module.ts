@@ -1,8 +1,9 @@
-import { MailsModule } from '@Mails/mails.module';
 import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { TokensModule } from '@Tokens/tokens.module';
-import { UsersModule } from '@Users/users.module';
+
+import { MailsModule } from '@/mails/mails.module';
+import { TokensModule } from '@/tokens/tokens.module';
+import { UsersModule } from '@/users/users.module';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';

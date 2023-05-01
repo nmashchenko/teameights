@@ -90,17 +90,7 @@
     ],
     "testTimeout": 10000,
     "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/../src/$1",
-      "^@Auth/(.*)$": "<rootDir>/../src/auth/$1",
-      "^@Exceptions/(.*)$": "<rootDir>/../src/exceptions/$1",
-      "^@Mails/(.*)$": "<rootDir>/../src/mails/$1",
-      "^@Pipes/(.*)$": "<rootDir>/../src/pipes/$1",
-      "^@Roles/(.*)$": "<rootDir>/../src/roles/$1",
-      "^@Tokens/(.*)$": "<rootDir>/../src/tokens/$1",
-      "^@Users/(.*)$": "<rootDir>/../src/users/$1",
-      "^@Teams/(.*)$": "<rootDir>/../src/teams/$1",
-      "^@Notifications/(.*)$": "<rootDir>/../src/notifications/$1",
-      "^@Files/(.*)$": "<rootDir>/../src/files/$1"
+      "^@/(.*)$": "<rootDir>/../src/$1"
     },
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",

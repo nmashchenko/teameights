@@ -1,4 +1,3 @@
-import { JwtAuthGuard } from '@Auth/guards/jwt-auth.guard';
 import {
 	Body,
 	Controller,
@@ -11,10 +10,12 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ValidationPipe } from '@Pipes/validation.pipe';
 import { Request } from 'express';
 import mongoose from 'mongoose';
 import * as qs from 'qs';
+
+import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+import { ValidationPipe } from '@/pipes/validation.pipe';
 
 import { Results } from './dto/results.dto';
 import { UpdateAvatarDto } from './dto/update-avatar.dto';

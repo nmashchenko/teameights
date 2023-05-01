@@ -10,12 +10,12 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ValidationPipe } from '@Pipes/validation.pipe';
-import { ResetUserDto } from '@Users/dto/reset-user.dto';
 import { Request, Response } from 'express';
 
+import { ValidationPipe } from '@/pipes/validation.pipe';
 import { AuthUserDto } from '@/users/dto/auth-user.dto';
 import { RegisterUserDto } from '@/users/dto/register-user.dto';
+import { ResetUserDto } from '@/users/dto/reset-user.dto';
 
 import { AuthService } from './auth.service';
 import { AuthResponseDto } from './dto/auth-response.dto';

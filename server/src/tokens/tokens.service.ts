@@ -120,8 +120,11 @@ export class TokensService {
 	 * the token data was successfully deleted.
 	 */
 	async removeToken(refreshToken: string): Promise<StatusResponseDto> {
-		await this.tokenModel.deleteOne({ refreshToken });
-		return { status: 'Successfully deleted token data.' };
+		const token = await this.tokenModel.deleteOne({ refreshToken });
+		return {
+			status: 'Successfully deleted token data.',
+			deletedCount: token.deletedCount,
+		};
 	}
 
 	/**

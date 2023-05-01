@@ -1,4 +1,3 @@
-import { JwtAuthGuard } from '@Auth/guards/jwt-auth.guard';
 import {
 	Body,
 	Controller,
@@ -11,8 +10,10 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ValidationPipe } from '@Pipes/validation.pipe';
 import mongoose from 'mongoose';
+
+import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+import { ValidationPipe } from '@/pipes/validation.pipe';
 
 import { CreateTeamDto } from './dto/create-team.dto';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';

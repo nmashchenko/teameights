@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { RolesService } from '@Roles/roles.service';
-import { TokensService } from '@Tokens/tokens.service';
 import mongoose, { ClientSession, FilterQuery, Model } from 'mongoose';
 import * as uuid from 'uuid';
 
 import { FileService, FileType } from '@/files/file.service';
 import { NotificationsService } from '@/notifications/notifications.service';
+import { RolesService } from '@/roles/roles.service';
+import { TokensService } from '@/tokens/tokens.service';
 import { userUpdateValidate } from '@/validation/user-update.validation';
 
 import { RegisterUserDto } from './dto/register-user.dto';

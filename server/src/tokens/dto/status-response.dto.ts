@@ -8,9 +8,9 @@ export class StatusResponseDto {
 	status: string;
 
 	@ApiProperty({
-		example: '',
-		description: `Deleted refresh token!'`,
+		example: 1,
+		description: `Deleted count'`,
 		required: false,
 	})
-	errors?: string;
+	deletedCount?: number;
 }
