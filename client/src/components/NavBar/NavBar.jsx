@@ -43,7 +43,7 @@ const NavBar = () => {
     {
       title: 'Team',
       icon: <Team />,
-      path: user?.team ? '/myteam' : '/team',
+      path: user?.team ? '/my-team' : '/teams',
     },
     ...NavBarData.slice(1),
   ]
