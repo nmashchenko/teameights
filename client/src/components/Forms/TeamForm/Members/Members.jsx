@@ -145,7 +145,7 @@ const Members = ({
                 lineHeight={`${B3lh}`}
                 alignment="start"
               >
-                {member.concentration.length > 16
+                {member?.concentration?.length > 16
                   ? member.concentration.slice(0, 10) + '...'
                   : member.concentration}
               </Text>
