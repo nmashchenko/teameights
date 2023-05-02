@@ -12,6 +12,7 @@ import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 // import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
+import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
 import { useLeave } from '../../../api/hooks/team/useLeaveTeam'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../assets/fonts'
 import { LOCAL_PATH } from '../../../http'
@@ -54,12 +55,13 @@ function TeamsList() {
 
   const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
 
+  const { mutate: leaveAndJoin, isLoading: isLeavingAndJoining } = useLeaveAndJoin()
+
   useEffect(() => {
     const makeRequest = async () => {
       const teams = await teamsAPI.getAllTeams()
 
-      console.log(teams)
-      setTeams(teams.data)
+      setTeams(teams.data.filter((team) => team.type === 'open'))
       setIsTeamsLoading(false)
     }
 
@@ -77,7 +79,6 @@ function TeamsList() {
       user_id: user?._id,
       teamid: user?.team._id,
     })
-    handleClose()
   }
 
   const handleClose = () => {
@@ -102,21 +103,42 @@ function TeamsList() {
     // }
   }
 
+  const handleLeaveAndJoin = () => {
+    leaveAndJoin({ user_id: user?._id, teamid: user?.team._id })
+  }
+
   if (isUserTeamLoading || isTeamsLoading || isLeaving) {
     return <Loader />
   }
 
+  console.log(user)
   // lol we could move entire teams list to display her implementation
   // of checking out a team
 
   const getModalState = () => {
     if (changeModal === 'alreadyOnTeam') {
+      if (user.team.leader === user._id) {
+        const isOnlyMember =
+          user.team.members.length === 1 ? 'You must delete team' : 'You must transfer leadership'
+
+        return (
+          <Box sx={style}>
+            <TeamActionModal
+              firstText="You cannot join team."
+              secondText={`${isOnlyMember} to join new team.`}
+              firstButton="Okay"
+              firstButtonHandler={handleClose}
+            />
+          </Box>
+        )
+      }
+
       return (
         <Box sx={style}>
           <TeamActionModal
             firstText="You're already on a team."
-            secondText="Do you want to leave current team?"
-            firstButton="Leave Current Team"
+            secondText="Do you want to leave current team and join new?"
+            firstButton="Leave & Join"
             firstButtonHandler={handleLeave}
             secondButton="Cancel"
             secondButtonHandler={handleClose}

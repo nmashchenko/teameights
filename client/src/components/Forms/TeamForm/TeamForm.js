@@ -168,7 +168,9 @@ function TeamForm() {
     return <Loader />
   }
 
-  if (team === undefined) {
+  console.log(user)
+
+  if (user.team === undefined) {
     return <NoTeam />
   }
 
