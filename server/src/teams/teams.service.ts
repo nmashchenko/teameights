@@ -17,6 +17,7 @@ import { MailsService } from '@/mails/mails.service';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
 import { Results } from './dto/results.dto';
+import util from 'util';
 
 @Injectable()
 export class TeamsService {
@@ -27,6 +28,23 @@ export class TeamsService {
 		private readonly notificationsService: NotificationsService,
 		private readonly mailService: MailsService,
 	) {}
+
+	/* The above code is defining a TypeScript arrow function named `isArrayOfNumbers` that takes an
+	argument `members` of type `any` and returns a boolean value. The function checks if the `members`
+	argument is an array and has a length of either 1 or 2. If the conditions are met, the function
+	checks if every element in the array is of type `number`. If all the conditions are true, the
+	function returns `true`, otherwise, it returns `false`. */
+	private isArrayOfNumbers = (members: any): boolean => {
+		if (!Array.isArray(members)) {
+			return false;
+		}
+
+		if (members.length !== 1 && members.length !== 2) {
+			return false;
+		}
+
+		return members.every((member: any) => !isNaN(Number(member)));
+	};
 
 	/**
 	 * It creates a team and adds the leader to it
@@ -222,6 +240,53 @@ export class TeamsService {
 		/* A type assertion. */
 		let results = {} as Results;
 
+		console.log(parsedQuery);
+
+		/* The above code is checking if the parsed query has a "members" property. If it does, it checks the
+		length of the "members" array. If the length is 1, it replaces the "members" property with a MongoDB
+		query that checks for the size of the "members" array. If the length is 2, it adds a ""
+		property to the parsed query with a MongoDB query that checks for the size of the "members" array to
+		be within a range specified by the two elements in the "members" array. */
+		if (parsedQuery.members) {
+			if (!this.isArrayOfNumbers(parsedQuery.members)) {
+				throw new HttpException(
+					`Members field should be either [number] or [number, number] form`,
+					HttpStatus.BAD_REQUEST,
+				);
+			}
+			const size = parsedQuery.members.length;
+			if (size === 1) {
+				parsedQuery.members = { $size: Number(parsedQuery.members[0]) };
+			} else if (size === 2) {
+				parsedQuery.$expr = {
+					$and: [
+						{
+							$gte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[0]),
+							],
+						},
+						{
+							$lte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[1]),
+							],
+						},
+					],
+				};
+				/* The above code is deleting the "members" property from the
+				"parsedQuery" object. */
+				delete parsedQuery.members;
+			}
+		}
+
+		console.log(
+			util.inspect(parsedQuery, {
+				showHidden: false,
+				depth: null,
+				colors: true,
+			}),
+		);
 		/* Getting the total number of users that match the query. */
 		results.total = await this.teamModel
 			.find(parsedQuery as FilterQuery<any>)

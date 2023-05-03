@@ -69,7 +69,7 @@ export class TeamsController {
 	})
 	@ApiQuery({
 		name: 'filtersQuery',
-		description: `The filters that we get front end, don't forget to use let queryString = qs.stringify(filtersQuery) before sending to backend`,
+		description: `The filters that we get front end, don't forget to use let queryString = qs.stringify(filtersQuery) before sending to backend. If you pass members inside filters, make sure it's either [number] OR [number, number]`,
 		required: true,
 		type: String,
 	})

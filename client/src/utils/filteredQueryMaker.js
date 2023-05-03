@@ -16,9 +16,9 @@ const users = (countries, roles, programmingLanguages, frameworks) => {
 const teams = (countries, members, teamname, tag) => {
   const querySearch = {
     country: countries.length ? { $in: countries } : null,
-    members: members ? { $size: members } : null,
     name: teamname ? { $regex: teamname, $options: 'i' } : null,
     tag: tag ? { $regex: tag, $options: 'i' } : null,
+    members: members ? members : null,
   }
 
   const querySearchWithOutBlankFields = Object.fromEntries(

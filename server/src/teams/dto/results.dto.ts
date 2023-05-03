@@ -6,7 +6,10 @@ export class Results {
 		description: 'Array of teams that we get on this page',
 	})
 	data: Array<Team>;
-	@ApiProperty({ example: '100', description: 'Total number of teams in DB' })
+	@ApiProperty({
+		example: '100',
+		description: 'Total number of teams we found based on filters (if any)',
+	})
 	total: number;
 	@ApiProperty({ example: '2', description: 'Current page' })
 	page: number;
