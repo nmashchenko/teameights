@@ -8,8 +8,10 @@ import {
 	Put,
 	UseGuards,
 	UsePipes,
+	Query,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TeamsService } from './teams.service';
 import mongoose from 'mongoose';
 
 import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
@@ -22,10 +24,11 @@ import { TeamMembershipDTO } from './dto/membership.dto';
 import { StatusResponseDto } from './dto/status-response.dto';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
-import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
+import { Results } from './dto/results.dto';
+import * as qs from 'qs';
 import { Team } from './teams.schema';
-import { TeamsService } from './teams.service';
+import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
 
 @ApiTags('Teams')
 @Controller('/teams')
@@ -41,6 +44,62 @@ export class TeamsController {
 	@Post('/create')
 	createTeam(@Body() dto: CreateTeamDto): Promise<Team> {
 		return this.teamsService.createTeam(dto);
+	}
+
+	@ApiOperation({ summary: 'Get teams by page' })
+	@ApiResponse({ status: 200, type: Results })
+	@ApiQuery({
+		name: 'page',
+		description: 'The page number to get',
+		required: false,
+		type: Number,
+	})
+	@Get()
+	getTeamsByPage(@Query('page') pageNumber?: number) {
+		/* A way to check if the pageNumber is a number or not. If it is not a number, it will return 1. */
+		const page: number = parseInt(pageNumber as any) || 1;
+		const limit: number = 9;
+		return this.teamsService.getTeamsByPage(page, limit);
+	}
+
+	@ApiOperation({ summary: 'Get filtered teams by page' })
+	@ApiResponse({ status: 200, type: Results })
+	@ApiQuery({
+		name: 'page',
+		description: 'The page number to get',
+		required: false,
+		type: Number,
+	})
+	@ApiQuery({
+		name: 'filtersQuery',
+		description: `The filters that we get front end, don't forget to use let queryString = qs.stringify(filtersQuery) before sending to backend. If you pass members inside filters, make sure it's either [number] OR [number, number]`,
+		required: true,
+		type: String,
+	})
+	@Get('/filtered')
+	getFilteredTeamsByPage(
+		@Query('filtersQuery') filtersQuery: string,
+		@Query('page') pageNumber?: number,
+	) {
+		const page: number = parseInt(pageNumber as any) || 1;
+		const limit: number = 9;
+		/* Parsing the query string into an object. */
+		const parsedQuery = qs.parse(filtersQuery);
+
+		return this.teamsService.getFilteredTeamsByPage(
+			page,
+			limit,
+			parsedQuery,
+		);
+	}
+
+	@ApiOperation({
+		summary: 'Get team by id',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Get('/:id')
+	getTeam(@Param('id') id: mongoose.Types.ObjectId) {
+		return this.teamsService.getTeamById(id);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -76,24 +135,6 @@ export class TeamsController {
 		return this.teamsService.removeMember(dto);
 	}
 
-	@ApiOperation({
-		summary: 'Get team by id',
-	})
-	@ApiResponse({ status: 200, type: Team })
-	@Get('/get-team/:id')
-	getTeam(@Param('id') id: mongoose.Types.ObjectId): Promise<Team> {
-		return this.teamsService.getTeamById(id);
-	}
-
-	@ApiOperation({
-		summary: 'Get all teams',
-	})
-	@ApiResponse({ status: 200, type: [Team] })
-	@Get('/get-teams')
-	getAllTeams(): Promise<Team[]> {
-		return this.teamsService.getAllTeams();
-	}
-
 	@UseGuards(JwtAuthGuard)
 	@UsePipes(ValidationPipe)
 	@ApiOperation({
@@ -101,7 +142,9 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: InviteToTeamResponseDto })
 	@Post('/invite')
-	inviteToTeam(@Body() dto: InviteToTeamDto): Promise<InviteToTeamResponseDto> {
+	inviteToTeam(
+		@Body() dto: InviteToTeamDto,
+	): Promise<InviteToTeamResponseDto> {
 		return this.teamsService.inviteToTeam(dto);
 	}
 
@@ -161,17 +204,6 @@ export class TeamsController {
 		@Param('teamid') teamId: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		return this.teamsService.deleteTeam(teamId);
-	}
-
-	@UseGuards(JwtAuthGuard)
-	@UsePipes(ValidationPipe)
-	@ApiOperation({
-		summary: 'Search for the team',
-	})
-	@ApiResponse({ status: 200, type: [Team] })
-	@Post('/search')
-	findTeam(@Body() dto: TeamSearchDto): Promise<Team[]> {
-		return this.teamsService.findTeam(dto);
 	}
 
 	@UseGuards(JwtAuthGuard)

@@ -24,7 +24,7 @@ export const useLoadUsers = (isFiltered) => {
     return response.data
   }
   const getUsersFiltered = async ({ pageParam = 1 }) => {
-    const filtersQuery = filteredQueryMaker(
+    const filtersQuery = filteredQueryMaker.users(
       filters.countries,
       filters.roles,
       filters.languages,

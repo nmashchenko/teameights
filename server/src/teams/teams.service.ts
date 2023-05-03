@@ -1,24 +1,25 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
-
-import { FileService, FileType } from '@/files/file.service';
+import mongoose, { FilterQuery, Model } from 'mongoose';
+import { CreateTeamDto } from './dto/create-team.dto';
+import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
+import { Team, TeamsDocument } from './teams.schema';
+import { InviteToTeamDto } from './dto/invite-to-team.dto';
+import { TeamType } from './types/teams.type';
+import { TeamMembershipDTO } from './dto/membership.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
+import { teamUpdateValidate } from '@/validation/team-update.validation';
+import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { MailsService } from '@/mails/mails.service';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { UsersService } from '@/users/users.service';
-import { teamUpdateValidate } from '@/validation/team-update.validation';
 
-import { CreateTeamDto } from './dto/create-team.dto';
-import { InviteToTeamDto } from './dto/invite-to-team.dto';
-import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
-import { TeamMembershipDTO } from './dto/membership.dto';
 import { StatusResponseDto } from './dto/status-response.dto';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
-import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
-import { Team, TeamsDocument } from './teams.schema';
-import { TeamType } from './types/teams.type';
+import { Results } from './dto/results.dto';
+import util from 'util';
+import { FileService, FileType } from '@/files/file.service';
 
 @Injectable()
 export class TeamsService {
@@ -29,6 +30,23 @@ export class TeamsService {
 		private readonly notificationsService: NotificationsService,
 		private readonly mailService: MailsService,
 	) {}
+
+	/* The above code is defining a TypeScript arrow function named `isArrayOfNumbers` that takes an
+	argument `members` of type `any` and returns a boolean value. The function checks if the `members`
+	argument is an array and has a length of either 1 or 2. If the conditions are met, the function
+	checks if every element in the array is of type `number`. If all the conditions are true, the
+	function returns `true`, otherwise, it returns `false`. */
+	private isArrayOfNumbers = (members: any): boolean => {
+		if (!Array.isArray(members)) {
+			return false;
+		}
+
+		if (members.length !== 1 && members.length !== 2) {
+			return false;
+		}
+
+		return members.every((member: any) => !isNaN(Number(member)));
+	};
 
 	/**
 	 * It creates a team and adds the leader to it
@@ -167,11 +185,137 @@ export class TeamsService {
 	}
 
 	/**
-	 * > Get all teams from the database, populate the members and leader fields with the user data
-	 * @returns An array of Team objects.
+	 * This function retrieves a list of teams with their members and leader, based on a given page and
+	 * limit, and returns the results as a Promise.
+	 * @param {number} page - The page number of the results to retrieve.
+	 * @param {number} limit - The maximum number of teams to be returned per page.
+	 * @returns a Promise that resolves to an object of type Results, which contains information about the
+	 * teams retrieved from the database, including the total number of teams, the last page number, the
+	 * limit, the number of teams on the current page, and an array of team objects with their members and
+	 * leader populated.
 	 */
-	async getAllTeams(): Promise<Team[]> {
-		return await this.teamModel.find({}).populate('members').populate('leader');
+	async getTeamsByPage(
+		page: number = 1,
+		limit: number = 9,
+	): Promise<Results> {
+		/* A type assertion. */
+		let results = {} as Results;
+
+		/* Calculating the total number of users, the last page and the limit. */
+		results.total = await this.teamModel.count();
+		results.last_page = Math.ceil(results.total / limit);
+		results.limit = limit;
+
+		/* Getting all the users that are registered. */
+		const teams = await this.teamModel
+			.find({})
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.limit(limit)
+			.populate('members')
+			.populate('leader')
+			.exec();
+
+		/* Setting the number of users on the current page and the data of the users. */
+		results.on_current_page = teams.length;
+		results.data = teams;
+
+		/* Returning the results object. */
+		return results;
+	}
+
+	/**
+	 * This function retrieves a filtered list of teams based on a query, with pagination and population of
+	 * related data.
+	 * @param {number} page - The current page number of the results being requested.
+	 * @param {number} limit - The maximum number of results to be returned per page.
+	 * @param parsedQuery - parsedQuery is a filter query object that is used to filter the results of the
+	 * query. It is of type FilterQuery<any>, which means it can accept any type of filter query. It is
+	 * used to specify the conditions that the documents must meet in order to be included in the results.
+	 * @returns This function returns a Promise that resolves to a Results object.
+	 */
+	async getFilteredTeamsByPage(
+		page: number = 1,
+		limit: number = 9,
+		parsedQuery: FilterQuery<any> = {},
+	): Promise<Results> {
+		/* A type assertion. */
+		let results = {} as Results;
+
+		console.log(parsedQuery);
+
+		/* The above code is checking if the parsed query has a "members" property. If it does, it checks the
+		length of the "members" array. If the length is 1, it replaces the "members" property with a MongoDB
+		query that checks for the size of the "members" array. If the length is 2, it adds a ""
+		property to the parsed query with a MongoDB query that checks for the size of the "members" array to
+		be within a range specified by the two elements in the "members" array. */
+		if (parsedQuery.members) {
+			if (!this.isArrayOfNumbers(parsedQuery.members)) {
+				throw new HttpException(
+					`Members field should be either [number] or [number, number] form`,
+					HttpStatus.BAD_REQUEST,
+				);
+			}
+			const size = parsedQuery.members.length;
+			if (size === 1) {
+				parsedQuery.members = { $size: Number(parsedQuery.members[0]) };
+			} else if (size === 2) {
+				parsedQuery.$expr = {
+					$and: [
+						{
+							$gte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[0]),
+							],
+						},
+						{
+							$lte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[1]),
+							],
+						},
+					],
+				};
+				/* The above code is deleting the "members" property from the
+				"parsedQuery" object. */
+				delete parsedQuery.members;
+			}
+		}
+
+		console.log(
+			util.inspect(parsedQuery, {
+				showHidden: false,
+				depth: null,
+				colors: true,
+			}),
+		);
+		/* Getting the total number of users that match the query. */
+		results.total = await this.teamModel
+			.find(parsedQuery as FilterQuery<any>)
+			.count();
+
+		/* Calculating the last page and the limit. */
+		results.last_page = Math.ceil(results.total / limit);
+		results.limit = limit;
+
+		/* Getting all the users that match the query, limiting the number of users to the limit, skipping the
+		users that are not on the current page, limiting the number of users to the limit, populating the
+		roles and executing the query. */
+		const teams = await this.teamModel
+			/* Casting the parsedQuery to FilterQuery<any> */
+			.find(parsedQuery as FilterQuery<any>)
+			.limit(limit)
+			.skip((page - 1) * limit)
+			.limit(limit)
+			.populate('members')
+			.populate('leader')
+			.exec();
+
+		/* Setting the number of users on the current page and the data of the users. */
+		results.on_current_page = teams.length;
+		results.data = teams;
+		/* Returning the results object. */
+		return results;
 	}
 
 	/**
@@ -273,7 +417,9 @@ export class TeamsService {
 		userId: mongoose.Types.ObjectId,
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<void> {
-		console.log(`Removing notification ${notificationid} from user ${userId}`);
+		console.log(
+			`Removing notification ${notificationid} from user ${userId}`,
+		);
 		/* Removing the notification from the database. */
 		await this.notificationsService.removeNotification(notificationid);
 
@@ -292,7 +438,9 @@ export class TeamsService {
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(notificationid);
+			await this.notificationsService.getTeamNotificationById(
+				notificationid,
+			);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -377,7 +525,9 @@ export class TeamsService {
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(notificationid);
+			await this.notificationsService.getTeamNotificationById(
+				notificationid,
+			);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -414,7 +564,10 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -475,7 +628,10 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -595,24 +751,6 @@ export class TeamsService {
 	}
 
 	/**
-	 * > If the `membersLength` property is present in the `TeamSearchDto` object, then we'll use it to
-	 * filter the results, otherwise we'll just use the `TeamSearchDto` object as is
-	 * @param {TeamSearchDto} dto - TeamSearchDto
-	 * @returns An array of teams
-	 */
-	async findTeam(dto: TeamSearchDto): Promise<Team[]> {
-		if ('membersLength' in dto) {
-			const { membersLength, ...searchQueury } = dto;
-			return await this.teamModel.find({
-				...searchQueury,
-				members: { $size: membersLength },
-			});
-		} else {
-			return await this.teamModel.find(dto);
-		}
-	}
-
-	/**
 	 * This function transfers the leadership of a team to a new user, after checking if the new leader and
 	 * the current leader belong to the same team and if the current leader is actually the leader of the
 	 * team.
@@ -624,13 +762,21 @@ export class TeamsService {
 		// check if leader is valid user
 		const leader = await this.userService.getUserById(dto.leader_id);
 		if (!leader) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		// check if new_leader is valid user
-		const new_leader = await this.userService.getUserById(dto.new_leader_id);
+		const new_leader = await this.userService.getUserById(
+			dto.new_leader_id,
+		);
 		if (!new_leader) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		// check if both leader and new_leader belogn to the same team
