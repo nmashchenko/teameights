@@ -1,15 +1,16 @@
 import {
-	WebSocketGateway,
-	WebSocketServer,
-	SubscribeMessage,
 	MessageBody,
 	OnGatewayConnection,
 	OnGatewayDisconnect,
+	SubscribeMessage,
+	WebSocketGateway,
+	WebSocketServer,
 } from '@nestjs/websockets';
-import { Server } from 'socket.io';
-import { NotificationsService } from './notifications.service';
 import { isValidObjectId, Types } from 'mongoose';
 import { Subject } from 'rxjs';
+import { Server } from 'socket.io';
+
+import { NotificationsService } from './notifications.service';
 
 @WebSocketGateway()
 export class NotificationsGateway
@@ -25,7 +26,7 @@ export class NotificationsGateway
 	@SubscribeMessage('subscribeToNotifications')
 	async subscribeToNotifications(client: any, data: any) {
 		try {
-			let user = JSON.parse(data);
+			const user = JSON.parse(data);
 			if (isValidObjectId(user.id)) {
 				await this.notificationsService.watchNotifications(
 					new Types.ObjectId(user.id),
