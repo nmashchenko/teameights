@@ -447,11 +447,43 @@ describe('TeamService', () => {
 		});
 
 		expect(
+			(await teamsService.getFilteredTeamsByPage(1, 9, { members: [3] }))
+				.total,
+		).toBe(1);
+	});
+
+	it('should create 10 users and 10 teams, make 1 team have 3 players and 1 team 4 players and filter by team with 3 players', async () => {
+		let users = await createMultipleUsers(10);
+
+		let team1: Team;
+		let team2: Team;
+
+		team1 = await teamsService.createTeam(CreateTeamDtoStub(users[0]._id));
+
+		team2 = await teamsService.createTeam(CreateTeamDtoStub(users[1]._id));
+
+		// add 3 members to team1
+		for (let i = 2; i < 4; i++) {
+			await teamsService.joinTeam({
+				user_id: users[i]._id,
+				teamid: team1._id,
+			});
+		}
+
+		// add 4 members to team2
+		for (let i = 4; i < 7; i++) {
+			await teamsService.joinTeam({
+				user_id: users[i]._id,
+				teamid: team2._id,
+			});
+		}
+
+		expect(
 			(
 				await teamsService.getFilteredTeamsByPage(1, 9, {
-					members: { $size: 3 },
+					members: [3, 4],
 				})
 			).total,
-		).toBe(1);
+		).toBe(2);
 	});
 });
