@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { ApiProperty } from '@nestjs/swagger';
-import { User } from '@Users/users.schema';
-import { Team } from '@Teams/teams.schema';
-import { TeamInvitationNotification } from './team-invite.schema';
+
+import { User } from '@/users/users.schema';
+
 import { NotificationType } from '../notifications.enums';
 
 export type NotificationsDocument = HydratedDocument<Notifications>;
@@ -34,7 +34,7 @@ export class Notifications {
 		required: true,
 	})
 	@Prop({ required: true, type: Boolean })
-	read: Boolean;
+	read: boolean;
 
 	@ApiProperty({
 		example: '2022-01-01T00:00:00.000Z',

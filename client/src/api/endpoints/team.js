@@ -17,7 +17,7 @@ const createTeam = async (teamName, teamCountry, teamMembers) => {
 
 const getAllTeams = async () => {
   try {
-    const data = await api.get('/teams/get-teams')
+    const data = await api.get('/teams')
 
     return data
   } catch (err) {

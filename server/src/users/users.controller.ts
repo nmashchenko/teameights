@@ -3,29 +3,25 @@ import {
 	Controller,
 	Get,
 	Param,
-	Post,
 	Put,
 	Query,
 	Req,
-	UploadedFile,
 	UseGuards,
-	UseInterceptors,
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { JwtAuthGuard } from '@Auth/guards/jwt-auth.guard';
-import { Roles } from '@Auth/guards/roles-auth.decorator';
-import { RolesGuard } from '@Auth/guards/roles.guard';
-import { ValidationPipe } from '@Pipes/validation.pipe';
+import mongoose from 'mongoose';
+import * as qs from 'qs';
+
+import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+import { ValidationPipe } from '@/pipes/validation.pipe';
+
+import { Results } from './dto/results.dto';
+import { UpdateAvatarDto } from './dto/update-avatar.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './users.schema';
 import { UsersService } from './users.service';
-import { Results } from './dto/results.dto';
-import * as qs from 'qs';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { UpdateAvatarDto } from './dto/update-avatar.dto';
-import mongoose from 'mongoose';
 
 @ApiTags('Users')
 @Controller('/users')
@@ -33,12 +29,11 @@ export class UsersController {
 	constructor(private userService: UsersService) {}
 
 	@ApiOperation({
-		summary:
-			'Get specific user by email, returns null in case nothing found',
+		summary: 'Get specific user by email, returns null in case nothing found',
 	})
 	@ApiResponse({ status: 200, type: User })
 	@Get('/get-by-email/:email')
-	getByEmail(@Param('email') email: string) {
+	getByEmail(@Param('email') email: string): Promise<User> {
 		return this.userService.getUserByEmail(email);
 	}
 
@@ -48,7 +43,7 @@ export class UsersController {
 	})
 	@ApiResponse({ status: 200, type: User })
 	@Get('/get-by-username/:username')
-	getByUsername(@Param('username') username: string) {
+	getByUsername(@Param('username') username: string): Promise<User> {
 		return this.userService.getUserByUsername(username);
 	}
 
@@ -57,7 +52,7 @@ export class UsersController {
 	})
 	@ApiResponse({ status: 200, type: User })
 	@Get('/get-by-id/:id')
-	getById(@Param('id') id: mongoose.Types.ObjectId) {
+	getById(@Param('id') id: mongoose.Types.ObjectId): Promise<User> {
 		return this.userService.getUserById(id);
 	}
 
@@ -67,7 +62,7 @@ export class UsersController {
 	@ApiResponse({ status: 200, type: User })
 	@UseGuards(JwtAuthGuard)
 	@Get('/get-by-token')
-	getByToken(@Req() req: Request) {
+	getByToken(@Req() req: Request): Promise<User> {
 		return this.userService.getUserByToken(
 			req.headers.authorization.split(' ')[1],
 		);
@@ -76,7 +71,7 @@ export class UsersController {
 	@ApiOperation({ summary: 'Get users' })
 	@ApiResponse({ status: 200, type: [User] })
 	@Get('/get-all')
-	getAllUsers() {
+	getAllUsers(): Promise<User[]> {
 		return this.userService.getAllUsers();
 	}
 
@@ -89,10 +84,10 @@ export class UsersController {
 		type: Number,
 	})
 	@Get('/get')
-	getUsersByPage(@Query('page') pageNumber?: number) {
+	getUsersByPage(@Query('page') pageNumber?: number): Promise<Results> {
 		/* A way to check if the pageNumber is a number or not. If it is not a number, it will return 1. */
 		const page: number = parseInt(pageNumber as any) || 1;
-		const limit: number = 9;
+		const limit = 9;
 		return this.userService.getUsersByPage(page, limit);
 	}
 
@@ -114,17 +109,13 @@ export class UsersController {
 	getFilteredUsersByPage(
 		@Query('filtersQuery') filtersQuery: string,
 		@Query('page') pageNumber?: number,
-	) {
+	): Promise<Results> {
 		const page: number = parseInt(pageNumber as any) || 1;
-		const limit: number = 9;
+		const limit = 9;
 		/* Parsing the query string into an object. */
 		const parsedQuery = qs.parse(filtersQuery);
 
-		return this.userService.getFilteredUsersByPage(
-			page,
-			limit,
-			parsedQuery,
-		);
+		return this.userService.getFilteredUsersByPage(page, limit, parsedQuery);
 	}
 
 	@UsePipes(ValidationPipe)
@@ -134,7 +125,7 @@ export class UsersController {
 	})
 	@ApiResponse({ status: 200, type: User })
 	@Put('/update-user')
-	updateUser(@Body() dto: UpdateUserDto) {
+	updateUser(@Body() dto: UpdateUserDto): Promise<User> {
 		return this.userService.updateUser(dto);
 	}
 
@@ -145,7 +136,7 @@ export class UsersController {
 	})
 	@ApiResponse({ status: 200, type: String })
 	@Put('/update-avatar')
-	updateAvatar(@Body() dto: UpdateAvatarDto) {
+	updateAvatar(@Body() dto: UpdateAvatarDto): Promise<string> {
 		return this.userService.updateAvatar(dto);
 	}
 }

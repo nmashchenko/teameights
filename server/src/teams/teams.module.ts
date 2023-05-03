@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { TeamsService } from './teams.service';
-import { TeamsController } from './teams.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Team, TeamsSchema } from './teams.schema';
+
 import { AuthModule } from '@/auth/auth.module';
+import { FileModule } from '@/files/file.module';
+import { MailsModule } from '@/mails/mails.module';
+import { NotificationsModule } from '@/notifications/notifications.module';
 import { TokensModule } from '@/tokens/tokens.module';
 import { UsersModule } from '@/users/users.module';
-import { FileModule } from '@/files/file.module';
-import { NotificationsModule } from '@/notifications/notifications.module';
-import { MailsModule } from '@/mails/mails.module';
+
+import { TeamsController } from './teams.controller';
+import { Team, TeamsSchema } from './teams.schema';
+import { TeamsService } from './teams.service';
 
 @Module({
 	providers: [TeamsService],

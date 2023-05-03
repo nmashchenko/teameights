@@ -1,10 +1,13 @@
+import { DynamicModule } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import mongoose, { disconnect } from 'mongoose';
+import mongoose from 'mongoose';
 
 let mongod: MongoMemoryServer;
 
-export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
+export const rootMongooseTestModule = (
+	options: MongooseModuleOptions = {},
+): DynamicModule =>
 	MongooseModule.forRootAsync({
 		useFactory: async () => {
 			mongod = await MongoMemoryServer.create();
@@ -16,11 +19,11 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
 		},
 	});
 
-export const closeMongoConnection = async () => {
+export const closeMongoConnection = async (): Promise<void> => {
 	await mongoose.disconnect();
 	if (mongod) await mongod.stop();
 };
 
-export const healthCheck = async () => {
+export const healthCheck = async (): Promise<void> => {
 	console.log(mongoose.connections.length);
 };

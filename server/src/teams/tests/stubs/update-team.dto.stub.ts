@@ -1,6 +1,7 @@
+import mongoose from 'mongoose';
+
 import { UpdateTeamDto } from '@/teams/dto/update-team.dto';
 import { TeamType } from '@/teams/types/teams.type';
-import mongoose from 'mongoose';
 
 export const UpdateTeamDtoStub = (
 	teamid: mongoose.Types.ObjectId,

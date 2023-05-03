@@ -7,7 +7,7 @@ export const teamInviteEmail = (
 	receiver: User,
 	inviter: User,
 	team: Team,
-) => `
+): string => `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
 <html lang="en">
@@ -28,14 +28,14 @@ export const teamInviteEmail = (
             </tbody>
           </table>
           <h1 style="margin-left:0px;margin-right:0px;margin-top:30px;margin-bottom:30px;padding:0px;text-align:center;font-size:24px;font-weight:400;color:rgb(0,0,0)">Join <strong>${
-				team.name
-			}</strong> on <strong>Teameights</strong> 🎉</h1>
+						team.name
+					}</strong> on <strong>Teameights</strong> 🎉</h1>
           <p style="font-size:14px;line-height:24px;margin:16px 0;color:rgb(0,0,0)">Hello ${
-				receiver.username
-			},</p>
+						receiver.username
+					},</p>
           <p style="font-size:14px;line-height:24px;margin:16px 0;color:rgb(0,0,0)"><strong>${
-				inviter.username
-			}</strong> (<a target="_blank" style="color:rgb(37,99,235);text-decoration:none;text-decoration-line:none" href="mailto:bukinoshita@example.com">${
+						inviter.username
+					}</strong> (<a target="_blank" style="color:rgb(37,99,235);text-decoration:none;text-decoration-line:none" href="mailto:bukinoshita@example.com">${
 	inviter.email
 }</a>) has invited you to the <strong>${
 	team.name
@@ -48,18 +48,18 @@ export const teamInviteEmail = (
                     <tbody style="width:100%">
                       <tr style="width:100%">
                         <td align="right"><img src="${
-							inviter.image
-								? process.env.API_URL + '/' + inviter.image
-								: 'https://i.ibb.co/Htx1WFL/ava-10.png'
-						}" width="64" height="64" style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px" /></td>
+													inviter.image
+														? process.env.API_URL + '/' + inviter.image
+														: 'https://i.ibb.co/Htx1WFL/ava-10.png'
+												}" width="64" height="64" style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px" /></td>
                                     <td align="center"><img alt="invited you to" src="https://react-email-demo-ijnnx5hul-resend.vercel.app/static/vercel-arrow.png" width="12" height="9" style="display:block;outline:none;border:none;text-decoration:none" /></td>
                                     <td align="left"><img src=${
-										receiver.image
-											? process.env.API_URL +
-											  '/' +
-											  receiver.image
-											: 'https://i.ibb.co/6BDySfL/ava-05.png'
-									} width="64" height="64" style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px" /></td>
+																			receiver.image
+																				? process.env.API_URL +
+																				  '/' +
+																				  receiver.image
+																				: 'https://i.ibb.co/6BDySfL/ava-05.png'
+																		} width="64" height="64" style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px" /></td>
                       </tr>
                     </tbody>
                   </table>
@@ -77,8 +77,8 @@ export const teamInviteEmail = (
           <p style="font-size:14px;line-height:24px;margin:16px 0;color:rgb(0,0,0)">or copy and paste this URL into your browser: <a target="_blank" style="color:rgb(37,99,235);text-decoration:none;text-decoration-line:none" href="${link}">${link}</a></p>
           <hr style="width:100%;border:none;border-top:1px solid #eaeaea;margin-left:0px;margin-right:0px;margin-top:26px;margin-bottom:26px;border-width:1px;border-style:solid;border-color:rgb(234,234,234)" />
           <p style="font-size:12px;line-height:24px;margin:16px 0;color:rgb(102,102,102)">This invitation was intended for <span style="color:rgb(0,0,0)">${
-				receiver.email
-			}</span>. If you were not expecting this invitation, you can ignore this email. If you are concerned about your account&#x27;s safety, please reply to this email to get in touch with us.</p>
+						receiver.email
+					}</span>. If you were not expecting this invitation, you can ignore this email. If you are concerned about your account&#x27;s safety, please reply to this email to get in touch with us.</p>
           <p style="font-size:12px;line-height:24px;margin:16px 0;color:rgb(102,102,102)">Teameights Support Team 🎉 </p>
         </td>
       </tr>

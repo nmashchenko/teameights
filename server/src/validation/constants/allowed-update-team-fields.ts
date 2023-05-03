@@ -7,5 +7,5 @@ export const allowedUpdateTeamFields: string[] = [
 	'teamid',
 	'tag',
 	'wins',
-	'points'
+	'points',
 ];

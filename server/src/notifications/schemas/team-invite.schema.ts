@@ -1,8 +1,9 @@
-import { Team } from '@/teams/teams.schema';
-import { User } from '@/users/users.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import mongoose from 'mongoose';
+
+import { Team } from '@/teams/teams.schema';
+import { User } from '@/users/users.schema';
 
 @Schema({})
 export class TeamInvitationNotification {

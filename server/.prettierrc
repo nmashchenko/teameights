@@ -3,8 +3,9 @@
   "trailingComma": "all",
   "semi": true,
   "bracketSpacing": true,
-  "arrowParens": "always",
+  "arrowParens": "avoid",
   "endOfLine": "lf",
   "tabWidth": 4,
-  "useTabs": true
+  "useTabs": true,
+  "parser": "typescript"
 }

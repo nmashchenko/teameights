@@ -1,17 +1,17 @@
-import { UsersService } from '@Users/users.service';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { ClientSession, Model, ObjectId } from 'mongoose';
-import { TeamInvitationNotification } from './schemas/team-invite.schema';
-import { NotificationType } from './notifications.enums';
-import { SystemNotification } from './schemas/system.schema';
+import mongoose, { ClientSession, Model } from 'mongoose';
+
+import { MailsService } from '@/mails/mails.service';
+
+import { ReadNotificationsDto } from './dto/read-notifications.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 import { SystemNotificationDto } from './dto/system-notification.dto';
 import { TeamNotificationsDto } from './dto/team-notification.dto';
-import { MailsService } from '@/mails/mails.service';
+import { NotificationType } from './notifications.enums';
 import { Notifications } from './schemas/notifications.schema';
-import { ReadNotificationsDto } from './dto/read-notifications.dto';
-import { Server } from 'socket.io';
-import { Subject } from 'rxjs';
+import { SystemNotification } from './schemas/system.schema';
+import { TeamInvitationNotification } from './schemas/team-invite.schema';
 
 @Injectable()
 export class NotificationsService {
@@ -46,7 +46,9 @@ export class NotificationsService {
 		if (typeof session !== 'undefined') {
 			const data = await this.systemNotificationModel.create(
 				[notification],
-				{ session },
+				{
+					session,
+				},
 			);
 			return data[0]._id;
 		} else {
@@ -83,7 +85,9 @@ export class NotificationsService {
 		if (typeof session !== 'undefined') {
 			const data = await this.teamNotificationModel.create(
 				[notification],
-				{ session },
+				{
+					session,
+				},
 			);
 			return data[0]._id;
 		} else {
@@ -97,8 +101,13 @@ export class NotificationsService {
 	 * @param notificationid - The id of the notification to be removed.
 	 * @returns The result of the deleteOne() method.
 	 */
-	async removeNotification(notificationid: mongoose.Types.ObjectId) {
-		return await this.notificationModel.deleteOne({ _id: notificationid });
+	async removeNotification(
+		notificationid: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
+		await this.notificationModel.deleteOne({ _id: notificationid });
+		return {
+			status: `Notification ${notificationid} was successfully deleted.`,
+		};
 	}
 
 	/**
@@ -138,19 +147,11 @@ export class NotificationsService {
 		}
 	}
 
-	/**
-	 * This function reads notifications and updates their status to "read" if they exist, and returns a
-	 * message indicating the number of notifications successfully updated and the number of notifications
-	 * that were not found.
-	 * @param {ReadNotificationsDto} dto - ReadNotificationsDto object that contains an array of
-	 * notification IDs to be marked as read.
-	 * @returns An object with two properties: "status" and "errors". The "status" property contains a
-	 * string indicating how many notifications were successfully updated, while the "errors" property
-	 * contains a string indicating how many notifications were not found.
-	 */
-	async readNotification(dto: ReadNotificationsDto): Promise<Object> {
-		let error: number = 0;
-		let success: number = 0;
+	async readNotification(
+		dto: ReadNotificationsDto,
+	): Promise<StatusResponseDto> {
+		let error = 0;
+		let success = 0;
 
 		for (let i = 0; i < dto.notifications.length; i++) {
 			const notification = await this.getTeamNotificationById(
@@ -160,18 +161,17 @@ export class NotificationsService {
 			if (!notification) {
 				error++;
 			} else {
-				const test = await this.notificationModel.findOneAndUpdate(
+				await this.notificationModel.findOneAndUpdate(
 					{ _id: dto.notifications[i] },
 					{ read: true },
 					{ new: true },
 				);
-				console.log(test);
 				success++;
 			}
 		}
 
 		return {
-			staus: `Updated ${success} notifications: `,
+			status: `Updated ${success} notifications: `,
 			errors: `We didn't find ${error} notifications`,
 		};
 	}
@@ -195,17 +195,17 @@ export class NotificationsService {
 		);
 
 		subject.subscribe({
-			next: (v) => console.log(v),
+			next: v => console.log(v),
 		});
 
-		watchCursor.on('change', (change) => {
+		watchCursor.on('change', change => {
 			console.log('Notification changed:', change);
 			// Emit the change to subscribed clients
 
 			server.emit(`notification-${userid}`, change);
 		});
 
-		watchCursor.on('error', (error) => {
+		watchCursor.on('error', error => {
 			console.error('Change stream error:', error);
 		});
 	}

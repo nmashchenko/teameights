@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBase64, IsEmail, IsString, Length } from 'class-validator';
+import { IsBase64, IsEmail, IsString } from 'class-validator';
 
 export class UpdateAvatarDto {
 	@ApiProperty({ example: 'test@teameights.com', description: 'Email' })
