@@ -6,7 +6,7 @@ const { api } = http
 
 export const useGetTeamData = (teamId) => {
   const getTeamById = async () => {
-    const response = await api.get(`/teams/get-team/${teamId}`)
+    const response = await api.get(`/teams/${teamId}`)
 
     return response.data
   }
