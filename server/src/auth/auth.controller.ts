@@ -11,12 +11,15 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
+
+import { ValidationPipe } from '@/pipes/validation.pipe';
+import { AuthUserDto } from '@/users/dto/auth-user.dto';
 import { RegisterUserDto } from '@/users/dto/register-user.dto';
-import { ResetUserDto } from '@Users/dto/reset-user.dto';
+import { ResetUserDto } from '@/users/dto/reset-user.dto';
+
 import { AuthService } from './auth.service';
 import { AuthResponseDto } from './dto/auth-response.dto';
-import { AuthUserDto } from '@/users/dto/auth-user.dto';
-import { ValidationPipe } from '@Pipes/validation.pipe';
+import { StatusResponseDto } from './dto/status-response.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -98,7 +101,7 @@ export class AuthController {
 	async activate(
 		@Param('token') token: string,
 		@Res({ passthrough: true }) res: Response,
-	) {
+	): Promise<void> {
 		await this.authService.activate(token);
 		return res.redirect(process.env.COMPLETE_REGISTRATION_URL);
 	}
@@ -114,7 +117,7 @@ export class AuthController {
 	async logout(
 		@Req() req: Request,
 		@Res({ passthrough: true }) res: Response,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const { refreshToken } = req.cookies;
 		const token = await this.authService.logout(refreshToken);
 		res.clearCookie('refreshToken');
@@ -156,7 +159,7 @@ export class AuthController {
 	async resetPassword(
 		@Ip() ip: ParameterDecorator,
 		@Param('email') email: string,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		return await this.authService.resetPassword(email, ip);
 	}
 
@@ -194,6 +197,6 @@ export class AuthController {
 		@Res() res: Response,
 	): Promise<Response> {
 		await this.authService.updatePassword(dto);
-		return res.send(`password for ${dto.email} was updated`);
+		return res.send(`Password for ${dto.email} was updated`);
 	}
 }

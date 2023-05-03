@@ -1,7 +1,8 @@
-import { CreateTeamDto } from '@/teams/dto/create-team.dto';
-import { TeamType } from '@/teams/types/teams.type';
 import mongoose from 'mongoose';
 import { uuid } from 'uuidv4';
+
+import { CreateTeamDto } from '@/teams/dto/create-team.dto';
+import { TeamType } from '@/teams/types/teams.type';
 
 export const CreateTeamDtoStub = (
 	leader: mongoose.Types.ObjectId,

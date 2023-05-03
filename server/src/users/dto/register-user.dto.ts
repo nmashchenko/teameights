@@ -1,6 +1,7 @@
-import { Match } from '@/decorators/match.decorator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, Length } from 'class-validator';
+
+import { Match } from '@/decorators/match.decorator';
 
 export class RegisterUserDto {
 	@ApiProperty({ example: 'test@teameights.com', description: 'Email' })

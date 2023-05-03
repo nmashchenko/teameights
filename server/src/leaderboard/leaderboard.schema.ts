@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import mongoose, { HydratedDocument } from 'mongoose';
 
 export type LeaderboardDocument = HydratedDocument<Leaderboard>;
@@ -17,14 +17,14 @@ class TournamentTeam {
 		example: 50,
 	})
 	@Prop({ required: true })
-	frontendScore: Number;
+	frontendScore: number;
 
 	@ApiProperty({
 		required: true,
 		example: 50,
 	})
 	@Prop({ required: true })
-	backendScore: Number;
+	backendScore: number;
 }
 
 @Schema({ timestamps: true })

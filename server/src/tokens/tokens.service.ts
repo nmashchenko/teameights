@@ -1,8 +1,10 @@
-import { HttpException, HttpStatus, Injectable, Options } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { ClientSession, Model, Mongoose, ObjectId } from 'mongoose';
+import mongoose, { ClientSession, Model } from 'mongoose';
+
 import { CreateTokenDto } from './dto/create-token.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 import { TokenPair } from './dto/token.dto';
 import { Token, TokenDocument } from './tokens.schema';
 
@@ -83,9 +85,7 @@ export class TokensService {
 		// * his Ipad, he will be automatically logged out on PC
 		const tokenData =
 			typeof session !== 'undefined'
-				? await this.tokenModel
-						.findOne({ user: userId })
-						.session(session)
+				? await this.tokenModel.findOne({ user: userId }).session(session)
 				: await this.tokenModel.findOne({ user: userId });
 		if (tokenData) {
 			tokenData.refreshToken = refreshToken;
@@ -112,14 +112,29 @@ export class TokensService {
 		return typeof session !== 'undefined' ? token[0] : token;
 	}
 
-	// TODO: Check AND change return types later
-	async removeToken(refreshToken: string): Promise<any> {
-		const tokenData = await this.tokenModel.deleteOne({ refreshToken });
-		return tokenData;
+	/**
+	 * This function removes a token from the token model and returns a success message.
+	 * @param {string} refreshToken - A string representing the refresh token that needs to be removed from
+	 * the database.
+	 * @returns a Promise that resolves to a StatusResponseDto object with a status message indicating that
+	 * the token data was successfully deleted.
+	 */
+	async removeToken(refreshToken: string): Promise<StatusResponseDto> {
+		const token = await this.tokenModel.deleteOne({ refreshToken });
+		return {
+			status: 'Successfully deleted token data.',
+			deletedCount: token.deletedCount,
+		};
 	}
 
-	// TODO: Check AND change return types later
-	async findToken(refreshToken: string): Promise<any> {
+	/**
+	 * This function finds a token in the database based on a given refresh token and returns it.
+	 * @param {string} refreshToken - A string representing the refresh token used to retrieve the access
+	 * token.
+	 * @returns a Promise that resolves to a Token object. The Token object is retrieved from the database
+	 * using the provided refresh token.
+	 */
+	async findToken(refreshToken: string): Promise<Token> {
 		const tokenData = await this.tokenModel.findOne({ refreshToken });
 		return tokenData;
 	}

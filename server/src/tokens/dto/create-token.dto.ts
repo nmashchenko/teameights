@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import mongoose, { ObjectId } from 'mongoose';
-import { Role } from '@Roles/roles.schema';
-import { User } from '@Users/users.schema';
+import mongoose from 'mongoose';
+
+import { Role } from '@/roles/roles.schema';
+import { User } from '@/users/users.schema';
 
 export class CreateTokenDto {
 	@ApiProperty({ example: 'teameights@help.com', description: `Email` })

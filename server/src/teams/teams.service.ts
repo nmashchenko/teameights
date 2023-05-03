@@ -1,23 +1,25 @@
-import { FileService, FileType } from '@Files/file.service';
-import { UsersService } from '@Users/users.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { FilterQuery, Model } from 'mongoose';
+import util from 'util';
+
+import { FileService, FileType } from '@/files/file.service';
+import { MailsService } from '@/mails/mails.service';
+import { NotificationsService } from '@/notifications/notifications.service';
+import { UsersService } from '@/users/users.service';
+import { teamUpdateValidate } from '@/validation/team-update.validation';
+
 import { CreateTeamDto } from './dto/create-team.dto';
+import { InviteToTeamDto } from './dto/invite-to-team.dto';
+import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
+import { TeamMembershipDTO } from './dto/membership.dto';
+import { Results } from './dto/results.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
+import { TransferLeaderDto } from './dto/transfer-leader.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
 import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
 import { Team, TeamsDocument } from './teams.schema';
-import { NotificationsService } from '@Notifications/notifications.service';
-import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { TeamType } from './types/teams.type';
-import { TeamMembershipDTO } from './dto/membership.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
-import { teamUpdateValidate } from '@/validation/team-update.validation';
-import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
-import { MailsService } from '@/mails/mails.service';
-import { TeamSearchDto } from './dto/team-search.dto';
-import { TransferLeaderDto } from './dto/transfer-leader.dto';
-import { Results } from './dto/results.dto';
-import util from 'util';
 
 @Injectable()
 export class TeamsService {
@@ -88,7 +90,7 @@ export class TeamsService {
 		}
 
 		/* Creating an array of members_id. */
-		let members_id: Array<mongoose.Types.ObjectId> = [dto.leader];
+		const members_id: Array<mongoose.Types.ObjectId> = [dto.leader];
 
 		/* Creating a team with the given data. */
 		const team = await this.teamModel.create({
@@ -110,7 +112,7 @@ export class TeamsService {
 		if (dto?.members?.emails.length > 0) {
 			/* Inviting all the members of the team to the team. */
 			for (let i = 0; i < dto.members.emails.length; i++) {
-				let candidate = {
+				const candidate = {
 					email: dto.members.emails[i],
 					from_user_id: dto.leader,
 					teamid: team._id,
@@ -192,12 +194,9 @@ export class TeamsService {
 	 * limit, the number of teams on the current page, and an array of team objects with their members and
 	 * leader populated.
 	 */
-	async getTeamsByPage(
-		page: number = 1,
-		limit: number = 9,
-	): Promise<Results> {
+	async getTeamsByPage(page = 1, limit = 9): Promise<Results> {
 		/* A type assertion. */
-		let results = {} as Results;
+		const results = {} as Results;
 
 		/* Calculating the total number of users, the last page and the limit. */
 		results.total = await this.teamModel.count();
@@ -233,12 +232,12 @@ export class TeamsService {
 	 * @returns This function returns a Promise that resolves to a Results object.
 	 */
 	async getFilteredTeamsByPage(
-		page: number = 1,
-		limit: number = 9,
+		page = 1,
+		limit = 9,
 		parsedQuery: FilterQuery<any> = {},
 	): Promise<Results> {
 		/* A type assertion. */
-		let results = {} as Results;
+		const results = {} as Results;
 
 		console.log(parsedQuery);
 
@@ -261,16 +260,10 @@ export class TeamsService {
 				parsedQuery.$expr = {
 					$and: [
 						{
-							$gte: [
-								{ $size: '$members' },
-								Number(parsedQuery.members[0]),
-							],
+							$gte: [{ $size: '$members' }, Number(parsedQuery.members[0])],
 						},
 						{
-							$lte: [
-								{ $size: '$members' },
-								Number(parsedQuery.members[1]),
-							],
+							$lte: [{ $size: '$members' }, Number(parsedQuery.members[1])],
 						},
 					],
 				};
@@ -414,10 +407,8 @@ export class TeamsService {
 	private async removeNotification(
 		userId: mongoose.Types.ObjectId,
 		notificationid: mongoose.Types.ObjectId,
-	) {
-		console.debug(
-			`Removing notification ${notificationid} from user ${userId}`,
-		);
+	): Promise<void> {
+		console.log(`Removing notification ${notificationid} from user ${userId}`);
 		/* Removing the notification from the database. */
 		await this.notificationsService.removeNotification(notificationid);
 
@@ -434,11 +425,9 @@ export class TeamsService {
 	 */
 	async acceptInvite(
 		notificationid: mongoose.Types.ObjectId,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(
-				notificationid,
-			);
+			await this.notificationsService.getTeamNotificationById(notificationid);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -521,11 +510,9 @@ export class TeamsService {
 	 */
 	async rejectTeamInvite(
 		notificationid: mongoose.Types.ObjectId,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(
-				notificationid,
-			);
+			await this.notificationsService.getTeamNotificationById(notificationid);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -562,10 +549,7 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(
-				`User was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -626,10 +610,7 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(
-				`User was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -718,7 +699,9 @@ export class TeamsService {
 	 * @param teamId - The id of the team to be deleted.
 	 * @returns The team object
 	 */
-	async deleteTeam(teamId: mongoose.Types.ObjectId): Promise<Object> {
+	async deleteTeam(
+		teamId: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
 		const team = await this.getTeamById(teamId);
 
 		if (!team) {
@@ -743,7 +726,7 @@ export class TeamsService {
 		// delete team itself
 		await this.teamModel.findOneAndDelete({ _id: team._id });
 
-		return { status: 'removed' };
+		return { status: `Team ${teamId} was successfully deleted` };
 	}
 
 	/**
@@ -758,21 +741,13 @@ export class TeamsService {
 		// check if leader is valid user
 		const leader = await this.userService.getUserById(dto.leader_id);
 		if (!leader) {
-			throw new HttpException(
-				`User was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		// check if new_leader is valid user
-		const new_leader = await this.userService.getUserById(
-			dto.new_leader_id,
-		);
+		const new_leader = await this.userService.getUserById(dto.new_leader_id);
 		if (!new_leader) {
-			throw new HttpException(
-				`User was not found`,
-				HttpStatus.BAD_REQUEST,
-			);
+			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
 		}
 
 		// check if both leader and new_leader belogn to the same team

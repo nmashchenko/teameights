@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { User } from '../users.schema';
 
 export class Results {

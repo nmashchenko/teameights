@@ -1,6 +1,6 @@
-import { CreateTeamDto } from '@/teams/dto/create-team.dto';
-import { InviteToTeamDto } from '@/teams/dto/invite-to-team.dto';
 import mongoose from 'mongoose';
+
+import { InviteToTeamDto } from '@/teams/dto/invite-to-team.dto';
 
 export const InviteToTeamDtoStub = (
 	email: string,
