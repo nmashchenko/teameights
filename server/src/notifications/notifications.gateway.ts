@@ -1,38 +1,57 @@
 import {
-	MessageBody,
 	OnGatewayConnection,
 	OnGatewayDisconnect,
 	SubscribeMessage,
 	WebSocketGateway,
 	WebSocketServer,
 } from '@nestjs/websockets';
-import { isValidObjectId, Types } from 'mongoose';
-import { Subject } from 'rxjs';
+import { isValidObjectId, Model, Types } from 'mongoose';
 import { Server } from 'socket.io';
 
-import { NotificationsService } from './notifications.service';
+import { InjectModel } from '@nestjs/mongoose';
+import { Notifications } from './schemas/notifications.schema';
 
 @WebSocketGateway()
 export class NotificationsGateway
 	implements OnGatewayConnection, OnGatewayDisconnect
 {
-	constructor(private readonly notificationsService: NotificationsService) {}
+	private changestreamsMap = new Map();
+
+	constructor(
+		@InjectModel(Notifications.name)
+		private readonly notificationModel: Model<Notifications>,
+	) {}
 	@WebSocketServer()
 	server: Server;
 
 	private connectedUsers: Map<string, Date> = new Map();
-	private subject = new Subject<string>();
 
 	@SubscribeMessage('subscribeToNotifications')
 	async subscribeToNotifications(client: any, data: any) {
 		try {
 			const user = JSON.parse(data);
 			if (isValidObjectId(user.id)) {
-				await this.notificationsService.watchNotifications(
-					new Types.ObjectId(user.id),
-					this.server,
-					this.subject,
+				const watchCursor = this.notificationModel.watch(
+					[
+						{
+							$match: {
+								'fullDocument.user': new Types.ObjectId(
+									user.id,
+								),
+							},
+						},
+					],
+					{ fullDocument: 'updateLookup' },
 				);
+
+				this.changestreamsMap.set(client.id, watchCursor);
+
+				watchCursor.on('change', change => {
+					console.log('Notification changed:', change);
+					// Emit the change to subscribed clients
+
+					this.server.emit(`notification-${user.id}`, change);
+				});
 			}
 			console.log(
 				`Client ${client.id} subscribed to notifications for user ${user.id}`,
@@ -55,7 +74,10 @@ export class NotificationsGateway
 		console.log(
 			`Client with id ${client.id} disconnected from notifications WebSocket server`,
 		);
-		this.subject.next(client.id);
+		// this.subject.next(client.id);
+		let changeStream = this.changestreamsMap.get(client.id);
+		changeStream.close();
 		this.connectedUsers.delete(client.id);
+		this.changestreamsMap.delete(client.id);
 	}
 }

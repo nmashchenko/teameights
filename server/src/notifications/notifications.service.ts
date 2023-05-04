@@ -46,12 +46,17 @@ export class NotificationsService {
 		};
 
 		if (typeof session !== 'undefined') {
-			const data = await this.systemNotificationModel.create([notification], {
-				session,
-			});
+			const data = await this.systemNotificationModel.create(
+				[notification],
+				{
+					session,
+				},
+			);
 			return data[0]._id;
 		} else {
-			const data = await this.systemNotificationModel.create(notification);
+			const data = await this.systemNotificationModel.create(
+				notification,
+			);
 			return data._id;
 		}
 	}
@@ -80,9 +85,12 @@ export class NotificationsService {
 		};
 
 		if (typeof session !== 'undefined') {
-			const data = await this.teamNotificationModel.create([notification], {
-				session,
-			});
+			const data = await this.teamNotificationModel.create(
+				[notification],
+				{
+					session,
+				},
+			);
 			return data[0]._id;
 		} else {
 			const data = await this.teamNotificationModel.create(notification);
@@ -168,39 +176,5 @@ export class NotificationsService {
 			status: `Updated ${success} notifications: `,
 			errors: `We didn't find ${error} notifications`,
 		};
-	}
-
-	/**
-	 * This function watches for changes in notifications for a specific user and emits the changes to
-	 * subscribed clients.
-	 * @param userid - The `userid` parameter is a `mongoose.Types.ObjectId` type, which is a unique
-	 * identifier for a MongoDB document. It is used to filter the notifications collection and only watch
-	 * for changes related to the user with the specified `userid`.
-	 */
-	async watchNotifications(
-		userid: mongoose.Types.ObjectId,
-		server: Server,
-		subject: Subject<string>,
-	): Promise<void> {
-		console.log(userid);
-		const watchCursor = this.notificationModel.watch(
-			[{ $match: { 'fullDocument.user': userid } }],
-			{ fullDocument: 'updateLookup' },
-		);
-
-		subject.subscribe({
-			next: v => console.log(v),
-		});
-
-		watchCursor.on('change', change => {
-			console.log('Notification changed:', change);
-			// Emit the change to subscribed clients
-
-			server.emit(`notification-${userid}`, change);
-		});
-
-		watchCursor.on('error', error => {
-			console.error('Change stream error:', error);
-		});
 	}
 }
