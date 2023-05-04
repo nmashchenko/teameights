@@ -1,3 +1,4 @@
+import { InjectModel } from '@nestjs/mongoose';
 import {
 	OnGatewayConnection,
 	OnGatewayDisconnect,
@@ -8,10 +9,14 @@ import {
 import { isValidObjectId, Model, Types } from 'mongoose';
 import { Server } from 'socket.io';
 
-import { InjectModel } from '@nestjs/mongoose';
 import { Notifications } from './schemas/notifications.schema';
 
-@WebSocketGateway()
+@WebSocketGateway({
+	cors: {
+		// origin: process.env.CLIENT_URL,
+		origin: '*',
+	},
+})
 export class NotificationsGateway
 	implements OnGatewayConnection, OnGatewayDisconnect
 {
@@ -27,7 +32,7 @@ export class NotificationsGateway
 	private connectedUsers: Map<string, Date> = new Map();
 
 	@SubscribeMessage('subscribeToNotifications')
-	async subscribeToNotifications(client: any, data: any) {
+	async subscribeToNotifications(client: any, data: any): Promise<void> {
 		try {
 			const user = JSON.parse(data);
 			if (isValidObjectId(user.id)) {
@@ -63,21 +68,23 @@ export class NotificationsGateway
 		}
 	}
 
-	handleConnection(client: any) {
+	handleConnection(client: any): void {
 		console.log(
 			`Client ${client.id} connected to notifications WebSocket server`,
 		);
 		this.connectedUsers.set(client.id, new Date());
 	}
 
-	handleDisconnect(client: any) {
+	handleDisconnect(client: any): void {
 		console.log(
 			`Client with id ${client.id} disconnected from notifications WebSocket server`,
 		);
 		// this.subject.next(client.id);
-		let changeStream = this.changestreamsMap.get(client.id);
-		changeStream.close();
+		const changeStream = this.changestreamsMap.get(client.id);
+		if (changeStream) {
+			changeStream.close();
+			this.changestreamsMap.delete(client.id);
+		}
 		this.connectedUsers.delete(client.id);
-		this.changestreamsMap.delete(client.id);
 	}
 }
