@@ -82,8 +82,6 @@ emergencyacc2
 
 📌 Frontend: [Frontend](https://willowy-moonbeam-13cda4.netlify.app/)
 
-📌 Figma: [Figma](https://www.figma.com/file/HysE72qusvZ3spHQlv1gT1/Team8s?node-id=65-2628&t=WNCxVlYl5Nb5lqoJ-0)
-
 # Idea
 
 🎧 Overall idea - platform for student developers (probably skilled also) to find each other and work together on pet projects/real projects from project pool of customers (will be available only for skilled teams), tournaments between them will determine skill level, etc. Also possible mentorship, premium projects, AI code review, etc. basic functionality is described below.
