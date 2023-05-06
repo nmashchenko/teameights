@@ -1,6 +1,6 @@
 import { DynamicModule } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { MongoMemoryServer, MongoMemoryReplSet } from 'mongodb-memory-server';
+import { MongoMemoryReplSet, MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 
 let mongod: MongoMemoryServer | MongoMemoryReplSet;

@@ -7,12 +7,16 @@ import {
 	WebSocketServer,
 } from '@nestjs/websockets';
 import { isValidObjectId, Model, Types } from 'mongoose';
+import { AsyncApiPub } from 'nestjs-asyncapi';
 import { Server } from 'socket.io';
 
+import { SubscribeNotificationDto } from './dto/subscribe-notification.dto';
+import { SubscribeNotificationResponseDto } from './dto/subscribe-notification-response.dto';
 import { Notifications } from './schemas/notifications.schema';
 
 @WebSocketGateway({
 	cors: {
+		// TODO: Change for real origin later
 		// origin: process.env.CLIENT_URL,
 		origin: '*',
 	},
@@ -32,6 +36,13 @@ export class NotificationsGateway
 	private connectedUsers: Map<string, Date> = new Map();
 
 	@SubscribeMessage('subscribeToNotifications')
+	@AsyncApiPub({
+		channel: 'subscribeToNotifications',
+		message: {
+			name: 'This will be the websocket you use to subscribe for updates for specific userid, should pass the same payload',
+			payload: SubscribeNotificationDto,
+		},
+	})
 	async subscribeToNotifications(client: any, data: any): Promise<void> {
 		try {
 			const user = JSON.parse(data);
@@ -52,10 +63,8 @@ export class NotificationsGateway
 				this.changestreamsMap.set(client.id, watchCursor);
 
 				watchCursor.on('change', change => {
-					console.log('Notification changed:', change);
 					// Emit the change to subscribed clients
-
-					this.server.emit(`notification-${user.id}`, change);
+					this.emitUserNotification(user, change);
 				});
 			}
 			console.log(
@@ -86,5 +95,16 @@ export class NotificationsGateway
 			this.changestreamsMap.delete(client.id);
 		}
 		this.connectedUsers.delete(client.id);
+	}
+
+	@AsyncApiPub({
+		channel: 'notification-userid',
+		message: {
+			name: 'Sample response when subscribing for notification-<userid> (should be actual userid instead of <userid>)',
+			payload: SubscribeNotificationResponseDto,
+		},
+	})
+	emitUserNotification(user: any, change: any): void {
+		this.server.emit(`notification-${user.id}`, change.fullDocument);
 	}
 }

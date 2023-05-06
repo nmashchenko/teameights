@@ -1,18 +1,20 @@
-import { Test } from '@nestjs/testing';
-import { NotificationsModule } from '@/notifications/notifications.module';
 import { INestApplication } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
+import { MailerModule } from '@nestjs-modules/mailer';
 import { io } from 'socket.io-client';
-import { UsersModule } from '@/users/users.module';
-import { UsersService } from '@/users/users.service';
-import { RegisterUserDtoStub } from '@/users/tests/stubs/register-user.dto.stub';
-import { User } from '@/users/users.schema';
-import { NotificationsService } from '../notifications.service';
+
+import { NotificationsModule } from '@/notifications/notifications.module';
+import { RolesService } from '@/roles/roles.service';
 import {
 	closeMongoConnection,
 	rootMongooseTestModule,
 } from '@/test-utils/MongooseTestModule';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { RolesService } from '@/roles/roles.service';
+import { RegisterUserDtoStub } from '@/users/tests/stubs/register-user.dto.stub';
+import { UsersModule } from '@/users/users.module';
+import { User } from '@/users/users.schema';
+import { UsersService } from '@/users/users.service';
+
+import { NotificationsService } from '../notifications.service';
 
 let app: INestApplication;
 let usersService: UsersService;
@@ -67,7 +69,7 @@ describe('Notifications Gateway Test', () => {
 		const address = app.getHttpServer().listen().address();
 		const baseAddress = `http://[${address.address}]:${address.port}`;
 
-		let ws = io(baseAddress);
+		const ws = io(baseAddress);
 
 		ws.on('connect', () => {
 			console.log('Socket.IO connection opened');
@@ -87,14 +89,11 @@ describe('Notifications Gateway Test', () => {
 		and receive the test notification. */
 		user = await createUser();
 
-		let ws = io(baseAddress);
+		const ws = io(baseAddress);
 
 		await new Promise<void>(resolve => {
 			ws.on('connect', async () => {
-				ws.emit(
-					'subscribeToNotifications',
-					JSON.stringify({ id: user._id }),
-				);
+				ws.emit('subscribeToNotifications', JSON.stringify({ id: user._id }));
 			});
 
 			/* 
@@ -120,39 +119,65 @@ describe('Notifications Gateway Test', () => {
 			}, 1000);
 
 			ws.on(`notification-${user._id}`, async newNotification => {
-				/* 
-				`expect(newNotification.fullDocument.system_message).toBe('New notification!')` is an assertion that
-				checks if the `system_message` property of the `fullDocument` object in the `newNotification` event
-				received by the WebSocket client is equal to the string `'New notification!'`. If the assertion
-				passes, the test will continue to run. If it fails, the test will fail and an error message will be
-				displayed. 
-				*/
-				expect(newNotification.fullDocument.system_message).toBe(
-					'New notification!',
-				);
+				try {
+					/* 
+					`expect(newNotification.fullDocument.system_message).toBe('New notification!')` is an assertion that
+					checks if the `system_message` property of the `fullDocument` object in the `newNotification` event
+					received by the WebSocket client is equal to the string `'New notification!'`. If the assertion
+					passes, the test will continue to run. If it fails, the test will fail and an error message will be
+					displayed. 
+					*/
+					// TODO: Handle resolve on error here
+					expect(newNotification.system_message).toBe('New notification!');
 
-				/*
-				 `ws.disconnect();` is a method call that disconnects the client from the WebSocket server. In this
-				case, it is used to disconnect the client after the test has been completed and the expected
-				notification has been received. 
-				*/
-				ws.disconnect();
+					/*
+					`ws.disconnect();` is a method call that disconnects the client from the WebSocket server. In this
+					case, it is used to disconnect the client after the test has been completed and the expected
+					notification has been received. 
+					*/
+					ws.disconnect();
 
-				/* 
-				* This code block is checking if the web socket connection is active or not. If it is not active, it
-				* logs a message saying that it has disconnected from the web socket. It then sets a timeout of 3
-				* seconds before resolving the promise, which will end the test. 
-				
-				! This is done to ensure that gateway automatically closes changeStream and connection to client. 
-				*/
-				if (!ws.active) {
-					console.log('disconnected from web socket');
-					setTimeout(() => {
-						console.log(
-							'changeStream should be closed now -- stop timer!',
-						);
-						resolve();
-					}, 3000);
+					/* 
+					* This code block is checking if the web socket connection is active or not. If it is not active, it
+					* logs a message saying that it has disconnected from the web socket. It then sets a timeout of 3
+					* seconds before resolving the promise, which will end the test. 
+					
+					! This is done to ensure that gateway automatically closes changeStream and connection to client. 
+					*/
+					if (!ws.active) {
+						console.log('disconnected from web socket');
+						setTimeout(() => {
+							console.log('changeStream should be closed now -- stop timer!');
+							resolve();
+						}, 3000);
+					}
+				} catch (err) {
+					/*
+					! THIS BLOCK IS REPONSIBLE for properly closing all connections and passing message back to jest
+					*/
+					ws.disconnect();
+
+					/* 
+					* This code block is checking if the web socket connection is active or not. If it is not active, it
+					* logs a message saying that it has disconnected from the web socket. It then sets a timeout of 3
+					* seconds before resolving the promise, which will end the test. 
+					
+					! This is done to ensure that gateway automatically closes changeStream and connection to client. 
+					*/
+					if (!ws.active) {
+						console.log('disconnected from web socket');
+						setTimeout(() => {
+							console.log('changeStream should be closed now -- stop timer!');
+							resolve();
+
+							/* 
+							`throw new Error(err.message);` is throwing an error with the message contained in the `err` object.
+							This is done to ensure that the test fails if there is an error in the `try` block, and the error
+							message is displayed in the console. 
+							*/
+							throw new Error(err.message);
+						}, 3000);
+					}
 				}
 			});
 		});
