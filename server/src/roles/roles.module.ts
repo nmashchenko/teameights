@@ -7,6 +7,8 @@ import { RolesController } from './roles.controller';
 import { Role, RoleSchema } from './roles.schema';
 import { RolesService } from './roles.service';
 
+import { TokensModule } from '@/tokens/tokens.module';
+
 @Module({
 	controllers: [RolesController],
 	providers: [RolesService],
@@ -14,6 +16,7 @@ import { RolesService } from './roles.service';
 	imports: [
 		MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
 		MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+		TokensModule,
 	],
 })
 export class RolesModule {}
