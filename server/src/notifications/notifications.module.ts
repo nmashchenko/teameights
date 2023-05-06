@@ -23,7 +23,6 @@ import {
 } from './schemas/team-invite.schema';
 
 @Module({
-	providers: [NotificationsService, NotificationsGateway],
 	exports: [NotificationsService],
 	imports: [
 		MongooseModule.forFeature([
@@ -47,6 +46,7 @@ import {
 		// AuthModule,
 		// TokensModule,
 	],
+	providers: [NotificationsService, NotificationsGateway],
 	controllers: [NotificationsController],
 })
 export class NotificationsModule {}

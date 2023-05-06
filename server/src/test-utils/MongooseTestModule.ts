@@ -1,20 +1,29 @@
 import { DynamicModule } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryServer, MongoMemoryReplSet } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 
-let mongod: MongoMemoryServer;
+let mongod: MongoMemoryServer | MongoMemoryReplSet;
 
-export const rootMongooseTestModule = (
-	options: MongooseModuleOptions = {},
-): DynamicModule =>
+export const rootMongooseTestModule = (replSet?: boolean): DynamicModule =>
 	MongooseModule.forRootAsync({
 		useFactory: async () => {
-			mongod = await MongoMemoryServer.create();
+			if (replSet) {
+				mongod = await MongoMemoryReplSet.create({
+					replSet: {
+						count: 1,
+						storageEngine: 'wiredTiger',
+					},
+				});
+
+				await mongod.waitUntilRunning();
+				console.log('running!');
+			} else {
+				mongod = await MongoMemoryServer.create();
+			}
 			const mongoUri = mongod.getUri();
 			return {
 				uri: mongoUri,
-				...options,
 			};
 		},
 	});
