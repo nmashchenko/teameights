@@ -1,30 +1,23 @@
 import { useEffect, useState } from 'react'
 
 import SearchIcon from '../../../../assets/SearchIcon'
-import { SearchBox, SearchBtn, SearchInput } from '../Search.styles'
+import { SearchBox, SearchIconWrapper, SearchInput } from '../Search.styles'
 
-const SearchByText = ({ placeholder, currFilter, setCurrFilter, setFilterValue }) => {
+const SearchByText = ({ placeholder, currFilter, currFilterIndex, setFilterValue }) => {
   const [timer, setTimer] = useState(null)
   const [value, setValue] = useState(currFilter.value)
 
   useEffect(() => {
     clearTimeout(timer)
-    setTimer(
-      setTimeout(() => {
-        setFilterValue(currFilter.name, value)
-        setCurrFilter((prev) => ({
-          ...prev,
-          value,
-        }))
-      }, 2000),
-    )
+    setValue(currFilter.value)
+  }, [currFilter])
+
+  useEffect(() => {
+    clearTimeout(timer)
+    setTimer(setTimeout(() => setFilterValue(currFilterIndex, value), 2000))
 
     return () => clearTimeout(timer)
   }, [value])
-
-  useEffect(() => {
-    setValue(currFilter.value)
-  }, [currFilter])
 
   return (
     <SearchBox>
@@ -33,9 +26,9 @@ const SearchByText = ({ placeholder, currFilter, setCurrFilter, setFilterValue }
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
       />
-      <SearchBtn>
+      <SearchIconWrapper>
         <SearchIcon />
-      </SearchBtn>
+      </SearchIconWrapper>
     </SearchBox>
   )
 }

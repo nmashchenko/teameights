@@ -43,15 +43,9 @@ const usersFiltersSlice = createSlice({
   initialState,
   reducers: {
     setUsersFilter(state, action) {
-      const { name, value } = action.payload
+      const { index, value } = action.payload
 
-      state = state.map((filter) => {
-        if (filter.name === name) {
-          filter.value = value
-        }
-
-        return filter
-      })
+      state[index].value = value
     },
   },
 })

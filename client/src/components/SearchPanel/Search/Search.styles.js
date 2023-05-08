@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const SearchBox = styled.div`
+  position: relative;
   display: flex;
   padding: 0 11px;
   gap: 8px;
@@ -22,7 +23,7 @@ export const SearchInput = styled.input`
   background: none;
 `
 
-export const SearchBtn = styled.div`
+export const SearchIconWrapper = styled.div`
   width: 20px;
   height: 20px;
   display: flex;

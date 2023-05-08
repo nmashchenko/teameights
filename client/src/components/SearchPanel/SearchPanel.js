@@ -7,10 +7,12 @@ import { SearchPanelWrapper, StyledSearchPanel } from './SearchPanel.styles'
 
 const SearchPanel = ({ sliceName, setFilterValueAction }) => {
   const dispatch = useDispatch()
-  const setFilterValue = (name, value) => dispatch(setFilterValueAction({ name, value }))
+  const setFilterValue = (index, value) => dispatch(setFilterValueAction({ index, value }))
   const filtersArr = useSelector((state) => state[sliceName])
-  const [currFilter, setCurrFilter] = useState(filtersArr[0])
-  
+  const [currFilterIndex, setCurrFilterIndex] = useState(0)
+
+  const currFilter = filtersArr[currFilterIndex]
+
   console.log(currFilter)
 
   return (
@@ -19,11 +21,11 @@ const SearchPanel = ({ sliceName, setFilterValueAction }) => {
         <FilterSelect
           filtersArr={filtersArr}
           currFilter={currFilter}
-          setCurrFilter={setCurrFilter}
+          setCurrFilterIndex={setCurrFilterIndex}
         />
         <Search
           currFilter={currFilter}
-          setCurrFilter={setCurrFilter}
+          currFilterIndex={currFilterIndex}
           setFilterValue={setFilterValue}
         />
       </SearchPanelWrapper>
