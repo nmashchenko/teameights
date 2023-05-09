@@ -3,11 +3,15 @@ import styled from 'styled-components'
 export const SearchBox = styled.div`
   position: relative;
   display: flex;
-  padding: 0 11px;
-  gap: 8px;
+  padding: ${(props) => props.padding || '0'};
+  gap: ${(props) => props.gap || '0'};
   height: 100%;
   width: 100%;
   align-items: center;
+  &:hover {
+    background-color: ${(props) => props.hover && '#2f3239'};
+    border-radius: ${(props) => props.hover && '0px 10px 10px 0px'};
+  }
 `
 
 export const SearchInput = styled.input`

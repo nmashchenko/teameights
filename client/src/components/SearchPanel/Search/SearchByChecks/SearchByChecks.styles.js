@@ -73,3 +73,7 @@ export const StyledChecksItem = styled.li`
     }
   }
 `
+
+export const CheckListText = styled.p`
+  margin-left: 16px;
+`

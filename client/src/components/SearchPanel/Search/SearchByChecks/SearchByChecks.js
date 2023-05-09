@@ -1,11 +1,11 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import SearchIcon from '../../../../assets/SearchIcon'
 import { useOutsideClick } from '../../../../hooks/useOutsideClick'
 import { SearchBox, SearchIconWrapper, SearchInput } from '../Search.styles'
 
 import ChecksItem from './ChecksItem'
-import { CheckListWrapper, StyledChecksList } from './SearchByChecks.styles'
+import { CheckListText, CheckListWrapper, StyledChecksList } from './SearchByChecks.styles'
 
 const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, countries }) => {
   const [value, setValue] = useState('')
@@ -18,27 +18,35 @@ const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, countries
 
   useOutsideClick(listRef, () => setListActive(false))
 
+  useEffect(() => {
+    setValue('')
+  }, [currFilterIndex])
+
   const renderList = () => {
     switch (currFilter.name) {
       case 'countries':
-        return filteredCountries.map((country) => (
-          <ChecksItem
-            key={country.value}
-            currFilter={currFilter}
-            currFilterIndex={currFilterIndex}
-            setFilterValue={setFilterValue}
-            item={country}
-            label={country.label}
-            value={country.value}
-          />
-        ))
+        return filteredCountries.length ? (
+          filteredCountries.map((country) => (
+            <ChecksItem
+              key={country.value}
+              currFilter={currFilter}
+              currFilterIndex={currFilterIndex}
+              setFilterValue={setFilterValue}
+              item={country}
+              label={country.label}
+              value={country.value}
+            />
+          ))
+        ) : (
+          <CheckListText>Countries were not found</CheckListText>
+        )
       default:
         return null
     }
   }
 
   return (
-    <SearchBox>
+    <SearchBox hover gap="8px" padding="0 11px">
       <SearchInput
         onFocus={() => setListActive(true)}
         value={value}
@@ -49,8 +57,8 @@ const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, countries
         <SearchIcon />
       </SearchIconWrapper>
       {listActive && (
-        <CheckListWrapper>
-          <StyledChecksList ref={listRef}>{renderList()}</StyledChecksList>
+        <CheckListWrapper ref={listRef}>
+          <StyledChecksList>{renderList()}</StyledChecksList>
         </CheckListWrapper>
       )}
     </SearchBox>

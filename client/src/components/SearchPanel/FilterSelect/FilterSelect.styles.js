@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 export const FilterSelectBox = styled.div`
   position: relative;
+  background-color: ${(props) => (props.isActive ? '#2f3239' : 'transparent')};
+  border-radius: ${(props) => (props.isActive ? '10px 0px 0px 10px' : '0')};
 `
 
 export const FilterSelectBtn = styled.div`
@@ -44,7 +46,8 @@ export const OptionsList = styled.ul`
 export const OptionItem = styled.li`
   cursor: pointer;
   padding: 4px 8px 4px 16px;
+  background-color: ${(props) => (props.isActive ? '#46A11B' : 'transparent')};
   &:hover {
-    background: #27431f;
+    background-color: ${(props) => (props.isActive ? '#46A11B' : '#27431f')};
   }
 `

@@ -30,7 +30,7 @@ const initialState = [
     text: 'People',
     type: 'range',
     min: 1,
-    max: 1,
+    max: 8,
     value: {
       min: null,
       max: null,

@@ -17,7 +17,7 @@ const FilterSelect = ({ filtersArr, currFilter, setCurrFilterIndex }) => {
   }
 
   return (
-    <FilterSelectBox ref={selectRef}>
+    <FilterSelectBox isActive={selectActive} ref={selectRef}>
       <FilterSelectBtn active={selectActive} onClick={() => setSelectActive((prev) => !prev)}>
         <p>{currFilter.text}</p>
         <ArrowDown />
@@ -26,7 +26,11 @@ const FilterSelect = ({ filtersArr, currFilter, setCurrFilterIndex }) => {
         <OptionsList>
           {filtersArr.map((item, i) => {
             return (
-              <OptionItem onClick={() => onChangeFilter(i)} key={item.name}>
+              <OptionItem
+                isActive={currFilter.name === item.name}
+                onClick={() => onChangeFilter(i)}
+                key={item.name}
+              >
                 {item.text}
               </OptionItem>
             )

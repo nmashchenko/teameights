@@ -20,7 +20,7 @@ const SearchByText = ({ placeholder, currFilter, currFilterIndex, setFilterValue
   }, [value])
 
   return (
-    <SearchBox>
+    <SearchBox hover gap="8px" padding="0 11px">
       <SearchInput
         value={value}
         onChange={(e) => setValue(e.target.value)}

@@ -1,6 +1,7 @@
 import countryList from 'react-select-country-list'
 
 import SearchByChecks from './SearchByChecks/SearchByChecks'
+import SearchByRange from './SearchByRange/SearchByRange'
 import SearchByText from './SearchByText/SearchByText'
 
 const Search = ({ currFilter, currFilterIndex, setFilterValue }) => {
@@ -23,6 +24,12 @@ const Search = ({ currFilter, currFilterIndex, setFilterValue }) => {
           currFilterIndex={currFilterIndex}
           setFilterValue={setFilterValue}
           countries={countries}
+        />
+      )
+    case 'range':
+      return (
+        <SearchByRange
+          currFilter={currFilter}
         />
       )
     default:
