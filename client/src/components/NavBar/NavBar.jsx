@@ -1,7 +1,8 @@
 // * Modules
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import io from 'socket.io-client'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
@@ -11,6 +12,7 @@ import Exit from '../../assets/Sidebar/Exit'
 import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
+import { LOCAL_PATH } from '../../http'
 import Loader from '../../shared/components/Loader/Loader'
 
 // * Data
@@ -31,12 +33,15 @@ import {
   NavWrapper,
 } from './NavBar.styles'
 
+const socket = io(LOCAL_PATH)
+
 const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
   const [notificationModal, setNotificationModal] = useState(false)
 
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user } = useCheckAuth()
+  const [userNotifications, setUserNotifications] = useState([])
 
   const newNavData = [
     NavBarData[0],
@@ -51,6 +56,26 @@ const NavBar = () => {
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
   const navigate = useNavigate()
   const navMenuRef = useRef(null)
+
+  useEffect(() => {
+    if (user) {
+      socket.on('connect', () => {
+        console.log('Connected to notifications server')
+        setUserNotifications(user.notifications)
+        socket.emit('subscribeToNotifications', JSON.stringify({ id: user._id }))
+      })
+      const handleNotification = (notification) => {
+        console.log('Socket.IO message received:', notification)
+        setUserNotifications((prevUserNotifications) => [...prevUserNotifications, notification])
+      }
+
+      socket.on(`notification-${user._id}`, handleNotification)
+
+      return () => {
+        socket.off(`notification-${user._id}`, handleNotification)
+      }
+    }
+  }, [user, socket])
 
   useOutsideClick(navMenuRef, () => setSidebar(false), notificationModal)
 
