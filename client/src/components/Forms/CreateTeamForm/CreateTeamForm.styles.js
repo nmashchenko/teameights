@@ -15,7 +15,7 @@ export const CreateTeamContainer = styled.div`
 `
 
 export const Card = styled.div`
-  height: calc(100vh - 78px);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

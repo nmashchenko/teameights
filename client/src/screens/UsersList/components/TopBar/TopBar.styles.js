@@ -67,7 +67,6 @@ export const SelectContainer = styled.div`
 export const FilterContainer = styled.div`
   visibility: hidden;
   position: absolute;
-  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;

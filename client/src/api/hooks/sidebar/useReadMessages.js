@@ -11,11 +11,11 @@ export const useReadMessages = () => {
   const queryClient = useQueryClient()
 
   const readMessages = async (idsArr) => {
-    return await api.put('notifications/read', idsArr)
+    return await api.put('notifications/read', { notifications: idsArr })
   }
 
   return useMutation(readMessages, {
-    mutationKey: 'finishRegistration',
+    mutationKey: 'readMessages',
     onSuccess: () => {
       queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
     },

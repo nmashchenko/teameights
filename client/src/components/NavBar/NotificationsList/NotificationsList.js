@@ -1,18 +1,19 @@
-import React, { useEffect, useRef } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import NotificationsItem from '../NotificationsItem/NotificationsItem'
 
 import { StyledNotificationsList } from './NotificationsList.styles'
 
-const NotificationsList = ({ setUnreadIds, closeNotificationsModal }) => {
-  const { data: user } = useCheckAuth()
+const NotificationsList = ({ userNotifications, setUnreadIds, closeNotificationsModal }) => {
+  // const { data: user } = useCheckAuth()
   const listRef = useRef(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          console.log(entry.target)
           const itemId = entry.target.getAttribute('data-notification-id')
           const isRead = entry.target.getAttribute('data-notification-read')
 
@@ -30,12 +31,12 @@ const NotificationsList = ({ setUnreadIds, closeNotificationsModal }) => {
     return () => {
       observer.disconnect()
     }
-  }, [user.notifications])
+  }, [userNotifications])
 
   return (
     <StyledNotificationsList ref={listRef}>
-      {user?.notifications &&
-        user.notifications.map((item) => (
+      {userNotifications &&
+        userNotifications.map((item) => (
           <NotificationsItem
             key={item._id}
             closeNotificationsModal={closeNotificationsModal}
@@ -46,4 +47,4 @@ const NotificationsList = ({ setUnreadIds, closeNotificationsModal }) => {
   )
 }
 
-export default NotificationsList
+export default memo(NotificationsList)

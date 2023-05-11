@@ -35,12 +35,8 @@ export const useRoutes = () => {
   return (
     <Routes>
       {/* // * for authenticated user */}
-      <Route path="/" element={<UsersList />} />
-      <Route element={<ProtectFinishRegistration />}>
-        <Route path={ROUTES.finishRegistration} element={<FinishRegistration />} />
-      </Route>
-      <Route path="/auth/verification" element={<LoaderScreen />} />
       <Route element={<NavBarItemPageLayout />}>
+        <Route path="/" element={<UsersList />} />
         <Route
           path="/profile"
           element={
@@ -60,9 +56,13 @@ export const useRoutes = () => {
         <Route path="/tournament" element={<Tournaments />} />
         <Route path="/myteam" element={<TeamScreen />} />
         <Route path="/team" element={<NoTeamScreen />} />
+        <Route path="/teams" element={<TeamsScreen />} />
       </Route>
+      <Route element={<ProtectFinishRegistration />}>
+        <Route path={ROUTES.finishRegistration} element={<FinishRegistration />} />
+      </Route>
+      <Route path="/auth/verification" element={<LoaderScreen />} />
       <Route path="/create-team" element={<CreateTeam />} />
-      <Route path="/teams" element={<TeamsScreen />} />
       <Route path="/tournament-info" element={<TournamentInfo />} />
       <Route path="/coding" element={<TournamentCodingScreen />} />
       <Route path="/leaderboard" element={<LeaderboardScreen />} />

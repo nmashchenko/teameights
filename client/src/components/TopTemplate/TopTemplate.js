@@ -1,16 +1,15 @@
 import TeameightsLogo from '../../assets/Team/TeameightsLogo.js'
 import NavBar from '../NavBar/NavBar'
 
-import { NavContainer, ToolbarContainer } from './TopTemplate.styles'
+import { NavContainer } from './TopTemplate.styles'
 
 const TopTemplate = () => {
   return (
-    <ToolbarContainer>
+    <div>
       <NavContainer>
         <NavBar />
       </NavContainer>
-      <TeameightsLogo />
-    </ToolbarContainer>
+    </div>
   )
 }
 

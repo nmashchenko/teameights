@@ -19,7 +19,7 @@ export const Text = styled.h1`
 `
 
 export const Content = styled.div`
-  min-height: calc(100vh - 78px);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

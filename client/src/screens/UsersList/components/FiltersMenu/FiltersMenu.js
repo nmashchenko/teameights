@@ -47,7 +47,7 @@ const FiltersMenu = ({
               <Filters />
               <FilterText>Filters</FilterText>
               <FiltersAmount>
-                <h4>3</h4>
+                <h4>4</h4>
               </FiltersAmount>
             </FiltersContentTop>
             <CloseContainer onClick={showFiltersBar}>
