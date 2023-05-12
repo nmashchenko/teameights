@@ -1,5 +1,6 @@
 // assets
 import { memo } from 'react'
+
 import Notification from '../../../assets/Sidebar/Notification'
 import { IconWrapper, NavInteractBtn } from '../NavBar.styles'
 import NotificationsModal from '../NotificationsModal/NotificationsModal'
@@ -13,6 +14,7 @@ const NotificationsContent = ({
   setNotificationModal,
   notificationModal,
 }) => {
+  console.log(userNotifications)
   const unreadMessages = userNotifications.filter((item) => !item.read)
 
   return (

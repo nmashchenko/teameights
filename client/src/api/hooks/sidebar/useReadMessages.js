@@ -17,7 +17,7 @@ export const useReadMessages = () => {
   return useMutation(readMessages, {
     mutationKey: 'readMessages',
     onSuccess: () => {
-      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+      console.log('success!')
     },
     onError: (error) => {
       // set error message
