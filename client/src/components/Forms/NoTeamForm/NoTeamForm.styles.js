@@ -13,7 +13,7 @@ export const Container = styled.div`
 `
 
 export const CardContainer = styled.div`
-  height: calc(100vh - 78px);
+  height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;

@@ -7,7 +7,9 @@ import { Role, RoleDocument } from './roles.schema';
 
 @Injectable()
 export class RolesService {
-	constructor(@InjectModel(Role.name) private roleModel: Model<RoleDocument>) {}
+	constructor(
+		@InjectModel(Role.name) private roleModel: Model<RoleDocument>,
+	) {}
 
 	async createRole(dto: CreateRoleDto): Promise<Role> {
 		const role = await this.roleModel.create(dto);
@@ -21,6 +23,6 @@ export class RolesService {
 
 	async getRoleById(id: ObjectId): Promise<string> {
 		const role = await this.roleModel.findById(id);
-		return role.value;
+		return role?.value;
 	}
 }

@@ -2,7 +2,7 @@
 import styled from 'styled-components'
 
 export const FiltersMenuContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 86px);
   height: 100vh;
   display: flex;
   flex-direction: column;

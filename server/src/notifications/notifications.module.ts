@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { AuthModule } from '@/auth/auth.module';
 import { MailsModule } from '@/mails/mails.module';
+import { TokensModule } from '@/tokens/tokens.module';
 import { User, UserSchema } from '@/users/users.schema';
 
 import { NotificationsController } from './notifications.controller';
+import { NotificationsGateway } from './notifications.gateway';
 import { NotificationsService } from './notifications.service';
 import {
 	Notifications,
@@ -20,7 +23,6 @@ import {
 } from './schemas/team-invite.schema';
 
 @Module({
-	providers: [NotificationsService],
 	exports: [NotificationsService],
 	imports: [
 		MongooseModule.forFeature([
@@ -44,6 +46,7 @@ import {
 		// AuthModule,
 		// TokensModule,
 	],
+	providers: [NotificationsService, NotificationsGateway],
 	controllers: [NotificationsController],
 })
 export class NotificationsModule {}

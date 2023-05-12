@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { ClientSession, Model } from 'mongoose';
+import { Subject } from 'rxjs';
+import { Server } from 'socket.io';
 
 import { MailsService } from '@/mails/mails.service';
 

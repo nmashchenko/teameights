@@ -56,7 +56,7 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
         }, [displayFiltered])
 
         return (
-          <Form>
+          <Form style={{ marginBottom: '40px' }}>
             <FiltersMenu
               filterBar={filterBar}
               showFiltersBar={showFiltersBar}
@@ -66,15 +66,13 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
               programmingLanguageOptions={programmingLanguageOptions}
             />
             <BoxContainer sx={{ flexGrow: 1 }}>
-              <AppBar position="relative" elevation={0} sx={{ background: 'transparent' }}>
-                <AlternativeLogoContainer>
-                  <PlatformLogo />
-                </AlternativeLogoContainer>
+              <AppBar
+                position="fixed"
+                elevation={2}
+                color="transparent"
+                sx={{ backdropFilter: 'blur(20px)', width: `calc(100% - 88px)`, zIndex: 100 }}
+              >
                 <NavBar>
-                  <NavBarContainer />
-                  {/* <LogoContainer>
-                    <PlatformLogo />
-                  </LogoContainer> */}
                   <SelectContainer>
                     <CustomSelect
                       multiple={true}

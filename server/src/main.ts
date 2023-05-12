@@ -3,6 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 // import { JwtAuthGuard } from "./auth/jwt-auth.guard";
 // import { ValidationPipe } from "./pipes/validation.pipe";
 import cookieParser from 'cookie-parser';
+import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 
 import { AppModule } from './app.module';
 import { ValidationPipe } from './pipes/validation.pipe';
@@ -31,6 +32,26 @@ async function start(): Promise<void> {
 		const document = SwaggerModule.createDocument(app, config);
 		SwaggerModule.setup('/api/docs', app, document);
 
+		const asyncApiOptions = new AsyncApiDocumentBuilder()
+			.setTitle('Teameights websockets description')
+			.setDescription(
+				'Here you will be able to find documentation for all websockets we use in our application',
+			)
+			.setVersion('1.0')
+			.setDefaultContentType('application/json')
+			// .addSecurity('user-password', { type: 'userPassword' })
+			.addServer('Main server', {
+				url: process.env.API_URL,
+				protocol: 'socket.io',
+			})
+			.build();
+
+		const asyncapiDocument = await AsyncApiModule.createDocument(
+			app,
+			asyncApiOptions,
+		);
+		await AsyncApiModule.setup('/async-api/docs', app, asyncapiDocument);
+
 		/*
 		For the future reference: if we need to globally close access to the application
 		(e.g. make it only for authorized users only):
@@ -44,7 +65,9 @@ async function start(): Promise<void> {
 		*/
 
 		await app.listen(PORT, () =>
-			console.log(`Server started on port: ${PORT}`),
+			console.log(
+				`Server started on port: ${PORT}, SWAGGER docs started at ${process.env.API_URL}/api/docs, ASYNC-API started at ${process.env.API_URL}/async-api/docs`,
+			),
 		);
 	} catch (err) {
 		console.log(err);

@@ -14,37 +14,52 @@ import {
   StyledNotificationsModal,
 } from './NotificationsModal.styles'
 
-const NotificationsModal = ({ user, notificationModal, setNotificationModal }) => {
+const NotificationsModal = ({ userNotifications, notificationModal, setNotificationModal }) => {
   const [unreadIds, setUnreadIds] = useState(new Set())
   const notificationModalRef = useRef(null)
-  const notificationsMutation = useReadMessages()
+  const { mutateAsync: readMessages } = useReadMessages()
 
   useOutsideClick(notificationModalRef, closeNotificationsModal)
 
-  function closeNotificationsModal() {
+  async function closeNotificationsModal() {
     if (notificationModal) {
       setNotificationModal(false)
       if (unreadIds.size) {
         // Request to the server is here
-        notificationsMutation.mutate({
-          notifications: Array.from(unreadIds),
-        })
+        await readMessages(Array.from(unreadIds))
         setUnreadIds(new Set())
       }
     }
   }
 
-  const markAllAsRead = () => {
+  const markAllAsRead = async () => {
     const allUnreadIds = new Set(
-      user.notifications.filter((item) => !item.read).map((item) => item._id),
+      userNotifications.filter((item) => !item.read).map((item) => item._id),
     )
 
     if (allUnreadIds.size) {
-      notificationsMutation.mutate({
-        notifications: Array.from(allUnreadIds),
-      })
+      await readMessages(Array.from(allUnreadIds))
       setUnreadIds(new Set())
     }
+  }
+
+  const variants = {
+    open: {
+      clipPath: 'inset(0% 0% 0% 0% round 10px)',
+      transition: {
+        type: 'spring',
+        bounce: 0,
+        duration: 0.3,
+      },
+    },
+    closed: {
+      clipPath: 'inset(10% 50% 90% 50% round 10px)',
+      transition: {
+        type: 'spring',
+        bounce: 0,
+        duration: 0.2,
+      },
+    },
   }
 
   return (
@@ -52,6 +67,9 @@ const NotificationsModal = ({ user, notificationModal, setNotificationModal }) =
       ref={notificationModalRef}
       active={notificationModal}
       onClick={(e) => e.stopPropagation()}
+      animate={notificationModal ? 'open' : 'closed'}
+      variants={variants}
+      initial={false}
     >
       <NotificationsHeader>
         <MarkAllBtn onClick={markAllAsRead}>
@@ -66,6 +84,7 @@ const NotificationsModal = ({ user, notificationModal, setNotificationModal }) =
       </NotificationsHeader>
       {notificationModal && (
         <NotificationsList
+          userNotifications={userNotifications}
           closeNotificationsModal={closeNotificationsModal}
           setUnreadIds={setUnreadIds}
         />

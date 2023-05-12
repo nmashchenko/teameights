@@ -21,6 +21,7 @@ import {
 	avatar_purple,
 	avatar_yellow,
 } from './maintenance.data';
+import { NotificationsService } from '@/notifications/notifications.service';
 
 @Injectable()
 export class MaintenanceService {
@@ -29,6 +30,7 @@ export class MaintenanceService {
 		@Inject(getConnectionToken()) private readonly connection: Connection,
 		private rolesService: RolesService,
 		private teamsService: TeamsService,
+		private notificationsService: NotificationsService,
 	) {}
 
 	programmingLanguages: string[] = [
@@ -245,6 +247,37 @@ export class MaintenanceService {
 			status: `added ${amount} users successfuly and took ${
 				endTime - startTime
 			} milliseconds`,
+		};
+	}
+
+	async generateNotifications(
+		userid: mongoose.Types.ObjectId,
+		amount: number,
+	): Promise<StatusResponseDto> {
+		const startTime = performance.now();
+
+		const userCheck = await this.usersService.getUserById(userid);
+
+		if (!userCheck) {
+			return { status: 'User was not found' };
+		}
+
+		for (let i = 0; i < amount; i++) {
+			const notification =
+				await this.notificationsService.createSystemNotification({
+					userid: userCheck._id,
+					system_message: `Testing notification #${i}`,
+				});
+
+			await this.usersService.addNotification(userid, notification._id);
+		}
+
+		const endTime = performance.now();
+
+		return {
+			status: `generated ${amount} notifications for user ${
+				userCheck._id
+			} and took ${endTime - startTime} milliseconds`,
 		};
 	}
 

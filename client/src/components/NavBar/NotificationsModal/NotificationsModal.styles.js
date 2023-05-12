@@ -1,10 +1,9 @@
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 import { IconWrapper } from '../NavBar.styles'
 
-export const StyledNotificationsModal = styled.div`
-  transition: opacity 0.3s;
-  opacity: ${(props) => (props.active ? 1 : 0)};
+export const StyledNotificationsModal = styled(motion.div)`
   pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   position: absolute;
   left: calc(100% + 32px);

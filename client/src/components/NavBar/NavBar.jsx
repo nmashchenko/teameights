@@ -1,10 +1,11 @@
 // * Modules
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
+import { socket } from '../../api/sockets/notifications.socket'
 // * Assets
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
@@ -36,7 +37,8 @@ const NavBar = () => {
   const [notificationModal, setNotificationModal] = useState(false)
 
   const { isAuth } = useSelector((state) => state.userReducer)
-  const { data: user } = useCheckAuth()
+  const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
+  const [userNotifications, setUserNotifications] = useState(user?.notifications || [])
 
   const newNavData = [
     NavBarData[0],
@@ -51,6 +53,49 @@ const NavBar = () => {
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
   const navigate = useNavigate()
   const navMenuRef = useRef(null)
+  // let socketRef = useRef(null)
+
+  useEffect(() => {
+    if (user) {
+      socket.connect()
+
+      setUserNotifications(user?.notifications)
+
+      console.log(`Connecting socket...`)
+      socket.emit('subscribeToNotifications', JSON.stringify({ id: user._id }))
+
+      return () => {
+        socket.disconnect()
+      }
+    }
+  }, [isUserDataLoading])
+
+  useEffect(() => {
+    if (user) {
+      socket.on(`notification-${user._id}`, (notification) => {
+        // Find the index of the existing notification with the same _id
+        const existingIndex = userNotifications.findIndex(
+          (n) => String(n._id) === String(notification._id),
+        )
+
+        // If an existing notification is found, update it
+        if (existingIndex !== -1) {
+          const updatedNotifications = [...userNotifications]
+
+          updatedNotifications[existingIndex] = notification
+          setUserNotifications(updatedNotifications)
+        }
+        // If not, add the new notification to the array
+        else {
+          setUserNotifications([...userNotifications, notification])
+        }
+      })
+
+      return () => {
+        socket.off(`notification-${user._id}`)
+      }
+    }
+  }, [userNotifications])
 
   useOutsideClick(navMenuRef, () => setSidebar(false), notificationModal)
 
@@ -94,7 +139,7 @@ const NavBar = () => {
           <NavInteractions>
             {isAuth && user && (
               <NotificationsContent
-                user={user}
+                userNotifications={userNotifications}
                 sidebar={sidebar}
                 notificationModal={notificationModal}
                 setNotificationModal={setNotificationModal}
