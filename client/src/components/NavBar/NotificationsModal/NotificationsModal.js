@@ -18,7 +18,6 @@ const NotificationsModal = ({ userNotifications, notificationModal, setNotificat
   const [unreadIds, setUnreadIds] = useState(new Set())
   const notificationModalRef = useRef(null)
   const { mutateAsync: readMessages } = useReadMessages()
-  // const { mutateAsync: joinUser } = useTeamMembership('join')
 
   useOutsideClick(notificationModalRef, closeNotificationsModal)
 

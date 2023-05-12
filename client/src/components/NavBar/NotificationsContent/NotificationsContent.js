@@ -14,7 +14,6 @@ const NotificationsContent = ({
   setNotificationModal,
   notificationModal,
 }) => {
-  console.log(userNotifications)
   const unreadMessages = userNotifications.filter((item) => !item.read)
 
   return (

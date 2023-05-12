@@ -57,7 +57,6 @@ const NavBar = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user)
       socket.connect()
 
       setUserNotifications(user?.notifications)
@@ -74,13 +73,10 @@ const NavBar = () => {
   useEffect(() => {
     if (user) {
       socket.on(`notification-${user._id}`, (notification) => {
-        console.log(notification)
         // Find the index of the existing notification with the same _id
         const existingIndex = userNotifications.findIndex(
           (n) => String(n._id) === String(notification._id),
         )
-
-        console.log(existingIndex)
 
         // If an existing notification is found, update it
         if (existingIndex !== -1) {
@@ -91,7 +87,6 @@ const NavBar = () => {
         }
         // If not, add the new notification to the array
         else {
-          console.log(userNotifications)
           setUserNotifications([...userNotifications, notification])
         }
       })
