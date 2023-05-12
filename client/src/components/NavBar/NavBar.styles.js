@@ -1,4 +1,5 @@
 // * Modules
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 export const IconWrapper = styled.div`
@@ -30,7 +31,7 @@ export const NavWrapper = styled.div`
 `
 
 export const NavMenu = styled.nav`
-  --menu-animation-time: 0.35s;
+  --menu-animation-time: 0.2s;
   pointer-events: all;
   width: 100%;
   height: 100%;
@@ -38,8 +39,9 @@ export const NavMenu = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%);
-  transition: all var(--menu-animation-time) linear;
+  background: ${(props) =>
+    props.active ? 'linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%)' : '#1A1C22'};
+  transition: all var(--menu-animation-time) ease;
   padding: 0 16px;
   padding-top: 48px;
 `

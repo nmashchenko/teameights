@@ -1,5 +1,5 @@
 // assets
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 
 import Notification from '../../../assets/Sidebar/Notification'
 import { IconWrapper, NavInteractBtn } from '../NavBar.styles'
@@ -29,10 +29,13 @@ const NotificationsContent = ({
         <p>Notifications</p>
         {!!unreadMessages.length && !notificationModal && (
           <>
-            <NotificationsCount active={!sidebar} top="6px" left="28px">
-              {unreadMessages.length}
-            </NotificationsCount>
-            <NotificationsCount active={sidebar} top="auto" right="16px">
+            <NotificationsCount
+              active={!sidebar}
+              top="6px"
+              left="28px"
+              animate={{ scale: [1, 1.5, 1] }}
+              key={unreadMessages.length}
+            >
               {unreadMessages.length}
             </NotificationsCount>
           </>

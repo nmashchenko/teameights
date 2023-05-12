@@ -7,6 +7,8 @@ import { StyledNotificationsList } from './NotificationsList.styles'
 const NotificationsList = ({ userNotifications, setUnreadIds, closeNotificationsModal }) => {
   const listRef = useRef(null)
 
+  userNotifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
