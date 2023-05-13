@@ -1,9 +1,9 @@
-import blueAvatar from '../assets/defaultAvatars/team/default-blue.png'
-import greenAvatar from '../assets/defaultAvatars/team/default-green.png'
-import orangeAvatar from '../assets/defaultAvatars/team/default-orange.png'
-import pinkAvatar from '../assets/defaultAvatars/team/default-pink.png'
-import purpleAvatar from '../assets/defaultAvatars/team/default-purple.png'
-import yellowAvatar from '../assets/defaultAvatars/team/default-yellow.png'
+import blueAvatar from '../assets/DefaultAvatars/team/default-blue.png'
+import greenAvatar from '../assets/DefaultAvatars/team/default-green.png'
+import orangeAvatar from '../assets/DefaultAvatars/team/default-orange.png'
+import pinkAvatar from '../assets/DefaultAvatars/team/default-pink.png'
+import purpleAvatar from '../assets/DefaultAvatars/team/default-purple.png'
+import yellowAvatar from '../assets/DefaultAvatars/team/default-yellow.png'
 
 export const teamTypes = [
   {

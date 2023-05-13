@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
-import unregisteredImg from '../../../assets/defaultAvatars/user/unregistered.png'
+import unregisteredImg from '../../../assets/DefaultAvatars/user/unregistered.png'
 import { LOCAL_PATH } from '../../../http'
 
 import { ProfileIcon, UserContent, UserInfo, UserRealName, UserUsername } from './Profile.styles'

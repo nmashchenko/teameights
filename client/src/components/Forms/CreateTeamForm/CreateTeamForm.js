@@ -1,10 +1,9 @@
 // * Modules
 import React, { useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 // * Redux
 import { useNavigate } from 'react-router-dom'
-import isEqual from 'lodash/isEqual'
-import { useSnackbar } from 'notistack'
 
 // API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
@@ -21,7 +20,6 @@ import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoF
 function CreateTeamForm() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { enqueueSnackbar } = useSnackbar()
 
   const [teamName, setTeamName] = useState('')
   const [teamAvatar, setTeamAvatar] = useState(null)
@@ -85,6 +83,7 @@ function CreateTeamForm() {
         initialValues={initialValues}
         submitForm={submitForm}
       />
+      {/* {!isCreatingTeam && !isUserLoading && <Toaster />} */}
     </>
   )
 }

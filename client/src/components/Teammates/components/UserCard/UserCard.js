@@ -1,11 +1,10 @@
 import React from 'react'
 
+// * Images
+import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
 // * Colors
 import { languageOptions } from '../../../../constants/programmingLanguages'
 import { LOCAL_PATH } from '../../../../http'
-// * Images
-import CrownImg from '../../img/CrownTest.png'
-import userImg from '../../img/tempImg.jpg'
 
 import LengthFourCase from './FrameworksCases/LengthFourCase'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
@@ -82,10 +81,7 @@ const UserCard = React.forwardRef((props, ref) => {
         <UserInformationContainer>
           {/* TODO: Change for real image! */}
           <div>
-            <UserImage
-              src={person?.image ? LOCAL_PATH + '/' + person.image : userImg}
-              alt="userImg"
-            />
+            <UserImage src={LOCAL_PATH + '/' + person.image} alt="User's image" />
           </div>
           {programmingLanguages}
         </UserInformationContainer>

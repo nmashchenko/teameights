@@ -7,10 +7,8 @@ import { Form, Formik } from 'formik'
 
 import Filters from '../../../../assets/Filters'
 // * Assets
-import PlatformLogo from '../../../../assets/PlatformLogo'
 import Search from '../../../../assets/SearchIcon'
 // * Components
-import NavBarContainer from '../../../../components/NavBar/NavBar'
 import frameworkOptions from '../../../../constants/frameworks'
 import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
 import { setFilters } from '../../../../store/reducers/Shared'

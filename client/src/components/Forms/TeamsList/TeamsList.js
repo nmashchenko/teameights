@@ -1,11 +1,11 @@
 // * Modules
 import { useEffect, useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 // * Redux
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
@@ -28,10 +28,8 @@ import {
 
 function TeamsList() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const { data: user } = useCheckAuth()
-  const { enqueueSnackbar } = useSnackbar()
 
   const [teams, setTeams] = useState([])
   const [open, setOpen] = useState(false)
@@ -63,17 +61,16 @@ function TeamsList() {
 
     if (result) {
       handleClose()
-      navigate('/myteam')
+      navigate(`/team/${teamId}`)
     } else {
-      enqueueSnackbar('You have joined the team already!', {
-        preventDuplicate: true,
-      })
+      console.log('here')
     }
   }
 
   return (
     <>
       <Container>
+        <Toaster />
         <Modal
           open={open}
           onClose={handleClose}

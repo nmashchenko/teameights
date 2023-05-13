@@ -34,7 +34,6 @@ function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
 
   const { mutate: registerUser, isLoading: isUserRegistrationLoading } = useRegister()

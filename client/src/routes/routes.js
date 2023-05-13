@@ -10,25 +10,23 @@ import ROUTES from '../constants/routes'
 // * Layouts
 import AuthLayout from '../layouts/AuthLayout/AuthLayout'
 import NavBarItemPageLayout from '../layouts/NavBarItemPageLayout/NavBarItemPageLayout'
+import Screen404 from '../screens/404Screen/404Screen'
 // * Screens
-import Confirmation from '../screens/Confirmation/Confirmation'
-import CreateTeam from '../screens/CreateTeam/CreateTeam'
-import FinishRegistration from '../screens/FinishRegistration/FinishRegistration'
-import Form404 from '../screens/Form404/Form404'
-import LeaderboardScreen from '../screens/LeaderboardScreen/LeaderboardScreen'
+import ConfirmationScreen from '../screens/ConfirmationScreen/ConfirmationScreen'
+import CreateTeamScreen from '../screens/CreateTeamScreen/CreateTeamScreen'
+import FinishRegistrationScreen from '../screens/FinishRegistrationScreen/FinishRegistrationScreen'
 import LoaderScreen from '../screens/LoaderScreen/LoaderScreen'
-import Login from '../screens/Login/Login'
+import LoginScreen from '../screens/LoginScreen/LoginScreen'
 import NoTeamScreen from '../screens/NoTeamScreen/NoTeamScreen'
-import ProfilePage from '../screens/Profile/Profile'
-import Registration from '../screens/Registration/Registration'
-import ResetNewPasswords from '../screens/ResetNewPasswords/ResetNewPasswords'
-import ResetPassword from '../screens/ResetPassword/ResetPassword'
-import ResetPasswordConfirmation from '../screens/ResetPasswordConfirmation/ResetPasswordConfirmation'
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen'
+import RegistrationScreen from '../screens/RegistrationScreen/RegistrationScreen'
+import ResetNewPasswordsScreen from '../screens/ResetNewPasswordsScreen/ResetNewPasswordsScreen'
+import ResetPasswordConfirmationScreen from '../screens/ResetPasswordConfirmationScreen/ResetPasswordConfirmationScreen'
+import ResetPasswordScreen from '../screens/ResetPasswordScreen/ResetPasswordScreen'
 import TeammatesScreen from '../screens/TeammatesScreen/TeammatesScreen'
 import TeamScreen from '../screens/TeamScreen/TeamScreen'
 import TeamsScreen from '../screens/TeamsScreen/TeamsScreen'
-import TournamentInfo from '../screens/TournamentInfo/TournamentInfo'
-import Tournaments from '../screens/Tournaments/Tournaments'
+import TournamentsScreen from '../screens/TournamentsScreen/Tournaments'
 
 // * Protected
 import ProtectFinishRegistration from './protected/ProtectFinishRegistration'
@@ -38,47 +36,45 @@ export const useRoutes = () => {
     <Routes>
       {/* // * for authenticated user */}
       <Route element={<NavBarItemPageLayout />}>
-        <Route path="/" element={<TeammatesScreen />} />
+        <Route path={ROUTES.default} element={<TeammatesScreen />} />
         <Route
-          path="/profile"
+          path={ROUTES.profile}
           element={
-            <ProfilePage>
+            <ProfileScreen>
               <ProfileDetails />
-            </ProfilePage>
+            </ProfileScreen>
           }
         />
         <Route
-          path="/profile-edit"
+          path={ROUTES.profileEdit}
           element={
-            <ProfilePage>
+            <ProfileScreen>
               <ProfileForm />
-            </ProfilePage>
+            </ProfileScreen>
           }
         />
-        <Route path="/tournament" element={<Tournaments />} />
-        <Route path="/myteam" element={<TeamScreen />} />
-        <Route path="/team" element={<NoTeamScreen />} />
-        <Route path="/teams" element={<TeamsScreen />} />
+        <Route path={ROUTES.tournaments} element={<TournamentsScreen />} />
+        <Route path={ROUTES.specificTeam} element={<TeamScreen />} />
+        <Route path={ROUTES.noTeam} element={<NoTeamScreen />} />
+        <Route path={ROUTES.allTeams} element={<TeamsScreen />} />
       </Route>
       <Route element={<ProtectFinishRegistration />}>
-        <Route path={ROUTES.finishRegistration} element={<FinishRegistration />} />
+        <Route path={ROUTES.finishRegistration} element={<FinishRegistrationScreen />} />
       </Route>
-      <Route path="/auth/verification" element={<LoaderScreen />} />
-      <Route path="/create-team" element={<CreateTeam />} />
-      <Route path="/tournament-info" element={<TournamentInfo />} />
-      <Route path="/leaderboard" element={<LeaderboardScreen />} />
+      <Route path={ROUTES.createTeam} element={<CreateTeamScreen />} />
+      <Route path={ROUTES.authVerification} element={<LoaderScreen />} />
 
       {/* // * for not authenticated user */}
       <Route element={<AuthLayout />}>
-        <Route path={ROUTES.login} element={<Login />} />
-        <Route path={ROUTES.registration} element={<Registration />} />
+        <Route path={ROUTES.login} element={<LoginScreen />} />
+        <Route path={ROUTES.registration} element={<RegistrationScreen />} />
       </Route>
-      <Route path={ROUTES.confirmEmail} element={<Confirmation />} />
-      <Route path={ROUTES.passwordRecover} element={<ResetPassword />} />
-      <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmation />} />
-      <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswords />} />
+      <Route path={ROUTES.confirmEmail} element={<ConfirmationScreen />} />
+      <Route path={ROUTES.passwordRecover} element={<ResetPasswordScreen />} />
+      <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmationScreen />} />
+      <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswordsScreen />} />
 
-      <Route path="*" element={<Form404 />} />
+      <Route path="*" element={<Screen404 />} />
     </Routes>
   )
 }

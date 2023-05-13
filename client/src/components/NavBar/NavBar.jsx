@@ -45,7 +45,7 @@ const NavBar = () => {
     {
       title: 'Team',
       icon: <Team />,
-      path: user?.team ? '/myteam' : '/team',
+      path: user?.team ? `/team/${user.team._id}` : '/team',
     },
     ...NavBarData.slice(1),
   ]

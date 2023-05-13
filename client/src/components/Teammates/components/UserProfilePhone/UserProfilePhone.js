@@ -10,7 +10,6 @@ import ComebackArrow from '../../../../assets/ComebackArrow'
 import LinkIcon from '../../../../assets/LinkIcon'
 import MessageIcon from '../../../../assets/MessageIcon'
 import { LOCAL_PATH } from '../../../../http'
-import TempImg from '../../img/tempImg.jpg'
 
 // * Styles
 import {
@@ -38,12 +37,8 @@ const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
             <ComebackArrow />
           </ComebackContainer>
           <UserInformationContainer>
-            {/* TODO: Change for the REAL photo! */}
             <div>
-              <UserImage
-                src={user?.image ? LOCAL_PATH + '/' + user.image : TempImg}
-                alt="userImg"
-              />
+              <UserImage src={LOCAL_PATH + '/' + user.image} alt="User's image" />
             </div>
             <UserInfoTextContainer>
               <Text fontSize="16px" textAlign="start">

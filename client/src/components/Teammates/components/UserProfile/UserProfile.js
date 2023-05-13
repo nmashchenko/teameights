@@ -11,8 +11,6 @@ import AddIcon from '../../../../assets/AddIcon'
 import LinkIcon from '../../../../assets/LinkIcon'
 import MessageIcon from '../../../../assets/MessageIcon'
 import { LOCAL_PATH } from '../../../../http'
-// * Temporary image
-import AvatarImage from '../../img/tempImg.jpg'
 
 import {
   Button,
@@ -36,12 +34,8 @@ const UserProfile = ({ user, handleClose }) => {
     <Container>
       <ProfileContainer>
         <LinksAndAvatarContainer>
-          {/* TODO: Change for the REAL photo! */}
           <div>
-            <UserAvatar
-              src={user?.image ? LOCAL_PATH + '/' + user.image : AvatarImage}
-              alt="avatar"
-            ></UserAvatar>
+            <UserAvatar src={LOCAL_PATH + '/' + user.image} alt="avatar"></UserAvatar>
           </div>
           {/* TODO: Change for real links! & rewrite for the .map() */}
           <UserLink>
