@@ -2,33 +2,35 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
+// * Components
 import ProfileDetails from '../components/Profile/components/ProfileDetails/ProfileDetails'
 import ProfileForm from '../components/Profile/components/ProfileForm'
 // * Constants
 import ROUTES from '../constants/routes'
+// * Layouts
 import AuthLayout from '../layouts/AuthLayout/AuthLayout'
 import NavBarItemPageLayout from '../layouts/NavBarItemPageLayout/NavBarItemPageLayout'
-import Confirmation from '../screens/Forms/Confirmation/Confirmation'
-import CreateTeam from '../screens/Forms/CreateTeam/CreateTeam'
-import FinishRegistration from '../screens/Forms/FinishRegistration/FinishRegistration'
-import Form404 from '../screens/Forms/Form404/Form404'
-import LeaderboardScreen from '../screens/Forms/LeaderboardScreen/LeaderboardScreen'
-import LoaderScreen from '../screens/Forms/LoaderScreen/LoaderScreen'
 // * Screens
-import Login from '../screens/Forms/Login/Login'
-import NoTeamScreen from '../screens/Forms/NoTeamScreen/NoTeamScreen'
-import ProfilePage from '../screens/Forms/Profile/Profile'
-import Registration from '../screens/Forms/Registration/Registration'
-import ResetNewPasswords from '../screens/Forms/ResetNewPasswords/ResetNewPasswords'
-import ResetPassword from '../screens/Forms/ResetPassword/ResetPassword'
-import ResetPasswordConfirmation from '../screens/Forms/ResetPasswordConfirmation/ResetPasswordConfirmation'
-import TeamScreen from '../screens/Forms/TeamScreen/TeamScreen'
-import TeamsScreen from '../screens/Forms/TeamsScreen/TeamsScreen'
-import TournamentCodingScreen from '../screens/Forms/TournamentCodingScreen/TournamentCodingScreen'
-import TournamentInfo from '../screens/Forms/TournamentInfo/TournamentInfo'
-import Tournaments from '../screens/Forms/Tournaments/Tournaments'
-import UsersList from '../screens/UsersList/UsersList'
+import Confirmation from '../screens/Confirmation/Confirmation'
+import CreateTeam from '../screens/CreateTeam/CreateTeam'
+import FinishRegistration from '../screens/FinishRegistration/FinishRegistration'
+import Form404 from '../screens/Form404/Form404'
+import LeaderboardScreen from '../screens/LeaderboardScreen/LeaderboardScreen'
+import LoaderScreen from '../screens/LoaderScreen/LoaderScreen'
+import Login from '../screens/Login/Login'
+import NoTeamScreen from '../screens/NoTeamScreen/NoTeamScreen'
+import ProfilePage from '../screens/Profile/Profile'
+import Registration from '../screens/Registration/Registration'
+import ResetNewPasswords from '../screens/ResetNewPasswords/ResetNewPasswords'
+import ResetPassword from '../screens/ResetPassword/ResetPassword'
+import ResetPasswordConfirmation from '../screens/ResetPasswordConfirmation/ResetPasswordConfirmation'
+import TeammatesScreen from '../screens/TeammatesScreen/TeammatesScreen'
+import TeamScreen from '../screens/TeamScreen/TeamScreen'
+import TeamsScreen from '../screens/TeamsScreen/TeamsScreen'
+import TournamentInfo from '../screens/TournamentInfo/TournamentInfo'
+import Tournaments from '../screens/Tournaments/Tournaments'
 
+// * Protected
 import ProtectFinishRegistration from './protected/ProtectFinishRegistration'
 
 export const useRoutes = () => {
@@ -36,7 +38,7 @@ export const useRoutes = () => {
     <Routes>
       {/* // * for authenticated user */}
       <Route element={<NavBarItemPageLayout />}>
-        <Route path="/" element={<UsersList />} />
+        <Route path="/" element={<TeammatesScreen />} />
         <Route
           path="/profile"
           element={
@@ -64,7 +66,6 @@ export const useRoutes = () => {
       <Route path="/auth/verification" element={<LoaderScreen />} />
       <Route path="/create-team" element={<CreateTeam />} />
       <Route path="/tournament-info" element={<TournamentInfo />} />
-      <Route path="/coding" element={<TournamentCodingScreen />} />
       <Route path="/leaderboard" element={<LeaderboardScreen />} />
 
       {/* // * for not authenticated user */}

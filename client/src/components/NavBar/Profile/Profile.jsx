@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import unregisteredImg from '../../../assets/defaultAvatars/user/unregistered.png'
 import { LOCAL_PATH } from '../../../http'
-import userImg from '../../../screens/UsersList/img/tempImg.jpg'
-import defaultImg from '../defaultImg.png'
 
 import { ProfileIcon, UserContent, UserInfo, UserRealName, UserUsername } from './Profile.styles'
 
@@ -11,7 +10,7 @@ let defaultData = {
   userRealName: 'Unknown',
   userUsername: 'unknown@email.com',
   notificationBell: false,
-  userImg: defaultImg,
+  userImg: unregisteredImg,
 }
 
 const changeData = (data) => {
@@ -19,22 +18,18 @@ const changeData = (data) => {
     userRealName: data.fullName,
     userUsername: data.username,
     notificationBell: true,
-    userImg: defaultImg,
+    userImg: LOCAL_PATH + '/' + data.image,
   }
 }
 
 const Profile = ({ sidebar }) => {
   const { data: user } = useCheckAuth()
   const isUserRegistered = user?.isRegistered
-  const userImage = !isUserRegistered
-    ? defaultImg
-    : user?.image
-    ? LOCAL_PATH + '/' + user?.image
-    : userImg
   const [data, setData] = useState(defaultData)
 
   useEffect(() => {
     if (isUserRegistered) {
+      console.log(user)
       setData(changeData(user))
     } else {
       setData(defaultData)
@@ -43,7 +38,7 @@ const Profile = ({ sidebar }) => {
 
   return (
     <UserInfo>
-      <ProfileIcon src={userImage} alt="Profile icon" />
+      <ProfileIcon src={data.userImg} alt="Profile icon" />
       <UserContent>
         <UserRealName active={sidebar}>{data?.userRealName}</UserRealName>
         <UserUsername active={sidebar}>@{data?.userUsername}</UserUsername>

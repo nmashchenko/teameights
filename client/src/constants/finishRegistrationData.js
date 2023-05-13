@@ -10,7 +10,7 @@ import TelegramIcon from '../assets/Links/TelegramIcon'
 
 import concentrationOptions from './concentrations'
 import frameworkOptions from './frameworks'
-import programmingLanguageOptions from './programmingLanguages'
+import { programmingLanguageOptions } from './programmingLanguages'
 
 export const userConcentrations = [
   {
