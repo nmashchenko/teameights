@@ -21,7 +21,7 @@ export const Container = styled.div`
   gap: 50px;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 2.375rem);
+  min-height: 100vh;
   width: 100%;
   background: ${BLACK.background};
 `

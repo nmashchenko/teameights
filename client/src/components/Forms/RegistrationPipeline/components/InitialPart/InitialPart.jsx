@@ -43,7 +43,6 @@ function InitialPart() {
 
   return (
     <>
-      <NavLogo />
       <Container>
         <CardContainer>
           <div>

@@ -1,8 +1,8 @@
-import React from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 
 import http from '../../../http'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 import {
   finishRegistrationError,
   setActiveState,
@@ -25,7 +25,8 @@ export const useValidateUsername = (username, email) => {
       dispatch(setStageOneCompleted(true))
     },
     onError: (error) => {
-      dispatch(finishRegistrationError(error.response?.data?.message))
+      // set error message
+      errorToaster(error)
     },
     enabled: false,
   })

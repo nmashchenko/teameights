@@ -1,14 +1,12 @@
-import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 
 import http from '../../../http'
-import { registrationAuth } from '../../../store/reducers/RegistrationAuth'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
 export const useUpdateAvatar = (type) => {
-  const dispatch = useDispatch()
   const queryClient = useQueryClient()
 
   const updateUserAvatar = async (userData) => {
@@ -22,7 +20,7 @@ export const useUpdateAvatar = (type) => {
     },
     onError: (error) => {
       // set error message
-      dispatch(registrationAuth.actions.finishRegistrationError(error.response?.data?.message))
+      errorToaster(error)
     },
   })
 }

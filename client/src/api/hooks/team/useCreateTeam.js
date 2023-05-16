@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast'
 import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,7 +9,6 @@ const { api } = http
 export const useCreateTeam = (teamAvatar) => {
   const queryClient = useQueryClient()
   const { mutate: updateAvatar } = useUpdateAvatar('teams')
-  // const notify = (err) => toast.error(err, { id: 'error' })
 
   const navigate = useNavigate()
   const createTeam = async (details) => {
@@ -27,11 +25,6 @@ export const useCreateTeam = (teamAvatar) => {
       }
       await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
       navigate(`/team/${data._id}`)
-    },
-    onError: (error) => {
-      console.log(error)
-      // TODO: fix this
-      // notify(error?.response?.data[0])
     },
   })
 }

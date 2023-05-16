@@ -1,9 +1,5 @@
 // * Modules
 import React, { useState } from 'react'
-import { Toaster } from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
-// * Redux
-import { useNavigate } from 'react-router-dom'
 
 // API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
@@ -12,20 +8,19 @@ import { defaultTeamAvatars } from '../../../constants/teamFormData'
 // * Assets
 import { createTeamValidation } from '../../../schemas'
 import Loader from '../../../shared/components/Loader/Loader'
-import { setIsModalOpen } from '../../../store/reducers/Shared'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
 import AvatarForm from '../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm'
 import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoForm'
 
 function CreateTeamForm() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const [teamName, setTeamName] = useState('')
   const [teamAvatar, setTeamAvatar] = useState(null)
-
-  const [country, setCountry] = useState('')
-  const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam(teamAvatar)
+  const {
+    mutate: createTeam,
+    isLoading: isCreatingTeam,
+    isError: isCreatingTeamError,
+    error,
+  } = useCreateTeam(teamAvatar)
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
   const userId = user?._id
   const steps = [
@@ -66,24 +61,24 @@ function CreateTeamForm() {
       members: formData.members,
     }
 
-    await setTeamAvatar(formData.file)
+    setTeamAvatar(formData.file)
 
     createTeam(teamData)
   }
 
-  if (isUserLoading || isCreatingTeam) {
-    return <Loader />
+  if (isCreatingTeamError && !isCreatingTeam) {
+    errorToaster(error)
   }
 
   return (
     <>
+      {(isUserLoading || isCreatingTeam) && <Loader />}
       <MultiStepRegistration
         steps={steps}
         validationSchema={createTeamValidation}
         initialValues={initialValues}
         submitForm={submitForm}
       />
-      {/* {!isCreatingTeam && !isUserLoading && <Toaster />} */}
     </>
   )
 }

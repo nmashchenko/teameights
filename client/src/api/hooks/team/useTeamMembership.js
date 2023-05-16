@@ -1,13 +1,12 @@
-import toast from 'react-hot-toast'
 import { useMutation, useQueryClient } from 'react-query'
 
 import http from '../../../http'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
 export const useTeamMembership = (action) => {
   const queryClient = useQueryClient()
-  const notify = (err) => toast.error(err, { id: 'error' })
 
   const toggleMembership = async (details) => {
     return await api.put(`/teams/${action}`, {
@@ -24,7 +23,7 @@ export const useTeamMembership = (action) => {
       return result.data
     },
     onError: (error) => {
-      notify(error?.response?.data?.message)
+      errorToaster(error)
     },
   })
 }

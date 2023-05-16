@@ -70,7 +70,6 @@ function TeamsList() {
   return (
     <>
       <Container>
-        <Toaster />
         <Modal
           open={open}
           onClose={handleClose}

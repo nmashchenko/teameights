@@ -8,7 +8,12 @@ export default function Hover({ open, handlePopoverClose, anchorEl }) {
         id="mouse-over-popover"
         sx={{
           pointerEvents: 'none',
-          marginTop: '3px',
+          marginTop: '5px',
+          borderRadius: '5px',
+          '& .MuiPopover-paper': {
+            background: '#2F3239',
+            color: 'white',
+          },
         }}
         open={open}
         anchorEl={anchorEl}
@@ -24,7 +29,8 @@ export default function Hover({ open, handlePopoverClose, anchorEl }) {
         disableRestoreFocus
       >
         <Typography sx={{ p: 1 }}>
-          If you encounter any problems, email us at <strong>helpteameights@gmail.com</strong>
+          If you have any issues, please email
+          <br /> us at <span style={{ color: '#5BD424' }}>helpteameights@gmail.com</span>
         </Typography>
       </Popover>
     </div>
