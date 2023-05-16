@@ -28,10 +28,6 @@ const MultiStepRegistration = ({
     submitForm(values, userData)
   }
 
-  if (isFinishingRegistration) {
-    return <Loader />
-  }
-
   return (
     <Formik
       initialValues={initialValues}
@@ -41,6 +37,7 @@ const MultiStepRegistration = ({
       {() => {
         return (
           <Form>
+            {isFinishingRegistration && <Loader />}
             <Container>
               <Stepper steps={steps} step={step} isOptionalStep={isOptionalStep} />
               <RegistrationContainer>

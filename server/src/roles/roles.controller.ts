@@ -2,11 +2,12 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import mongoose, { ObjectId } from 'mongoose';
 
+import { RolesGuard } from '@/auth/guards/roles.guard';
+import { Roles } from '@/auth/guards/roles-auth.decorator';
+
 import { CreateRoleDto } from './dto/create-role.dto';
 import { Role } from './roles.schema';
 import { RolesService } from './roles.service';
-import { RolesGuard } from '@/auth/guards/roles.guard';
-import { Roles } from '@/auth/guards/roles-auth.decorator';
 
 @ApiTags('Roles')
 @Controller('roles')

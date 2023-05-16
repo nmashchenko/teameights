@@ -15,12 +15,14 @@ export class ValidationPipe implements PipeTransform<any> {
 				/* Checking if there are any errors in the children of the error object. If there are, it will return
 				the error message. Used for nested objects validation inside the orginial object*/
 				return err.children.length === 0
-					? `${err.property} - ${Object.values(err.constraints).join(', ')}`
+					? `${err.property} - ${Object.values(err.constraints).join(
+							', ',
+					  )}`
 					: err.children.map(
 							err =>
-								`${err.property} - ${Object.values(err.constraints).join(
-									', ',
-								)}`,
+								`${err.property} - ${Object.values(
+									err.constraints,
+								).join(', ')}`,
 					  );
 			});
 			throw new ValidationException(messages);

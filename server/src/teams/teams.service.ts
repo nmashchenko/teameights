@@ -260,10 +260,16 @@ export class TeamsService {
 				parsedQuery.$expr = {
 					$and: [
 						{
-							$gte: [{ $size: '$members' }, Number(parsedQuery.members[0])],
+							$gte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[0]),
+							],
 						},
 						{
-							$lte: [{ $size: '$members' }, Number(parsedQuery.members[1])],
+							$lte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[1]),
+							],
 						},
 					],
 				};
@@ -408,7 +414,9 @@ export class TeamsService {
 		userId: mongoose.Types.ObjectId,
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<void> {
-		console.log(`Removing notification ${notificationid} from user ${userId}`);
+		console.log(
+			`Removing notification ${notificationid} from user ${userId}`,
+		);
 		/* Removing the notification from the database. */
 		await this.notificationsService.removeNotification(notificationid);
 
@@ -427,7 +435,9 @@ export class TeamsService {
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(notificationid);
+			await this.notificationsService.getTeamNotificationById(
+				notificationid,
+			);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -512,7 +522,9 @@ export class TeamsService {
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(notificationid);
+			await this.notificationsService.getTeamNotificationById(
+				notificationid,
+			);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -549,7 +561,10 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -610,7 +625,10 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -741,13 +759,21 @@ export class TeamsService {
 		// check if leader is valid user
 		const leader = await this.userService.getUserById(dto.leader_id);
 		if (!leader) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		// check if new_leader is valid user
-		const new_leader = await this.userService.getUserById(dto.new_leader_id);
+		const new_leader = await this.userService.getUserById(
+			dto.new_leader_id,
+		);
 		if (!new_leader) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		// check if both leader and new_leader belogn to the same team

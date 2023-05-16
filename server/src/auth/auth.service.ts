@@ -235,7 +235,9 @@ export class AuthService {
 	 * @param {string} activationLink - string - The activation link that was sent to the user's email.
 	 */
 	async activate(activationLink: string): Promise<void> {
-		const user = await this.userService.verifyActivationLink(activationLink);
+		const user = await this.userService.verifyActivationLink(
+			activationLink,
+		);
 
 		/* It's checking if the user exists. */
 		if (!user) {

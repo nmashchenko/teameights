@@ -94,7 +94,10 @@ export class UsersService {
 	 * @param {ClientSession} [session] - This is the session that will be used to run the query.
 	 * @returns A user object
 	 */
-	async getUserByEmail(email: string, session?: ClientSession): Promise<User> {
+	async getUserByEmail(
+		email: string,
+		session?: ClientSession,
+	): Promise<User> {
 		/* Checking if the session is undefined. If it is, it is returning the user. If it is not, it is
 		returning the user with the session. */
 		const user =
@@ -180,7 +183,10 @@ export class UsersService {
 	 * @param {string} email - The email of the user whose password we want to update.
 	 * @returns The updated user.
 	 */
-	async updateUserPassword(hashPassword: string, email: string): Promise<User> {
+	async updateUserPassword(
+		hashPassword: string,
+		email: string,
+	): Promise<User> {
 		return await this.userModel.findOneAndUpdate(
 			{ email },
 			{ password: hashPassword },
@@ -276,11 +282,20 @@ export class UsersService {
 	async updateUser(dto: UpdateUserDto): Promise<User> {
 		/* Validating the DTO to prevent additional fields */
 		const filtered = await userUpdateValidate(dto);
-		const candidate = await this.getUserByEmail(dto.email);
+		let candidate = await this.getUserByEmail(dto.email);
 
 		if (!candidate) {
 			throw new HttpException(
 				`User with email: ${dto.email} is not registered`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		candidate = await this.getUserByUsername(dto.username);
+
+		if (candidate) {
+			throw new HttpException(
+				`Username ${dto.username} is already taken`,
 				HttpStatus.BAD_REQUEST,
 			);
 		}
@@ -407,6 +422,9 @@ export class UsersService {
 	 * @param userID - The ID of the user you want to add to a team.
 	 */
 	async removeTeam(userID: mongoose.Types.ObjectId): Promise<void> {
-		await this.userModel.updateOne({ _id: userID }, { $unset: { team: null } });
+		await this.userModel.updateOne(
+			{ _id: userID },
+			{ $unset: { team: null } },
+		);
 	}
 }

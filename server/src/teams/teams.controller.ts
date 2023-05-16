@@ -86,7 +86,11 @@ export class TeamsController {
 		/* Parsing the query string into an object. */
 		const parsedQuery = qs.parse(filtersQuery);
 
-		return this.teamsService.getFilteredTeamsByPage(page, limit, parsedQuery);
+		return this.teamsService.getFilteredTeamsByPage(
+			page,
+			limit,
+			parsedQuery,
+		);
 	}
 
 	@ApiOperation({
@@ -138,7 +142,9 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: InviteToTeamResponseDto })
 	@Post('/invite')
-	inviteToTeam(@Body() dto: InviteToTeamDto): Promise<InviteToTeamResponseDto> {
+	inviteToTeam(
+		@Body() dto: InviteToTeamDto,
+	): Promise<InviteToTeamResponseDto> {
 		return this.teamsService.inviteToTeam(dto);
 	}
 

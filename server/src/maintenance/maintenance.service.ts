@@ -5,6 +5,7 @@ import mongoose, { Connection } from 'mongoose';
 import { performance } from 'perf_hooks';
 import { uuid } from 'uuidv4';
 
+import { NotificationsService } from '@/notifications/notifications.service';
 import { RolesService } from '@/roles/roles.service';
 import { CreateTeamDto } from '@/teams/dto/create-team.dto';
 import { TeamsService } from '@/teams/teams.service';
@@ -21,7 +22,6 @@ import {
 	avatar_purple,
 	avatar_yellow,
 } from './maintenance.data';
-import { NotificationsService } from '@/notifications/notifications.service';
 
 @Injectable()
 export class MaintenanceService {

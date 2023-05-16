@@ -45,8 +45,12 @@ describe('UserService', () => {
 					envFilePath: `.dev.env`,
 				}),
 				rootMongooseTestModule(),
-				MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-				MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
+				MongooseModule.forFeature([
+					{ name: User.name, schema: UserSchema },
+				]),
+				MongooseModule.forFeature([
+					{ name: Role.name, schema: RoleSchema },
+				]),
 				/* Serving the static files. */
 				ServeStaticModule.forRoot({
 					rootPath: path.resolve(__dirname, 'static'),
@@ -180,7 +184,9 @@ describe('UserService', () => {
 		// compare all fields
 		expect(updateUser.jobData[0].title).toBe(updateJobData.jobData.title);
 
-		expect(updateUser.jobData[0].company).toBe(updateJobData.jobData.company);
+		expect(updateUser.jobData[0].company).toBe(
+			updateJobData.jobData.company,
+		);
 
 		expect(updateUser.jobData[0].startDate).toEqual(
 			updateJobData.jobData.startDate,
