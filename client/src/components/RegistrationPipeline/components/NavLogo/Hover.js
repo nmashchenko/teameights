@@ -8,7 +8,7 @@ export default function Hover({ open, handlePopoverClose, anchorEl }) {
         id="mouse-over-popover"
         sx={{
           pointerEvents: 'none',
-          marginTop: '5px',
+          marginTop: '17px',
           borderRadius: '5px',
           '& .MuiPopover-paper': {
             background: '#2F3239',
