@@ -18,8 +18,8 @@ export const Label = styled.label`
 `
 
 export const ErrorMessage = styled.p`
-  font-size: 15px;
-  font-weight: 900;
+  font-size: 14px;
+  font-weight: 400;
   margin: 0.5rem 0 0 0;
-  color: #cf625e;
+  color: #d42422;
 `

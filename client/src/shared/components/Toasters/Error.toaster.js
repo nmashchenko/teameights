@@ -1,8 +1,14 @@
 import { toast } from 'react-hot-toast'
 
 export const errorToaster = (error) => {
+  if (typeof error === 'string') {
+    toast.error(error, {
+      id: error,
+      style: { background: '#2F3239', color: 'white' },
+    })
+  }
   // Display the toast with the error message
-  if (error?.response?.data?.message) {
+  else if (error?.response?.data?.message) {
     toast.error(error?.response?.data?.message, {
       id: error?.response?.data?.message,
       style: { background: '#2F3239', color: 'white' },

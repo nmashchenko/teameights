@@ -3,6 +3,17 @@ import styled from 'styled-components'
 import { WHITE } from '../../../constants/colors'
 import { shake } from '../../styles/KeyFrames.styles'
 
+export const InputWrapper = styled.div`
+  position: relative;
+`
+
+export const IconSpan = styled.span`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+`
+
 export const Input = styled.input`
   outline: 0;
   border-width: 0 0 1.5px;
@@ -25,6 +36,7 @@ export const GroupContainer = styled.div`
   flex-basis: 33.3%;
   flex-direction: column;
 `
+
 export const SectionContainer = styled.div`
   display: flex;
   width: 100%;

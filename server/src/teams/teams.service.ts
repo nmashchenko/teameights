@@ -620,7 +620,7 @@ export class TeamsService {
 	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
 	 * @returns The updated team.
 	 */
-	async leaveTeam(dto: TeamMembershipDTO): Promise<Team> {
+	async leaveTeam(dto: TeamMembershipDTO): Promise<Team | void> {
 		const candidate = await this.userService.getUserById(dto.user_id);
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
@@ -659,6 +659,28 @@ export class TeamsService {
 		}
 
 		// TODO: in the future, check if user is signed up for the tournament before allowing to leave the team
+
+		/* The above code is checking if a team leader is trying to leave a team that has other members in it.
+		If so, it throws an HTTP exception with a message indicating that the leader cannot leave the team
+		before removing all players. */
+		if (team.leader._id.equals(candidate._id) && team.members.length > 1) {
+			throw new HttpException(
+				`${candidate.username} can't leave the team before removing all players`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* The above code is checking if a candidate is the only member of a team and also the leader of that
+		team. If both conditions are true, it deletes the team from the database using the team's ID and
+		removes the team from the candidate's list of teams using the candidate's ID. */
+		if (
+			team.leader._id.equals(candidate._id) &&
+			team.members.length === 1
+		) {
+			await this.teamModel.findOneAndDelete({ _id: team._id });
+
+			return this.userService.removeTeam(candidate._id);
+		}
 
 		/* Removing the user to the team. */
 		const updated = await this.teamModel.findOneAndUpdate(
@@ -708,7 +730,7 @@ export class TeamsService {
 	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
 	 * @returns Team
 	 */
-	async removeMember(dto: TeamMembershipDTO): Promise<Team> {
+	async removeMember(dto: TeamMembershipDTO): Promise<Team | void> {
 		return await this.leaveTeam(dto);
 	}
 
@@ -807,5 +829,9 @@ export class TeamsService {
 		// TODO: add notification here to new leader that he is now leader of the team
 
 		return newTeam;
+	}
+
+	async getByTag(tag: string): Promise<Team> {
+		return await this.teamModel.findOne({ tag: tag });
 	}
 }

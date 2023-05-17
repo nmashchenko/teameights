@@ -1,33 +1,27 @@
-import { useQuery } from 'react-query'
-import { useDispatch } from 'react-redux'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 
 import http from '../../../http'
 import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
-import {
-  finishRegistrationError,
-  setActiveState,
-  setStageOneCompleted,
-  setStep,
-} from '../../../store/reducers/RegistrationAuth'
+import { successToaster } from '../../../shared/components/Toasters/Success.toaster'
 
 const { api } = http
 
-export const useValidateUsername = (username, email) => {
-  const dispatch = useDispatch()
-  const validateUsername = async () => {
-    return await api.get('/check-username', { params: { username, email } })
+export const useValidateUsername = () => {
+  const queryClient = useQueryClient()
+
+  const validateUsername = async (username) => {
+    return await api.get(`/users/get-by-username/${username}`)
   }
 
-  return useQuery('validateUsername', validateUsername, {
-    onSuccess: () => {
-      dispatch(setActiveState('UserConcentration'))
-      dispatch(setStep(2))
-      dispatch(setStageOneCompleted(true))
+  return useMutation(validateUsername, {
+    mutationKey: 'validateUsername',
+    onSuccess: async (response) => {
+      console.log(response)
+      if (response?.data) {
+        errorToaster('Username is already taken by another user, please change it!')
+      } else {
+        successToaster('Username is available!')
+      }
     },
-    onError: (error) => {
-      // set error message
-      errorToaster(error)
-    },
-    enabled: false,
   })
 }
