@@ -1,7 +1,7 @@
 // * Modules
 import CssBaseline from '@mui/material/CssBaseline'
 
-import CreateTeamForm from '../../components/Forms/CreateTeamForm/CreateTeamForm'
+import CreateTeamForm from '../../components/CreateTeam/CreateTeam'
 
 function CreateTeamScreen() {
   return (

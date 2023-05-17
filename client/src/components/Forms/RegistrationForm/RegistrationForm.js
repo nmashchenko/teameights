@@ -9,7 +9,7 @@ import { useRegister } from '../../../api/hooks/auth/useRegister'
 import Loader from '../../../shared/components/Loader/Loader'
 import Backdrop from '../../Backdrop/Backdrop'
 // * Helpers
-import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
+import SocialLoginRegistration from '../SocialLoginRegistrationForm/SocialLoginRegistrationForm'
 
 // * Styles
 import {

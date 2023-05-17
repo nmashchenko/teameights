@@ -7,7 +7,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useLoginUser } from '../../../api/hooks/auth/useLoginUser'
 import Loader from '../../../shared/components/Loader/Loader'
-import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
+import SocialLoginRegistration from '../SocialLoginRegistrationForm/SocialLoginRegistrationForm'
 
 import {
   AlternativeLogin,

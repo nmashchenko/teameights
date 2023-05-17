@@ -1,7 +1,7 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import ResetFormConfirmation from '../../components/Forms/RecoverConfirmation/RecoverConfirmation'
+import ResetFormConfirmation from '../../components/Forms/RecoverConfirmationForm/RecoverConfirmationForm'
 
 function ResetPasswordConfirmationScreen() {
   return (

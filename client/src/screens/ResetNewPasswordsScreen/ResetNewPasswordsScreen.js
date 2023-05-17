@@ -1,7 +1,7 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import ResetNewPasswordsForm from '../../components/Forms/NewPasswords/NewPasswords'
+import ResetNewPasswordsForm from '../../components/Forms/NewPasswordsForm/NewPasswordsForm'
 
 function ResetNewPasswordsScreen() {
   return (
