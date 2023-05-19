@@ -4,6 +4,7 @@ import orangeAvatar from '../assets/DefaultAvatars/user/default-orange.png'
 import pinkAvatar from '../assets/DefaultAvatars/user/default-pink.png'
 import purpleAvatar from '../assets/DefaultAvatars/user/default-purple.png'
 import yellowAvatar from '../assets/DefaultAvatars/user/default-yellow.png'
+import BehanceIcon from '../assets/Links/BehanceIcon'
 import GitHubIcon from '../assets/Links/GitHubIcon'
 import LinkedInIcon from '../assets/Links/LinkedInIcon'
 import TelegramIcon from '../assets/Links/TelegramIcon'
@@ -46,6 +47,10 @@ export const userLinks = [
     name: 'telegram',
     icon: <TelegramIcon />,
   },
+  {
+    name: 'behance',
+    icon: <BehanceIcon />,
+  },
 ]
 
 export const defaultUserAvatars = [
@@ -58,26 +63,30 @@ export const defaultUserAvatars = [
 ]
 export const userExperienceOptions = [
   {
-    label: '0-1 years',
-    value: '0-1',
+    label: 'No experience',
+    value: '0',
   },
   {
     label: '1-3 years',
     value: '1-3',
   },
   {
-    label: '3+ years',
-    value: '3+',
+    label: '3-5 years',
+    value: '3-5',
+  },
+  {
+    label: '5+ years',
+    value: '5+',
   },
 ]
 
 export const userLeaderOptions = [
   {
-    label: 'YES',
-    value: 'true',
+    label: 'No',
+    value: 'false',
   },
   {
-    label: 'NO',
-    value: 'false',
+    label: 'Yes',
+    value: 'true',
   },
 ]

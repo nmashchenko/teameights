@@ -9,7 +9,8 @@ export const QuestionSection = styled.div`
 
 export const QuestionText = styled(Text)`
   margin-bottom: 1.5rem;
-  font-size: 24px;
+  font-size: 22px;
+  font-weight: 400;
 `
 
 export const NoteContainer = styled.div`

@@ -10,7 +10,6 @@ import {
 } from '../../../../../../shared/components/CustomInput/CustomInput.styles'
 import CustomSelect from '../../../../../../shared/components/CustomSelect/CustomSelect'
 import CustomTextArea from '../../../../../../shared/components/CustomTextArea/CustomTextArea'
-import CustomDatePicker from '../../../DatePicker/DatePicker'
 import { InputsContainer } from '../InfoForm.styles'
 
 const UserInfoForm = () => {
@@ -77,7 +76,13 @@ const UserInfoForm = () => {
             />
           </GroupContainer>
           <GroupContainer>
-            <CustomInput label="Age" name="age" type="text" />
+            <CustomInput
+              shouldFormatDate={true}
+              label="Birthday"
+              name="dateOfBirth"
+              type="text"
+              placeholder="DD/MM/YYYY"
+            />
           </GroupContainer>
         </SectionContainer>
       </InputsContainer>

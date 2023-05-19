@@ -2,7 +2,6 @@
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import GitHubIcon from '@mui/icons-material/GitHub'
-import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TelegramIcon from '@mui/icons-material/Telegram'
 
@@ -11,6 +10,7 @@ import AddIcon from '../../../../assets/AddIcon'
 import LinkIcon from '../../../../assets/LinkIcon'
 import MessageIcon from '../../../../assets/MessageIcon'
 import { LOCAL_PATH } from '../../../../http'
+import { calculateAge } from '../../../../utils/calculateAge'
 
 import {
   Button,
@@ -51,7 +51,7 @@ const UserProfile = ({ user, handleClose }) => {
         <UserDetailedInfoContainer>
           <NameAndCloseContainer>
             <Text fontSize="16px" margin="15px 0 0 0">
-              {user.fullName}, {user.age}
+              {user.fullName}, {calculateAge(user.dateOfBirth)}
             </Text>
             <CloseContainer onClick={handleClose}>
               <CloseIcon sx={{ color: '#6DB33F', width: '30px', height: '30px' }} />

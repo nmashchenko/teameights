@@ -4,20 +4,19 @@ import { useFormikContext } from 'formik'
 import CustomInput from '../../../../../shared/components/CustomInput/CustomInput'
 import CheckboxWithLabel from '../../CheckboxWithLabel/CheckboxWithLabel'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
+import { GroupItems, InputWrapper } from '../UserEducationForm/UserEducationForm.styles'
 
-import { GroupItems, InputWrapper } from './UserEducationForm.styles'
-
-const UserEducationForm = () => {
+const UserJobForm = () => {
   const [checkbox, setCheckbox] = useState(false)
   const { setFieldValue } = useFormikContext()
 
   const handleClick = () => {
     if (checkbox) {
       setCheckbox(false)
-      setFieldValue('graduationDate', '')
+      setFieldValue('endDate', '')
     } else {
       setCheckbox(true)
-      setFieldValue('graduationDate', '0')
+      setFieldValue('endDate', '0')
     }
   }
 
@@ -26,16 +25,16 @@ const UserEducationForm = () => {
       <GroupItems>
         <InputWrapper grow="2">
           <CustomInput
-            label="Degree"
-            name="degree"
+            label="Title"
+            name="title"
             type="text"
-            placeholder="Ex: Bachelor’s degree"
+            placeholder="Ex: Software Developer"
           />
         </InputWrapper>
         <InputWrapper width="12rem">
           <CustomInput
             label="From"
-            name="addmissionDate"
+            name="startDate"
             type="number"
             placeholder="Input year"
             shouldFormatYear={true}
@@ -44,12 +43,12 @@ const UserEducationForm = () => {
       </GroupItems>
       <GroupItems>
         <InputWrapper grow="2">
-          <CustomInput label="Major" name="major" type="text" placeholder="Ex: Computer Science" />
+          <CustomInput label="Company" name="company" type="text" placeholder="Ex: Teameights" />
         </InputWrapper>
         <InputWrapper width="12rem">
           <CustomInput
             label="To"
-            name="graduationDate"
+            name="endDate"
             type="number"
             placeholder="Input year"
             shouldFormatYear={true}
@@ -58,14 +57,8 @@ const UserEducationForm = () => {
           />
         </InputWrapper>
       </GroupItems>
-      <CustomInput
-        label="University/School"
-        name="university"
-        type="text"
-        placeholder="Ex: Northwestern University"
-      />
       <CheckboxWithLabel
-        label="I am still studying here"
+        label="I am still working here"
         value={checkbox}
         checked={checkbox}
         onChange={handleClick}
@@ -74,4 +67,4 @@ const UserEducationForm = () => {
   )
 }
 
-export default UserEducationForm
+export default UserJobForm

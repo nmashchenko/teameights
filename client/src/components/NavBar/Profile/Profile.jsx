@@ -29,7 +29,6 @@ const Profile = ({ sidebar }) => {
 
   useEffect(() => {
     if (isUserRegistered) {
-      console.log(user)
       setData(changeData(user))
     } else {
       setData(defaultData)

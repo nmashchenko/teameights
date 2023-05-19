@@ -34,7 +34,7 @@ export const ResetButton = styled.button`
 `
 
 export const StepContainer = styled.div`
-  margin-top: 5rem;
+  margin-top: 6rem;
   height: 100%;
 `
 

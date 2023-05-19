@@ -8,6 +8,9 @@ import { useUpdateAvatar } from '../../api/hooks/auth/useUpdateAvatar'
 import { defaultUserAvatars } from '../../constants/finishRegistrationData'
 import { finishRegistrationValidation } from '../../schemas'
 import { setIsFinishRegistrationStarted } from '../../store/reducers/RegistrationAuth'
+import { formatDateString } from '../../utils/convertStringToDate'
+import { convertYearToDate } from '../../utils/convertYearToDate'
+import { removeEmptyFields } from '../../utils/removeEmptyFields'
 
 import InitialPart from './components/InitialPart/InitialPart'
 import MultiStepRegistration from './components/MultiStepRegistration/MultiStepRegistration'
@@ -16,6 +19,7 @@ import InfoForm from './components/RegistrationForms/InfoForm'
 import UserConcentrationForm from './components/RegistrationForms/UserConcentrationForm/UserConcentrationForm'
 import UserEducationForm from './components/RegistrationForms/UserEducationForm/UserEducationForm'
 import UserExperienceForm from './components/RegistrationForms/UserExperienceForm/UserExperienceForm'
+import UserJobForm from './components/RegistrationForms/UserJobForm/UserJobForm'
 import UserLinksForm from './components/RegistrationForms/UserLinksForm/UserLinksForm'
 
 function FinishRegistration() {
@@ -31,6 +35,7 @@ function FinishRegistration() {
     { component: <UserConcentrationForm />, name: 'Concentration', isOptional: false },
     { component: <UserExperienceForm />, name: 'Experience', isOptional: false },
     { component: <UserEducationForm />, name: 'Education', isOptional: true },
+    { component: <UserJobForm />, name: 'Work Experience', isOptional: true },
     { component: <UserLinksForm />, name: 'Links', isOptional: true },
     {
       component: (
@@ -48,7 +53,7 @@ function FinishRegistration() {
     fullName: '',
     country: '',
     username: '',
-    age: '',
+    dateOfBirth: '',
     description: '',
     programmingLanguages: [],
     frameworks: [],
@@ -56,8 +61,14 @@ function FinishRegistration() {
     experience: '',
     leader: '',
     university: '',
+    degree: ``,
     major: '',
+    addmissionDate: '',
     graduationDate: '',
+    title: '',
+    company: '',
+    startDate: '',
+    endDate: '',
     github: '',
     linkedIn: '',
     telegram: '',
@@ -70,11 +81,34 @@ function FinishRegistration() {
   }
 
   const submitForm = (formData, userCurrentData) => {
+    let universityDates = convertYearToDate(formData.addmissionDate, formData.graduationDate)
+
+    let jobDates = convertYearToDate(formData.startDate, formData.endDate)
+
+    let universityData = {
+      university: formData.university,
+      degree: formData.degree,
+      major: formData.major,
+      addmissionDate: universityDates.dateOne,
+      graduationDate: universityDates.dateTwo,
+    }
+
+    let universityValidated = removeEmptyFields(universityData)
+
+    let jobData = {
+      title: formData.title,
+      company: formData.company,
+      startDate: jobDates.dateOne,
+      endDate: jobDates.dateTwo,
+    }
+
+    let jobValidated = removeEmptyFields(jobData)
+
     const registrationData = {
       email: userCurrentData.email,
       username: formData.username,
       fullName: formData.fullName,
-      age: formData.age,
+      dateOfBirth: formatDateString(formData.dateOfBirth),
       description: formData.description,
       concentration: formData.concentration,
       country: formData.country,
@@ -87,11 +121,12 @@ function FinishRegistration() {
       },
       programmingLanguages: formData.programmingLanguages,
       frameworks: formData.frameworks,
-      university: formData.university,
-      major: formData.major,
-      graduationDate: formData.graduationDate.toString(),
+      jobData: jobValidated !== null ? jobValidated : undefined,
+      universityData: universityValidated !== null ? universityValidated : undefined,
       isRegistered: false,
     }
+
+    console.log(registrationData)
 
     if (formData.file) {
       updateAvatar({ email: userCurrentData.email, image: formData.file.split(',')[1] })

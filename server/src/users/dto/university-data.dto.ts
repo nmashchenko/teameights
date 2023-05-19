@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsDefined, IsNotEmpty, IsString } from 'class-validator';
+import {
+	IsDate,
+	IsDateString,
+	IsDefined,
+	IsNotEmpty,
+	IsOptional,
+	IsString,
+} from 'class-validator';
 
 export class UniversityDataDto {
 	@ApiProperty({ example: 'UIC', description: 'User university name' })
@@ -27,7 +34,7 @@ export class UniversityDataDto {
 		example: `2016-05-18T14:10:30Z`,
 		description: 'Addmission in UTC',
 	})
-	@IsDate()
+	@IsDateString()
 	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsDefined()
 	readonly addmissionDate: Date;
@@ -38,7 +45,8 @@ export class UniversityDataDto {
 	})
 	@IsString({ message: 'Should be string' })
 	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsDate()
+	@IsDateString()
 	@IsDefined()
+	@IsOptional()
 	readonly graduationDate: Date;
 }

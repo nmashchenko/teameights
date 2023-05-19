@@ -24,9 +24,12 @@ export const SectionName = styled(Text)`
   font-size: 2rem;
   color: ${GREEN.text};
   line-height: 120%;
+  display: flex;
+  gap: 5px;
 `
 
 export const SectionNameOptionalText = styled.span`
   color: #86878b;
   font-size: 16px;
+  font-weight: 400;
 `

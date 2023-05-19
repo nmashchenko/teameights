@@ -2,7 +2,7 @@ export const allowedUpdateUserFields: string[] = [
 	'email',
 	'username',
 	'fullName',
-	'age',
+	'dateOfBirth',
 	'description',
 	'concentration',
 	'country',

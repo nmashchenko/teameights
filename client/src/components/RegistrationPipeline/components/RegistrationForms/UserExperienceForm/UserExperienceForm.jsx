@@ -11,7 +11,7 @@ import { NoteContainer, NoteText, QuestionSection, QuestionText } from './UserEx
 
 const UserExperienceForm = () => {
   return (
-    <ContentContainer rows={2}>
+    <ContentContainer rows={2} gap={'3rem'}>
       <QuestionSection>
         <QuestionText>How many years of experience you have?</QuestionText>
         <CustomRadioButtonsGroup name="experience" options={userExperienceOptions} />

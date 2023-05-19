@@ -28,7 +28,7 @@ export default function Hover({ open, handlePopoverClose, anchorEl }) {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>
+        <Typography sx={{ padding: '8px 12px' }}>
           If you have any issues, please email
           <br /> us at <span style={{ color: '#5BD424' }}>helpteameights@gmail.com</span>
         </Typography>

@@ -128,9 +128,12 @@ export class MaintenanceService {
 		initialUser.email = email;
 		initialUser.username = faker.internet.userName();
 		initialUser.fullName = faker.name.fullName();
-		initialUser.birthDate = faker.date.birthdate();
-		initialUser.age = String(faker.datatype.number({ min: 18, max: 65 }));
-		initialUser.description = faker.lorem.sentence();
+		(initialUser.dateOfBirth = faker.date.birthdate({
+			min: 18,
+			max: 65,
+			mode: 'age',
+		})),
+			(initialUser.description = faker.lorem.sentence());
 		initialUser.concentration = faker.name.jobTitle();
 		initialUser.country = faker.address.country();
 		initialUser.experience = `${faker.datatype.number({

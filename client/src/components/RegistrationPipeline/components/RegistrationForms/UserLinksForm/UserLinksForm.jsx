@@ -16,8 +16,7 @@ const UserLinksForm = () => {
               name={link.name}
               type="text"
               containerWidth="100%"
-              inputWidth="70%"
-              placeholder="add link (optional)"
+              placeholder="add link"
             />
           </InputWithIConWrapper>
         ))}

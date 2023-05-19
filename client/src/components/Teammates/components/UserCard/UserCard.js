@@ -5,6 +5,7 @@ import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
 // * Colors
 import { languageOptions } from '../../../../constants/programmingLanguages'
 import { LOCAL_PATH } from '../../../../http'
+import { calculateAge } from '../../../../utils/calculateAge'
 
 import LengthFourCase from './FrameworksCases/LengthFourCase'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
@@ -89,7 +90,7 @@ const UserCard = React.forwardRef((props, ref) => {
           <UserData>
             <CountryContainer>
               <TitleText fontWeight="500" fontSize="12px" margin="0 7px 0 0">
-                {person.fullName}, {person.age}
+                {person.fullName}, {calculateAge(person.dateOfBirth)}
               </TitleText>
             </CountryContainer>
             <TitleText fontWeight="600" fontSize="12px">

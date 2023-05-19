@@ -1,6 +1,7 @@
 import { toast } from 'react-hot-toast'
 
 export const errorToaster = (error) => {
+  console.log(error)
   if (typeof error === 'string') {
     toast.error(error, {
       id: error,
