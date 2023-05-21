@@ -1,9 +1,3 @@
-import blueAvatar from '../assets/DefaultAvatars/user/default-blue.png'
-import greenAvatar from '../assets/DefaultAvatars/user/default-green.png'
-import orangeAvatar from '../assets/DefaultAvatars/user/default-orange.png'
-import pinkAvatar from '../assets/DefaultAvatars/user/default-pink.png'
-import purpleAvatar from '../assets/DefaultAvatars/user/default-purple.png'
-import yellowAvatar from '../assets/DefaultAvatars/user/default-yellow.png'
 import BehanceIcon from '../assets/Links/BehanceIcon'
 import GitHubIcon from '../assets/Links/GitHubIcon'
 import LinkedInIcon from '../assets/Links/LinkedInIcon'
@@ -12,6 +6,19 @@ import TelegramIcon from '../assets/Links/TelegramIcon'
 import concentrationOptions from './concentrations'
 import frameworkOptions from './frameworks'
 import { programmingLanguageOptions } from './programmingLanguages'
+
+const avatarFilenames = [
+  'default-blue.png',
+  'default-green.png',
+  'default-orange.png',
+  'default-pink.png',
+  'default-purple.png',
+  'default-yellow.png',
+]
+
+const avatars = avatarFilenames.map((filename) =>
+  require(`../assets/DefaultAvatars/user/${filename}`),
+)
 
 export const userConcentrations = [
   {
@@ -54,13 +61,14 @@ export const userLinks = [
 ]
 
 export const defaultUserAvatars = [
-  { name: 'green', path: greenAvatar },
-  { name: 'pink', path: pinkAvatar },
-  { name: 'blue', path: blueAvatar },
-  { name: 'orange', path: orangeAvatar },
-  { name: 'purple', path: purpleAvatar },
-  { name: 'yellow', path: yellowAvatar },
+  { name: 'green', path: avatars[0] },
+  { name: 'pink', path: avatars[1] },
+  { name: 'blue', path: avatars[2] },
+  { name: 'orange', path: avatars[3] },
+  { name: 'purple', path: avatars[4] },
+  { name: 'yellow', path: avatars[5] },
 ]
+
 export const userExperienceOptions = [
   {
     label: 'No experience',
