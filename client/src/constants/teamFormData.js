@@ -1,9 +1,13 @@
-import blueAvatar from '../assets/DefaultAvatars/team/default-blue.png'
-import greenAvatar from '../assets/DefaultAvatars/team/default-green.png'
-import orangeAvatar from '../assets/DefaultAvatars/team/default-orange.png'
-import pinkAvatar from '../assets/DefaultAvatars/team/default-pink.png'
-import purpleAvatar from '../assets/DefaultAvatars/team/default-purple.png'
-import yellowAvatar from '../assets/DefaultAvatars/team/default-yellow.png'
+const avatarFilenames = [
+  'default-blue.png',
+  'default-green.png',
+  'default-orange.png',
+  'default-pink.png',
+  'default-purple.png',
+  'default-yellow.png',
+]
+
+const avatars = avatarFilenames.map((filename) => require(`../assets/Images/team/${filename}`))
 
 export const teamTypes = [
   {
@@ -21,10 +25,10 @@ export const teamTypes = [
 ]
 
 export const defaultTeamAvatars = [
-  { name: 'green', path: greenAvatar },
-  { name: 'pink', path: pinkAvatar },
-  { name: 'blue', path: blueAvatar },
-  { name: 'orange', path: orangeAvatar },
-  { name: 'purple', path: purpleAvatar },
-  { name: 'yellow', path: yellowAvatar },
+  { name: 'green', path: avatars[0] },
+  { name: 'pink', path: avatars[1] },
+  { name: 'blue', path: avatars[2] },
+  { name: 'orange', path: avatars[3] },
+  { name: 'purple', path: avatars[4] },
+  { name: 'yellow', path: avatars[5] },
 ]
