@@ -290,6 +290,7 @@ export class UsersService {
 	async updateUser(dto: UpdateUserDto): Promise<User> {
 		/* Validating the DTO to prevent additional fields */
 		const filtered = await userUpdateValidate(dto);
+
 		let candidate = await this.getUserByEmail(dto.email);
 
 		if (!candidate) {
@@ -299,13 +300,15 @@ export class UsersService {
 			);
 		}
 
-		candidate = await this.getUserByUsername(dto.username);
+		if (dto?.username) {
+			candidate = await this.getUserByUsername(dto.username);
 
-		if (candidate) {
-			throw new HttpException(
-				`Username ${dto.username} is already taken`,
-				HttpStatus.BAD_REQUEST,
-			);
+			if (candidate) {
+				throw new HttpException(
+					`Username ${dto.username} is already taken`,
+					HttpStatus.BAD_REQUEST,
+				);
+			}
 		}
 
 		/* Updating the user with the given email with the new data and returning the updated user. */

@@ -268,7 +268,7 @@ describe('TeamService', () => {
 	it('should create 5 users, give them role, one user should create team and then invite other users into it', async () => {
 		const users = await createMultipleUsers(5);
 
-		const leader = users.shift();
+		// const leader = users.shift();
 
 		const members = {
 			emails: [],
@@ -281,13 +281,13 @@ describe('TeamService', () => {
 		}
 
 		const team = await teamsService.createTeam(
-			CreateTeamDtoStub(leader._id, null, members.emails, members.ids),
+			CreateTeamDtoStub(users[0]._id, null, members.emails, members.ids),
 		);
 
 		/* Checking if the team is defined. */
 		expect(team).toBeDefined();
 
-		for (let i = 0; i < users.length; i++) {
+		for (let i = 1; i < users.length; i++) {
 			const notification =
 				await notificationService.getTeamNotificationsForUser(
 					users[i]._id,
@@ -297,7 +297,7 @@ describe('TeamService', () => {
 			expect(notification[0]).toBeDefined();
 
 			/* Checking if the notification is defined. */
-			expect(notification[0].from_user_id).toStrictEqual(leader._id);
+			expect(notification[0].from_user_id).toStrictEqual(users[0]._id);
 		}
 	});
 

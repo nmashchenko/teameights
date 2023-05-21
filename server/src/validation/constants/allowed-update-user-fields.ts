@@ -13,5 +13,4 @@ export const allowedUpdateUserFields: string[] = [
 	'frameworks',
 	'universityData',
 	'jobData',
-	'birthDate',
 ];
