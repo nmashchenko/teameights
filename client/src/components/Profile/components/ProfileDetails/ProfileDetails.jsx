@@ -20,7 +20,6 @@ import ModalWindow from '../../../../shared/components/ModalWindow/ModalWindow'
 import { Button } from '../../../../shared/styles/Button.styles'
 import { CustomLink } from '../../../../shared/styles/Link.styles'
 import { AvatarWrapper } from '../../../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm.styles'
-import Photo from '../../Photo.jpg'
 import {
   BannerLine,
   DetailsWrapper,
@@ -63,11 +62,7 @@ const ProfileDetails = () => {
     <Information>
       <LeftCard>
         <ImgContainer>
-          <UserAvatar
-            src={user?.image ? LOCAL_PATH + '/' + user?.image : Photo}
-            width={'9.375rem'}
-            height={'9.375rem'}
-          />
+          <UserAvatar src={LOCAL_PATH + '/' + user?.image} width={'9.375rem'} height={'9.375rem'} />
           <AvatarEditButton onClick={() => navigate('/profile-edit')} />
         </ImgContainer>
         <TextContainer>

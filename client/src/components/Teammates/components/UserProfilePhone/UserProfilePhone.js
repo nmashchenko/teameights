@@ -4,11 +4,11 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TelegramIcon from '@mui/icons-material/Telegram'
 
-import AddIcon from '../../../../assets/AddIcon'
 // * Assets
-import ComebackArrow from '../../../../assets/ComebackArrow'
-import LinkIcon from '../../../../assets/LinkIcon'
-import MessageIcon from '../../../../assets/MessageIcon'
+import ComebackArrow from '../../../../assets/Arrows/ComebackArrow'
+import LinkIcon from '../../../../assets/Shared/LinkIcon'
+import AddIcon from '../../../../assets/UserProfile/AddIcon'
+import MessageIcon from '../../../../assets/UserProfile/MessageIcon'
 import { LOCAL_PATH } from '../../../../http'
 import { calculateAge } from '../../../../utils/calculateAge'
 

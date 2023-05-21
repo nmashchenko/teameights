@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 
-import ArrowLeftReset from '../../../assets/ArrowLeftReset'
+import ArrowLeftReset from '../../../assets/Arrows/ArrowLeftReset'
 // * Assets
-import SiteLogo from '../../../assets/SiteLogo'
+import SiteLogo from '../../../assets/Platform/TeameightsLogo'
 import ROUTES from '../../../constants/routes'
 
 import {

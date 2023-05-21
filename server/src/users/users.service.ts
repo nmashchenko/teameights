@@ -141,6 +141,14 @@ export class UsersService {
 		return user;
 	}
 
+	async getPartialUsernames(username: string): Promise<User[]> {
+		const regex = new RegExp(username, 'i');
+
+		return await this.userModel
+			.find({ username: regex, team: null })
+			.limit(5);
+	}
+
 	async getUserById(
 		id: mongoose.Types.ObjectId,
 		session?: ClientSession,

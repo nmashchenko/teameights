@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Dropzone from 'react-dropzone'
 
-import { ReactComponent as UploadAvatarIcon } from '../../../../../../../../../assets/uploadAvatarIcon.svg'
+import { ReactComponent as UploadAvatarIcon } from '../../../../../../../../../assets/Avatars/uploadAvatarIcon.svg'
 
 import { DropzoneContent, DropzoneText } from './CustomDropZone.styles'
 

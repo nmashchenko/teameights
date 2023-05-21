@@ -2,9 +2,9 @@
 import React from 'react'
 import { useFormikContext } from 'formik'
 
-import Close from '../../../../assets/Close'
 // * Assets
-import Filters from '../../../../assets/Filters'
+import Filters from '../../../../assets/Filters/Filters'
+import Close from '../../../../assets/Shared/Close'
 import frameworkOptions from '../../../../constants/frameworks'
 import SelectValue from '../../../../shared/components/CustomSelect/components/SelectValue'
 import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'

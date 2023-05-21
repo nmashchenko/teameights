@@ -1,4 +1,3 @@
-import TeameightsLogo from '../../assets/Team/TeameightsLogo.js'
 import NavBar from '../NavBar/NavBar'
 
 import { NavContainer } from './TopTemplate.styles'

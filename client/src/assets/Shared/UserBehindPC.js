@@ -1,4 +1,4 @@
-function Email() {
+function UserBehindPC() {
   return (
     <svg viewBox="0 0 621 508" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d_443_134)">
@@ -1039,4 +1039,4 @@ function Email() {
   )
 }
 
-export default Email
+export default UserBehindPC

@@ -288,9 +288,9 @@ export const createTeamValidation = [
       ['description', 'description'],
     ],
   ),
-  // yup.object().shape({
-  //   members: yup.object(),
-  // }),
+  yup.object().shape({
+    members: yup.array().max(8),
+  }),
   userFileValidation,
 ]
 

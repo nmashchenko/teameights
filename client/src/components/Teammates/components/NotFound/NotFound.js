@@ -1,5 +1,5 @@
 // * Assets
-import NonFound from '../../../../assets/NonFound'
+import NonFound from '../../../../assets/Shared/SearchingPeople'
 
 // * Styles
 import {

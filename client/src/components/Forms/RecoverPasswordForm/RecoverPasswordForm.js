@@ -7,9 +7,9 @@ import Snackbar from '@mui/material/Snackbar'
 
 // * Api
 import resetPassword from '../../../api/endpoints/reset'
-import ArrowLeftReset from '../../../assets/ArrowLeftReset'
+import ArrowLeftReset from '../../../assets/Arrows/ArrowLeftReset'
 // * Assets
-import SiteLogo from '../../../assets/SiteLogo'
+import SiteLogo from '../../../assets/Platform/TeameightsLogo'
 import ROUTES from '../../../constants/routes'
 import Alert from '../../RegistrationPipeline/components/Alert/Alert'
 

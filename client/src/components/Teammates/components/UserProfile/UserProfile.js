@@ -5,10 +5,10 @@ import GitHubIcon from '@mui/icons-material/GitHub'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TelegramIcon from '@mui/icons-material/Telegram'
 
-import AddIcon from '../../../../assets/AddIcon'
 // * Assets
-import LinkIcon from '../../../../assets/LinkIcon'
-import MessageIcon from '../../../../assets/MessageIcon'
+import LinkIcon from '../../../../assets/Shared/LinkIcon'
+import AddIcon from '../../../../assets/UserProfile/AddIcon'
+import MessageIcon from '../../../../assets/UserProfile/MessageIcon'
 import { LOCAL_PATH } from '../../../../http'
 import { calculateAge } from '../../../../utils/calculateAge'
 

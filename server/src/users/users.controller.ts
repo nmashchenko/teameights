@@ -49,6 +49,15 @@ export class UsersController {
 	}
 
 	@ApiOperation({
+		summary: 'Get partial best match usernames',
+	})
+	@ApiResponse({ status: 200, type: [User] })
+	@Get('/partial/:username')
+	getPartialUsernames(@Param('username') username: string): Promise<User[]> {
+		return this.userService.getPartialUsernames(username);
+	}
+
+	@ApiOperation({
 		summary: 'Get specific user by id, returns null in case nothing found',
 	})
 	@ApiResponse({ status: 200, type: User })

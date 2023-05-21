@@ -1,16 +1,22 @@
 import React from 'react'
 
 import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
+import Loader from '../../../../../shared/components/Loader/Loader'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import TeamInfoForm from './TeamInfoForm/TeamInfoForm'
 import UserInfoForm from './UserInfoForm/UserInfoForm'
 
 const InfoForm = () => {
-  const { data: user } = useCheckAuth()
+  const { data: user, isLoading: isUserLoading } = useCheckAuth()
 
   return (
-    <ContentContainer>{user.isRegistered ? <TeamInfoForm /> : <UserInfoForm />}</ContentContainer>
+    <>
+      {isUserLoading && <Loader />}
+      <ContentContainer>
+        {user?.isRegistered ? <TeamInfoForm /> : <UserInfoForm />}
+      </ContentContainer>
+    </>
   )
 }
 

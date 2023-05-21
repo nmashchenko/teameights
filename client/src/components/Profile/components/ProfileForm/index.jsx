@@ -6,7 +6,7 @@ import { Form, Formik } from 'formik'
 import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
 import { useEditUserDetails } from '../../../../api/hooks/auth/useEditUserDetails'
 import { useGetTeamData } from '../../../../api/hooks/team/useGetTeamData'
-import EditIcon from '../../../../assets/EditIcon'
+import EditIcon from '../../../../assets/Shared/EditIcon'
 import Email from '../../../../assets/UserProfile/Email'
 import Github from '../../../../assets/UserProfile/Github'
 import Linkedin from '../../../../assets/UserProfile/Linkedin'
@@ -32,7 +32,6 @@ import CustomTextArea from '../../../../shared/components/CustomTextArea/CustomT
 import Loader from '../../../../shared/components/Loader/Loader'
 import { Button } from '../../../../shared/styles/Button.styles'
 import { ErrorMessage } from '../../../../shared/styles/Tpography.styles'
-import Photo from '../../Photo.jpg'
 import {
   BannerLine,
   DetailsWrapper,
@@ -149,7 +148,7 @@ const ProfileForm = () => {
             <Information>
               <LeftCard>
                 <ImgContainer>
-                  <Img src={user.image ? LOCAL_PATH + '/' + user.image : Photo} />
+                  <Img src={LOCAL_PATH + '/' + user.image} />
                   <EditUserDetails onClick={stopEditing}>
                     <EditIcon />
                   </EditUserDetails>

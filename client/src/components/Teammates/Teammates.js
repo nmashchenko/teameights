@@ -7,10 +7,10 @@ import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { GlobalStyle } from '../../shared/styles/Global.styles'
 
 import Cards from './components/Cards/Cards'
+// * Components
+import Filters from './components/FiltersArea/Filters'
 import NotFound from './components/NotFound/NotFound'
 import SliderToTop from './components/SliderToTop/SliderToTop'
-// * Components
-import TopBar from './components/TopBar/TopBar'
 import UserProfile from './components/UserProfile/UserProfile'
 import UserProfilePhone from './components/UserProfilePhone/UserProfilePhone'
 // * Styles
@@ -68,7 +68,7 @@ function Teammates() {
     <>
       <ThemeProvider theme={{ scrollbar }}>
         <GlobalStyle />
-        <TopBar setDisplayFiltered={setDisplayFiltered} displayFiltered={displayFiltered} />
+        <Filters setDisplayFiltered={setDisplayFiltered} displayFiltered={displayFiltered} />
         {/* ! USED ONLY FOR 730px or more */}
         <UserCardModal
           open={open}

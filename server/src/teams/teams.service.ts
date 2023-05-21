@@ -109,9 +109,9 @@ export class TeamsService {
 		await this.userService.addTeam(candidate._id, team._id);
 
 		/* Check if there are any members to invite. */
-		if (dto?.members?.emails.length > 0) {
+		if (dto?.members?.emails.length > 1) {
 			/* Inviting all the members of the team to the team. */
-			for (let i = 0; i < dto.members.emails.length; i++) {
+			for (let i = 1; i < dto.members.emails.length; i++) {
 				const candidate = {
 					email: dto.members.emails[i],
 					from_user_id: dto.leader,

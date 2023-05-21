@@ -5,9 +5,9 @@ import countryList from 'react-select-country-list'
 import AppBar from '@mui/material/AppBar'
 import { Form, Formik } from 'formik'
 
-import Filters from '../../../../assets/Filters'
+import Filters from '../../../../assets/Filters/Filters'
 // * Assets
-import Search from '../../../../assets/SearchIcon'
+import Search from '../../../../assets/Filters/SearchIcon'
 // * Components
 import frameworkOptions from '../../../../constants/frameworks'
 import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
@@ -17,17 +17,15 @@ import { PlaceholderText } from '../SelectField/SelectField.styles'
 
 // * Options
 import { concentrationOptions } from './Contentration.options'
-import { programmingLanguageOptions } from './ProgrammingLanguages.options'
 import {
-  AlternativeLogoContainer,
   BoxContainer,
   Button,
   FilterContainer,
   FilterText,
-  LogoContainer,
   NavBar,
   SelectContainer,
-} from './TopBar.styles'
+} from './Filters.styles'
+import { programmingLanguageOptions } from './ProgrammingLanguages.options'
 
 const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
   const [filterBar, setFilterBar] = useState(false)

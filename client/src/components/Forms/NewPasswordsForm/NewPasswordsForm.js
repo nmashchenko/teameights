@@ -10,7 +10,7 @@ import Snackbar from '@mui/material/Snackbar'
 // * Api
 import resetPassword from '../../../api/endpoints/reset'
 // * Assets
-import SiteLogo from '../../../assets/SiteLogo'
+import SiteLogo from '../../../assets/Platform/TeameightsLogo'
 import ROUTES from '../../../constants/routes'
 
 import {
