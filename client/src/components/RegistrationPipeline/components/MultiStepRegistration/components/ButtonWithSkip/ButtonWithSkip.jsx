@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormikContext } from 'formik'
 
-import SkipArrow from '../../../../../../../assets/Arrows/SkipArrow'
-import { setIsOptionalStep, setStep } from '../../../../../../../store/reducers/RegistrationAuth'
+import SkipArrow from '../../../../../../assets/Arrows/SkipArrow'
+import { setIsOptionalStep, setStep } from '../../../../../../store/reducers/RegistrationAuth'
 import FormButton from '../FormButton/FormButton'
 
 import { Skip, SkipButton } from './ButtonWithSkip.styles'

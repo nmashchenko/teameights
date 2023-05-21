@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { Button } from '../../../../../../../shared/styles/Button.styles'
+import { Button } from '../../../../../../shared/styles/Button.styles'
 
 const FormButton = () => {
   const { isLastStep } = useSelector((state) => state.registrationReducer)

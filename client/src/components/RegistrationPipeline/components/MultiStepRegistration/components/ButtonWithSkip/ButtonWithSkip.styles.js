@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { WHITE } from '../../../../../../../constants/colors'
+import { WHITE } from '../../../../../../constants/colors'
 
 export const Skip = styled.div`
   display: flex;
