@@ -16,9 +16,7 @@ const avatarFilenames = [
   'default-yellow.png',
 ]
 
-const avatars = avatarFilenames.map((filename) =>
-  require(`../assets/DefaultAvatars/user/${filename}`),
-)
+const avatars = avatarFilenames.map((filename) => require(`../assets/Images/user/${filename}`))
 
 export const userConcentrations = [
   {
