@@ -17,7 +17,6 @@ import {
   AlertBox,
   Container,
   InputContainer,
-  NavBar,
   NewPasswordBox,
   NewPasswordButton,
   NewPasswordContainer,
@@ -66,11 +65,7 @@ function NewPassword() {
   return (
     <Container>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
+        <AppBar position="static" elevation={0}></AppBar>
       </Box>
       {error && (
         <Snackbar

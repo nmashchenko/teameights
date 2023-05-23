@@ -41,7 +41,7 @@ export class UpdateUserDto {
 	readonly fullName: string;
 
 	@ApiProperty({ example: new Date(), description: 'Date of birth' })
-	@IsDateString({ message: 'Should be date' })
+	@IsDateString()
 	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsOptional()
 	readonly dateOfBirth: Date;

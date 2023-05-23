@@ -17,7 +17,6 @@ import {
   BackButton,
   ButtonContainer,
   Container,
-  NavBar,
   RecoverBox,
   RecoverButton,
   RecoverContainer,
@@ -73,11 +72,7 @@ function RecoverPassword() {
         </Snackbar>
       )}
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
+        <AppBar position="static" elevation={0}></AppBar>
       </Box>
       <RecoverContainer>
         <RecoverBox>

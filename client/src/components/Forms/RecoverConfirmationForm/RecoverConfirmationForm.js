@@ -14,7 +14,6 @@ import {
   Container,
   MiddleContainer,
   MiddleText,
-  NavBar,
   RecoverBox,
   RecoverContainer,
   TextContainer,
@@ -28,11 +27,7 @@ function RecoverPassword() {
   return (
     <Container>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
-          <NavBar>
-            <SiteLogo />
-          </NavBar>
-        </AppBar>
+        <AppBar position="static" elevation={0}></AppBar>
       </Box>
       <RecoverContainer>
         <RecoverBox>

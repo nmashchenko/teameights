@@ -11,7 +11,6 @@ import Modal from '@mui/material/Modal'
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useTeamMembership } from '../../../api/hooks/team/useTeamMembership'
-import TopTemplate from '../../TopTemplate/TopTemplate'
 
 // * Styles
 import {
@@ -98,7 +97,6 @@ function TeamsList() {
             </TeamButton>
           </Box>
         </Modal>
-        <TopTemplate />
         <CardContainer>
           <Card>
             <ColumnNames>

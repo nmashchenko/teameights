@@ -19,6 +19,7 @@ export const useUpdateAvatar = (type) => {
       queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
     },
     onError: (error) => {
+      console.log(error)
       // set error message
       errorToaster(error)
     },

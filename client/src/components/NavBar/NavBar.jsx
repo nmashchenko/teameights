@@ -1,5 +1,5 @@
 // * Modules
-import React, { useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -53,7 +53,6 @@ const NavBar = () => {
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
   const navigate = useNavigate()
   const navMenuRef = useRef(null)
-  // let socketRef = useRef(null)
 
   useEffect(() => {
     if (user) {
@@ -174,4 +173,4 @@ const NavBar = () => {
   )
 }
 
-export default NavBar
+export default memo(NavBar)

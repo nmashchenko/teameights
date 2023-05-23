@@ -6,12 +6,6 @@ import styled from 'styled-components'
 import { device } from '../../../constants/breakpoints'
 import { BLACK, GREY, LIME, WHITE } from '../../../constants/colors'
 
-export const NavBar = styled(Toolbar)`
-  &.css-hyum1k-MuiToolbar-root {
-    background: ${LIME.background};
-  }
-`
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;

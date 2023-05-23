@@ -21,11 +21,16 @@ const MultiStepRegistration = ({
   const [oneOfOptionalFieldsHasValue, setOneOfOptionalFieldsHasValue] = useState(false)
 
   const { step, isOptionalStep } = useSelector((state) => state.registrationReducer)
-  const { data: userData } = useCheckAuth()
+  const { data: userData, isFetching } = useCheckAuth()
   const currentStepData = steps[step - 1]
   const isLastStep = step === steps.length
   const handleSubmit = (values) => {
     submitForm(values, userData)
+  }
+
+  console.log(step)
+  if (isFetching) {
+    return <Loader />
   }
 
   return (

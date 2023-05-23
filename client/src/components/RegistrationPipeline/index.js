@@ -7,7 +7,7 @@ import { useEditUserDetails } from '../../api/hooks/auth/useEditUserDetails'
 import { useUpdateAvatar } from '../../api/hooks/auth/useUpdateAvatar'
 import { defaultUserAvatars } from '../../constants/finishRegistrationData'
 import { finishRegistrationValidation } from '../../schemas'
-import { setIsFinishRegistrationStarted } from '../../store/reducers/RegistrationAuth'
+import { setIsFinishRegistrationStarted, setStep } from '../../store/reducers/RegistrationAuth'
 import { formatDateString } from '../../utils/convertStringToDate'
 import { convertYearToDate } from '../../utils/convertYearToDate'
 import { removeEmptyFields } from '../../utils/removeEmptyFields'
@@ -77,6 +77,7 @@ function FinishRegistration() {
 
   function onSuccess() {
     dispatch(setIsFinishRegistrationStarted(false))
+    dispatch(setStep(1))
     navigate('/', { replace: true })
   }
 
@@ -125,8 +126,6 @@ function FinishRegistration() {
       universityData: universityValidated !== null ? universityValidated : undefined,
       isRegistered: false,
     }
-
-    console.log(registrationData)
 
     if (formData.file) {
       updateAvatar({ email: userCurrentData.email, image: formData.file.split(',')[1] })

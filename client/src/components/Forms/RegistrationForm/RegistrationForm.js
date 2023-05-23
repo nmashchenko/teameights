@@ -7,7 +7,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useRegister } from '../../../api/hooks/auth/useRegister'
 import Loader from '../../../shared/components/Loader/Loader'
-import Backdrop from '../../Backdrop/Backdrop'
 // * Helpers
 import SocialLoginRegistration from '../SocialLoginRegistrationForm/SocialLoginRegistrationForm'
 
@@ -48,7 +47,6 @@ function RegistrationForm() {
 
   return (
     <>
-      <Backdrop isLoading={isLoading} />
       <LeftScreenContainer>
         <LoginSignUpContainer>
           <LoginSignUpLinks>
