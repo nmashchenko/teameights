@@ -102,7 +102,7 @@ function TeamForm() {
 
     // if we have a default, choose default
     if (selectedImage !== '') {
-      return require(`../../../assets/defaultAvatars/team/${defaultTeamImages[selectedImage]}.png`)
+      return require(`../../../assets/Images/team/${defaultTeamImages[selectedImage]}.png`)
     }
 
     if (picture !== null) {

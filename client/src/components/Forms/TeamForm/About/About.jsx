@@ -5,9 +5,9 @@ import { Field, Form, Formik } from 'formik'
 import { useUpdateTeam } from '../../../../api/hooks/team/useUpdateTeam'
 import { B2fs, B2fw, B2lh } from '../../../../assets/fonts'
 import typeOptions from '../../../../constants/types'
-import { PlaceholderText } from '../../../../screens/UsersList/components/SelectField/SelectField.styles'
 import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
 import Loader from '../../../../shared/components/Loader/Loader'
+import { PlaceholderText } from '../../../Teammates/components/SelectField/SelectField.styles'
 
 import {
   EditTeam,

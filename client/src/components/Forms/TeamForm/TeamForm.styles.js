@@ -677,35 +677,11 @@ export const Statistic = styled.div`
   }
 `
 
-export const CreateTeam = styled.button`
- 
-  
-width: 306px;
-  height: 44px;
-  background: #46A11B;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 500;
-  color: white;
-  outline: none;
-  margin-top: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap 6px;
-  cursor: pointer;
-  transition: all .2s;
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 2px 25px  #46A11B60;
-  }
-`
 export const TeamButton = styled.button`
-width: 306px;
+  width: 306px;
   height: 44px;
-  background: transparent;
-  border: 2px solid #46A11B;
+  background: ${(props) => props.background || 'transparent'};
+  border: ${(props) => props.border || '2px solid #46a11b'};
   border-radius: 10px;
   font-size: 16px;
   font-weight: 500;
@@ -715,12 +691,13 @@ width: 306px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap 6px;
+  gap: 6px;
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
+
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 2px 25px  #46A11B60;
+    box-shadow: 0px 2px 25px #46a11b60;
   }
 `
 

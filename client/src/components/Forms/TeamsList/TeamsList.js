@@ -10,6 +10,7 @@ import Modal from '@mui/material/Modal'
 // * API
 import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { useGetAllTeams } from '../../../api/hooks/team/useGetAllTeams'
 // import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
@@ -38,14 +39,11 @@ function TeamsList() {
 
   const { data: user } = useCheckAuth()
 
-  const [teams, setTeams] = useState([])
   const [selectedTeam, setSelectedTeam] = useState({})
   const { mutateAsync: joinUser, isLoading: isUserTeamLoading } = useJoinTeam()
   const userId = user?._id
 
   const [open, setOpen] = useState(false)
-
-  const [isTeamsLoading, setIsTeamsLoading] = useState(true)
 
   const [changeModal, setChangeModal] = useState('')
 
@@ -53,16 +51,7 @@ function TeamsList() {
 
   const { mutate: leaveAndJoin, isLoading: isLeavingAndJoining } = useLeaveAndJoin()
 
-  useEffect(() => {
-    const makeRequest = async () => {
-      const teams = await teamsAPI.getAllTeams()
-
-      setTeams(teams.data.filter((team) => team.type === 'open'))
-      setIsTeamsLoading(false)
-    }
-
-    makeRequest()
-  }, [])
+  const { data: teams, isLoading: isLoadingTeams } = useGetAllTeams()
 
   const handleClickOpen = (team) => {
     setSelectedTeam(team)
@@ -102,13 +91,9 @@ function TeamsList() {
     leaveAndJoin({ user_id: user?._id, teamid: user?.team._id })
   }
 
-  if (isUserTeamLoading || isTeamsLoading || isLeaving) {
+  if (isUserTeamLoading || isLoadingTeams || isLeaving) {
     return <Loader />
   }
-
-  console.log(user)
-  // lol we could move entire teams list to display her implementation
-  // of checking out a team
 
   const getModalState = () => {
     if (changeModal === 'alreadyOnTeam') {
@@ -178,7 +163,7 @@ function TeamsList() {
                 People
               </Text>
             </ColumnNames>
-            {teams?.data?.map((team, i) => (
+            {teams?.map((team, i) => (
               <TeamData margin="60px" key={i}>
                 <TeamImage
                   src={

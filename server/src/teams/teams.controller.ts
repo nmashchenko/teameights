@@ -94,6 +94,15 @@ export class TeamsController {
 	}
 
 	@ApiOperation({
+		summary: 'Get all open type teams',
+	})
+	@ApiResponse({ status: 200, type: [Team] })
+	@Get('/all')
+	getAllTeams(): Promise<Team[]> {
+		return this.teamsService.getAllTeams();
+	}
+
+	@ApiOperation({
 		summary: 'Get team by id',
 	})
 	@ApiResponse({ status: 200, type: Team })

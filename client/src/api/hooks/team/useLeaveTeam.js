@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from 'react-query'
-import { useNavigate } from 'react-router-dom'
 
 import http from '../../../http'
 

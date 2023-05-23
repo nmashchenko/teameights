@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Box, Modal } from '@mui/material'
 
-import SearchIcon from '../../../../assets/SearchIcon'
+import Close from '../../../../assets/Shared/Close'
+import SearchIcon from '../../../../assets/Shared/SearchIcon'
 import UserPlus from '../../../../assets/UserPlus'
-import X from '../../../../assets/X'
 import TeamActionModal from '../TeamActionModal'
 import {
   CloseContainerModal,
@@ -182,7 +182,7 @@ const TeamModal = ({
     >
       <Box sx={style}>
         <CloseContainerModal color={'#FFF'} onClick={handleClose}>
-          <X />
+          <Close />
         </CloseContainerModal>
         {handleModal()}
       </Box>

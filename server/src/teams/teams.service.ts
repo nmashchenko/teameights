@@ -184,6 +184,10 @@ export class TeamsService {
 		return updatedTeam;
 	}
 
+	async getAllTeams(): Promise<Team[]> {
+		return await this.teamModel.find({ type: TeamType.OPEN });
+	}
+
 	/**
 	 * This function retrieves a list of teams with their members and leader, based on a given page and
 	 * limit, and returns the results as a Promise.
@@ -238,8 +242,6 @@ export class TeamsService {
 	): Promise<Results> {
 		/* A type assertion. */
 		const results = {} as Results;
-
-		console.log(parsedQuery);
 
 		/* The above code is checking if the parsed query has a "members" property. If it does, it checks the
 		length of the "members" array. If the length is 1, it replaces the "members" property with a MongoDB

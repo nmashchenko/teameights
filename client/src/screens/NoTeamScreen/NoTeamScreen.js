@@ -1,13 +1,13 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import NoTeamForm from '../../components/Forms/NoTeamForm/NoTeamForm'
+import NoTeam from '../../components/Forms/TeamForm/NoTeam/NoTeam'
 
 function NoTeamScreen() {
   return (
     <>
       <CssBaseline />
-      <NoTeamForm />
+      <NoTeam />
     </>
   )
 }
