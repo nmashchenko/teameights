@@ -13,7 +13,7 @@ export const Container = styled.div`
 `
 
 export const Content = styled.div`
-  min-height: calc(100vh - 78px);
+  min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -90,7 +90,7 @@ export const ButtonGeneral = styled.button`
   box-shadow: 0px 4px 50px rgba(93, 157, 11, 0.15);
   &:hover {
     border: none;
-    cursor: pointer;
+    cursor: not-allowed;
     transition: 0.15s;
   }
 `

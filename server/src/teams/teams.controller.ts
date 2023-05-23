@@ -1,28 +1,34 @@
-import { JwtAuthGuard } from '@Auth/guards/jwt-auth.guard';
-import { ValidationPipe } from '@Pipes/validation.pipe';
 import {
 	Body,
 	Controller,
+	Delete,
 	Get,
 	Param,
 	Post,
-	Delete,
 	Put,
+	Query,
 	UseGuards,
 	UsePipes,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TeamsService } from './teams.service';
-import { CreateTeamDto } from './dto/create-team.dto';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
-import { Team } from './teams.schema';
-import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
+import * as qs from 'qs';
+
+import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+import { ValidationPipe } from '@/pipes/validation.pipe';
+
+import { CreateTeamDto } from './dto/create-team.dto';
 import { InviteToTeamDto } from './dto/invite-to-team.dto';
-import { TeamMembershipDTO } from './dto/membership.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
 import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
+import { TeamMembershipDTO } from './dto/membership.dto';
+import { Results } from './dto/results.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
+import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
+import { Team } from './teams.schema';
+import { TeamsService } from './teams.service';
 
 @ApiTags('Teams')
 @Controller('/teams')
@@ -36,8 +42,64 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Post('/create')
-	createTeam(@Body() dto: CreateTeamDto) {
+	createTeam(@Body() dto: CreateTeamDto): Promise<Team> {
 		return this.teamsService.createTeam(dto);
+	}
+
+	@ApiOperation({ summary: 'Get teams by page' })
+	@ApiResponse({ status: 200, type: Results })
+	@ApiQuery({
+		name: 'page',
+		description: 'The page number to get',
+		required: false,
+		type: Number,
+	})
+	@Get()
+	getTeamsByPage(@Query('page') pageNumber?: number): Promise<Results> {
+		/* A way to check if the pageNumber is a number or not. If it is not a number, it will return 1. */
+		const page: number = parseInt(pageNumber as any) || 1;
+		const limit = 9;
+		return this.teamsService.getTeamsByPage(page, limit);
+	}
+
+	@ApiOperation({ summary: 'Get filtered teams by page' })
+	@ApiResponse({ status: 200, type: Results })
+	@ApiQuery({
+		name: 'page',
+		description: 'The page number to get',
+		required: false,
+		type: Number,
+	})
+	@ApiQuery({
+		name: 'filtersQuery',
+		description: `The filters that we get front end, don't forget to use let queryString = qs.stringify(filtersQuery) before sending to backend. If you pass members inside filters, make sure it's either [number] OR [number, number]`,
+		required: true,
+		type: String,
+	})
+	@Get('/filtered')
+	getFilteredTeamsByPage(
+		@Query('filtersQuery') filtersQuery: string,
+		@Query('page') pageNumber?: number,
+	): Promise<Results> {
+		const page: number = parseInt(pageNumber as any) || 1;
+		const limit = 9;
+		/* Parsing the query string into an object. */
+		const parsedQuery = qs.parse(filtersQuery);
+
+		return this.teamsService.getFilteredTeamsByPage(
+			page,
+			limit,
+			parsedQuery,
+		);
+	}
+
+	@ApiOperation({
+		summary: 'Get team by id',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Get('/:id')
+	getTeam(@Param('id') id: mongoose.Types.ObjectId): Promise<Team> {
+		return this.teamsService.getTeamById(id);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -47,7 +109,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/update-avatar')
-	updateTeamAvatar(@Body() dto: UpdateTeamAvatarDto) {
+	updateTeamAvatar(@Body() dto: UpdateTeamAvatarDto): Promise<Team> {
 		return this.teamsService.updateTeamAvatar(dto);
 	}
 
@@ -58,7 +120,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/update-team')
-	updateUser(@Body() dto: UpdateTeamDto) {
+	updateUser(@Body() dto: UpdateTeamDto): Promise<Team> {
 		return this.teamsService.updateTeam(dto);
 	}
 
@@ -69,26 +131,8 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/remove-member')
-	removeMember(@Body() dto: TeamMembershipDTO) {
+	removeMember(@Body() dto: TeamMembershipDTO): Promise<Team | void> {
 		return this.teamsService.removeMember(dto);
-	}
-
-	@ApiOperation({
-		summary: 'Get team by id',
-	})
-	@ApiResponse({ status: 200, type: Team })
-	@Get('/get-team/:id')
-	getTeam(@Param('id') id: mongoose.Types.ObjectId) {
-		return this.teamsService.getTeamById(id);
-	}
-
-	@ApiOperation({
-		summary: 'Get all teams',
-	})
-	@ApiResponse({ status: 200, type: [Team] })
-	@Get('/get-teams')
-	getAllTeams() {
-		return this.teamsService.getAllTeams();
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -98,7 +142,9 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: InviteToTeamResponseDto })
 	@Post('/invite')
-	inviteToTeam(@Body() dto: InviteToTeamDto) {
+	inviteToTeam(
+		@Body() dto: InviteToTeamDto,
+	): Promise<InviteToTeamResponseDto> {
 		return this.teamsService.inviteToTeam(dto);
 	}
 
@@ -110,7 +156,7 @@ export class TeamsController {
 	@Put('/invite-accept/:notificationid')
 	acceptInvite(
 		@Param('notificationid') notificationid: mongoose.Types.ObjectId,
-	) {
+	): Promise<StatusResponseDto> {
 		return this.teamsService.acceptInvite(notificationid);
 	}
 
@@ -122,7 +168,7 @@ export class TeamsController {
 	@Put('/invite-reject/:notificationid')
 	rejectInvite(
 		@Param('notificationid') notificationid: mongoose.Types.ObjectId,
-	) {
+	): Promise<StatusResponseDto> {
 		return this.teamsService.rejectTeamInvite(notificationid);
 	}
 
@@ -133,7 +179,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/join')
-	joinTeam(@Body() dto: TeamMembershipDTO) {
+	joinTeam(@Body() dto: TeamMembershipDTO): Promise<Team> {
 		return this.teamsService.joinTeam(dto);
 	}
 
@@ -144,7 +190,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/leave')
-	leaveTeam(@Body() dto: TeamMembershipDTO) {
+	leaveTeam(@Body() dto: TeamMembershipDTO): Promise<Team | void> {
 		return this.teamsService.leaveTeam(dto);
 	}
 
@@ -154,19 +200,10 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Delete('/delete/:teamid')
-	deleteTeam(@Param('teamid') teamId: mongoose.Types.ObjectId) {
+	deleteTeam(
+		@Param('teamid') teamId: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
 		return this.teamsService.deleteTeam(teamId);
-	}
-
-	@UseGuards(JwtAuthGuard)
-	@UsePipes(ValidationPipe)
-	@ApiOperation({
-		summary: 'Search for the team',
-	})
-	@ApiResponse({ status: 200, type: [Team] })
-	@Post('/search')
-	findTeam(@Body() dto: TeamSearchDto) {
-		return this.teamsService.findTeam(dto);
 	}
 
 	@UseGuards(JwtAuthGuard)
@@ -176,7 +213,16 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/leader/transfer')
-	transferLeader(@Body() dto: TransferLeaderDto) {
+	transferLeader(@Body() dto: TransferLeaderDto): Promise<Team> {
 		return this.teamsService.transferLeader(dto);
+	}
+
+	@ApiOperation({
+		summary: 'Get team by tag',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Get('/tag/:tag')
+	getByTag(@Param('tag') tag: string): Promise<Team> {
+		return this.teamsService.getByTag(tag);
 	}
 }

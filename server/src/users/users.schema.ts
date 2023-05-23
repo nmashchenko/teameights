@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { Role } from '@Roles/roles.schema';
-import { ApiProperty } from '@nestjs/swagger';
-import { Notifications } from '@Notifications/schemas/notifications.schema';
-import { Team } from '@Teams/teams.schema';
+
+import { Notifications } from '@/notifications/schemas/notifications.schema';
+import { Role } from '@/roles/roles.schema';
+import { Team } from '@/teams/teams.schema';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -29,32 +30,25 @@ export class User {
 	fullName: string;
 
 	@ApiProperty({
-		example: '2016-05-18T14:10:30Z',
-		description: 'Date of Birth',
-	})
-	@Prop()
-	birthDate: Date;
-
-	@ApiProperty({
 		example: 'true',
 		description: 'Did user click on confirmation email?',
 	})
 	@Prop()
-	isActivated: Boolean;
+	isActivated: boolean;
 
 	@ApiProperty({
 		example: 'true',
 		description: 'Did user complete the registration?',
 	})
 	@Prop()
-	isRegistered: Boolean;
+	isRegistered: boolean;
 
 	@ApiProperty({
 		example: 'true',
 		description: 'Does user want to be leader of team?',
 	})
 	@Prop()
-	isLeader: Boolean;
+	isLeader: boolean;
 
 	@ApiProperty({
 		example: 'zczx-324j-skdf-xxcd',
@@ -67,9 +61,9 @@ export class User {
 	@Prop()
 	country: string;
 
-	@ApiProperty({ example: '17', description: 'Age of user' })
+	@ApiProperty({ example: new Date(), description: 'Date of birth' })
 	@Prop()
-	age: string;
+	dateOfBirth: Date;
 
 	/* UNIVERSITY DATA */
 	@ApiProperty({

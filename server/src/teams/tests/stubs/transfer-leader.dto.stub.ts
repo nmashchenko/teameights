@@ -1,5 +1,6 @@
-import { TransferLeaderDto } from '@/teams/dto/transfer-leader.dto';
 import mongoose from 'mongoose';
+
+import { TransferLeaderDto } from '@/teams/dto/transfer-leader.dto';
 
 export const TransferLeaderDtoStub = (
 	leader_id: mongoose.Types.ObjectId,

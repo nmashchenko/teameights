@@ -1,8 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { ApiProperty } from '@nestjs/swagger';
+
 import { User } from '@/users/users.schema';
+
 import { TeamType } from './types/teams.type';
 
 export type TeamsDocument = HydratedDocument<Team>;
@@ -69,7 +71,7 @@ export class Team {
 		description: 'Number of tournaments that the team has won',
 	})
 	@Prop({ required: false })
-	wins: Number;
+	wins: number;
 
 	@ApiProperty({
 		example: 10,
@@ -77,7 +79,7 @@ export class Team {
 			'Number of points that the team has earned in the tournaments',
 	})
 	@Prop({ required: false })
-	points: Number;
+	points: number;
 
 	@ApiProperty({
 		example: 'image/teams/uuid.png',

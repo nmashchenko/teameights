@@ -1,20 +1,21 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UsersService } from '@/users/users.service';
-import { passwordStrength } from 'check-password-strength';
-
-import { TokensService } from '@/tokens/tokens.service';
-import { MailsService } from '@/mails/mails.service';
-import { AuthResponseDto } from './dto/auth-response.dto';
 import { InjectConnection } from '@nestjs/mongoose';
-import { CreateTokenDto } from '@/tokens/dto/create-token.dto';
-import { RegisterUserDto } from '@/users/dto/register-user.dto';
-import { OAuth2Client } from 'google-auth-library';
-
-import mongoose, { Types } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
+import { passwordStrength } from 'check-password-strength';
+import { OAuth2Client } from 'google-auth-library';
+import mongoose from 'mongoose';
 import * as uuid from 'uuid';
-import { ResetUserDto } from '@/users/dto/reset-user.dto';
+
+import { MailsService } from '@/mails/mails.service';
+import { CreateTokenDto } from '@/tokens/dto/create-token.dto';
+import { TokensService } from '@/tokens/tokens.service';
 import { AuthUserDto } from '@/users/dto/auth-user.dto';
+import { RegisterUserDto } from '@/users/dto/register-user.dto';
+import { ResetUserDto } from '@/users/dto/reset-user.dto';
+import { UsersService } from '@/users/users.service';
+
+import { AuthResponseDto } from './dto/auth-response.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -252,7 +253,7 @@ export class AuthService {
 	 * @param {string} refreshToken - string - the refresh token that was sent from the client.
 	 * @returns It's returning the status of the refresh token deletion.
 	 */
-	async logout(refreshToken: string): Promise<Object> {
+	async logout(refreshToken: string): Promise<StatusResponseDto> {
 		const token = await this.tokensService.removeToken(refreshToken); // remove refresh token from DB if user logs out
 
 		/* It's checking if the refresh token was deleted from the database. */
@@ -275,7 +276,7 @@ export class AuthService {
 	async resetPassword(
 		email: string,
 		ip: ParameterDecorator,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const user = await this.userService.getUserByEmail(email);
 
 		if (!user) {
@@ -294,7 +295,7 @@ export class AuthService {
 			ip,
 		); // send activation email
 
-		return { status: 'reset email successfuly sent' };
+		return { status: 'Reset email successfuly sent' };
 	}
 
 	/**

@@ -1,15 +1,14 @@
-import { Team } from '@/teams/teams.schema';
-import { User } from '@/users/users.schema';
 import { ApiProperty } from '@nestjs/swagger';
 import {
 	IsArray,
-	IsDate,
 	IsDateString,
 	IsMongoId,
 	IsOptional,
 	IsString,
 } from 'class-validator';
 import mongoose from 'mongoose';
+
+import { Team } from '@/teams/teams.schema';
 
 class TournamentParticipantsDto {
 	@ApiProperty({

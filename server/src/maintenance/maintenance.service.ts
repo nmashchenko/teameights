@@ -1,21 +1,25 @@
-import { RegisterUserDto } from '@/users/dto/register-user.dto';
-import { UsersService } from '@/users/users.service';
-import { Inject, Injectable } from '@nestjs/common';
 import { faker } from '@faker-js/faker';
-import { UpdateUserDto } from '@/users/dto/update-user.dto';
-import { performance } from 'perf_hooks';
+import { Inject, Injectable } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import mongoose, { Connection } from 'mongoose';
-import { RolesService } from '@/roles/roles.service';
-import { TeamsService } from '@/teams/teams.service';
-import { CreateTeamDto } from '@/teams/dto/create-team.dto';
+import { performance } from 'perf_hooks';
 import { uuid } from 'uuidv4';
+
+import { NotificationsService } from '@/notifications/notifications.service';
+import { RolesService } from '@/roles/roles.service';
+import { CreateTeamDto } from '@/teams/dto/create-team.dto';
+import { TeamsService } from '@/teams/teams.service';
+import { RegisterUserDto } from '@/users/dto/register-user.dto';
+import { UpdateUserDto } from '@/users/dto/update-user.dto';
+import { UsersService } from '@/users/users.service';
+
+import { StatusResponseDto } from './dto/status-response.dto';
 import {
 	avatar_blue,
 	avatar_green,
+	avatar_orange,
 	avatar_pink,
 	avatar_purple,
-	avatar_orange,
 	avatar_yellow,
 } from './maintenance.data';
 
@@ -26,6 +30,7 @@ export class MaintenanceService {
 		@Inject(getConnectionToken()) private readonly connection: Connection,
 		private rolesService: RolesService,
 		private teamsService: TeamsService,
+		private notificationsService: NotificationsService,
 	) {}
 
 	programmingLanguages: string[] = [
@@ -79,13 +84,14 @@ export class MaintenanceService {
 		return shuffled.slice(0, numEntries);
 	}
 
-	private generateTeam(leader: mongoose.Types.ObjectId) {
+	private generateTeam(leader: mongoose.Types.ObjectId): any {
 		const dto = new CreateTeamDto();
+
 		type RemoveReadonly = {
 			-readonly [key in keyof CreateTeamDto]: CreateTeamDto[key];
 		};
 
-		let team: RemoveReadonly = dto;
+		const team: RemoveReadonly = dto;
 
 		team.name = faker.internet.userName();
 		team.description = faker.lorem.paragraph();
@@ -103,7 +109,7 @@ export class MaintenanceService {
 			-readonly [key in keyof RegisterUserDto]: RegisterUserDto[key];
 		};
 
-		let initialUser: RemoveReadonly = dto;
+		const initialUser: RemoveReadonly = dto;
 
 		initialUser.email = faker.internet.email();
 		initialUser.password = faker.internet.password();
@@ -118,13 +124,16 @@ export class MaintenanceService {
 			-readonly [key in keyof UpdateUserDto]: UpdateUserDto[key];
 		};
 
-		let initialUser: RemoveReadonly = dto;
+		const initialUser: RemoveReadonly = dto;
 		initialUser.email = email;
 		initialUser.username = faker.internet.userName();
 		initialUser.fullName = faker.name.fullName();
-		initialUser.birthDate = faker.date.birthdate();
-		initialUser.age = String(faker.datatype.number({ min: 18, max: 65 }));
-		initialUser.description = faker.lorem.sentence();
+		(initialUser.dateOfBirth = faker.date.birthdate({
+			min: 18,
+			max: 65,
+			mode: 'age',
+		})),
+			(initialUser.description = faker.lorem.sentence());
 		initialUser.concentration = faker.name.jobTitle();
 		initialUser.country = faker.address.country();
 		initialUser.experience = `${faker.datatype.number({
@@ -161,8 +170,8 @@ export class MaintenanceService {
 		return initialUser;
 	}
 
-	async generateUsers(amount: number): Promise<Object> {
-		let startTime = performance.now();
+	async generateUsers(amount: number): Promise<StatusResponseDto> {
+		const startTime = performance.now();
 
 		const roleCheck = await this.rolesService.getRoleByValue('USER');
 
@@ -174,7 +183,7 @@ export class MaintenanceService {
 		}
 
 		for (let i = 0; i < amount; i++) {
-			let newUser = this.generateInitialUser();
+			const newUser = this.generateInitialUser();
 			const user = await this.usersService.createUser(newUser);
 			const update = this.updateGeneratedUser(user.email);
 
@@ -186,7 +195,7 @@ export class MaintenanceService {
 			await this.usersService.updateUser(update);
 		}
 
-		let endTime = performance.now();
+		const endTime = performance.now();
 
 		return {
 			status: `generated ${amount} users and took ${
@@ -195,20 +204,20 @@ export class MaintenanceService {
 		};
 	}
 
-	async generateTeams(amount: number): Promise<Object> {
-		let startTime = performance.now();
+	async generateTeams(amount: number): Promise<StatusResponseDto> {
+		const startTime = performance.now();
 
 		for (let i = 0; i < amount; i++) {
-			let newUser = this.generateInitialUser();
+			const newUser = this.generateInitialUser();
 			const user = await this.usersService.createUser(newUser);
 			const update = this.updateGeneratedUser(user.email);
 			await this.usersService.updateUser(update);
-			let team = this.generateTeam(user._id);
+			const team = this.generateTeam(user._id);
 
 			await this.teamsService.createTeam(team);
 		}
 
-		let endTime = performance.now();
+		const endTime = performance.now();
 		return {
 			status: `generated ${amount} teams and took ${
 				endTime - startTime
@@ -216,23 +225,26 @@ export class MaintenanceService {
 		};
 	}
 
-	async generateUsersInTeam(amount: number, teamid: mongoose.Types.ObjectId) {
-		let startTime = performance.now();
+	async generateUsersInTeam(
+		amount: number,
+		teamid: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
+		const startTime = performance.now();
 
 		for (let i = 0; i < amount; i++) {
-			let newUser = this.generateInitialUser();
+			const newUser = this.generateInitialUser();
 			const user = await this.usersService.createUser(newUser);
 			const update = this.updateGeneratedUser(user.email);
 			await this.usersService.updateUser(update);
 
-			let joinDto = {
+			const joinDto = {
 				user_id: user._id,
 				teamid,
 			};
 			await this.teamsService.joinTeam(joinDto);
 		}
 
-		let endTime = performance.now();
+		const endTime = performance.now();
 
 		return {
 			status: `added ${amount} users successfuly and took ${
@@ -241,8 +253,39 @@ export class MaintenanceService {
 		};
 	}
 
-	async dropDatabase() {
-		let startTime = performance.now();
+	async generateNotifications(
+		userid: mongoose.Types.ObjectId,
+		amount: number,
+	): Promise<StatusResponseDto> {
+		const startTime = performance.now();
+
+		const userCheck = await this.usersService.getUserById(userid);
+
+		if (!userCheck) {
+			return { status: 'User was not found' };
+		}
+
+		for (let i = 0; i < amount; i++) {
+			const notification =
+				await this.notificationsService.createSystemNotification({
+					userid: userCheck._id,
+					system_message: `Testing notification #${i}`,
+				});
+
+			await this.usersService.addNotification(userid, notification._id);
+		}
+
+		const endTime = performance.now();
+
+		return {
+			status: `generated ${amount} notifications for user ${
+				userCheck._id
+			} and took ${endTime - startTime} milliseconds`,
+		};
+	}
+
+	async dropDatabase(): Promise<StatusResponseDto> {
+		const startTime = performance.now();
 
 		await this.connection.dropDatabase();
 
@@ -251,7 +294,7 @@ export class MaintenanceService {
 			description: 'Default user role',
 		});
 
-		let endTime = performance.now();
+		const endTime = performance.now();
 
 		return {
 			status: `dropped successfuly and took ${

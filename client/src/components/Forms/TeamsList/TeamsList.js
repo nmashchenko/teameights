@@ -1,11 +1,11 @@
 // * Modules
 import { useEffect, useState } from 'react'
+import { Toaster } from 'react-hot-toast'
 // * Redux
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
@@ -18,8 +18,6 @@ import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../assets/fonts'
 import { LOCAL_PATH } from '../../../http'
 import TeamCard from '../../../screens/Forms/TeamsScreen/TeamCard/TeamCard'
 import Loader from '../../../shared/components/Loader/Loader'
-import { userAuth } from '../../../store/reducers/UserAuth'
-import TopTemplate from '../../TopTemplate/TopTemplate'
 import TeamActionModal from '../TeamForm/TeamActionModal'
 import { style } from '../TeamForm/TeamForm.styles'
 
@@ -37,10 +35,8 @@ import {
 
 function TeamsList() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const { data: user } = useCheckAuth()
-  const { enqueueSnackbar } = useSnackbar()
 
   const [teams, setTeams] = useState([])
   const [selectedTeam, setSelectedTeam] = useState({})
@@ -91,16 +87,15 @@ function TeamsList() {
 
       setChangeModal('alreadyOnTeam')
     } else {
-      await joinUser({ user_id: userId, teamid: selectedTeam._id })
-      handleClose()
-      navigate('/my-team')
-    }
+      const result = await joinUser({ user_id: userId, teamid: selectedTeam._id })
 
-    // } else {
-    //   enqueueSnackbar('You have joined the team already!', {
-    //     preventDuplicate: true,
-    //   })
-    // }
+      if (result) {
+        handleClose()
+        navigate(`/team/${selectedTeam._id}`)
+      } else {
+        console.log('here')
+      }
+    }
   }
 
   const handleLeaveAndJoin = () => {
@@ -183,7 +178,7 @@ function TeamsList() {
                 People
               </Text>
             </ColumnNames>
-            {teams.map((team, i) => (
+            {teams?.data?.map((team, i) => (
               <TeamData margin="60px" key={i}>
                 <TeamImage
                   src={

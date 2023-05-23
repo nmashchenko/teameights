@@ -1,4 +1,3 @@
-import { User } from '@/users/users.schema';
 import { ApiProperty } from '@nestjs/swagger';
 import {
 	IsEnum,
@@ -8,6 +7,7 @@ import {
 	IsString,
 } from 'class-validator';
 import mongoose from 'mongoose';
+
 import { TeamType } from '../types/teams.type';
 
 export class UpdateTeamDto {
@@ -58,7 +58,7 @@ export class UpdateTeamDto {
 	})
 	@IsOptional()
 	@IsNumber()
-	readonly wins?: Number;
+	readonly wins?: number;
 
 	@ApiProperty({
 		example: 10,
@@ -67,5 +67,5 @@ export class UpdateTeamDto {
 	})
 	@IsOptional()
 	@IsNumber()
-	readonly points?: Number;
+	readonly points?: number;
 }

@@ -1,0 +1,24 @@
+/* remove border outside of select fields */
+fieldset{
+  border: none !important;
+  outline: none !important;
+}
+
+/* scrollbar customization */
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar { 
+  width: 9px;
+}
+
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar-thumb { /* WebKit */
+  background: #365A08;
+  border-radius: 10px;
+  height: 30px !important;
+}
+
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper::-webkit-scrollbar-track{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+

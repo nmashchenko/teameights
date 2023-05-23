@@ -1,6 +1,6 @@
-import { UpdateTeamAvatarDto } from '@/teams/dto/update-team-avatar.dto';
-
 import mongoose from 'mongoose';
+
+import { UpdateTeamAvatarDto } from '@/teams/dto/update-team-avatar.dto';
 
 export const UpdateTeamAvatarDtoStub = (
 	teamid: mongoose.Types.ObjectId,

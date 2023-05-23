@@ -1,8 +1,5 @@
 // * Modules
 import { useEffect, useState } from 'react'
-// * Redux
-import { CssBaseline } from '@mui/material'
-import { useSnackbar } from 'notistack'
 
 // * API
 import teamsAPI from '../../../api/endpoints/team'
@@ -14,6 +11,7 @@ import { useLeave } from '../../../api/hooks/team/useLeaveTeam'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
 import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
 import Loader from '../../../shared/components/Loader/Loader'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 import About from './About/About'
 import EditImage from './EditImage/EditImage'
@@ -122,15 +120,11 @@ function TeamForm() {
     setModalActive('')
   }
 
-  const { enqueueSnackbar } = useSnackbar()
-
   const handleInvite = async () => {
     const result = await teamsAPI.inviteUserByEmail(email, team)
 
     if (result.data.error) {
-      enqueueSnackbar(result.data.error, {
-        preventDuplicate: true,
-      })
+      errorToaster(result.data.error)
     } else {
       handleClose()
     }
@@ -295,7 +289,6 @@ function TeamForm() {
           servedProfilePic={servedProfilePic}
         />
       </CardContainer>
-      <CssBaseline />
     </Container>
   )
 }

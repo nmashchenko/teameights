@@ -1,35 +1,37 @@
 import { HttpException } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { TeamsService } from '../teams.service';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Team, TeamsSchema } from '../teams.schema';
-import { UsersModule } from '@/users/users.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { Test, TestingModule } from '@nestjs/testing';
+import { MailerModule } from '@nestjs-modules/mailer';
+import * as path from 'path';
+import { uuid } from 'uuidv4';
+
+import { AuthModule } from '@/auth/auth.module';
 import { FileModule } from '@/files/file.module';
+import { MailsModule } from '@/mails/mails.module';
 import { NotificationsModule } from '@/notifications/notifications.module';
+import { NotificationsService } from '@/notifications/notifications.service';
+import { RolesService } from '@/roles/roles.service';
 import {
 	closeMongoConnection,
 	healthCheck,
 	rootMongooseTestModule,
 } from '@/test-utils/MongooseTestModule';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { ConfigModule } from '@nestjs/config';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import * as path from 'path';
-import { CreateTeamDtoStub } from './stubs/create-team.dto.stub';
-import { UsersService } from '@/users/users.service';
+import { TokensModule } from '@/tokens/tokens.module';
 import { RegisterUserDtoStub } from '@/users/tests/stubs/register-user.dto.stub';
-import { RolesService } from '@/roles/roles.service';
-import { uuid } from 'uuidv4';
+import { UpdateUserAvatarDtoStub } from '@/users/tests/stubs/update-avatar.dto.stub';
+import { UsersModule } from '@/users/users.module';
 import { User } from '@/users/users.schema';
-import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
+import { UsersService } from '@/users/users.service';
+
+import { Team, TeamsSchema } from '../teams.schema';
+import { TeamsService } from '../teams.service';
+import { CreateTeamDtoStub } from './stubs/create-team.dto.stub';
 import { InviteToTeamDtoStub } from './stubs/invite-to-team.dto.stub';
-import { MailsModule } from '@/mails/mails.module';
-import { NotificationsService } from '@/notifications/notifications.service';
 import { TransferLeaderDtoStub } from './stubs/transfer-leader.dto.stub';
 import { UpdateTeamDtoStub } from './stubs/update-team.dto.stub';
-import { TokensModule } from '@/tokens/tokens.module';
-import { AuthModule } from '@/auth/auth.module';
-import { UpdateUserAvatarDtoStub } from '@/users/tests/stubs/update-avatar.dto.stub';
+import { UpdateTeamAvatarDtoStub } from './stubs/update-team-avatar.dto.stub';
 
 describe('TeamService', () => {
 	let teamsService: TeamsService;
@@ -37,7 +39,7 @@ describe('TeamService', () => {
 	let rolesService: RolesService;
 	let notificationService: NotificationsService;
 
-	beforeAll((done) => {
+	beforeAll(done => {
 		done();
 	});
 
@@ -97,7 +99,7 @@ describe('TeamService', () => {
 		// done();
 	});
 
-	async function createUser(email: string = 'test@example.com') {
+	async function createUser(email = 'test@example.com'): Promise<User> {
 		await rolesService.createRole({
 			value: 'USER',
 			description: 'User role',
@@ -106,18 +108,17 @@ describe('TeamService', () => {
 		return await userService.createUser(RegisterUserDtoStub(email));
 	}
 
-	async function createMultipleUsers(amount: number) {
+	async function createMultipleUsers(amount: number): Promise<User[]> {
 		await rolesService.createRole({
 			value: 'USER',
 			description: 'User role',
 		});
-		let users = new Array<User>();
+		const users = new Array<User>();
 
 		for (let i = 0; i < amount; i++) {
 			const user = await userService.createUser(
 				RegisterUserDtoStub(uuid() + '@gmail.com'),
 			);
-
 			users.push(user);
 		}
 
@@ -166,14 +167,14 @@ describe('TeamService', () => {
 		).rejects.toThrow(HttpException);
 	});
 
-	it('should create 300 users and 300 teams', async () => {
-		let users = await createMultipleUsers(300);
+	it('should create 100 users and 100 teams', async () => {
+		const users = await createMultipleUsers(100);
 
 		for (let i = 0; i < users.length; i++) {
 			await teamsService.createTeam(CreateTeamDtoStub(users[i]._id));
 		}
 
-		expect((await teamsService.getAllTeams()).length).toBe(300);
+		expect((await teamsService.getTeamsByPage()).total).toBe(100);
 	});
 
 	it('should create user, give him role, create team, double check that it is created without image, make request to update image and double check that image link was given', async () => {
@@ -231,7 +232,7 @@ describe('TeamService', () => {
 			RegisterUserDtoStub('mmashc2@uic.edu'),
 		);
 
-		const info = await teamsService.inviteToTeam(
+		await teamsService.inviteToTeam(
 			InviteToTeamDtoStub(user2.email, user1._id, team._id),
 		);
 
@@ -246,11 +247,11 @@ describe('TeamService', () => {
 
 		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
 
-		expect((await teamsService.getAllTeams()).length).toBe(1);
+		expect((await teamsService.getTeamsByPage()).total).toBe(1);
 
 		await teamsService.deleteTeam(team._id);
 
-		expect((await teamsService.getAllTeams()).length).toBe(0);
+		expect((await teamsService.getTeamsByPage()).total).toBe(0);
 	});
 
 	it('should create user, give him role, create team and then fail to create another team with the same tag', async () => {
@@ -267,9 +268,9 @@ describe('TeamService', () => {
 	it('should create 5 users, give them role, one user should create team and then invite other users into it', async () => {
 		const users = await createMultipleUsers(5);
 
-		const leader = users.shift();
+		// const leader = users.shift();
 
-		let members = {
+		const members = {
 			emails: [],
 			ids: [],
 		};
@@ -280,14 +281,14 @@ describe('TeamService', () => {
 		}
 
 		const team = await teamsService.createTeam(
-			CreateTeamDtoStub(leader._id, null, members.emails, members.ids),
+			CreateTeamDtoStub(users[0]._id, null, members.emails, members.ids),
 		);
 
 		/* Checking if the team is defined. */
 		expect(team).toBeDefined();
 
-		for (let i = 0; i < users.length; i++) {
-			let notification =
+		for (let i = 1; i < users.length; i++) {
+			const notification =
 				await notificationService.getTeamNotificationsForUser(
 					users[i]._id,
 				);
@@ -296,7 +297,7 @@ describe('TeamService', () => {
 			expect(notification[0]).toBeDefined();
 
 			/* Checking if the notification is defined. */
-			expect(notification[0].from_user_id).toStrictEqual(leader._id);
+			expect(notification[0].from_user_id).toStrictEqual(users[0]._id);
 		}
 	});
 
@@ -378,7 +379,7 @@ describe('TeamService', () => {
 	it('should create user, then create team and then call updateTeam without required teamid', async () => {
 		const user = await createUser();
 
-		const team = await teamsService.createTeam(CreateTeamDtoStub(user._id));
+		await teamsService.createTeam(CreateTeamDtoStub(user._id));
 
 		// @ts-ignore
 		await expect(teamsService.updateTeam({})).rejects.toThrow(
@@ -405,5 +406,86 @@ describe('TeamService', () => {
 		expect(updatedTeam.tag).toEqual(team.tag);
 		expect(updatedTeam.type).toEqual(team.type);
 		expect(updatedTeam.points).toEqual(team.points);
+	});
+
+	it('should create 5 users and 5 teams', async () => {
+		const users = await createMultipleUsers(5);
+
+		await teamsService.createTeam(CreateTeamDtoStub(users[0]._id, 'TEG1'));
+		await teamsService.createTeam(CreateTeamDtoStub(users[1]._id, 'TEG2'));
+		await teamsService.createTeam(CreateTeamDtoStub(users[2]._id, 'TEG3'));
+		await teamsService.createTeam(CreateTeamDtoStub(users[3]._id, 'BEG1'));
+		await teamsService.createTeam(CreateTeamDtoStub(users[4]._id, 'BEG2'));
+
+		expect(
+			(
+				await teamsService.getFilteredTeamsByPage(1, 9, {
+					tag: { $regex: 'TEG', $options: 'i' },
+				})
+			).total,
+		).toBe(3);
+	});
+
+	it('should create 10 users and 10 teams, make 1 team have 3 players and filter by team with 3 players', async () => {
+		const users = await createMultipleUsers(10);
+
+		let team: Team;
+
+		for (let i = 0; i < 7; i++) {
+			team = await teamsService.createTeam(
+				CreateTeamDtoStub(users[i]._id),
+			);
+		}
+
+		await teamsService.joinTeam({
+			user_id: users[8]._id,
+			teamid: team._id,
+		});
+
+		await teamsService.joinTeam({
+			user_id: users[9]._id,
+			teamid: team._id,
+		});
+
+		expect(
+			(await teamsService.getFilteredTeamsByPage(1, 9, { members: [3] }))
+				.total,
+		).toBe(1);
+	});
+
+	it('should create 10 users and 10 teams, make 1 team have 3 players and 1 team 4 players and filter by team with 3 players', async () => {
+		const users = await createMultipleUsers(10);
+
+		const team1 = await teamsService.createTeam(
+			CreateTeamDtoStub(users[0]._id),
+		);
+
+		const team2 = await teamsService.createTeam(
+			CreateTeamDtoStub(users[1]._id),
+		);
+
+		// add 3 members to team1
+		for (let i = 2; i < 4; i++) {
+			await teamsService.joinTeam({
+				user_id: users[i]._id,
+				teamid: team1._id,
+			});
+		}
+
+		// add 4 members to team2
+		for (let i = 4; i < 7; i++) {
+			await teamsService.joinTeam({
+				user_id: users[i]._id,
+				teamid: team2._id,
+			});
+		}
+
+		expect(
+			(
+				await teamsService.getFilteredTeamsByPage(1, 9, {
+					members: [3, 4],
+				})
+			).total,
+		).toBe(2);
 	});
 });

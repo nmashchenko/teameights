@@ -2,85 +2,79 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
+// * Components
 import ProfileDetails from '../components/Profile/components/ProfileDetails/ProfileDetails'
 import ProfileForm from '../components/Profile/components/ProfileForm'
 // * Constants
 import ROUTES from '../constants/routes'
+// * Layouts
 import AuthLayout from '../layouts/AuthLayout/AuthLayout'
 import NavBarItemPageLayout from '../layouts/NavBarItemPageLayout/NavBarItemPageLayout'
-import Confirmation from '../screens/Forms/Confirmation/Confirmation'
-import CreateTeam from '../screens/Forms/CreateTeam/CreateTeam'
-import FinishRegistration from '../screens/Forms/FinishRegistration/FinishRegistration'
-import Form404 from '../screens/Forms/Form404/Form404'
-import LeaderboardScreen from '../screens/Forms/LeaderboardScreen/LeaderboardScreen'
-import LoaderScreen from '../screens/Forms/LoaderScreen/LoaderScreen'
+import Screen404 from '../screens/404Screen/404Screen'
 // * Screens
-import Login from '../screens/Forms/Login/Login'
-import MyTeam from '../screens/Forms/MyTeam/MyTeam'
-import NoTeamScreen from '../screens/Forms/NoTeamScreen/NoTeamScreen'
-import ProfilePage from '../screens/Forms/Profile/Profile'
-import Registration from '../screens/Forms/Registration/Registration'
-import ResetNewPasswords from '../screens/Forms/ResetNewPasswords/ResetNewPasswords'
-import ResetPassword from '../screens/Forms/ResetPassword/ResetPassword'
-import ResetPasswordConfirmation from '../screens/Forms/ResetPasswordConfirmation/ResetPasswordConfirmation'
-import TeamScreen from '../screens/Forms/TeamScreen/TeamScreen'
-import TeamsScreen from '../screens/Forms/TeamsScreen/TeamsScreen'
-import TournamentCodingScreen from '../screens/Forms/TournamentCodingScreen/TournamentCodingScreen'
-import TournamentInfo from '../screens/Forms/TournamentInfo/TournamentInfo'
-import Tournaments from '../screens/Forms/Tournaments/Tournaments'
-import UsersList from '../screens/UsersList/UsersList'
+import ConfirmationScreen from '../screens/ConfirmationScreen/ConfirmationScreen'
+import CreateTeamScreen from '../screens/CreateTeamScreen/CreateTeamScreen'
+import FinishRegistrationScreen from '../screens/FinishRegistrationScreen/FinishRegistrationScreen'
+import LoaderScreen from '../screens/LoaderScreen/LoaderScreen'
+import LoginScreen from '../screens/LoginScreen/LoginScreen'
+import NoTeamScreen from '../screens/NoTeamScreen/NoTeamScreen'
+import ProfileScreen from '../screens/ProfileScreen/ProfileScreen'
+import RegistrationScreen from '../screens/RegistrationScreen/RegistrationScreen'
+import ResetNewPasswordsScreen from '../screens/ResetNewPasswordsScreen/ResetNewPasswordsScreen'
+import ResetPasswordConfirmationScreen from '../screens/ResetPasswordConfirmationScreen/ResetPasswordConfirmationScreen'
+import ResetPasswordScreen from '../screens/ResetPasswordScreen/ResetPasswordScreen'
+import TeammatesScreen from '../screens/TeammatesScreen/TeammatesScreen'
+import TeamScreen from '../screens/TeamScreen/TeamScreen'
+import TeamsScreen from '../screens/TeamsScreen/TeamsScreen'
+import TournamentsScreen from '../screens/TournamentsScreen/Tournaments'
 
+// * Protected
 import ProtectFinishRegistration from './protected/ProtectFinishRegistration'
 
 export const useRoutes = () => {
   return (
     <Routes>
       {/* // * for authenticated user */}
-      <Route path="/" element={<UsersList />} />
-      <Route element={<ProtectFinishRegistration />}>
-        <Route path={ROUTES.finishRegistration} element={<FinishRegistration />} />
-      </Route>
-      <Route path="/auth/verification" element={<LoaderScreen />} />
       <Route element={<NavBarItemPageLayout />}>
+        <Route path={ROUTES.default} element={<TeammatesScreen />} />
         <Route
-          path="/profile"
+          path={ROUTES.profile}
           element={
-            <ProfilePage>
+            <ProfileScreen>
               <ProfileDetails />
-            </ProfilePage>
+            </ProfileScreen>
           }
         />
         <Route
-          path="/profile-edit"
+          path={ROUTES.profileEdit}
           element={
-            <ProfilePage>
+            <ProfileScreen>
               <ProfileForm />
-            </ProfilePage>
+            </ProfileScreen>
           }
         />
-        <Route path="/tournament" element={<Tournaments />} />
-        <Route path="/teams" element={<TeamsScreen />} />
-        <Route path="/my-team" element={<MyTeam />} />
-        {/* <Route path="/myteam" element={<TeamScreen />} />
-        <Route path="/team" element={<NoTeamScreen />} />
-      <Route path="/teams" element={<TeamsScreen />} /> */}
+        <Route path={ROUTES.tournaments} element={<TournamentsScreen />} />
+        <Route path={ROUTES.specificTeam} element={<TeamScreen />} />
+        <Route path={ROUTES.noTeam} element={<NoTeamScreen />} />
+        <Route path={ROUTES.allTeams} element={<TeamsScreen />} />
       </Route>
-      <Route path="/create-team" element={<CreateTeam />} />
-      <Route path="/tournament-info" element={<TournamentInfo />} />
-      <Route path="/coding" element={<TournamentCodingScreen />} />
-      <Route path="/leaderboard" element={<LeaderboardScreen />} />
+      <Route element={<ProtectFinishRegistration />}>
+        <Route path={ROUTES.finishRegistration} element={<FinishRegistrationScreen />} />
+      </Route>
+      <Route path={ROUTES.createTeam} element={<CreateTeamScreen />} />
+      <Route path={ROUTES.authVerification} element={<LoaderScreen />} />
 
       {/* // * for not authenticated user */}
       <Route element={<AuthLayout />}>
-        <Route path={ROUTES.login} element={<Login />} />
-        <Route path={ROUTES.registration} element={<Registration />} />
+        <Route path={ROUTES.login} element={<LoginScreen />} />
+        <Route path={ROUTES.registration} element={<RegistrationScreen />} />
       </Route>
-      <Route path={ROUTES.confirmEmail} element={<Confirmation />} />
-      <Route path={ROUTES.passwordRecover} element={<ResetPassword />} />
-      <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmation />} />
-      <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswords />} />
+      <Route path={ROUTES.confirmEmail} element={<ConfirmationScreen />} />
+      <Route path={ROUTES.passwordRecover} element={<ResetPasswordScreen />} />
+      <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmationScreen />} />
+      <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswordsScreen />} />
 
-      <Route path="*" element={<Form404 />} />
+      <Route path="*" element={<Screen404 />} />
     </Routes>
   )
 }
