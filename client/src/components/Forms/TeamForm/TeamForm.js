@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { useSnackbar } from 'notistack'
 
 // * API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
@@ -50,7 +49,7 @@ function TeamForm() {
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
   const { mutate: leaveTeam } = useTeamMembership('leave')
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser(handleClose)
-  const { enqueueSnackbar } = useSnackbar()
+
   const createDate = new Date(team?.createdAt)
     .toLocaleDateString({}, { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' })
     .replace(',', '')

@@ -46,12 +46,17 @@ export class NotificationsService {
 		};
 
 		if (typeof session !== 'undefined') {
-			const data = await this.systemNotificationModel.create([notification], {
-				session,
-			});
+			const data = await this.systemNotificationModel.create(
+				[notification],
+				{
+					session,
+				},
+			);
 			return data[0]._id;
 		} else {
-			const data = await this.systemNotificationModel.create(notification);
+			const data = await this.systemNotificationModel.create(
+				notification,
+			);
 			return data._id;
 		}
 	}
@@ -80,9 +85,12 @@ export class NotificationsService {
 		};
 
 		if (typeof session !== 'undefined') {
-			const data = await this.teamNotificationModel.create([notification], {
-				session,
-			});
+			const data = await this.teamNotificationModel.create(
+				[notification],
+				{
+					session,
+				},
+			);
 			return data[0]._id;
 		} else {
 			const data = await this.teamNotificationModel.create(notification);

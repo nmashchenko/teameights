@@ -51,7 +51,9 @@ describe('TeamService', () => {
 					envFilePath: `.dev.env`,
 				}),
 				rootMongooseTestModule(),
-				MongooseModule.forFeature([{ name: Team.name, schema: TeamsSchema }]),
+				MongooseModule.forFeature([
+					{ name: Team.name, schema: TeamsSchema },
+				]),
 				/* Serving the static files. */
 				ServeStaticModule.forRoot({
 					rootPath: path.resolve(__dirname, 'static'),
@@ -194,7 +196,9 @@ describe('TeamService', () => {
 	it('should create user, give him role, create team, then create another user invite him to team and double check everything was updated', async () => {
 		const user1 = await createUser();
 
-		const team = await teamsService.createTeam(CreateTeamDtoStub(user1._id));
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(user1._id),
+		);
 
 		await userService.updateAvatar(UpdateUserAvatarDtoStub(user1.email, 1));
 
@@ -220,7 +224,9 @@ describe('TeamService', () => {
 	it('should create user, give him role, create team, then create another user invite him to team and double check invite has image field', async () => {
 		const user1 = await createUser();
 
-		const team = await teamsService.createTeam(CreateTeamDtoStub(user1._id));
+		const team = await teamsService.createTeam(
+			CreateTeamDtoStub(user1._id),
+		);
 
 		const user2 = await userService.createUser(
 			RegisterUserDtoStub('mmashc2@uic.edu'),
@@ -262,7 +268,7 @@ describe('TeamService', () => {
 	it('should create 5 users, give them role, one user should create team and then invite other users into it', async () => {
 		const users = await createMultipleUsers(5);
 
-		const leader = users.shift();
+		// const leader = users.shift();
 
 		const members = {
 			emails: [],
@@ -275,21 +281,23 @@ describe('TeamService', () => {
 		}
 
 		const team = await teamsService.createTeam(
-			CreateTeamDtoStub(leader._id, null, members.emails, members.ids),
+			CreateTeamDtoStub(users[0]._id, null, members.emails, members.ids),
 		);
 
 		/* Checking if the team is defined. */
 		expect(team).toBeDefined();
 
-		for (let i = 0; i < users.length; i++) {
+		for (let i = 1; i < users.length; i++) {
 			const notification =
-				await notificationService.getTeamNotificationsForUser(users[i]._id);
+				await notificationService.getTeamNotificationsForUser(
+					users[i]._id,
+				);
 
 			/* Checking if the notification is defined. */
 			expect(notification[0]).toBeDefined();
 
 			/* Checking if the notification is defined. */
-			expect(notification[0].from_user_id).toStrictEqual(leader._id);
+			expect(notification[0].from_user_id).toStrictEqual(users[0]._id);
 		}
 	});
 
@@ -342,7 +350,9 @@ describe('TeamService', () => {
 		const updatedTeam = await teamsService.updateTeam(incoming_update_data);
 
 		expect(updatedTeam.name).toEqual(incoming_update_data.name);
-		expect(updatedTeam.description).toEqual(incoming_update_data.description);
+		expect(updatedTeam.description).toEqual(
+			incoming_update_data.description,
+		);
 		expect(updatedTeam.country).toEqual(incoming_update_data.country);
 		expect(updatedTeam.tag).toEqual(incoming_update_data.tag);
 		expect(updatedTeam.type).toEqual(incoming_update_data.type);
@@ -372,7 +382,9 @@ describe('TeamService', () => {
 		await teamsService.createTeam(CreateTeamDtoStub(user._id));
 
 		// @ts-ignore
-		await expect(teamsService.updateTeam({})).rejects.toThrow(HttpException);
+		await expect(teamsService.updateTeam({})).rejects.toThrow(
+			HttpException,
+		);
 	});
 
 	it('should create user, then create team and then call updateTeam with only required teamid', async () => {
@@ -420,7 +432,9 @@ describe('TeamService', () => {
 		let team: Team;
 
 		for (let i = 0; i < 7; i++) {
-			team = await teamsService.createTeam(CreateTeamDtoStub(users[i]._id));
+			team = await teamsService.createTeam(
+				CreateTeamDtoStub(users[i]._id),
+			);
 		}
 
 		await teamsService.joinTeam({
@@ -434,7 +448,8 @@ describe('TeamService', () => {
 		});
 
 		expect(
-			(await teamsService.getFilteredTeamsByPage(1, 9, { members: [3] })).total,
+			(await teamsService.getFilteredTeamsByPage(1, 9, { members: [3] }))
+				.total,
 		).toBe(1);
 	});
 

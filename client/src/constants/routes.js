@@ -1,13 +1,20 @@
 const ROUTES = Object.freeze({
+  default: '/',
   login: '/auth/login',
   registration: '/auth/registration',
   confirmEmail: '/auth/confirm-email',
+  authVerification: '/auth/verification',
   finishRegistration: '/auth/finish-registration',
   passwordRecover: '/auth/password-recover',
   passwordRecoverConfirm: '/auth/password-recover-confirm',
   passwordRecoverSuccess: '/auth/password-recover/:id/:token',
-  temporary: '/platform',
-  Profile: '/profile',
+  profile: '/profile',
+  profileEdit: '/profile-edit',
+  tournaments: '/tournaments',
+  specificTeam: '/team/:id',
+  noTeam: '/team',
+  allTeams: '/teams',
+  createTeam: '/teams/create',
 })
 
 export default ROUTES

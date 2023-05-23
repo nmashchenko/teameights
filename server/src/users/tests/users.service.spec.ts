@@ -45,8 +45,12 @@ describe('UserService', () => {
 					envFilePath: `.dev.env`,
 				}),
 				rootMongooseTestModule(),
-				MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-				MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
+				MongooseModule.forFeature([
+					{ name: User.name, schema: UserSchema },
+				]),
+				MongooseModule.forFeature([
+					{ name: Role.name, schema: RoleSchema },
+				]),
 				/* Serving the static files. */
 				ServeStaticModule.forRoot({
 					rootPath: path.resolve(__dirname, 'static'),
@@ -112,16 +116,19 @@ describe('UserService', () => {
 	});
 
 	it('should create user and update birthday date', async () => {
+		const users = await userService.getAllUsers();
+
+		console.log(users);
 		const user = await createUser();
 		expect(user.email).toBe('test@example.com');
 
 		const updateBirthdayData = {
 			email: 'test@example.com',
-			birthDate: new Date(2002, 0),
+			dateOfBirth: new Date(2002, 0),
 		};
 		// @ts-ignore
 		const updateUser = await userService.updateUser(updateBirthdayData);
-		expect(updateUser.birthDate).toEqual(updateBirthdayData.birthDate);
+		expect(updateUser.dateOfBirth).toEqual(updateBirthdayData.dateOfBirth);
 	});
 
 	it('should create user and then update university fields', async () => {
@@ -180,7 +187,9 @@ describe('UserService', () => {
 		// compare all fields
 		expect(updateUser.jobData[0].title).toBe(updateJobData.jobData.title);
 
-		expect(updateUser.jobData[0].company).toBe(updateJobData.jobData.company);
+		expect(updateUser.jobData[0].company).toBe(
+			updateJobData.jobData.company,
+		);
 
 		expect(updateUser.jobData[0].startDate).toEqual(
 			updateJobData.jobData.startDate,

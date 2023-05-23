@@ -109,9 +109,9 @@ export class TeamsService {
 		await this.userService.addTeam(candidate._id, team._id);
 
 		/* Check if there are any members to invite. */
-		if (dto?.members?.emails.length > 0) {
+		if (dto?.members?.emails.length > 1) {
 			/* Inviting all the members of the team to the team. */
-			for (let i = 0; i < dto.members.emails.length; i++) {
+			for (let i = 1; i < dto.members.emails.length; i++) {
 				const candidate = {
 					email: dto.members.emails[i],
 					from_user_id: dto.leader,
@@ -260,10 +260,16 @@ export class TeamsService {
 				parsedQuery.$expr = {
 					$and: [
 						{
-							$gte: [{ $size: '$members' }, Number(parsedQuery.members[0])],
+							$gte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[0]),
+							],
 						},
 						{
-							$lte: [{ $size: '$members' }, Number(parsedQuery.members[1])],
+							$lte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[1]),
+							],
 						},
 					],
 				};
@@ -408,7 +414,9 @@ export class TeamsService {
 		userId: mongoose.Types.ObjectId,
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<void> {
-		console.log(`Removing notification ${notificationid} from user ${userId}`);
+		console.log(
+			`Removing notification ${notificationid} from user ${userId}`,
+		);
 		/* Removing the notification from the database. */
 		await this.notificationsService.removeNotification(notificationid);
 
@@ -427,7 +435,9 @@ export class TeamsService {
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(notificationid);
+			await this.notificationsService.getTeamNotificationById(
+				notificationid,
+			);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -512,7 +522,9 @@ export class TeamsService {
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(notificationid);
+			await this.notificationsService.getTeamNotificationById(
+				notificationid,
+			);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -549,7 +561,10 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -605,12 +620,15 @@ export class TeamsService {
 	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
 	 * @returns The updated team.
 	 */
-	async leaveTeam(dto: TeamMembershipDTO): Promise<Team> {
+	async leaveTeam(dto: TeamMembershipDTO): Promise<Team | void> {
 		const candidate = await this.userService.getUserById(dto.user_id);
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -641,6 +659,28 @@ export class TeamsService {
 		}
 
 		// TODO: in the future, check if user is signed up for the tournament before allowing to leave the team
+
+		/* The above code is checking if a team leader is trying to leave a team that has other members in it.
+		If so, it throws an HTTP exception with a message indicating that the leader cannot leave the team
+		before removing all players. */
+		if (team.leader._id.equals(candidate._id) && team.members.length > 1) {
+			throw new HttpException(
+				`${candidate.username} can't leave the team before removing all players`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* The above code is checking if a candidate is the only member of a team and also the leader of that
+		team. If both conditions are true, it deletes the team from the database using the team's ID and
+		removes the team from the candidate's list of teams using the candidate's ID. */
+		if (
+			team.leader._id.equals(candidate._id) &&
+			team.members.length === 1
+		) {
+			await this.teamModel.findOneAndDelete({ _id: team._id });
+
+			return this.userService.removeTeam(candidate._id);
+		}
 
 		/* Removing the user to the team. */
 		const updated = await this.teamModel.findOneAndUpdate(
@@ -690,7 +730,7 @@ export class TeamsService {
 	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
 	 * @returns Team
 	 */
-	async removeMember(dto: TeamMembershipDTO): Promise<Team> {
+	async removeMember(dto: TeamMembershipDTO): Promise<Team | void> {
 		return await this.leaveTeam(dto);
 	}
 
@@ -741,13 +781,21 @@ export class TeamsService {
 		// check if leader is valid user
 		const leader = await this.userService.getUserById(dto.leader_id);
 		if (!leader) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		// check if new_leader is valid user
-		const new_leader = await this.userService.getUserById(dto.new_leader_id);
+		const new_leader = await this.userService.getUserById(
+			dto.new_leader_id,
+		);
 		if (!new_leader) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		// check if both leader and new_leader belogn to the same team
@@ -781,5 +829,9 @@ export class TeamsService {
 		// TODO: add notification here to new leader that he is now leader of the team
 
 		return newTeam;
+	}
+
+	async getByTag(tag: string): Promise<Team> {
+		return await this.teamModel.findOne({ tag: tag });
 	}
 }

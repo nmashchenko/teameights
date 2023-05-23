@@ -23,7 +23,7 @@ function TournamentsForm() {
     <Content>
       <SmallCard>
         <SmallCardContainer>
-          <Text>12/04</Text>
+          <Text>Soon❤️</Text>
         </SmallCardContainer>
         <SmallCardContainer justify="center" align="start" mr="69px">
           <Text fontSize="22px">Teameights cup #1</Text>
@@ -43,13 +43,11 @@ function TournamentsForm() {
           </Language>
         </SmallCardContainer>
         <SmallCardContainer justify="center">
-          <ButtonGeneral onClick={() => navigate('/tournament-info', { replace: true })}>
-            View
-          </ButtonGeneral>
+          <ButtonGeneral disabled>View</ButtonGeneral>
         </SmallCardContainer>
       </SmallCard>
       <BigCard>
-        <Text fontSize="18px">No recent tournaments found...</Text>
+        <Text fontSize="24px">Tournaments coming in the next updates🎉</Text>
       </BigCard>
     </Content>
   )

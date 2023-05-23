@@ -21,7 +21,7 @@ function NoTeamForm() {
       navigate(ROUTES.login)
     } else {
       dispatch(startRegistration())
-      navigate('/create-team', { replace: true })
+      navigate('/teams/create', { replace: true })
     }
   }
 
@@ -34,7 +34,7 @@ function NoTeamForm() {
   }
 
   if (user?.userTeam) {
-    return <Navigate to="/myteam" />
+    return <Navigate to={`/team/${user.team._id}`} />
   }
 
   return (
