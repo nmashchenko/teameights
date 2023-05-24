@@ -1,14 +1,18 @@
 // * Modules
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 // API
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
+import { useUpdateAvatar } from '../../api/hooks/auth/useUpdateAvatar'
 import { useCreateTeam } from '../../api/hooks/team/useCreateTeam'
 import { defaultTeamAvatars } from '../../constants/teamFormData'
 // * Assets
 import { createTeamValidation } from '../../schemas'
 import Loader from '../../shared/components/Loader/Loader'
 import { errorToaster } from '../../shared/components/Toasters/Error.toaster'
+import { setIsFinishRegistrationStarted, setStep } from '../../store/reducers/RegistrationAuth'
 import { transformToCreateTeamDto } from '../../utils/transformToCreateTeamDto'
 import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
 import AvatarForm from '../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm'
@@ -16,14 +20,21 @@ import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoF
 import InviteMembersForm from '../RegistrationPipeline/components/RegistrationForms/InviteMembersForm/InviteMembersForm'
 
 function CreateTeam() {
-  const [teamAvatar, setTeamAvatar] = useState(null)
+  const { mutate: updateAvatar, isLoading: isAvatarUpdating } = useUpdateAvatar('teams')
+
   const {
     mutate: createTeam,
     isLoading: isCreatingTeam,
     isError: isCreatingTeamError,
     error,
-  } = useCreateTeam(teamAvatar)
+  } = useCreateTeam()
+
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
+
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
   const userId = user?._id
   const steps = [
     { component: <InfoForm />, name: 'Create team', isOptional: false },
@@ -54,7 +65,7 @@ function CreateTeam() {
     file: null,
   }
 
-  const submitForm = async (formData) => {
+  const submitForm = (formData) => {
     let membersModified = transformToCreateTeamDto(formData.members)
 
     const teamData = {
@@ -67,9 +78,22 @@ function CreateTeam() {
       members: membersModified.members,
     }
 
-    setTeamAvatar(formData.file)
-
-    createTeam(teamData)
+    createTeam(teamData, {
+      onSuccess: (data) => {
+        if (formData.file) {
+          updateAvatar(
+            { teamID: data._id, image: formData.file.split(',')[1] },
+            {
+              onSuccess: (updatedTeam) => {
+                dispatch(setIsFinishRegistrationStarted(false))
+                dispatch(setStep(1))
+                navigate(`/team/${updatedTeam.data._id}`)
+              },
+            },
+          )
+        }
+      },
+    })
   }
 
   if (isCreatingTeamError && !isCreatingTeam) {
@@ -78,7 +102,7 @@ function CreateTeam() {
 
   return (
     <>
-      {(isUserLoading || isCreatingTeam) && <Loader />}
+      {(isUserLoading || isCreatingTeam || isAvatarUpdating) && <Loader />}
       <MultiStepRegistration
         steps={steps}
         validationSchema={createTeamValidation}

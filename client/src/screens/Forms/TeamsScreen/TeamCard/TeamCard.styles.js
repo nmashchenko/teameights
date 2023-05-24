@@ -57,6 +57,7 @@ export const TeamCardTopIcon = styled.img`
   width: 75px;
   height: 75px;
   margin-left: auto;
+  border-radius: 50%;
 `
 
 export const TeamCardBody = styled.div`
@@ -134,6 +135,7 @@ export const TeamCardPerson = styled.div`
 export const TeamCardPicture = styled.img`
   width: 40px;
   height: 40px;
+  border-radius: 50%;
 `
 
 export const TeamCardMembers = styled.div`

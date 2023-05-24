@@ -9,9 +9,7 @@ export const StyledNotificationsContent = styled.div`
 
 export const NotificationsCount = styled(motion.div)`
   position: absolute;
-  /* transition: opacity var(--menu-animation-time); */
-  ${'' /* opacity: ${(props) => (props.active ? 1 : 0)}; */}
-  pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  pointer-events: ${(props) => (props.pointerEvents ? 'all' : 'none')};
   top: ${(props) => props.top || 'auto'};
   right: ${(props) => props.right || 'auto'};
   left: ${(props) => props.left || 'auto'};

@@ -211,10 +211,27 @@ export class MaintenanceService {
 			const newUser = this.generateInitialUser();
 			const user = await this.usersService.createUser(newUser);
 			const update = this.updateGeneratedUser(user.email);
+
+			const randomUserIndex = Math.floor(
+				Math.random() * this.images.length,
+			);
+			await this.usersService.updateAvatar({
+				email: user.email,
+				image: this.images[randomUserIndex],
+			});
 			await this.usersService.updateUser(update);
+
 			const team = this.generateTeam(user._id);
 
-			await this.teamsService.createTeam(team);
+			const createdTeam = await this.teamsService.createTeam(team);
+
+			const randomTeamIndex = Math.floor(
+				Math.random() * this.images.length,
+			);
+			await this.teamsService.updateTeamAvatar({
+				teamID: createdTeam._id,
+				image: this.images[randomTeamIndex],
+			});
 		}
 
 		const endTime = performance.now();
@@ -235,6 +252,12 @@ export class MaintenanceService {
 			const newUser = this.generateInitialUser();
 			const user = await this.usersService.createUser(newUser);
 			const update = this.updateGeneratedUser(user.email);
+
+			const randomIndex = Math.floor(Math.random() * this.images.length);
+			await this.usersService.updateAvatar({
+				email: user.email,
+				image: this.images[randomIndex],
+			});
 			await this.usersService.updateUser(update);
 
 			const joinDto = {

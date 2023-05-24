@@ -1,28 +1,36 @@
-import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
-import http from '../../../http'
-
-const { api } = http
+import { useJoinTeam } from './useJoinTeam'
+import { useLeave } from './useLeaveTeam'
 
 export const useLeaveAndJoin = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const joinTeamMutation = useJoinTeam()
+  const leaveTeamMutation = useLeave()
 
   const leaveAndJoin = async (details) => {
-    const leave = await api.put(`/teams/leave`, details)
+    await leaveTeamMutation.mutateAsync(details.leaveDetails)
 
-    const join = await api.put('/teams/join', details)
+    const joinResult = await joinTeamMutation.mutateAsync(details.joinDetails)
 
-    return { leave: leave.data, join: join.data }
+    return joinResult
   }
 
-  return useMutation(leaveAndJoin, {
+  const onSuccess = async (joinDetails) => {
+    queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+    navigate(`/team/${joinDetails._id}`)
+  }
+
+  const leaveAndJoinMutation = useMutation(leaveAndJoin, {
     mutationKey: 'leaveAndJoin',
-    onSuccess: async () => {
-      await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
-      navigate('/my-team')
-    },
+    onSuccess,
   })
+
+  return {
+    leaveAndJoin: leaveAndJoinMutation,
+    isLeaving: leaveTeamMutation.isLoading,
+    isJoining: joinTeamMutation.isLoading,
+  }
 }

@@ -16,7 +16,7 @@ import {
   Text,
 } from './TeamForm.styles'
 
-const RightMain = ({
+const TeamProfileMiniCard = ({
   team,
   picture,
   selectedImage,
@@ -33,7 +33,7 @@ const RightMain = ({
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div style={{ position: 'relative', width: '100px', height: '124px' }}>
               <TeamImgBorder
-                alt={team.username}
+                alt={team?.username}
                 src={
                   picture !== null || selectedImage !== ''
                     ? servedProfilePic
@@ -63,7 +63,7 @@ const RightMain = ({
             lineHeight={`${H4lh}`}
             fontWeight={`${H4fw}`}
           >
-            {team.name}
+            {team?.name}
           </Text>
           <SVGAndText margin="0 0 17px 0">
             <CakeBox>
@@ -75,7 +75,7 @@ const RightMain = ({
               lineHeight={`${B2lh}`}
               fontWeight={`${B2fw}`}
             >
-              {team.createdAt.split('T')[0]}
+              {team?.createdAt.split('T')[0]}
             </Text>
           </SVGAndText>
           <SVGAndText>
@@ -83,7 +83,7 @@ const RightMain = ({
               <Users />
             </CakeBox>
             <Text fontSize={`${B2fs}`} lineHeight={`${B2lh}`} fontWeight={`${B2fw}`}>
-              {team.members.length}/8
+              {team?.members.length}/8
             </Text>
           </SVGAndText>
         </TeamInformationContainer>
@@ -93,4 +93,4 @@ const RightMain = ({
   )
 }
 
-export default RightMain
+export default TeamProfileMiniCard

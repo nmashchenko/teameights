@@ -1,11 +1,12 @@
 // * Modules
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // * Assets
 import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
 import ROUTES from '../../../../constants/routes'
-import CustomButton from '../../../../shared/components/CustomButton/CustomButton'
+import Loader from '../../../../shared/components/Loader/Loader'
 import { startRegistration } from '../../../../store/reducers/RegistrationAuth'
 // * Styles
 import { Center, Container, TeamButton, Text } from '../TeamForm.styles'
@@ -13,7 +14,7 @@ import { Center, Container, TeamButton, Text } from '../TeamForm.styles'
 function NoTeamForm() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { data: user } = useCheckAuth()
+  const { data: user, isLoading: isUserDataLoading } = useCheckAuth()
 
   const handleCreate = () => {
     if (!user?.isRegistered) {
@@ -32,9 +33,15 @@ function NoTeamForm() {
     }
   }
 
-  if (user?.userTeam) {
-    return <Navigate to={`/team/${user.team._id}`} />
+  if (isUserDataLoading) {
+    return <Loader />
   }
+
+  useEffect(() => {
+    if (user?.team) {
+      navigate(`/team/${user?.team._id}`)
+    }
+  }, [])
 
   return (
     <Container>

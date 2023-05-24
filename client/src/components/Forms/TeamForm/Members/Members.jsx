@@ -63,7 +63,7 @@ const Members = ({
         changeChosenLeader({ username: newLeader, id: id })
       }}
     >
-      {team.members
+      {team?.members
         .filter((member) => member.isLeader && team.leader._id !== member._id)
         .map((member, key) => {
           return (
@@ -86,7 +86,7 @@ const Members = ({
   return (
     <>
       <UserGrid>
-        {team.members.map((member, i) => (
+        {team?.members.map((member, i) => (
           <UserCard
             onClick={() => {
               // only able to open modal window

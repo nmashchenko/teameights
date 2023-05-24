@@ -19,7 +19,6 @@ import Members from './Members/Members'
 import TeamModal from './Modal/TeamModal'
 import NoTeam from './NoTeam/NoTeam'
 import TopContainerComponent from './TopContainer/TopContainer'
-import RightMain from './RightMain'
 import {
   Card,
   CardContainer,
@@ -28,7 +27,7 @@ import {
   LeaderActionsBox,
   LeaveTeam,
 } from './TeamForm.styles'
-import tempImg from './zxc1.jpg'
+import TeamProfileMiniCard from './TeamProfileMiniCard'
 
 function TeamForm() {
   const [removeMemberActive, setRemoveMemberActive] = useState('')
@@ -42,7 +41,6 @@ function TeamForm() {
   const [editImage, setEditImage] = useState(false)
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
   const teamId = user?.team?._id
-  const userId = user?._id
   const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
 
   const [isMembers, switchIsMembers] = useState(true)
@@ -94,12 +92,6 @@ function TeamForm() {
   }, [isEditing])
 
   const getServedProfilePic = () => {
-    // if we have no picture chosen, choose team image.
-    // if we dont have image, choose temp
-    if (picture === null && selectedImage === '') {
-      return tempImg
-    }
-
     // if we have a default, choose default
     if (selectedImage !== '') {
       return require(`../../../assets/Images/team/${defaultTeamImages[selectedImage]}.png`)
@@ -157,13 +149,10 @@ function TeamForm() {
     isLeaving ||
     isRemoving ||
     isTransferring ||
-    isUpdatingTeamsAvatar
+    isUpdatingTeamsAvatar ||
+    isUserDataLoading
   ) {
     return <Loader />
-  }
-
-  if (!user?.team) {
-    return <NoTeam />
   }
 
   const membersVar = (
@@ -188,13 +177,11 @@ function TeamForm() {
 
   const leaderOrMemberAction = (
     <>
-      {team.leader._id === user._id ? (
+      {team?.leader._id === user?._id ? (
         <LeaderActionsBox opacity={!isEditing || isMembers || editImage}>
           <EditTeam
             onClick={() => {
               // the only time we trigger an update is for the teams avatar
-              console.log(picture)
-              console.log()
               if (editImage && (picture || selectedImage !== '')) {
                 updateTeamsAvatar({ teamID: team._id, image: servedProfilePic.split(',')[1] })
               }
@@ -278,7 +265,7 @@ function TeamForm() {
       />
       <CardContainer>
         <Card>{insideCard}</Card>
-        <RightMain
+        <TeamProfileMiniCard
           team={team}
           picture={picture}
           selectedImage={selectedImage}

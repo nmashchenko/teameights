@@ -185,7 +185,10 @@ export class TeamsService {
 	}
 
 	async getAllTeams(): Promise<Team[]> {
-		return await this.teamModel.find({ type: TeamType.OPEN });
+		return await this.teamModel
+			.find({ type: TeamType.OPEN })
+			.populate('members')
+			.populate('leader');
 	}
 
 	/**

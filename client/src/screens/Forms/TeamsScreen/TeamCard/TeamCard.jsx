@@ -1,9 +1,5 @@
-import react from 'react'
-import { styled } from '@mui/material'
-
 import ArrowLeft from '../../../../assets/Arrows/ArrowLeft'
 import Crown from '../../../../assets/Crown'
-import tempImg from '../../../../components/Forms/TeamForm/zxc1.jpg'
 import { LOCAL_PATH } from '../../../../http'
 
 import {
@@ -27,7 +23,7 @@ import {
 const TeamCard = ({ user, handleClose, team, handleJoin }) => {
   const members = team.members
 
-  const leader = members.slice(0, 1)[0]
+  // const leader = members.slice(0, 1)[0]
 
   const teammates = members.slice(1, members.length)
 
@@ -44,6 +40,8 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
   }
 
   const usersTeam = getTeam()
+
+  console.log(team?.leader)
 
   return (
     <TeamCardFigure>
@@ -86,7 +84,7 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
                 <Crown />
               </CrownContainer>
               <h3>Leader</h3>
-              <TeamCardPicture src={leader?.image ? LOCAL_PATH + '/' + leader.image : tempImg} />
+              <TeamCardPicture src={LOCAL_PATH + '/' + team?.leader.image} />
             </TeamCardPerson>
           </div>
           <div>
@@ -95,13 +93,7 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
               {teammates.map((teammates, index) => {
                 return (
                   <TeamCardPerson key={index}>
-                    <TeamCardPicture
-                      src={
-                        teammates?.image
-                          ? LOCAL_PATH + '/' + teammates.image
-                          : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
-                      }
-                    />
+                    <TeamCardPicture src={LOCAL_PATH + '/' + teammates.image} />
                   </TeamCardPerson>
                 )
               })}
@@ -138,27 +130,6 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
           </JoinTeam>
         </TeamCardBodyPoint>
       </TeamCardBody>
-
-      {/* 
-<Text textAlign="center">Are you sure you want to join {team.name}?</Text>
-            <TeamButton
-              width="140px"
-              height="60px"
-              fontSize="20px"
-              fontWeight="600"
-              onClick={() => handleJoin(team._id)}
-            >
-              Join
-            </TeamButton>
-            <TeamButton
-              onClick={handleClose}
-              width="140px"
-              height="60px"
-              fontSize="20px"
-              fontWeight="600"
-            >
-              Cancel
-            </TeamButton> */}
     </TeamCardFigure>
   )
 }

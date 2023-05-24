@@ -1,32 +1,23 @@
 // * Modules
-import { useEffect, useState } from 'react'
-import { Toaster } from 'react-hot-toast'
-// * Redux
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 
 // * API
-import teamsAPI from '../../../api/endpoints/team'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useGetAllTeams } from '../../../api/hooks/team/useGetAllTeams'
-// import { useAddUserToTeam } from '../../../api/hooks/team/useAddUserToTeam'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
-import { useLeave } from '../../../api/hooks/team/useLeaveTeam'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../assets/fonts'
+import ROUTES from '../../../constants/routes'
 import { LOCAL_PATH } from '../../../http'
-import TeamCard from '../../../screens/Forms/TeamsScreen/TeamCard/TeamCard'
 import Loader from '../../../shared/components/Loader/Loader'
-import TeamActionModal from '../TeamForm/TeamActionModal'
-import { style } from '../TeamForm/TeamForm.styles'
 
+import { getModalState } from './getModalState'
 // * Styles
 import {
   Card,
   CardContainer,
-  ColumnNames,
   Container,
   TeamButton,
   TeamData,
@@ -35,23 +26,20 @@ import {
 } from './TeamsList.styles'
 
 function TeamsList() {
-  const navigate = useNavigate()
-
-  const { data: user } = useCheckAuth()
-
-  const [selectedTeam, setSelectedTeam] = useState({})
-  const { mutateAsync: joinUser, isLoading: isUserTeamLoading } = useJoinTeam()
+  let { data: user } = useCheckAuth()
   const userId = user?._id
 
+  const [selectedTeam, setSelectedTeam] = useState({})
   const [open, setOpen] = useState(false)
+  let [changeModal, setChangeModal] = useState('')
 
-  const [changeModal, setChangeModal] = useState('')
-
-  const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
-
-  const { mutate: leaveAndJoin, isLoading: isLeavingAndJoining } = useLeaveAndJoin()
+  const { mutate: joinUser, isLoading: isUserTeamLoading } = useJoinTeam()
 
   const { data: teams, isLoading: isLoadingTeams } = useGetAllTeams()
+
+  const { leaveAndJoin, isLeaving, isJoining } = useLeaveAndJoin()
+
+  const navigate = useNavigate()
 
   const handleClickOpen = (team) => {
     setSelectedTeam(team)
@@ -59,134 +47,84 @@ function TeamsList() {
     setChangeModal('joinTeam')
   }
 
-  const handleLeave = () => {
-    leaveTeam({
-      user_id: user?._id,
-      teamid: user?.team._id,
-    })
-  }
-
   const handleClose = () => {
     setOpen(false)
   }
 
   const handleJoin = async () => {
-    if (user.team !== undefined) {
-      // already on a team
-
-      setChangeModal('alreadyOnTeam')
+    if (!user?.isRegistered) {
+      navigate(ROUTES.login)
     } else {
-      const result = await joinUser({ user_id: userId, teamid: selectedTeam._id })
-
-      if (result) {
-        handleClose()
-        navigate(`/team/${selectedTeam._id}`)
+      if (user.team !== undefined) {
+        setChangeModal('alreadyOnTeam')
       } else {
-        console.log('here')
+        console.log(userId, selectedTeam._id)
+        joinUser({ user_id: userId, teamid: selectedTeam._id })
       }
     }
   }
 
-  const handleLeaveAndJoin = () => {
-    leaveAndJoin({ user_id: user?._id, teamid: user?.team._id })
+  const handleLeaveAndJoin = async () => {
+    const leaveDetails = { user_id: user?._id, teamid: user?.team._id }
+    const joinDetails = { user_id: user?._id, teamid: selectedTeam._id }
+
+    await leaveAndJoin.mutateAsync({ leaveDetails, joinDetails })
   }
 
-  if (isUserTeamLoading || isLoadingTeams || isLeaving) {
+  if (isUserTeamLoading || isLoadingTeams || isLeaving || isJoining) {
     return <Loader />
-  }
-
-  const getModalState = () => {
-    if (changeModal === 'alreadyOnTeam') {
-      if (user.team.leader === user._id) {
-        const isOnlyMember =
-          user.team.members.length === 1 ? 'You must delete team' : 'You must transfer leadership'
-
-        return (
-          <Box sx={style}>
-            <TeamActionModal
-              firstText="You cannot join team."
-              secondText={`${isOnlyMember} to join new team.`}
-              firstButton="Okay"
-              firstButtonHandler={handleClose}
-            />
-          </Box>
-        )
-      }
-
-      return (
-        <Box sx={style}>
-          <TeamActionModal
-            firstText="You're already on a team."
-            secondText="Do you want to leave current team and join new?"
-            firstButton="Leave & Join"
-            firstButtonHandler={handleLeave}
-            secondButton="Cancel"
-            secondButtonHandler={handleClose}
-          />
-        </Box>
-      )
-    } else if (changeModal === 'joinTeam') {
-      return (
-        <TeamCard
-          user={user}
-          handleJoin={handleJoin}
-          team={selectedTeam}
-          handleClose={handleClose}
-        />
-      )
-    } else {
-      return <></>
-    }
   }
 
   return (
     <>
-      <Container>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          {getModalState()}
-        </Modal>
-        <CardContainer>
-          <Card>
-            <ColumnNames>
-              <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
-                Photo
-              </Text>
-              <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
-                Name
-              </Text>
-              <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
-                People
-              </Text>
-            </ColumnNames>
-            {teams?.map((team, i) => (
-              <TeamData margin="60px" key={i}>
-                <TeamImage
-                  src={
-                    team?.image
-                      ? LOCAL_PATH + '/' + team?.image
-                      : 'https://pbs.twimg.com/profile_images/1406293979323371528/TJ7BseVI_400x400.jpg'
-                  }
-                />
-                <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
-                  {team.name}
+      {teams?.length > 0 ? (
+        <Container>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            {getModalState(
+              changeModal,
+              user,
+              handleClose,
+              handleLeaveAndJoin,
+              handleJoin,
+              selectedTeam,
+            )}
+          </Modal>
+          <CardContainer>
+            <Card>
+              <TeamData>
+                <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
+                  Photo
                 </Text>
-                <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
-                  {team.members.length}/8
+                <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
+                  Name
                 </Text>
-                <TeamButton onClick={() => handleClickOpen(team)}>
-                  Show
-                  <span>&nbsp;</span>
-                </TeamButton>
+                <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
+                  People
+                </Text>
               </TeamData>
-            ))}
-          </Card>
-        </CardContainer>
-      </Container>
+              {teams?.map((team, i) => (
+                <TeamData margin="60px" key={i}>
+                  <TeamImage src={LOCAL_PATH + '/' + team?.image} />
+                  <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
+                    {team.name}
+                  </Text>
+                  <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
+                    {team.members.length}/8
+                  </Text>
+                  <TeamButton onClick={() => handleClickOpen(team)}>Show</TeamButton>
+                </TeamData>
+              ))}
+            </Card>
+          </CardContainer>
+        </Container>
+      ) : (
+        <h1>No teams were found</h1>
+      )}
     </>
   )
 }
