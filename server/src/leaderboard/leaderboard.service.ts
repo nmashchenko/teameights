@@ -70,7 +70,8 @@ export class LeaderboardService {
 
 		const teamIndex = leaderboardCandidate.tournament_teams.findIndex(
 			team =>
-				team.team_id.toString() === dto.tournament_team.team_id.toString(),
+				team.team_id.toString() ===
+				dto.tournament_team.team_id.toString(),
 		);
 
 		if (teamIndex === -1) {

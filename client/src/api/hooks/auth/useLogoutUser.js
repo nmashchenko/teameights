@@ -1,8 +1,8 @@
-import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 
 import http from '../../../http'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 import { userAuth } from '../../../store/reducers/UserAuth'
 
 const { api } = http
@@ -33,7 +33,7 @@ export const useLogoutUser = () => {
     },
     onError: (error) => {
       // set error message
-      dispatch(userAuth.actions.authUserError(error.response?.data?.message))
+      errorToaster(error)
     },
   })
 }

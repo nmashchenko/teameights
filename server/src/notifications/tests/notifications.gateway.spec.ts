@@ -93,7 +93,10 @@ describe('Notifications Gateway Test', () => {
 
 		await new Promise<void>(resolve => {
 			ws.on('connect', async () => {
-				ws.emit('subscribeToNotifications', JSON.stringify({ id: user._id }));
+				ws.emit(
+					'subscribeToNotifications',
+					JSON.stringify({ id: user._id }),
+				);
 			});
 
 			/* 
@@ -128,7 +131,9 @@ describe('Notifications Gateway Test', () => {
 					displayed. 
 					*/
 					// TODO: Handle resolve on error here
-					expect(newNotification.system_message).toBe('New notification!');
+					expect(newNotification.system_message).toBe(
+						'New notification!',
+					);
 
 					/*
 					`ws.disconnect();` is a method call that disconnects the client from the WebSocket server. In this
@@ -147,7 +152,9 @@ describe('Notifications Gateway Test', () => {
 					if (!ws.active) {
 						console.log('disconnected from web socket');
 						setTimeout(() => {
-							console.log('changeStream should be closed now -- stop timer!');
+							console.log(
+								'changeStream should be closed now -- stop timer!',
+							);
 							resolve();
 						}, 3000);
 					}
@@ -167,7 +174,9 @@ describe('Notifications Gateway Test', () => {
 					if (!ws.active) {
 						console.log('disconnected from web socket');
 						setTimeout(() => {
-							console.log('changeStream should be closed now -- stop timer!');
+							console.log(
+								'changeStream should be closed now -- stop timer!',
+							);
 							resolve();
 
 							/* 

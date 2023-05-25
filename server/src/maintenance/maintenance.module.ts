@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { NotificationsModule } from '@/notifications/notifications.module';
 import { RolesModule } from '@/roles/roles.module';
 import { TeamsModule } from '@/teams/teams.module';
 import { UsersModule } from '@/users/users.module';
 
 import { MaintenanceController } from './maintenance.controller';
 import { MaintenanceService } from './maintenance.service';
-import { NotificationsModule } from '@/notifications/notifications.module';
 
 @Module({
 	controllers: [MaintenanceController],

@@ -3,6 +3,17 @@ import styled from 'styled-components'
 import { WHITE } from '../../../constants/colors'
 import { shake } from '../../styles/KeyFrames.styles'
 
+export const InputWrapper = styled.div`
+  position: relative;
+`
+
+export const IconSpan = styled.span`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+`
+
 export const Input = styled.input`
   outline: 0;
   border-width: 0 0 1.5px;
@@ -14,9 +25,29 @@ export const Input = styled.input`
   color: ${WHITE.main};
   animation-name: ${(props) => props.animation || shake};
   animation-duration: 0.3s;
+  display: ${(props) => (props.isOptional ? 'none' : 'block')};
 
   &:focus {
     border-color: ${WHITE.main};
+  }
+
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  ::placeholder {
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  &:hover {
+    background: #2f3239;
+    cursor: pointer;
   }
 `
 
@@ -25,6 +56,7 @@ export const GroupContainer = styled.div`
   flex-basis: 33.3%;
   flex-direction: column;
 `
+
 export const SectionContainer = styled.div`
   display: flex;
   width: 100%;
@@ -36,7 +68,7 @@ export const SectionContainer = styled.div`
 
 export const InputWithIConWrapper = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 15px;
   align-items: center;
   align-self: flex-start;
 `

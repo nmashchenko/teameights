@@ -29,7 +29,8 @@ export class UsersController {
 	constructor(private userService: UsersService) {}
 
 	@ApiOperation({
-		summary: 'Get specific user by email, returns null in case nothing found',
+		summary:
+			'Get specific user by email, returns null in case nothing found',
 	})
 	@ApiResponse({ status: 200, type: User })
 	@Get('/get-by-email/:email')
@@ -45,6 +46,15 @@ export class UsersController {
 	@Get('/get-by-username/:username')
 	getByUsername(@Param('username') username: string): Promise<User> {
 		return this.userService.getUserByUsername(username);
+	}
+
+	@ApiOperation({
+		summary: 'Get partial best match usernames',
+	})
+	@ApiResponse({ status: 200, type: [User] })
+	@Get('/partial/:username')
+	getPartialUsernames(@Param('username') username: string): Promise<User[]> {
+		return this.userService.getPartialUsernames(username);
 	}
 
 	@ApiOperation({
@@ -115,7 +125,11 @@ export class UsersController {
 		/* Parsing the query string into an object. */
 		const parsedQuery = qs.parse(filtersQuery);
 
-		return this.userService.getFilteredUsersByPage(page, limit, parsedQuery);
+		return this.userService.getFilteredUsersByPage(
+			page,
+			limit,
+			parsedQuery,
+		);
 	}
 
 	@UsePipes(ValidationPipe)

@@ -3,28 +3,23 @@ import { useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
 import { useGetTeamData } from '../../../../api/hooks/team/useGetTeamData'
-import EditIcon from '../../../../assets/EditIcon'
 import Email from '../../../../assets/UserProfile/Email'
 import Github from '../../../../assets/UserProfile/Github'
 import Linkedin from '../../../../assets/UserProfile/Linkedin'
 import Location from '../../../../assets/UserProfile/Location'
 import Star from '../../../../assets/UserProfile/Star'
+import { Framework } from '../../../../components/Teammates/components/UserCard/UserCard.styles'
+import { frameworkColors, frameworkTextColors } from '../../../../constants/frameworkColors'
+import { languageOptions } from '../../../../constants/programmingLanguages'
 import ROUTES from '../../../../constants/routes'
 import { LOCAL_PATH } from '../../../../http'
-import {
-  frameworkColors,
-  frameworkTextColors,
-} from '../../../../screens/UsersList/components/UserCard/FrameworkColors'
-import languageOptions from '../../../../screens/UsersList/components/UserCard/ProgrammingLanguages'
-import { Framework } from '../../../../screens/UsersList/components/UserCard/UserCard.styles'
 import AvatarEditButton from '../../../../shared/components/Forms/UserAvatar/AvatarEditButton/AvatarEditButton'
 import { UserAvatar } from '../../../../shared/components/Forms/UserAvatar/UserAvatar.styles'
 import Loader from '../../../../shared/components/Loader/Loader'
 import ModalWindow from '../../../../shared/components/ModalWindow/ModalWindow'
 import { Button } from '../../../../shared/styles/Button.styles'
 import { CustomLink } from '../../../../shared/styles/Link.styles'
-import { AvatarWrapper } from '../../../Forms/RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm.styles'
-import Photo from '../../Photo.jpg'
+import { AvatarWrapper } from '../../../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm.styles'
 import {
   BannerLine,
   DetailsWrapper,
@@ -67,11 +62,7 @@ const ProfileDetails = () => {
     <Information>
       <LeftCard>
         <ImgContainer>
-          <UserAvatar
-            src={user?.image ? LOCAL_PATH + '/' + user?.image : Photo}
-            width={'9.375rem'}
-            height={'9.375rem'}
-          />
+          <UserAvatar src={LOCAL_PATH + '/' + user?.image} width={'9.375rem'} height={'9.375rem'} />
           <AvatarEditButton onClick={() => navigate('/profile-edit')} />
         </ImgContainer>
         <TextContainer>

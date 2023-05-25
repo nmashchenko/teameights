@@ -30,13 +30,6 @@ export class User {
 	fullName: string;
 
 	@ApiProperty({
-		example: '2016-05-18T14:10:30Z',
-		description: 'Date of Birth',
-	})
-	@Prop()
-	birthDate: Date;
-
-	@ApiProperty({
 		example: 'true',
 		description: 'Did user click on confirmation email?',
 	})
@@ -68,9 +61,9 @@ export class User {
 	@Prop()
 	country: string;
 
-	@ApiProperty({ example: '17', description: 'Age of user' })
+	@ApiProperty({ example: new Date(), description: 'Date of birth' })
 	@Prop()
-	age: string;
+	dateOfBirth: Date;
 
 	/* UNIVERSITY DATA */
 	@ApiProperty({

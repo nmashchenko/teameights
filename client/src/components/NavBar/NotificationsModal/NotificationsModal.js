@@ -65,7 +65,7 @@ const NotificationsModal = ({ userNotifications, notificationModal, setNotificat
   return (
     <StyledNotificationsModal
       ref={notificationModalRef}
-      active={notificationModal}
+      active={notificationModal.toString()}
       onClick={(e) => e.stopPropagation()}
       animate={notificationModal ? 'open' : 'closed'}
       variants={variants}

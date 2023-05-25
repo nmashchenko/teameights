@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import ROUTES from '../../../constants/routes'
 import http from '../../../http'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 import { setIsFinishRegistrationStarted } from '../../../store/reducers/RegistrationAuth'
 import { userAuth } from '../../../store/reducers/UserAuth'
 
@@ -45,7 +46,7 @@ export const useLoginUser = (type) => {
     },
     onError: (error) => {
       // set error message
-      dispatch(userAuth.actions.authUserError(error.response?.data?.message))
+      errorToaster(error)
     },
   })
 }

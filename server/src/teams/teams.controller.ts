@@ -86,7 +86,11 @@ export class TeamsController {
 		/* Parsing the query string into an object. */
 		const parsedQuery = qs.parse(filtersQuery);
 
-		return this.teamsService.getFilteredTeamsByPage(page, limit, parsedQuery);
+		return this.teamsService.getFilteredTeamsByPage(
+			page,
+			limit,
+			parsedQuery,
+		);
 	}
 
 	@ApiOperation({
@@ -127,7 +131,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/remove-member')
-	removeMember(@Body() dto: TeamMembershipDTO): Promise<Team> {
+	removeMember(@Body() dto: TeamMembershipDTO): Promise<Team | void> {
 		return this.teamsService.removeMember(dto);
 	}
 
@@ -138,7 +142,9 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: InviteToTeamResponseDto })
 	@Post('/invite')
-	inviteToTeam(@Body() dto: InviteToTeamDto): Promise<InviteToTeamResponseDto> {
+	inviteToTeam(
+		@Body() dto: InviteToTeamDto,
+	): Promise<InviteToTeamResponseDto> {
 		return this.teamsService.inviteToTeam(dto);
 	}
 
@@ -184,7 +190,7 @@ export class TeamsController {
 	})
 	@ApiResponse({ status: 200, type: Team })
 	@Put('/leave')
-	leaveTeam(@Body() dto: TeamMembershipDTO): Promise<Team> {
+	leaveTeam(@Body() dto: TeamMembershipDTO): Promise<Team | void> {
 		return this.teamsService.leaveTeam(dto);
 	}
 
@@ -209,5 +215,14 @@ export class TeamsController {
 	@Put('/leader/transfer')
 	transferLeader(@Body() dto: TransferLeaderDto): Promise<Team> {
 		return this.teamsService.transferLeader(dto);
+	}
+
+	@ApiOperation({
+		summary: 'Get team by tag',
+	})
+	@ApiResponse({ status: 200, type: Team })
+	@Get('/tag/:tag')
+	getByTag(@Param('tag') tag: string): Promise<Team> {
+		return this.teamsService.getByTag(tag);
 	}
 }

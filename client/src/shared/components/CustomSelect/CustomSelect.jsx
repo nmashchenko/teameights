@@ -2,10 +2,7 @@ import React from 'react'
 import FormControl from '@mui/material/FormControl'
 import { useField } from 'formik'
 
-import {
-  Item,
-  PlaceholderText,
-} from '../../../screens/UsersList/components/SelectField/SelectField.styles'
+import { Item } from '../../../components/Teammates/components/SelectField/SelectField.styles'
 import { ErrorMessage, Label, Text } from '../../styles/Tpography.styles'
 
 import { Line, MenuProps, SelectCustom } from './CustomSelect.styles'
