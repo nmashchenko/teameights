@@ -7,7 +7,8 @@ export const Button = styled.button`
   border: ${(props) => (props.border ? props.border : 'none')};
   color: ${(props) => (props.transparent ? '#007bff' : '#fff')};
   padding: 0.875rem 0;
-  width: 10.625rem;
+  width: ${(props) => props.width || '10.625rem'};
+  font-size: ${(props) => props.fontSize};
   border-radius: 10px;
   display: flex;
   align-items: center;
