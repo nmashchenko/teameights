@@ -1,8 +1,8 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import TeamForm from '../../components/Forms/TeamForm/TeamForm'
-import TeamsTopTemplate from '../Forms/TeamsScreen/TeamsTopTemplate/TeamsTopTemplate'
+import TeamForm from '../../components/Team/TeamForm/TeamForm'
+import TeamsTopTemplate from '../../components/Team/TeamsTopTemplate/TeamsTopTemplate'
 
 function TeamScreen() {
   return (

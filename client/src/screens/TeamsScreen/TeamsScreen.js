@@ -1,7 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline'
 
-import TeamsList from '../../components/Forms/TeamsList/TeamsList'
-import TeamsTopTemplate from '../Forms/TeamsScreen/TeamsTopTemplate/TeamsTopTemplate'
+import TeamsList from '../../components/Team/TeamsList/TeamsList'
+import TeamsTopTemplate from '../../components/Team/TeamsTopTemplate/TeamsTopTemplate'
 
 function TeamsScreen() {
   return (
