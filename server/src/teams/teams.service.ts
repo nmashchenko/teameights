@@ -141,10 +141,17 @@ export class TeamsService {
 	 * @returns A team object
 	 */
 	async getTeamById(id: mongoose.Types.ObjectId): Promise<Team> {
-		return await this.teamModel
-			.findById(id)
-			.populate('members')
-			.populate('leader');
+		try {
+			return await this.teamModel
+				.findById(id)
+				.populate('members')
+				.populate('leader');
+		} catch (err) {
+			throw new HttpException(
+				`Team with this id: ${id} not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
 	}
 
 	/**

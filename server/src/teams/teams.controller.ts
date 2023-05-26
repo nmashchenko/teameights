@@ -23,7 +23,6 @@ import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { TeamMembershipDTO } from './dto/membership.dto';
 import { Results } from './dto/results.dto';
 import { StatusResponseDto } from './dto/status-response.dto';
-import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';

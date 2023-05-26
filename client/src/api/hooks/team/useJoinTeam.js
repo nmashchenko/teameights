@@ -18,9 +18,10 @@ export const useJoinTeam = () => {
   }
 
   return useMutation(joinTeam, {
-    mutationKey: 'addUserToTeam',
-    onSuccess: (data) => {
-      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+    mutationKey: 'joinTeam',
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+      await queryClient.invalidateQueries('getTeamById', { refetchInactive: true })
       navigate(`/team/${data._id}`)
     },
     onError: (error) => {

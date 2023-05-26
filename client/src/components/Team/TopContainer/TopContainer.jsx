@@ -9,7 +9,7 @@ import {
   UserPlusContainer,
 } from '../TeamForm/TeamForm.styles'
 
-const TopContainerComponent = ({ isMembers, about, switchIsMembers, handleOpenInvite }) => {
+const TopContainerComponent = ({ isMembers, about, switchIsMembers, handleOpenInvite, role }) => {
   return (
     <TopContainer isMembers={isMembers}>
       <TabContainer about={about}>
@@ -32,7 +32,7 @@ const TopContainerComponent = ({ isMembers, about, switchIsMembers, handleOpenIn
           <span></span>
         </Tab>
       </TabContainer>
-      {isMembers && (
+      {isMembers && (role === 'leader' || role === 'member') && (
         <InviteButton onClick={handleOpenInvite}>
           <UserPlusContainer>
             <UserPlus />

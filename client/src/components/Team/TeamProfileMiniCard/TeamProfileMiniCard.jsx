@@ -21,7 +21,7 @@ const TeamProfileMiniCard = ({
   selectedImage,
   isEditing,
   setEditImage,
-  leaderOrMemberAction,
+  actionType,
   servedProfilePic,
   editImage,
 }) => {
@@ -86,7 +86,7 @@ const TeamProfileMiniCard = ({
             </Text>
           </SVGAndText>
         </TeamInformationContainer>
-        {leaderOrMemberAction}
+        {actionType}
       </RightContainer>
     </>
   )

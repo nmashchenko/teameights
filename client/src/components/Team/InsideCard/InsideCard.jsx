@@ -24,6 +24,7 @@ export const InsideCard = ({
   changeSelectedImage,
   imgData,
   picture,
+  role,
 }) => {
   const input = isMembers ? (
     <Members
@@ -61,6 +62,7 @@ export const InsideCard = ({
           }
           switchIsMembers={switchIsMembers}
           handleOpenInvite={handleOpenInvite}
+          role={role}
         />
       )}
       <>

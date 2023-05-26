@@ -33,30 +33,29 @@ function NoTeamForm() {
     }
   }
 
-  if (isUserDataLoading) {
-    return <Loader />
-  }
-
   useEffect(() => {
     if (user?.team) {
       navigate(`/team/${user?.team._id}`)
     }
-  }, [])
+  }, [user])
 
   return (
     <Container>
-      <Center>
-        <Text fontWeight="500" fontSize="24px" margin="0 0 8px 0">
-          You don't have a team yet!
-        </Text>
-        <Text fontSize="16px" margin="0 0 8px 0" fontWeight="400">
-          You can create a new team or join an existing team.
-        </Text>
-        <TeamButton background="#46a11b" onClick={handleCreate}>
-          Create Team
-        </TeamButton>
-        <TeamButton onClick={handleJoin}>Join Team</TeamButton>
-      </Center>
+      {isUserDataLoading && <Loader />}
+      {!user?.team && (
+        <Center>
+          <Text fontWeight="500" fontSize="24px" margin="0 0 8px 0">
+            You don't have a team yet!
+          </Text>
+          <Text fontSize="16px" margin="0 0 8px 0" fontWeight="400">
+            You can create a new team or join an existing team.
+          </Text>
+          <TeamButton background="#46a11b" onClick={handleCreate}>
+            Create Team
+          </TeamButton>
+          <TeamButton onClick={handleJoin}>Join Team</TeamButton>
+        </Center>
+      )}
     </Container>
   )
 }

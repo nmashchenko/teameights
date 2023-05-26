@@ -213,7 +213,7 @@ export const LeaveTeam = styled.button`
   width: 100%;
   height: ${(props) => props.height || '44px'};
   background: transparent;
-  border: 2px solid #A5211F;
+  border: ${(props) => props.border || ' 2px solid #a5211f'};
   border-radius: 10px;
   font-size: 16px;
   font-weight: 500;
@@ -223,12 +223,12 @@ export const LeaveTeam = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap 6px;
+  gap: 6px;
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 2px 25px  #a5211f60;
+    box-shadow: ${(props) => props.boxShadow || '0px 2px 25px #a5211f60'};
   }
 `
 export const EditTeam = styled.button`

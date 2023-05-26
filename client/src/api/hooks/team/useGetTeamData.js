@@ -13,7 +13,11 @@ export const useGetTeamData = (teamId) => {
     }
   }
 
-  const { data, isLoading: isTeamLoading } = useQuery(['getTeamById', teamId], getTeamById)
+  const {
+    data,
+    isLoading: isTeamLoading,
+    error,
+  } = useQuery(['getTeamById', teamId], getTeamById, { retry: 0 })
 
-  return { data, isLoading: isTeamLoading }
+  return { data, isLoading: isTeamLoading, error }
 }

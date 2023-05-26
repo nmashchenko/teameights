@@ -1,6 +1,6 @@
 // * Modules
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 // * API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
@@ -8,20 +8,27 @@ import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import { useInviteUser } from '../../../api/hooks/team/useInviteUser'
+import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeave } from '../../../api/hooks/team/useLeaveTeam'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
 import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
+import ROUTES from '../../../constants/routes'
+import Screen404 from '../../../screens/404Screen/404Screen'
 import Loader from '../../../shared/components/Loader/Loader'
+import { determineUserRoleInTeam } from '../../../utils/determineUserRoleInTeam'
 import { getServedProfilePic } from '../../../utils/getServedProfilepic'
+import Page404Form from '../../Forms/Page404Form/Page404Form'
 import { InsideCard } from '../InsideCard/InsideCard'
 import TeamModal from '../Modal/TeamModal'
 import TeamProfileMiniCard from '../TeamProfileMiniCard/TeamProfileMiniCard'
 
-import { getLeaderOrMemberAction } from './getLeaderOrMemberAction'
+import ActionType from './ActionType'
 import { Card, CardContainer, Container } from './TeamForm.styles'
 
 function TeamForm() {
   const { id } = useParams()
+  const navigate = useNavigate()
+  let role = null
 
   const [removeMemberActive, setRemoveMemberActive] = useState('')
   const [modalActive, setModalActive] = useState('')
@@ -33,8 +40,12 @@ function TeamForm() {
   const [isEditing, setIsEditing] = useState(false)
   const [editImage, setEditImage] = useState(false)
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
-  const teamId = user?.team?._id
-  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
+  const teamId = id
+  const { data: team, isLoading: isUserTeamLoading, error } = useGetTeamData(teamId)
+
+  if (team && user) {
+    role = determineUserRoleInTeam(team, user)
+  }
 
   const [isMembers, switchIsMembers] = useState(true)
 
@@ -44,8 +55,7 @@ function TeamForm() {
   const { mutate: updateTeamsAvatar, isLoading: isUpdatingTeamsAvatar } = useUpdateAvatar('teams')
   const { mutate: transferLeader, isLoading: isTransferring } = useTransferLeader()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
-
-  // We need: Leave team
+  const { mutate: joinUser, isLoading: isJoining } = useJoinTeam()
 
   useEffect(() => {
     // maybe we need to turn off edits if we switch tabs
@@ -91,6 +101,15 @@ function TeamForm() {
     setEmail('')
   }
 
+  // handleJoin() function
+  const handleJoin = () => {
+    if (!user?.isRegistered) {
+      navigate(ROUTES.login)
+    } else {
+      joinUser({ user_id: user?._id, teamid: team?._id })
+    }
+  }
+
   // handleOpenInvite() function
   const handleOpenInvite = () => {
     setOpen(true)
@@ -124,10 +143,33 @@ function TeamForm() {
     isTransferring ||
     isUpdatingTeamsAvatar ||
     isUserDataLoading ||
-    isInviting
+    isInviting ||
+    isJoining
   ) {
     return <Loader />
   }
+
+  if ((!isUserTeamLoading && !team) || error) {
+    return <Page404Form findText="Couldn't find the requested team." paddingLeft="88px" />
+  }
+
+  const actionType = (
+    <ActionType
+      team={team}
+      isEditing={isEditing}
+      setIsEditing={setIsEditing}
+      isMembers={isMembers}
+      editImage={editImage}
+      handleOpenDelete={handleOpenDelete}
+      handleOpenLeave={handleOpenLeave}
+      updateTeamsAvatar={updateTeamsAvatar}
+      servedProfilePic={servedProfilePic}
+      picture={picture}
+      selectedImage={selectedImage}
+      role={role}
+      handleJoin={handleJoin}
+    />
+  )
 
   return (
     <Container>
@@ -171,6 +213,7 @@ function TeamForm() {
             changeSelectedImage={changeSelectedImage}
             imgData={imgData}
             picture={picture}
+            role={role}
           />
         </Card>
         <TeamProfileMiniCard
@@ -179,20 +222,7 @@ function TeamForm() {
           selectedImage={selectedImage}
           isEditing={isEditing}
           setEditImage={setEditImage}
-          leaderOrMemberAction={getLeaderOrMemberAction(
-            team,
-            user,
-            isEditing,
-            setIsEditing,
-            isMembers,
-            editImage,
-            handleOpenDelete,
-            handleOpenLeave,
-            updateTeamsAvatar,
-            servedProfilePic,
-            picture,
-            selectedImage,
-          )}
+          actionType={actionType}
           editImage={editImage}
           servedProfilePic={servedProfilePic}
         />

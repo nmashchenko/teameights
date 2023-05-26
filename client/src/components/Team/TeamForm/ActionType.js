@@ -1,8 +1,7 @@
 import { EditTeam, LeaderActionsBox, LeaveTeam } from './TeamForm.styles'
 
-export const getLeaderOrMemberAction = (
+const ActionType = ({
   team,
-  user,
   isEditing,
   setIsEditing,
   isMembers,
@@ -13,11 +12,13 @@ export const getLeaderOrMemberAction = (
   servedProfilePic,
   picture,
   selectedImage,
-) => {
+  role,
+  handleJoin,
+}) => {
   let action = null
 
-  switch (true) {
-    case team?.leader._id === user?._id:
+  switch (role) {
+    case 'leader':
       action = (
         <LeaderActionsBox opacity={!isEditing || isMembers || editImage}>
           <EditTeam
@@ -25,7 +26,6 @@ export const getLeaderOrMemberAction = (
               if (editImage && (picture || selectedImage !== '')) {
                 updateTeamsAvatar({ teamID: team._id, image: servedProfilePic.split(',')[1] })
               }
-
               setIsEditing((prevState) => !prevState)
             }}
           >
@@ -48,14 +48,24 @@ export const getLeaderOrMemberAction = (
       )
       break
 
-    case team?.members.some((member) => member._id === user?._id):
+    case 'member':
       action = <LeaveTeam onClick={handleOpenLeave}>Leave Team</LeaveTeam>
       break
 
     default:
-      action = <LeaveTeam onClick={() => console.log('hi')}>Join Team</LeaveTeam>
+      action = (
+        <LeaveTeam
+          onClick={handleJoin}
+          border="2px solid #46A11B"
+          boxShadow="0px 2px 25px #46A11B60"
+        >
+          Join Team
+        </LeaveTeam>
+      )
       break
   }
 
   return action
 }
+
+export default ActionType
