@@ -1,4 +1,4 @@
-import { EditTeam, LeaderActionsBox, LeaveTeam } from './TeamForm.styles'
+import { EditTeam, LeaderActionsBox, LeaveJoinTeam } from './TeamForm.styles'
 
 const ActionType = ({
   team,
@@ -31,7 +31,7 @@ const ActionType = ({
           >
             {isEditing ? 'Save' : 'Edit'}
           </EditTeam>
-          <LeaveTeam
+          <LeaveJoinTeam
             height="40px"
             onClick={() => {
               if (isEditing) {
@@ -43,24 +43,20 @@ const ActionType = ({
             marginTop="0"
           >
             {isEditing ? 'Cancel' : 'Delete'}
-          </LeaveTeam>
+          </LeaveJoinTeam>
         </LeaderActionsBox>
       )
       break
 
     case 'member':
-      action = <LeaveTeam onClick={handleOpenLeave}>Leave Team</LeaveTeam>
+      action = <LeaveJoinTeam onClick={handleOpenLeave}>Leave Team</LeaveJoinTeam>
       break
 
     default:
       action = (
-        <LeaveTeam
-          onClick={handleJoin}
-          border="2px solid #46A11B"
-          boxShadow="0px 2px 25px #46A11B60"
-        >
+        <LeaveJoinTeam onClick={handleJoin} border="none" boxShadow="none" background="#46A11B">
           Join Team
-        </LeaveTeam>
+        </LeaveJoinTeam>
       )
       break
   }

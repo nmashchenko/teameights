@@ -2,33 +2,34 @@ import styled, { createGlobalStyle } from 'styled-components'
 
 import { BLACK } from '../../../constants/colors'
 
-export const ToolbarContainer = styled.div`
-  width: 100%;
-  background: ${BLACK.background};
+export const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
-  height: 78px;
-  grid-auto-flow: column;
-`
-
-export const NavContainer = styled.div`
-  justify-self: center;
-`
-
-export const CurrentTeam = styled.div`
-  display: flex;
-  gap: 16px;
   font-size: 20px;
-  line-height: 24px;
+  max-height: 38px;
+  width: 100%;
+  margin-top: 49px;
+  align-items: center;
+  justify-content: baseline;
   position: absolute;
-  top: 2.5%;
-  right: 5%;
 `
 
 export const Textbox = styled.div`
   cursor: pointer;
+`
+
+export const SelectType = styled.div`
+  grid-column: 3; /* Place the element in the second column */
+  justify-self: end; /* Align the element to the end of its column (right corner) */
+  margin-right: 30px;
+  display: flex;
+  gap: 16px;
+`
+
+export const LogoContainer = styled.div`
+  grid-column: 2; /* Place the element in the first column */
+  justify-self: center; /* Center the element within its column */
+  align-self: center;
 `
 
 export const Text = styled.p`
@@ -43,7 +44,7 @@ export const Text = styled.p`
     width: 100%;
     height: 1px;
     position: absolute;
-    bottom: -20%;
+    bottom: -10%;
     left: 50%;
     background-color: #5bd424;
     transition: all 0.2s;

@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
-import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../assets/fonts'
+import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 
 export const FormikContainer = styled.div`
   label {

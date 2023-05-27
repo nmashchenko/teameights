@@ -37,14 +37,16 @@ const RegularAbout = ({ team }) => {
       <TeamCardBody>
         <TeamCardBodyPoint>
           <h3>Description</h3>
-          <TeamCardDesc>{team.description}</TeamCardDesc>
+          <TeamCardDesc>
+            {team?.description ? team.description : `This team doesn't have any description yet.`}
+          </TeamCardDesc>
         </TeamCardBodyPoint>
         <TeamCardBodyPoint>
           <h3>Statistics</h3>
           <StatisticsFlex>
             <Statistic>
               <p>
-                Tournaments: <span>5</span>
+                Tournaments: <span>0</span>
               </p>
             </Statistic>
             <Statistic>

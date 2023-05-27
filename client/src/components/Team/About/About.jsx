@@ -3,7 +3,7 @@ import countryList from 'react-select-country-list'
 import { Field, Form, Formik } from 'formik'
 
 import { useUpdateTeam } from '../../../api/hooks/team/useUpdateTeam'
-import { B2fs, B2fw, B2lh } from '../../../assets/fonts'
+import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
 import typeOptions from '../../../constants/types'
 import CustomSelect from '../../../shared/components/CustomSelect/CustomSelect'
 import Loader from '../../../shared/components/Loader/Loader'
@@ -169,9 +169,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                     }}
                     id="tag"
                     name="tag"
-                    // onChange={(e) => {
-                    //   // setTag(e.value)
-                    // }}
                     onFocus={changeBackgroundColor.bind(null, 1)}
                     onBlur={changeBackgroundColor.bind(null, 1)}
                   />

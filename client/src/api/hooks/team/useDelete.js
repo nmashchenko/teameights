@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
 import http from '../../../http'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
@@ -19,6 +20,9 @@ export const useDelete = () => {
     onSuccess: () => {
       queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
       navigate('/teams')
+    },
+    onError: (error) => {
+      errorToaster(error)
     },
   })
 }

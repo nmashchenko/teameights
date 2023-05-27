@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
-import { BLACK, GREEN, WHITE } from '../../../constants/colors'
-import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
+import { BLACK, GREEN, WHITE } from '../../constants/colors'
+import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../constants/fonts'
 
 export const Container = styled.div`
   width: 100%;
@@ -11,7 +11,6 @@ export const Container = styled.div`
   justify-content: start;
   align-items: center;
   background: ${BLACK.background};
-  padding-left: 88px;
 `
 
 export const CardContainer = styled.div`
@@ -28,6 +27,10 @@ export const Card = styled.div`
   height: 400px;
   background: #1a1c22;
   border-radius: 15px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // flex-direction: column;
   gap: 30px;
   position: relative;
   padding: 24px 32px;
@@ -45,6 +48,16 @@ export const ButtonCardContent = styled.div`
   gap: 30px;
 `
 
+export const LeftContainer = styled.div`
+  // width: 50%;
+  // display: grid;
+  // margin: 0 auto;
+  // grid-template-columns: repeat(2, 1fr);
+  // grid-template-rows: repeat(4, 1fr);
+  // row-gap: 40px;
+  // align-items: start;
+`
+
 export const UserGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -54,6 +67,8 @@ export const UserGrid = styled.div`
   align-content: center;
   column-gap: 36px;
   row-gap: 16px;
+  // padding: 40px;
+  // margin-top: 175px;
 `
 
 export const UserCard = styled.div`
@@ -69,9 +84,14 @@ export const UserCard = styled.div`
   &:hover {
     background-color: ${(props) =>
       props.selectLeader && props.isTeamLeader ? `transparent` : '#2f3239'};
+    // background-color: #2f3239;
     cursor: pointer;
   }
   &:hover div svg {
+    // this gets the svg
+    path {
+      stroke: ${(props) => (props.isEditing && !props.isTeamLeader ? `#D42422` : '#46a11b')};
+    }
     cursor: ${(props) => (props.isEditing ? `pointer` : 'initial')};
   }
   opacity: 1;
@@ -99,6 +119,7 @@ export const ListBackdrop = styled.figure`
   width: 235px;
   max-height: 144px;
   overflow-y: scroll;
+  // overflow-x: none;
   z-index: 10;
   transform: ${(props) => (props.selectLeader ? 'translate(-50%, 100%)' : 'translate(-50%, 50%)')};
   opacity: ${(props) => (props.selectLeader ? '1' : '0')};
@@ -188,11 +209,11 @@ export const TeamImgBorder = styled.img`
   margin-bottom: 24px;
 `
 
-export const LeaveJoinTeam = styled.button`
+export const LeaveTeam = styled.button`
   width: 100%;
   height: ${(props) => props.height || '44px'};
-  background: ${(props) => props.background || 'transparent'};
-  border: ${(props) => props.border || ' 2px solid #a5211f'};
+  background: transparent;
+  border: 2px solid #A5211F;
   border-radius: 10px;
   font-size: 16px;
   font-weight: 500;
@@ -202,12 +223,12 @@ export const LeaveJoinTeam = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  gap 6px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all .2s;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: ${(props) => props.boxShadow || '0px 2px 25px #a5211f60'};
+    box-shadow: 0px 2px 25px  #a5211f60;
   }
 `
 export const EditTeam = styled.button`
@@ -464,9 +485,6 @@ export const Tab = styled.p`
   position: relative;
   margin: 0;
   margin-bottom: 8px;
-  font-size: 20px;
-  font-weight: 500;
-
   span {
     width: 100%;
     height: 2px;
@@ -480,7 +498,7 @@ export const Tab = styled.p`
 `
 
 export const InviteButton = styled.button`
-  border: 1px solid #5bd424;
+  border: 2px solid #5bd424;
   color: #fff;
   background: transparent;
   padding: 6px 16px 4px 16px;
@@ -604,9 +622,9 @@ export const TeamCardDesc = styled.p`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  width: 25px;
-  height: 25px;
-  transform: rotate(0deg) translate(130%, -100%);
+  width: 21px;
+  height: 21px;
+  transform: rotate(0deg) translate(180%, -107%);
   svg {
     width: 100%;
     height: 100%;

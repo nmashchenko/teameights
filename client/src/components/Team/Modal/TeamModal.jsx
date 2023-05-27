@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import { Box, Modal } from '@mui/material'
 
 import Close from '../../../assets/Shared/Close'
-import SearchIcon from '../../../assets/Shared/SearchIcon'
-import UserPlus from '../../../assets/UserPlus'
+import UserPlus from '../../../assets/Team/UserPlus'
+import AutocompleteInput from '../../../shared/components/AutocompleteInput/AutocompleteInput'
 import {
   CloseContainerModal,
   CreateButton,
-  Input,
-  InputBox,
-  SearchIconContainer,
   SpaceBetweenColumn,
   Text,
   UserPlusContainer,
@@ -35,6 +32,15 @@ const TeamModal = ({
   deleteTeam,
   setModalActive,
 }) => {
+  const [value, setValue] = useState(null)
+
+  const handleSetValue = (value) => {
+    if (value) {
+      setValue(value)
+      setEmail(value.email)
+    }
+  }
+
   const [style, setStyle] = useState({
     position: 'absolute',
     top: '50%',
@@ -129,17 +135,9 @@ const TeamModal = ({
             <Text fontSize="24px" margin="0">
               Send invite
             </Text>
-
-            <InputBox>
-              <SearchIconContainer color={email !== '' ? '#5BD424' : '#86878b'}>
-                <SearchIcon />
-              </SearchIconContainer>
-              <Input
-                placeholder="Search username or email"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              ></Input>
-            </InputBox>
+            <div style={{ marginTop: '33px' }}>
+              <AutocompleteInput value={value} setValue={handleSetValue} width={'306px'} />
+            </div>
           </div>
           <CreateButton color={email !== '' ? '1' : '.4'} onClick={handleActions}>
             <UserPlusContainer>
@@ -150,8 +148,6 @@ const TeamModal = ({
         </SpaceBetweenColumn>
       )
     } else if (modalActive === 'Delete') {
-      console.log('Delete')
-
       return team.members.length > 1 ? (
         <TeamActionModal
           firstText="You can't delete team"

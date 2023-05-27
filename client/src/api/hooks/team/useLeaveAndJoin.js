@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
+
 import { useJoinTeam } from './useJoinTeam'
 import { useLeave } from './useLeaveTeam'
 
@@ -26,6 +28,9 @@ export const useLeaveAndJoin = () => {
   const leaveAndJoinMutation = useMutation(leaveAndJoin, {
     mutationKey: 'leaveAndJoin',
     onSuccess,
+    onError: (error) => {
+      errorToaster(error)
+    },
   })
 
   return {

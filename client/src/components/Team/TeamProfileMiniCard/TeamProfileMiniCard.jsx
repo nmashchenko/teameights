@@ -1,8 +1,8 @@
-import Cake from '../../../assets/Cake'
-import Crown from '../../../assets/Crown'
-import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../assets/fonts'
-import { PencilSimple } from '../../../assets/PencilSimple'
-import Users from '../../../assets/Users'
+import Cake from '../../../assets/Team/Cake'
+import Crown from '../../../assets/Team/Crown'
+import { PencilSimple } from '../../../assets/Team/PencilSimple'
+import Users from '../../../assets/Team/Users'
+import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../constants/fonts'
 import { LOCAL_PATH } from '../../../http'
 import {
   CakeBox,
@@ -51,9 +51,6 @@ const TeamProfileMiniCard = ({
               ) : (
                 <></>
               )}
-              <CrownContainer2>
-                <Crown />
-              </CrownContainer2>
             </div>
           </div>
           <Text

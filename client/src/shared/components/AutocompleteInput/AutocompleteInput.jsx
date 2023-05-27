@@ -11,7 +11,7 @@ import { List } from './List'
 import { InputLoader } from './Loader'
 import { InputTextField } from './TextField'
 
-export default function UserSearch({ value, setValue, width = 412, ...props }) {
+export default function AutocompleteInput({ value, setValue, width = 412, ...props }) {
   const [inputValue, setInputValue] = useState('')
   const [user, setUser] = useState([])
 
@@ -55,7 +55,7 @@ export default function UserSearch({ value, setValue, width = 412, ...props }) {
         filterSelectedOptions
         filterOptions={(x) => x}
         value={value}
-        isOptionEqualToValue={(option, value) => option.username === value.username}
+        isOptionEqualToValue={(option, value) => option.username === value?.username}
         forcePopupIcon={false}
         noOptionsText={<InputLoader areUsersLoading={areUsersLoading} />}
         onChange={(event, newValue, reason) => {

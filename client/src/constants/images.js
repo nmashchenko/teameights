@@ -3,7 +3,6 @@ export const defaultTeamImages = [
   'default-pink',
   'default-blue',
   'default-orange',
-  'default-pink',
   'default-purple',
   'default-yellow',
 ]

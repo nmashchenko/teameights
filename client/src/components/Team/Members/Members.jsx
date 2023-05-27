@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 
-import CaretDown from '../../../assets/CaretDown'
-import Crown from '../../../assets/Crown'
-import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../assets/fonts'
-import { ThinClose } from '../../../assets/ThinClose'
+import SCrownRight from '../../../assets/Shared/Crowns/SCrownRight'
+import CaretDown from '../../../assets/Team/CaretDown'
+import { ThinClose } from '../../../assets/Team/ThinClose'
+import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 import { LOCAL_PATH } from '../../../http'
 import {
   CaretContainer,
@@ -11,7 +11,6 @@ import {
   CrownContainer,
   ListBackdrop,
   SpaceBetween,
-  style,
   Text,
   UserAccordionCard,
   UserAccordionImg,
@@ -63,23 +62,22 @@ const Members = ({
         changeChosenLeader({ username: newLeader, id: id })
       }}
     >
-      {team?.members
-        .filter((member) => member.isLeader && team.leader._id !== member._id)
-        .map((member, key) => {
-          return (
-            <UserAccordionCard key={member._id} id={member._id}>
-              <UserAccordionImg
-                alt={member.username}
-                src={
-                  member?.image
-                    ? LOCAL_PATH + '/' + member.image
-                    : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
-                }
-              />
-              <UserAccordionUsername>{member.username}</UserAccordionUsername>
-            </UserAccordionCard>
-          )
-        })}
+      {team?.members.length > 1 ? (
+        team?.members
+          .filter((member) => team.leader._id !== member._id)
+          .map((member, key) => {
+            return (
+              <UserAccordionCard key={member._id} id={member._id}>
+                <UserAccordionImg alt={member.username} src={LOCAL_PATH + '/' + member.image} />
+                <UserAccordionUsername>{member.username}</UserAccordionUsername>
+              </UserAccordionCard>
+            )
+          })
+      ) : (
+        <UserAccordionCard>
+          <UserAccordionUsername>Invite more to transfer leader!</UserAccordionUsername>
+        </UserAccordionCard>
+      )}
     </ListBackdrop>
   )
 
@@ -102,17 +100,11 @@ const Members = ({
             isEditing={isEditing}
             key={i}
           >
-            <UserImg
-              src={
-                member?.image
-                  ? LOCAL_PATH + '/' + member.image
-                  : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
-              }
-            />
+            <UserImg src={LOCAL_PATH + '/' + member.image} />
             {(chosenLeader.username === '' && team.leader._id === member._id) ||
             chosenLeader.username === member.username ? (
               <CrownContainer>
-                <Crown />
+                <SCrownRight />
               </CrownContainer>
             ) : (
               <> </>

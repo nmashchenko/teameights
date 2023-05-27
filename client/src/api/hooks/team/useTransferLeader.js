@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
 import http from '../../../http'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
@@ -15,8 +16,12 @@ export const useTransferLeader = () => {
 
   return useMutation(transferLeader, {
     mutationKey: 'transferLeader',
-    onSuccess: () => {
-      queryClient.invalidateQueries('getTeamById')
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('getTeamById')
+      await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+    },
+    onError: (error) => {
+      errorToaster(error)
     },
   })
 }

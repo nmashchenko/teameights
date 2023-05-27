@@ -1,6 +1,6 @@
 import React from 'react'
 
-import UserPlus from '../../../assets/UserPlus'
+import UserPlus from '../../../assets/Team/UserPlus'
 import {
   InviteButton,
   Tab,

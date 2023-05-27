@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Field, Form, Formik } from 'formik'
 
-import { CheckCircle } from '../../../assets/CheckCircle'
-import { UploadSymbol } from '../../../assets/UploadSymbol'
+import { CheckCircle } from '../../../assets/Team/CheckCircle'
+import { UploadSymbol } from '../../../assets/Team/UploadSymbol'
 
 import { DefaultImg, FileButton, FormikContainer, ImageBox, MyRadioGroup } from './EditImage.styles'
 
@@ -50,9 +50,8 @@ const EditImage = ({
           image: '',
           default: '',
         }}
-        onSubmit={(values, actions) => {}}
       >
-        {({ values, dirty, resetForm }) => {
+        {() => {
           return (
             <Form
               style={{
@@ -103,7 +102,6 @@ const EditImage = ({
                   borderBottom: '1px solid #86878B',
                   width: `98%`,
                   transition: 'all .2s',
-                  // display: 'none',
                   position: 'absolute',
                   opacity: '0',
                   pointerEvents: 'none',
@@ -115,14 +113,20 @@ const EditImage = ({
                   ev.preventDefault()
                   const file = ev.target.files[0]
 
-                  // do not accept HEIC
-                  if (String(file.name).includes('HEIC') || String(file.name).includes('heic')) {
-                    updateErrorMessage('HEIC not accepted.')
+                  const fileExtension = file.name.split('.').pop().toLowerCase()
+
+                  // check file type
+                  if (
+                    !file.type.includes('jpeg') &&
+                    !fileExtension.includes('png') &&
+                    !fileExtension.includes('jpg')
+                  ) {
+                    updateErrorMessage('Only JPEG, JPG and PNG formats are accepted.')
 
                     return
                   }
 
-                  if (file.size > 100000) {
+                  if (file.size > 10000000) {
                     updateErrorMessage('Image too big')
 
                     return
@@ -153,14 +157,18 @@ const EditImage = ({
                       if (item.kind === 'file') {
                         const file = item.getAsFile()
 
-                        // do not accept HEIC
+                        const fileExtension = file.name.split('.').pop().toLowerCase()
+
+                        // check file type
                         if (
-                          String(file.name).includes('HEIC') ||
-                          String(file.name).includes('heic')
+                          !file.type.includes('jpeg') &&
+                          !fileExtension.includes('png') &&
+                          !fileExtension.includes('jpg')
                         ) {
+                          updateErrorMessage('Only JPEG, JPG and PNG formats are accepted.')
+
                           return
                         }
-                        console.log(item)
 
                         setPicture(file)
                         const reader = new FileReader()

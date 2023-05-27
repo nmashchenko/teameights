@@ -1,3 +1,9 @@
+/*
+fw - font weight
+fs - font style
+lh - line height
+*/
+
 export const H1fw = 500
 export const H1fs = '38px'
 export const H1lh = '45.6px'

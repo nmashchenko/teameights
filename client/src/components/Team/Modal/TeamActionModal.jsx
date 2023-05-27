@@ -1,5 +1,5 @@
-import { B2fs, B2fw, B2lh, H3fs, H3fw, H3lh } from '../../../assets/fonts'
-import { CancelButton, EditTeam, LeaveTeam, Text } from '../TeamForm/TeamForm.styles'
+import { B2fs, B2fw, B2lh, H3fs, H3fw, H3lh } from '../../../constants/fonts'
+import { CancelButton, EditTeam, LeaveJoinTeam, Text } from '../TeamForm/TeamForm.styles'
 
 const TeamActionModal = ({
   firstText,
@@ -53,7 +53,7 @@ const TeamActionModal = ({
       <Text fontSize="16px" lineHeight="22px" margin="8px 0 0 0">
         {secondText}
       </Text>
-      <LeaveTeam onClick={firstButtonHandler}>{firstButton}</LeaveTeam>
+      <LeaveJoinTeam onClick={firstButtonHandler}>{firstButton}</LeaveJoinTeam>
       <CancelButton onClick={secondButtonHandler}>{secondButton}</CancelButton>
     </div>
   )

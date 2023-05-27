@@ -80,7 +80,6 @@ const UserCard = React.forwardRef((props, ref) => {
     <Wrapper ref={ref}>
       <CardContainer plLength={plLength > 2} ufLength={ufLength > 4}>
         <UserInformationContainer>
-          {/* TODO: Change for real image! */}
           <div>
             <UserImage src={LOCAL_PATH + '/' + person.image} alt="User's image" />
           </div>

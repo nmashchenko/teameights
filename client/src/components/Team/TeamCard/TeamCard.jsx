@@ -1,5 +1,5 @@
 import ArrowLeft from '../../../assets/Arrows/ArrowLeft'
-import Crown from '../../../assets/Crown'
+import Crown from '../../../assets/Team/Crown'
 import { LOCAL_PATH } from '../../../http'
 
 import {
