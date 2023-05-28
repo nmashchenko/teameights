@@ -31,10 +31,7 @@ const initialState = [
     type: 'range',
     min: 1,
     max: 8,
-    value: {
-      min: null,
-      max: null,
-    },
+    value: null,
   },
 ]
 
