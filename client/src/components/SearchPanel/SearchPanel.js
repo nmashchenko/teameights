@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import FilterSelect from './FilterSelect/FilterSelect'
 import Search from './Search/Search'
+import TagsList from './TagsList/TagsList'
 import { SearchPanelWrapper, StyledSearchPanel } from './SearchPanel.styles'
 
 const SearchPanel = ({ sliceName, setFilterValueAction }) => {
   const dispatch = useDispatch()
-  const setFilterValue = (index, value) => dispatch(setFilterValueAction({ index, value }))
   const filtersArr = useSelector((state) => state[sliceName])
   const [currFilterIndex, setCurrFilterIndex] = useState(0)
+  const setFilterValue = (index, value) => dispatch(setFilterValueAction({ index, value }))
 
   const currFilter = filtersArr[currFilterIndex]
 
@@ -29,6 +30,11 @@ const SearchPanel = ({ sliceName, setFilterValueAction }) => {
           setFilterValue={setFilterValue}
         />
       </SearchPanelWrapper>
+      <TagsList
+        filtersArr={filtersArr}
+        currFilterIndex={currFilterIndex}
+        setFilterValue={setFilterValue}
+      />
     </StyledSearchPanel>
   )
 }

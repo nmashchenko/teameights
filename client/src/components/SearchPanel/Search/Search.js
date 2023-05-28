@@ -27,7 +27,13 @@ const Search = ({ currFilter, currFilterIndex, setFilterValue }) => {
         />
       )
     case 'range':
-      return <SearchByRange currFilter={currFilter} />
+      return (
+        <SearchByRange
+          currFilter={currFilter}
+          currFilterIndex={currFilterIndex}
+          setFilterValue={setFilterValue}
+        />
+      )
     default:
       return <p>Filter is not defined</p>
   }

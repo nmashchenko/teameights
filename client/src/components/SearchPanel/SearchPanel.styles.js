@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const StyledSearchPanel = styled.div`
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   gap: 24px;
