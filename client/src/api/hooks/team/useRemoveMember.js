@@ -18,8 +18,8 @@ export const useRemoveMember = () => {
 
   return useMutation(removeMember, {
     mutationKey: 'removeMember',
-    onSuccess: () => {
-      queryClient.invalidateQueries('getTeamById') // useQuery key
+    onSuccess: async () => {
+      await queryClient.invalidateQueries('getTeamById') // useQuery key
     },
     onError: (error) => {
       errorToaster(error)

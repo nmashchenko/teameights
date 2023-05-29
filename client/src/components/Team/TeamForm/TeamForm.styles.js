@@ -45,55 +45,6 @@ export const ButtonCardContent = styled.div`
   gap: 30px;
 `
 
-export const UserGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: start;
-  justify-items: start;
-  align-items: center;
-  align-content: center;
-  column-gap: 36px;
-  row-gap: 16px;
-`
-
-export const UserCard = styled.div`
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  transition: all 0.2s ease-in-out;
-  user-select: none;
-  padding: 4px;
-  &:hover {
-    background: #2f3239;
-    cursor: pointer;
-  }
-  &:hover div svg {
-    path {
-      stroke: ${(props) => (props.isEditing && !props.isTeamLeader ? `#D42422` : '#46a11b')};
-    }
-    cursor: ${(props) => (props.isEditing ? `pointer` : 'initial')};
-  }
-  opacity: 1;
-`
-
-export const UserImg = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-`
-
-export const UserInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: start;
-  width: 100%;
-  gap: 4px;
-`
-
 export const UserAccordionCard = styled.div`
   display: flex;
   font-size: ${B2fs};
@@ -303,12 +254,6 @@ export const SearchIconContainer = styled.div`
   }
 `
 
-export const SpaceBetween = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-`
-
 export const CaretContainer = styled.div`
   transition: all 0.2s;
   cursor: pointer;
@@ -343,21 +288,6 @@ export const CloseContainerModal = styled.div`
   opacity: 1;
   transition: all 0.2s ease-in-out;
   right: 5%;
-  top: 5%;
-`
-
-export const CloseContainer = styled.div`
-  cursor: pointer;
-  svg {
-    width: 20px;
-    height: 20px;
-    path {
-      fill: ${(props) => props.color || '#46A11B'};
-    }
-  }
-  opacity: ${(props) => (props.isEditing ? '1' : '0')};
-  transition: all 0.2s ease-in-out;
-  right: 2%;
   top: 5%;
 `
 
@@ -547,16 +477,6 @@ export const TeamCardDesc = styled.p`
   margin: 0;
 `
 
-export const CrownContainer = styled.div`
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  transform: rotate(0deg) translate(130%, -100%);
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-`
 export const CrownContainer2 = styled.div`
   position: absolute;
   width: 59px;
@@ -695,5 +615,5 @@ export const style = {
   bgcolor: '#1A1C22',
   borderRadius: '15px',
   boxShadow: 14,
-  p: 4,
+  padding: 4,
 }

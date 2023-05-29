@@ -16,7 +16,7 @@ const ActionModal = ({
       <Text fontWeight="600" fontSize="24px" margin={`0 0 0 0`}>
         {firstText}
       </Text>
-      <Text fontSize="16px" fontWeight="400" margin="0">
+      <Text fontSize="16px" fontWeight="400" margin="8px 0 0 0">
         {secondText}
       </Text>
       <div>
