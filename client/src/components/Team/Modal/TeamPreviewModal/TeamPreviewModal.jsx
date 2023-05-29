@@ -1,6 +1,6 @@
-import ArrowLeft from '../../../assets/Arrows/ArrowLeft'
-import Crown from '../../../assets/Team/Crown'
-import { LOCAL_PATH } from '../../../http'
+import ArrowLeft from '../../../../assets/Arrows/ArrowLeft'
+import Crown from '../../../../assets/Team/Crown'
+import { LOCAL_PATH } from '../../../../http'
 
 import {
   CrownContainer,
@@ -18,12 +18,10 @@ import {
   TeamCardTopIcon,
   TeamCardTopInfo,
   ToTeams,
-} from './TeamCard.styles'
+} from './TeamPreviewModal.styles'
 
-const TeamCard = ({ user, handleClose, team, handleJoin }) => {
+const TeamPreviewModal = ({ user, handleClose, team, handleJoin }) => {
   const members = team.members
-
-  // const leader = members.slice(0, 1)[0]
 
   const teammates = members.slice(1, members.length)
 
@@ -132,4 +130,4 @@ const TeamCard = ({ user, handleClose, team, handleJoin }) => {
   )
 }
 
-export default TeamCard
+export default TeamPreviewModal

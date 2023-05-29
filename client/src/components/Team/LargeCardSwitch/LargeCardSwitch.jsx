@@ -9,7 +9,15 @@ import {
   UserPlusContainer,
 } from '../TeamForm/TeamForm.styles'
 
-const TopContainerComponent = ({ isMembers, about, switchIsMembers, handleOpenInvite, role }) => {
+const LargeCardSwitch = ({
+  isMembers,
+  about,
+  switchIsMembers,
+  handleOpenInvite,
+  role,
+  isEditing,
+  handleOpenTransferLeader,
+}) => {
   return (
     <TopContainer isMembers={isMembers}>
       <TabContainer about={about}>
@@ -32,7 +40,7 @@ const TopContainerComponent = ({ isMembers, about, switchIsMembers, handleOpenIn
           <span></span>
         </Tab>
       </TabContainer>
-      {isMembers && (role === 'leader' || role === 'member') && (
+      {isMembers && !isEditing && (role === 'leader' || role === 'member') && (
         <InviteButton onClick={handleOpenInvite}>
           <UserPlusContainer>
             <UserPlus />
@@ -40,8 +48,12 @@ const TopContainerComponent = ({ isMembers, about, switchIsMembers, handleOpenIn
           Invite
         </InviteButton>
       )}
+
+      {isMembers && isEditing && role === 'leader' && (
+        <InviteButton onClick={handleOpenTransferLeader}>Change Leader</InviteButton>
+      )}
     </TopContainer>
   )
 }
 
-export default TopContainerComponent
+export default LargeCardSwitch

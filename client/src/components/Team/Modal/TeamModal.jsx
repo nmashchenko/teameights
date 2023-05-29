@@ -2,17 +2,25 @@ import React, { useState } from 'react'
 import { Box, Modal } from '@mui/material'
 
 import Close from '../../../assets/Shared/Close'
+import { SelectedIcon } from '../../../assets/Team/SelectedIcon'
 import UserPlus from '../../../assets/Team/UserPlus'
+import { LOCAL_PATH } from '../../../http'
 import AutocompleteInput from '../../../shared/components/AutocompleteInput/AutocompleteInput'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 import {
   CloseContainerModal,
   CreateButton,
-  SpaceBetweenColumn,
-  Text,
+  style,
+  UserAccordionCard,
+  UserAccordionImg,
+  UserAccordionUsername,
   UserPlusContainer,
 } from '../TeamForm/TeamForm.styles'
 
-import TeamActionModal from './TeamActionModal'
+import ActionModal from './ModalTypes/ActionModal'
+import InfoModal from './ModalTypes/InfoModal'
+import InteractiveModal from './ModalTypes/InteractiveModal'
+import { Button, ListBackdrop, UsernameIconContainer } from './TeamModal.styles'
 
 const TeamModal = ({
   modalActive,
@@ -31,6 +39,7 @@ const TeamModal = ({
   removeMemberActive,
   deleteTeam,
   setModalActive,
+  changeChosenLeader,
 }) => {
   const [value, setValue] = useState(null)
 
@@ -41,34 +50,12 @@ const TeamModal = ({
     }
   }
 
-  const [style, setStyle] = useState({
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 370,
-    height: 350,
-    bgcolor: '#1A1C22',
-    borderRadius: '15px',
-    boxShadow: 14,
-    p: 4,
-    padding: '72.5px 32px',
-  })
-
   const handleActions = () => {
     if (modalActive === 'Leave') {
       leaveTeam({
         user_id: user?._id,
         teamid: team?._id,
       })
-    } else if (modalActive === 'TransferLeader') {
-      transferLeader({
-        leader_id: team.leader._id,
-        new_leader_id: chosenLeader.id,
-        teamid: team._id,
-      })
-
-      setIsEditing(false)
     } else if (modalActive === 'RemoveMember') {
       removeFromTeam({
         user_id: removeMemberActive,
@@ -78,26 +65,33 @@ const TeamModal = ({
       handleInvite()
     } else if (modalActive === 'Delete') {
       deleteTeam(team?._id)
+    } else if (modalActive === 'TransferLeader') {
+      transferLeader({
+        leader_id: team.leader._id,
+        new_leader_id: chosenLeader.id,
+        teamid: team._id,
+      })
+
+      setIsEditing(false)
+    } else if (modalActive === 'SetNewLeader') {
+      if (chosenLeader.id) {
+        setModalActive('TransferLeader')
+
+        return
+      } else {
+        errorToaster('Select leader first!')
+
+        return
+      }
     }
     handleClose()
     setModalActive('')
   }
 
   const handleModal = () => {
-    if (
-      modalActive === 'Leave' ||
-      modalActive === 'TransferLeader' ||
-      modalActive === 'RemoveMember' ||
-      modalActive === 'Delete'
-    ) {
-      style.padding = '72.5px 32px'
-    } else {
-      style.padding = '32px 32px'
-    }
-
     if (modalActive === 'Leave') {
       return (
-        <TeamActionModal
+        <ActionModal
           firstText="Leave Team"
           secondText="Are you sure you want to leave?"
           firstButton="Leave"
@@ -106,20 +100,9 @@ const TeamModal = ({
           secondButtonHandler={handleClose}
         />
       )
-    } else if (modalActive === 'TransferLeader') {
-      return (
-        <TeamActionModal
-          firstText="Transfer leadership"
-          secondText={`Are you sure you want to transfer leadership to ${chosenLeader.username}? You will lose management rights.`}
-          firstButton="Confirm"
-          firstButtonHandler={handleActions}
-          secondButton="Cancel"
-          secondButtonHandler={handleClose}
-        />
-      )
     } else if (modalActive === 'RemoveMember') {
       return (
-        <TeamActionModal
+        <ActionModal
           firstText="Remove Member"
           secondText="Are you sure you want to remove member from team?"
           firstButton="Remove"
@@ -130,39 +113,96 @@ const TeamModal = ({
       )
     } else if (modalActive === 'Invite') {
       return (
-        <SpaceBetweenColumn>
-          <div>
-            <Text fontSize="24px" margin="0">
-              Send invite
-            </Text>
-            <div style={{ marginTop: '33px' }}>
-              <AutocompleteInput value={value} setValue={handleSetValue} width={'306px'} />
-            </div>
-          </div>
-          <CreateButton color={email !== '' ? '1' : '.4'} onClick={handleActions}>
-            <UserPlusContainer>
-              <UserPlus />
-            </UserPlusContainer>
-            Invite
-          </CreateButton>
-        </SpaceBetweenColumn>
+        <InteractiveModal
+          interactiveText={'Send invite'}
+          interactiveComponent={
+            <AutocompleteInput value={value} setValue={handleSetValue} width={'306px'} />
+          }
+          interactiveButtons={
+            <CreateButton color={email !== '' ? '1' : '.4'} onClick={handleActions}>
+              <UserPlusContainer>
+                <UserPlus />
+              </UserPlusContainer>
+              Invite
+            </CreateButton>
+          }
+        />
       )
     } else if (modalActive === 'Delete') {
       return team.members.length > 1 ? (
-        <TeamActionModal
+        <InfoModal
           firstText="You can't delete team"
           secondText="Before deleting team, you must delete all members"
           firstButton="Okay"
           firstButtonHandler={handleClose}
         />
       ) : (
-        <TeamActionModal
+        <ActionModal
           firstText="Delete Team"
           secondText="Are you sure you want to delete?"
           firstButton="Delete"
           firstButtonHandler={handleActions}
           secondButton="Cancel"
           secondButtonHandler={handleClose}
+        />
+      )
+    } else if (modalActive === 'TransferLeader') {
+      return (
+        <ActionModal
+          firstText="Transfer leadership"
+          secondText={`Are you sure you want to transfer leadership to ${chosenLeader.username}? You will lose management rights.`}
+          firstButton="Confirm"
+          firstButtonHandler={handleActions}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+        />
+      )
+    } else if (modalActive === 'SetNewLeader') {
+      return (
+        <InteractiveModal
+          interactiveText={'Select new leader'}
+          interactiveComponent={
+            <ListBackdrop>
+              {team?.members.length > 1 ? (
+                team?.members
+                  .filter((member) => team.leader._id !== member._id)
+                  .map((member, key) => {
+                    return (
+                      <UserAccordionCard
+                        key={member._id}
+                        id={member._id}
+                        onClick={() => {
+                          changeChosenLeader({ username: member.username, id: member._id })
+                        }}
+                      >
+                        <UserAccordionImg
+                          alt={member.username}
+                          src={LOCAL_PATH + '/' + member.image}
+                        />
+                        <UsernameIconContainer>
+                          <UserAccordionUsername>{member.username}</UserAccordionUsername>
+                          {chosenLeader.username === member.username ? <SelectedIcon /> : <></>}
+                        </UsernameIconContainer>
+                      </UserAccordionCard>
+                    )
+                  })
+              ) : (
+                <UserAccordionCard>
+                  <UserAccordionUsername>Invite more to transfer leader!</UserAccordionUsername>
+                </UserAccordionCard>
+              )}
+            </ListBackdrop>
+          }
+          interactiveButtons={
+            <div>
+              <Button onClick={handleActions} background="#46A11B">
+                Save
+              </Button>
+              <Button onClick={handleClose} border="2px solid #A5211F" marginTop="8px">
+                Cancel
+              </Button>
+            </div>
+          }
         />
       )
     }

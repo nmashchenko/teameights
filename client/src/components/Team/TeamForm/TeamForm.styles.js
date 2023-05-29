@@ -67,11 +67,13 @@ export const UserCard = styled.div`
   user-select: none;
   padding: 4px;
   &:hover {
-    background-color: ${(props) =>
-      props.selectLeader && props.isTeamLeader ? `transparent` : '#2f3239'};
+    background: #2f3239;
     cursor: pointer;
   }
   &:hover div svg {
+    path {
+      stroke: ${(props) => (props.isEditing && !props.isTeamLeader ? `#D42422` : '#46a11b')};
+    }
     cursor: ${(props) => (props.isEditing ? `pointer` : 'initial')};
   }
   opacity: 1;
@@ -91,45 +93,17 @@ export const UserInfo = styled.div`
   width: 100%;
   gap: 4px;
 `
-export const ListBackdrop = styled.figure`
-  margin: 0;
-  position: absolute;
-  background: #2f3239;
-  padding: 8px 0;
-  width: 235px;
-  max-height: 144px;
-  overflow-y: scroll;
-  z-index: 10;
-  transform: ${(props) => (props.selectLeader ? 'translate(-50%, 100%)' : 'translate(-50%, 50%)')};
-  opacity: ${(props) => (props.selectLeader ? '1' : '0')};
-  pointer-events: ${(props) => (props.selectLeader ? 'auto' : 'none')};
-  transition: all 0.2s;
-  left: 50%;
-  bottom: 0%;
-  border-radius: 5px;
-  ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #5d9d0b;
-    border-radius: 10px;
-  }
-`
 
 export const UserAccordionCard = styled.div`
   display: flex;
-  font-size: ${B3fs};
-  font-weight: ${B3fw};
-  line-height: ${B3lh};
+  font-size: ${B2fs};
+  font-weight: ${B2fw};
+  line-height: ${B2lh};
   align-items: center;
   gap: 8px;
-  // justify-content: center;
   &:hover {
-    background-color: #27431f;
+    background-color: #2f3239;
+    cursor: pointer;
   }
   height: 32px;
   padding: 4px 8px 4px 16px;
@@ -137,8 +111,8 @@ export const UserAccordionCard = styled.div`
 `
 
 export const UserAccordionImg = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
 `
 export const UserAccordionUsername = styled.p``
@@ -265,7 +239,6 @@ export const CreateButton = styled.button`
   color: white;
   border: none;
   outline: none;
-  // margin-top: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -292,20 +265,6 @@ export const ActionButton = styled.button`
   align-items: center;
   cursor: pointer;
 `
-
-export let style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 370,
-  height: 350,
-  bgcolor: '#1A1C22',
-  borderRadius: '15px',
-  boxShadow: 14,
-  p: 4,
-  padding: '72.5px 32px',
-}
 
 export const SpaceBetweenColumn = styled.div`
   display: flex;
@@ -388,7 +347,6 @@ export const CloseContainerModal = styled.div`
 `
 
 export const CloseContainer = styled.div`
-  // position: absolute;
   cursor: pointer;
   svg {
     width: 20px;
@@ -493,7 +451,7 @@ export const InviteButton = styled.button`
   font-size: ${B2fs};
   line-height: ${B2lh};
   font-weight: ${B2fw};
-  width: 101px;
+  ${'' /* width: 101px; */}
   height: 32px;
   transition: all 0.2s;
   &:hover {
@@ -533,19 +491,6 @@ export const TeamCardTop = styled.div`
   margin-bottom: 16px;
 `
 export const TeamCardTopInfo = styled.div`
-  // &:nth-child(1) {
-  //   width: 140px;
-  // }
-  // &:nth-child(2) {
-  //   width: 60px;
-  // }
-  // &:nth-child(3) {
-  //   width: 100px;
-  // }
-  // &:nth-child(4) {
-  //   width: 140px;
-  // }
-  // height: 47px;
   h3 {
     margin: 0;
     margin-bottom: 8px;
@@ -708,7 +653,6 @@ export const LeaderActionsBox = styled.div`
   }
   opacity: ${(props) => (props.opacity ? '1' : '0')};
   z-index: ${(props) => (props.opacity ? '1' : '0')};
-  // display: ${(props) => (props.opacity ? 'flex' : 'none')};
   pointer-events: ${(props) => (props.opacity ? 'auto' : 'none')};
 `
 
@@ -728,7 +672,6 @@ export const EditImageButton = styled.button`
   background: #46a11b;
   border-radius: 50%;
   border: none;
-  // padding: 2.4rem;
   width: 30px;
   height: 30px;
   display: flex;
@@ -741,3 +684,16 @@ export const EditImageButton = styled.button`
     height: 20px;
   }
 `
+
+export const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '370px',
+  height: '350px',
+  bgcolor: '#1A1C22',
+  borderRadius: '15px',
+  boxShadow: 14,
+  p: 4,
+}

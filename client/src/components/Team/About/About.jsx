@@ -1,14 +1,10 @@
-import React, { useMemo, useRef, useState } from 'react'
-import countryList from 'react-select-country-list'
+import React, { useState } from 'react'
 import { Field, Form, Formik } from 'formik'
 
 import { useUpdateTeam } from '../../../api/hooks/team/useUpdateTeam'
-import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
-import typeOptions from '../../../constants/types'
-import CustomSelect from '../../../shared/components/CustomSelect/CustomSelect'
-import Loader from '../../../shared/components/Loader/Loader'
-import { PlaceholderText } from '../../Teammates/components/SelectField/SelectField.styles'
 
+import CountrySelect from './Selects/CountrySelect'
+import TypeSelect from './Selects/TypeSelect'
 import {
   EditTeam,
   FormContainer,
@@ -20,7 +16,7 @@ import {
 import RegularAbout from './RegularAbout'
 
 const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
-  const countriesOptions = useMemo(() => countryList().getData(), [])
+  const { mutate: updateTeam, isLoading: isUpdatingTeam } = useUpdateTeam()
 
   const [backgroundColor, setBackgroundColor] = useState([
     'transparent',
@@ -29,9 +25,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
     'transparent',
   ])
 
-  const { mutate: updateTeam, isLoading: isUpdating } = useUpdateTeam()
-  const [loading, setLoading] = useState(false)
-
   const changeBackgroundColor = (number) => {
     setBackgroundColor((prevState) => {
       prevState[number] = prevState[number] === 'transparent' ? '#2F3239' : 'transparent'
@@ -39,71 +32,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
       return [...prevState]
     })
   }
-
-  const countrySelect = (
-    <CustomSelect
-      multiple={false}
-      label="Country"
-      name="countries"
-      options={countriesOptions}
-      line={false}
-      hideLabelOnSelect={true}
-      renderValue={(selected) => {
-        if (selected.length === 0) {
-          return (
-            <PlaceholderText style={{ marginRight: '1rem', textAlign: 'start', fontWeight: '400' }}>
-              {team.country}
-            </PlaceholderText>
-          )
-        }
-
-        return selected
-      }}
-      styles={{
-        height: '38px',
-        flexDirection: 'row',
-        alignItems: 'center',
-        margin: 0,
-        borderBottom: '1px solid #86878B',
-        backgroundColor: `${backgroundColor[2]}`,
-        width: '100%',
-        fontSize: B2fs,
-        fontWeight: B2fw,
-        lineHeight: B2lh,
-      }}
-    />
-  )
-
-  const typeSelect = (
-    <CustomSelect
-      multiple={false}
-      label="type"
-      name="type"
-      options={typeOptions}
-      line={false}
-      hideLabelOnSelect={true}
-      renderValue={(selected) => {
-        if (selected.length === 0) {
-          return (
-            <PlaceholderText style={{ marginRight: '1rem', textAlign: 'start', fontWeight: '400' }}>
-              {team.type}
-            </PlaceholderText>
-          )
-        }
-
-        return selected
-      }}
-      styles={{
-        height: '38px',
-        flexDirection: 'row',
-        alignItems: 'center',
-        margin: 0,
-        borderBottom: '1px solid #86878B',
-        width: '100%',
-        backgroundColor: `${backgroundColor[3]}`,
-      }}
-    />
-  )
 
   if (isEditing) {
     return (
@@ -117,7 +45,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
           ),
           desc: team.description,
         }}
-        onSubmit={(values, actions) => {
+        onSubmit={(values) => {
           updateTeam({
             teamid: team._id,
             name: values.name,
@@ -132,7 +60,7 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
           setIsEditing(false)
         }}
       >
-        {({ values, dirty, resetForm }) => {
+        {() => {
           return (
             <Form id="saveForm">
               <FormContainer>
@@ -175,11 +103,11 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
                 </LabelFieldContainer>
                 <LabelFieldContainer>
                   <label htmlFor="country">Country</label>
-                  {countrySelect}
+                  <CountrySelect team={team} backgroundColor={backgroundColor} />
                 </LabelFieldContainer>
                 <LabelFieldContainer>
                   <label htmlFor="type">type</label>
-                  {typeSelect}
+                  <TypeSelect team={team} backgroundColor={backgroundColor} />
                 </LabelFieldContainer>
 
                 <LabelTextFieldContainer
@@ -204,7 +132,6 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
 
                 <LeaderActionsBox opacity={isEditing}>
                   <EditTeam type={`submit`}>{isEditing ? 'Save' : 'Edit'}</EditTeam>
-                  {loading ? Loader : <></>}
                   <LeaveTeam
                     height="40px"
                     onClick={() => {

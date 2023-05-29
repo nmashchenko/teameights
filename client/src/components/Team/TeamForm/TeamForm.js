@@ -17,8 +17,8 @@ import Loader from '../../../shared/components/Loader/Loader'
 import { determineUserRoleInTeam } from '../../../utils/determineUserRoleInTeam'
 import { getServedProfilePic } from '../../../utils/getServedProfilepic'
 import Page404Form from '../../Forms/Page404Form/Page404Form'
-import { InsideCard } from '../InsideCard/InsideCard'
 import TeamModal from '../Modal/TeamModal'
+import { TeamProfileLargeCard } from '../TeamProfileLargeCard/TeamProfileLargeCard'
 import TeamProfileMiniCard from '../TeamProfileMiniCard/TeamProfileMiniCard'
 
 import ActionType from './ActionType'
@@ -33,7 +33,6 @@ function TeamForm() {
   const [modalActive, setModalActive] = useState('')
 
   const [chosenLeader, changeChosenLeader] = useState({ username: '', id: '' })
-  const [selectLeader, openSelectLeader] = useState(false)
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [isEditing, setIsEditing] = useState(false)
@@ -62,15 +61,6 @@ function TeamForm() {
       setEditImage(false)
     }
   }, [isEditing])
-
-  useEffect(() => {
-    if (chosenLeader.username !== '') {
-      // new leader chosen
-
-      setOpen((prevState) => !prevState)
-      setModalActive('TransferLeader')
-    }
-  }, [chosenLeader])
 
   const [selectedImage, changeSelectedImage] = useState('')
   const [picture, setPicture] = useState(null)
@@ -113,6 +103,11 @@ function TeamForm() {
   const handleOpenInvite = () => {
     setOpen(true)
     setModalActive('Invite')
+  }
+
+  const handleOpenTransferLeader = () => {
+    setOpen(true)
+    setModalActive('SetNewLeader')
   }
 
   // handleOpenDelete() function
@@ -189,10 +184,11 @@ function TeamForm() {
         handleInvite={handleInvite}
         deleteTeam={deleteTeam}
         setModalActive={setModalActive}
+        changeChosenLeader={changeChosenLeader}
       />
       <CardContainer>
         <Card>
-          <InsideCard
+          <TeamProfileLargeCard
             isMembers={isMembers}
             editImage={editImage}
             chosenLeader={chosenLeader}
@@ -200,8 +196,6 @@ function TeamForm() {
             handleRemoveMembers={handleRemoveMembers}
             isEditing={isEditing}
             team={team}
-            selectLeader={selectLeader}
-            openSelectLeader={openSelectLeader}
             setIsEditing={setIsEditing}
             handleOpenDelete={handleOpenDelete}
             switchIsMembers={switchIsMembers}
@@ -213,6 +207,7 @@ function TeamForm() {
             imgData={imgData}
             picture={picture}
             role={role}
+            handleOpenTransferLeader={handleOpenTransferLeader}
           />
         </Card>
         <TeamProfileMiniCard

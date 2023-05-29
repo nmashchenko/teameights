@@ -3,15 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import TeameightsLogo from '../../../assets/Platform/TeameightsLogo'
 import { H4fs, H4fw, H4lh } from '../../../constants/fonts.js'
 
-import {
-  GridContainer,
-  LogoContainer,
-  SelectType,
-  Text,
-  Textbox,
-} from './TeamsTopTemplate.styles.js'
+import { GridContainer, LogoContainer, SelectType, Text, Textbox } from './TeamTypeSwitch.styles.js'
 
-const TeamsTopTemplate = ({ myTeam }) => {
+const TeamSwitch = ({ myTeam }) => {
   const navigate = useNavigate()
 
   return (
@@ -53,4 +47,4 @@ const TeamsTopTemplate = ({ myTeam }) => {
   )
 }
 
-export default TeamsTopTemplate
+export default TeamSwitch

@@ -1,7 +1,8 @@
 import { Box } from '@mui/material'
 
-import TeamActionModal from '../Modal/TeamActionModal'
-import TeamCard from '../TeamCard/TeamCard'
+import ActionModal from '../Modal/ModalTypes/ActionModal'
+import InfoModal from '../Modal/ModalTypes/InfoModal'
+import TeamPreviewModal from '../Modal/TeamPreviewModal/TeamPreviewModal'
 import { style } from '../TeamForm/TeamForm.styles'
 
 export const getModalState = (
@@ -19,7 +20,7 @@ export const getModalState = (
 
       return (
         <Box sx={style}>
-          <TeamActionModal
+          <InfoModal
             firstText="You cannot join team."
             secondText={`${isOnlyMember} to join new team.`}
             firstButton="Okay"
@@ -31,7 +32,7 @@ export const getModalState = (
 
     return (
       <Box sx={style}>
-        <TeamActionModal
+        <ActionModal
           firstText="You're already on a team."
           secondText="Do you want to leave current team and join new?"
           firstButton="Leave & Join"
@@ -43,7 +44,12 @@ export const getModalState = (
     )
   } else if (changeModal === 'joinTeam') {
     return (
-      <TeamCard user={user} handleJoin={handleJoin} team={selectedTeam} handleClose={handleClose} />
+      <TeamPreviewModal
+        user={user}
+        handleJoin={handleJoin}
+        team={selectedTeam}
+        handleClose={handleClose}
+      />
     )
   } else {
     return <></>
