@@ -84,6 +84,7 @@ function TeamsList() {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            sx={{ backdropFilter: 'blur(5px)' }}
           >
             {getModalState(
               changeModal,

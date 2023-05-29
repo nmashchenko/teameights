@@ -216,6 +216,7 @@ const TeamModal = ({
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      sx={{ backdropFilter: 'blur(5px)' }}
     >
       <Box sx={style}>
         <CloseContainerModal color={'#FFF'} onClick={handleClose}>

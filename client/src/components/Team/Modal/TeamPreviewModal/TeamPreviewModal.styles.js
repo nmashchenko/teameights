@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../../constants/fonts'
 
 export const TeamCardFigure = styled.figure`
-  background-color: #1a1c22;
+  background: #1a1c22;
   width: 670px;
   height: 470px;
   padding: 24px 32px;
