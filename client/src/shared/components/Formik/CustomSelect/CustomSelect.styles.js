@@ -2,8 +2,8 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import styled from 'styled-components'
 
-import { GREEN, GREY, WHITE } from '../../../constants/colors'
-import { shake } from '../../styles/KeyFrames.styles'
+import { GREEN, GREY, WHITE } from '../../../../constants/colors'
+import { shake } from '../../../styles/KeyFrames.styles'
 
 export const SelectCustom = styled(Select)`
   animation-name: ${(props) => (!props.$isError ? 'none' : shake)};
@@ -11,7 +11,7 @@ export const SelectCustom = styled(Select)`
   background: none;
   height: 45px;
   border: none;
-  fontsize: 18px;
+  font-size: 18px;
   color: ${WHITE.main};
   width: 100%;
 
@@ -79,7 +79,7 @@ export const MenuProps = {
       background: GREY.selectBackground,
       boxSizing: 'border-box',
       padding: '0 5px',
-      margin: '5px 0',
+      margin: '12px 0',
       borderRadius: '5px',
       color: WHITE.main,
       overflow: 'auto',

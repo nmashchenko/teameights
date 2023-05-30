@@ -15,7 +15,9 @@ export const UserGrid = styled.div`
   row-gap: 16px;
 `
 export const UserLinks = styled.div`
+  transition: opacity 200ms, display 200ms;
   display: none;
+  opacity: 0;
   width: 100%;
   gap: 5px;
 `
@@ -35,10 +37,11 @@ export const UserCard = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
-  width: 100%;
-  transition: all 0.2s ease-in-out;
+  width: 235px;
+  height: 58px;
   user-select: none;
   padding: 4px;
+
   &:hover {
     background: ${(props) => (props.isEditing ? `#2f3239` : 'none')};
   }
@@ -49,6 +52,7 @@ export const UserCard = styled.div`
 
   &:hover ${UserLinks} {
     display: ${(props) => (props.isEditing ? `none` : 'flex')};
+    opacity: 1;
   }
 `
 
@@ -103,9 +107,9 @@ export const UserImg = styled.img`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  width: 25px;
-  height: 25px;
-  transform: rotate(0deg) translate(130%, -100%);
+  width: 22px;
+  height: 22px;
+  transform: rotate(25deg) translate(70%, -150%);
   svg {
     width: 100%;
     height: 100%;
@@ -134,4 +138,11 @@ export const CloseContainer = styled.div`
   transition: all 0.2s ease-in-out;
   right: 2%;
   top: 5%;
+`
+
+export const FlagContainer = styled.div`
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
 `

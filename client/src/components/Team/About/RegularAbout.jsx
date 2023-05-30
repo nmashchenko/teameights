@@ -9,7 +9,7 @@ import {
   TeamCardFigure,
   TeamCardTop,
   TeamCardTopInfo,
-} from '../TeamForm/TeamForm.styles'
+} from './RegularAbout.styles'
 
 const RegularAbout = ({ team }) => {
   return (

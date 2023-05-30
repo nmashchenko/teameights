@@ -4,16 +4,16 @@ import { PencilSimple } from '../../../assets/Team/PencilSimple'
 import Users from '../../../assets/Team/Users'
 import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../constants/fonts'
 import { LOCAL_PATH } from '../../../http'
+import { Text } from '../TeamForm/TeamForm.styles'
+
 import {
   CakeBox,
-  CrownContainer2,
   EditImageButton,
   RightContainer,
   SVGAndText,
   TeamImgBorder,
   TeamInformationContainer,
-  Text,
-} from '../TeamForm/TeamForm.styles'
+} from './TeamProfileMiniCard.styles'
 
 const TeamProfileMiniCard = ({
   team,

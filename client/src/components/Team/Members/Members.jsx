@@ -1,15 +1,17 @@
 import SCrownRight from '../../../assets/Shared/Crowns/SCrownRight'
 import Chat from '../../../assets/Team/Chat'
 import Person from '../../../assets/Team/Person'
-import { ThinClose } from '../../../assets/Team/ThinClose'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 import { LOCAL_PATH } from '../../../http'
+import { getCountryFlag } from '../../../utils/getCountryFlag'
+import { TeamCardTopIcon } from '../Modal/TeamPreviewModal/TeamPreviewModal.styles'
 import { Text } from '../TeamForm/TeamForm.styles'
 
 import {
   ChatButton,
   CloseContainer,
   CrownContainer,
+  FlagContainer,
   ProfileButton,
   SpaceBetween,
   ThinCloseIcon,
@@ -61,17 +63,27 @@ const Members = ({ chosenLeader, team, isEditing, handleRemoveMembers }) => {
                   </CloseContainer>
                 )}
               </SpaceBetween>
-              <Text
-                fontSize={`${B3fs}`}
-                color="#FFF"
-                fontWeight={`${B3fw}`}
-                lineHeight={`${B3lh}`}
-                alignment="start"
-              >
-                {member?.concentration?.length > 16
-                  ? member.concentration.slice(0, 10) + '...'
-                  : member.concentration}
-              </Text>
+              <FlagContainer>
+                <Text
+                  fontSize={`${B3fs}`}
+                  color="#FFF"
+                  fontWeight={`${B3fw}`}
+                  lineHeight={`${B3lh}`}
+                  alignment="start"
+                >
+                  {member?.concentration?.length > 19
+                    ? member.concentration.slice(0, 16) + '...'
+                    : member.concentration}
+                </Text>
+                {getCountryFlag(member.country) && (
+                  <TeamCardTopIcon
+                    src={getCountryFlag(member.country)}
+                    w={'25px'}
+                    h={'25px'}
+                    borderRadius={'none'}
+                  />
+                )}
+              </FlagContainer>
             </UserInfo>
             <UserLinks>
               <ChatButton onClick={() => console.log('TODO: add transition to chat')}>

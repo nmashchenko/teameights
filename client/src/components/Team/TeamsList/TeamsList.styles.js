@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: start;
   align-items: center;
   background: ${BLACK.background};
-  /* padding-left: 88px; */
+  padding-left: 88px;
 `
 
 export const CardContainer = styled.div`
@@ -72,7 +72,6 @@ export const TeamButton = styled.button`
   outline: none;
   background: #46a11b;
   border: 2px solid #5d9d0b;
-  box-shadow: 0px 4px 25px rgba(93, 157, 11, 0.25);
   border-radius: 8px;
   font-weight: ${(props) => props.fontWeight || '400'};
   font-size: ${(props) => props.fontSize || '16px'};
@@ -85,7 +84,6 @@ export const TeamButton = styled.button`
 
   &:hover {
     transform: translateY(-1.25px);
-    box-shadow: 0px 5px 31.25px rgba(93, 157, 11, 0.3125);
   }
 `
 
@@ -93,7 +91,7 @@ export const teamPreviewStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
-  transform: 'translate(-50%, -50%)',
+  transform: 'translate(-45%, -50%)',
   width: '570px',
   bgcolor: '#1A1C22',
   borderRadius: '15px',

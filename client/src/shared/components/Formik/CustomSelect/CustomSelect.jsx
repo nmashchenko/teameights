@@ -2,8 +2,8 @@ import React from 'react'
 import FormControl from '@mui/material/FormControl'
 import { useField } from 'formik'
 
-import { Item } from '../../../components/Teammates/components/SelectField/SelectField.styles'
-import { ErrorMessage, Label, Text } from '../../styles/Tpography.styles'
+import { Item } from '../../../../components/Teammates/components/SelectField/SelectField.styles'
+import { ErrorMessage, Label, Text } from '../../../styles/Tpography.styles'
 
 import { Line, MenuProps, SelectCustom } from './CustomSelect.styles'
 
@@ -37,13 +37,6 @@ const CustomSelect = ({
         $isError={isError}
         MenuProps={MenuProps}
         id={field.name}
-        // renderValue={(selected) => {
-        //   if (selected.length === 0) {
-        //     return <PlaceholderText>{placeholder}</PlaceholderText>
-        //   }
-        //
-        //   return selected
-        // }}
       >
         {options.map(({ label }) => (
           <Item key={label} value={label}>

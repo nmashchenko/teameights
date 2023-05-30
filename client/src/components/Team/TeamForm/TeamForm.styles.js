@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import { BLACK, GREEN, WHITE } from '../../../constants/colors'
-import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
+import { BLACK, WHITE } from '../../../constants/colors'
+import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
 
 export const Container = styled.div`
   width: 100%;
@@ -45,27 +45,6 @@ export const ButtonCardContent = styled.div`
   gap: 30px;
 `
 
-export const UserAccordionCard = styled.div`
-  display: flex;
-  font-size: ${B2fs};
-  font-weight: ${B2fw};
-  line-height: ${B2lh};
-  align-items: center;
-  gap: 8px;
-  &:hover {
-    background-color: #2f3239;
-    cursor: pointer;
-  }
-  height: 32px;
-  padding: 4px 8px 4px 16px;
-  color: white;
-`
-
-export const UserAccordionImg = styled.img`
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-`
 export const UserAccordionUsername = styled.p``
 
 export const RightContainer = styled.div`
@@ -80,9 +59,6 @@ export const RightContainer = styled.div`
   background: #1a1c22;
   position: relative;
   display: flex;
-`
-export const TeamInformationContainer = styled.div`
-  text-align: center;
 `
 
 export const CircleContainer = styled.div`
@@ -103,17 +79,10 @@ export const Text = styled.h3`
   color: ${(props) => props.color || WHITE.main};
   text-align: ${(props) => props.alignment || 'center'};
   margin: ${(props) => props.margin || '0'};
-  line-height: ${(props) => props.lineHeight || '1'};
+  /* line-height: ${(props) => props.lineHeight || '1'}; */
 `
 
-export const TeamImgBorder = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 24px;
-`
-
-export const LeaveJoinTeam = styled.button`
+export const GenericButton = styled.button`
   width: 100%;
   height: ${(props) => props.height || '44px'};
   background: ${(props) => props.background || 'transparent'};
@@ -132,7 +101,6 @@ export const LeaveJoinTeam = styled.button`
   transition: all 0.2s;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: ${(props) => props.boxShadow || '0px 2px 25px #a5211f60'};
   }
 `
 export const EditTeam = styled.button`
@@ -148,71 +116,9 @@ export const EditTeam = styled.button`
   cursor: pointer;
   border: none;
   transition: all 0.2s;
-  box-shadow: 0px 4px 25px rgba(93, 157, 11, 0.25);
   &:hover {
     transform: translateY(-1.25px);
-    box-shadow: 0px 5px 31.25px rgba(93, 157, 11, 0.3125);
   }
-`
-
-export const CancelButton = styled.button`
-  width: 100%;
-  height: 44px;
-  background: transparent;
-  border: 2px solid #46a11b;
-  border-radius: 10px;
-  font-size: ${B2fs};
-  font-weight: ${B2fw};
-  line-height: ${B2lh};
-  color: white;
-  outline: none;
-  margin-top: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 2px 25px #46a11b60;
-  }
-`
-
-export const CreateButton = styled.button`
-  width: 100%;
-  height: 44px;
-  background: #46a11b;
-  opacity: ${(props) => props.color};
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 500;
-  color: white;
-  border: none;
-  outline: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  &:hover {
-    svg path:nth-child(3),
-    svg path:nth-child(4) {
-      transform: translateY(-2px);
-      transition: all 0.2s;
-    }
-  }
-`
-
-export const ActionButton = styled.button`
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #25282a;
-  outline: none;
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 `
 
 export const SpaceBetweenColumn = styled.div`
@@ -312,260 +218,9 @@ export const Input = styled.input`
   }
 `
 
-export const CakeBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
-export const SVGAndText = styled.div`
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
-  margin: ${(props) => props.margin || '0'};
-`
-
-export const TabContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  font-weight: ${B2fw};
-  line-height: ${B2lh};
-  font-size: ${B2fs};
-  justify-content: start;
-  position: relative;
-  top: 0%;
-  span {
-    width: 100%;
-    height: 1px;
-    color: #fff;
-    background-color: #fff;
-  }
-`
-export const TopContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: ${(props) => (props.isMembers ? '32px' : '24px')};
-`
-
-export const Tab = styled.p`
-  color: ${(props) => (!props.isMembers ? '#fff' : '#5BD424')};
-  cursor: pointer;
-  transition: all 0.2s;
-  display: inline-block;
-  position: relative;
-  margin: 0;
-  margin-bottom: 8px;
-  font-size: 20px;
-  font-weight: 500;
-
-  span {
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    bottom: -20%;
-    left: 50%;
-    background-color: #5bd424;
-    transition: all 0.2s;
-    transform: translateX(-50%) ${(props) => (props.isMembers ? `scaleX(100%)` : `scaleX(0)`)};
-  }
-`
-
-export const InviteButton = styled.button`
-  border: 1px solid #5bd424;
-  color: #fff;
-  background: transparent;
-  padding: 6px 16px 4px 16px;
-  cursor: pointer;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: ${B2fs};
-  line-height: ${B2lh};
-  font-weight: ${B2fw};
-  ${'' /* width: 101px; */}
-  height: 32px;
-  transition: all 0.2s;
-  &:hover {
-    svg path:nth-child(3),
-    svg path:nth-child(4) {
-      transform: translateY(-1px);
-      transition: all 0.2s;
-    }
-  }
-`
 export const UserPlusContainer = styled.div`
   width: 20px;
   height: 20px;
-`
-// stolen from TeamCards
-
-export const TeamCardFigure = styled.div`
-  background-color: transparent;
-  margin: 0;
-  h3 {
-    font-size: ${B3fs};
-    line-height: ${B3lh};
-    font-weight: ${B3fw};
-  }
-  p {
-    margin: 0;
-    font-size: ${B2fs};
-    line-height: ${B2lh};
-    font-weight: ${B2fw};
-    color: #fff;
-  }
-`
-
-export const TeamCardTop = styled.div`
-  display: grid;
-  grid-template-columns: 140px 80px 100px 140px;
-  margin-bottom: 16px;
-`
-export const TeamCardTopInfo = styled.div`
-  h3 {
-    margin: 0;
-    margin-bottom: 8px;
-    color: #86878b;
-  }
-`
-
-export const TeamCardTopIcon = styled.img`
-  width: 75px;
-  height: 75px;
-  margin-left: auto;
-`
-
-export const TeamCardBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: transparent;
-  height: 100%;
-`
-
-export const TeamCardBodyPoint = styled.div`
-  h3 {
-    color: #86878b;
-    margin: 0;
-  }
-  background-color: transparent;
-  div :not(div div) {
-    display: flex;
-    gap: 36px;
-  }
-  :nth-child(1) {
-    h3 {
-      margin-bottom: 8px;
-    }
-    max-height: 100%;
-  }
-  :nth-child(2) {
-    position: absolute;
-    bottom: 5%;
-    display: flex;
-    gap: 8px;
-    flex-direction: column;
-    h3 {
-      margin: 0;
-    }
-    margin-top: auto;
-  }
-`
-
-export const TeamCardDesc = styled.p`
-  color: #fff;
-  line-height: 1.4;
-  margin: 0;
-`
-
-export const CrownContainer2 = styled.div`
-  position: absolute;
-  width: 59px;
-  height: 59px;
-  right: -15%;
-  top: -19%;
-  transform: rotate(0deg);
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-`
-
-export const TeamCardPerson = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-export const TeamCardPicture = styled.img`
-  width: 40px;
-  height: 40px;
-`
-
-export const TeamCardMembers = styled.div`
-  display: flex;
-  gap: 8px;
-`
-
-export const StatisticsFlex = styled.div`
-  display: flex;
-  gap: 48px;
-`
-export const Statistic = styled.div`
-  p {
-    font-size: ${B2fs};
-    line-height: ${B2lh};
-    font-weight: ${B2fw};
-    margin: 0;
-    display: inline !important;
-  }
-  p span {
-    margin: 0;
-    color: #5bd424;
-    display: inline !important;
-  }
-`
-
-export const TeamButton = styled.button`
-  width: 306px;
-  height: 44px;
-  background: ${(props) => props.background || 'transparent'};
-  border: ${(props) => props.border || '2px solid #46a11b'};
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 500;
-  color: white;
-  outline: none;
-  margin-top: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 2px 25px #46a11b60;
-  }
-`
-
-export const Center = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  a {
-    text-decoration: none;
-  }
 `
 
 export const LeaderActionsBox = styled.div`
@@ -587,27 +242,6 @@ export const FormikContainer = styled.div`
     font-size: ${B2fs};
     line-height: ${B2lh};
     font-weight: ${B2fw};
-  }
-`
-
-export const EditImageButton = styled.button`
-  position: absolute;
-  right: -5%;
-  bottom: 19%;
-  cursor: pointer;
-  background: #46a11b;
-  border-radius: 50%;
-  border: none;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s;
-  opacity: ${(props) => (props.editImage ? '0' : '1')};
-  svg {
-    width: 20px;
-    height: 20px;
   }
 `
 

@@ -1,13 +1,9 @@
 import React from 'react'
 
 import UserPlus from '../../../assets/Team/UserPlus'
-import {
-  InviteButton,
-  Tab,
-  TabContainer,
-  TopContainer,
-  UserPlusContainer,
-} from '../TeamForm/TeamForm.styles'
+import { UserPlusContainer } from '../TeamForm/TeamForm.styles'
+
+import { InviteButton, Tab, TabContainer, TopContainer } from './LargeCardSwitch.styles'
 
 const LargeCardSwitch = ({
   isMembers,

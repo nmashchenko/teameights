@@ -1,4 +1,4 @@
-import { EditTeam, LeaderActionsBox, LeaveJoinTeam } from './TeamForm.styles'
+import { EditTeam, GenericButton, LeaderActionsBox } from './TeamForm.styles'
 
 const ActionType = ({
   team,
@@ -31,7 +31,7 @@ const ActionType = ({
           >
             {isEditing ? 'Save' : 'Edit'}
           </EditTeam>
-          <LeaveJoinTeam
+          <GenericButton
             height="40px"
             onClick={() => {
               if (isEditing) {
@@ -43,20 +43,20 @@ const ActionType = ({
             marginTop="0"
           >
             {isEditing ? 'Cancel' : 'Delete'}
-          </LeaveJoinTeam>
+          </GenericButton>
         </LeaderActionsBox>
       )
       break
 
     case 'member':
-      action = <LeaveJoinTeam onClick={handleOpenLeave}>Leave Team</LeaveJoinTeam>
+      action = <GenericButton onClick={handleOpenLeave}>Leave Team</GenericButton>
       break
 
     default:
       action = (
-        <LeaveJoinTeam onClick={handleJoin} border="none" boxShadow="none" background="#46A11B">
+        <GenericButton onClick={handleJoin} border="none" boxShadow="none" background="#46A11B">
           Join Team
-        </LeaveJoinTeam>
+        </GenericButton>
       )
       break
   }

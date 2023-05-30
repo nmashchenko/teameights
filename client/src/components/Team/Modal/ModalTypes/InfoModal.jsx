@@ -2,7 +2,7 @@ import React from 'react'
 
 import { B2fs, B2fw, B2lh, H3fs, H3fw, H3lh } from '../../../../constants/fonts'
 import { EditTeam, Text } from '../../TeamForm/TeamForm.styles'
-import { Container } from '../TeamModal.styles'
+import { Button, Container } from '../TeamModal.styles'
 
 const InfoModal = ({ firstText, secondText, firstButton, firstButtonHandler }) => {
   return (
@@ -13,9 +13,9 @@ const InfoModal = ({ firstText, secondText, firstButton, firstButtonHandler }) =
       <Text fontSize={`${B2fs}`} lineHeight={`${B2lh}`} fontWeight={`${B2fw}`} margin="12px 0 0 0">
         {secondText}
       </Text>
-      <EditTeam marginTop="24px" width="100%" onClick={firstButtonHandler}>
+      <Button marginTop="24px" width="100%" background="#46A11B" onClick={firstButtonHandler}>
         {firstButton}
-      </EditTeam>
+      </Button>
     </Container>
   )
 }

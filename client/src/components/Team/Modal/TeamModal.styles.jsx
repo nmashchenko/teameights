@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
+
 export const UsernameIconContainer = styled.div`
   width: 100%;
   display: flex;
@@ -58,4 +60,34 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+`
+
+export const UserAccordionCard = styled.div`
+  display: flex;
+  font-size: ${B2fs};
+  font-weight: ${B2fw};
+  line-height: ${B2lh};
+  align-items: center;
+  gap: 8px;
+  &:hover {
+    background-color: #2f3239;
+    cursor: pointer;
+  }
+  height: 32px;
+  padding: 4px 8px 4px 16px;
+  color: white;
+`
+
+export const UserAccordionImg = styled.img`
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+`
+
+export const NoMembersCard = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

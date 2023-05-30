@@ -38,6 +38,8 @@ const NavBar = () => {
 
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
+
+  console.log(user)
   const [userNotifications, setUserNotifications] = useState(user?.notifications || [])
 
   const newNavData = [
@@ -173,4 +175,4 @@ const NavBar = () => {
   )
 }
 
-export default memo(NavBar)
+export default NavBar

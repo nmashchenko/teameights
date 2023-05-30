@@ -2,13 +2,11 @@ import React, { memo, useMemo } from 'react'
 import countryList from 'react-select-country-list'
 
 import { B2fs, B2fw, B2lh } from '../../../../constants/fonts'
-import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
+import CustomSelect from '../../../../shared/components/Formik/CustomSelect/CustomSelect'
 import { PlaceholderText } from '../../../Teammates/components/SelectField/SelectField.styles'
 
-const CountrySelect = ({ team, backgroundColor }) => {
+const CountrySelect = ({ team }) => {
   const countriesOptions = useMemo(() => countryList().getData(), [])
-
-  console.log('herre')
 
   return (
     <CustomSelect
@@ -35,7 +33,6 @@ const CountrySelect = ({ team, backgroundColor }) => {
         alignItems: 'center',
         margin: 0,
         borderBottom: '1px solid #86878B',
-        backgroundColor: `${backgroundColor[2]}`,
         width: '100%',
         fontSize: B2fs,
         fontWeight: B2fw,

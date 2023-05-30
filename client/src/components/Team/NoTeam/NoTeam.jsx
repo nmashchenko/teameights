@@ -9,7 +9,9 @@ import ROUTES from '../../../constants/routes'
 import Loader from '../../../shared/components/Loader/Loader'
 import { startRegistration } from '../../../store/reducers/RegistrationAuth'
 // * Styles
-import { Center, Container, TeamButton, Text } from '../TeamForm/TeamForm.styles'
+import { Container, Text } from '../TeamForm/TeamForm.styles'
+
+import { Center, TeamButton } from './NoTeam.styles'
 
 function NoTeamForm() {
   const navigate = useNavigate()

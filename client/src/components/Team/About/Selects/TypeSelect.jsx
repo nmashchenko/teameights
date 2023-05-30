@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
 
 import typeOptions from '../../../../constants/types'
-import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
+import CustomSelect from '../../../../shared/components/Formik/CustomSelect/CustomSelect'
 import { PlaceholderText } from '../../../Teammates/components/SelectField/SelectField.styles'
 
-const TypeSelect = ({ team, backgroundColor }) => {
+const TypeSelect = ({ team }) => {
   return (
     <CustomSelect
       multiple={false}
@@ -31,7 +31,6 @@ const TypeSelect = ({ team, backgroundColor }) => {
         margin: 0,
         borderBottom: '1px solid #86878B',
         width: '100%',
-        backgroundColor: `${backgroundColor[3]}`,
       }}
     />
   )

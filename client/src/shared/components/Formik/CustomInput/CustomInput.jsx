@@ -2,9 +2,9 @@ import React from 'react'
 import Box from '@mui/material/Box'
 import { useField } from 'formik'
 
-import AlertIcon from '../../../assets/Inputs/AlertIcon'
-import { formatDateInput } from '../../../utils/formatDateString'
-import { ErrorMessage, Label } from '../../styles/Tpography.styles'
+import AlertIcon from '../../../../assets/Inputs/AlertIcon'
+import { formatDateInput } from '../../../../utils/formatDateString'
+import { ErrorMessage, Label } from '../../../styles/Tpography.styles'
 
 import { IconSpan, Input, InputWrapper } from './CustomInput.styles'
 

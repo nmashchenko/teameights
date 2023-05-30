@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import { WHITE } from '../../../constants/colors'
-import { shake } from '../../styles/KeyFrames.styles'
+import { WHITE } from '../../../../constants/colors'
+import { shake } from '../../../styles/KeyFrames.styles'
 
 export const InputWrapper = styled.div`
   position: relative;
@@ -17,7 +17,7 @@ export const IconSpan = styled.span`
 export const Input = styled.input`
   outline: 0;
   border-width: 0 0 1.5px;
-  border-color: ${(props) => props.borderColor || '#4b4b4b'};
+  border-color: ${(props) => props.borderColor || '#8F9094'};
   background: inherit;
   width: ${(props) => props.inputWidth};
   height: ${(props) => props.height || '2.375rem'};

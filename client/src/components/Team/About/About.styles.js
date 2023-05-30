@@ -38,7 +38,7 @@ export const LabelTextFieldContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  gap: 8px;
+  gap: 2px;
   color: #86878b;
   grid-column: span 2;
   textarea {
@@ -104,3 +104,16 @@ export const EditTeam = styled.button`
     box-shadow: 0px 5px 31.25px rgba(93, 157, 11, 0.3125);
   }
 `
+
+export const nameStyles = (backgroundColor) => {
+  return {
+    color: '#FFF',
+    backgroundColor: `${backgroundColor[0]}`,
+    border: 'none',
+    padding: '8px 4px',
+    borderBottom: '1px solid #86878B',
+    width: `98%`,
+    transition: 'all .2s',
+    height: '34px',
+  }
+}

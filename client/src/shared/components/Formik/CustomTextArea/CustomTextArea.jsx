@@ -2,7 +2,7 @@ import React from 'react'
 import Stack from '@mui/material/Stack'
 import { useField, useFormikContext } from 'formik'
 
-import { ErrorMessage, Label } from '../../styles/Tpography.styles'
+import { ErrorMessage, Label } from '../../../styles/Tpography.styles'
 
 import { TextArea, TextAreaWrapper, TextLimitContainer } from './CustomTextArea.styles'
 
@@ -31,7 +31,7 @@ const CustomTextArea = ({ label, options, maxLength, margin, ...props }) => {
         {isError && <ErrorMessage>{meta.error}</ErrorMessage>}
         <TextLimitContainer>
           <Label>
-            {values.description.length}/{maxLength}
+            {values?.description.length}/{maxLength}
           </Label>
         </TextLimitContainer>
       </Stack>

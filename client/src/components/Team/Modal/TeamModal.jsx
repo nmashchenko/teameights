@@ -7,20 +7,19 @@ import UserPlus from '../../../assets/Team/UserPlus'
 import { LOCAL_PATH } from '../../../http'
 import AutocompleteInput from '../../../shared/components/AutocompleteInput/AutocompleteInput'
 import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
-import {
-  CloseContainerModal,
-  CreateButton,
-  style,
-  UserAccordionCard,
-  UserAccordionImg,
-  UserAccordionUsername,
-  UserPlusContainer,
-} from '../TeamForm/TeamForm.styles'
+import { CloseContainerModal, style, Text, UserPlusContainer } from '../TeamForm/TeamForm.styles'
 
 import ActionModal from './ModalTypes/ActionModal'
 import InfoModal from './ModalTypes/InfoModal'
 import InteractiveModal from './ModalTypes/InteractiveModal'
-import { Button, ListBackdrop, UsernameIconContainer } from './TeamModal.styles'
+import {
+  Button,
+  ListBackdrop,
+  NoMembersCard,
+  UserAccordionCard,
+  UserAccordionImg,
+  UsernameIconContainer,
+} from './TeamModal.styles'
 
 const TeamModal = ({
   modalActive,
@@ -119,12 +118,12 @@ const TeamModal = ({
             <AutocompleteInput value={value} setValue={handleSetValue} width={'306px'} />
           }
           interactiveButtons={
-            <CreateButton color={email !== '' ? '1' : '.4'} onClick={handleActions}>
+            <Button color={email !== '' ? '1' : '.4'} onClick={handleActions}>
               <UserPlusContainer>
                 <UserPlus />
               </UserPlusContainer>
               Invite
-            </CreateButton>
+            </Button>
           }
         />
       )
@@ -180,24 +179,26 @@ const TeamModal = ({
                           src={LOCAL_PATH + '/' + member.image}
                         />
                         <UsernameIconContainer>
-                          <UserAccordionUsername>{member.username}</UserAccordionUsername>
+                          <p>{member.username}</p>
                           {chosenLeader.username === member.username ? <SelectedIcon /> : <></>}
                         </UsernameIconContainer>
                       </UserAccordionCard>
                     )
                   })
               ) : (
-                <UserAccordionCard>
-                  <UserAccordionUsername>Invite more to transfer leader!</UserAccordionUsername>
-                </UserAccordionCard>
+                <NoMembersCard>
+                  <Text>Invite more to transfer leader!</Text>
+                </NoMembersCard>
               )}
             </ListBackdrop>
           }
           interactiveButtons={
             <div>
-              <Button onClick={handleActions} background="#46A11B">
-                Save
-              </Button>
+              {team?.members.length > 1 && (
+                <Button onClick={handleActions} background="#46A11B">
+                  Save
+                </Button>
+              )}
               <Button onClick={handleClose} border="2px solid #A5211F" marginTop="8px">
                 Cancel
               </Button>

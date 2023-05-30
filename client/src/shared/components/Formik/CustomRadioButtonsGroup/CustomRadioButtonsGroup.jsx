@@ -5,8 +5,8 @@ import Sheet from '@mui/joy/Sheet'
 import Stack from '@mui/material/Stack'
 import { useField, useFormikContext } from 'formik'
 
-import { GREEN, WHITE } from '../../../constants/colors'
-import { ErrorMessage } from '../../styles/Tpography.styles'
+import { GREEN, WHITE } from '../../../../constants/colors'
+import { ErrorMessage } from '../../../styles/Tpography.styles'
 
 const CustomRadioButtonsGroup = ({ options, ...props }) => {
   const [field, meta] = useField(props)

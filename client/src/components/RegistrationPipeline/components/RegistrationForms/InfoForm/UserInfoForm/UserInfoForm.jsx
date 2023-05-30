@@ -3,13 +3,13 @@ import countryList from 'react-select-country-list'
 
 import { useValidateUsername } from '../../../../../../api/hooks/auth/useValidateUsername'
 import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
-import CustomInput from '../../../../../../shared/components/CustomInput/CustomInput'
+import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
   SectionContainer,
-} from '../../../../../../shared/components/CustomInput/CustomInput.styles'
-import CustomSelect from '../../../../../../shared/components/CustomSelect/CustomSelect'
-import CustomTextArea from '../../../../../../shared/components/CustomTextArea/CustomTextArea'
+} from '../../../../../../shared/components/Formik/CustomInput/CustomInput.styles'
+import CustomSelect from '../../../../../../shared/components/Formik/CustomSelect/CustomSelect'
+import CustomTextArea from '../../../../../../shared/components/Formik/CustomTextArea/CustomTextArea'
 import { InputsContainer } from '../InfoForm.styles'
 
 const UserInfoForm = () => {

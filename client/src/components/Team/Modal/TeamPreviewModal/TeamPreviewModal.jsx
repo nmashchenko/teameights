@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import unregisteredImg from '../../../../assets/Images/user/unregistered.png'
+import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
 import ArrowRight from '../../../../assets/Team/ArrowRight'
 import Crown from '../../../../assets/Team/Crown'
 import { LOCAL_PATH } from '../../../../http'
@@ -99,7 +100,7 @@ const TeamPreviewModal = ({ user, team, handleJoin }) => {
         <div>
           <TeamCardPerson>
             <CrownContainer>
-              <Crown />
+              <SCrownRight />
             </CrownContainer>
             <TeamCardPicture src={LOCAL_PATH + '/' + team?.leader.image} />
           </TeamCardPerson>

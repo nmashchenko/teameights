@@ -10,7 +10,7 @@ import Filters from '../../../../assets/Filters/Filters'
 import Search from '../../../../assets/Filters/SearchIcon'
 // * Components
 import frameworkOptions from '../../../../constants/frameworks'
-import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
+import CustomSelect from '../../../../shared/components/Formik/CustomSelect/CustomSelect'
 import { setFilters } from '../../../../store/reducers/Shared'
 import FiltersMenu from '../FiltersMenu/FiltersMenu'
 import { PlaceholderText } from '../SelectField/SelectField.styles'

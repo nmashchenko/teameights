@@ -311,14 +311,41 @@ export class UsersService {
 			}
 		}
 
-		/* Updating the user with the given email with the new data and returning the updated user. */
-		const user = await this.userModel.findOneAndUpdate(
+		/* 
+		The above code is updating a user document in a MongoDB database using the Mongoose library. It
+		first filters the data to be updated using a spread operator and sets the "isRegistered" field to
+		true. Then it uses the "updateOne" method to update the document with the specified email. If the
+		update is successful (i.e., the modifiedCount is 1), it fetches the updated document using the
+		"findOne" method and returns it. If the update is not successful, it throws an HttpException with a
+		message indicating an error occurred while updating the user. 
+		
+		This approach gurantees data consistency as we would wait for update and then get full object back.
+		*/
+		const updateResult = await this.userModel.updateOne(
 			{ email: dto.email },
 			{ ...filtered, isRegistered: true },
-			{ new: true },
 		);
 
-		return user;
+		if (updateResult.modifiedCount === 1) {
+			// Fetch the updated document
+			const updatedDocument = await this.userModel.findOne({
+				email: dto.email,
+			});
+			return updatedDocument;
+		} else {
+			// Handle the case when the update was not successful
+			throw new HttpException(
+				`Error while updating user`,
+				HttpStatus.INTERNAL_SERVER_ERROR,
+			);
+		}
+		// const user = await this.userModel.findOneAndUpdate(
+		// 	{ email: dto.email },
+		// 	{ ...filtered, isRegistered: true },
+		// 	{ new: true },
+		// );
+
+		// return user;
 	}
 
 	/**

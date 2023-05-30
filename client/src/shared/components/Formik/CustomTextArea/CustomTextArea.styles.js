@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import { WHITE } from '../../../constants/colors'
-import { shake } from '../../styles/KeyFrames.styles'
+import { WHITE } from '../../../../constants/colors'
+import { shake } from '../../../styles/KeyFrames.styles'
 
 export const TextAreaWrapper = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ export const TextAreaWrapper = styled.div`
 `
 
 export const TextArea = styled.textarea`
-  margin-top: 10px;
+  margin-top: ${(props) => props.marginTop || `10px`};
   height: 180px;
   width: 100%;
   padding: 12px 20px;
