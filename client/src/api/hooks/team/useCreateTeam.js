@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from 'react-query'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import http from '../../../http'
+import { setIsFinishRegistrationStarted, setStep } from '../../../store/reducers/RegistrationAuth'
 import { useUpdateAvatar } from '../auth/useUpdateAvatar'
 
 const { api } = http
@@ -9,6 +11,7 @@ const { api } = http
 export const useCreateTeam = (teamAvatar) => {
   const queryClient = useQueryClient()
   const { mutate: updateAvatar } = useUpdateAvatar('teams')
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
   const createTeam = async (details) => {
@@ -24,7 +27,9 @@ export const useCreateTeam = (teamAvatar) => {
         updateAvatar({ teamID: data._id, image: teamAvatar.split(',')[1] })
       }
       await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
-      navigate('/myteam')
+      dispatch(setIsFinishRegistrationStarted(false))
+      dispatch(setStep(1))
+      navigate(`/team/${data._id}`)
     },
   })
 }

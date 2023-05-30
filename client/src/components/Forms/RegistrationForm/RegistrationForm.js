@@ -7,9 +7,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useRegister } from '../../../api/hooks/auth/useRegister'
 import Loader from '../../../shared/components/Loader/Loader'
-import Backdrop from '../../Backdrop/Backdrop'
 // * Helpers
-import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
+import SocialLoginRegistration from '../SocialLoginRegistrationForm/SocialLoginRegistrationForm'
 
 // * Styles
 import {
@@ -34,7 +33,6 @@ function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
 
   const { mutate: registerUser, isLoading: isUserRegistrationLoading } = useRegister()
@@ -49,7 +47,6 @@ function RegistrationForm() {
 
   return (
     <>
-      <Backdrop isLoading={isLoading} />
       <LeftScreenContainer>
         <LoginSignUpContainer>
           <LoginSignUpLinks>

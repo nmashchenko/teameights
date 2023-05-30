@@ -1,4 +1,4 @@
-import Email from '../../../assets/Email'
+import UserBehindPC from '../../../assets/Shared/UserBehindPC'
 
 import { Container, ImgContainer, Text, TextContainer } from './ConfirmEmail.styles'
 
@@ -12,7 +12,7 @@ function ConfirmEmail() {
         </Text>
       </TextContainer>
       <ImgContainer>
-        <Email />
+        <UserBehindPC />
       </ImgContainer>
     </Container>
   )

@@ -1,26 +1,19 @@
 // * Modules
 import React, { useEffect, useState } from 'react'
-// * Api
 // * Redux
 import { useSelector } from 'react-redux'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import isEqual from 'lodash/isEqual'
 
 import { useLoginUser } from '../../../api/hooks/auth/useLoginUser'
 import Loader from '../../../shared/components/Loader/Loader'
-// * Constants
-// * Assets
-import SnackBar from '../../SnackBar/SnackBar'
-// * Helpers
-import SocialLoginRegistration from '../SocialLoginRegistration/SocialLoginRegistration'
+import SocialLoginRegistration from '../SocialLoginRegistrationForm/SocialLoginRegistrationForm'
 
 import {
   AlternativeLogin,
   EmailPasswordContainer,
   LeftScreenContainer,
   LoginButton,
-  LoginContainer,
   LoginInput,
   LoginLink,
   LoginSignUpContainer,
@@ -33,8 +26,6 @@ import {
 } from './LoginForm.styles'
 
 function LoginForm() {
-  const { error } = useSelector((state) => state.userReducer)
-
   const [showPassword, setShowPassword] = useState(false)
   const [password, setPassword] = useState('')
   const [inputEmail, setInputEmail] = useState('')

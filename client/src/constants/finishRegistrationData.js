@@ -1,16 +1,22 @@
-import blueAvatar from '../assets/defaultAvatars/user/default-blue.png'
-import greenAvatar from '../assets/defaultAvatars/user/default-green.png'
-import orangeAvatar from '../assets/defaultAvatars/user/default-orange.png'
-import pinkAvatar from '../assets/defaultAvatars/user/default-pink.png'
-import purpleAvatar from '../assets/defaultAvatars/user/default-purple.png'
-import yellowAvatar from '../assets/defaultAvatars/user/default-yellow.png'
+import BehanceIcon from '../assets/Links/BehanceIcon'
 import GitHubIcon from '../assets/Links/GitHubIcon'
 import LinkedInIcon from '../assets/Links/LinkedInIcon'
 import TelegramIcon from '../assets/Links/TelegramIcon'
 
 import concentrationOptions from './concentrations'
 import frameworkOptions from './frameworks'
-import programmingLanguageOptions from './programmingLanguages'
+import { programmingLanguageOptions } from './programmingLanguages'
+
+const avatarFilenames = [
+  'default-blue.png',
+  'default-green.png',
+  'default-orange.png',
+  'default-pink.png',
+  'default-purple.png',
+  'default-yellow.png',
+]
+
+const avatars = avatarFilenames.map((filename) => require(`../assets/Images/user/${filename}`))
 
 export const userConcentrations = [
   {
@@ -46,38 +52,47 @@ export const userLinks = [
     name: 'telegram',
     icon: <TelegramIcon />,
   },
+  {
+    name: 'behance',
+    icon: <BehanceIcon />,
+  },
 ]
 
 export const defaultUserAvatars = [
-  { name: 'green', path: greenAvatar },
-  { name: 'pink', path: pinkAvatar },
-  { name: 'blue', path: blueAvatar },
-  { name: 'orange', path: orangeAvatar },
-  { name: 'purple', path: purpleAvatar },
-  { name: 'yellow', path: yellowAvatar },
+  { name: 'green', path: avatars[0] },
+  { name: 'pink', path: avatars[1] },
+  { name: 'blue', path: avatars[2] },
+  { name: 'orange', path: avatars[3] },
+  { name: 'purple', path: avatars[4] },
+  { name: 'yellow', path: avatars[5] },
 ]
+
 export const userExperienceOptions = [
   {
-    label: '0-1 years',
-    value: '0-1',
+    label: 'No experience',
+    value: '0',
   },
   {
     label: '1-3 years',
     value: '1-3',
   },
   {
-    label: '3+ years',
-    value: '3+',
+    label: '3-5 years',
+    value: '3-5',
+  },
+  {
+    label: '5+ years',
+    value: '5+',
   },
 ]
 
 export const userLeaderOptions = [
   {
-    label: 'YES',
-    value: 'true',
+    label: 'No',
+    value: 'false',
   },
   {
-    label: 'NO',
-    value: 'false',
+    label: 'Yes',
+    value: 'true',
   },
 ]

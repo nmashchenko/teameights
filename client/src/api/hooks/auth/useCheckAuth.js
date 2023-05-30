@@ -3,6 +3,7 @@ import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 
 import http from '../../../http'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 import { userAuth } from '../../../store/reducers/UserAuth'
 
 const { api } = http
@@ -22,7 +23,8 @@ export const useCheckAuth = () => {
       }
     },
     onError: (error) => {
-      dispatch(userAuth.actions.authUserError(error.response?.data?.message))
+      // set error message
+      errorToaster(error)
     },
     refetchOnMount: false,
     refetchOnWindowFocus: false,

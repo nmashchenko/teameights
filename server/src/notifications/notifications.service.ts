@@ -1,15 +1,19 @@
-import { UsersService } from '@Users/users.service';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { ClientSession, Model } from 'mongoose';
-import { TeamInvitationNotification } from './schemas/team-invite.schema';
-import { NotificationType } from './notifications.enums';
-import { SystemNotification } from './schemas/system.schema';
+import { Subject } from 'rxjs';
+import { Server } from 'socket.io';
+
+import { MailsService } from '@/mails/mails.service';
+
+import { ReadNotificationsDto } from './dto/read-notifications.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
 import { SystemNotificationDto } from './dto/system-notification.dto';
 import { TeamNotificationsDto } from './dto/team-notification.dto';
-import { MailsService } from '@/mails/mails.service';
+import { NotificationType } from './notifications.enums';
 import { Notifications } from './schemas/notifications.schema';
-import { ReadNotificationsDto } from './dto/read-notifications.dto';
+import { SystemNotification } from './schemas/system.schema';
+import { TeamInvitationNotification } from './schemas/team-invite.schema';
 
 @Injectable()
 export class NotificationsService {
@@ -44,7 +48,9 @@ export class NotificationsService {
 		if (typeof session !== 'undefined') {
 			const data = await this.systemNotificationModel.create(
 				[notification],
-				{ session },
+				{
+					session,
+				},
 			);
 			return data[0]._id;
 		} else {
@@ -81,7 +87,9 @@ export class NotificationsService {
 		if (typeof session !== 'undefined') {
 			const data = await this.teamNotificationModel.create(
 				[notification],
-				{ session },
+				{
+					session,
+				},
 			);
 			return data[0]._id;
 		} else {
@@ -95,8 +103,13 @@ export class NotificationsService {
 	 * @param notificationid - The id of the notification to be removed.
 	 * @returns The result of the deleteOne() method.
 	 */
-	async removeNotification(notificationid: mongoose.Types.ObjectId) {
-		return await this.notificationModel.deleteOne({ _id: notificationid });
+	async removeNotification(
+		notificationid: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
+		await this.notificationModel.deleteOne({ _id: notificationid });
+		return {
+			status: `Notification ${notificationid} was successfully deleted.`,
+		};
 	}
 
 	/**
@@ -136,9 +149,11 @@ export class NotificationsService {
 		}
 	}
 
-	async readNotification(dto: ReadNotificationsDto): Promise<Object> {
-		let error: number = 0;
-		let success: number = 0;
+	async readNotification(
+		dto: ReadNotificationsDto,
+	): Promise<StatusResponseDto> {
+		let error = 0;
+		let success = 0;
 
 		for (let i = 0; i < dto.notifications.length; i++) {
 			const notification = await this.getTeamNotificationById(
@@ -148,18 +163,17 @@ export class NotificationsService {
 			if (!notification) {
 				error++;
 			} else {
-				const test = await this.notificationModel.findOneAndUpdate(
+				await this.notificationModel.findOneAndUpdate(
 					{ _id: dto.notifications[i] },
 					{ read: true },
 					{ new: true },
 				);
-				console.log(test);
 				success++;
 			}
 		}
 
 		return {
-			staus: `Updated ${success} notifications: `,
+			status: `Updated ${success} notifications: `,
 			errors: `We didn't find ${error} notifications`,
 		};
 	}

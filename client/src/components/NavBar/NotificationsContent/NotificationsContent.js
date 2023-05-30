@@ -1,4 +1,6 @@
 // assets
+import { memo, useEffect } from 'react'
+
 import Notification from '../../../assets/Sidebar/Notification'
 import { IconWrapper, NavInteractBtn } from '../NavBar.styles'
 import NotificationsModal from '../NotificationsModal/NotificationsModal'
@@ -6,8 +8,13 @@ import NotificationsModal from '../NotificationsModal/NotificationsModal'
 // this component styles
 import { NotificationsCount, StyledNotificationsContent } from './NotificationsContent.styles'
 
-const NotificationsContent = ({ user, sidebar, setNotificationModal, notificationModal }) => {
-  const unreadMessages = user.notifications.filter((item) => !item.read)
+const NotificationsContent = ({
+  userNotifications,
+  sidebar,
+  setNotificationModal,
+  notificationModal,
+}) => {
+  const unreadMessages = userNotifications.filter((item) => !item.read)
 
   return (
     <StyledNotificationsContent>
@@ -22,17 +29,20 @@ const NotificationsContent = ({ user, sidebar, setNotificationModal, notificatio
         <p>Notifications</p>
         {!!unreadMessages.length && !notificationModal && (
           <>
-            <NotificationsCount active={!sidebar} top="6px" left="28px">
-              {unreadMessages.length}
-            </NotificationsCount>
-            <NotificationsCount active={sidebar} top="auto" right="16px">
+            <NotificationsCount
+              active={!sidebar}
+              top="6px"
+              left="28px"
+              animate={{ scale: [1, 1.5, 1] }}
+              key={unreadMessages.length}
+            >
               {unreadMessages.length}
             </NotificationsCount>
           </>
         )}
       </NavInteractBtn>
       <NotificationsModal
-        user={user}
+        userNotifications={userNotifications}
         notificationModal={notificationModal}
         setNotificationModal={setNotificationModal}
       />

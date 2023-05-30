@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 
-import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import NotificationsItem from '../NotificationsItem/NotificationsItem'
 
 import { StyledNotificationsList } from './NotificationsList.styles'
 
-const NotificationsList = ({ setUnreadIds, closeNotificationsModal }) => {
-  const { data: user } = useCheckAuth()
+const NotificationsList = ({ userNotifications, setUnreadIds, closeNotificationsModal }) => {
   const listRef = useRef(null)
+
+  userNotifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries, observer) => {
@@ -30,12 +30,12 @@ const NotificationsList = ({ setUnreadIds, closeNotificationsModal }) => {
     return () => {
       observer.disconnect()
     }
-  }, [user.notifications])
+  }, [userNotifications])
 
   return (
     <StyledNotificationsList ref={listRef}>
-      {user?.notifications &&
-        user.notifications.map((item) => (
+      {userNotifications &&
+        userNotifications.map((item) => (
           <NotificationsItem
             key={item._id}
             closeNotificationsModal={closeNotificationsModal}
@@ -46,4 +46,4 @@ const NotificationsList = ({ setUnreadIds, closeNotificationsModal }) => {
   )
 }
 
-export default NotificationsList
+export default memo(NotificationsList)

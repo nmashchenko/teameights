@@ -1,27 +1,29 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { forwardRef } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { Test, TestingModule } from '@nestjs/testing';
+import { MailerModule } from '@nestjs-modules/mailer';
+import * as path from 'path';
+
+import { AuthModule } from '@/auth/auth.module';
 import { FileModule } from '@/files/file.module';
+import { FileService } from '@/files/file.service';
 import { NotificationsModule } from '@/notifications/notifications.module';
+import { NotificationsService } from '@/notifications/notifications.service';
+import { RolesModule } from '@/roles/roles.module';
+import { Role, RoleSchema } from '@/roles/roles.schema';
+import { RolesService } from '@/roles/roles.service';
 import {
 	closeMongoConnection,
 	healthCheck,
 	rootMongooseTestModule,
 } from '@/test-utils/MongooseTestModule';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { ConfigModule } from '@nestjs/config';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import * as path from 'path';
-import { UsersService } from '@/users/users.service';
-import { RolesService } from '@/roles/roles.service';
-import { NotificationsService } from '@/notifications/notifications.service';
-import { AuthModule } from '@/auth/auth.module';
-import { forwardRef, HttpException } from '@nestjs/common';
-import { User, UserSchema } from '../users.schema';
-import { Role, RoleSchema } from '@/roles/roles.schema';
-import { RolesModule } from '@/roles/roles.module';
 import { TokensModule } from '@/tokens/tokens.module';
-import { FileService } from '@/files/file.service';
 import { TokensService } from '@/tokens/tokens.service';
+import { UsersService } from '@/users/users.service';
+
+import { User, UserSchema } from '../users.schema';
 import { RegisterUserDtoStub } from './stubs/register-user.dto.stub';
 
 describe('UserService', () => {
@@ -31,7 +33,7 @@ describe('UserService', () => {
 	let rolesService: RolesService;
 	let notificationService: NotificationsService;
 
-	beforeAll((done) => {
+	beforeAll(done => {
 		done();
 	});
 
@@ -94,7 +96,7 @@ describe('UserService', () => {
 		// done();
 	});
 
-	async function createUser(email: string = 'test@example.com') {
+	async function createUser(email = 'test@example.com'): Promise<User> {
 		await rolesService.createRole({
 			value: 'USER',
 			description: 'User role',
@@ -114,16 +116,19 @@ describe('UserService', () => {
 	});
 
 	it('should create user and update birthday date', async () => {
+		const users = await userService.getAllUsers();
+
+		console.log(users);
 		const user = await createUser();
 		expect(user.email).toBe('test@example.com');
 
 		const updateBirthdayData = {
 			email: 'test@example.com',
-			birthDate: new Date(2002, 0),
+			dateOfBirth: new Date(2002, 0),
 		};
 		// @ts-ignore
 		const updateUser = await userService.updateUser(updateBirthdayData);
-		expect(updateUser.birthDate).toEqual(updateBirthdayData.birthDate);
+		expect(updateUser.dateOfBirth).toEqual(updateBirthdayData.dateOfBirth);
 	});
 
 	it('should create user and then update university fields', async () => {

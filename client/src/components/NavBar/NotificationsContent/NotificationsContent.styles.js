@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
 import { IconWrapper } from '../NavBar.styles'
@@ -6,10 +7,10 @@ export const StyledNotificationsContent = styled.div`
   position: relative;
 `
 
-export const NotificationsCount = styled.div`
+export const NotificationsCount = styled(motion.div)`
   position: absolute;
-  transition: opacity var(--menu-animation-time);
-  opacity: ${(props) => (props.active ? 1 : 0)};
+  /* transition: opacity var(--menu-animation-time); */
+  ${'' /* opacity: ${(props) => (props.active ? 1 : 0)}; */}
   pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   top: ${(props) => props.top || 'auto'};
   right: ${(props) => props.right || 'auto'};
@@ -22,7 +23,7 @@ export const NotificationsCount = styled.div`
   padding: 1.5px 3.5px;
   background: #5bd424;
   border-radius: 50%;
-  font-family: Inter;
+  /* font-family: Inter; */
   font-weight: 500;
   font-size: 11px;
   line-height: 100%;

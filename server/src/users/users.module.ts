@@ -1,14 +1,16 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from '@Auth/auth.module';
-import { RolesModule } from '@Roles/roles.module';
-import { Role, RoleSchema } from '@Roles/roles.schema';
-import { TokensModule } from '@Tokens/tokens.module';
+
+import { AuthModule } from '@/auth/auth.module';
+import { FileModule } from '@/files/file.module';
+import { NotificationsModule } from '@/notifications/notifications.module';
+import { RolesModule } from '@/roles/roles.module';
+import { Role, RoleSchema } from '@/roles/roles.schema';
+import { TokensModule } from '@/tokens/tokens.module';
+
 import { UsersController } from './users.controller';
 import { User, UserSchema } from './users.schema';
 import { UsersService } from './users.service';
-import { FileModule } from '@/files/file.module';
-import { NotificationsModule } from '@/notifications/notifications.module';
 
 @Module({
 	controllers: [UsersController],

@@ -124,7 +124,7 @@ export const Cards = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 78px);
+  min-height: 100vh;
 `
 
 export const Information = styled.div`

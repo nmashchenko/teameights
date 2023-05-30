@@ -1,12 +1,14 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { isEqual } from 'lodash';
+import mongoose, { Model } from 'mongoose';
+
 import { FileService } from '@/files/file.service';
 import { LeaderboardService } from '@/leaderboard/leaderboard.service';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { TeamsService } from '@/teams/teams.service';
 import { UsersService } from '@/users/users.service';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { isEqual } from 'lodash';
-import mongoose, { Model } from 'mongoose';
+
 import { CreateTournamentDto } from './dto/create-tournament.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { Tournament, TournamentDocument } from './tournaments.schema';
@@ -91,7 +93,7 @@ export class TournamentsService {
 	async checkExistance(
 		t_id: mongoose.Types.ObjectId,
 		userid: mongoose.Types.ObjectId,
-	): Promise<Object> {
+	): Promise<any> {
 		const candidateTournament = await this.getTournamentById(t_id);
 
 		/* It checks if the tournament exists. */
@@ -195,7 +197,7 @@ export class TournamentsService {
 			/* It's filtering the participants array and pushing the new participant to the array. */
 			const filtered =
 				checkTeamInTournament.tournament_participants.filter(
-					(participant) => participant.team_id !== dto.team_id,
+					participant => participant.team_id !== dto.team_id,
 				);
 			const newParticipants = {
 				team_id: dto.team_id,

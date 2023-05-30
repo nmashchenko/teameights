@@ -4,16 +4,16 @@ import {
 	IsArray,
 	IsBoolean,
 	IsDate,
+	IsDateString,
 	IsEmail,
-	IsEmpty,
 	IsNotEmpty,
 	IsObject,
 	IsOptional,
 	IsString,
-	IsUrl,
 	Length,
 	ValidateNested,
 } from 'class-validator';
+
 import { JobDataDto } from './job-data.dto';
 import { LinksUserDto } from './links-user.dto';
 import { UniversityDataDto } from './university-data.dto';
@@ -40,11 +40,11 @@ export class UpdateUserDto {
 	@IsOptional()
 	readonly fullName: string;
 
-	@ApiProperty({ example: '17', description: 'Age of user' })
-	@IsString({ message: 'Should be string' })
+	@ApiProperty({ example: new Date(), description: 'Date of birth' })
+	@IsDateString()
 	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsOptional()
-	readonly age: string;
+	readonly dateOfBirth: Date;
 
 	@ApiProperty({
 		example: '20 y.o. developer from Ukraine',
@@ -62,14 +62,6 @@ export class UpdateUserDto {
 	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsOptional()
 	readonly concentration: string;
-
-	@ApiProperty({
-		example: '2016-05-18T14:10:30Z',
-		description: 'Birthday of user',
-	})
-	@IsDate()
-	@IsOptional()
-	readonly birthDate: Date;
 
 	@ApiProperty({ example: 'Ukraine', description: 'Country of user' })
 	@IsString({ message: 'Should be string' })
@@ -93,7 +85,7 @@ export class UpdateUserDto {
 	@IsBoolean({ message: 'Should be boolean' })
 	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsOptional()
-	readonly isLeader: Boolean;
+	readonly isLeader: boolean;
 
 	@ApiProperty({
 		example: {

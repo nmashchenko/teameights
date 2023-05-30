@@ -16,14 +16,14 @@ class TournamentTeam {
 	})
 	@IsMongoId()
 	@IsOptional()
-	readonly frontendScore: Number;
+	readonly frontendScore: number;
 
 	@ApiProperty({
 		required: true,
 		example: 50,
 	})
 	@IsMongoId()
-	readonly backendScore: Number;
+	readonly backendScore: number;
 }
 
 export class UpdateTournamentDto {

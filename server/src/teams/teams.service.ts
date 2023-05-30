@@ -1,23 +1,25 @@
-import { FileService, FileType } from '@Files/file.service';
-import { UsersService } from '@Users/users.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { FilterQuery, Model } from 'mongoose';
+import util from 'util';
+
+import { FileService, FileType } from '@/files/file.service';
+import { MailsService } from '@/mails/mails.service';
+import { NotificationsService } from '@/notifications/notifications.service';
+import { UsersService } from '@/users/users.service';
+import { teamUpdateValidate } from '@/validation/team-update.validation';
+
 import { CreateTeamDto } from './dto/create-team.dto';
+import { InviteToTeamDto } from './dto/invite-to-team.dto';
+import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
+import { TeamMembershipDTO } from './dto/membership.dto';
+import { Results } from './dto/results.dto';
+import { StatusResponseDto } from './dto/status-response.dto';
+import { TransferLeaderDto } from './dto/transfer-leader.dto';
+import { UpdateTeamDto } from './dto/update-team.dto';
 import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
 import { Team, TeamsDocument } from './teams.schema';
-import { NotificationsService } from '@Notifications/notifications.service';
-import { InviteToTeamDto } from './dto/invite-to-team.dto';
 import { TeamType } from './types/teams.type';
-import { TeamMembershipDTO } from './dto/membership.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
-import { teamUpdateValidate } from '@/validation/team-update.validation';
-import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
-import { MailsService } from '@/mails/mails.service';
-import { TeamSearchDto } from './dto/team-search.dto';
-import { TransferLeaderDto } from './dto/transfer-leader.dto';
-import { Results } from './dto/results.dto';
-import util from 'util';
 
 @Injectable()
 export class TeamsService {
@@ -88,7 +90,7 @@ export class TeamsService {
 		}
 
 		/* Creating an array of members_id. */
-		let members_id: Array<mongoose.Types.ObjectId> = [dto.leader];
+		const members_id: Array<mongoose.Types.ObjectId> = [dto.leader];
 
 		/* Creating a team with the given data. */
 		const team = await this.teamModel.create({
@@ -107,10 +109,10 @@ export class TeamsService {
 		await this.userService.addTeam(candidate._id, team._id);
 
 		/* Check if there are any members to invite. */
-		if (dto?.members?.emails.length > 0) {
+		if (dto?.members?.emails.length > 1) {
 			/* Inviting all the members of the team to the team. */
-			for (let i = 0; i < dto.members.emails.length; i++) {
-				let candidate = {
+			for (let i = 1; i < dto.members.emails.length; i++) {
+				const candidate = {
 					email: dto.members.emails[i],
 					from_user_id: dto.leader,
 					teamid: team._id,
@@ -192,12 +194,9 @@ export class TeamsService {
 	 * limit, the number of teams on the current page, and an array of team objects with their members and
 	 * leader populated.
 	 */
-	async getTeamsByPage(
-		page: number = 1,
-		limit: number = 9,
-	): Promise<Results> {
+	async getTeamsByPage(page = 1, limit = 9): Promise<Results> {
 		/* A type assertion. */
-		let results = {} as Results;
+		const results = {} as Results;
 
 		/* Calculating the total number of users, the last page and the limit. */
 		results.total = await this.teamModel.count();
@@ -233,12 +232,12 @@ export class TeamsService {
 	 * @returns This function returns a Promise that resolves to a Results object.
 	 */
 	async getFilteredTeamsByPage(
-		page: number = 1,
-		limit: number = 9,
+		page = 1,
+		limit = 9,
 		parsedQuery: FilterQuery<any> = {},
 	): Promise<Results> {
 		/* A type assertion. */
-		let results = {} as Results;
+		const results = {} as Results;
 
 		console.log(parsedQuery);
 
@@ -414,8 +413,8 @@ export class TeamsService {
 	private async removeNotification(
 		userId: mongoose.Types.ObjectId,
 		notificationid: mongoose.Types.ObjectId,
-	) {
-		console.debug(
+	): Promise<void> {
+		console.log(
 			`Removing notification ${notificationid} from user ${userId}`,
 		);
 		/* Removing the notification from the database. */
@@ -434,7 +433,7 @@ export class TeamsService {
 	 */
 	async acceptInvite(
 		notificationid: mongoose.Types.ObjectId,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const notification =
 			await this.notificationsService.getTeamNotificationById(
 				notificationid,
@@ -521,7 +520,7 @@ export class TeamsService {
 	 */
 	async rejectTeamInvite(
 		notificationid: mongoose.Types.ObjectId,
-	): Promise<Object> {
+	): Promise<StatusResponseDto> {
 		const notification =
 			await this.notificationsService.getTeamNotificationById(
 				notificationid,
@@ -621,7 +620,7 @@ export class TeamsService {
 	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
 	 * @returns The updated team.
 	 */
-	async leaveTeam(dto: TeamMembershipDTO): Promise<Team> {
+	async leaveTeam(dto: TeamMembershipDTO): Promise<Team | void> {
 		const candidate = await this.userService.getUserById(dto.user_id);
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
@@ -660,6 +659,28 @@ export class TeamsService {
 		}
 
 		// TODO: in the future, check if user is signed up for the tournament before allowing to leave the team
+
+		/* The above code is checking if a team leader is trying to leave a team that has other members in it.
+		If so, it throws an HTTP exception with a message indicating that the leader cannot leave the team
+		before removing all players. */
+		if (team.leader._id.equals(candidate._id) && team.members.length > 1) {
+			throw new HttpException(
+				`${candidate.username} can't leave the team before removing all players`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* The above code is checking if a candidate is the only member of a team and also the leader of that
+		team. If both conditions are true, it deletes the team from the database using the team's ID and
+		removes the team from the candidate's list of teams using the candidate's ID. */
+		if (
+			team.leader._id.equals(candidate._id) &&
+			team.members.length === 1
+		) {
+			await this.teamModel.findOneAndDelete({ _id: team._id });
+
+			return this.userService.removeTeam(candidate._id);
+		}
 
 		/* Removing the user to the team. */
 		const updated = await this.teamModel.findOneAndUpdate(
@@ -709,7 +730,7 @@ export class TeamsService {
 	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
 	 * @returns Team
 	 */
-	async removeMember(dto: TeamMembershipDTO): Promise<Team> {
+	async removeMember(dto: TeamMembershipDTO): Promise<Team | void> {
 		return await this.leaveTeam(dto);
 	}
 
@@ -718,7 +739,9 @@ export class TeamsService {
 	 * @param teamId - The id of the team to be deleted.
 	 * @returns The team object
 	 */
-	async deleteTeam(teamId: mongoose.Types.ObjectId): Promise<Object> {
+	async deleteTeam(
+		teamId: mongoose.Types.ObjectId,
+	): Promise<StatusResponseDto> {
 		const team = await this.getTeamById(teamId);
 
 		if (!team) {
@@ -743,7 +766,7 @@ export class TeamsService {
 		// delete team itself
 		await this.teamModel.findOneAndDelete({ _id: team._id });
 
-		return { status: 'removed' };
+		return { status: `Team ${teamId} was successfully deleted` };
 	}
 
 	/**
@@ -806,5 +829,9 @@ export class TeamsService {
 		// TODO: add notification here to new leader that he is now leader of the team
 
 		return newTeam;
+	}
+
+	async getByTag(tag: string): Promise<Team> {
+		return await this.teamModel.findOne({ tag: tag });
 	}
 }

@@ -25,7 +25,7 @@ export const useChangeMessageStatus = (teamId) => {
       queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
       if (decision === 'accept') {
         queryClient.invalidateQueries(['getTeamById', teamId], { refetchInactive: true })
-        navigate('/myteam')
+        navigate(`/team/${teamId}`)
       }
     },
     onError: (error) => {

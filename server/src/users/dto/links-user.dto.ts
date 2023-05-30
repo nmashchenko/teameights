@@ -8,7 +8,7 @@ export class LinksUserDto {
 		{ message: 'Should be correct github url' },
 	)
 	@IsOptional()
-	@ValidateIf((e) => e.github !== '') // check only when blank string not found
+	@ValidateIf(e => e.github !== '') // check only when blank string not found
 	readonly github: string;
 
 	@ApiProperty({ example: 'https://linkedin.com', description: 'LinkedIn' })
@@ -17,7 +17,7 @@ export class LinksUserDto {
 		{ message: 'Should be correct linkedin url' },
 	)
 	@IsOptional()
-	@ValidateIf((e) => e.linkedIn !== '') // check only when blank string not found
+	@ValidateIf(e => e.linkedIn !== '') // check only when blank string not found
 	readonly linkedIn: string;
 
 	@ApiProperty({ example: 'https://instagram.com', description: 'Instagram' })
@@ -26,13 +26,13 @@ export class LinksUserDto {
 		{ message: 'Should be correct linkedin url' },
 	)
 	@IsOptional()
-	@ValidateIf((e) => e.instagram !== '') // check only when blank string not found
+	@ValidateIf(e => e.instagram !== '') // check only when blank string not found
 	readonly instagram: string;
 
 	// TODO: Change later
 	@ApiProperty({ example: 'https://telegram.com', description: 'Telegram' })
 	@IsUrl({}, { message: 'Should be url' })
 	@IsOptional()
-	@ValidateIf((e) => e.telegram !== '') // check only when blank string not found
+	@ValidateIf(e => e.telegram !== '') // check only when blank string not found
 	readonly telegram: string;
 }
