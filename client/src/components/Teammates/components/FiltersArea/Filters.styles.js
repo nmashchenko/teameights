@@ -1,13 +1,14 @@
 // * Modules
 import Box from '@mui/material/Box'
+import { Form } from 'formik'
 import styled from 'styled-components'
 
 export const NavBar = styled.div`
   display: flex;
-  padding: 0 24px;
   justify-content: center;
   align-items: center;
-  height: 64px;
+  width: 100%;
+  flex-direction: column;
 `
 
 export const BoxContainer = styled(Box)`
@@ -19,7 +20,7 @@ export const BoxContainer = styled(Box)`
 `
 
 export const LogoContainer = styled.div`
-  margin-right: 7%;
+  margin: 49px 0 48px 0;
 
   @media screen and (min-width: 0px) and (max-width: 980px) {
     display: none;

@@ -42,14 +42,17 @@ export const CardsZone = styled.div`
   width: 100%;
   justify-content: space-evenly;
   align-items: center;
-  position: relative;
+  /* position: relative; */
+  padding-left: 88px;
+  margin-top: 45px;
 `
 
 export const InfoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 172px);
+  padding-left: 88px;
 `
 
 export const UserCardModal = styled(Modal)`

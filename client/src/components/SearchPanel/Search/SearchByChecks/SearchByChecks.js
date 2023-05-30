@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import SearchIcon from '../../../../assets/SearchIcon'
+import SearchIcon from '../../../../assets/Shared/SearchIcon'
 import { useOutsideClick } from '../../../../hooks/useOutsideClick'
 import { SearchBox, SearchIconWrapper, SearchInput } from '../Search.styles'
 

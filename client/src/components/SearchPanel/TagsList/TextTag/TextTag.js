@@ -1,4 +1,4 @@
-import Close from '../../../../assets/Close'
+import Close from '../../../../assets/Shared/Close'
 import { CrossWrapper, TagItem, TagSubItem } from '../TagsList.styles'
 
 const TextTag = ({ value, filterIndex, setFilterValue }) => {

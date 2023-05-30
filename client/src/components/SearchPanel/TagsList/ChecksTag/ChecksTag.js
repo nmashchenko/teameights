@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-import Close from '../../../../assets/Close'
+import Close from '../../../../assets/Shared/Close'
 import { useOutsideClick } from '../../../../hooks/useOutsideClick'
 import { CrossWrapper, TagItem, TagSubItem } from '../TagsList.styles'
 

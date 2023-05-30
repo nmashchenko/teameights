@@ -5,6 +5,7 @@ export const StyledTagsList = styled.ul`
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 8px;
+  margin-bottom: 45px;
 `
 
 export const TagItem = styled.li`
