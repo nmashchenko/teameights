@@ -96,7 +96,7 @@ export const teamPreviewStyle = {
   bgcolor: '#1A1C22',
   borderRadius: '15px',
   boxShadow: 14,
-  p: 4,
+  padding: '24px 32px',
   display: 'flex',
   alignItems: 'start',
   flexDirection: 'column',

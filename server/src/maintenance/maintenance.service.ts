@@ -84,6 +84,15 @@ export class MaintenanceService {
 		return shuffled.slice(0, numEntries);
 	}
 
+	private generateDescription(length: number): string {
+		let description = faker.lorem.sentence();
+
+		while (description.length < length) {
+			description += ' ' + faker.lorem.sentence();
+		}
+		return description.slice(0, length);
+	}
+
 	private generateTeam(leader: mongoose.Types.ObjectId): any {
 		const dto = new CreateTeamDto();
 
@@ -94,7 +103,7 @@ export class MaintenanceService {
 		const team: RemoveReadonly = dto;
 
 		team.name = faker.internet.userName();
-		team.description = faker.lorem.paragraph();
+		team.description = this.generateDescription(230);
 		team.leader = leader;
 		team.country = faker.address.country();
 		team.type = 'open';
@@ -133,7 +142,7 @@ export class MaintenanceService {
 			max: 65,
 			mode: 'age',
 		})),
-			(initialUser.description = faker.lorem.sentence());
+			(initialUser.description = this.generateDescription(230));
 		initialUser.concentration = faker.name.jobTitle();
 		initialUser.country = faker.address.country();
 		initialUser.experience = `${faker.datatype.number({

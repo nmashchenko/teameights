@@ -182,8 +182,8 @@ export const CloseContainerModal = styled.div`
   position: absolute;
   cursor: pointer;
   svg {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     path {
       stroke: ${(props) => props.color || '#46A11B'};
     }
@@ -191,8 +191,8 @@ export const CloseContainerModal = styled.div`
   color: #fff;
   opacity: 1;
   transition: all 0.2s ease-in-out;
-  right: 5%;
-  top: 5%;
+  right: 3%;
+  top: 4%;
 
   &:hover {
     svg {
@@ -255,6 +255,6 @@ export const style = {
   bgcolor: '#1A1C22',
   borderRadius: '15px',
   boxShadow: 14,
-  padding: 4,
+  padding: '32px 24px',
   backdropFilter: 'blur(5px)',
 }

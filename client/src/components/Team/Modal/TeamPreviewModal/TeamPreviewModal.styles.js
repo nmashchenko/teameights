@@ -61,19 +61,7 @@ export const TeamCardBodyPoint = styled.div`
   }
   p {
     max-height: 88px;
-    overflow-y: scroll;
     padding-right: 8px;
-    ::-webkit-scrollbar {
-      transition: all 0.2s;
-      width: 8px;
-      height: auto;
-    }
-    ::-webkit-scrollbar-track {
-    }
-    ::-webkit-scrollbar-thumb {
-      background-color: #5d9d0b;
-      border-radius: 10px;
-    }
   }
 `
 
