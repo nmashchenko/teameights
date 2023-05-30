@@ -7,11 +7,14 @@ import { Form, Formik } from 'formik'
 
 import Filters from '../../../../assets/Filters/Filters'
 // * Assets
-import Search from '../../../../assets/Filters/SearchIcon'
+import PlatformLogo from '../../../../assets/Platform/TeameightsLogo'
 // * Components
+import NavBarContainer from '../../../../components/NavBar/NavBar'
+import SearchPanel from '../../../../components/SearchPanel/SearchPanel'
 import frameworkOptions from '../../../../constants/frameworks'
 import CustomSelect from '../../../../shared/components/Formik/CustomSelect/CustomSelect'
 import { setFilters } from '../../../../store/reducers/Shared'
+import { setUsersFilter } from '../../../../store/reducers/UsersFiltersSlice'
 import FiltersMenu from '../FiltersMenu/FiltersMenu'
 import { PlaceholderText } from '../SelectField/SelectField.styles'
 
@@ -22,6 +25,7 @@ import {
   Button,
   FilterContainer,
   FilterText,
+  LogoContainer,
   NavBar,
   SelectContainer,
 } from './Filters.styles'
@@ -52,24 +56,22 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
         }, [displayFiltered])
 
         return (
-          <Form style={{ marginBottom: '40px' }}>
-            <FiltersMenu
+          <Form style={{ width: '100%', paddingLeft: '88px' }}>
+            {/* Mobile filters menu */}
+            {/* <FiltersMenu
               filterBar={filterBar}
               showFiltersBar={showFiltersBar}
               handleSubmitFilter={handleSubmitFilter}
               countriesOptions={countriesOptions}
               concentrationOptions={concentrationOptions}
               programmingLanguageOptions={programmingLanguageOptions}
-            />
-            <BoxContainer sx={{ flexGrow: 1 }}>
-              <AppBar
-                position="fixed"
-                elevation={2}
-                color="transparent"
-                sx={{ backdropFilter: 'blur(20px)', width: `calc(100% - 88px)`, zIndex: 100 }}
-              >
-                <NavBar>
-                  <SelectContainer>
+            /> */}
+            <NavBar>
+              <LogoContainer>
+                <PlatformLogo />
+              </LogoContainer>
+              {/* Old filters */}
+              {/* <SelectContainer>
                     <CustomSelect
                       multiple={true}
                       label="Country"
@@ -173,14 +175,14 @@ const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
                   </SelectContainer>
                   <Button type="button" onClick={() => handleSubmitFilter(values, dirty)}>
                     <Search sx={{ width: '32px', height: '32px', color: 'white' }} />
-                  </Button>
-                  <FilterContainer onClick={showFiltersBar}>
+                  </Button> */}
+              <SearchPanel sliceName={'usersFilters'} setFilterValueAction={setUsersFilter} />
+              {/* Mobile filters button */}
+              {/* <FilterContainer onClick={showFiltersBar}>
                     <Filters />
                     <FilterText>Filters</FilterText>
-                  </FilterContainer>
-                </NavBar>
-              </AppBar>
-            </BoxContainer>
+                  </FilterContainer> */}
+            </NavBar>
           </Form>
         )
       }}
