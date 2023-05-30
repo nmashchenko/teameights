@@ -1,38 +1,49 @@
-import ArrowLeft from '../../../../assets/Arrows/ArrowLeft'
+import { useNavigate } from 'react-router-dom'
+
+import unregisteredImg from '../../../../assets/Images/user/unregistered.png'
+import ArrowRight from '../../../../assets/Team/ArrowRight'
 import Crown from '../../../../assets/Team/Crown'
 import { LOCAL_PATH } from '../../../../http'
+import { getCountryFlag } from '../../../../utils/getCountryFlag'
 
 import {
+  ButtonsContainer,
+  ColumnContainer,
   CrownContainer,
+  ImagesContainer,
   JoinTeam,
+  ProfileButton,
   Statistic,
   StatisticsFlex,
-  TeamCardBody,
   TeamCardBodyPoint,
   TeamCardDesc,
-  TeamCardFigure,
   TeamCardMembers,
   TeamCardPerson,
   TeamCardPicture,
   TeamCardTop,
   TeamCardTopIcon,
   TeamCardTopInfo,
-  ToTeams,
+  TeamText,
+  TypeCountryFlagContainer,
 } from './TeamPreviewModal.styles'
 
-const TeamPreviewModal = ({ user, handleClose, team, handleJoin }) => {
-  const members = team.members
+const TeamPreviewModal = ({ user, team, handleJoin }) => {
+  const members = team?.members
 
   const teammates = members.slice(1, members.length)
 
+  const countryFlag = getCountryFlag(team.country)
+
+  const navigate = useNavigate()
+
   const getTeam = () => {
-    if (user.team === undefined || user.team._id !== team._id) {
+    if (user?.team === undefined || user?.team._id !== team?._id) {
       return 'Join'
     }
 
-    const teamid = user.team._id
+    const teamid = user?.team._id
 
-    if (team._id === teamid) {
+    if (team?._id === teamid) {
       return 'Your'
     }
   }
@@ -40,93 +51,89 @@ const TeamPreviewModal = ({ user, handleClose, team, handleJoin }) => {
   const usersTeam = getTeam()
 
   return (
-    <TeamCardFigure>
+    <>
       <TeamCardTop>
-        <TeamCardTopInfo>
-          <div>
-            <h3>Name</h3>
-            <p>{team.name}</p>
-          </div>
-        </TeamCardTopInfo>
-        <TeamCardTopInfo>
-          <div>
-            <h3>Tag</h3>
-            <p>{team.tag}</p>
-          </div>
-        </TeamCardTopInfo>
-        <TeamCardTopInfo>
-          <div>
-            <h3>Status</h3>
-            <p>{team.type}</p>
-          </div>
-        </TeamCardTopInfo>
-        <TeamCardTopInfo>
-          <div>
-            <h3>Country</h3>
-            <p>{team.country}</p>
-          </div>
-        </TeamCardTopInfo>
         <TeamCardTopIcon src={LOCAL_PATH + '/' + team?.image} />
+        <TeamCardTopInfo>
+          <ColumnContainer>
+            <TeamText fontSize="20px" fontWeight="500">
+              {team?.name}
+            </TeamText>
+            <TypeCountryFlagContainer>
+              <TeamText color="#8F9094">
+                {team?.type.charAt(0).toUpperCase() + team?.type.slice(1)} Type, {team.country}
+              </TeamText>
+              {countryFlag && (
+                <TeamCardTopIcon src={countryFlag} w={'25px'} h={'25px'} borderRadius={'none'} />
+              )}
+            </TypeCountryFlagContainer>
+          </ColumnContainer>
+        </TeamCardTopInfo>
       </TeamCardTop>
-      <TeamCardBody>
+
+      <TeamCardBodyPoint>
+        <StatisticsFlex>
+          <Statistic>
+            <p>
+              Tournaments: <span>0</span>
+            </p>
+          </Statistic>
+          <Statistic>
+            <p>
+              Wins: <span>{team?.wins}</span>
+            </p>
+          </Statistic>
+          <Statistic>
+            <p>
+              Points: <span>{team?.points}</span>
+            </p>
+          </Statistic>
+        </StatisticsFlex>
+      </TeamCardBodyPoint>
+      {team?.description && (
         <TeamCardBodyPoint>
-          <h3>Description</h3>
-          <TeamCardDesc>{team.description}</TeamCardDesc>
+          <TeamCardDesc>{team?.description}</TeamCardDesc>
         </TeamCardBodyPoint>
-        <TeamCardBodyPoint>
-          <div>
-            <TeamCardPerson>
-              <CrownContainer>
-                <Crown />
-              </CrownContainer>
-              <h3>Leader</h3>
-              <TeamCardPicture src={LOCAL_PATH + '/' + team?.leader.image} />
-            </TeamCardPerson>
-          </div>
-          <div>
-            <h3>Members</h3>
-            <TeamCardMembers>
-              {teammates.map((teammates, index) => {
+      )}
+      <ImagesContainer>
+        <div>
+          <TeamCardPerson>
+            <CrownContainer>
+              <Crown />
+            </CrownContainer>
+            <TeamCardPicture src={LOCAL_PATH + '/' + team?.leader.image} />
+          </TeamCardPerson>
+        </div>
+        <div>
+          <TeamCardMembers>
+            {[...Array(7)].map((_, index) => {
+              if (index < teammates.length) {
                 return (
                   <TeamCardPerson key={index}>
-                    <TeamCardPicture src={LOCAL_PATH + '/' + teammates.image} />
+                    <TeamCardPicture src={LOCAL_PATH + '/' + teammates[index].image} />
                   </TeamCardPerson>
                 )
-              })}
-            </TeamCardMembers>
-          </div>
-        </TeamCardBodyPoint>
-        <TeamCardBodyPoint>
-          <h3>Statistics</h3>
-          <StatisticsFlex>
-            <Statistic>
-              <p>
-                Tournaments: <span>5</span>
-              </p>
-            </Statistic>
-            <Statistic>
-              <p>
-                Wins: <span>{team.wins}</span>
-              </p>
-            </Statistic>
-            <Statistic>
-              <p>
-                Points: <span>{team.points}</span>
-              </p>
-            </Statistic>
-          </StatisticsFlex>
-        </TeamCardBodyPoint>
-        <TeamCardBodyPoint>
-          <ToTeams onClick={handleClose}>
-            <ArrowLeft />
-            All Teams
-          </ToTeams>
-          <JoinTeam disabled={usersTeam === 'Your'} onClick={handleJoin}>
-            {usersTeam} Team
-          </JoinTeam>
-        </TeamCardBodyPoint>
-      </TeamCardBody>
-    </TeamCardFigure>
+              } else {
+                return (
+                  <TeamCardPerson key={index}>
+                    <TeamCardPicture src={unregisteredImg} />
+                  </TeamCardPerson>
+                )
+              }
+            })}
+          </TeamCardMembers>
+        </div>
+      </ImagesContainer>
+      <ButtonsContainer>
+        <JoinTeam disabled={usersTeam === 'Your'} onClick={handleJoin}>
+          {usersTeam} Team
+        </JoinTeam>
+        <ProfileButton onClick={() => navigate('/team/' + team?._id)}>
+          Profile
+          <ArrowRight />
+        </ProfileButton>
+      </ButtonsContainer>
+    </>
   )
 }
 

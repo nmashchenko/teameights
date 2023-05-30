@@ -8,7 +8,7 @@ function NoTeamScreen() {
   return (
     <>
       <CssBaseline />
-      <TeamTypeSwitch myTeam={true} />
+      <TeamTypeSwitch myTeam={''} />
       <NoTeam />
     </>
   )

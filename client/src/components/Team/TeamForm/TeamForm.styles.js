@@ -159,7 +159,7 @@ export const CancelButton = styled.button`
   width: 100%;
   height: 44px;
   background: transparent;
-  border: 2px solid #46A11B;
+  border: 2px solid #46a11b;
   border-radius: 10px;
   font-size: ${B2fs};
   font-weight: ${B2fw};
@@ -170,19 +170,18 @@ export const CancelButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap 6px;
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 2px 25px  #46A11B60;
+    box-shadow: 0px 2px 25px #46a11b60;
   }
 `
 
 export const CreateButton = styled.button`
   width: 100%;
   height: 44px;
-  background: #46A11B;
+  background: #46a11b;
   opacity: ${(props) => props.color};
   border-radius: 10px;
   font-size: 16px;
@@ -193,7 +192,6 @@ export const CreateButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap 6px;
   cursor: pointer;
   &:hover {
     svg path:nth-child(3),
@@ -289,6 +287,14 @@ export const CloseContainerModal = styled.div`
   transition: all 0.2s ease-in-out;
   right: 5%;
   top: 5%;
+
+  &:hover {
+    svg {
+      path {
+        stroke: #d42422;
+      }
+    }
+  }
 `
 
 export const Input = styled.input`
@@ -616,4 +622,5 @@ export const style = {
   borderRadius: '15px',
   boxShadow: 14,
   padding: 4,
+  backdropFilter: 'blur(5px)',
 }

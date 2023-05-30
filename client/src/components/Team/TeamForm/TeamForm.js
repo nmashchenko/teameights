@@ -17,9 +17,11 @@ import Loader from '../../../shared/components/Loader/Loader'
 import { determineUserRoleInTeam } from '../../../utils/determineUserRoleInTeam'
 import { getServedProfilePic } from '../../../utils/getServedProfilepic'
 import Page404Form from '../../Forms/Page404Form/Page404Form'
+import LargeCardSwitch from '../LargeCardSwitch/LargeCardSwitch'
 import TeamModal from '../Modal/TeamModal'
 import { TeamProfileLargeCard } from '../TeamProfileLargeCard/TeamProfileLargeCard'
 import TeamProfileMiniCard from '../TeamProfileMiniCard/TeamProfileMiniCard'
+import TeamTypeSwitch from '../TeamTypeSwitch/TeamTypeSwitch'
 
 import ActionType from './ActionType'
 import { Card, CardContainer, Container } from './TeamForm.styles'
@@ -166,62 +168,65 @@ function TeamForm() {
   )
 
   return (
-    <Container>
-      <TeamModal
-        modalActive={modalActive}
-        chosenLeader={chosenLeader}
-        handleClose={handleClose}
-        setEmail={setEmail}
-        email={email}
-        team={team}
-        open={open}
-        leaveTeam={leaveTeam}
-        user={user}
-        transferLeader={transferLeader}
-        setIsEditing={setIsEditing}
-        removeFromTeam={removeFromTeam}
-        removeMemberActive={removeMemberActive}
-        handleInvite={handleInvite}
-        deleteTeam={deleteTeam}
-        setModalActive={setModalActive}
-        changeChosenLeader={changeChosenLeader}
-      />
-      <CardContainer>
-        <Card>
-          <TeamProfileLargeCard
-            isMembers={isMembers}
-            editImage={editImage}
-            chosenLeader={chosenLeader}
-            changeChosenLeader={changeChosenLeader}
-            handleRemoveMembers={handleRemoveMembers}
-            isEditing={isEditing}
-            team={team}
-            setIsEditing={setIsEditing}
-            handleOpenDelete={handleOpenDelete}
-            switchIsMembers={switchIsMembers}
-            handleOpenInvite={handleOpenInvite}
-            selectedImage={selectedImage}
-            setImgData={setImgData}
-            setPicture={setPicture}
-            changeSelectedImage={changeSelectedImage}
-            imgData={imgData}
-            picture={picture}
-            role={role}
-            handleOpenTransferLeader={handleOpenTransferLeader}
-          />
-        </Card>
-        <TeamProfileMiniCard
+    <>
+      <TeamTypeSwitch myTeam={role === 'leader' || role === 'member' ? 'team' : ''} />
+      <Container>
+        <TeamModal
+          modalActive={modalActive}
+          chosenLeader={chosenLeader}
+          handleClose={handleClose}
+          setEmail={setEmail}
+          email={email}
           team={team}
-          picture={picture}
-          selectedImage={selectedImage}
-          isEditing={isEditing}
-          setEditImage={setEditImage}
-          actionType={actionType}
-          editImage={editImage}
-          servedProfilePic={servedProfilePic}
+          open={open}
+          leaveTeam={leaveTeam}
+          user={user}
+          transferLeader={transferLeader}
+          setIsEditing={setIsEditing}
+          removeFromTeam={removeFromTeam}
+          removeMemberActive={removeMemberActive}
+          handleInvite={handleInvite}
+          deleteTeam={deleteTeam}
+          setModalActive={setModalActive}
+          changeChosenLeader={changeChosenLeader}
         />
-      </CardContainer>
-    </Container>
+        <CardContainer>
+          <Card>
+            <TeamProfileLargeCard
+              isMembers={isMembers}
+              editImage={editImage}
+              chosenLeader={chosenLeader}
+              changeChosenLeader={changeChosenLeader}
+              handleRemoveMembers={handleRemoveMembers}
+              isEditing={isEditing}
+              team={team}
+              setIsEditing={setIsEditing}
+              handleOpenDelete={handleOpenDelete}
+              switchIsMembers={switchIsMembers}
+              handleOpenInvite={handleOpenInvite}
+              selectedImage={selectedImage}
+              setImgData={setImgData}
+              setPicture={setPicture}
+              changeSelectedImage={changeSelectedImage}
+              imgData={imgData}
+              picture={picture}
+              role={role}
+              handleOpenTransferLeader={handleOpenTransferLeader}
+            />
+          </Card>
+          <TeamProfileMiniCard
+            team={team}
+            picture={picture}
+            selectedImage={selectedImage}
+            isEditing={isEditing}
+            setEditImage={setEditImage}
+            actionType={actionType}
+            editImage={editImage}
+            servedProfilePic={servedProfilePic}
+          />
+        </CardContainer>
+      </Container>
+    </>
   )
 }
 

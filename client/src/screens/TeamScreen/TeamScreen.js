@@ -8,7 +8,6 @@ function TeamScreen() {
   return (
     <>
       <CssBaseline />
-      <TeamsTopTemplate myTeam={true} />
       <TeamForm />
     </>
   )

@@ -1,6 +1,7 @@
 // * Modules
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Box } from '@mui/material'
 import Modal from '@mui/material/Modal'
 
 // * API
@@ -8,17 +9,21 @@ import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useGetAllTeams } from '../../../api/hooks/team/useGetAllTeams'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
+import Close from '../../../assets/Shared/Close'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 import ROUTES from '../../../constants/routes'
 import { LOCAL_PATH } from '../../../http'
 import Loader from '../../../shared/components/Loader/Loader'
+import NotFound from '../../Teammates/components/NotFound/NotFound'
+import { CloseContainerModal, style } from '../TeamForm/TeamForm.styles'
 
-import { getModalState } from './getModalState'
+import { ModalContent } from './ModalContent'
 // * Styles
 import {
   Card,
   CardContainer,
   Container,
+  NotFoundContainer,
   TeamButton,
   TeamData,
   TeamImage,
@@ -86,14 +91,14 @@ function TeamsList() {
             aria-describedby="modal-modal-description"
             sx={{ backdropFilter: 'blur(5px)' }}
           >
-            {getModalState(
-              changeModal,
-              user,
-              handleClose,
-              handleLeaveAndJoin,
-              handleJoin,
-              selectedTeam,
-            )}
+            <ModalContent
+              changeModal={changeModal}
+              user={user}
+              handleClose={handleClose}
+              handleLeaveAndJoin={handleLeaveAndJoin}
+              handleJoin={handleJoin}
+              selectedTeam={selectedTeam}
+            />
           </Modal>
           <CardContainer>
             <Card>
@@ -124,7 +129,9 @@ function TeamsList() {
           </CardContainer>
         </Container>
       ) : (
-        <h1>No teams were found</h1>
+        <NotFoundContainer>
+          <NotFound />
+        </NotFoundContainer>
       )}
     </>
   )

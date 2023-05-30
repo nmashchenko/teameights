@@ -5,7 +5,7 @@ import { H4fs, H4fw, H4lh } from '../../../constants/fonts.js'
 
 import { GridContainer, LogoContainer, SelectType, Text, Textbox } from './TeamTypeSwitch.styles.js'
 
-const TeamSwitch = ({ myTeam }) => {
+const TeamTypeSwitch = ({ myTeam }) => {
   const navigate = useNavigate()
 
   return (
@@ -16,7 +16,7 @@ const TeamSwitch = ({ myTeam }) => {
       <SelectType>
         <Textbox>
           <Text
-            isMyTeam={myTeam}
+            isMyTeam={myTeam === 'team'}
             onClick={() => {
               navigate('/team')
             }}
@@ -36,7 +36,7 @@ const TeamSwitch = ({ myTeam }) => {
             fontSize={`${H4fs}`}
             fontWeight={`${H4fw}`}
             lineHeight={`${H4lh}`}
-            isMyTeam={!myTeam}
+            isMyTeam={myTeam === 'teams'}
           >
             All Teams
             <span></span>
@@ -47,4 +47,4 @@ const TeamSwitch = ({ myTeam }) => {
   )
 }
 
-export default TeamSwitch
+export default TeamTypeSwitch

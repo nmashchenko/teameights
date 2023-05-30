@@ -7,7 +7,7 @@ function TeamsScreen() {
   return (
     <>
       <CssBaseline />
-      <TeamsTopTemplate myTeam={false} />
+      <TeamsTopTemplate myTeam={'teams'} />
       <TeamsList />
     </>
   )

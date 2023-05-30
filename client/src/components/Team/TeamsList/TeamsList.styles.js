@@ -10,6 +10,7 @@ export const Container = styled.div`
   justify-content: start;
   align-items: center;
   background: ${BLACK.background};
+  /* padding-left: 88px; */
 `
 
 export const CardContainer = styled.div`
@@ -88,19 +89,26 @@ export const TeamButton = styled.button`
   }
 `
 
-export const style = {
+export const teamPreviewStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: '#26292B',
+  width: '570px',
+  bgcolor: '#1A1C22',
   borderRadius: '15px',
   boxShadow: 14,
   p: 4,
   display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
+  alignItems: 'start',
   flexDirection: 'column',
-  gap: '25px',
+  gap: '24px',
 }
+
+export const NotFoundContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding-left: 88px;
+`

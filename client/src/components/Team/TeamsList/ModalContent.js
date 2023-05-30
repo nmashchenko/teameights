@@ -1,18 +1,21 @@
 import { Box } from '@mui/material'
 
+import Close from '../../../assets/Shared/Close'
 import ActionModal from '../Modal/ModalTypes/ActionModal'
 import InfoModal from '../Modal/ModalTypes/InfoModal'
 import TeamPreviewModal from '../Modal/TeamPreviewModal/TeamPreviewModal'
-import { style } from '../TeamForm/TeamForm.styles'
+import { CloseContainerModal, style } from '../TeamForm/TeamForm.styles'
 
-export const getModalState = (
+import { teamPreviewStyle } from './TeamsList.styles'
+
+export const ModalContent = ({
   changeModal,
   user,
   handleClose,
   handleLeaveAndJoin,
   handleJoin,
   selectedTeam,
-) => {
+}) => {
   if (changeModal === 'alreadyOnTeam') {
     if (user?.team.leader === user._id) {
       const isOnlyMember =
@@ -21,8 +24,8 @@ export const getModalState = (
       return (
         <Box sx={style}>
           <InfoModal
-            firstText="You cannot join team."
-            secondText={`${isOnlyMember} to join new team.`}
+            firstText="You cannot join a team."
+            secondText={`${isOnlyMember} to join a new team.`}
             firstButton="Okay"
             firstButtonHandler={handleClose}
           />
@@ -34,7 +37,7 @@ export const getModalState = (
       <Box sx={style}>
         <ActionModal
           firstText="You're already on a team."
-          secondText="Do you want to leave current team and join new?"
+          secondText="Do you want to leave the current team and join a new one?"
           firstButton="Leave & Join"
           firstButtonHandler={handleLeaveAndJoin}
           secondButton="Cancel"
@@ -44,14 +47,19 @@ export const getModalState = (
     )
   } else if (changeModal === 'joinTeam') {
     return (
-      <TeamPreviewModal
-        user={user}
-        handleJoin={handleJoin}
-        team={selectedTeam}
-        handleClose={handleClose}
-      />
+      <Box sx={teamPreviewStyle}>
+        <CloseContainerModal color={'#FFF'} onClick={handleClose}>
+          <Close />
+        </CloseContainerModal>
+        <TeamPreviewModal
+          user={user}
+          handleJoin={handleJoin}
+          team={selectedTeam}
+          handleClose={handleClose}
+        />
+      </Box>
     )
   } else {
-    return <></>
+    return null // Return null if changeModal has no matching case
   }
 }
