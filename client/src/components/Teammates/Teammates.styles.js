@@ -1,6 +1,6 @@
 // * Modules
 import Modal from '@mui/material/Modal'
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 export const GridContainer = styled.div`
   display: flex;
@@ -44,7 +44,6 @@ export const CardsZone = styled.div`
   align-items: center;
   /* position: relative; */
   padding-left: 88px;
-  margin-top: 45px;
 `
 
 export const InfoContainer = styled.div`

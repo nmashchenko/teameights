@@ -5,7 +5,7 @@ export const SearchBox = styled.div`
   display: flex;
   padding: ${(props) => props.padding || '0'};
   gap: ${(props) => props.gap || '0'};
-  height: 100%;
+  height: 40px;
   width: 100%;
   align-items: center;
   &:hover {
@@ -16,9 +16,8 @@ export const SearchBox = styled.div`
 
 export const SearchInput = styled.input`
   display: block;
-  font-family: 'NoirPro-Regular';
   font-size: 16px;
-  line-height: 140%;
+  /* line-height: 40px; */
   color: #86878b;
   caret-color: #5bd424;
   width: calc(100% - 28px);

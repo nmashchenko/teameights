@@ -14,8 +14,6 @@ const SearchPanel = ({ sliceName, setFilterValueAction }) => {
 
   const currFilter = filtersArr[currFilterIndex]
 
-  console.log(currFilter)
-
   return (
     <StyledSearchPanel>
       <SearchPanelWrapper>

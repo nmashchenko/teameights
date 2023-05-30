@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 
 export const StyledSearchPanel = styled.div`
-  position: relative;
+  position: static;
   z-index: 10;
   display: flex;
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  max-width: 1196px;
-  height: 40px;
+  max-width: 770px;
+  min-height: 40px;
+  color: white;
 `
 
 export const SearchPanelWrapper = styled.div`
