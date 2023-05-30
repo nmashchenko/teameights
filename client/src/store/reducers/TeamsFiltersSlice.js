@@ -41,27 +41,15 @@ const initialState = [
     type: 'text',
     value: '',
   },
-  // {
-  //   name: 'tag',
-  //   text: 'Tag',
-  //   type: 'text',
-  //   value: '',
-  // },
+  {
+    name: 'tag',
+    text: 'Tag',
+    type: 'text',
+    value: '',
+  },
   {
     name: 'countries',
     text: 'Countries',
-    type: 'checks',
-    value: [],
-  },
-  {
-    name: 'languages',
-    text: 'Languages',
-    type: 'checks',
-    value: [],
-  },
-  {
-    name: 'frameworks',
-    text: 'Frameworks',
     type: 'checks',
     value: [],
   },
@@ -75,11 +63,11 @@ const initialState = [
   },
 ]
 
-const usersFiltersSlice = createSlice({
-  name: 'usersFilters',
+const teamsFiltersSlice = createSlice({
+  name: 'teamsFilters',
   initialState,
   reducers: {
-    setUsersFilter(state, action) {
+    setTeamsFilter(state, action) {
       const { index, value } = action.payload
 
       state[index].value = value
@@ -87,8 +75,8 @@ const usersFiltersSlice = createSlice({
   },
 })
 
-const { reducer, actions } = usersFiltersSlice
+const { reducer, actions } = teamsFiltersSlice
 
 export default reducer
 
-export const { setUsersFilter } = actions
+export const { setTeamsFilter } = actions

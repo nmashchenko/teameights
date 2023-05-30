@@ -15,6 +15,7 @@ import Loader from '../../../shared/components/Loader/Loader'
 import NotFound from '../../Teammates/components/NotFound/NotFound'
 
 import { ModalContent } from './ModalContent'
+import SearchBar from './SearchBar'
 // * Styles
 import {
   Card,
@@ -79,6 +80,7 @@ function TeamsList() {
 
   return (
     <>
+      <SearchBar />
       {teams?.length > 0 ? (
         <Container>
           <Modal

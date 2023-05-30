@@ -4,7 +4,7 @@ import { BLACK, WHITE } from '../../../constants/colors'
 
 export const Container = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 238px);
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -14,11 +14,11 @@ export const Container = styled.div`
 `
 
 export const CardContainer = styled.div`
-  min-height: 100vh;
+  /* min-height: 100vh; */
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 `
 
 export const Card = styled.div`
@@ -106,7 +106,9 @@ export const teamPreviewStyle = {
 export const NotFoundContainer = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 238px);
+  /* height: 100%; */
   padding-left: 88px;
 `
