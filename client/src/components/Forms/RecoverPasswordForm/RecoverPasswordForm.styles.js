@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { Form } from 'formik'
 import styled from 'styled-components'
 
 import { BLACK, GREEN, GREY, LIME, WHITE } from '../../../constants/colors'
@@ -11,6 +12,9 @@ export const Container = styled.div`
   align-items: center;
   background: ${BLACK.background};
   position: relative;
+`
+export const RecoverForm = styled(Form)`
+  width: 100%;
 `
 
 export const Navbar = styled.nav`

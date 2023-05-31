@@ -1,8 +1,8 @@
 // * Modules
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 
+import resetApi from '../../../api/endpoints/reset'
 // * Assets
 import ArrowNavigateBack from '../../../assets/Arrows/ArrowNavigateBack'
 import SiteLogo from '../../../assets/BigSideLogo'
@@ -17,6 +17,7 @@ import {
   Navbar,
   NavigationLink,
   RecoverBox,
+  RecoverForm,
   RecoverText,
   RecoverTitle,
 } from './RecoverPasswordForm.styles'
@@ -24,17 +25,19 @@ import emailValidation from './RecoverValidation'
 
 const RecoverPassword2 = () => {
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
 
-  const [errors, setErrors] = useState([])
-
-  const handleReset = async () => {
+  const handleReset = async ({ email }) => {
     try {
-      const isValid = await emailValidation.validate({ email })
+      const isSuccess = await resetApi.getRegistrationEmail(email)
 
-      console.log(isValid)
+      if (!isSuccess) {
+        navigate(ROUTES.confirmEmail, {
+          replace: true,
+          state: { email },
+        })
+      }
     } catch (err) {
-      setErrors(err.errors)
+      console.log(err)
     }
   }
 
@@ -59,9 +62,10 @@ const RecoverPassword2 = () => {
               email: '',
             }}
             validationSchema={emailValidation}
+            onSubmit={(values, _) => handleReset(values)}
           >
             {({ values }) => (
-              <>
+              <RecoverForm>
                 <CustomInput containerWidth="100%" placeholder="Email" name="email" type="email" />
 
                 <ButtonsContainer>
@@ -69,7 +73,6 @@ const RecoverPassword2 = () => {
                     width="100%"
                     fontSize="16px"
                     disabled={!values.email}
-                    onClick={handleReset}
                     type="onSubmit"
                     name="email"
                   >
@@ -87,7 +90,7 @@ const RecoverPassword2 = () => {
                     Back to Log in
                   </CustomButton>
                 </ButtonsContainer>
-              </>
+              </RecoverForm>
             )}
           </Formik>
         </RecoverBox>

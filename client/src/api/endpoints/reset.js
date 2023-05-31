@@ -1,13 +1,16 @@
 // * API
 import http from '../../http'
+import { errorToaster } from '../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
 const getRegistrationEmail = async (email) => {
   try {
-    await api.post('/reset-password', { email })
+    await api.get(`/auth/reset-password/${email}`)
   } catch (err) {
-    console.log(err)
+    errorToaster(err.response.data.message)
+
+    return err.response.data.message
   }
 }
 
