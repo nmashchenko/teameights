@@ -10,6 +10,7 @@ import ROUTES from '../constants/routes'
 // * Layouts
 import AuthLayout from '../layouts/AuthLayout/AuthLayout'
 import NavBarItemPageLayout from '../layouts/NavBarItemPageLayout/NavBarItemPageLayout'
+import ResetPasswordPageLayout from '../layouts/ResetPasswordPageLayout/ResetPasswordPageLayout'
 import Screen404 from '../screens/404Screen/404Screen'
 // * Screens
 import ConfirmationScreen from '../screens/ConfirmationScreen/ConfirmationScreen'
@@ -69,10 +70,12 @@ export const useRoutes = () => {
         <Route path={ROUTES.login} element={<LoginScreen />} />
         <Route path={ROUTES.registration} element={<RegistrationScreen />} />
       </Route>
-      <Route path={ROUTES.confirmEmail} element={<ConfirmationScreen />} />
-      <Route path={ROUTES.passwordRecover} element={<ResetPasswordScreen />} />
-      <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmationScreen />} />
-      <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswordsScreen />} />
+      <Route element={<ResetPasswordPageLayout />}>
+        <Route path={ROUTES.confirmEmail} element={<ConfirmationScreen />} />
+        <Route path={ROUTES.passwordRecover} element={<ResetPasswordScreen />} />
+        <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmationScreen />} />
+        <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswordsScreen />} />
+      </Route>
 
       <Route path="*" element={<Screen404 />} />
     </Routes>

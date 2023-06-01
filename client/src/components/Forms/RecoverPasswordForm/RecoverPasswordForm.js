@@ -5,17 +5,13 @@ import { Formik } from 'formik'
 import resetApi from '../../../api/endpoints/reset'
 // * Assets
 import ArrowNavigateBack from '../../../assets/Arrows/ArrowNavigateBack'
-import SiteLogo from '../../../assets/BigSideLogo'
 import ROUTES from '../../../constants/routes'
 import CustomButton from '../../../shared/components/CustomButton/CustomButton'
 import CustomInput from '../../../shared/components/CustomInput/CustomInput'
 
 import {
-  AccountActions,
   ButtonsContainer,
   Container,
-  Navbar,
-  NavigationLink,
   RecoverBox,
   RecoverForm,
   RecoverText,
@@ -44,14 +40,6 @@ const RecoverPassword2 = () => {
   return (
     <>
       <Container>
-        <Navbar>
-          <SiteLogo />
-          <AccountActions>
-            <NavigationLink to={ROUTES.passwordRecover}>Log in</NavigationLink>
-            <NavigationLink to={ROUTES.registration}>Sign up</NavigationLink>
-          </AccountActions>
-        </Navbar>
-
         <RecoverBox>
           <RecoverTitle>Recover Password</RecoverTitle>
           <RecoverText>
