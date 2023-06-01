@@ -21,8 +21,8 @@ export const TextContainer = styled.div`
 `
 
 export const Text = styled.h3`
-  font-weight: ${(props) => props.fontWeight || '700'};
-  font-size: ${(props) => props.fontSize || '35px'};
+  font-weight: ${(props) => props.fontWeight || '500'};
+  font-size: ${(props) => props.fontSize || '24px'};
   margin: ${(props) => props.margin || '0 0 20px 0'};
   color: ${WHITE.main};
   text-align: center;
