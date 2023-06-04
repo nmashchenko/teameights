@@ -7,8 +7,8 @@ import { FileService } from './file.service';
 @Module({
 	imports: [
 		ThrottlerModule.forRoot({
-			ttl: 60,
-			limit: 2,
+			ttl: 600,
+			limit: 3,
 		}),
 	],
 	providers: [

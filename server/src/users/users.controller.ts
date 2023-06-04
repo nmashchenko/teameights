@@ -164,6 +164,7 @@ export class UsersController {
 		summary: 'Sign up user to beta test',
 	})
 	@ApiResponse({ status: 200, type: String })
+	@SkipThrottle(false)
 	@Post('/beta/sign-up')
 	addUserToBetaTestList(
 		@Body() dto: BetaSignUpDto,
