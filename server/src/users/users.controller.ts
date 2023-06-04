@@ -12,6 +12,7 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 import { Request } from 'express';
 import mongoose from 'mongoose';
 import * as qs from 'qs';
@@ -27,6 +28,7 @@ import { User } from './users.schema';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')
+@SkipThrottle()
 @Controller('/users')
 export class UsersController {
 	constructor(private userService: UsersService) {}
