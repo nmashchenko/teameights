@@ -26,16 +26,6 @@ export class FileService {
 	});
 
 	constructor(private readonly configService: ConfigService) {}
-	/**
-	 * Check if a file exists at a given path.
-	 *
-	 * @param {string} path
-	 *
-	 * @returns {boolean}
-	 */
-	checkIfFileOrDirectoryExists = (path: string): boolean => {
-		return fs.existsSync(path);
-	};
 
 	async createFile(
 		type: FileType,
@@ -116,8 +106,9 @@ export class FileService {
 		data: string,
 	): Promise<Buffer> => {
 		const filePath = path.resolve(__dirname, '..', 'static', FileType.TEXT);
-		if (!this.checkIfFileOrDirectoryExists(filePath)) {
-			fs.mkdirSync(filePath);
+		/* Creating a folder if it doesn't exist and then writing the file to the folder. */
+		if (!fs.existsSync(filePath)) {
+			fs.mkdirSync(filePath, { recursive: true });
 		}
 
 		const writeFile = promisify(fs.writeFile);
