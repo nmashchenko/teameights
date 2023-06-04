@@ -15,6 +15,11 @@ export const CheckListWrapper = styled.div`
 `
 
 export const StyledChecksList = styled.ul`
+  max-height: 190px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: ${({ columns }) => columns || 'none'};
+
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -27,8 +32,6 @@ export const StyledChecksList = styled.ul`
   &::-webkit-scrollbar-track {
     display: none;
   }
-  max-height: 190px;
-  overflow-y: auto;
 `
 
 export const StyledChecksItem = styled.li`
