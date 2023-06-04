@@ -9,6 +9,7 @@ import { RolesService } from '@/roles/roles.service';
 import { TokensService } from '@/tokens/tokens.service';
 import { userUpdateValidate } from '@/validation/user-update.validation';
 
+import { BetaSignUpDto } from './dto/beta-sign-up.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { Results } from './dto/results.dto';
 import { UpdateAvatarDto } from './dto/update-avatar.dto';
@@ -437,5 +438,49 @@ export class UsersService {
 			{ _id: userID },
 			{ $unset: { team: null } },
 		);
+	}
+
+	/**
+	 * This function adds a user's email and IP address to a beta test list by creating a text file,
+	 * uploading it to S3, and then removing the local file.
+	 * @param {BetaSignUpDto} dto - BetaSignUpDto object containing the user's email and any other relevant
+	 * information for signing up for a beta test.
+	 * @param {any} ip - The "ip" parameter is a variable that represents the IP address of the user who is
+	 * signing up for the beta test.
+	 * @returns a string that contains the email and IP address of the user who signed up for the beta
+	 * test, formatted as "email: [email]\nip: [ip]". However, this string is not being used or stored
+	 * anywhere else in the code, so it is likely just for debugging or logging purposes.
+	 */
+	async addUserToBetaTestList(dto: BetaSignUpDto, ip: any): Promise<string> {
+		/* The above code is generating a unique identifier by combining the current timestamp and a random
+		component generated using the uuid library. The timestamp is first converted to a string and any
+		dashes, colons, and periods are removed using a regular expression. The uuid is then generated using
+		the v4 method and only the first 6 characters are taken. These two components are concatenated to
+		create a unique identifier. */
+		const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+		const randomComponent = uuid.v4().substring(0, 6);
+
+		const fileName = `${timestamp}_${randomComponent}.txt`;
+
+		const email = dto.email;
+		const formattedString = `email: ${email}\nip: ${ip}`;
+
+		/* The above code is using the `await` keyword to asynchronously call the `createTextFile` method of
+		the `filesService` object. The method takes two arguments: `fileName` and `formattedString`. It
+		creates a text file with the given `fileName` and writes the `formattedString` content to it. The
+		`const` keyword is used to declare a constant variable named `buffer` which will hold the result of
+		the `createTextFile` method call. */
+		const buffer = await this.filesService.createTextFile(
+			fileName,
+			formattedString,
+		);
+
+		/* upload to S3 Bucket*/
+		await this.filesService.uploadToS3(fileName, buffer);
+
+		/* remove temp file */
+		await this.filesService.removeFile('text/' + fileName);
+
+		return formattedString;
 	}
 }

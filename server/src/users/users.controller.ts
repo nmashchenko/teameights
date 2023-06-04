@@ -2,7 +2,9 @@ import {
 	Body,
 	Controller,
 	Get,
+	Ip,
 	Param,
+	Post,
 	Put,
 	Query,
 	Req,
@@ -17,6 +19,7 @@ import * as qs from 'qs';
 import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
 import { ValidationPipe } from '@/pipes/validation.pipe';
 
+import { BetaSignUpDto } from './dto/beta-sign-up.dto';
 import { Results } from './dto/results.dto';
 import { UpdateAvatarDto } from './dto/update-avatar.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -152,5 +155,18 @@ export class UsersController {
 	@Put('/update-avatar')
 	updateAvatar(@Body() dto: UpdateAvatarDto): Promise<string> {
 		return this.userService.updateAvatar(dto);
+	}
+
+	@UsePipes(ValidationPipe)
+	@ApiOperation({
+		summary: 'Sign up user to beta test',
+	})
+	@ApiResponse({ status: 200, type: String })
+	@Post('/beta/sign-up')
+	addUserToBetaTestList(
+		@Body() dto: BetaSignUpDto,
+		@Ip() ip: any,
+	): Promise<string> {
+		return this.userService.addUserToBetaTestList(dto, ip);
 	}
 }

@@ -1,4 +1,5 @@
 import { INestApplication } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { Test } from '@nestjs/testing';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { io } from 'socket.io-client';
@@ -52,6 +53,11 @@ describe('Notifications Gateway Test', () => {
 						},
 					},
 				}),
+				ConfigModule.forRoot({
+					envFilePath: `.${process.env.NODE_ENV}.env`,
+					isGlobal: true,
+				}),
+				// FileModule,
 				NotificationsModule,
 				UsersModule,
 			],

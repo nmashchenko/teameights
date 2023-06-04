@@ -42,7 +42,8 @@ describe('UserService', () => {
 			imports: [
 				/* Loading the environment variables from the .env file. */
 				ConfigModule.forRoot({
-					envFilePath: `.dev.env`,
+					envFilePath: `.${process.env.NODE_ENV}.env`,
+					isGlobal: true,
 				}),
 				rootMongooseTestModule(),
 				MongooseModule.forFeature([
