@@ -1,11 +1,13 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 import mongoose from 'mongoose';
 
 import { StatusResponseDto } from './dto/status-response.dto';
 import { MaintenanceService } from './maintenance.service';
 
 @ApiTags('Maintenance')
+@SkipThrottle()
 @Controller('maintenance')
 export class MaintenanceController {
 	constructor(private maintenanceService: MaintenanceService) {}

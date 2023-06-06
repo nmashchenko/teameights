@@ -31,6 +31,22 @@ export class TeamsService {
 		private readonly mailService: MailsService,
 	) {}
 
+	private getPath = (url: string, fileType: string): string => {
+		// Extracting type
+		const typeRegex = /\/([^/]+)\/[^/]+$/;
+		const typeMatch = url.match(typeRegex);
+		const type = typeMatch ? typeMatch[1] : null;
+
+		// Extracting filename
+		const filenameRegex = /\/([^/]+)$/;
+		const filenameMatch = url.match(filenameRegex);
+		const filename = filenameMatch ? filenameMatch[1] : null;
+
+		console.log(`${type}/${filename}`);
+
+		return `${fileType}/${type}/${filename}`;
+	};
+
 	/* The above code is defining a TypeScript arrow function named `isArrayOfNumbers` that takes an
 	argument `members` of type `any` and returns a boolean value. The function checks if the `members`
 	argument is an array and has a length of either 1 or 2. If the conditions are met, the function
@@ -172,13 +188,15 @@ export class TeamsService {
 
 		/* Checking if the user has an image. If it does, it is removing the image. */
 		if (candidateTeam.image) {
-			await this.filesService.removeFile(candidateTeam.image);
+			const path = this.getPath(candidateTeam.image, 'image');
+			await this.filesService.removeFromS3(path, 'teameights');
 		}
 
 		/* Creating a file in the static folder. */
 		const filePath = await this.filesService.createFile(
 			FileType.TEAMS,
 			dto.image,
+			'teameights',
 		);
 
 		/* Updating the user with the given email with the new data and returning the updated user. */

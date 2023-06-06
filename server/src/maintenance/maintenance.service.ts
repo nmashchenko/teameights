@@ -5,6 +5,7 @@ import mongoose, { Connection } from 'mongoose';
 import { performance } from 'perf_hooks';
 import { uuid } from 'uuidv4';
 
+import { FileService } from '@/files/file.service';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { RolesService } from '@/roles/roles.service';
 import { CreateTeamDto } from '@/teams/dto/create-team.dto';
@@ -21,6 +22,12 @@ import {
 	avatar_pink,
 	avatar_purple,
 	avatar_yellow,
+	team_avatar_blue,
+	team_avatar_green,
+	team_avatar_orange,
+	team_avatar_pink,
+	team_avatar_purple,
+	team_avatar_yellow,
 } from './maintenance.data';
 
 @Injectable()
@@ -31,6 +38,7 @@ export class MaintenanceService {
 		private rolesService: RolesService,
 		private teamsService: TeamsService,
 		private notificationsService: NotificationsService,
+		private filesService: FileService,
 	) {}
 
 	programmingLanguages: string[] = [
@@ -76,6 +84,15 @@ export class MaintenanceService {
 		avatar_purple,
 		avatar_orange,
 		avatar_yellow,
+	];
+
+	team_images: string[] = [
+		team_avatar_blue,
+		team_avatar_green,
+		team_avatar_pink,
+		team_avatar_purple,
+		team_avatar_orange,
+		team_avatar_yellow,
 	];
 
 	private getRandomEntries(arr: string[]): string[] {
@@ -239,7 +256,7 @@ export class MaintenanceService {
 			);
 			await this.teamsService.updateTeamAvatar({
 				teamID: createdTeam._id,
-				image: this.images[randomTeamIndex],
+				image: this.team_images[randomTeamIndex],
 			});
 		}
 
@@ -320,6 +337,8 @@ export class MaintenanceService {
 		const startTime = performance.now();
 
 		await this.connection.dropDatabase();
+
+		await this.filesService.deleteFolderFromS3('image', 'teameights');
 
 		await this.rolesService.createRole({
 			value: 'USER',

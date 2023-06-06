@@ -148,7 +148,7 @@ const ProfileForm = () => {
             <Information>
               <LeftCard>
                 <ImgContainer>
-                  <Img src={LOCAL_PATH + '/' + user.image} />
+                  <Img src={user.image} />
                   <EditUserDetails onClick={stopEditing}>
                     <EditIcon />
                   </EditUserDetails>

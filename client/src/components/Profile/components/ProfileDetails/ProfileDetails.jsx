@@ -59,7 +59,7 @@ const ProfileDetails = () => {
     <Information>
       <LeftCard>
         <ImgContainer>
-          <UserAvatar src={LOCAL_PATH + '/' + user?.image} width={'9.375rem'} height={'9.375rem'} />
+          <UserAvatar src={user?.image} width={'9.375rem'} height={'9.375rem'} />
           <AvatarEditButton onClick={() => navigate('/profile-edit')} />
         </ImgContainer>
         <TextContainer>

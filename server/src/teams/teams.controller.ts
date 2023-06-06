@@ -11,6 +11,7 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 import mongoose from 'mongoose';
 import * as qs from 'qs';
 
@@ -30,6 +31,7 @@ import { Team } from './teams.schema';
 import { TeamsService } from './teams.service';
 
 @ApiTags('Teams')
+@SkipThrottle()
 @Controller('/teams')
 export class TeamsController {
 	constructor(private teamsService: TeamsService) {}
