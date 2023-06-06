@@ -41,12 +41,6 @@ const initialState = [
     type: 'text',
     value: '',
   },
-  // {
-  //   name: 'tag',
-  //   text: 'Tag',
-  //   type: 'text',
-  //   value: '',
-  // },
   {
     name: 'countries',
     text: 'Countries',
@@ -66,12 +60,10 @@ const initialState = [
     value: [],
   },
   {
-    name: 'people',
-    text: 'People',
-    type: 'range',
-    min: 1,
-    max: 8,
-    value: null,
+    name: 'concentrations',
+    text: 'Concentrations',
+    type: 'checks',
+    value: [],
   },
 ]
 

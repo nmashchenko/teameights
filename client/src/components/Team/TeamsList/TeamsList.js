@@ -10,7 +10,6 @@ import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 import ROUTES from '../../../constants/routes'
-import { LOCAL_PATH } from '../../../http'
 import Loader from '../../../shared/components/Loader/Loader'
 import NotFound from '../../Teammates/components/NotFound/NotFound'
 
@@ -114,7 +113,7 @@ function TeamsList() {
               </TeamData>
               {teams?.map((team, i) => (
                 <TeamData margin="60px" key={i}>
-                  <TeamImage src={LOCAL_PATH + '/' + team?.image} />
+                  <TeamImage src={team?.image} />
                   <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
                     {team.name}
                   </Text>

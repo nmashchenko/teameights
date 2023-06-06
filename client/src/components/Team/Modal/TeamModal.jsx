@@ -174,10 +174,7 @@ const TeamModal = ({
                           changeChosenLeader({ username: member.username, id: member._id })
                         }}
                       >
-                        <UserAccordionImg
-                          alt={member.username}
-                          src={LOCAL_PATH + '/' + member.image}
-                        />
+                        <UserAccordionImg alt={member.username} src={member.image} />
                         <UsernameIconContainer>
                           <p>{member.username}</p>
                           {chosenLeader.username === member.username ? <SelectedIcon /> : <></>}

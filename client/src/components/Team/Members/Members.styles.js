@@ -1,8 +1,20 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import { ThinClose } from '../../../assets/Team/ThinClose'
 
 export const ThinCloseIcon = styled(ThinClose)``
+
+const _fadeIn = keyframes`
+  from {
+    display: none;
+    opacity: 0;
+  }
+  
+  to {
+    display: flex;
+    opacity: 1;
+  }
+`
 
 export const UserGrid = styled.div`
   display: grid;
@@ -15,14 +27,14 @@ export const UserGrid = styled.div`
   row-gap: 16px;
 `
 export const UserLinks = styled.div`
-  transition: opacity 200ms, display 200ms;
-  display: none;
-  opacity: 0;
+  animation: ${_fadeIn} 0.2s ease-in;
   width: 100%;
   gap: 5px;
+  display: flex;
 `
 
 export const UserInfo = styled.div`
+  animation: ${_fadeIn} 0.2s ease-out;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -44,15 +56,6 @@ export const UserCard = styled.div`
 
   &:hover {
     background: ${(props) => (props.isEditing ? `#2f3239` : 'none')};
-  }
-
-  &:hover ${UserInfo} {
-    display: ${(props) => (props.isEditing ? `flex` : 'none')};
-  }
-
-  &:hover ${UserLinks} {
-    display: ${(props) => (props.isEditing ? `none` : 'flex')};
-    opacity: 1;
   }
 `
 

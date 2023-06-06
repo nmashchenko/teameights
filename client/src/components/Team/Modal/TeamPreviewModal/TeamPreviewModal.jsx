@@ -54,7 +54,7 @@ const TeamPreviewModal = ({ user, team, handleJoin }) => {
   return (
     <>
       <TeamCardTop>
-        <TeamCardTopIcon src={LOCAL_PATH + '/' + team?.image} />
+        <TeamCardTopIcon src={team?.image} />
         <TeamCardTopInfo>
           <ColumnContainer>
             <TeamText fontSize="20px" fontWeight="500">
@@ -102,7 +102,7 @@ const TeamPreviewModal = ({ user, team, handleJoin }) => {
             <CrownContainer>
               <SCrownRight />
             </CrownContainer>
-            <TeamCardPicture src={LOCAL_PATH + '/' + team?.leader.image} />
+            <TeamCardPicture src={team?.leader.image} />
           </TeamCardPerson>
         </div>
         <div>
@@ -111,7 +111,7 @@ const TeamPreviewModal = ({ user, team, handleJoin }) => {
               if (index < teammates.length) {
                 return (
                   <TeamCardPerson key={index}>
-                    <TeamCardPicture src={LOCAL_PATH + '/' + teammates[index].image} />
+                    <TeamCardPicture src={teammates[index].image} />
                   </TeamCardPerson>
                 )
               } else {

@@ -33,11 +33,7 @@ const TeamProfileMiniCard = ({
             <div style={{ position: 'relative', width: '100px', height: '124px' }}>
               <TeamImgBorder
                 alt={team?.username}
-                src={
-                  picture !== null || selectedImage !== ''
-                    ? servedProfilePic
-                    : LOCAL_PATH + '/' + team?.image
-                } // not currently
+                src={picture !== null || selectedImage !== '' ? servedProfilePic : team?.image} // not currently
               />
               {isEditing ? (
                 <EditImageButton
