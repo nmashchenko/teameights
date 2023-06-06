@@ -70,7 +70,7 @@ const InviteMembersForm = () => {
           return (
             <InvitedUser key={member?.id}>
               <UsernameAvatarContainer>
-                <UserAvatar src={LOCAL_PATH + '/' + member?.image} />
+                <UserAvatar src={member?.image} />
                 <UserText>{member?.username}</UserText>
               </UsernameAvatarContainer>
               {index === 0 ? (

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { FileModule } from '@/files/file.module';
 import { NotificationsModule } from '@/notifications/notifications.module';
 import { RolesModule } from '@/roles/roles.module';
 import { TeamsModule } from '@/teams/teams.module';
@@ -18,6 +19,7 @@ import { MaintenanceService } from './maintenance.service';
 		RolesModule,
 		TeamsModule,
 		NotificationsModule,
+		FileModule,
 	],
 })
 export class MaintenanceModule {}

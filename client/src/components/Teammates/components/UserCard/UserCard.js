@@ -82,7 +82,7 @@ const UserCard = React.forwardRef((props, ref) => {
         <UserInformationContainer>
           {/* TODO: Change for real image! */}
           <div>
-            <UserImage src={LOCAL_PATH + '/' + person.image} alt="User's image" />
+            <UserImage src={person.image} alt="User's image" />
           </div>
           {programmingLanguages}
         </UserInformationContainer>

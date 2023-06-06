@@ -26,6 +26,22 @@ export class UsersService {
 		private notificationService: NotificationsService,
 	) {}
 
+	private getPath = (url: string, fileType: string): string => {
+		// Extracting type
+		const typeRegex = /\/([^/]+)\/[^/]+$/;
+		const typeMatch = url.match(typeRegex);
+		const type = typeMatch ? typeMatch[1] : null;
+
+		// Extracting filename
+		const filenameRegex = /\/([^/]+)$/;
+		const filenameMatch = url.match(filenameRegex);
+		const filename = filenameMatch ? filenameMatch[1] : null;
+
+		console.log(`${type}/${filename}`);
+
+		return `${fileType}/${type}/${filename}`;
+	};
+
 	/**
 	 * It creates a user with the given data, and returns the created user
 	 * @param {AuthUserDto} dto - AuthUserDto - this is the data transfer object that we created earlier.
@@ -341,13 +357,15 @@ export class UsersService {
 
 		/* Checking if the user has an image. If it does, it is removing the image. */
 		if (candidate.image) {
-			await this.filesService.removeFile(candidate.image);
+			const path = this.getPath(candidate.image, 'image');
+			await this.filesService.removeFromS3(path, 'teameights');
 		}
 
 		/* Creating a file in the static folder. */
 		const filePath = await this.filesService.createFile(
 			FileType.USERS,
 			dto.image,
+			'teameights',
 		);
 
 		/* Updating the user with the given email with the new data and returning the updated user. */
@@ -441,45 +459,28 @@ export class UsersService {
 	}
 
 	/**
-	 * This function adds a user's email and IP address to a beta test list by creating a text file,
-	 * uploading it to S3, and then removing the local file.
-	 * @param {BetaSignUpDto} dto - BetaSignUpDto object containing the user's email and any other relevant
-	 * information for signing up for a beta test.
-	 * @param {any} ip - The "ip" parameter is a variable that represents the IP address of the user who is
-	 * signing up for the beta test.
-	 * @returns a string that contains the email and IP address of the user who signed up for the beta
-	 * test, formatted as "email: [email]\nip: [ip]". However, this string is not being used or stored
-	 * anywhere else in the code, so it is likely just for debugging or logging purposes.
+	 * The function adds a user's email and IP address to a beta test list by creating a new text file
+	 * using the `createFile` method of the `filesService` object.
+	 * @param {BetaSignUpDto} dto - A data transfer object (DTO) containing information about a user
+	 * signing up for a beta test. It likely includes the user's email address.
+	 * @param {any} ip - The `ip` parameter is likely the IP address of the user who is signing up for the
+	 * beta test. It is being passed to the `addUserToBetaTestList` method along with a `BetaSignUpDto`
+	 * object that contains the user's email address. The method then formats this information
+	 * @returns a string that contains the email and IP address of the user in a formatted string.
 	 */
 	async addUserToBetaTestList(dto: BetaSignUpDto, ip: any): Promise<string> {
-		/* The above code is generating a unique identifier by combining the current timestamp and a random
-		component generated using the uuid library. The timestamp is first converted to a string and any
-		dashes, colons, and periods are removed using a regular expression. The uuid is then generated using
-		the v4 method and only the first 6 characters are taken. These two components are concatenated to
-		create a unique identifier. */
-		const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
-		const randomComponent = uuid.v4().substring(0, 6);
-
-		const fileName = `${timestamp}_${randomComponent}.txt`;
-
 		const email = dto.email;
 		const formattedString = `email: ${email}\nip: ${ip}`;
 
-		/* The above code is using the `await` keyword to asynchronously call the `createTextFile` method of
-		the `filesService` object. The method takes two arguments: `fileName` and `formattedString`. It
-		creates a text file with the given `fileName` and writes the `formattedString` content to it. The
-		`const` keyword is used to declare a constant variable named `buffer` which will hold the result of
-		the `createTextFile` method call. */
-		const buffer = await this.filesService.createTextFile(
-			fileName,
+		/* The above code is using the `await` keyword to asynchronously call the `createFile` method of the
+		`filesService` object. The method takes three arguments: `FileType.TEXT`, `formattedString`, and
+		`'t8s-betalist'`. It is likely that the `createFile` method creates a new file of type `text` with
+		the contents of `formattedString` and saves it to a location named `'t8s-betalist'`. */
+		await this.filesService.createFile(
+			FileType.TEXT,
 			formattedString,
+			't8s-betalist',
 		);
-
-		/* upload to S3 Bucket*/
-		await this.filesService.uploadToS3(fileName, buffer);
-
-		/* remove temp file */
-		await this.filesService.removeFile('text/' + fileName);
 
 		return formattedString;
 	}

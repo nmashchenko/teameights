@@ -18,7 +18,7 @@ const changeData = (data) => {
     userRealName: data.fullName,
     userUsername: data.username,
     notificationBell: true,
-    userImg: LOCAL_PATH + '/' + data.image,
+    userImg: data.image,
   }
 }
 
