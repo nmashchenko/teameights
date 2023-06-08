@@ -1,6 +1,6 @@
 // * Modules
 import React, { useEffect, useMemo, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import countryList from 'react-select-country-list'
 import AppBar from '@mui/material/AppBar'
 import { Form, Formik } from 'formik'
@@ -13,8 +13,9 @@ import NavBarContainer from '../../../../components/NavBar/NavBar'
 import SearchPanel from '../../../../components/SearchPanel/SearchPanel'
 import frameworkOptions from '../../../../constants/frameworks'
 import CustomSelect from '../../../../shared/components/Formik/CustomSelect/CustomSelect'
-import { setFilters } from '../../../../store/reducers/Shared'
 import { setUsersFilter } from '../../../../store/reducers/UsersFiltersSlice'
+import checkEntriesForValue from '../../../../utils/checkEntriesForValue'
+import { normalizeFilters } from '../../../../utils/normalizeFilters'
 import FiltersMenu from '../FiltersMenu/FiltersMenu'
 import { PlaceholderText } from '../SelectField/SelectField.styles'
 

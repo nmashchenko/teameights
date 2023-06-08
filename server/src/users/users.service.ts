@@ -269,32 +269,43 @@ export class UsersService {
 		/* A type assertion. */
 		const results = {} as Results;
 
-		/* Getting the total number of users that match the query. */
-		results.total = await this.userModel
-			.find(parsedQuery as FilterQuery<any>)
-			.count();
+		try {
+			/* Getting the total number of users that match the query. */
+			results.total = await this.userModel
+				.find(parsedQuery as FilterQuery<any>)
+				.count();
 
-		/* Calculating the last page and the limit. */
-		results.last_page = Math.ceil(results.total / limit);
-		results.limit = limit;
+			/* Calculating the last page and the limit. */
+			results.last_page = Math.ceil(results.total / limit);
+			results.limit = limit;
 
-		/* Getting all the users that match the query, limiting the number of users to the limit, skipping the
+			/* Getting all the users that match the query, limiting the number of users to the limit, skipping the
 		users that are not on the current page, limiting the number of users to the limit, populating the
 		roles and executing the query. */
-		const users = await this.userModel
-			/* Casting the parsedQuery to FilterQuery<any> */
-			.find(parsedQuery as FilterQuery<any>)
-			.limit(limit)
-			.skip((page - 1) * limit)
-			.limit(limit)
-			.populate('roles')
-			.exec();
+			const users = await this.userModel
+				/* Casting the parsedQuery to FilterQuery<any> */
+				.find(parsedQuery as FilterQuery<any>)
+				.limit(limit)
+				.skip((page - 1) * limit)
+				.limit(limit)
+				.populate('roles')
+				.exec();
 
-		/* Setting the number of users on the current page and the data of the users. */
-		results.on_current_page = users.length;
-		results.data = users;
-		/* Returning the results object. */
-		return results;
+			/* Setting the number of users on the current page and the data of the users. */
+			results.on_current_page = users.length;
+			results.data = users;
+			/* Returning the results object. */
+			return results;
+		} catch (e) {
+			console.log(e.message);
+			results.total = 0;
+			results.data = [];
+			results.last_page = 0;
+			results.limit = 9;
+			results.on_current_page = 0;
+			results.page = 0;
+			return results;
+		}
 	}
 
 	/**

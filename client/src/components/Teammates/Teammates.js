@@ -91,7 +91,6 @@ function Teammates() {
               <CardsContainer>
                 <Cards
                   setIsNotFound={setIsNotFound}
-                  displayFiltered={displayFiltered}
                   handleOpen={handleOpen}
                   isLoadingUseData={isLoadingUseData}
                 />

@@ -1,21 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { useSelector } from 'react-redux'
 import qs from 'qs'
 import uuid from 'uuidv4'
 
 import http from '../../../http'
+import checkEntriesForValue from '../../../utils/checkEntriesForValue'
 import filteredQueryMaker from '../../../utils/filteredQueryMaker'
+import { normalizeFilters } from '../../../utils/normalizeFilters'
 
 const { api } = http
 
-export const useLoadUsers = (isFiltered) => {
-  const { filters } = useSelector((state) => state.sharedReducer)
+export const useLoadUsers = () => {
+  const [filtered, setFiltered] = useState(false)
+  const filters = useSelector((state) => state.usersFilters)
 
+  const normalizedFilters = normalizeFilters(filters)
   const [id, setId] = useState()
 
   useEffect(() => {
-    setId(uuid())
+    if (checkEntriesForValue(filters)) {
+      setFiltered(true)
+      setId(uuid())
+    } else {
+      setFiltered(false)
+    }
   }, [filters])
 
   const getUsers = async ({ pageParam = 1 }) => {
@@ -23,13 +32,16 @@ export const useLoadUsers = (isFiltered) => {
 
     return response.data
   }
+
   const getUsersFiltered = async ({ pageParam = 1 }) => {
     const filtersQuery = filteredQueryMaker.users(
-      filters.countries,
-      filters.roles,
-      filters.languages,
-      filters.frameworks,
+      normalizedFilters.countries,
+      normalizedFilters.roles,
+      normalizedFilters.languages,
+      normalizedFilters.frameworks,
+      normalizedFilters.name,
     )
+
     let queryString = qs.stringify(filtersQuery)
     const response = await api.get('/users/get-filtered', {
       params: { page: pageParam, filtersQuery: queryString },
@@ -38,9 +50,9 @@ export const useLoadUsers = (isFiltered) => {
     return response.data
   }
 
-  return useInfiniteQuery(
-    [isFiltered ? 'usersFiltered' : 'users', id],
-    isFiltered ? getUsersFiltered : getUsers,
+  const query = useInfiniteQuery(
+    [filtered ? 'usersFiltered' : 'users', id],
+    filtered ? getUsersFiltered : getUsers,
     {
       getNextPageParam: (lastPage, allPages) => {
         return Math.ceil(lastPage.total / lastPage.limit) !== allPages.length
@@ -50,4 +62,9 @@ export const useLoadUsers = (isFiltered) => {
       refetchOnWindowFocus: false,
     },
   )
+
+  return {
+    ...query,
+    filtered,
+  }
 }

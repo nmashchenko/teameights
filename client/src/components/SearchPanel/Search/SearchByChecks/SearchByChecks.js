@@ -41,7 +41,7 @@ const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, countries
           <CheckListText>Countries were not found</CheckListText>
         )
       default:
-        return null
+        return <CheckListText>Items were not found</CheckListText>
     }
   }
 
