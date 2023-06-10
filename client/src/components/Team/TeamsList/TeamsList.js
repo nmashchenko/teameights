@@ -5,9 +5,9 @@ import Modal from '@mui/material/Modal'
 
 // * API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
-import { useGetAllTeams } from '../../../api/hooks/team/useGetAllTeams'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
+import { useLoadTeams } from '../../../api/hooks/team/useLoadTeams'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 import ROUTES from '../../../constants/routes'
 import Loader from '../../../shared/components/Loader/Loader'
@@ -37,7 +37,15 @@ function TeamsList() {
 
   const { mutate: joinUser, isLoading: isUserTeamLoading } = useJoinTeam()
 
-  const { data: teams, isLoading: isLoadingTeams } = useGetAllTeams()
+  const {
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading: isLoadingTeams,
+    isFetched,
+    data: teams,
+    filtered,
+  } = useLoadTeams()
 
   const { leaveAndJoin, isLeaving, isJoining } = useLeaveAndJoin()
 
@@ -60,7 +68,6 @@ function TeamsList() {
       if (user.team !== undefined) {
         setChangeModal('alreadyOnTeam')
       } else {
-        console.log(userId, selectedTeam._id)
         joinUser({ user_id: userId, teamid: selectedTeam._id })
       }
     }
@@ -77,10 +84,12 @@ function TeamsList() {
     return <Loader />
   }
 
+  console.log(teams?.pages[0]?.data)
+
   return (
     <>
       <SearchBar />
-      {teams?.length > 0 ? (
+      {teams?.pages[0]?.data?.length > 0 ? (
         <Container>
           <Modal
             open={open}
@@ -111,7 +120,7 @@ function TeamsList() {
                   People
                 </Text>
               </TeamData>
-              {teams?.map((team, i) => (
+              {teams?.pages[0]?.data?.map((team, i) => (
                 <TeamData margin="60px" key={i}>
                   <TeamImage src={team?.image} />
                   <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">

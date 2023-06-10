@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: start;
   align-items: center;
   background: ${BLACK.background};
-  padding-left: 88px;
+  padding: 0 0 50px 88px;
 `
 
 export const CardContainer = styled.div`
@@ -29,7 +29,7 @@ export const Card = styled.div`
   width: 774px;
   background: #1a1c22;
   border-radius: 15px;
-  padding: 25px 40px;
+  padding: 24px 32px;
 `
 
 export const ColumnNames = styled.div`
@@ -71,15 +71,15 @@ export const TeamButton = styled.button`
   border: none;
   outline: none;
   background: #46a11b;
-  border: 2px solid #5d9d0b;
-  border-radius: 8px;
+  /* border: 2px solid #5d9d0b; */
+  border-radius: 10px;
   font-weight: ${(props) => props.fontWeight || '400'};
   font-size: ${(props) => props.fontSize || '16px'};
   color: white;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   justify-self: end;
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
 
   &:hover {
