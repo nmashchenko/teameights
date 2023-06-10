@@ -45,6 +45,16 @@ const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, countries
     }
   }
 
+  const calcCols = () => {
+    if (filteredCountries.length > 16 && filteredCountries.length <= 32) {
+      return '1fr 1fr'
+    } else if (filteredCountries.length > 32) {
+      return '1fr 1fr 1fr'
+    } else {
+      return 'none'
+    }
+  }
+
   return (
     <SearchBox hover gap="8px" padding="0 11px">
       <SearchInput
@@ -58,7 +68,7 @@ const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, countries
       </SearchIconWrapper>
       {listActive && (
         <CheckListWrapper ref={listRef}>
-          <StyledChecksList>{renderList()}</StyledChecksList>
+          <StyledChecksList columns={calcCols()}>{renderList()}</StyledChecksList>
         </CheckListWrapper>
       )}
     </SearchBox>
