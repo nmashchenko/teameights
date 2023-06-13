@@ -6,6 +6,7 @@ import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
 import { languageOptions } from '../../../../constants/programmingLanguages'
 import { LOCAL_PATH } from '../../../../http'
 import { calculateAge } from '../../../../utils/calculateAge'
+import { getCountryFlag } from '../../../../utils/getCountryFlag'
 
 import LengthFourCase from './FrameworksCases/LengthFourCase'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
@@ -19,6 +20,7 @@ import {
   CardContainer,
   CountryContainer,
   CrownContainer,
+  FlagIcon,
   FrameWorksContainer,
   LanguageContainer,
   ProgrammingLanguagesContainer,
@@ -43,6 +45,14 @@ const UserCard = React.forwardRef((props, ref) => {
 
         if (i === 1 && plLength > 2) {
           andMore = <AndMore makeWhite={false}>{plLength - 2}+</AndMore>
+        }
+
+        if (plLength === 1) {
+          return (
+            <LanguageContainer key={element} width="100%">
+              {languageOptions[element]}
+            </LanguageContainer>
+          )
         }
 
         return (
@@ -88,11 +98,12 @@ const UserCard = React.forwardRef((props, ref) => {
         <TextContainer>
           <UserData>
             <CountryContainer>
-              <TitleText fontWeight="500" fontSize="12px" margin="0 7px 0 0">
-                {person.fullName}, {calculateAge(person.dateOfBirth)}
+              <TitleText fontWeight="400" fontSize="16px" margin="0 7px 0 0">
+                {person.fullName.split(' ')[0]}, {calculateAge(person.dateOfBirth)}
               </TitleText>
+              {getCountryFlag(person.country) && <FlagIcon src={getCountryFlag(person.country)} />}
             </CountryContainer>
-            <TitleText fontWeight="600" fontSize="12px">
+            <TitleText fontWeight="400" fontSize="14px" color="#8F9094">
               {person.concentration}
             </TitleText>
           </UserData>

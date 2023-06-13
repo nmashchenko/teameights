@@ -5,7 +5,7 @@ import countryList from 'react-select-country-list'
 import AppBar from '@mui/material/AppBar'
 import { Form, Formik } from 'formik'
 
-import Filters from '../../../../assets/Filters/Filters'
+import FiltersIcon from '../../../../assets/Filters/Filters'
 // * Assets
 import PlatformLogo from '../../../../assets/Platform/TeameightsLogo'
 // * Components
@@ -23,23 +23,24 @@ import {
   BoxContainer,
   Button,
   FilterContainer,
+  FiltersWrapper,
   FilterText,
   LogoContainer,
   NavBar,
   SelectContainer,
 } from './Filters.styles'
 
-const TopBar = ({ setDisplayFiltered, displayFiltered }) => {
+const FiltersArea = ({ setDisplayFiltered, displayFiltered }) => {
   return (
-    <div style={{ width: '100%', paddingLeft: '88px' }}>
+    <FiltersWrapper>
       <NavBar>
         <LogoContainer>
           <PlatformLogo />
         </LogoContainer>
         <SearchPanel sliceName={'usersFilters'} setFilterValueAction={setUsersFilter} />
       </NavBar>
-    </div>
+    </FiltersWrapper>
   )
 }
 
-export default TopBar
+export default FiltersArea

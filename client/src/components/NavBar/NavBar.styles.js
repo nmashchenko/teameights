@@ -28,6 +28,10 @@ export const NavWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 999;
+
+  @media screen and (max-width: 768px) {
+    pointer-events: all;
+  }
 `
 
 export const NavMenu = styled.nav`
@@ -44,6 +48,11 @@ export const NavMenu = styled.nav`
   transition: all var(--menu-animation-time) ease;
   padding: 0 16px;
   padding-top: 48px;
+
+  @media screen and (max-width: 768px) {
+    max-width: 270px;
+    display: ${(props) => (props.active ? 'block' : 'none')};
+  }
 `
 
 export const NavBarToggle = styled.div`
@@ -128,4 +137,17 @@ export const NavBarCopyright = styled.h3`
   color: #86878b;
   overflow: hidden;
   white-space: nowrap;
+`
+
+export const MobileNavBarIconWrapper = styled.div`
+  position: absolute;
+  top: 47px;
+  left: 4.1%;
+  display: none;
+  cursor: pointer;
+  z-index: 999;
+
+  @media screen and (max-width: 768px) {
+    display: ${(props) => (props.active ? 'none' : 'block')};
+  }
 `

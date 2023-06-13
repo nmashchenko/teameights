@@ -21,6 +21,7 @@ import Profile from './Profile/Profile'
 import { NavBarData } from './NavBar.data'
 import {
   IconWrapper,
+  MobileNavBarIconWrapper,
   NavBarClose,
   NavBarCopyright,
   NavBarLogo,
@@ -114,6 +115,11 @@ const NavBar = () => {
   return (
     <>
       <NavWrapper active={sidebar}>
+        <MobileNavBarIconWrapper onClick={showSidebar} active={sidebar}>
+          <NavBarClose active={sidebar}>
+            <Close />
+          </NavBarClose>
+        </MobileNavBarIconWrapper>
         <NavMenu ref={navMenuRef} onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
             <NavBarLogo active={sidebar}>

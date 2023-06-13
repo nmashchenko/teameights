@@ -44,6 +44,10 @@ export const CardsZone = styled.div`
   align-items: center;
   /* position: relative; */
   padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0px;
+  }
 `
 
 export const InfoContainer = styled.div`
@@ -52,6 +56,10 @@ export const InfoContainer = styled.div`
   align-items: center;
   min-height: calc(100vh - 238px);
   padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0px;
+  }
 `
 
 export const UserCardModal = styled(Modal)`

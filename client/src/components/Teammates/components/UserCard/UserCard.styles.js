@@ -10,8 +10,8 @@ export const Wrapper = styled.figure`
 
 export const UserInformationContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   width: 100%;
+  gap: 32px;
 `
 
 export const UserImage = styled.img`
@@ -43,10 +43,10 @@ export const ProgrammingLanguagesContainer = styled.div`
 
 export const LanguageContainer = styled.div`
   position: relative;
-  background: #1b1d24;
+  background: #2f3239;
   border-radius: 5px;
-  width: 50px;
-  height: 50px;
+  width: ${(props) => props.width || '40px'};
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,6 +68,7 @@ export const TextContainer = styled.div`
 
 export const CountryContainer = styled.div`
   display: flex;
+  align-items: center;
 `
 
 export const TitleText = styled.h3`
@@ -79,7 +80,7 @@ export const TitleText = styled.h3`
 
 export const Framework = styled.div`
   width: ${(props) => props.width || '65px'};
-  height: 40px;
+  height: 32px;
   margin-right: ${(props) => props.marginRight || '0'};
   margin-bottom: ${(props) => props.marginBottom || '0'};
   flex-grow: ${(props) => props.flexGrow || '1'};
@@ -122,10 +123,10 @@ export const CardContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  width: 240px;
-  height: 300px;
+  width: 230px;
+  height: 280px;
   padding: 25px 22px;
-  background: #2e3239;
+  background: #1a1c22;
   box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.12);
   border-radius: 15px;
 
@@ -177,4 +178,9 @@ export const CardContainer = styled.div`
     width: 240px;
     height: 300px;
   }
+`
+
+export const FlagIcon = styled.img`
+  width: 25px;
+  height: 25px;
 `

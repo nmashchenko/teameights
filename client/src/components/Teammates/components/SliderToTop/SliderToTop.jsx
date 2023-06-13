@@ -48,17 +48,18 @@ const SliderToTop = ({ scrollbar, toggleScrollbar }) => {
     return () => window.removeEventListener('scroll', listenToScroll)
   }, [])
 
-  const accesibilityWindow = (
-    <AccessibilityWindow show={accessibility}>
-      {accesibilityMenu.map((option) => {
-        return (
-          <ScrollbarOn key={option} onClick={toggleScrollbar} isOn={scrollbar}>
-            {option}
-          </ScrollbarOn>
-        )
-      })}
-    </AccessibilityWindow>
-  )
+  // ! TODO: FIX STRANGE WIDTH ON MOBILES
+  // const accesibilityWindow = (
+  //   <AccessibilityWindow show={accessibility}>
+  //     {accesibilityMenu.map((option) => {
+  //       return (
+  //         <ScrollbarOn key={option} onClick={toggleScrollbar} isOn={scrollbar}>
+  //           {option}
+  //         </ScrollbarOn>
+  //       )
+  //     })}
+  //   </AccessibilityWindow>
+  // )
 
   return (
     <>
@@ -71,7 +72,7 @@ const SliderToTop = ({ scrollbar, toggleScrollbar }) => {
           <AccessibilityContainer show={accessibility} onClick={toggleAccessibility}>
             ?
           </AccessibilityContainer>
-          {accesibilityWindow}
+          {/* {accesibilityWindow} */}
         </>
       )}
     </>

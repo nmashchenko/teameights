@@ -7,9 +7,13 @@ export const StyledSearchPanel = styled.div`
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  max-width: 770px;
+  max-width: 768px;
   min-height: 40px;
   color: white;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
 
 export const SearchPanelWrapper = styled.div`
