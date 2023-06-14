@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const StyledSearchPanel = styled.div`
   position: static;
-  z-index: 10;
+  z-index: 300;
   display: flex;
   flex-direction: column;
   gap: 24px;

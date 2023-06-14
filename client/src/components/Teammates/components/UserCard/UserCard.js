@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 // * Images
 import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
@@ -112,7 +112,7 @@ const UserCard = React.forwardRef((props, ref) => {
       </CardContainer>
       {person.isLeader === true ? (
         <CrownContainer>
-          <img src={CrownImg} alt="crown"></img>
+          <img src={CrownImg} alt="crown" />
         </CrownContainer>
       ) : (
         <div></div>
@@ -121,4 +121,4 @@ const UserCard = React.forwardRef((props, ref) => {
   )
 })
 
-export default UserCard
+export default memo(UserCard)

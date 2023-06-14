@@ -12,7 +12,7 @@ import Filters from './components/FiltersArea/Filters'
 import NotFound from './components/NotFound/NotFound'
 import SliderToTop from './components/SliderToTop/SliderToTop'
 import UserProfile from './components/UserProfile/UserProfile'
-import UserProfilePhone from './components/UserProfilePhone/UserProfilePhone'
+import UserProfilePhone from './components/UserProfile/UserProfilePhone'
 // * Styles
 import {
   CardsContainer,
@@ -41,21 +41,16 @@ function Teammates() {
    * Get global state from redux
    */
   const { data: user, isLoading: isLoadingUseData } = useCheckAuth()
-
-  const showMobileProfile = () => setMobileProfile(!mobileProfile)
   /**
    * Handle open and close for modal window that pops up whenever user clicks on the card
    */
   const handleOpen = (user) => {
     setShowUser(user)
     setOpen(true)
-    showMobileProfile()
   }
 
   const handleClose = () => {
     setOpen(false)
-    setShowUser({})
-    showMobileProfile()
   }
 
   const [scrollbar, toggleScrollbar] = useState(false)
@@ -75,11 +70,12 @@ function Teammates() {
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+          sx={{ backdropFilter: 'blur(5px)' }}
         >
           <UserProfile user={showUser} handleClose={handleClose} />
         </UserCardModal>
         {/* ! USED ONLY FOR 730px or less */}
-        <UserProfilePhone user={showUser} mobileProfile={mobileProfile} handleClose={handleClose} />
+        <UserProfilePhone user={showUser} mobileProfile={open} handleClose={handleClose} />
         {/* If nothing was found, show user a NotFound container */}
         {isNotFound ? (
           <InfoContainer>
