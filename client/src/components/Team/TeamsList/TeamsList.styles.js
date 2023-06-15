@@ -11,6 +11,10 @@ export const Container = styled.div`
   align-items: center;
   background: ${BLACK.background};
   padding: 0 0 50px 88px;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 0 50px 0;
+  }
 `
 
 export const CardContainer = styled.div`
@@ -26,17 +30,10 @@ export const Card = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  width: 774px;
+  width: 570px;
   background: #1a1c22;
   border-radius: 15px;
-  padding: 24px 32px;
-`
-
-export const ColumnNames = styled.div`
-  display: flex;
-  width: 500px;
-  justify-content: space-between;
-  align-items: start;
+  padding: 32px 32px;
 `
 
 export const Text = styled.h3`
@@ -53,7 +50,7 @@ export const TeamData = styled.div`
   display: grid;
   justify-content: space-between;
   align-items: center;
-  grid-template-columns: 1.2fr 1.3fr 0.9fr 0.5fr;
+  grid-template-columns: 0.2fr 0.6fr 0.22fr 0.2fr;
   justify-content: center;
   align-items: center;
   margin-top: ${(props) => props.margin || '0'};

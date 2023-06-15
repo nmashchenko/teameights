@@ -3,14 +3,14 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { BLACK } from '../../../constants/colors'
 
 export const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  /* grid-template-columns: repeat(3, 1fr); */
   font-size: 20px;
   max-height: 38px;
   width: 100%;
   margin-top: 49px;
   align-items: center;
-  justify-content: baseline;
+  justify-content: end;
   position: absolute;
 `
 

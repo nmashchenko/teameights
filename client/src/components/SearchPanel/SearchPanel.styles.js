@@ -7,8 +7,9 @@ export const StyledSearchPanel = styled.div`
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  max-width: 768px;
+  max-width: 868px;
   min-height: 40px;
+  padding: 0 50px;
   color: white;
 
   @media screen and (max-width: 768px) {

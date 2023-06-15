@@ -10,11 +10,12 @@ import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
 import { useLoadTeams } from '../../../api/hooks/team/useLoadTeams'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 import ROUTES from '../../../constants/routes'
+import AppHeader from '../../../shared/components/AppHeader/AppHeader'
 import Loader from '../../../shared/components/Loader/Loader'
+import { setTeamsFilter } from '../../../store/reducers/TeamsFiltersSlice'
 import NotFound from '../../Teammates/components/NotFound/NotFound'
 
 import { ModalContent } from './ModalContent'
-import SearchBar from './SearchBar'
 // * Styles
 import {
   Card,
@@ -33,6 +34,7 @@ function TeamsList() {
 
   const [selectedTeam, setSelectedTeam] = useState({})
   const [open, setOpen] = useState(false)
+  const [displayFiltered, setDisplayFiltered] = useState(false)
   let [changeModal, setChangeModal] = useState('')
 
   const { mutate: joinUser, isLoading: isUserTeamLoading } = useJoinTeam()
@@ -84,11 +86,9 @@ function TeamsList() {
     return <Loader />
   }
 
-  console.log(teams?.pages[0]?.data)
-
   return (
     <>
-      <SearchBar />
+      <AppHeader sliceName="teamsFilters" filterValueAction={setTeamsFilter} />
       {teams?.pages[0]?.data?.length > 0 ? (
         <Container>
           <Modal
@@ -109,19 +109,8 @@ function TeamsList() {
           </Modal>
           <CardContainer>
             <Card>
-              <TeamData>
-                <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
-                  Photo
-                </Text>
-                <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
-                  Name
-                </Text>
-                <Text fontSize={B3fs} fontWeight={B3fw} lineHeight={B3lh} color="#86878B">
-                  People
-                </Text>
-              </TeamData>
               {teams?.pages[0]?.data?.map((team, i) => (
-                <TeamData margin="60px" key={i}>
+                <TeamData margin={i === 0 ? '0px' : '60px'} key={i}>
                   <TeamImage src={team?.image} />
                   <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
                     {team.name}

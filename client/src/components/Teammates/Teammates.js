@@ -4,11 +4,12 @@ import { ThemeProvider } from 'styled-components'
 
 // * API
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
+import AppHeader from '../../shared/components/AppHeader/AppHeader'
 import { GlobalStyle } from '../../shared/styles/Global.styles'
+import { setUsersFilter } from '../../store/reducers/UsersFiltersSlice'
 
 import Cards from './components/Cards/Cards'
 // * Components
-import Filters from './components/FiltersArea/Filters'
 import NotFound from './components/NotFound/NotFound'
 import SliderToTop from './components/SliderToTop/SliderToTop'
 import UserProfile from './components/UserProfile/UserProfile'
@@ -29,12 +30,9 @@ function Teammates() {
   const [open, setOpen] = useState(false)
   const [showUser, setShowUser] = useState({})
   const [isNotFound, setIsNotFound] = useState(false)
-  const [displayFiltered, setDisplayFiltered] = useState(false)
-  const [mobileProfile, setMobileProfile] = useState(false)
 
   const handleComeback = () => {
     setIsNotFound(false)
-    setDisplayFiltered(false)
   }
 
   /**
@@ -63,7 +61,7 @@ function Teammates() {
     <>
       <ThemeProvider theme={{ scrollbar }}>
         <GlobalStyle />
-        <Filters setDisplayFiltered={setDisplayFiltered} displayFiltered={displayFiltered} />
+        <AppHeader sliceName="usersFilters" filterValueAction={setUsersFilter} />
         {/* ! USED ONLY FOR 730px or more */}
         <UserCardModal
           open={open}
