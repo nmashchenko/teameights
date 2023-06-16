@@ -18,14 +18,26 @@ const Search = ({ currFilter, currFilterIndex, setFilterValue }) => {
         />
       )
     case 'checks':
-      return (
-        <SearchByChecks
-          currFilter={currFilter}
-          currFilterIndex={currFilterIndex}
-          setFilterValue={setFilterValue}
-          countries={countries}
-        />
-      )
+      // Since the countries are not taken from the state, we put a condition here
+      if (currFilter.name === 'countries') {
+        return (
+          <SearchByChecks
+            currFilter={currFilter}
+            currFilterIndex={currFilterIndex}
+            setFilterValue={setFilterValue}
+            items={countries}
+          />
+        )
+      } else {
+        return (
+          <SearchByChecks
+            currFilter={currFilter}
+            currFilterIndex={currFilterIndex}
+            setFilterValue={setFilterValue}
+            items={currFilter.value}
+          />
+        )
+      }
     case 'range':
       return (
         <SearchByRange

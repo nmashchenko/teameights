@@ -7,14 +7,14 @@ import { SearchBox, SearchIconWrapper, SearchInput } from '../Search.styles'
 import ChecksItem from './ChecksItem'
 import { CheckListText, CheckListWrapper, StyledChecksList } from './SearchByChecks.styles'
 
-const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, countries }) => {
+const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, items }) => {
   const [value, setValue] = useState('')
   const [listActive, setListActive] = useState(false)
   const listRef = useRef(null)
 
-  const filteredCountries = value.length
-    ? countries.filter(({ label }) => label.toLowerCase().includes(value.toLowerCase()))
-    : countries
+  const filteredItems = value.length
+    ? items.filter(({ label }) => label.toLowerCase().includes(value.toLowerCase()))
+    : items
 
   useOutsideClick(listRef, () => setListActive(false))
 
@@ -23,32 +23,27 @@ const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, countries
   }, [currFilterIndex])
 
   const renderList = () => {
-    switch (currFilter.name) {
-      case 'countries':
-        return filteredCountries.length ? (
-          filteredCountries.map((country) => (
-            <ChecksItem
-              key={country.value}
-              currFilter={currFilter}
-              currFilterIndex={currFilterIndex}
-              setFilterValue={setFilterValue}
-              item={country}
-              label={country.label}
-              value={country.value}
-            />
-          ))
-        ) : (
-          <CheckListText>Countries were not found</CheckListText>
-        )
-      default:
-        return null
-    }
+    return filteredItems.length ? (
+      filteredItems.map((item) => (
+        <ChecksItem
+          key={item.value}
+          currFilter={currFilter}
+          currFilterIndex={currFilterIndex}
+          setFilterValue={setFilterValue}
+          item={item}
+          label={item.label}
+          value={item.value}
+        />
+      ))
+    ) : (
+      <CheckListText>{currFilter.name} were not found</CheckListText>
+    )
   }
 
   const calcCols = () => {
-    if (filteredCountries.length > 16 && filteredCountries.length <= 32) {
+    if (filteredItems.length > 16 && filteredItems.length <= 32) {
       return '1fr 1fr'
-    } else if (filteredCountries.length > 32) {
+    } else if (filteredItems.length > 32) {
       return '1fr 1fr 1fr'
     } else {
       return 'none'
