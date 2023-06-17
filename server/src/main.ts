@@ -13,11 +13,12 @@ async function start(): Promise<void> {
 		const PORT = process.env.PORT || 5001;
 
 		const app = await NestFactory.create(AppModule);
+		//
 
 		// checking cors
 		app.enableCors({
 			credentials: true,
-			origin: process.env.CLIENT_URL,
+			origin: [process.env.CLIENT_URL, process.env.LANDING_URL],
 		});
 
 		app.setGlobalPrefix('/api');

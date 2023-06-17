@@ -116,7 +116,7 @@ function TeamForm() {
                   <UserImg
                     src={
                       member?.image
-                        ? LOCAL_PATH + '/' + member.image
+                        ? member.image
                         : 'https://i.pinimg.com/474x/41/26/bd/4126bd6b08769ed2c52367fa813c721e.jpg'
                     }
                   />
@@ -135,7 +135,7 @@ function TeamForm() {
               <CircleContainer>
                 <Text>{team.name}</Text>
               </CircleContainer>
-              <TeamImgBorder src={team?.image ? LOCAL_PATH + '/' + team.image : tempImg} />
+              <TeamImgBorder src={team?.image ? team.image : tempImg} />
               <Text fontSize="16px" fontWeight="400">
                 Creation date: {createDate}
               </Text>

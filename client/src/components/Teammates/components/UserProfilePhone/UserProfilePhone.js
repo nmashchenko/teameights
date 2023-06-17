@@ -39,7 +39,7 @@ const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
           </ComebackContainer>
           <UserInformationContainer>
             <div>
-              <UserImage src={LOCAL_PATH + '/' + user.image} alt="User's image" />
+              <UserImage src={user.image} alt="User's image" />
             </div>
             <UserInfoTextContainer>
               <Text fontSize="16px" textAlign="start">

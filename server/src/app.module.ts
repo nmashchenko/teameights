@@ -21,7 +21,10 @@ import { UsersModule } from './users/users.module';
 @Module({
 	imports: [
 		/* Loading the environment variables from the .env file. */
-		ConfigModule.forRoot({ envFilePath: `.${process.env.NODE_ENV}.env` }),
+		ConfigModule.forRoot({
+			envFilePath: `.${process.env.NODE_ENV}.env`,
+			isGlobal: true,
+		}),
 		/* Connecting to the database. */
 		MongooseModule.forRoot(process.env.DB_URL),
 		/* Serving the static files. */

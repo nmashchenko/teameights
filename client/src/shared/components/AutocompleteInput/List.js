@@ -7,10 +7,7 @@ export const List = ({ props, option }) => {
     <li {...props}>
       <Grid container alignItems="center">
         <Grid item sx={{ display: 'flex', width: 38 }}>
-          <img
-            style={{ width: '30px', height: '30px', borderRadius: '50%' }}
-            src={LOCAL_PATH + '/' + option.image}
-          />
+          <img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={option.image} />
         </Grid>
         <Grid item sx={{ width: 'calc(100% - 44px)', wordWrap: 'break-word' }}>
           <h3 style={{ fontSize: '18px', color: 'white', fontWeight: 400 }}>{option.username}</h3>

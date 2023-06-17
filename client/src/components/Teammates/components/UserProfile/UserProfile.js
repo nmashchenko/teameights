@@ -35,7 +35,7 @@ const UserProfile = ({ user, handleClose }) => {
       <ProfileContainer>
         <LinksAndAvatarContainer>
           <div>
-            <UserAvatar src={LOCAL_PATH + '/' + user.image} alt="avatar"></UserAvatar>
+            <UserAvatar src={user.image} alt="avatar"></UserAvatar>
           </div>
           {/* TODO: Change for real links! & rewrite for the .map() */}
           <UserLink>
