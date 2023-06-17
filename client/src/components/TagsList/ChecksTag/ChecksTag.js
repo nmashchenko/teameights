@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 
-import Close from '../../../../assets/Shared/Close'
-import { useOutsideClick } from '../../../../hooks/useOutsideClick'
+import Close from '../../../assets/Shared/Close'
+import { useOutsideClick } from '../../../hooks/useOutsideClick'
 import { CrossWrapper, TagItem, TagSubItem } from '../TagsList.styles'
 
 const ChecksTag = ({ value, filterName, filterIndex, setFilterValue }) => {

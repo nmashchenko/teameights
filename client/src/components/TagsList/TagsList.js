@@ -1,9 +1,16 @@
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import ChecksTag from './ChecksTag/ChecksTag'
 import RangeTag from './RangeTag/RangeTag'
 import TextTag from './TextTag/TextTag'
 import { StyledTagsList } from './TagsList.styles'
 
-const TagsList = ({ filtersArr, setFilterValue }) => {
+const TagsList = ({ sliceName, setFilterValueAction }) => {
+  const dispatch = useDispatch()
+  const filtersArr = useSelector((state) => state[sliceName])
+  const setFilterValue = (index, value) => dispatch(setFilterValueAction({ index, value }))
+
   return (
     <StyledTagsList>
       {filtersArr.map((item, index) => {

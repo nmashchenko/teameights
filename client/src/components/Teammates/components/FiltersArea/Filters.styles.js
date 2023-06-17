@@ -1,6 +1,4 @@
 // * Modules
-import Box from '@mui/material/Box'
-import { Form } from 'formik'
 import styled from 'styled-components'
 
 export const NavBar = styled.div`
@@ -9,14 +7,6 @@ export const NavBar = styled.div`
   align-items: center;
   width: 100%;
   flex-direction: column;
-`
-
-export const BoxContainer = styled(Box)`
-  padding: 27px 45px;
-
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    padding: 20px 20px;
-  }
 `
 
 export const LogoContainer = styled.div`
@@ -41,47 +31,20 @@ export const AlternativeLogoContainer = styled.div`
   }
 `
 
-export const Button = styled.button`
-  border: none;
-  outline: none;
-  background: none;
-  width: 46px;
-  height: 45px;
-  cursor: pointer;
-
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    display: none;
-  }
-`
-
-export const SelectContainer = styled.div`
-  width: 70%;
+export const SearchPanel = styled.div`
+  position: static;
+  z-index: 10;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    display: none;
-  }
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 770px;
+  min-height: 40px;
+  color: white;
 `
 
-export const FilterContainer = styled.div`
-  visibility: hidden;
-  position: absolute;
+export const SearchPanelWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    visibility: visible;
-  }
-`
-
-export const FilterText = styled.h4`
-  font-weight: 700;
-  font-size: 15px;
-  color: #ffffff;
-  margin-left: 10px;
-  margin: 0 0 0 8px;
+  border: 1px solid #46a11b;
+  border-radius: 10px;
 `

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import SearchIcon from '../../../../assets/Shared/SearchIcon'
+import SearchIcon from '../../../assets/Shared/SearchIcon'
 import { SearchBox, SearchIconWrapper, SearchInput } from '../Search.styles'
 
 const SearchByText = ({ placeholder, currFilter, currFilterIndex, setFilterValue }) => {

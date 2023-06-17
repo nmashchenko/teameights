@@ -1,11 +1,16 @@
 import { useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 
-import ArrowDown from '../../../assets/SearchPanel/ArrowDown'
-import { useOutsideClick } from '../../../hooks/useOutsideClick'
+import ArrowDown from '../../assets/SearchPanel/ArrowDown'
+import { useOutsideClick } from '../../hooks/useOutsideClick'
 
 import { FilterSelectBox, FilterSelectBtn, OptionItem, OptionsList } from './FilterSelect.styles'
 
-const FilterSelect = ({ filtersArr, currFilter, setCurrFilterIndex }) => {
+const FilterSelect = ({ sliceName, currFilterIndex, setCurrFilterIndex }) => {
+  const filtersArr = useSelector((state) => state[sliceName])
+
+  const currFilter = filtersArr[currFilterIndex]
+
   const [selectActive, setSelectActive] = useState(false)
   const selectRef = useRef(null)
 

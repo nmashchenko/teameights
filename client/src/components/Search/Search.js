@@ -1,10 +1,18 @@
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import countryList from 'react-select-country-list'
 
 import SearchByChecks from './SearchByChecks/SearchByChecks'
 import SearchByRange from './SearchByRange/SearchByRange'
 import SearchByText from './SearchByText/SearchByText'
 
-const Search = ({ currFilter, currFilterIndex, setFilterValue }) => {
+const Search = ({ sliceName, setFilterValueAction, currFilterIndex }) => {
+  const dispatch = useDispatch()
+  const filtersArr = useSelector((state) => state[sliceName])
+  const setFilterValue = (index, value) => dispatch(setFilterValueAction({ index, value }))
+
+  const currFilter = filtersArr[currFilterIndex]
+
   const countries = countryList().getData()
 
   switch (currFilter.type) {
