@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 
 import SearchIcon from '../../../assets/Shared/SearchIcon'
 import { useOutsideClick } from '../../../hooks/useOutsideClick'
-import { SearchBox, SearchIconWrapper, SearchInput } from '../Search.styles'
+import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
+import { SearchBox, SearchInput } from '../Search.styles'
 
 import ChecksItem from './ChecksItem'
 import { CheckListText, CheckListWrapper, StyledChecksList } from './SearchByChecks.styles'
@@ -58,9 +59,9 @@ const SearchByChecks = ({ currFilter, currFilterIndex, setFilterValue, items }) 
         onChange={(e) => setValue(e.target.value)}
         placeholder={`Search or select ${currFilter.name}`}
       />
-      <SearchIconWrapper>
+      <IconWrapper width="20px" height="20px">
         <SearchIcon />
-      </SearchIconWrapper>
+      </IconWrapper>
       {listActive && (
         <CheckListWrapper ref={listRef}>
           <StyledChecksList columns={calcCols()}>{renderList()}</StyledChecksList>

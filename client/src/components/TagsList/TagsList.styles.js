@@ -6,8 +6,6 @@ export const StyledTagsList = styled.ul`
   align-items: flex-start;
   gap: 8px;
   margin-bottom: 40px;
-  transition: margin 1000ms ease-in-out;
-  transition: box-shadow 1000ms ease-in-out;
 `
 
 export const TagItem = styled.li`
@@ -38,6 +36,15 @@ export const TagSubItem = styled.div`
       fill: #d42422;
     }
   }
+`
+
+export const ClearButton = styled.div`
+  padding: 5px 0;
+  text-align: center;
+  font-family: 'Rubik';
+  font-size: 16px;
+  line-height: 140%;
+  color: #cd3633;
 `
 
 export const CrossWrapper = styled.div`

@@ -1,6 +1,8 @@
 // * Modules
 import styled from 'styled-components'
 
+import IconWrapper from '../../../../shared/components/IconWrapper/IconWrapper'
+
 export const NavBar = styled.div`
   display: flex;
   justify-content: center;
@@ -10,10 +12,16 @@ export const NavBar = styled.div`
 `
 
 export const LogoContainer = styled.div`
-  margin: 49px 0 48px 0;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 37px;
+  margin-bottom: 33px;
 
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    display: none;
+  @media (max-width: 1023px) {
+    margin-top: 25px;
   }
 `
 
@@ -47,4 +55,21 @@ export const SearchPanelWrapper = styled.div`
   display: flex;
   border: 1px solid #46a11b;
   border-radius: 10px;
+  @media (max-width: 1023px) {
+    display: none;
+  }
+`
+
+export const SearchIconWrapper = styled(IconWrapper)`
+  cursor: pointer;
+  display: none;
+  --icon-size: 25px;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  position: absolute;
+  top: calc(50% - (var(--icon-size) - (var(--icon-size) / 2)));
+  right: 27px;
+  @media (max-width: 1023px) {
+    display: flex;
+  }
 `

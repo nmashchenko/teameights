@@ -25,15 +25,3 @@ export const SearchInput = styled.input`
   border: none;
   background: none;
 `
-
-export const SearchIconWrapper = styled.div`
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-`

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import SearchIcon from '../../../assets/Shared/SearchIcon'
-import { SearchBox, SearchIconWrapper, SearchInput } from '../Search.styles'
+import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
+import { SearchBox, SearchInput } from '../Search.styles'
 
 const SearchByText = ({ placeholder, currFilter, currFilterIndex, setFilterValue }) => {
   const [timer, setTimer] = useState(null)
@@ -26,9 +27,9 @@ const SearchByText = ({ placeholder, currFilter, currFilterIndex, setFilterValue
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
       />
-      <SearchIconWrapper>
+      <IconWrapper width="20px" height="20px">
         <SearchIcon />
-      </SearchIconWrapper>
+      </IconWrapper>
     </SearchBox>
   )
 }

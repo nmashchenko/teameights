@@ -4,17 +4,27 @@ import { Form, Formik } from 'formik'
 
 // * Assets
 import PlatformLogo from '../../../../assets/Platform/TeameightsLogo'
+import SearchIcon from '../../../../assets/Shared/SearchIcon'
 // * Components
+import IconWrapper from '../../../../shared/components/IconWrapper/IconWrapper'
 import { setUsersFilter } from '../../../../store/reducers/UsersFiltersSlice'
 import FilterSelect from '../../../FilterSelect/FilterSelect'
+import ModalSearch from '../../../ModalSearch/ModalSearch'
 import Search from '../../../Search/Search'
 import TagsList from '../../../TagsList/TagsList'
 
 // * Options
-import { LogoContainer, NavBar, SearchPanel, SearchPanelWrapper } from './Filters.styles'
+import {
+  LogoContainer,
+  NavBar,
+  SearchIconWrapper,
+  SearchPanel,
+  SearchPanelWrapper,
+} from './Filters.styles'
 
 const TopBar = ({ displayFiltered }) => {
   const [currFilterIndex, setCurrFilterIndex] = useState(0)
+  const [openModal, setOpenModal] = useState(false)
 
   return (
     <Formik initialValues={{ countries: [], roles: [], languages: [], frameworks: [] }}>
@@ -30,6 +40,9 @@ const TopBar = ({ displayFiltered }) => {
             <NavBar>
               <LogoContainer>
                 <PlatformLogo />
+                <SearchIconWrapper onClick={() => setOpenModal(true)}>
+                  <SearchIcon />
+                </SearchIconWrapper>
               </LogoContainer>
               <SearchPanel>
                 <SearchPanelWrapper>
@@ -40,17 +53,21 @@ const TopBar = ({ displayFiltered }) => {
                   />
                   <Search
                     sliceName={'usersFilters'}
-                    setFilterValueAction={setUsersFilter}
                     currFilterIndex={currFilterIndex}
+                    setFilterValueAction={setUsersFilter}
                   />
                 </SearchPanelWrapper>
                 <TagsList sliceName={'usersFilters'} setFilterValueAction={setUsersFilter} />
               </SearchPanel>
-              {/* Mobile filters button */}
-              {/* <FilterContainer onClick={showFiltersBar}>
-                    <Filters />
-                    <FilterText>Filters</FilterText>
-                  </FilterContainer> */}
+              {openModal ? (
+                <ModalSearch
+                  setOpenModal={setOpenModal}
+                  sliceName={'usersFilters'}
+                  currFilterIndex={currFilterIndex}
+                  setCurrFilterIndex={setCurrFilterIndex}
+                  setFilterValueAction={setUsersFilter}
+                />
+              ) : null}
             </NavBar>
           </Form>
         )

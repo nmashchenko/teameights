@@ -59,14 +59,14 @@ const initialState = [
     type: 'checks',
     value: [],
   },
-  {
-    name: 'people',
-    text: 'People',
-    type: 'range',
-    min: 1,
-    max: 8,
-    value: null,
-  },
+  // {
+  //   name: 'people',
+  //   text: 'People',
+  //   type: 'range',
+  //   min: 1,
+  //   max: 8,
+  //   value: null,
+  // },
 ]
 
 const usersFiltersSlice = createSlice({

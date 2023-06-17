@@ -2,7 +2,8 @@
 import { memo, useEffect } from 'react'
 
 import Notification from '../../../assets/Sidebar/Notification'
-import { IconWrapper, NavInteractBtn } from '../NavBar.styles'
+import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
+import { NavInteractBtn } from '../NavBar.styles'
 import NotificationsModal from '../NotificationsModal/NotificationsModal'
 
 // this component styles

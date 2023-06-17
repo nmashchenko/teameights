@@ -12,6 +12,7 @@ import Exit from '../../assets/Sidebar/Exit'
 import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
+import IconWrapper from '../../shared/components/IconWrapper/IconWrapper'
 import Loader from '../../shared/components/Loader/Loader'
 
 // * Data
@@ -20,7 +21,6 @@ import NotificationsContent from './NotificationsContent/NotificationsContent'
 import Profile from './Profile/Profile'
 import { NavBarData } from './NavBar.data'
 import {
-  IconWrapper,
   NavBarClose,
   NavBarCopyright,
   NavBarLogo,

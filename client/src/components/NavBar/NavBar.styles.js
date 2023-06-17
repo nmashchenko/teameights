@@ -2,16 +2,6 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-export const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & svg {
-    width: ${(props) => props.width || 'auto'};
-    height: ${(props) => props.height || 'auto'};
-  }
-`
-
 export const NavIconContainer = styled.div`
   margin-right: 25px;
   cursor: pointer;

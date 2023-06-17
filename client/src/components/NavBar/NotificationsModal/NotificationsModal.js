@@ -4,7 +4,7 @@ import { useReadMessages } from '../../../api/hooks/sidebar/useReadMessages'
 import Checks from '../../../assets/Sidebar/Checks'
 import Cross from '../../../assets/Sidebar/Cross'
 import { useOutsideClick } from '../../../hooks/useOutsideClick'
-import { IconWrapper } from '../NavBar.styles'
+import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
 import NotificationsList from '../NotificationsList/NotificationsList'
 
 import {

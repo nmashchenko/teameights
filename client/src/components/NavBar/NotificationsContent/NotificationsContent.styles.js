@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-import { IconWrapper } from '../NavBar.styles'
-
 export const StyledNotificationsContent = styled.div`
   position: relative;
 `
