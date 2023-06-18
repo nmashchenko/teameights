@@ -6,7 +6,6 @@ import { Form, Formik } from 'formik'
 import PlatformLogo from '../../../../assets/Platform/TeameightsLogo'
 import SearchIcon from '../../../../assets/Shared/SearchIcon'
 // * Components
-import IconWrapper from '../../../../shared/components/IconWrapper/IconWrapper'
 import { setUsersFilter } from '../../../../store/reducers/UsersFiltersSlice'
 import FilterSelect from '../../../FilterSelect/FilterSelect'
 import ModalSearch from '../../../ModalSearch/ModalSearch'

@@ -15,8 +15,9 @@ export const StyledModalSearch = styled.div`
 
 export const ModalSearchContainer = styled(FlexWrapper)`
   max-width: 312px;
+  height: 100%;
   margin: 0 auto;
-  padding: 6px 0;
+  padding: 6px 0 24px;
 `
 
 export const ModalSearchTitle = styled.h2`
@@ -35,6 +36,7 @@ export const ModalSearchList = styled.ul`
 `
 
 export const ModalSearchItem = styled.li`
+  flex: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -43,4 +45,18 @@ export const ModalSearchItem = styled.li`
   font-family: 'Rubik';
   line-height: 140%;
   color: #fff;
+`
+
+export const ModalButton = styled.button`
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 38px;
+  background: ${(props) => (props.outlined ? 'none' : '#46a11b')};
+  border: 1px solid #46a11b;
+  border-radius: 10px;
 `

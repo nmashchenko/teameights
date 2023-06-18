@@ -28,12 +28,12 @@ export const TagSubItem = styled.div`
   padding: 2px 8px;
 
   path {
-    transition: fill 0.2s;
+    transition: stroke 0.2s;
   }
 
   &:hover {
     path {
-      fill: #d42422;
+      stroke: #d42422;
     }
   }
 `

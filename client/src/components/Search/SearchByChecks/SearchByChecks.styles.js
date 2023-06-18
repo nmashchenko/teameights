@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import checkboxImg from '../../../assets/SearchPanel/Checkbox.svg'
 
 export const CheckListWrapper = styled.div`
-  z-index: 10;
+  z-index: 250;
   width: 100%;
   position: absolute;
   left: 0;

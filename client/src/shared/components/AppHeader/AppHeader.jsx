@@ -1,20 +1,58 @@
-// * Modules
+import { useState } from 'react'
 
-// * Assets
 import PlatformLogo from '../../../assets/Platform/TeameightsLogo'
-// * Components
-import SearchPanel from '../../../components/SearchPanel/SearchPanel'
+import SearchIcon from '../../../assets/Shared/SearchIcon'
+import FilterSelect from '../../../components/FilterSelect/FilterSelect'
+import ModalSearch from '../../../components/ModalSearch/ModalSearch'
+import Search from '../../../components/Search/Search'
+import TagsList from '../../../components/TagsList/TagsList'
 
-import { FiltersWrapper, LogoContainer, NavBar } from './AppHeader.styles'
+import {
+  FiltersWrapper,
+  LogoContainer,
+  NavBar,
+  SearchIconWrapper,
+  SearchPanel,
+  SearchPanelWrapper,
+} from './AppHeader.styles'
 
 const AppHeader = ({ sliceName, filterValueAction }) => {
+  const [currFilterIndex, setCurrFilterIndex] = useState(0)
+  const [openModal, setOpenModal] = useState(false)
+
   return (
     <FiltersWrapper>
       <NavBar>
         <LogoContainer>
           <PlatformLogo />
+          <SearchIconWrapper onClick={() => setOpenModal(true)}>
+            <SearchIcon />
+          </SearchIconWrapper>
         </LogoContainer>
-        <SearchPanel sliceName={sliceName} setFilterValueAction={filterValueAction} />
+        <SearchPanel>
+          <SearchPanelWrapper>
+            <FilterSelect
+              sliceName={sliceName}
+              currFilterIndex={currFilterIndex}
+              setCurrFilterIndex={setCurrFilterIndex}
+            />
+            <Search
+              sliceName={sliceName}
+              currFilterIndex={currFilterIndex}
+              setFilterValueAction={filterValueAction}
+            />
+          </SearchPanelWrapper>
+          <TagsList sliceName={'usersFilters'} setFilterValueAction={filterValueAction} />
+        </SearchPanel>
+        {openModal ? (
+          <ModalSearch
+            setOpenModal={setOpenModal}
+            sliceName={'usersFilters'}
+            currFilterIndex={currFilterIndex}
+            setCurrFilterIndex={setCurrFilterIndex}
+            setFilterValueAction={filterValueAction}
+          />
+        ) : null}
       </NavBar>
     </FiltersWrapper>
   )

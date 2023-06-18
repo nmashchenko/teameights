@@ -32,7 +32,7 @@ export const OptionsList = styled.ul`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  z-index: 10;
+  z-index: 250;
   position: absolute;
   top: calc(100% + 8px);
   left: 0;

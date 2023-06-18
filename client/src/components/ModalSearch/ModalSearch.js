@@ -9,6 +9,7 @@ import Search from '../Search/Search'
 import TagsList from '../TagsList/TagsList'
 
 import {
+  ModalButton,
   ModalSearchContainer,
   ModalSearchItem,
   ModalSearchList,
@@ -36,6 +37,40 @@ const ModalSearch = ({
   const onOpenFilterSettings = (index) => {
     setCurrFilterIndex(index)
     setFilterOpened(true)
+  }
+
+  const leftButtonHandler = () => {
+    if (!filterOpened) {
+      filtersArr.forEach((filter, index) => {
+        if (filter.type === 'text') {
+          setFilterValue(index, '')
+        }
+        if (filter.type === 'checks') {
+          setFilterValue(index, [])
+        }
+        if (filter.type === 'range') {
+          setFilterValue(index, null)
+        }
+      })
+    } else {
+      if (currFilter.type === 'text') {
+        setFilterValue(currFilterIndex, '')
+      }
+      if (currFilter.type === 'checks') {
+        setFilterValue(currFilterIndex, [])
+      }
+      if (currFilter.type === 'range') {
+        setFilterValue(currFilterIndex, null)
+      }
+    }
+  }
+
+  const rightButtonHandler = () => {
+    if (!filterOpened) {
+      setOpenModal(false)
+    } else {
+      setFilterOpened(false)
+    }
   }
 
   return (
@@ -83,6 +118,12 @@ const ModalSearch = ({
             <TagsList sliceName={sliceName} setFilterValueAction={setFilterValueAction} />
           </>
         )}
+        <FlexWrapper margin="auto 0 0 0" gap="8px">
+          <ModalButton outlined onClick={leftButtonHandler}>
+            Clear
+          </ModalButton>
+          <ModalButton onClick={rightButtonHandler}>{filterOpened ? 'Save' : 'Search'}</ModalButton>
+        </FlexWrapper>
       </ModalSearchContainer>
     </StyledModalSearch>
   )

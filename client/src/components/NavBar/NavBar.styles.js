@@ -22,7 +22,7 @@ export const NavWrapper = styled.div`
   @media screen and (max-width: 768px) {
     z-index: ${(props) => (props.active ? '999' : '100')};
     width: ${(props) => (props.active ? '100vw' : '270px')};
-    pointer-events: all;
+    pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   }
 `
 
@@ -143,5 +143,6 @@ export const MobileNavBarIconWrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     display: ${(props) => (props.active ? 'none' : 'block')};
+    pointer-events: ${(props) => (!props.active ? 'all' : 'none')};
   }
 `

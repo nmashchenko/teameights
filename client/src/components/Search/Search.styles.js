@@ -8,9 +8,10 @@ export const SearchBox = styled.div`
   height: 40px;
   width: 100%;
   align-items: center;
+  border-radius: 10px;
+  border: 1px solid #46a11b;
   &:hover {
-    background-color: ${(props) => props.hover && '#2f3239'};
-    border-radius: ${(props) => props.hover && '0px 10px 10px 0px'};
+    background-color: #2f3239;
   }
 `
 
