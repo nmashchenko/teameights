@@ -4,7 +4,7 @@ import {
   userExperienceOptions,
   userLeaderOptions,
 } from '../../../../../constants/finishRegistrationData'
-import CustomRadioButtonsGroup from '../../../../../shared/components/CustomRadioButtonsGroup/CustomRadioButtonsGroup'
+import CustomRadioButtonsGroup from '../../../../../shared/components/Formik/CustomRadioButtonsGroup/CustomRadioButtonsGroup'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import { NoteContainer, NoteText, QuestionSection, QuestionText } from './UserExperienceForm.styles'

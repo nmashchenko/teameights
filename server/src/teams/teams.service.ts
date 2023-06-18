@@ -157,10 +157,17 @@ export class TeamsService {
 	 * @returns A team object
 	 */
 	async getTeamById(id: mongoose.Types.ObjectId): Promise<Team> {
-		return await this.teamModel
-			.findById(id)
-			.populate('members')
-			.populate('leader');
+		try {
+			return await this.teamModel
+				.findById(id)
+				.populate('members')
+				.populate('leader');
+		} catch (err) {
+			throw new HttpException(
+				`Team with this id: ${id} not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
 	}
 
 	/**
@@ -200,6 +207,13 @@ export class TeamsService {
 		);
 
 		return updatedTeam;
+	}
+
+	async getAllTeams(): Promise<Team[]> {
+		return await this.teamModel
+			.find({ type: TeamType.OPEN })
+			.populate('members')
+			.populate('leader');
 	}
 
 	/**
@@ -256,8 +270,6 @@ export class TeamsService {
 	): Promise<Results> {
 		/* A type assertion. */
 		const results = {} as Results;
-
-		console.log(parsedQuery);
 
 		/* The above code is checking if the parsed query has a "members" property. If it does, it checks the
 		length of the "members" array. If the length is 1, it replaces the "members" property with a MongoDB
@@ -719,26 +731,39 @@ export class TeamsService {
 	 * @returns The updated team.
 	 */
 	async updateTeam(dto: UpdateTeamDto): Promise<Team> {
-		// check if dto has extra fields that we don't want to allow
-		const filteredDto = await teamUpdateValidate(dto);
+		try {
+			// check if dto has extra fields that we don't want to allow
+			const filteredDto = await teamUpdateValidate(dto);
 
-		const team = await this.getTeamById(dto.teamid);
+			const team = await this.getTeamById(dto.teamid);
 
-		if (!team) {
-			throw new HttpException(
-				`The team with id: ${dto.teamid} does not exist`,
-				HttpStatus.BAD_REQUEST,
+			if (!team) {
+				throw new HttpException(
+					`The team with id: ${dto.teamid} does not exist`,
+					HttpStatus.BAD_REQUEST,
+				);
+			}
+
+			/* Updating the team with the given teamid with the new data and returning the updated team. */
+			const updated = await this.teamModel.findOneAndUpdate(
+				{ _id: dto.teamid },
+				{ ...filteredDto },
+				{ new: true },
 			);
+
+			return updated;
+		} catch (error) {
+			if (error.name === 'MongoServerError' && error.code === 11000) {
+				// Handle the MongoDB error accordingly
+				throw new HttpException(
+					'This tag is already taken, please choose a different one.',
+					HttpStatus.BAD_REQUEST,
+				);
+			} else {
+				// Handle the regular error accordingly
+				throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+			}
 		}
-
-		/* Updating the team with the given teamid with the new data and returning the updated team. */
-		const updated = await this.teamModel.findOneAndUpdate(
-			{ _id: dto.teamid },
-			{ ...filteredDto },
-			{ new: true },
-		);
-
-		return updated;
 	}
 
 	/**

@@ -44,13 +44,10 @@ import {
 
 const ProfileDetails = () => {
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
-  const teamId = user?.team?._id
-
-  const { data: team, isLoading: isUserTeamLoading } = useGetTeamData(teamId)
 
   const navigate = useNavigate()
 
-  if (isUserDataLoading || isUserTeamLoading) {
+  if (isUserDataLoading) {
     return <Loader />
   }
 
@@ -165,7 +162,7 @@ const ProfileDetails = () => {
           <BannerLine />
           <RightCardData justify="center">
             <Text margin="0" fontSize="16px" fontWeight="600" color="rgba(255, 255, 255, 0.7)">
-              {team ? team.name : "That's where your team will come in"}
+              {user.team ? user?.team.name : "That's where your team will come in"}
             </Text>
           </RightCardData>
         </RightCard>

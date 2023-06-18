@@ -21,6 +21,7 @@ import NotificationsContent from './NotificationsContent/NotificationsContent'
 import Profile from './Profile/Profile'
 import { NavBarData } from './NavBar.data'
 import {
+  MobileNavBarIconWrapper,
   NavBarClose,
   NavBarCopyright,
   NavBarLogo,
@@ -38,6 +39,8 @@ const NavBar = () => {
 
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
+
+  console.log(user)
   const [userNotifications, setUserNotifications] = useState(user?.notifications || [])
 
   const newNavData = [
@@ -112,6 +115,11 @@ const NavBar = () => {
   return (
     <>
       <NavWrapper active={sidebar}>
+        <MobileNavBarIconWrapper onClick={showSidebar} active={sidebar}>
+          <NavBarClose active={sidebar}>
+            <Close />
+          </NavBarClose>
+        </MobileNavBarIconWrapper>
         <NavMenu ref={navMenuRef} onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
             <NavBarLogo active={sidebar}>
@@ -173,4 +181,4 @@ const NavBar = () => {
   )
 }
 
-export default memo(NavBar)
+export default NavBar

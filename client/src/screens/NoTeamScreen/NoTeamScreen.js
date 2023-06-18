@@ -1,13 +1,15 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import NoTeamForm from '../../components/Forms/NoTeamForm/NoTeamForm'
+import NoTeam from '../../components/Team/NoTeam/NoTeam'
+import TeamTypeSwitch from '../../components/Team/TeamTypeSwitch/TeamTypeSwitch'
 
 function NoTeamScreen() {
   return (
     <>
       <CssBaseline />
-      <NoTeamForm />
+      <TeamTypeSwitch myTeam={''} />
+      <NoTeam />
     </>
   )
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { userConcentrations } from '../../../../../constants/finishRegistrationData'
-import SelectValue from '../../../../../shared/components/CustomSelect/components/SelectValue'
-import CustomSelect from '../../../../../shared/components/CustomSelect/CustomSelect'
+import SelectValue from '../../../../../shared/components/Formik/CustomSelect/components/SelectValue'
+import CustomSelect from '../../../../../shared/components/Formik/CustomSelect/CustomSelect'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 const UserConcentrationForm = () => {

@@ -31,7 +31,7 @@ const NotificationsContent = ({
         {!!unreadMessages.length && !notificationModal && (
           <>
             <NotificationsCount
-              active={!sidebar}
+              pointerEvents={!sidebar}
               top="6px"
               left="28px"
               animate={{ scale: [1, 1.5, 1] }}

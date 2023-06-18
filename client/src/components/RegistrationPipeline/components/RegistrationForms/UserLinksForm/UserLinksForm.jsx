@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { userLinks } from '../../../../../constants/finishRegistrationData'
-import CustomInput from '../../../../../shared/components/CustomInput/CustomInput'
-import { InputWithIConWrapper } from '../../../../../shared/components/CustomInput/CustomInput.styles'
+import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
+import { InputWithIConWrapper } from '../../../../../shared/components/Formik/CustomInput/CustomInput.styles'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 const UserLinksForm = () => {

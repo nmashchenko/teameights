@@ -28,8 +28,7 @@ const MultiStepRegistration = ({
     submitForm(values, userData)
   }
 
-  console.log(step)
-  if (isFetching) {
+  if (isFetching || isFinishingRegistration) {
     return <Loader />
   }
 
@@ -42,7 +41,6 @@ const MultiStepRegistration = ({
       {() => {
         return (
           <Form>
-            {isFinishingRegistration && <Loader />}
             <Container>
               <Stepper steps={steps} step={step} isOptionalStep={isOptionalStep} />
               <RegistrationContainer>

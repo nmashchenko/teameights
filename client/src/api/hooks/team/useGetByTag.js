@@ -7,8 +7,6 @@ import { successToaster } from '../../../shared/components/Toasters/Success.toas
 const { api } = http
 
 export const useGetByTag = () => {
-  const queryClient = useQueryClient()
-
   const getTeamByTag = async (tag) => {
     return await api.get(`/teams/tag/${tag}`)
   }

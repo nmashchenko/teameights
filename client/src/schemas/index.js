@@ -347,3 +347,8 @@ export const editProfileValidation = yup.object().shape(
     ['telegram', 'telegram'],
   ],
 )
+
+export const editTeamValidation = yup.object().shape({
+  name: yup.string().max(20, '20 characters max'),
+  tag: yup.string().max(5),
+})

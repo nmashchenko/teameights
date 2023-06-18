@@ -15,11 +15,14 @@ export const useUpdateAvatar = (type) => {
 
   return useMutation(updateUserAvatar, {
     mutationKey: 'updateUserAvatar',
-    onSuccess: () => {
-      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+    onSuccess: async () => {
+      if (type === 'teams') {
+        await queryClient.invalidateQueries('getTeamById', { refetchInactive: true })
+      }
+
+      await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
     },
     onError: (error) => {
-      console.log(error)
       // set error message
       errorToaster(error)
     },

@@ -42,20 +42,14 @@ const initialState = [
     value: '',
   },
   {
-    name: 'tag',
-    text: 'Tag',
-    type: 'text',
-    value: '',
-  },
-  {
     name: 'countries',
     text: 'Countries',
     type: 'checks',
     value: [],
   },
   {
-    name: 'technologies',
-    text: 'Technologies',
+    name: 'languages',
+    text: 'Languages',
     type: 'checks',
     value: [],
   },
@@ -67,6 +61,18 @@ const initialState = [
   //   max: 8,
   //   value: null,
   // },
+  {
+    name: 'frameworks',
+    text: 'Frameworks',
+    type: 'checks',
+    value: [],
+  },
+  {
+    name: 'concentrations',
+    text: 'Concentrations',
+    type: 'checks',
+    value: [],
+  },
 ]
 
 const usersFiltersSlice = createSlice({

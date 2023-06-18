@@ -18,10 +18,15 @@ export const NavWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 999;
+
+  @media screen and (max-width: 768px) {
+    z-index: ${(props) => (props.active ? '999' : '100')};
+    width: ${(props) => (props.active ? '100vw' : '270px')};
+    pointer-events: all;
+  }
 `
 
 export const NavMenu = styled.nav`
-  --menu-animation-time: 0.2s;
   pointer-events: all;
   width: 100%;
   height: 100%;
@@ -31,9 +36,17 @@ export const NavMenu = styled.nav`
   align-items: center;
   background: ${(props) =>
     props.active ? 'linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%)' : '#1A1C22'};
-  transition: all var(--menu-animation-time) ease;
+  transition: all 0.2s ease;
   padding: 0 16px;
   padding-top: 48px;
+
+  @media screen and (max-width: 768px) {
+    max-width: 270px;
+    /* display: ${(props) => (props.active ? 'block' : 'none')}; */
+    max-width: ${(props) => (props.active ? '270px' : '0px')};
+    pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+    opacity: ${(props) => (props.active ? '1' : '0')};
+  }
 `
 
 export const NavBarToggle = styled.div`
@@ -118,4 +131,17 @@ export const NavBarCopyright = styled.h3`
   color: #86878b;
   overflow: hidden;
   white-space: nowrap;
+`
+
+export const MobileNavBarIconWrapper = styled.div`
+  position: absolute;
+  top: 47px;
+  left: 4.1%;
+  display: none;
+  cursor: pointer;
+  z-index: 999;
+
+  @media screen and (max-width: 768px) {
+    display: ${(props) => (props.active ? 'none' : 'block')};
+  }
 `
