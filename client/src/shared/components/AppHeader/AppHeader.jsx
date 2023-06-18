@@ -2,19 +2,10 @@ import { useState } from 'react'
 
 import PlatformLogo from '../../../assets/Platform/TeameightsLogo'
 import SearchIcon from '../../../assets/Shared/SearchIcon'
-import FilterSelect from '../../../components/FilterSelect/FilterSelect'
 import ModalSearch from '../../../components/ModalSearch/ModalSearch'
-import Search from '../../../components/Search/Search'
-import TagsList from '../../../components/TagsList/TagsList'
+import SearchPanel from '../SearchPanel/SearchPanel'
 
-import {
-  FiltersWrapper,
-  LogoContainer,
-  NavBar,
-  SearchIconWrapper,
-  SearchPanel,
-  SearchPanelWrapper,
-} from './AppHeader.styles'
+import { FiltersWrapper, LogoContainer, NavBar, SearchIconWrapper } from './AppHeader.styles'
 
 const AppHeader = ({ sliceName, filterValueAction }) => {
   const [currFilterIndex, setCurrFilterIndex] = useState(0)
@@ -29,21 +20,12 @@ const AppHeader = ({ sliceName, filterValueAction }) => {
             <SearchIcon />
           </SearchIconWrapper>
         </LogoContainer>
-        <SearchPanel>
-          <SearchPanelWrapper>
-            <FilterSelect
-              sliceName={sliceName}
-              currFilterIndex={currFilterIndex}
-              setCurrFilterIndex={setCurrFilterIndex}
-            />
-            <Search
-              sliceName={sliceName}
-              currFilterIndex={currFilterIndex}
-              setFilterValueAction={filterValueAction}
-            />
-          </SearchPanelWrapper>
-          <TagsList sliceName={'usersFilters'} setFilterValueAction={filterValueAction} />
-        </SearchPanel>
+        <SearchPanel
+          sliceName={sliceName}
+          currFilterIndex={currFilterIndex}
+          setCurrFilterIndex={setCurrFilterIndex}
+          setFilterValueAction={filterValueAction}
+        />
         {openModal ? (
           <ModalSearch
             setOpenModal={setOpenModal}
