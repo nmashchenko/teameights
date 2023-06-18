@@ -6,14 +6,44 @@ import RangeTag from './RangeTag/RangeTag'
 import TextTag from './TextTag/TextTag'
 import { StyledTagsList } from './TagsList.styles'
 
-const TagsList = ({ sliceName, setFilterValueAction }) => {
+const TagsList = ({ sliceName, setFilterValueAction, currFilter, currFilterIndex }) => {
   const dispatch = useDispatch()
   const filtersArr = useSelector((state) => state[sliceName])
   const setFilterValue = (index, value) => dispatch(setFilterValueAction({ index, value }))
 
-  return (
-    <StyledTagsList>
-      {filtersArr.map((item, index) => {
+  const renderList = () => {
+    if (currFilter && typeof currFilterIndex !== 'undefined') {
+      switch (currFilter.type) {
+        case 'text':
+          return currFilter.value.length ? (
+            <TextTag
+              value={currFilter.value}
+              filterIndex={currFilterIndex}
+              setFilterValue={setFilterValue}
+            />
+          ) : null
+        case 'checks':
+          return currFilter.value.length ? (
+            <ChecksTag
+              value={currFilter.value}
+              filterName={currFilter.name}
+              filterIndex={currFilterIndex}
+              setFilterValue={setFilterValue}
+            />
+          ) : null
+        case 'range':
+          return currFilter.value ? (
+            <RangeTag
+              value={currFilter.value}
+              filterIndex={currFilterIndex}
+              setFilterValue={setFilterValue}
+            />
+          ) : null
+        default:
+          return <div>Filter undefined</div>
+      }
+    } else {
+      return filtersArr.map((item, index) => {
         switch (item.type) {
           case 'text':
             return item.value.length ? (
@@ -44,11 +74,13 @@ const TagsList = ({ sliceName, setFilterValueAction }) => {
               />
             ) : null
           default:
-            return
+            return <div>Filters undefined</div>
         }
-      })}
-    </StyledTagsList>
-  )
+      })
+    }
+  }
+
+  return <StyledTagsList>{renderList()}</StyledTagsList>
 }
 
 export default TagsList

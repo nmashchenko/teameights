@@ -20,6 +20,10 @@ export const StyledChecksList = styled.ul`
   display: grid;
   grid-template-columns: ${({ columns }) => columns || 'none'};
 
+  @media (max-width: 768px) {
+    grid-template-columns: none;
+  }
+
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -35,10 +39,11 @@ export const StyledChecksList = styled.ul`
 `
 
 export const StyledChecksItem = styled.li`
+  cursor: pointer;
+  color: #fff;
   display: flex;
   gap: 8px;
   align-items: center;
-  cursor: pointer;
   padding: 4px 8px 4px 16px;
   background: #2f3239;
   p {

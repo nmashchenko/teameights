@@ -5,6 +5,7 @@ import countryList from 'react-select-country-list'
 import Cross from '../../assets/Sidebar/Cross'
 import FlexWrapper from '../../shared/components/FlexWrapper/FlexWrapper'
 import IconWrapper from '../../shared/components/IconWrapper/IconWrapper'
+import Tag from '../../shared/components/Tag/Tag'
 import Search from '../Search/Search'
 import TagsList from '../TagsList/TagsList'
 
@@ -73,6 +74,34 @@ const ModalSearch = ({
     }
   }
 
+  const renderTag = (filter) => {
+    switch (filter.type) {
+      case 'text':
+        if (filter.value.length) {
+          return <Tag>@{filter.value}</Tag>
+        }
+        break
+      case 'checks':
+        if (filter.value.length) {
+          return (
+            <Tag>
+              {filter.value.length} {filter.name}
+            </Tag>
+          )
+        }
+        break
+      case 'range':
+        if (filter.value) {
+          return (
+            <Tag>
+              {filter.value[0]} {filter.value[1]}
+            </Tag>
+          )
+        }
+        break
+    }
+  }
+
   return (
     <StyledModalSearch>
       <ModalSearchContainer direction="column" gap="24px">
@@ -92,7 +121,10 @@ const ModalSearch = ({
             <ModalSearchList>
               {filtersArr.map((filter, index) => (
                 <ModalSearchItem key={filter.name} onClick={() => onOpenFilterSettings(index)}>
-                  {filter.text}
+                  <FlexWrapper align="center" gap="8px">
+                    <p>{filter.text}</p>
+                    {renderTag(filter)}
+                  </FlexWrapper>
                 </ModalSearchItem>
               ))}
             </ModalSearchList>
@@ -115,7 +147,12 @@ const ModalSearch = ({
               currFilterIndex={currFilterIndex}
               setFilterValueAction={setFilterValueAction}
             />
-            <TagsList sliceName={sliceName} setFilterValueAction={setFilterValueAction} />
+            <TagsList
+              currFilter={currFilter}
+              currFilterIndex={currFilterIndex}
+              sliceName={sliceName}
+              setFilterValueAction={setFilterValueAction}
+            />
           </>
         )}
         <FlexWrapper margin="auto 0 0 0" gap="8px">

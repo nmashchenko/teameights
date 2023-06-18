@@ -36,15 +36,17 @@ export const ModalSearchList = styled.ul`
 `
 
 export const ModalSearchItem = styled.li`
-  flex: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 40px;
-  font-family: 'Rubik';
-  line-height: 140%;
-  color: #fff;
+
+  p {
+    font-family: 'Rubik';
+    line-height: 140%;
+    color: #fff;
+  }
 `
 
 export const ModalButton = styled.button`
