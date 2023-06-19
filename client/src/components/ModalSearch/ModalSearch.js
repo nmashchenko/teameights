@@ -15,10 +15,12 @@ import {
   ModalSearchItem,
   ModalSearchList,
   ModalSearchTitle,
+  ModalWrapper,
   StyledModalSearch,
 } from './ModalSearch.style'
 
 const ModalSearch = ({
+  openModal,
   setOpenModal,
   sliceName,
   currFilterIndex,
@@ -103,66 +105,70 @@ const ModalSearch = ({
   }
 
   return (
-    <StyledModalSearch>
-      <ModalSearchContainer direction="column" gap="24px">
-        {!filterOpened ? (
-          <>
-            <FlexWrapper justify="space-between">
-              <ModalSearchTitle>Filters</ModalSearchTitle>
-              <IconWrapper
-                onClick={() => setOpenModal(false)}
-                width="24px"
-                height="24px"
-                cursor="pointer"
-              >
-                <Cross />
-              </IconWrapper>
-            </FlexWrapper>
-            <ModalSearchList>
-              {filtersArr.map((filter, index) => (
-                <ModalSearchItem key={filter.name} onClick={() => onOpenFilterSettings(index)}>
-                  <FlexWrapper align="center" gap="8px">
-                    <p>{filter.text}</p>
-                    {renderTag(filter)}
-                  </FlexWrapper>
-                </ModalSearchItem>
-              ))}
-            </ModalSearchList>
-          </>
-        ) : (
-          <>
-            <FlexWrapper justify="space-between">
-              <ModalSearchTitle>{currFilter.text}</ModalSearchTitle>
-              <IconWrapper
-                onClick={() => setOpenModal(false)}
-                width="24px"
-                height="24px"
-                cursor="pointer"
-              >
-                <Cross />
-              </IconWrapper>
-            </FlexWrapper>
-            <Search
-              sliceName={sliceName}
-              currFilterIndex={currFilterIndex}
-              setFilterValueAction={setFilterValueAction}
-            />
-            <TagsList
-              currFilter={currFilter}
-              currFilterIndex={currFilterIndex}
-              sliceName={sliceName}
-              setFilterValueAction={setFilterValueAction}
-            />
-          </>
-        )}
-        <FlexWrapper margin="auto 0 0 0" gap="8px">
-          <ModalButton outlined onClick={leftButtonHandler}>
-            Clear
-          </ModalButton>
-          <ModalButton onClick={rightButtonHandler}>{filterOpened ? 'Save' : 'Search'}</ModalButton>
-        </FlexWrapper>
-      </ModalSearchContainer>
-    </StyledModalSearch>
+    <ModalWrapper open={openModal} anchor="top" transitionDuration={800}>
+      <StyledModalSearch>
+        <ModalSearchContainer direction="column" gap="24px">
+          {!filterOpened ? (
+            <>
+              <FlexWrapper justify="space-between">
+                <ModalSearchTitle>Filters</ModalSearchTitle>
+                <IconWrapper
+                  onClick={() => setOpenModal(false)}
+                  width="24px"
+                  height="24px"
+                  cursor="pointer"
+                >
+                  <Cross />
+                </IconWrapper>
+              </FlexWrapper>
+              <ModalSearchList>
+                {filtersArr.map((filter, index) => (
+                  <ModalSearchItem key={filter.name} onClick={() => onOpenFilterSettings(index)}>
+                    <FlexWrapper align="center" gap="8px">
+                      <p>{filter.text}</p>
+                      {renderTag(filter)}
+                    </FlexWrapper>
+                  </ModalSearchItem>
+                ))}
+              </ModalSearchList>
+            </>
+          ) : (
+            <>
+              <FlexWrapper justify="space-between">
+                <ModalSearchTitle>{currFilter.text}</ModalSearchTitle>
+                <IconWrapper
+                  onClick={() => setOpenModal(false)}
+                  width="24px"
+                  height="24px"
+                  cursor="pointer"
+                >
+                  <Cross />
+                </IconWrapper>
+              </FlexWrapper>
+              <Search
+                sliceName={sliceName}
+                currFilterIndex={currFilterIndex}
+                setFilterValueAction={setFilterValueAction}
+              />
+              <TagsList
+                currFilter={currFilter}
+                currFilterIndex={currFilterIndex}
+                sliceName={sliceName}
+                setFilterValueAction={setFilterValueAction}
+              />
+            </>
+          )}
+          <FlexWrapper margin="auto 0 0 0" gap="8px">
+            <ModalButton outlined onClick={leftButtonHandler}>
+              Clear
+            </ModalButton>
+            <ModalButton onClick={rightButtonHandler}>
+              {filterOpened ? 'Save' : 'Search'}
+            </ModalButton>
+          </FlexWrapper>
+        </ModalSearchContainer>
+      </StyledModalSearch>
+    </ModalWrapper>
   )
 }
 

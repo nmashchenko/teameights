@@ -1,16 +1,15 @@
+import { Drawer } from '@mui/material'
 import styled from 'styled-components'
 
 import FlexWrapper from '../../shared/components/FlexWrapper/FlexWrapper'
 
+export const ModalWrapper = styled(Drawer)``
+
 export const StyledModalSearch = styled.div`
-  position: fixed;
-  z-index: 9999;
   padding: 24px 24px 0;
   background-color: #26292b;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: 100dvh;
 `
 
 export const ModalSearchContainer = styled(FlexWrapper)`

@@ -6,13 +6,13 @@ const StyledIconWrapper = styled.div`
   width: ${(props) => props.width || 'auto'};
   height: ${(props) => props.height || 'auto'};
   padding: ${(props) => props.padding || 0};
-  margin: ${(props) => props.padding || 0};
+  margin: ${(props) => props.margin || 0};
   display: flex;
   justify-content: center;
   align-items: center;
   svg {
-    width: 100%;
-    height: 100%;
+    width: ${(props) => props.width || 'auto'};
+    height: ${(props) => props.height || 'auto'};
   }
 `
 

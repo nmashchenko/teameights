@@ -20,8 +20,9 @@ export const StyledChecksList = styled.ul`
   display: grid;
   grid-template-columns: ${({ columns }) => columns || 'none'};
 
-  @media (max-width: 768px) {
-    grid-template-columns: none;
+  @media screen and (max-width: 900px) {
+    grid-template-columns: repeat(1, 1fr);
+    width: 100%;
   }
 
   &::-webkit-scrollbar {

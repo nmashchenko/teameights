@@ -10,7 +10,7 @@ export const NavIconContainer = styled.div`
 export const NavWrapper = styled.div`
   pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   background: rgba(${(props) => (props.active ? '0, 0, 0, 0.25' : '0, 0, 0, 0')});
   backdrop-filter: ${(props) => (props.active ? 'blur(5px)' : 'none')};
   -webkit-backdrop-filter: ${(props) => (props.active ? 'blur(5px)' : 'none')};
@@ -21,7 +21,7 @@ export const NavWrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     z-index: ${(props) => (props.active ? '999' : '100')};
-    width: ${(props) => (props.active ? '100vw' : '270px')};
+    /* width: ${(props) => (props.active ? '100vw' : '270px')}; */
     pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   }
 `
@@ -36,14 +36,17 @@ export const NavMenu = styled.nav`
   align-items: center;
   background: ${(props) =>
     props.active ? 'linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%)' : '#1A1C22'};
-  transition: all 0.2s ease;
+  transition: all 0.25s;
+  -webkit-transition: all 0.25s;
   padding: 0 16px;
   padding-top: 48px;
 
   @media screen and (max-width: 768px) {
-    max-width: 270px;
-    /* display: ${(props) => (props.active ? 'block' : 'none')}; */
-    max-width: ${(props) => (props.active ? '270px' : '0px')};
+    position: absolute;
+    max-width: none;
+    left: ${(props) => (props.active ? '0' : '-270px')};
+    top: 0;
+    width: 270px;
     pointer-events: ${(props) => (props.active ? 'all' : 'none')};
     opacity: ${(props) => (props.active ? '1' : '0')};
   }

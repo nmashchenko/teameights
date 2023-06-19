@@ -1,5 +1,5 @@
 // * Modules
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -40,7 +40,6 @@ const NavBar = () => {
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
 
-  console.log(user)
   const [userNotifications, setUserNotifications] = useState(user?.notifications || [])
 
   const newNavData = [
@@ -114,12 +113,15 @@ const NavBar = () => {
 
   return (
     <>
+      {/* This will appear for screen width <= 768px */}
+      <MobileNavBarIconWrapper onClick={showSidebar} active={sidebar}>
+        <NavBarClose active={sidebar}>
+          <Close />
+        </NavBarClose>
+      </MobileNavBarIconWrapper>
+
+      {/* This will appear for screen width > 768px */}
       <NavWrapper active={sidebar}>
-        <MobileNavBarIconWrapper onClick={showSidebar} active={sidebar}>
-          <NavBarClose active={sidebar}>
-            <Close />
-          </NavBarClose>
-        </MobileNavBarIconWrapper>
         <NavMenu ref={navMenuRef} onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
             <NavBarLogo active={sidebar}>

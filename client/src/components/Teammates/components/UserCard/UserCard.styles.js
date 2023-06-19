@@ -127,7 +127,6 @@ export const CardContainer = styled.div`
   height: 280px;
   padding: 20px;
   background: #1a1c22;
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.12);
   border-radius: 15px;
 
   &:hover {

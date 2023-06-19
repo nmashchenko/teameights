@@ -12,31 +12,33 @@ const AppHeader = ({ sliceName, filterValueAction }) => {
   const [openModal, setOpenModal] = useState(false)
 
   return (
-    <FiltersWrapper>
-      <NavBar>
-        <LogoContainer>
-          <PlatformLogo />
-          <SearchIconWrapper onClick={() => setOpenModal(true)}>
-            <SearchIcon />
-          </SearchIconWrapper>
-        </LogoContainer>
-        <SearchPanel
-          sliceName={sliceName}
-          currFilterIndex={currFilterIndex}
-          setCurrFilterIndex={setCurrFilterIndex}
-          setFilterValueAction={filterValueAction}
-        />
-        {openModal ? (
-          <ModalSearch
-            setOpenModal={setOpenModal}
-            sliceName={'usersFilters'}
+    <>
+      <SearchIconWrapper onClick={() => setOpenModal(true)}>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <FiltersWrapper>
+        <NavBar>
+          <LogoContainer>
+            <PlatformLogo />
+          </LogoContainer>
+          <SearchPanel
+            sliceName={sliceName}
             currFilterIndex={currFilterIndex}
             setCurrFilterIndex={setCurrFilterIndex}
             setFilterValueAction={filterValueAction}
           />
-        ) : null}
-      </NavBar>
-    </FiltersWrapper>
+
+          <ModalSearch
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            sliceName={sliceName}
+            currFilterIndex={currFilterIndex}
+            setCurrFilterIndex={setCurrFilterIndex}
+            setFilterValueAction={filterValueAction}
+          />
+        </NavBar>
+      </FiltersWrapper>
+    </>
   )
 }
 

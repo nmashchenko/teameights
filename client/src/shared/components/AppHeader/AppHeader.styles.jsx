@@ -34,13 +34,11 @@ export const LogoContainer = styled.div`
 export const SearchIconWrapper = styled(IconWrapper)`
   cursor: pointer;
   display: none;
-  --icon-size: 25px;
-  width: var(--icon-size);
-  height: var(--icon-size);
   position: absolute;
-  top: calc(50% - (var(--icon-size) - (var(--icon-size) / 2)));
+  top: 53px;
+  z-index: 999;
   right: 27px;
-  @media (max-width: 480px) {
+  @media (max-width: 768px) {
     display: flex;
   }
 `

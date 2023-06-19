@@ -17,22 +17,25 @@ export const CardsContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  width: 80%;
+  width: 100%;
+  max-width: 1196px;
   grid-template-columns: repeat(4, 1fr);
 
-  @media screen and (min-width: 1450px) {
-    column-gap: 50px;
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @media screen and (min-width: 1200px) and (max-width: 1450px) {
+  @media screen and (max-width: 1440px) {
+    max-width: 826px;
     grid-template-columns: repeat(3, 1fr);
   }
-  @media screen and (min-width: 800px) and (max-width: 1200px) {
+  @media screen and (max-width: 1024px) {
+    max-width: 770px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 900px) {
+    max-width: 526px;
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (min-width: 0px) and (max-width: 800px) {
+  @media screen and (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `
