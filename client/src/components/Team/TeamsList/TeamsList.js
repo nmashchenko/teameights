@@ -88,7 +88,11 @@ function TeamsList() {
 
   return (
     <>
-      <AppHeader sliceName="teamsFilters" filterValueAction={setTeamsFilter} />
+      <AppHeader
+        sliceName="teamsFilters"
+        filterValueAction={setTeamsFilter}
+        hideLogoForMobile={true}
+      />
       {teams?.pages[0]?.data?.length > 0 ? (
         <Container>
           <Modal
@@ -114,6 +118,9 @@ function TeamsList() {
                   <TeamImage src={team?.image} />
                   <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
                     {team.name}
+                  </Text>
+                  <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
+                    {team.tag}
                   </Text>
                   <Text fontSize={B2fs} fontWeight={B2fw} lineHeight={B2lh} color="white">
                     {team.members.length}/8

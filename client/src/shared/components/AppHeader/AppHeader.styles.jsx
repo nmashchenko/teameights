@@ -22,13 +22,17 @@ export const NavBar = styled.div`
 `
 
 export const LogoContainer = styled.div`
-  position: relative;
+  /* position: relative; */
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 49px;
   margin-bottom: 48px;
+
+  @media screen and (max-width: 768px) {
+    visibility: ${(props) => (props.hideLogoForMobile ? 'hidden' : 'visible')};
+  }
 `
 
 export const SearchIconWrapper = styled(IconWrapper)`

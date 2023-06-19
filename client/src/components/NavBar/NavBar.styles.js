@@ -20,7 +20,6 @@ export const NavWrapper = styled.div`
   z-index: 999;
 
   @media screen and (max-width: 768px) {
-    z-index: ${(props) => (props.active ? '999' : '100')};
     /* width: ${(props) => (props.active ? '100vw' : '270px')}; */
     pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   }
@@ -36,8 +35,8 @@ export const NavMenu = styled.nav`
   align-items: center;
   background: ${(props) =>
     props.active ? 'linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%)' : '#1A1C22'};
-  transition: all 0.25s;
-  -webkit-transition: all 0.25s;
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
   padding: 0 16px;
   padding-top: 48px;
 
@@ -48,7 +47,7 @@ export const NavMenu = styled.nav`
     top: 0;
     width: 270px;
     pointer-events: ${(props) => (props.active ? 'all' : 'none')};
-    opacity: ${(props) => (props.active ? '1' : '0')};
+    /* opacity: ${(props) => (props.active ? '1' : '0')}; */
   }
 `
 

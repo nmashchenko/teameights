@@ -8,12 +8,12 @@ export const ModalWrapper = styled(Drawer)``
 export const StyledModalSearch = styled.div`
   padding: 24px 24px 0;
   background-color: #26292b;
-  width: 100%;
+  width: 100dvw;
   height: 100dvh;
 `
 
 export const ModalSearchContainer = styled(FlexWrapper)`
-  max-width: 312px;
+  /* max-width: 312px; */
   height: 100%;
   margin: 0 auto;
   padding: 6px 0 24px;

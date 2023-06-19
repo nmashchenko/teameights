@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import countryList from 'react-select-country-list'
+
+import concentrationOptions from '../../constants/concentrations'
+import frameworkOptions from '../../constants/frameworks'
+import { programmingLanguageOptions } from '../../constants/programmingLanguages'
 
 import SearchByChecks from './SearchByChecks/SearchByChecks'
 import SearchByRange from './SearchByRange/SearchByRange'
@@ -13,7 +17,7 @@ const Search = ({ sliceName, setFilterValueAction, currFilterIndex }) => {
 
   const currFilter = filtersArr[currFilterIndex]
 
-  const countries = countryList().getData()
+  const countries = useMemo(() => countryList().getData(), [])
 
   switch (currFilter.type) {
     case 'text':
@@ -34,6 +38,36 @@ const Search = ({ sliceName, setFilterValueAction, currFilterIndex }) => {
             currFilterIndex={currFilterIndex}
             setFilterValue={setFilterValue}
             items={countries}
+          />
+        )
+      }
+      if (currFilter.name === 'languages') {
+        return (
+          <SearchByChecks
+            currFilter={currFilter}
+            currFilterIndex={currFilterIndex}
+            setFilterValue={setFilterValue}
+            items={programmingLanguageOptions}
+          />
+        )
+      }
+      if (currFilter.name === 'frameworks') {
+        return (
+          <SearchByChecks
+            currFilter={currFilter}
+            currFilterIndex={currFilterIndex}
+            setFilterValue={setFilterValue}
+            items={frameworkOptions}
+          />
+        )
+      }
+      if (currFilter.name === 'concentrations') {
+        return (
+          <SearchByChecks
+            currFilter={currFilter}
+            currFilterIndex={currFilterIndex}
+            setFilterValue={setFilterValue}
+            items={concentrationOptions}
           />
         )
       } else {

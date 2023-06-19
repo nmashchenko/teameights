@@ -105,7 +105,7 @@ const ModalSearch = ({
   }
 
   return (
-    <ModalWrapper open={openModal} anchor="top" transitionDuration={800}>
+    <ModalWrapper open={openModal} anchor="right" transitionDuration={400}>
       <StyledModalSearch>
         <ModalSearchContainer direction="column" gap="24px">
           {!filterOpened ? (

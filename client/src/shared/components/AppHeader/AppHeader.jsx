@@ -7,7 +7,7 @@ import SearchPanel from '../SearchPanel/SearchPanel'
 
 import { FiltersWrapper, LogoContainer, NavBar, SearchIconWrapper } from './AppHeader.styles'
 
-const AppHeader = ({ sliceName, filterValueAction }) => {
+const AppHeader = ({ sliceName, filterValueAction, hideLogoForMobile = false }) => {
   const [currFilterIndex, setCurrFilterIndex] = useState(0)
   const [openModal, setOpenModal] = useState(false)
 
@@ -18,7 +18,7 @@ const AppHeader = ({ sliceName, filterValueAction }) => {
       </SearchIconWrapper>
       <FiltersWrapper>
         <NavBar>
-          <LogoContainer>
+          <LogoContainer hideLogoForMobile={hideLogoForMobile}>
             <PlatformLogo />
           </LogoContainer>
           <SearchPanel

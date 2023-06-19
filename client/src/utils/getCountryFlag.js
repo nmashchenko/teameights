@@ -9,8 +9,6 @@ export const getCountryFlag = (countryName) => {
     if (country.name === countryName) {
       const imageURL = country.image
 
-      console.log(imageURL)
-
       return imageURL // Exit the loop since we found the desired country
     }
   }

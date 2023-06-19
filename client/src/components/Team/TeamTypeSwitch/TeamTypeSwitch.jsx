@@ -10,9 +10,6 @@ const TeamTypeSwitch = ({ myTeam }) => {
 
   return (
     <GridContainer>
-      {/* <LogoContainer>
-        <TeameightsLogo />
-      </LogoContainer> */}
       <SelectType>
         <Textbox>
           <Text

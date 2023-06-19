@@ -12,6 +12,10 @@ export const GridContainer = styled.div`
   align-items: center;
   justify-content: end;
   position: absolute;
+
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
 `
 
 export const Textbox = styled.div`
@@ -24,6 +28,10 @@ export const SelectType = styled.div`
   margin-right: 30px;
   display: flex;
   gap: 16px;
+
+  @media screen and (max-width: 768px) {
+    margin-right: 0;
+  }
 `
 
 export const LogoContainer = styled.div`
