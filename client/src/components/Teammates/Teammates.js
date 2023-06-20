@@ -68,7 +68,7 @@ function Teammates() {
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          sx={{ backdropFilter: 'blur(5px)' }}
+          sx={{ backdropFilter: 'blur(15px)' }}
         >
           <UserProfile user={showUser} handleClose={handleClose} />
         </UserCardModal>

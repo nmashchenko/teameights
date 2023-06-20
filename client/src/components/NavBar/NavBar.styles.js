@@ -70,6 +70,10 @@ export const NavBarClose = styled.div`
   cursor: pointer;
   transform: rotateY(${(props) => (props.active ? '0deg' : '180deg')});
   padding: 0 12px;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 20px;
+  }
 `
 
 export const NavItems = styled.ul`
@@ -138,7 +142,7 @@ export const NavBarCopyright = styled.h3`
 export const MobileNavBarIconWrapper = styled.div`
   position: absolute;
   top: 47px;
-  left: 4.1%;
+  left: 41px;
   display: none;
   cursor: pointer;
   z-index: 999;
@@ -146,5 +150,7 @@ export const MobileNavBarIconWrapper = styled.div`
   @media screen and (max-width: 768px) {
     display: ${(props) => (props.active ? 'none' : 'block')};
     pointer-events: ${(props) => (!props.active ? 'all' : 'none')};
+    top: 32px;
+    left: 0;
   }
 `

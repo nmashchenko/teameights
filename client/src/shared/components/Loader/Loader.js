@@ -14,14 +14,15 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   background: ${BLACK.background};
+  padding-left: ${(props) => props.paddingLeft || '0'};
 `
 
-const Loader = () => {
+const Loader = ({ paddingLeft = '0' }) => {
   return (
-    <Container>
+    <Container paddingLeft={paddingLeft}>
       <InfinitySpin width="200" color="#4fa94d" />
     </Container>
   )

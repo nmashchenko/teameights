@@ -4,6 +4,7 @@ import { PencilSimple } from '../../../assets/Team/PencilSimple'
 import Users from '../../../assets/Team/Users'
 import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../constants/fonts'
 import { LOCAL_PATH } from '../../../http'
+import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
 import { Text } from '../TeamForm/TeamForm.styles'
 
 import {
@@ -50,34 +51,36 @@ const TeamProfileMiniCard = ({
             </div>
           </div>
           <Text
-            margin="0 0 17px 0"
+            margin="0 0 16px 0"
             fontSize={`${H4fs}`}
             lineHeight={`${H4lh}`}
             fontWeight={`${H4fw}`}
           >
             {team?.name}
           </Text>
-          <SVGAndText margin="0 0 17px 0">
-            <CakeBox>
-              <Cake />
-            </CakeBox>
-            <Text
-              margin="0 0 0 0"
-              fontSize={`${B2fs}`}
-              lineHeight={`${B2lh}`}
-              fontWeight={`${B2fw}`}
-            >
-              {team?.createdAt.split('T')[0]}
-            </Text>
-          </SVGAndText>
-          <SVGAndText>
-            <CakeBox>
-              <Users />
-            </CakeBox>
-            <Text fontSize={`${B2fs}`} lineHeight={`${B2lh}`} fontWeight={`${B2fw}`}>
-              {team?.members.length}/8
-            </Text>
-          </SVGAndText>
+          <FlexWrapper direction="column" gap="8px" align="start" justify="start">
+            <SVGAndText margin="0 0 8px 0">
+              <CakeBox>
+                <Cake />
+              </CakeBox>
+              <Text
+                margin="0 0 0 0"
+                fontSize={`${B2fs}`}
+                lineHeight={`${B2lh}`}
+                fontWeight={`${B2fw}`}
+              >
+                {team?.createdAt.split('T')[0]}
+              </Text>
+            </SVGAndText>
+            <SVGAndText>
+              <CakeBox>
+                <Users />
+              </CakeBox>
+              <Text fontSize={`${B2fs}`} lineHeight={`${B2lh}`} fontWeight={`${B2fw}`}>
+                {team?.members.length}/8 members
+              </Text>
+            </SVGAndText>
+          </FlexWrapper>
         </TeamInformationContainer>
         {actionType}
       </RightContainer>

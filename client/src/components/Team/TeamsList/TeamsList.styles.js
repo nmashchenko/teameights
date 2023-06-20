@@ -1,6 +1,13 @@
+import { Modal } from '@mui/material'
 import styled from 'styled-components'
 
 import { BLACK, WHITE } from '../../../constants/colors'
+
+export const TeamCardModal = styled(Modal)`
+  @media screen and (min-width: 0px) and (max-width: 600px) {
+    display: none;
+  }
+`
 
 export const Container = styled.div`
   width: 100%;
@@ -49,11 +56,12 @@ export const Card = styled.div`
 
   @media screen and (max-width: 900px) {
     max-width: 502px;
+    background: transparent;
+    padding: 0;
   }
 `
 
 export const Text = styled.h3`
-  line-height: ${(props) => props.lineHeight || '500'};
   font-weight: ${(props) => props.fontWeight || '500'};
   font-size: ${(props) => props.fontSize || '24px'};
   margin: ${(props) => props.margin || '0 0 0 0'};
@@ -61,7 +69,7 @@ export const Text = styled.h3`
   text-align: ${(props) => props.textAlign || 'none'};
 `
 
-export const TeamData = styled.div`
+export const TeamDataDesktop = styled.div`
   width: 100%;
   display: grid;
   justify-content: space-between;
@@ -71,11 +79,31 @@ export const TeamData = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: ${(props) => props.margin || '0'};
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+`
+
+export const TeamDataMobile = styled.div`
+  margin-top: ${(props) => props.margin || '0'};
+  background: #1a1c22;
+  padding: 12px 16px;
+  border-radius: 15px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
+  cursor: pointer;
+
+  @media screen and (max-width: 900px) {
+    display: flex;
+  }
 `
 
 export const TeamImage = styled.img`
-  width: 60px;
-  height: 60px;
+  width: ${(props) => props.width || '60px'};
+  height: ${(props) => props.height || '60px'};
   border-radius: 50%;
 `
 
@@ -105,7 +133,7 @@ export const teamPreviewStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
-  transform: 'translate(-45%, -50%)',
+  transform: 'translate(-50%, -50%)',
   width: '570px',
   bgcolor: '#1A1C22',
   borderRadius: '15px',

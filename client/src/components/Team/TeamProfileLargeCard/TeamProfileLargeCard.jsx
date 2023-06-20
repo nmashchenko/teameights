@@ -36,6 +36,9 @@ export const TeamProfileLargeCard = ({
       handleRemoveMembers={handleRemoveMembers}
       isEditing={isEditing}
       team={team}
+      isMembers={isMembers}
+      role={role}
+      handleOpenInvite={handleOpenInvite}
     />
   ) : (
     <About

@@ -128,7 +128,7 @@ export const MobileProfile = styled(Drawer)`
 
 export const MobileWrapper = styled(Box)`
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background: #26292b;
   padding: 24px 29px;
 `

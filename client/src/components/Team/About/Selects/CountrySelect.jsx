@@ -12,12 +12,12 @@ const CountrySelect = ({ team }) => {
     <CustomSelect
       multiple={false}
       label="Country"
-      name="countries"
+      name="country"
       options={countriesOptions}
       line={false}
       hideLabelOnSelect={true}
       renderValue={(selected) => {
-        if (selected.length === 0) {
+        if (selected?.length === 0) {
           return (
             <PlaceholderText style={{ marginRight: '1rem', textAlign: 'start', fontWeight: '400' }}>
               {team.country}
@@ -42,4 +42,4 @@ const CountrySelect = ({ team }) => {
   )
 }
 
-export default memo(CountrySelect)
+export default CountrySelect

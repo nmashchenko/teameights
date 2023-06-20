@@ -44,7 +44,7 @@ export const useLoadTeams = () => {
     )
 
     let queryString = qs.stringify(filtersQuery)
-    const response = await api.get('/users/get-filtered', {
+    const response = await api.get('/teams/filtered', {
       params: { page: pageParam, filtersQuery: queryString },
     })
 

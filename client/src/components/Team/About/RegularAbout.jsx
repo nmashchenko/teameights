@@ -1,6 +1,9 @@
 import React from 'react'
 
+import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
+
 import {
+  StatiscitcsWrapper,
   Statistic,
   StatisticsFlex,
   TeamCardBody,
@@ -12,12 +15,16 @@ import {
 } from './RegularAbout.styles'
 
 const RegularAbout = ({ team }) => {
+  const width = useGetScreenWidth()
+
   return (
     <TeamCardFigure>
       <TeamCardTop>
         <TeamCardTopInfo>
           <h3>Name</h3>
-          <p>{team.name.length > 10 ? team.name.slice(0, 10) + '...' : team.name}</p>
+          <p>
+            {team.name.length > 10 && width >= 1024 ? team.name.slice(0, 10) + '...' : team.name}
+          </p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
           <h3>Tag</h3>
@@ -41,7 +48,7 @@ const RegularAbout = ({ team }) => {
             {team?.description ? team.description : `This team doesn't have any description yet.`}
           </TeamCardDesc>
         </TeamCardBodyPoint>
-        <TeamCardBodyPoint>
+        <StatiscitcsWrapper>
           <h3>Statistics</h3>
           <StatisticsFlex>
             <Statistic>
@@ -60,7 +67,7 @@ const RegularAbout = ({ team }) => {
               </p>
             </Statistic>
           </StatisticsFlex>
-        </TeamCardBodyPoint>
+        </StatiscitcsWrapper>
       </TeamCardBody>
     </TeamCardFigure>
   )

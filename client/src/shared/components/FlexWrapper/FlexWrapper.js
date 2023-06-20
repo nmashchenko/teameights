@@ -8,6 +8,8 @@ const StyledFlexWrapper = styled.div`
   margin: ${(props) => props.margin || 0};
   padding: ${(props) => props.padding || 0};
   flex-direction: ${(props) => props.direction || 'row'};
+  max-height: ${(props) => props.maxHeight || 'none'};
+  position: ${(props) => props.position || 'static'};
 `
 
 const FlexWrapper = (props) => {

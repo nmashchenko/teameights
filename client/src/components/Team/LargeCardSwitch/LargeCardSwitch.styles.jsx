@@ -2,6 +2,12 @@ import styled from 'styled-components'
 
 import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
 
+export const InviteButtonContainer = styled.div`
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+`
+
 export const InviteButton = styled.button`
   border: 1px solid #5bd424;
   color: #fff;

@@ -31,7 +31,7 @@ import {
 const TeamPreviewModal = ({ user, team, handleJoin }) => {
   const members = team?.members
 
-  const teammates = members.slice(1, members.length)
+  const teammates = members?.slice(1, members.length)
 
   const countryFlag = getCountryFlag(team.country)
 

@@ -13,6 +13,10 @@ export const GridContainer = styled.div`
   justify-content: end;
   position: absolute;
 
+  @media screen and (max-width: 1024px) {
+    margin-top: 32px;
+  }
+
   @media screen and (max-width: 768px) {
     justify-content: center;
   }

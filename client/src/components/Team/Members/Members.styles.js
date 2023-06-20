@@ -25,6 +25,13 @@ export const UserGrid = styled.div`
   align-content: center;
   column-gap: 36px;
   row-gap: 16px;
+
+  @media screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+  }
 `
 export const UserLinks = styled.div`
   animation: ${_fadeIn} 0.2s ease-in;
@@ -56,6 +63,12 @@ export const UserCard = styled.div`
 
   &:hover {
     background: ${(props) => (props.isEditing ? `#2f3239` : 'none')};
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    height: 100%;
+    max-height: 80px;
   }
 `
 
@@ -148,4 +161,38 @@ export const FlagContainer = styled.div`
   gap: 5px;
   justify-content: center;
   align-items: center;
+`
+
+export const MobileInviteButtonContainer = styled.div`
+  display: none;
+
+  @media screen and (max-width: 1024px) {
+    display: block;
+    width: 100%;
+  }
+`
+
+export const InviteButton = styled.button`
+  border: 1px solid #5bd424;
+  color: #fff;
+  background: transparent;
+  padding: 6px 16px 4px 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 400;
+  width: 100%;
+  height: 40px;
+  transition: all 0.2s;
+  &:hover {
+    svg path:nth-child(3),
+    svg path:nth-child(4) {
+      transform: translateY(-1px);
+      transition: all 0.2s;
+    }
+  }
 `

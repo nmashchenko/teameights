@@ -3,7 +3,13 @@ import React from 'react'
 import UserPlus from '../../../assets/Team/UserPlus'
 import { UserPlusContainer } from '../TeamForm/TeamForm.styles'
 
-import { InviteButton, Tab, TabContainer, TopContainer } from './LargeCardSwitch.styles'
+import {
+  InviteButton,
+  InviteButtonContainer,
+  Tab,
+  TabContainer,
+  TopContainer,
+} from './LargeCardSwitch.styles'
 
 const LargeCardSwitch = ({
   isMembers,
@@ -37,12 +43,14 @@ const LargeCardSwitch = ({
         </Tab>
       </TabContainer>
       {isMembers && !isEditing && (role === 'leader' || role === 'member') && (
-        <InviteButton onClick={handleOpenInvite}>
-          <UserPlusContainer>
-            <UserPlus />
-          </UserPlusContainer>
-          Invite
-        </InviteButton>
+        <InviteButtonContainer>
+          <InviteButton onClick={handleOpenInvite}>
+            <UserPlusContainer>
+              <UserPlus />
+            </UserPlusContainer>
+            Invite
+          </InviteButton>
+        </InviteButtonContainer>
       )}
 
       {isMembers && isEditing && role === 'leader' && (

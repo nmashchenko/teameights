@@ -1,6 +1,7 @@
 // * Modules
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Formik } from 'formik'
 
 // * API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
@@ -12,7 +13,9 @@ import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeave } from '../../../api/hooks/team/useLeaveTeam'
 import { useRemoveMember } from '../../../api/hooks/team/useRemoveMember'
 import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
+import { useUpdateTeam } from '../../../api/hooks/team/useUpdateTeam'
 import ROUTES from '../../../constants/routes'
+import { editTeamValidation } from '../../../schemas'
 import Loader from '../../../shared/components/Loader/Loader'
 import { determineUserRoleInTeam } from '../../../utils/determineUserRoleInTeam'
 import { getServedProfilePic } from '../../../utils/getServedProfilepic'
@@ -55,6 +58,7 @@ function TeamForm() {
   const { mutate: transferLeader, isLoading: isTransferring } = useTransferLeader()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
   const { mutate: joinUser, isLoading: isJoining } = useJoinTeam()
+  const { mutate: updateTeam, isLoading: isUpdatingTeam } = useUpdateTeam()
 
   useEffect(() => {
     // maybe we need to turn off edits if we switch tabs
@@ -137,6 +141,7 @@ function TeamForm() {
     isRemoving ||
     isTransferring ||
     isUpdatingTeamsAvatar ||
+    isUpdatingTeam ||
     isUserDataLoading ||
     isInviting ||
     isJoining
@@ -163,69 +168,87 @@ function TeamForm() {
       selectedImage={selectedImage}
       role={role}
       handleJoin={handleJoin}
+      updateTeam={updateTeam}
     />
   )
 
   return (
-    <>
-      <TeamTypeSwitch myTeam={role === 'leader' || role === 'member' ? 'team' : ''} />
-      <Container>
-        <TeamModal
-          modalActive={modalActive}
-          chosenLeader={chosenLeader}
-          handleClose={handleClose}
-          setEmail={setEmail}
-          email={email}
-          team={team}
-          open={open}
-          leaveTeam={leaveTeam}
-          user={user}
-          transferLeader={transferLeader}
-          setIsEditing={setIsEditing}
-          removeFromTeam={removeFromTeam}
-          removeMemberActive={removeMemberActive}
-          handleInvite={handleInvite}
-          deleteTeam={deleteTeam}
-          setModalActive={setModalActive}
-          changeChosenLeader={changeChosenLeader}
-        />
-        <CardContainer>
-          <Card>
-            <TeamProfileLargeCard
-              isMembers={isMembers}
-              editImage={editImage}
-              chosenLeader={chosenLeader}
-              changeChosenLeader={changeChosenLeader}
-              handleRemoveMembers={handleRemoveMembers}
-              isEditing={isEditing}
-              team={team}
-              setIsEditing={setIsEditing}
-              handleOpenDelete={handleOpenDelete}
-              switchIsMembers={switchIsMembers}
-              handleOpenInvite={handleOpenInvite}
-              selectedImage={selectedImage}
-              setImgData={setImgData}
-              setPicture={setPicture}
-              changeSelectedImage={changeSelectedImage}
-              imgData={imgData}
-              picture={picture}
-              role={role}
-              handleOpenTransferLeader={handleOpenTransferLeader}
-            />
-          </Card>
-          <TeamProfileMiniCard
-            team={team}
-            picture={picture}
-            selectedImage={selectedImage}
-            isEditing={isEditing}
-            setEditImage={setEditImage}
-            actionType={actionType}
-            editImage={editImage}
-            servedProfilePic={servedProfilePic}
-          />
-        </CardContainer>
-      </Container>
-    </>
+    <Formik
+      initialValues={{
+        name: team?.name,
+        tag: team?.tag,
+        country: team?.country,
+        type: [team?.type?.slice(0, 1)?.toUpperCase(), team?.type.slice(1, team?.type.length)].join(
+          '',
+        ),
+        description: team?.description,
+      }}
+      validationSchema={editTeamValidation}
+    >
+      {() => {
+        return (
+          <>
+            <TeamTypeSwitch myTeam={role === 'leader' || role === 'member' ? 'team' : ''} />
+            <Container>
+              <TeamModal
+                modalActive={modalActive}
+                chosenLeader={chosenLeader}
+                handleClose={handleClose}
+                setEmail={setEmail}
+                email={email}
+                team={team}
+                open={open}
+                leaveTeam={leaveTeam}
+                user={user}
+                transferLeader={transferLeader}
+                setIsEditing={setIsEditing}
+                removeFromTeam={removeFromTeam}
+                removeMemberActive={removeMemberActive}
+                handleInvite={handleInvite}
+                deleteTeam={deleteTeam}
+                setModalActive={setModalActive}
+                changeChosenLeader={changeChosenLeader}
+              />
+              <CardContainer>
+                <Card>
+                  <TeamProfileLargeCard
+                    isMembers={isMembers}
+                    editImage={editImage}
+                    chosenLeader={chosenLeader}
+                    changeChosenLeader={changeChosenLeader}
+                    handleRemoveMembers={handleRemoveMembers}
+                    isEditing={isEditing}
+                    team={team}
+                    setIsEditing={setIsEditing}
+                    handleOpenDelete={handleOpenDelete}
+                    switchIsMembers={switchIsMembers}
+                    handleOpenInvite={handleOpenInvite}
+                    selectedImage={selectedImage}
+                    setImgData={setImgData}
+                    setPicture={setPicture}
+                    changeSelectedImage={changeSelectedImage}
+                    imgData={imgData}
+                    picture={picture}
+                    role={role}
+                    handleOpenTransferLeader={handleOpenTransferLeader}
+                  />
+                </Card>
+                <TeamProfileMiniCard
+                  team={team}
+                  picture={picture}
+                  selectedImage={selectedImage}
+                  isEditing={isEditing}
+                  setEditImage={setEditImage}
+                  actionType={actionType}
+                  editImage={editImage}
+                  servedProfilePic={servedProfilePic}
+                />
+              </CardContainer>
+            </Container>
+          </>
+        )
+      }}
+    </Formik>
   )
 }
 

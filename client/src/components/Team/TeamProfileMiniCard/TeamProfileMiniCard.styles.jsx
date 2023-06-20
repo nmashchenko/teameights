@@ -17,6 +17,11 @@ export const RightContainer = styled.div`
   background: #1a1c22;
   position: relative;
   display: flex;
+
+  @media screen and (max-width: 1024px) {
+    max-width: 570px;
+    width: 100%;
+  }
 `
 
 export const SVGAndText = styled.div`
@@ -57,4 +62,8 @@ export const TeamImgBorder = styled.img`
 
 export const TeamInformationContainer = styled.div`
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `

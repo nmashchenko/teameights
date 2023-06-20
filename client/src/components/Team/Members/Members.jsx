@@ -3,17 +3,21 @@ import { useState } from 'react'
 import SCrownRight from '../../../assets/Shared/Crowns/SCrownRight'
 import Chat from '../../../assets/Team/Chat'
 import Person from '../../../assets/Team/Person'
+import UserPlus from '../../../assets/Team/UserPlus'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
+import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import { LOCAL_PATH } from '../../../http'
 import { getCountryFlag } from '../../../utils/getCountryFlag'
 import { TeamCardTopIcon } from '../Modal/TeamPreviewModal/TeamPreviewModal.styles'
-import { Text } from '../TeamForm/TeamForm.styles'
+import { Text, UserPlusContainer } from '../TeamForm/TeamForm.styles'
 
 import {
   ChatButton,
   CloseContainer,
   CrownContainer,
   FlagContainer,
+  InviteButton,
+  MobileInviteButtonContainer,
   ProfileButton,
   SpaceBetween,
   ThinCloseIcon,
@@ -24,8 +28,17 @@ import {
   UserLinks,
 } from './Members.styles'
 
-const Members = ({ chosenLeader, team, isEditing, handleRemoveMembers }) => {
+const Members = ({
+  chosenLeader,
+  team,
+  isEditing,
+  handleRemoveMembers,
+  isMembers,
+  role,
+  handleOpenInvite,
+}) => {
   const [hoveredCardId, setHoveredCardId] = useState(null)
+  const screenWidth = useGetScreenWidth()
 
   const handleMouseEnter = (cardId) => {
     setHoveredCardId(cardId)
@@ -43,8 +56,8 @@ const Members = ({ chosenLeader, team, isEditing, handleRemoveMembers }) => {
             isTeamLeader={team.leader._id === member._id}
             isEditing={isEditing}
             key={i}
-            onMouseEnter={() => handleMouseEnter(member._id)}
-            onMouseLeave={handleMouseLeave}
+            onMouseEnter={() => screenWidth > 1024 && handleMouseEnter(member._id)}
+            onMouseLeave={screenWidth > 1024 ? handleMouseLeave : undefined}
           >
             <UserImg src={member.image} />
             {(chosenLeader.username === '' && team.leader._id === member._id) ||
@@ -68,14 +81,25 @@ const Members = ({ chosenLeader, team, isEditing, handleRemoveMembers }) => {
             ) : (
               <UserInfo>
                 <SpaceBetween>
-                  <Text
-                    fontSize={`${B2fs}`}
-                    color="#FFF"
-                    lineHeight={`${B2lh}`}
-                    fontWeight={`${B2fw}`}
-                  >
-                    {member.username}
-                  </Text>
+                  <FlagContainer>
+                    <Text
+                      fontSize={`${B2fs}`}
+                      color="#FFF"
+                      lineHeight={`${B2lh}`}
+                      fontWeight={`${B2fw}`}
+                    >
+                      {member.username}
+                    </Text>
+                    {getCountryFlag(member.country) && (
+                      <TeamCardTopIcon
+                        src={getCountryFlag(member.country)}
+                        w={'25px'}
+                        h={'25px'}
+                        borderRadius={'none'}
+                      />
+                    )}
+                  </FlagContainer>
+
                   {team.leader._id === member._id ? (
                     <></>
                   ) : (
@@ -92,31 +116,31 @@ const Members = ({ chosenLeader, team, isEditing, handleRemoveMembers }) => {
                     </CloseContainer>
                   )}
                 </SpaceBetween>
-                <FlagContainer>
-                  <Text
-                    fontSize={`${B3fs}`}
-                    color="#FFF"
-                    fontWeight={`${B3fw}`}
-                    lineHeight={`${B3lh}`}
-                    alignment="start"
-                  >
-                    {member?.concentration?.length > 19
-                      ? member.concentration.slice(0, 16) + '...'
-                      : member.concentration}
-                  </Text>
-                  {getCountryFlag(member.country) && (
-                    <TeamCardTopIcon
-                      src={getCountryFlag(member.country)}
-                      w={'25px'}
-                      h={'25px'}
-                      borderRadius={'none'}
-                    />
-                  )}
-                </FlagContainer>
+                <Text
+                  fontSize={`${B3fs}`}
+                  color="#FFF"
+                  fontWeight={`${B3fw}`}
+                  lineHeight={`${B3lh}`}
+                  alignment="start"
+                >
+                  {member?.concentration?.length > 19 && screenWidth >= 1024
+                    ? member.concentration.slice(0, 16) + '...'
+                    : member.concentration}
+                </Text>
               </UserInfo>
             )}
           </UserCard>
         ))}
+        {isMembers && !isEditing && (role === 'leader' || role === 'member') && (
+          <MobileInviteButtonContainer>
+            <InviteButton onClick={handleOpenInvite}>
+              <UserPlusContainer>
+                <UserPlus />
+              </UserPlusContainer>
+              Invite
+            </InviteButton>
+          </MobileInviteButtonContainer>
+        )}
       </UserGrid>
     </>
   )

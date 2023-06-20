@@ -12,15 +12,27 @@ export const Container = styled.div`
   align-items: center;
   background: ${BLACK.background};
   padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0;
+  }
 `
 
 export const CardContainer = styled.div`
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
+
+  @media screen and (max-width: 1024px) {
+    justify-content: start;
+    margin: 96px 0 24px 0;
+    flex-direction: column-reverse;
+    padding: 0 24px;
+    min-height: 0;
+  }
 `
 
 export const Card = styled.div`
@@ -29,8 +41,33 @@ export const Card = styled.div`
   background: #1a1c22;
   border-radius: 15px;
   gap: 30px;
-  position: relative;
   padding: 24px 32px;
+
+  @media screen and (max-width: 1024px) {
+    max-width: 570px;
+    width: 100%;
+    position: static;
+    overflow-y: scroll;
+    height: 100%;
+    padding: 24px 24px;
+
+    ::-webkit-scrollbar {
+      /* WebKit */
+      transition: all 0.2s;
+      width: 5px;
+      /* height: auto; */
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #5d9d0b;
+      border-radius: 10px;
+    }
+  }
 `
 
 export const MainCardContent = styled.div`
@@ -232,9 +269,6 @@ export const LeaderActionsBox = styled.div`
     width: 107px;
     font-size: 16px;
   }
-  opacity: ${(props) => (props.opacity ? '1' : '0')};
-  z-index: ${(props) => (props.opacity ? '1' : '0')};
-  pointer-events: ${(props) => (props.opacity ? 'auto' : 'none')};
 `
 
 export const FormikContainer = styled.div`

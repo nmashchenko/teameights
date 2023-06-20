@@ -35,8 +35,6 @@ const ModalSearch = ({
 
   const currFilter = filtersArr[currFilterIndex]
 
-  const countries = countryList().getData()
-
   const onOpenFilterSettings = (index) => {
     setCurrFilterIndex(index)
     setFilterOpened(true)

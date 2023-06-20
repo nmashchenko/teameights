@@ -1,10 +1,11 @@
+import { useFormikContext } from 'formik'
+
 import { EditTeam, GenericButton, LeaderActionsBox } from './TeamForm.styles'
 
 const ActionType = ({
   team,
   isEditing,
   setIsEditing,
-  isMembers,
   editImage,
   handleOpenDelete,
   handleOpenLeave,
@@ -14,20 +15,36 @@ const ActionType = ({
   selectedImage,
   role,
   handleJoin,
+  updateTeam,
 }) => {
   let action = null
+  const { values } = useFormikContext()
 
   switch (role) {
     case 'leader':
       action = (
-        <LeaderActionsBox opacity={!isEditing || isMembers || editImage}>
+        <LeaderActionsBox>
           <EditTeam
             onClick={() => {
-              if (editImage && (picture || selectedImage !== '')) {
-                updateTeamsAvatar({ teamID: team._id, image: servedProfilePic.split(',')[1] })
+              if (isEditing) {
+                const updateTeamObj = {
+                  teamid: team._id,
+                  country: values?.country,
+                  name: values?.name,
+                  description: values?.description,
+                  type: values?.type.toLowerCase(),
+                  tag: values?.tag,
+                }
+
+                updateTeam(updateTeamObj)
+
+                if (editImage && (picture || selectedImage !== '')) {
+                  updateTeamsAvatar({ teamID: team._id, image: servedProfilePic.split(',')[1] })
+                }
               }
               setIsEditing((prevState) => !prevState)
             }}
+            type={isEditing ? 'submit' : 'text'}
           >
             {isEditing ? 'Save' : 'Edit'}
           </EditTeam>
@@ -41,6 +58,7 @@ const ActionType = ({
               }
             }}
             marginTop="0"
+            type="text"
           >
             {isEditing ? 'Cancel' : 'Delete'}
           </GenericButton>

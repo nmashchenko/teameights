@@ -106,6 +106,7 @@ const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
   }
 
   useEffect(() => {
+    console.log(content)
     if (isFetched && !content[0].length && !filtered) {
       setIsNotFound(true)
     }

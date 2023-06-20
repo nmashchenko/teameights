@@ -31,6 +31,7 @@ export const LogoContainer = styled.div`
   margin-bottom: 48px;
 
   @media screen and (max-width: 768px) {
+    margin-top: 34px;
     visibility: ${(props) => (props.hideLogoForMobile ? 'hidden' : 'visible')};
   }
 `
@@ -39,9 +40,10 @@ export const SearchIconWrapper = styled(IconWrapper)`
   cursor: pointer;
   display: none;
   position: absolute;
-  top: 53px;
+  top: 37px;
   z-index: 999;
   right: 27px;
+
   @media (max-width: 768px) {
     display: flex;
   }

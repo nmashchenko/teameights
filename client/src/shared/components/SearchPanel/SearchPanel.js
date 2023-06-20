@@ -19,7 +19,7 @@ const SearchPanel = ({ sliceName, currFilterIndex, setCurrFilterIndex, setFilter
           setFilterValueAction={setFilterValueAction}
         />
       </SearchPanelWrapper>
-      <TagsList sliceName={'usersFilters'} setFilterValueAction={setFilterValueAction} />
+      <TagsList sliceName={sliceName} setFilterValueAction={setFilterValueAction} />
     </StyledSearchPanel>
   )
 }
