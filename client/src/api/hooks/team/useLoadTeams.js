@@ -30,8 +30,6 @@ export const useLoadTeams = () => {
   const getTeams = async ({ pageParam = 1 }) => {
     const response = await api.get('/teams', { params: { page: pageParam } })
 
-    console.log(response.data)
-
     return response.data
   }
 

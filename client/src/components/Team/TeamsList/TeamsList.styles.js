@@ -1,4 +1,4 @@
-import { Modal } from '@mui/material'
+import { Drawer, Modal } from '@mui/material'
 import styled from 'styled-components'
 
 import { BLACK, WHITE } from '../../../constants/colors'
@@ -24,7 +24,7 @@ export const Container = styled.div`
   }
 `
 
-export const CardContainer = styled.div`
+export const TeamsWrapper = styled.div`
   /* min-height: 100vh; */
   width: 100%;
   display: flex;
@@ -34,7 +34,7 @@ export const CardContainer = styled.div`
   padding-right: 24px;
 `
 
-export const Card = styled.div`
+export const TeamsListBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -44,6 +44,7 @@ export const Card = styled.div`
   background: #1a1c22;
   border-radius: 15px;
   padding: 32px 32px;
+  gap: 60px;
 
   @media screen and (max-width: 1440px) {
     max-width: 784px;
@@ -58,6 +59,7 @@ export const Card = styled.div`
     max-width: 502px;
     background: transparent;
     padding: 0;
+    gap: 16px;
   }
 `
 

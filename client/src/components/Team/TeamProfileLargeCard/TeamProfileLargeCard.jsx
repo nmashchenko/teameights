@@ -39,6 +39,7 @@ export const TeamProfileLargeCard = ({
       isMembers={isMembers}
       role={role}
       handleOpenInvite={handleOpenInvite}
+      handleOpenTransferLeader={handleOpenTransferLeader}
     />
   ) : (
     <About

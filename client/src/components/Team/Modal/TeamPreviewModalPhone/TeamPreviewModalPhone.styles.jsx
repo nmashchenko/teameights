@@ -3,6 +3,25 @@ import styled from 'styled-components'
 
 export const MobileProfile = styled(Drawer)`
   display: none;
+
+  & .MuiDrawer-paper {
+    background: #26292b;
+
+    ::-webkit-scrollbar {
+      /* WebKit */
+      transition: all 0.2s;
+      width: 0;
+      height: 0;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #000000;
+    }
+  }
+
   @media screen and (min-width: 0px) and (max-width: 600px) {
     display: block;
   }
@@ -10,7 +29,7 @@ export const MobileProfile = styled(Drawer)`
 
 export const MobileWrapper = styled(Box)`
   width: 100%;
-  height: 100vh;
+  min-height: 100dvh;
   background: #26292b;
   padding: 24px 29px;
 `

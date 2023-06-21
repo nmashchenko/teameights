@@ -4,8 +4,8 @@ import UserPlus from '../../../assets/Team/UserPlus'
 import { UserPlusContainer } from '../TeamForm/TeamForm.styles'
 
 import {
+  DesktopButtonWrapper,
   InviteButton,
-  InviteButtonContainer,
   Tab,
   TabContainer,
   TopContainer,
@@ -43,18 +43,20 @@ const LargeCardSwitch = ({
         </Tab>
       </TabContainer>
       {isMembers && !isEditing && (role === 'leader' || role === 'member') && (
-        <InviteButtonContainer>
+        <DesktopButtonWrapper>
           <InviteButton onClick={handleOpenInvite}>
             <UserPlusContainer>
               <UserPlus />
             </UserPlusContainer>
             Invite
           </InviteButton>
-        </InviteButtonContainer>
+        </DesktopButtonWrapper>
       )}
 
       {isMembers && isEditing && role === 'leader' && (
-        <InviteButton onClick={handleOpenTransferLeader}>Change Leader</InviteButton>
+        <DesktopButtonWrapper>
+          <InviteButton onClick={handleOpenTransferLeader}>Change Leader</InviteButton>
+        </DesktopButtonWrapper>
       )}
     </TopContainer>
   )

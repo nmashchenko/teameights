@@ -17,7 +17,7 @@ import {
   CrownContainer,
   FlagContainer,
   InviteButton,
-  MobileInviteButtonContainer,
+  MobileButtonWrapper,
   ProfileButton,
   SpaceBetween,
   ThinCloseIcon,
@@ -33,6 +33,7 @@ const Members = ({
   team,
   isEditing,
   handleRemoveMembers,
+  handleOpenTransferLeader,
   isMembers,
   role,
   handleOpenInvite,
@@ -132,14 +133,19 @@ const Members = ({
           </UserCard>
         ))}
         {isMembers && !isEditing && (role === 'leader' || role === 'member') && (
-          <MobileInviteButtonContainer>
+          <MobileButtonWrapper>
             <InviteButton onClick={handleOpenInvite}>
               <UserPlusContainer>
                 <UserPlus />
               </UserPlusContainer>
               Invite
             </InviteButton>
-          </MobileInviteButtonContainer>
+          </MobileButtonWrapper>
+        )}
+        {isMembers && isEditing && role === 'leader' && (
+          <MobileButtonWrapper>
+            <InviteButton onClick={handleOpenTransferLeader}>Change Leader</InviteButton>
+          </MobileButtonWrapper>
         )}
       </UserGrid>
     </>

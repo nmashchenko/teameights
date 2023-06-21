@@ -163,7 +163,7 @@ export const FlagContainer = styled.div`
   align-items: center;
 `
 
-export const MobileInviteButtonContainer = styled.div`
+export const MobileButtonWrapper = styled.div`
   display: none;
 
   @media screen and (max-width: 1024px) {

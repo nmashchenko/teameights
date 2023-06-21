@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import lookup from 'country-code-lookup'
 
 import { useLoadUsers } from '../../../../api/hooks/temeights/useLoadUsers'
-import CardSkeleton from '../CardSkeleton/CardSkeleton'
+import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 // * Components
 import UserCard from '../UserCard/UserCard'
 
@@ -106,7 +106,6 @@ const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
   }
 
   useEffect(() => {
-    console.log(content)
     if (isFetched && !content[0].length && !filtered) {
       setIsNotFound(true)
     }

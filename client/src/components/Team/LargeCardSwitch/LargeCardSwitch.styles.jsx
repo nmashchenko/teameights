@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
 
-export const InviteButtonContainer = styled.div`
+export const DesktopButtonWrapper = styled.div`
   @media screen and (max-width: 1024px) {
     display: none;
   }
