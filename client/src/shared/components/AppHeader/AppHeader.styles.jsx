@@ -32,6 +32,7 @@ export const LogoContainer = styled.div`
 
   @media screen and (max-width: 768px) {
     margin-top: 34px;
+    margin-bottom: 32px;
     visibility: ${(props) => (props.hideLogoForMobile ? 'hidden' : 'visible')};
   }
 `

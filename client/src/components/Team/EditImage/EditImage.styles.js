@@ -15,6 +15,25 @@ export const MyRadioGroup = styled.div`
   align-items: center;
   gap: 15px;
   margin-bottom: 24px;
+
+  @media screen and (max-width: 660px) {
+    overflow-x: scroll;
+
+    ::-webkit-scrollbar {
+      /* WebKit */
+      transition: all 0.2s;
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #5d9d0b;
+      border-radius: 10px;
+    }
+  }
 `
 
 export const FileButton = styled.div`

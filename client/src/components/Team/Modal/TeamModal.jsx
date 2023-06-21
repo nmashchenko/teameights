@@ -4,6 +4,7 @@ import { Box, Modal } from '@mui/material'
 import Close from '../../../assets/Shared/Close'
 import { SelectedIcon } from '../../../assets/Team/SelectedIcon'
 import UserPlus from '../../../assets/Team/UserPlus'
+import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import { LOCAL_PATH } from '../../../http'
 import AutocompleteInput from '../../../shared/components/AutocompleteInput/AutocompleteInput'
 import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
@@ -12,6 +13,7 @@ import { CloseContainerModal, style, Text, UserPlusContainer } from '../TeamForm
 import ActionModal from './ModalTypes/ActionModal'
 import InfoModal from './ModalTypes/InfoModal'
 import InteractiveModal from './ModalTypes/InteractiveModal'
+import { MobileProfile } from './TeamPreviewModalPhone/TeamPreviewModalPhone.styles'
 import {
   Button,
   ListBackdrop,
@@ -41,6 +43,7 @@ const TeamModal = ({
   changeChosenLeader,
 }) => {
   const [value, setValue] = useState(null)
+  const width = useGetScreenWidth()
 
   const handleSetValue = (value) => {
     if (value) {
@@ -115,7 +118,11 @@ const TeamModal = ({
         <InteractiveModal
           interactiveText={'Send invite'}
           interactiveComponent={
-            <AutocompleteInput value={value} setValue={handleSetValue} width={'306px'} />
+            <AutocompleteInput
+              value={value}
+              setValue={handleSetValue}
+              width={width > 600 ? '306px' : '100%'}
+            />
           }
           interactiveButtons={
             <Button color={email !== '' ? '1' : '.4'} onClick={handleActions}>
@@ -209,20 +216,32 @@ const TeamModal = ({
   }
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-      sx={{ backdropFilter: 'blur(5px)' }}
-    >
-      <Box sx={style}>
-        <CloseContainerModal color={'#FFF'} onClick={handleClose}>
-          <Close />
-        </CloseContainerModal>
-        {handleModal()}
-      </Box>
-    </Modal>
+    <>
+      {width > 600 && (
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          sx={{ backdropFilter: 'blur(5px)' }}
+        >
+          <Box sx={style}>
+            <CloseContainerModal color={'#FFF'} onClick={handleClose}>
+              <Close />
+            </CloseContainerModal>
+            {handleModal()}
+          </Box>
+        </Modal>
+      )}
+
+      {width <= 600 && (
+        <MobileProfile anchor="bottom" open={open} onClose={handleClose}>
+          <Box sx={{ width: '100%', background: '#1A1C22', padding: '78px 27px' }}>
+            {handleModal()}
+          </Box>
+        </MobileProfile>
+      )}
+    </>
   )
 }
 

@@ -160,14 +160,14 @@ const NavBar = () => {
                 onClick={() => navigate('/auth/registration')}
                 color="white"
               >
-                <IconWrapper width="24px" height="24px">
+                <IconWrapper width="24px" height="24px" cursor="pointer">
                   <Exit />
                 </IconWrapper>
                 <p>Login</p>
               </NavInteractBtn>
             ) : (
               <NavInteractBtn active={sidebar} onClick={handleUseLogout}>
-                <IconWrapper width="24px" height="24px">
+                <IconWrapper width="24px" height="24px" cursor="pointer">
                   <Exit />
                 </IconWrapper>
                 <p>Logout</p>

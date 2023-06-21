@@ -24,7 +24,7 @@ const NotificationsContent = ({
         onClick={() => setNotificationModal((prev) => !prev)}
         active={sidebar}
       >
-        <IconWrapper width="24px" height="24px">
+        <IconWrapper width="24px" height="24px" cursor="pointer">
           <Notification />
         </IconWrapper>
         <p>Notifications</p>

@@ -8,14 +8,14 @@ export const CardGridContainer = styled.div`
   display: flex; /* new */
   align-items: center; /* new */
   justify-content: center; /* new */
-  width: 100%;
+  width: ${(props) => props.width || 'auto'};
 `
 
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: ${(props) => props.borderRadius || '25px'};
-  width: 100%;
+  width: ${(props) => props.width || 'auto'};
 `
 
 export const SkeletonCard = styled(Skeleton)`

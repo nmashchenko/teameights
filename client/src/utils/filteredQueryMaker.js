@@ -1,8 +1,8 @@
-const users = (countries, roles, programmingLanguages, frameworks, name) => {
+const users = (countries, concentrations, programmingLanguages, frameworks, name) => {
   const querySearch = {
     isRegistered: true,
     country: countries.length ? { $in: countries } : null,
-    concentration: roles?.length ? { $in: roles } : null,
+    concentration: concentrations?.length ? { $in: concentrations } : null,
     programmingLanguages: programmingLanguages?.length ? { $in: programmingLanguages } : null,
     frameworks: frameworks?.length ? { $in: frameworks } : null,
     fullName: name ? { $regex: name, $options: 'i' } : null,

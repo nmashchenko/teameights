@@ -98,9 +98,7 @@ const EditImage = ({
                 style={{
                   color: '#FFF',
                   border: 'none',
-                  padding: '8px 4px',
                   borderBottom: '1px solid #86878B',
-                  width: `98%`,
                   transition: 'all .2s',
                   position: 'absolute',
                   opacity: '0',
