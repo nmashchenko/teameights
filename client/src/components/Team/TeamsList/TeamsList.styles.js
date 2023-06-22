@@ -131,22 +131,6 @@ export const TeamButton = styled.button`
   }
 `
 
-export const teamPreviewStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '570px',
-  bgcolor: '#1A1C22',
-  borderRadius: '15px',
-  boxShadow: 14,
-  padding: '24px 32px',
-  display: 'flex',
-  alignItems: 'start',
-  flexDirection: 'column',
-  gap: '24px',
-}
-
 export const NotFoundContainer = styled.div`
   display: flex;
   justify-content: center;

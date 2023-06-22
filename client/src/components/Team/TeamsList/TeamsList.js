@@ -10,13 +10,13 @@ import ROUTES from '../../../constants/routes'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import AppHeader from '../../../shared/components/AppHeader/AppHeader'
 import Loader from '../../../shared/components/Loader/Loader'
+import SliderToTop from '../../../shared/components/SliderToTop/SliderToTop'
 import { setTeamsFilter } from '../../../store/reducers/TeamsFiltersSlice'
 import NotFound from '../../Teammates/components/NotFound/NotFound'
+import TeamModal from '../Modal/TeamModal'
 import { MobileProfile } from '../Modal/TeamPreviewModalPhone/TeamPreviewModalPhone.styles'
 
 import Teams from './Teams/Teams'
-import { ModalContent } from './ModalContent'
-import { ModalContentPhone } from './ModalContentPhone'
 // * Styles
 import { Container, NotFoundContainer, TeamCardModal } from './TeamsList.styles'
 
@@ -43,7 +43,7 @@ function TeamsList() {
   const handleClickOpen = (team) => {
     setSelectedTeam(team)
     setOpen(true)
-    setChangeModal('joinTeam')
+    setChangeModal('JoinTeam')
   }
 
   const handleClose = () => {
@@ -59,10 +59,10 @@ function TeamsList() {
           setOpen(false)
           setTimeout(() => {
             setOpen(true)
-            setChangeModal('alreadyOnTeam')
+            setChangeModal('AlreadyOnTeam')
           }, 100)
         } else {
-          setChangeModal('alreadyOnTeam')
+          setChangeModal('AlreadyOnTeam')
         }
       } else {
         joinUser({ user_id: userId, teamid: selectedTeam._id })
@@ -87,23 +87,20 @@ function TeamsList() {
 
   return (
     <>
+      <TeamModal
+        modalActive={changeModal}
+        open={open}
+        user={user}
+        handleClose={handleClose}
+        handleLeaveAndJoin={handleLeaveAndJoin}
+        handleJoin={handleJoin}
+        team={selectedTeam}
+      />
       <AppHeader
         sliceName="teamsFilters"
         filterValueAction={setTeamsFilter}
         hideLogoForMobile={true}
       />
-      {/* This will be displayed for mobile screens <= 600 px */}
-
-      <MobileProfile anchor="bottom" open={open} onClose={handleClose}>
-        <ModalContentPhone
-          changeModal={changeModal}
-          user={user}
-          handleClose={handleClose}
-          handleLeaveAndJoin={handleLeaveAndJoin}
-          handleJoin={handleJoin}
-          selectedTeam={selectedTeam}
-        />
-      </MobileProfile>
 
       {isNotFound ? (
         <NotFoundContainer>
@@ -111,29 +108,13 @@ function TeamsList() {
         </NotFoundContainer>
       ) : (
         <Container>
-          {/* This modal is used for screen width > 600px */}
-          <TeamCardModal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            sx={{ backdropFilter: 'blur(15px)' }}
-          >
-            <ModalContent
-              changeModal={changeModal}
-              user={user}
-              handleClose={handleClose}
-              handleLeaveAndJoin={handleLeaveAndJoin}
-              handleJoin={handleJoin}
-              selectedTeam={selectedTeam}
-            />
-          </TeamCardModal>
           <Teams
             handleClickOpen={handleClickOpen}
             setIsNotFound={setIsNotFound}
             isLoadingUserData={isLoadingUserData}
             width={width}
           />
+          <SliderToTop />
         </Container>
       )}
     </>

@@ -1,33 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Box, Modal } from '@mui/material'
 
 import Close from '../../../assets/Shared/Close'
-import { SelectedIcon } from '../../../assets/Team/SelectedIcon'
 import UserPlus from '../../../assets/Team/UserPlus'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
-import { LOCAL_PATH } from '../../../http'
 import AutocompleteInput from '../../../shared/components/AutocompleteInput/AutocompleteInput'
+import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
 import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
-import { CloseContainerModal, style, Text, UserPlusContainer } from '../TeamForm/TeamForm.styles'
+import {
+  CloseContainerModal,
+  mobileFullScreenStyle,
+  mobileSemiFullScreenStyle,
+  style,
+  teamPreviewStyle,
+  Text,
+  UserPlusContainer,
+} from '../TeamForm/TeamForm.styles'
 
+import LeaderOptions from './LeaderOptions/LeaderOptions'
 import ActionModal from './ModalTypes/ActionModal'
 import InfoModal from './ModalTypes/InfoModal'
 import InteractiveModal from './ModalTypes/InteractiveModal'
+import TeamPreviewModal from './TeamPreviewModal/TeamPreviewModal'
+import TeamPreviewModalPhone from './TeamPreviewModalPhone/TeamPreviewModalPhone'
 import { MobileProfile } from './TeamPreviewModalPhone/TeamPreviewModalPhone.styles'
-import {
-  Button,
-  ListBackdrop,
-  NoMembersCard,
-  UserAccordionCard,
-  UserAccordionImg,
-  UsernameIconContainer,
-} from './TeamModal.styles'
+import { Button } from './TeamModal.styles'
 
 const TeamModal = ({
   modalActive,
   chosenLeader,
   handleClose,
   handleInvite,
+  handleJoin,
+  handleLeaveAndJoin,
   setEmail,
   email,
   team,
@@ -44,6 +49,18 @@ const TeamModal = ({
 }) => {
   const [value, setValue] = useState(null)
   const width = useGetScreenWidth()
+  const [boxStyle, setBoxStyle] = useState(style)
+  const [mobileBoxStyle, setMobileBoxStyle] = useState(mobileSemiFullScreenStyle)
+
+  useMemo(() => {
+    if (modalActive === 'JoinTeam') {
+      setBoxStyle(teamPreviewStyle)
+      setMobileBoxStyle(mobileFullScreenStyle)
+    } else {
+      setBoxStyle(style)
+      setMobileBoxStyle(mobileSemiFullScreenStyle)
+    }
+  }, [modalActive])
 
   const handleSetValue = (value) => {
     if (value) {
@@ -125,7 +142,7 @@ const TeamModal = ({
             />
           }
           interactiveButtons={
-            <Button color={email !== '' ? '1' : '.4'} onClick={handleActions}>
+            <Button color={email !== '' ? '1' : '.4'} onClick={handleActions} marginTop="0">
               <UserPlusContainer>
                 <UserPlus />
               </UserPlusContainer>
@@ -168,47 +185,79 @@ const TeamModal = ({
         <InteractiveModal
           interactiveText={'Select new leader'}
           interactiveComponent={
-            <ListBackdrop>
-              {team?.members.length > 1 ? (
-                team?.members
-                  .filter((member) => team.leader._id !== member._id)
-                  .map((member, key) => {
-                    return (
-                      <UserAccordionCard
-                        key={member._id}
-                        id={member._id}
-                        onClick={() => {
-                          changeChosenLeader({ username: member.username, id: member._id })
-                        }}
-                      >
-                        <UserAccordionImg alt={member.username} src={member.image} />
-                        <UsernameIconContainer>
-                          <p>{member.username}</p>
-                          {chosenLeader.username === member.username ? <SelectedIcon /> : <></>}
-                        </UsernameIconContainer>
-                      </UserAccordionCard>
-                    )
-                  })
-              ) : (
-                <NoMembersCard>
-                  <Text>Invite more to transfer leader!</Text>
-                </NoMembersCard>
-              )}
-            </ListBackdrop>
+            <LeaderOptions
+              team={team}
+              chosenLeader={chosenLeader}
+              changeChosenLeader={changeChosenLeader}
+            />
           }
           interactiveButtons={
-            <div>
+            <FlexWrapper width="100%" direction="column">
               {team?.members.length > 1 && (
-                <Button onClick={handleActions} background="#46A11B">
+                <Button onClick={handleActions} background="#46A11B" marginTop="0">
                   Save
                 </Button>
               )}
               <Button onClick={handleClose} border="2px solid #A5211F" marginTop="8px">
                 Cancel
               </Button>
-            </div>
+            </FlexWrapper>
           }
         />
+      )
+    } else if (modalActive === 'AlreadyOnTeam') {
+      if (user?.team.leader === user._id) {
+        const isOnlyMember =
+          user?.team.members.length === 1 ? 'You must delete team' : 'You must transfer leadership'
+
+        return (
+          <InfoModal
+            firstText="You cannot join a team."
+            secondText={`${isOnlyMember} to join a new team.`}
+            firstButton="Okay"
+            firstButtonHandler={handleClose}
+          />
+        )
+      }
+
+      return (
+        <ActionModal
+          firstText="You're already on a team."
+          secondText="Do you want to leave the current team and join a new one?"
+          firstButton="Leave & Join"
+          firstButtonHandler={handleLeaveAndJoin}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+        />
+      )
+    } else if (modalActive === 'JoinTeam') {
+      return (
+        <>
+          {width > 600 && (
+            <>
+              <CloseContainerModal color={'#FFF'} onClick={handleClose}>
+                <Close />
+              </CloseContainerModal>
+              <TeamPreviewModal
+                user={user}
+                handleJoin={handleJoin}
+                team={team}
+                handleClose={handleClose}
+              />
+            </>
+          )}
+
+          {width <= 600 && (
+            <>
+              <TeamPreviewModalPhone
+                user={user}
+                handleClose={handleClose}
+                handleJoin={handleJoin}
+                team={team}
+              />
+            </>
+          )}
+        </>
       )
     }
 
@@ -225,7 +274,7 @@ const TeamModal = ({
           aria-describedby="modal-modal-description"
           sx={{ backdropFilter: 'blur(5px)' }}
         >
-          <Box sx={style}>
+          <Box sx={boxStyle}>
             <CloseContainerModal color={'#FFF'} onClick={handleClose}>
               <Close />
             </CloseContainerModal>
@@ -236,9 +285,7 @@ const TeamModal = ({
 
       {width <= 600 && (
         <MobileProfile anchor="bottom" open={open} onClose={handleClose}>
-          <Box sx={{ width: '100%', background: '#1A1C22', padding: '78px 27px' }}>
-            {handleModal()}
-          </Box>
+          <Box sx={mobileBoxStyle}>{handleModal()}</Box>
         </MobileProfile>
       )}
     </>

@@ -115,6 +115,7 @@ export const Text = styled.h3`
   font-size: ${(props) => props.fontSize || '18px'};
   color: ${(props) => props.color || WHITE.main};
   margin: ${(props) => props.margin || '0'};
+  text-align: ${(props) => props.textAlign || 'left'};
   /* line-height: ${(props) => props.lineHeight || '1'}; */
 `
 
@@ -288,6 +289,35 @@ export const style = {
   bgcolor: '#1A1C22',
   borderRadius: '15px',
   boxShadow: 14,
-  padding: '32px 24px',
+  padding: '32px 32px',
   backdropFilter: 'blur(5px)',
+}
+
+export const teamPreviewStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '570px',
+  bgcolor: '#1A1C22',
+  borderRadius: '15px',
+  boxShadow: 14,
+  padding: '24px 32px',
+  display: 'flex',
+  alignItems: 'start',
+  flexDirection: 'column',
+  gap: '24px',
+}
+
+export const mobileFullScreenStyle = {
+  width: '100%',
+  minHeight: '100dvh',
+  background: '#26292b',
+  padding: '24px 29px',
+}
+
+export const mobileSemiFullScreenStyle = {
+  width: '100%',
+  background: '#1A1C22',
+  padding: '78px 27px',
 }

@@ -13,8 +13,6 @@ export const useCheckAuth = () => {
   const checkAuth = async () => {
     const response = await api.get(`/users/get-by-token`)
 
-    console.log(response.data)
-
     return response.data
   }
 

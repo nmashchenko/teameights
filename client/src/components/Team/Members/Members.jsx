@@ -69,7 +69,7 @@ const Members = ({
             ) : (
               <> </>
             )}
-            {hoveredCardId === member._id ? (
+            {hoveredCardId === member._id && !isEditing ? (
               <UserLinks>
                 <ChatButton onClick={() => console.log('TODO: add transition to chat')}>
                   Chat

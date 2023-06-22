@@ -70,7 +70,7 @@ export default function AutocompleteInput({ value, setValue, width = 412, ...pro
         }}
         renderInput={(params) => <InputTextField params={params} />}
         renderOption={(props, option) => {
-          return <List props={props} option={option} />
+          return <List props={props} option={option} key={option.username} />
         }}
         {...props}
       />

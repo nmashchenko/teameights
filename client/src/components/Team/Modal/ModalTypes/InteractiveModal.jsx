@@ -1,15 +1,18 @@
+import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
 import { Text } from '../../TeamForm/TeamForm.styles'
 import { Container } from '../TeamModal.styles'
 
 const InteractiveModal = ({ interactiveText, interactiveComponent, interactiveButtons }) => {
   return (
-    <Container>
-      <div>
+    <Container justify="space-between">
+      <FlexWrapper direction="column" justify="center" align="center" gap="24px" width="100%">
         <Text fontSize="24px" margin="0">
           {interactiveText}
         </Text>
-        <div style={{ marginTop: '33px' }}>{interactiveComponent}</div>
-      </div>
+        <FlexWrapper width="100%" justify="center" align="center">
+          {interactiveComponent}
+        </FlexWrapper>
+      </FlexWrapper>
       {interactiveButtons}
     </Container>
   )

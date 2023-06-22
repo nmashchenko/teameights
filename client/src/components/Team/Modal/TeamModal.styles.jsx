@@ -37,9 +37,10 @@ export const ListBackdrop = styled.div`
   overflow-y: scroll;
   transition: all 0.2s;
   border-radius: 5px;
-  margin-top: 24px;
+  /* margin-top: 24px; */
   display: flex;
   flex-direction: column;
+  max-height: 102px;
 
   ::-webkit-scrollbar {
     width: 5px;
@@ -56,10 +57,12 @@ export const ListBackdrop = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props) => props.justify || 'center'};
   flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 100%;
+  gap: 24px;
 `
 
 export const UserAccordionCard = styled.div`

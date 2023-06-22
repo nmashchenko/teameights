@@ -25,7 +25,7 @@ import { TeamProfileLargeCard } from '../TeamProfileLargeCard/TeamProfileLargeCa
 import TeamProfileMiniCard from '../TeamProfileMiniCard/TeamProfileMiniCard'
 import TeamTypeSwitch from '../TeamTypeSwitch/TeamTypeSwitch'
 
-import ActionType from './ActionType'
+import ActionButtonsType from './ActionButtonsType'
 import { Card, CardContainer, Container } from './TeamForm.styles'
 
 function TeamForm() {
@@ -42,6 +42,7 @@ function TeamForm() {
   const [isEditing, setIsEditing] = useState(false)
   const [editImage, setEditImage] = useState(false)
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
+
   const teamId = id
   const { data: team, isLoading: isUserTeamLoading, error } = useGetTeamData(teamId)
 
@@ -154,7 +155,7 @@ function TeamForm() {
   }
 
   const actionType = (
-    <ActionType
+    <ActionButtonsType
       team={team}
       isEditing={isEditing}
       setIsEditing={setIsEditing}

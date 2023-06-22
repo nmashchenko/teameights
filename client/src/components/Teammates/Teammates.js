@@ -5,13 +5,13 @@ import { ThemeProvider } from 'styled-components'
 // * API
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import AppHeader from '../../shared/components/AppHeader/AppHeader'
+import SliderToTop from '../../shared/components/SliderToTop/SliderToTop'
 import { GlobalStyle } from '../../shared/styles/Global.styles'
 import { setUsersFilter } from '../../store/reducers/UsersFiltersSlice'
 
 import Cards from './components/Cards/Cards'
 // * Components
 import NotFound from './components/NotFound/NotFound'
-import SliderToTop from './components/SliderToTop/SliderToTop'
 import UserProfile from './components/UserProfile/UserProfile'
 import UserProfilePhone from './components/UserProfile/UserProfilePhone'
 // * Styles

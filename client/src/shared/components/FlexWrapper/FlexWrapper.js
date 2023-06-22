@@ -10,6 +10,7 @@ const StyledFlexWrapper = styled.div`
   flex-direction: ${(props) => props.direction || 'row'};
   max-height: ${(props) => props.maxHeight || 'none'};
   position: ${(props) => props.position || 'static'};
+  width: ${(props) => props.width || 'auto'};
 `
 
 const FlexWrapper = (props) => {

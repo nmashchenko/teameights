@@ -41,7 +41,7 @@ const TeamPreviewModalPhone = ({ user, team, handleClose, handleJoin }) => {
   const usersTeam = getTeam()
 
   return (
-    <MobileWrapper>
+    <>
       <FlexWrapper justify="space-between">
         <Button width="63px" background="none" onClick={handleClose}>
           <LongArrowLeft />
@@ -129,7 +129,7 @@ const TeamPreviewModalPhone = ({ user, team, handleClose, handleJoin }) => {
           ))}
         </FlexWrapper>
       </FlexWrapper>
-    </MobileWrapper>
+    </>
   )
 }
 

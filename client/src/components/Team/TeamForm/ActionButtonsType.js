@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik'
 
 import { EditTeam, GenericButton, LeaderActionsBox } from './TeamForm.styles'
 
-const ActionType = ({
+const ActionButtonsType = ({
   team,
   isEditing,
   setIsEditing,
@@ -82,4 +82,4 @@ const ActionType = ({
   return action
 }
 
-export default ActionType
+export default ActionButtonsType
