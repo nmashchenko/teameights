@@ -1,14 +1,5 @@
 import styled from 'styled-components'
 
-import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
-
-export const FormikContainer = styled.div`
-  label {
-    font-size: ${B2fs};
-    line-height: ${B2lh};
-    font-weight: ${B2fw};
-  }
-`
 export const MyRadioGroup = styled.div`
   display: flex;
   justify-content: start;
@@ -79,4 +70,22 @@ export const DefaultImg = styled.img`
     background-color: green;
     position: absolute;
   }
+`
+
+export const Text = styled.h3`
+  font-weight: ${(props) => props.fontWeight || '400'};
+  font-size: ${(props) => props.fontSize || '16px'};
+  color: ${(props) => props.color || '#fff'};
+  margin: ${(props) => props.margin || '0'};
+  /* line-height: ${(props) => props.lineHeight || '1'}; */
+`
+
+export const DropFileArea = styled.input`
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #86878b;
+  transition: all 0.2s;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 `

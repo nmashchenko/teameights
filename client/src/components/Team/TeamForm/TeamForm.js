@@ -182,6 +182,8 @@ function TeamForm() {
           '',
         ),
         description: team?.description,
+        image: '',
+        default: '',
       }}
       validationSchema={editTeamValidation}
     >

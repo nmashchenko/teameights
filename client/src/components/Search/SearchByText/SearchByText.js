@@ -15,7 +15,7 @@ const SearchByText = ({ placeholder, currFilter, currFilterIndex, setFilterValue
 
   useEffect(() => {
     clearTimeout(timer)
-    setTimer(setTimeout(() => setFilterValue(currFilterIndex, value), 2000))
+    setTimer(setTimeout(() => setFilterValue(currFilterIndex, value), 1000))
 
     return () => clearTimeout(timer)
   }, [value])

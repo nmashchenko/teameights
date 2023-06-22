@@ -114,7 +114,6 @@ export const Text = styled.h3`
   font-weight: ${(props) => props.fontWeight || '500'};
   font-size: ${(props) => props.fontSize || '18px'};
   color: ${(props) => props.color || WHITE.main};
-  text-align: ${(props) => props.alignment || 'center'};
   margin: ${(props) => props.margin || '0'};
   /* line-height: ${(props) => props.lineHeight || '1'}; */
 `

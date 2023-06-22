@@ -13,7 +13,14 @@ export const ModalContentPhone = forwardRef(
           user?.team.members.length === 1 ? 'You must delete team' : 'You must transfer leadership'
 
         return (
-          <Box sx={{ width: '100%', background: '#1A1C22', padding: '78px 27px' }}>
+          <Box
+            sx={{
+              width: '100%',
+              background: '#1A1C22',
+              padding: '78px 27px',
+              // borderRadius: '15px 15px 0 0',
+            }}
+          >
             <InfoModal
               firstText="You cannot join a team."
               secondText={`${isOnlyMember} to join a new team.`}
