@@ -1,6 +1,6 @@
 // * Modules
 import Modal from '@mui/material/Modal'
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 export const GridContainer = styled.div`
   display: flex;
@@ -17,22 +17,25 @@ export const CardsContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-  width: 80%;
+  width: 100%;
+  max-width: 1196px;
   grid-template-columns: repeat(4, 1fr);
 
-  @media screen and (min-width: 1300px) {
-    column-gap: 0px;
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @media screen and (min-width: 1000px) and (max-width: 1300px) {
+  @media screen and (max-width: 1440px) {
+    max-width: 826px;
     grid-template-columns: repeat(3, 1fr);
   }
-  @media screen and (min-width: 730px) and (max-width: 1000px) {
+  @media screen and (max-width: 1024px) {
+    max-width: 770px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 900px) {
+    max-width: 526px;
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (min-width: 0px) and (max-width: 730px) {
+  @media screen and (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `
@@ -42,18 +45,28 @@ export const CardsZone = styled.div`
   width: 100%;
   justify-content: space-evenly;
   align-items: center;
-  position: relative;
+  /* position: relative; */
+  padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0px;
+  }
 `
 
 export const InfoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 120px);
+  min-height: calc(100vh - 238px);
+  padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0px;
+  }
 `
 
 export const UserCardModal = styled(Modal)`
-  @media screen and (min-width: 0px) and (max-width: 730px) {
+  @media screen and (min-width: 0px) and (max-width: 520px) {
     display: none;
   }
 `

@@ -1,7 +1,8 @@
+import { Box, Drawer } from '@mui/material'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-import { IconWrapper } from '../NavBar.styles'
+import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
 
 export const StyledNotificationsModal = styled(motion.div)`
   pointer-events: ${(props) => (props.active ? 'all' : 'none')};
@@ -21,10 +22,14 @@ export const NotificationsHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+
+  @media screen and (max-width: 670px) {
+    padding: 24px;
+  }
 `
 
 export const CrossBtn = styled(IconWrapper)`
-  padding: 5px;
+  /* padding: 5px; */
   cursor: pointer;
   &:hover {
     path {
@@ -41,6 +46,79 @@ export const MarkAllBtn = styled.div`
   p {
     margin: 0;
     color: #fff;
+  }
+  &:hover {
+    path {
+      stroke: #5bd424;
+    }
+    p {
+      color: #5bd424;
+    }
+  }
+`
+
+export const MobileNotificationsModal = styled(Drawer)`
+  display: none;
+
+  & .MuiDrawer-paper {
+    background: #26292b;
+    overflow: hidden;
+  }
+
+  @media screen and (min-width: 0px) and (max-width: 670px) {
+    display: block;
+  }
+`
+
+export const MobileWrapper = styled(Box)`
+  width: 100%;
+  min-height: 100dvh;
+  background: #26292b;
+  /* padding: 24px 29px; */
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    /* WebKit */
+    transition: all 0.2s;
+    width: 0;
+    height: 0;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #000000;
+  }
+`
+
+export const Text = styled.h3`
+  font-weight: 500;
+  font-size: 24px;
+  color: #5bd424;
+  margin: 0;
+  text-align: ${(props) => props.textAlign || 'none'};
+`
+
+export const MarkAllBtnMobile = styled.button`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  outline: none;
+  border: 2px solid #46a11b;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin: 16px 24px 24px 24px;
+  p {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
   }
   &:hover {
     path {

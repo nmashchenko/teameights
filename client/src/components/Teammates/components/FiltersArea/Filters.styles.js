@@ -1,28 +1,27 @@
 // * Modules
-import Box from '@mui/material/Box'
 import styled from 'styled-components'
+
+import IconWrapper from '../../../../shared/components/IconWrapper/IconWrapper'
 
 export const NavBar = styled.div`
   display: flex;
-  padding: 0 24px;
   justify-content: center;
   align-items: center;
-  height: 64px;
-`
-
-export const BoxContainer = styled(Box)`
-  padding: 27px 45px;
-
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    padding: 20px 20px;
-  }
+  width: 100%;
+  flex-direction: column;
 `
 
 export const LogoContainer = styled.div`
-  margin-right: 7%;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 37px;
+  margin-bottom: 33px;
 
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    display: none;
+  @media (max-width: 1023px) {
+    margin-top: 25px;
   }
 `
 
@@ -40,47 +39,37 @@ export const AlternativeLogoContainer = styled.div`
   }
 `
 
-export const Button = styled.button`
-  border: none;
-  outline: none;
-  background: none;
-  width: 46px;
-  height: 45px;
-  cursor: pointer;
-
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    display: none;
-  }
-`
-
-export const SelectContainer = styled.div`
-  width: 70%;
+export const SearchPanel = styled.div`
+  position: static;
+  z-index: 10;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 770px;
+  min-height: 40px;
+  color: white;
+`
 
-  @media screen and (min-width: 0px) and (max-width: 980px) {
+export const SearchPanelWrapper = styled.div`
+  display: flex;
+  border: 1px solid #46a11b;
+  border-radius: 10px;
+  @media (max-width: 1023px) {
     display: none;
   }
 `
 
-export const FilterContainer = styled.div`
-  visibility: hidden;
+export const SearchIconWrapper = styled(IconWrapper)`
+  cursor: pointer;
+  display: none;
+  --icon-size: 25px;
+  width: var(--icon-size);
+  height: var(--icon-size);
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  @media screen and (min-width: 0px) and (max-width: 980px) {
-    visibility: visible;
+  top: calc(50% - (var(--icon-size) - (var(--icon-size) / 2)));
+  right: 27px;
+  @media (max-width: 1023px) {
+    display: flex;
   }
-`
-
-export const FilterText = styled.h4`
-  font-weight: 700;
-  font-size: 15px;
-  color: #ffffff;
-  margin-left: 10px;
-  margin: 0 0 0 8px;
 `

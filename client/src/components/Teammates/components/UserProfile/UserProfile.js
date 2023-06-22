@@ -1,111 +1,99 @@
 // * Modules
-import React from 'react'
-import CloseIcon from '@mui/icons-material/Close'
-import GitHubIcon from '@mui/icons-material/GitHub'
-import LinkedInIcon from '@mui/icons-material/LinkedIn'
-import TelegramIcon from '@mui/icons-material/Telegram'
+import React, { forwardRef, memo } from 'react'
 
+import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
+import AddUserIcon from '../../../../assets/Shared/AddUserIcon'
+import Close from '../../../../assets/Shared/Close'
+import Message from '../../../../assets/Shared/Message'
+import { frameworkColors, frameworkTextColors } from '../../../../constants/frameworkColors'
+import { languageOptions } from '../../../../constants/programmingLanguages'
 // * Assets
-import LinkIcon from '../../../../assets/Shared/LinkIcon'
-import AddIcon from '../../../../assets/UserProfile/AddIcon'
-import MessageIcon from '../../../../assets/UserProfile/MessageIcon'
-import { LOCAL_PATH } from '../../../../http'
 import { calculateAge } from '../../../../utils/calculateAge'
+import { getCountryFlag } from '../../../../utils/getCountryFlag'
 
 import {
   Button,
-  ButtonsContainer,
   CloseContainer,
   Container,
-  LinksAndAvatarContainer,
-  LinksContainer,
-  NameAndCloseContainer,
+  FlagIcon,
+  FlexWrapper,
+  Framework,
+  LanguageContainer,
   ProfileContainer,
-  ProjectLinkContainer,
   Text,
-  UserAvatar,
-  UserDescriptionContainer,
-  UserDetailedInfoContainer,
-  UserLink,
+  UserImg,
 } from './UserProfile.styles'
 
-const UserProfile = ({ user, handleClose }) => {
+const UserProfile = ({ user, handleClose }, ref) => {
   return (
     <Container>
       <ProfileContainer>
-        <LinksAndAvatarContainer>
-          <div>
-            <UserAvatar src={user.image} alt="avatar"></UserAvatar>
-          </div>
-          {/* TODO: Change for real links! & rewrite for the .map() */}
-          <UserLink>
-            <GitHubIcon sx={{ color: '#6DB33F', width: '30px', height: '30px' }} />
-          </UserLink>
-          <UserLink>
-            <LinkedInIcon sx={{ color: '#6DB33F', width: '30px', height: '30px' }} />
-          </UserLink>
-          <UserLink>
-            <TelegramIcon sx={{ color: '#6DB33F', width: '30px', height: '30px' }} />
-          </UserLink>
-        </LinksAndAvatarContainer>
-        <UserDetailedInfoContainer>
-          <NameAndCloseContainer>
-            <Text fontSize="16px" margin="15px 0 0 0">
-              {user.fullName}, {calculateAge(user.dateOfBirth)}
+        <CloseContainer onClick={handleClose}>
+          <Close />
+        </CloseContainer>
+        <FlexWrapper gap="24px" flexDirection="column">
+          <FlexWrapper gap="32px">
+            <div>
+              <UserImg src={user?.image} alt={`${user?.username}'s image`} />
+            </div>
+            <FlexWrapper flexDirection="column" maxHeight="70px">
+              <FlexWrapper gap="8px" alignItems="center" maxHeight="30px">
+                <Text fontSize="20px">
+                  {user?.fullName?.split(' ')[0]}, {calculateAge(user?.dateOfBirth)}
+                </Text>
+                {getCountryFlag(user.country) && <FlagIcon src={getCountryFlag(user.country)} />}
+              </FlexWrapper>
+              <Text fontSize="14px" color="#8F9094" fontWeight="400">
+                {user?.concentration}
+              </Text>
+              <Text fontSize="14px" color="#8F9094" fontWeight="400">
+                {user?.experience} years of experience
+              </Text>
+            </FlexWrapper>
+          </FlexWrapper>
+          {user?.description && (
+            <Text fontSize="16px" fontWeight="400">
+              {user.description}
             </Text>
-            <CloseContainer onClick={handleClose}>
-              <CloseIcon sx={{ color: '#6DB33F', width: '30px', height: '30px' }} />
-            </CloseContainer>
-          </NameAndCloseContainer>
-          <Text fontSize="16px" margin="5px 0 0 0">
-            {user.concentration}
-          </Text>
-          <Text fontSize="14px" margin="30px 0 0 0">
-            About me
-          </Text>
-          <UserDescriptionContainer>
-            <Text fontSize="14px" margin="5px 0 0 0" fontWeight="300">
-              {user?.description ? user.description : 'User has no description.'}
-            </Text>
-          </UserDescriptionContainer>
-          <Text fontSize="14px" margin="35px 0 0 0">
-            My projects
-          </Text>
-          <LinksContainer>
-            {/* TODO: Change for real project links! & rewrite for the .map() */}
-            <ProjectLinkContainer>
-              <LinkIcon />
-              <Text fontSize="14px" margin="2.5px 30px 0 0" fontWeight="700">
-                Twitter bot
-              </Text>
-            </ProjectLinkContainer>
-            <ProjectLinkContainer>
-              <LinkIcon />
-              <Text fontSize="14px" margin="2.5px 30px 0 0" fontWeight="700">
-                Stocks AI
-              </Text>
-            </ProjectLinkContainer>
-            <ProjectLinkContainer>
-              <LinkIcon />
-              <Text fontSize="14px" margin="2.5px 30px 0 0" fontWeight="700">
-                ML Linear Regression
-              </Text>
-            </ProjectLinkContainer>
-          </LinksContainer>
-          <ButtonsContainer>
-            <Button>
-              Message
-              <MessageIcon />
+          )}
+          <FlexWrapper flexWrap="wrap" gap="8px">
+            {user?.frameworks?.map((framework) => (
+              <Framework
+                key={framework}
+                justifyContent="end"
+                marginBottom="0"
+                background={frameworkColors[framework]}
+                color={frameworkTextColors[framework]}
+              >
+                <h3>{framework}</h3>
+              </Framework>
+            ))}
+          </FlexWrapper>
+          <FlexWrapper flexWrap="wrap" gap="8px">
+            {user?.programmingLanguages?.map((language) => (
+              <LanguageContainer key={language}>{languageOptions[language]}</LanguageContainer>
+            ))}
+          </FlexWrapper>
+          <FlexWrapper justifyContent="space-between" marginTop="48px">
+            <FlexWrapper gap="8px">
+              <Button>
+                Invite
+                <AddUserIcon />
+              </Button>
+              <Button width="124px" background="none" border="2px solid #46A11B">
+                Message
+                <Message />
+              </Button>
+            </FlexWrapper>
+            <Button width="73px" background="none">
+              Profile
+              <LongArrowRight />
             </Button>
-            <Button>
-              Invite
-              <AddIcon />
-            </Button>
-          </ButtonsContainer>
-        </UserDetailedInfoContainer>
+          </FlexWrapper>
+        </FlexWrapper>
       </ProfileContainer>
     </Container>
   )
 }
 
-export default UserProfile
+export default memo(forwardRef(UserProfile))

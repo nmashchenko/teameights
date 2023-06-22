@@ -1,16 +1,5 @@
 // * Modules
-import { motion } from 'framer-motion'
 import styled from 'styled-components'
-
-export const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & svg {
-    width: ${(props) => props.width || 'auto'};
-    height: ${(props) => props.height || 'auto'};
-  }
-`
 
 export const NavIconContainer = styled.div`
   margin-right: 25px;
@@ -20,7 +9,7 @@ export const NavIconContainer = styled.div`
 export const NavWrapper = styled.div`
   pointer-events: ${(props) => (props.active ? 'all' : 'none')};
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   background: rgba(${(props) => (props.active ? '0, 0, 0, 0.25' : '0, 0, 0, 0')});
   backdrop-filter: ${(props) => (props.active ? 'blur(5px)' : 'none')};
   -webkit-backdrop-filter: ${(props) => (props.active ? 'blur(5px)' : 'none')};
@@ -28,10 +17,14 @@ export const NavWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 999;
+
+  @media screen and (max-width: 768px) {
+    /* width: ${(props) => (props.active ? '100vw' : '270px')}; */
+    pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  }
 `
 
 export const NavMenu = styled.nav`
-  --menu-animation-time: 0.2s;
   pointer-events: all;
   width: 100%;
   height: 100%;
@@ -41,9 +34,19 @@ export const NavMenu = styled.nav`
   align-items: center;
   background: ${(props) =>
     props.active ? 'linear-gradient(90.45deg, #1a1c22 62.8%, #2f3239 209.77%)' : '#1A1C22'};
-  transition: all var(--menu-animation-time) ease;
+  transition: max-width 0.4s ease-in-out, left 0.4s ease-in-out;
+  -webkit-transition: max-width 0.4s ease-in-out, left 0.4s ease-in-out;
   padding: 0 16px;
   padding-top: 48px;
+
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    max-width: none;
+    left: ${(props) => (props.active ? '0' : '-270px')};
+    top: 0;
+    width: 270px;
+    pointer-events: ${(props) => (props.active ? 'all' : 'none')};
+  }
 `
 
 export const NavBarToggle = styled.div`
@@ -65,6 +68,10 @@ export const NavBarClose = styled.div`
   cursor: pointer;
   transform: rotateY(${(props) => (props.active ? '0deg' : '180deg')});
   padding: 0 12px;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 20px;
+  }
 `
 
 export const NavItems = styled.ul`
@@ -128,4 +135,20 @@ export const NavBarCopyright = styled.h3`
   color: #86878b;
   overflow: hidden;
   white-space: nowrap;
+`
+
+export const MobileNavBarIconWrapper = styled.div`
+  position: absolute;
+  top: 47px;
+  left: 41px;
+  display: none;
+  cursor: pointer;
+  z-index: 999;
+
+  @media screen and (max-width: 768px) {
+    display: ${(props) => (props.active ? 'none' : 'block')};
+    pointer-events: ${(props) => (!props.active ? 'all' : 'none')};
+    top: 32px;
+    left: 0;
+  }
 `

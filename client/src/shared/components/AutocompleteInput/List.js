@@ -4,7 +4,7 @@ import { LOCAL_PATH } from '../../../http'
 
 export const List = ({ props, option }) => {
   return (
-    <li {...props}>
+    <li {...props} key={option.username}>
       <Grid container alignItems="center">
         <Grid item sx={{ display: 'flex', width: 38 }}>
           <img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={option.image} />

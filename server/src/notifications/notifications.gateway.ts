@@ -71,6 +71,7 @@ export class NotificationsGateway
 				`Client ${client.id} subscribed to notifications for user ${user.id}`,
 			);
 		} catch (e) {
+			console.log('error here!');
 			console.log(e.message);
 			this.server.emit(`subscribeToNotificationsError`, e.message);
 			this.handleDisconnect(client);

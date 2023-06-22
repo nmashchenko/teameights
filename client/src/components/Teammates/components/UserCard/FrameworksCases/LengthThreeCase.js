@@ -7,10 +7,10 @@ const LengthThreeCase = ({ userFrameworks }) => {
   return (
     <>
       {userFrameworks.map((element, index) =>
-        index === 0 ? (
+        index === 0 || index === 1 ? (
           <Framework
             key={element}
-            marginRight="12px"
+            // marginRight="12px"
             background={frameworkColors[element]}
             color={frameworkTextColors[element]}
           >
@@ -21,6 +21,7 @@ const LengthThreeCase = ({ userFrameworks }) => {
             key={element}
             background={frameworkColors[element]}
             color={frameworkTextColors[element]}
+            width="100%"
           >
             <h3>{element}</h3>
           </Framework>

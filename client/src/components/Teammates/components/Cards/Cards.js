@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import lookup from 'country-code-lookup'
 
 import { useLoadUsers } from '../../../../api/hooks/temeights/useLoadUsers'
-import CardSkeleton from '../CardSkeleton/CardSkeleton'
+import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 // * Components
 import UserCard from '../UserCard/UserCard'
 
@@ -13,7 +13,7 @@ import UserCard from '../UserCard/UserCard'
 // * Styles
 import { CardContainer } from './Cards.styles'
 
-const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound }) => {
+const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
   const intObserver = useRef()
 
   const {
@@ -23,7 +23,8 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
     isLoading,
     isFetched,
     data: users,
-  } = useLoadUsers(displayFiltered)
+    filtered,
+  } = useLoadUsers()
   const lastUserRef = useCallback(
     (user) => {
       if (isFetchingNextPage) {
@@ -105,7 +106,7 @@ const Cards = ({ handleOpen, isLoadingUseData, displayFiltered, setIsNotFound })
   }
 
   useEffect(() => {
-    if (isFetched && !content[0].length) {
+    if (isFetched && !content[0].length && !filtered) {
       setIsNotFound(true)
     }
   }, [isFetched, content])

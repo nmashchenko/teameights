@@ -269,32 +269,43 @@ export class UsersService {
 		/* A type assertion. */
 		const results = {} as Results;
 
-		/* Getting the total number of users that match the query. */
-		results.total = await this.userModel
-			.find(parsedQuery as FilterQuery<any>)
-			.count();
+		try {
+			/* Getting the total number of users that match the query. */
+			results.total = await this.userModel
+				.find(parsedQuery as FilterQuery<any>)
+				.count();
 
-		/* Calculating the last page and the limit. */
-		results.last_page = Math.ceil(results.total / limit);
-		results.limit = limit;
+			/* Calculating the last page and the limit. */
+			results.last_page = Math.ceil(results.total / limit);
+			results.limit = limit;
 
-		/* Getting all the users that match the query, limiting the number of users to the limit, skipping the
+			/* Getting all the users that match the query, limiting the number of users to the limit, skipping the
 		users that are not on the current page, limiting the number of users to the limit, populating the
 		roles and executing the query. */
-		const users = await this.userModel
-			/* Casting the parsedQuery to FilterQuery<any> */
-			.find(parsedQuery as FilterQuery<any>)
-			.limit(limit)
-			.skip((page - 1) * limit)
-			.limit(limit)
-			.populate('roles')
-			.exec();
+			const users = await this.userModel
+				/* Casting the parsedQuery to FilterQuery<any> */
+				.find(parsedQuery as FilterQuery<any>)
+				.limit(limit)
+				.skip((page - 1) * limit)
+				.limit(limit)
+				.populate('roles')
+				.exec();
 
-		/* Setting the number of users on the current page and the data of the users. */
-		results.on_current_page = users.length;
-		results.data = users;
-		/* Returning the results object. */
-		return results;
+			/* Setting the number of users on the current page and the data of the users. */
+			results.on_current_page = users.length;
+			results.data = users;
+			/* Returning the results object. */
+			return results;
+		} catch (e) {
+			console.log(e.message);
+			results.total = 0;
+			results.data = [];
+			results.last_page = 0;
+			results.limit = 9;
+			results.on_current_page = 0;
+			results.page = 0;
+			return results;
+		}
 	}
 
 	/**
@@ -328,14 +339,41 @@ export class UsersService {
 			}
 		}
 
-		/* Updating the user with the given email with the new data and returning the updated user. */
-		const user = await this.userModel.findOneAndUpdate(
+		/* 
+		The above code is updating a user document in a MongoDB database using the Mongoose library. It
+		first filters the data to be updated using a spread operator and sets the "isRegistered" field to
+		true. Then it uses the "updateOne" method to update the document with the specified email. If the
+		update is successful (i.e., the modifiedCount is 1), it fetches the updated document using the
+		"findOne" method and returns it. If the update is not successful, it throws an HttpException with a
+		message indicating an error occurred while updating the user. 
+		
+		This approach gurantees data consistency as we would wait for update and then get full object back.
+		*/
+		const updateResult = await this.userModel.updateOne(
 			{ email: dto.email },
 			{ ...filtered, isRegistered: true },
-			{ new: true },
 		);
 
-		return user;
+		if (updateResult.modifiedCount === 1) {
+			// Fetch the updated document
+			const updatedDocument = await this.userModel.findOne({
+				email: dto.email,
+			});
+			return updatedDocument;
+		} else {
+			// Handle the case when the update was not successful
+			throw new HttpException(
+				`Error while updating user`,
+				HttpStatus.INTERNAL_SERVER_ERROR,
+			);
+		}
+		// const user = await this.userModel.findOneAndUpdate(
+		// 	{ email: dto.email },
+		// 	{ ...filtered, isRegistered: true },
+		// 	{ new: true },
+		// );
+
+		// return user;
 	}
 
 	/**

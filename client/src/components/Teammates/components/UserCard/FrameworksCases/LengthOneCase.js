@@ -9,8 +9,9 @@ const LengthOneCase = ({ userFrameworks }) => {
       {userFrameworks.map((element) => (
         <Framework
           key={element}
-          justifyContent="center"
+          justifyContent="end"
           marginBottom="0"
+          width="100%"
           background={frameworkColors[element]}
           color={frameworkTextColors[element]}
         >

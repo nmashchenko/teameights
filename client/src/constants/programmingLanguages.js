@@ -16,51 +16,21 @@ import SQL from '../assets/LanguageLogo/SQL'
 import Swift from '../assets/LanguageLogo/Swift'
 
 const programmingLanguageOptions = [
-  {
-    label: 'JS',
-  },
-  {
-    label: 'C++',
-  },
-  {
-    label: 'C',
-  },
-  {
-    label: 'Python',
-  },
-  {
-    label: 'Swift',
-  },
-  {
-    label: 'Ruby',
-  },
-  {
-    label: 'Scala',
-  },
-  {
-    label: 'PHP',
-  },
-  {
-    label: 'Go',
-  },
-  {
-    label: 'C#',
-  },
-  {
-    label: 'Java',
-  },
-  {
-    label: 'HTML/CSS',
-  },
-  {
-    label: 'Dart',
-  },
-  {
-    label: 'Perl',
-  },
-  {
-    label: 'SQL',
-  },
+  { label: 'JS', value: 'js' },
+  { label: 'C++', value: 'c++' },
+  { label: 'C', value: 'c' },
+  { label: 'Python', value: 'python' },
+  { label: 'Swift', value: 'swift' },
+  { label: 'Ruby', value: 'ruby' },
+  { label: 'Scala', value: 'scala' },
+  { label: 'PHP', value: 'php' },
+  { label: 'Go', value: 'go' },
+  { label: 'C#', value: 'c#' },
+  { label: 'Java', value: 'java' },
+  { label: 'HTML/CSS', value: 'html/css' },
+  { label: 'Dart', value: 'dart' },
+  { label: 'Perl', value: 'perl' },
+  { label: 'SQL', value: 'sql' },
 ]
 
 const languageOptions = Object.freeze({

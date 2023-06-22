@@ -3,9 +3,9 @@ import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import LightningIcon from '../../../assets/Sidebar/LightningIcon'
 import WarningIcon from '../../../assets/Sidebar/WarningIcon'
 import { LOCAL_PATH } from '../../../http'
+import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
 import Loader from '../../../shared/components/Loader/Loader'
 import { getPastTime } from '../../../utils/getPastTime'
-import FlexWrapper from '../FlexWrapper/FlexWrapper'
 
 import {
   MessageButton,

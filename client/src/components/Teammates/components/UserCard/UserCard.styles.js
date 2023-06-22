@@ -10,8 +10,8 @@ export const Wrapper = styled.figure`
 
 export const UserInformationContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   width: 100%;
+  gap: 32px;
 `
 
 export const UserImage = styled.img`
@@ -43,10 +43,10 @@ export const ProgrammingLanguagesContainer = styled.div`
 
 export const LanguageContainer = styled.div`
   position: relative;
-  background: #1b1d24;
+  background: #2f3239;
   border-radius: 5px;
-  width: 50px;
-  height: 50px;
+  width: ${(props) => props.width || '40px'};
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,6 +68,7 @@ export const TextContainer = styled.div`
 
 export const CountryContainer = styled.div`
   display: flex;
+  align-items: center;
 `
 
 export const TitleText = styled.h3`
@@ -78,8 +79,8 @@ export const TitleText = styled.h3`
 `
 
 export const Framework = styled.div`
-  width: ${(props) => props.width || '65px'};
-  height: 40px;
+  width: ${(props) => props.width || '91px'};
+  height: 32px;
   margin-right: ${(props) => props.marginRight || '0'};
   margin-bottom: ${(props) => props.marginBottom || '0'};
   flex-grow: ${(props) => props.flexGrow || '1'};
@@ -91,8 +92,8 @@ export const Framework = styled.div`
   position: relative;
 
   > h3 {
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: 400;
+    font-size: 16px;
     color: ${(props) => props.color || 'white'};
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
@@ -102,7 +103,7 @@ export const FrameWorksContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  height: 120px;
+  gap: 8px;
   justify-content: ${(props) => props.justifyContent || 'start'};
   align-items: center;
   margin-top: 20px;
@@ -110,8 +111,8 @@ export const FrameWorksContainer = styled.div`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  margin-bottom: 300px;
-  margin-right: 235px;
+  margin-bottom: 285px;
+  margin-right: 225px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,17 +123,14 @@ export const CardContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  width: 240px;
-  height: 300px;
-  padding: 25px 22px;
-  background: #2e3239;
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.12);
+  width: 230px;
+  height: 280px;
+  padding: 20px;
+  background: #1a1c22;
   border-radius: 15px;
 
   &:hover {
     cursor: pointer;
-    background: #1b1d24;
-    box-shadow: 0px 5px 25px rgba(95, 122, 219, 0.1);
     transition: 0.3s ease-in-out;
     -webkit-transform: scale(1.02);
     -ms-transform: scale(1.02);
@@ -172,9 +170,9 @@ export const CardContainer = styled.div`
     -ms-transform: scale(1.1);
     transform: scale(1.1);
   }
+`
 
-  @media screen and (min-width: 1440px) {
-    width: 240px;
-    height: 300px;
-  }
+export const FlagIcon = styled.img`
+  width: 25px;
+  height: 25px;
 `
