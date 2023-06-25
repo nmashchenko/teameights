@@ -63,7 +63,7 @@ export const RecoverBox = styled.div`
 export const RecoverTitle = styled.h3`
   font-size: 24px;
   font-weight: 500;
-  color: ${WHITE.main};
+  color: ${GREEN.text};
   margin-bottom: 8px;
 `
 export const RecoverText = styled.p`
