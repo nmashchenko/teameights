@@ -128,6 +128,7 @@ export const CardContainer = styled.div`
   padding: 20px;
   background: #1a1c22;
   border-radius: 15px;
+  position: relative;
 
   :hover {
     border-radius: 15px;

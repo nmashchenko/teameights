@@ -17,8 +17,7 @@ const NotificationsContent = ({
 }) => {
   const { notifications: userNotifications } = useSelector((state) => state.userReducer)
 
-  console.log(userNotifications)
-  const unreadMessages = userNotifications.filter((item) => !item.read)
+  const unreadMessages = userNotifications?.filter((item) => !item.read)
 
   return (
     <StyledNotificationsContent>
@@ -31,22 +30,22 @@ const NotificationsContent = ({
           <Notification />
         </IconWrapper>
         <p>Notifications</p>
-        {!!unreadMessages.length && !notificationModal && (
+        {!!unreadMessages?.length && !notificationModal && (
           <>
             <NotificationsCount
-              pointerEvents={!sidebar}
+              pointerEvents={sidebar.toString()}
               top="6px"
               left="28px"
               animate={{ scale: [1, 1.5, 1] }}
-              key={unreadMessages.length}
+              key={unreadMessages?.length}
             >
-              {unreadMessages.length}
+              {unreadMessages?.length}
             </NotificationsCount>
           </>
         )}
       </NavInteractBtn>
       <NotificationsModal
-        userNotifications={userNotifications}
+        userNotifications={userNotifications ? userNotifications : []}
         notificationModal={notificationModal}
         setNotificationModal={setNotificationModal}
       />

@@ -5,6 +5,7 @@ const initialState = {
   isRegistered: false,
   isConnected: false,
   notifications: [],
+  userId: '',
   error: '',
 }
 
@@ -20,6 +21,7 @@ export const userAuth = createSlice({
     authUserLogout(state) {
       state.error = ''
       state.isAuth = false
+      state.isConnected = false
     },
 
     authUserError(state, action) {
@@ -32,9 +34,12 @@ export const userAuth = createSlice({
     },
 
     setUserNotifications(state, action) {
-      console.log(action.payload)
       state.notifications = action.payload
       state.isConnected = true
+    },
+
+    setUserId(state, action) {
+      state.userId = action.payload
     },
   },
 })

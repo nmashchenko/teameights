@@ -36,6 +36,8 @@ export const useLoginUser = (type) => {
       if (user.isRegistered) {
         // save accessToken
         dispatch(userAuth.actions.authUserSuccess())
+        dispatch(userAuth.actions.setUserNotifications(user?.notifications))
+        dispatch(userAuth.actions.setUserId(data?._id))
         navigate('/', { replace: true })
       } else {
         // navigate user to finish registration
