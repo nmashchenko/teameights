@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   isAuth: false,
   isRegistered: false,
+  isConnected: false,
+  notifications: [],
   error: '',
 }
 
@@ -27,6 +29,12 @@ export const userAuth = createSlice({
 
     authClearError(state) {
       state.error = ''
+    },
+
+    setUserNotifications(state, action) {
+      console.log(action.payload)
+      state.notifications = action.payload
+      state.isConnected = true
     },
   },
 })

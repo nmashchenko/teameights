@@ -4,10 +4,13 @@ import { Toaster } from 'react-hot-toast'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
+import { useLoadSocket } from './api/hooks/socket/useLoadSocket'
 import { useRoutes } from './routes/routes'
 
 function App() {
   const routes = useRoutes()
+
+  useLoadSocket()
 
   return (
     <>

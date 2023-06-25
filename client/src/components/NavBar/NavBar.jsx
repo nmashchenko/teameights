@@ -56,47 +56,47 @@ const NavBar = () => {
   const navigate = useNavigate()
   const navMenuRef = useRef(null)
 
-  useEffect(() => {
-    if (user) {
-      socket.connect()
+  // useEffect(() => {
+  //   if (user) {
+  //     socket.connect()
 
-      setUserNotifications(user?.notifications)
+  //     setUserNotifications(user?.notifications)
 
-      console.log(`Connecting socket...`)
-      socket.emit('subscribeToNotifications', JSON.stringify({ id: user._id }))
+  //     console.log(`Connecting socket...`)
+  //     socket.emit('subscribeToNotifications', JSON.stringify({ id: user._id }))
 
-      return () => {
-        socket.disconnect()
-      }
-    }
-  }, [isUserDataLoading])
+  //     return () => {
+  //       socket.disconnect()
+  //     }
+  //   }
+  // }, [isUserDataLoading])
 
-  useEffect(() => {
-    if (user) {
-      socket.on(`notification-${user._id}`, (notification) => {
-        // Find the index of the existing notification with the same _id
-        const existingIndex = userNotifications.findIndex(
-          (n) => String(n._id) === String(notification._id),
-        )
+  // useEffect(() => {
+  //   if (user) {
+  //     socket.on(`notification-${user._id}`, (notification) => {
+  //       // Find the index of the existing notification with the same _id
+  //       const existingIndex = userNotifications.findIndex(
+  //         (n) => String(n._id) === String(notification._id),
+  //       )
 
-        // If an existing notification is found, update it
-        if (existingIndex !== -1) {
-          const updatedNotifications = [...userNotifications]
+  //       // If an existing notification is found, update it
+  //       if (existingIndex !== -1) {
+  //         const updatedNotifications = [...userNotifications]
 
-          updatedNotifications[existingIndex] = notification
-          setUserNotifications(updatedNotifications)
-        }
-        // If not, add the new notification to the array
-        else {
-          setUserNotifications([...userNotifications, notification])
-        }
-      })
+  //         updatedNotifications[existingIndex] = notification
+  //         setUserNotifications(updatedNotifications)
+  //       }
+  //       // If not, add the new notification to the array
+  //       else {
+  //         setUserNotifications([...userNotifications, notification])
+  //       }
+  //     })
 
-      return () => {
-        socket.off(`notification-${user._id}`)
-      }
-    }
-  }, [userNotifications])
+  //     return () => {
+  //       socket.off(`notification-${user._id}`)
+  //     }
+  //   }
+  // }, [userNotifications])
 
   useOutsideClick(navMenuRef, () => setSidebar(false), notificationModal)
 

@@ -1,5 +1,5 @@
 // assets
-import { memo, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 import Notification from '../../../assets/Sidebar/Notification'
 import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
@@ -10,11 +10,14 @@ import NotificationsModal from '../NotificationsModal/NotificationsModal'
 import { NotificationsCount, StyledNotificationsContent } from './NotificationsContent.styles'
 
 const NotificationsContent = ({
-  userNotifications,
+  // userNotifications,
   sidebar,
   setNotificationModal,
   notificationModal,
 }) => {
+  const { notifications: userNotifications } = useSelector((state) => state.userReducer)
+
+  console.log(userNotifications)
   const unreadMessages = userNotifications.filter((item) => !item.read)
 
   return (

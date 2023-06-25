@@ -7,8 +7,6 @@ import { successToaster } from '../../../shared/components/Toasters/Success.toas
 const { api } = http
 
 export const useValidateUsername = () => {
-  const queryClient = useQueryClient()
-
   const validateUsername = async (username) => {
     return await api.get(`/users/get-by-username/${username}`)
   }
