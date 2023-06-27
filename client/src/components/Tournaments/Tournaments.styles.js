@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { BLACK, GREEN, WHITE } from '../../../constants/colors'
+import { BLACK, GREEN, WHITE } from '../../constants/colors'
 
 export const Container = styled.div`
   width: 100%;
@@ -20,6 +20,15 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 55px;
+  padding-left: 88px;
+
+  @media screen and (max-width: 1024px) {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0 20px;
+  }
 `
 
 export const SmallCard = styled.div`
@@ -30,6 +39,10 @@ export const SmallCard = styled.div`
   border-radius: 15px;
   padding: 20px 20px;
   display: flex;
+
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
 `
 
 export const SmallCardContainer = styled.div`
@@ -59,6 +72,13 @@ export const Text = styled.h3`
   color: ${(props) => props.color || WHITE.main};
 `
 
+export const Span = styled.span`
+  font-weight: 700;
+  font-size: 24px;
+  margin: 0;
+  color: #5bd424;
+`
+
 export const InnerText = styled.span`
   font-weight: ${(props) => props.fontWeight || '700'};
   font-size: ${(props) => props.fontSize || '18px'};
@@ -75,6 +95,13 @@ export const BigCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 1024px) {
+    background: transparent;
+    box-shadow: none;
+    max-width: 774px;
+    width: 100%;
+  }
 `
 
 export const ButtonGeneral = styled.button`

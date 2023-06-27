@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 
 // * Assets
-import JS from '../../../assets/LanguageLogo/JS'
+import JS from '../../assets/LanguageLogo/JS'
 
 // * Styles
 import {
@@ -13,8 +13,9 @@ import {
   Language,
   SmallCard,
   SmallCardContainer,
+  Span,
   Text,
-} from './TournamentsForm.styles'
+} from './Tournaments.styles'
 
 function TournamentsForm() {
   const navigate = useNavigate()
@@ -47,7 +48,9 @@ function TournamentsForm() {
         </SmallCardContainer>
       </SmallCard>
       <BigCard>
-        <Text fontSize="24px">Tournaments coming in the next updates🎉</Text>
+        <Text fontSize="24px">
+          Tournaments coming in the <Span>next</Span> updates🎉
+        </Text>
       </BigCard>
     </Content>
   )

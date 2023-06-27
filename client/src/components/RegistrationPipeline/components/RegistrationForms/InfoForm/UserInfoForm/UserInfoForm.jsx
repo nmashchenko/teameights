@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import countryList from 'react-select-country-list'
 
-import { useValidateUsername } from '../../../../../../api/hooks/auth/useValidateUsername'
 import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
+import { useValidateUsername } from '../../../../../../api/hooks/user/useValidateUsername'
 import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,

@@ -8,6 +8,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding-left: ${(props) => props.paddingLeft || '0'};
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0;
+  }
 `
 export const InfoContainer = styled.div`
   display: flex;

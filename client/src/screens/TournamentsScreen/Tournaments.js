@@ -1,15 +1,15 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import TournamentsForm from '../../components/Forms/TournamentsForm/TournamentsForm'
+import Tournaments from '../../components/Tournaments/Tournaments'
 
-function Tournaments() {
+function TournamentsScreen() {
   return (
     <>
       <CssBaseline />
-      <TournamentsForm />
+      <Tournaments />
     </>
   )
 }
 
-export default Tournaments
+export default TournamentsScreen

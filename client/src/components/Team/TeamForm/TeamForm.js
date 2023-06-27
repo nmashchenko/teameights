@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 
 // * API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
-import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
+import { useUpdateAvatar } from '../../../api/hooks/shared/useUpdateAvatar'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import { useInviteUser } from '../../../api/hooks/team/useInviteUser'

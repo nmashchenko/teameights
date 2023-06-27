@@ -1,5 +1,6 @@
 // * Modules
 import React, { forwardRef, memo } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
 import AddUserIcon from '../../../../assets/Shared/AddUserIcon'
@@ -25,6 +26,8 @@ import {
 } from './UserProfile.styles'
 
 const UserProfile = ({ user, handleClose }, ref) => {
+  const navigate = useNavigate()
+
   return (
     <Container>
       <ProfileContainer>
@@ -85,7 +88,7 @@ const UserProfile = ({ user, handleClose }, ref) => {
                 <Message />
               </Button>
             </FlexWrapper>
-            <Button width="73px" background="none">
+            <Button width="73px" background="none" onClick={() => navigate(`/profile/${user._id}`)}>
               Profile
               <LongArrowRight />
             </Button>

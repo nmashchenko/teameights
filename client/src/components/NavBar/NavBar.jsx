@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
-import { socket } from '../../api/sockets/notifications.socket'
 // * Assets
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
 import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
+import UserIcon from '../../assets/Sidebar/UserIcon'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 import IconWrapper from '../../shared/components/IconWrapper/IconWrapper'
 import Loader from '../../shared/components/Loader/Loader'
@@ -38,7 +38,7 @@ const NavBar = () => {
   const [notificationModal, setNotificationModal] = useState(false)
 
   const { isAuth } = useSelector((state) => state.userReducer)
-  const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
+  const { data: user } = useCheckAuth()
 
   const newNavData = [
     NavBarData[0],
@@ -47,8 +47,13 @@ const NavBar = () => {
       icon: <Team />,
       path: user?.team ? `/team/${user.team._id}` : '/team',
     },
-    ...NavBarData.slice(1),
-  ]
+    NavBarData[1],
+    user && {
+      title: 'Profile',
+      path: `/profile/${user._id}`,
+      icon: <UserIcon />,
+    },
+  ].filter(Boolean)
 
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
   const navigate = useNavigate()
