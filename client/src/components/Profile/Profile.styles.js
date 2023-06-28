@@ -26,6 +26,8 @@ export const ProfileContainer = styled.div`
     flex-direction: column;
     align-items: center;
     margin: 114px 0 24px 0;
+    max-width: 600px;
+    width: 100%;
   }
 
   @media (max-width: 768px) {
@@ -47,6 +49,8 @@ export const ProfileSection = styled.div`
   @media (max-width: 1024px) {
     max-width: 470px;
     width: 100%;
+    min-height: 600px;
+    height: 100%;
   }
 `
 

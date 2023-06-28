@@ -9,6 +9,7 @@ import LinkedInIcon from '../../../../assets/Links/LinkedInIcon'
 import TelegramIcon from '../../../../assets/Links/TelegramIcon'
 import AddUserIcon from '../../../../assets/Shared/AddUserIcon'
 import CakeIcon from '../../../../assets/UserProfile/Cake'
+import EditIcon from '../../../../assets/UserProfile/EditIcon'
 import EmailIcon from '../../../../assets/UserProfile/EmailIcon'
 import LocationIcon from '../../../../assets/UserProfile/LocationIcon'
 import MessageIcon from '../../../../assets/UserProfile/MessageIcon'
@@ -24,6 +25,7 @@ import { ProfileSection } from '../../Profile.styles'
 import {
   AvatarImg,
   AvatarWrapper,
+  EditButton,
   InfoList,
   InfoListItem,
   MessageBtn,
@@ -91,6 +93,9 @@ const ProfileInfo = ({ showingUser, id, currentUser }) => {
       <UserInfo>
         <AvatarWrapper>
           <AvatarImg src={showingUser?.image} />
+          <EditButton>
+            <EditIcon />
+          </EditButton>
         </AvatarWrapper>
         <FlexWrapper direction="column" align="center" gap="8px">
           <Text>{showingUser?.fullName}</Text>

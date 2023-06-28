@@ -91,3 +91,18 @@ export const SocialList = styled.ul`
     }
   }
 `
+
+export const EditButton = styled.div`
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  background: #46a11b;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  /* padding: 4px; */
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  cursor: pointer;
+`
