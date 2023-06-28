@@ -6,6 +6,7 @@ export const errorToaster = (error) => {
     toast.error(error, {
       id: error,
       style: { background: '#2F3239', color: 'white' },
+      duration: 2000,
     })
   }
   // Display the toast with the error message
@@ -13,6 +14,7 @@ export const errorToaster = (error) => {
     toast.error(error?.response?.data?.message, {
       id: error?.response?.data?.message,
       style: { background: '#2F3239', color: 'white' },
+      duration: 2000,
     })
   } else {
     let errors = error?.response?.data
@@ -24,6 +26,7 @@ export const errorToaster = (error) => {
         toast.error(word, {
           id: word,
           style: { background: '#2F3239', color: 'white' },
+          duration: 2000,
         })
       }, i * 300) // Delay each notification by i * 100 milliseconds
     }

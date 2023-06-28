@@ -68,12 +68,22 @@ function Teammates() {
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          sx={{ backdropFilter: 'blur(15px)' }}
+          sx={{ zIndex: 100 }}
         >
-          <UserProfile user={showUser} handleClose={handleClose} />
+          <UserProfile
+            currentUser={user}
+            showingUser={showUser}
+            handleClose={handleClose}
+            open={open}
+          />
         </UserCardModal>
         {/* ! USED ONLY FOR 730px or less */}
-        <UserProfilePhone user={showUser} mobileProfile={open} handleClose={handleClose} />
+        <UserProfilePhone
+          currentUser={user}
+          showingUser={showUser}
+          mobileProfile={open}
+          handleClose={handleClose}
+        />
         {/* If nothing was found, show user a NotFound container */}
         {isNotFound ? (
           <InfoContainer>

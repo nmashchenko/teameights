@@ -4,11 +4,13 @@ import styled from 'styled-components'
 
 export const Container = styled(Box)`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* top: 50%; */
+  /* left: 0%; */
+  margin: auto;
+  /* transform: translate(-50%, -50%); */
   width: 470px;
   height: 530px;
+  outline: none;
 `
 
 export const ProfileContainer = styled.div`

@@ -17,7 +17,7 @@ import {
   WrappableList,
 } from './ResumeInfo.styles'
 
-const ResumeInfo = ({ user }) => {
+const ResumeInfo = ({ showingUser }) => {
   const projectsArr = [
     { text: 'Team8s', link: '#' },
     { text: 'BankingApp', link: '#' },
@@ -45,16 +45,16 @@ const ResumeInfo = ({ user }) => {
               About me
             </Text>
             <Text fontSize="14px" fontWeight="400">
-              {user?.description ? user?.description : 'This user is humble'}
+              {showingUser?.description ? showingUser?.description : 'This showingUser is humble'}
             </Text>
           </FlexWrapper>
           <FlexWrapper gap="16px" align="center">
             <Text fontSize="16px" fontWeight="400">
               Team
             </Text>
-            {user?.team ? (
-              <TagLink icon={<TeamMembersIcon />} to={`/team/${user?.team._id}`}>
-                {user?.team.name}
+            {showingUser?.team ? (
+              <TagLink icon={<TeamMembersIcon />} to={`/team/${showingUser?.team._id}`}>
+                {showingUser?.team.name}
               </TagLink>
             ) : (
               <Text fontSize="16px" fontWeight="300" color="#c1c1c4">
@@ -81,7 +81,7 @@ const ResumeInfo = ({ user }) => {
               Frameworks
             </Text>
             <WrappableList gap="8px">
-              {user?.frameworks?.map((framework, index) => (
+              {showingUser?.frameworks?.map((framework, index) => (
                 <FrameWorkItem
                   key={index}
                   background={frameworkColors[framework]}
@@ -97,7 +97,7 @@ const ResumeInfo = ({ user }) => {
               Languages
             </Text>
             <WrappableList gap="8px">
-              {user?.programmingLanguages?.map((language, index) => (
+              {showingUser?.programmingLanguages?.map((language, index) => (
                 <LanguageItem key={index}>{languageOptions[language]}</LanguageItem>
               ))}
             </WrappableList>

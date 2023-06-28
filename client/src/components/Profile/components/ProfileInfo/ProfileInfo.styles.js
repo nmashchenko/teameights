@@ -34,9 +34,9 @@ export const MessageBtn = styled.button`
   gap: 6px;
   width: 100%;
   max-width: 222px;
-  background: transparent;
+  background: ${(props) => props.background || 'transparent'};
   padding: 10px 0;
-  border: 2px solid #46a11b;
+  border: ${(props) => props.border || '2px solid #46a11b'};
   border-radius: 10px;
   transition: background-color 0.3s;
   color: #fff;
@@ -74,6 +74,8 @@ export const InfoListItem = styled.li`
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
 `
 
 export const SocialList = styled.ul`

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import SCrownRight from '../../../assets/Shared/Crowns/SCrownRight'
 import Chat from '../../../assets/Team/Chat'
@@ -7,6 +8,7 @@ import UserPlus from '../../../assets/Team/UserPlus'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import { LOCAL_PATH } from '../../../http'
+import { infoToaster } from '../../../shared/components/Toasters/Info.toaster'
 import { getCountryFlag } from '../../../utils/getCountryFlag'
 import { TeamCardTopIcon } from '../Modal/TeamPreviewModal/TeamPreviewModal.styles'
 import { Text, UserPlusContainer } from '../TeamForm/TeamForm.styles'
@@ -40,6 +42,7 @@ const Members = ({
 }) => {
   const [hoveredCardId, setHoveredCardId] = useState(null)
   const screenWidth = useGetScreenWidth()
+  const navigate = useNavigate()
 
   const handleMouseEnter = (cardId) => {
     setHoveredCardId(cardId)
@@ -71,11 +74,11 @@ const Members = ({
             )}
             {hoveredCardId === member._id && !isEditing ? (
               <UserLinks>
-                <ChatButton onClick={() => console.log('TODO: add transition to chat')}>
+                <ChatButton onClick={() => infoToaster('Coming in the next update!')}>
                   Chat
                   <Chat />
                 </ChatButton>
-                <ProfileButton onClick={() => console.log('TODO: add transition to profile')}>
+                <ProfileButton onClick={() => navigate(`/profile/${member?._id}`)}>
                   <Person />
                 </ProfileButton>
               </UserLinks>

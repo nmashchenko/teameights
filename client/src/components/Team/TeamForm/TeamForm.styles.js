@@ -281,12 +281,10 @@ export const FormikContainer = styled.div`
 
 export const style = {
   position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
   width: '370px',
   height: '350px',
   bgcolor: '#1A1C22',
+  margin: 'auto',
   borderRadius: '15px',
   boxShadow: 14,
   padding: '32px 32px',
@@ -295,9 +293,7 @@ export const style = {
 
 export const teamPreviewStyle = {
   position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  margin: 'auto',
   width: '570px',
   bgcolor: '#1A1C22',
   borderRadius: '15px',

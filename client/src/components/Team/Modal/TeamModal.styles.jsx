@@ -1,3 +1,4 @@
+import { Modal } from '@mui/material'
 import styled from 'styled-components'
 
 import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
@@ -93,4 +94,20 @@ export const NoMembersCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+export const TeamDesktopModal = styled(Modal)`
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
+
+  @media screen and (max-width: 520px) {
+    display: none;
+  }
 `

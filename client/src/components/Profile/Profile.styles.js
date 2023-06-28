@@ -8,6 +8,7 @@ export const ProfileWrapper = styled.div`
   min-height: 100dvh;
   padding-left: 88px;
   background: #26292b;
+  position: relative;
 
   @media (max-width: 768px) {
     padding-left: 0;
@@ -19,11 +20,15 @@ export const ProfileContainer = styled.div`
   max-width: 800px;
   gap: 30px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 25px;
 
   @media (max-width: 1024px) {
     flex-direction: column;
     align-items: center;
+    margin: 114px 0 24px 0;
+  }
+
+  @media (max-width: 768px) {
     margin: 96px 0 24px 0;
   }
 `
@@ -42,5 +47,14 @@ export const ProfileSection = styled.div`
   @media (max-width: 1024px) {
     max-width: 470px;
     width: 100%;
+  }
+`
+
+export const LogoWrapper = styled.div`
+  position: absolute;
+  top: 48px;
+
+  @media (max-width: 768px) {
+    top: 32px;
   }
 `

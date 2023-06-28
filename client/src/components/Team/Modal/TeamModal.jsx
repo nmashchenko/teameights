@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Box, Modal } from '@mui/material'
+import { Box, Modal, Slide } from '@mui/material'
 
 import Close from '../../../assets/Shared/Close'
 import UserPlus from '../../../assets/Team/UserPlus'
@@ -24,7 +24,7 @@ import InteractiveModal from './ModalTypes/InteractiveModal'
 import TeamPreviewModal from './TeamPreviewModal/TeamPreviewModal'
 import TeamPreviewModalPhone from './TeamPreviewModalPhone/TeamPreviewModalPhone'
 import { MobileProfile } from './TeamPreviewModalPhone/TeamPreviewModalPhone.styles'
-import { Button } from './TeamModal.styles'
+import { Button, TeamDesktopModal } from './TeamModal.styles'
 
 const TeamModal = ({
   modalActive,
@@ -267,20 +267,22 @@ const TeamModal = ({
   return (
     <>
       {width > 600 && (
-        <Modal
+        <TeamDesktopModal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-          sx={{ backdropFilter: 'blur(5px)' }}
+          sx={{ zIndex: 100 }}
         >
-          <Box sx={boxStyle}>
-            <CloseContainerModal color={'#FFF'} onClick={handleClose}>
-              <Close />
-            </CloseContainerModal>
-            {handleModal()}
-          </Box>
-        </Modal>
+          <Slide direction="up" in={open}>
+            <Box sx={boxStyle}>
+              <CloseContainerModal color={'#FFF'} onClick={handleClose}>
+                <Close />
+              </CloseContainerModal>
+              {handleModal()}
+            </Box>
+          </Slide>
+        </TeamDesktopModal>
       )}
 
       {width <= 600 && (

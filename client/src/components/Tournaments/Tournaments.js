@@ -29,7 +29,7 @@ function TournamentsForm() {
         <SmallCardContainer justify="center" align="start" mr="69px">
           <Text fontSize="22px">Teameights cup #1</Text>
           <Text fontWeight="300">
-            <InnerText fontWeight="300" color="#5D9D0B">
+            <InnerText fontWeight="300" color="#5bd424">
               All roles &nbsp;
             </InnerText>
             are welcome!

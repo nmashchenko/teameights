@@ -22,15 +22,16 @@ import Page404Form from '../Forms/Page404Form/Page404Form'
 
 import ProfileInfo from './components/ProfileInfo/ProfileInfo'
 import ResumeInfo from './components/ResumeInfo/ResumeInfo'
-import { ProfileContainer, ProfileWrapper } from './Profile.styles'
+import { LogoWrapper, ProfileContainer, ProfileWrapper } from './Profile.styles'
 
 const Profile = () => {
   const navigate = useNavigate()
   const { id } = useParams()
   const { mutate: editUserDetails, isLoading } = useEditUserDetails()
   const { data, isLoading: isUserLoading, error } = useGetUserById(id)
+  const { data: currentUser, isFetching } = useCheckAuth()
 
-  const user = data?.data
+  const showingUser = data?.data
 
   const teamSearchHandler = () => {
     navigate('/teams')
@@ -50,7 +51,7 @@ const Profile = () => {
       frameworks,
     } = values
     const modifiedUserData = {
-      email: user.email,
+      email: showingUser.email,
       fullName,
       description,
       concentration,
@@ -68,31 +69,29 @@ const Profile = () => {
     editUserDetails(modifiedUserData)
   }
 
-  if (isLoading || isUserLoading) {
+  if (isLoading || isUserLoading || isFetching) {
     return <Loader />
   }
 
-  if ((!isUserLoading && !user) || error) {
-    return <Page404Form findText="Couldn't find the requested user." paddingLeft="88px" />
+  if ((!isUserLoading && !showingUser) || error) {
+    return <Page404Form findText="Couldn't find the requested showingUser." paddingLeft="88px" />
   }
 
-  /* Check if current userId is the same as passed in params */
-
-  /* If not, check if current user has team  */
+  /* If not, check if current showingUser has team and if team members have current id in array */
 
   return (
     <Formik
       initialValues={{
-        fullName: user?.fullName,
-        github: user?.links?.github,
-        linkedIn: user?.links?.linkedIn,
-        telegram: user?.links?.telegram,
-        description: user?.description,
-        concentration: user?.concentration,
-        country: user?.country,
-        experience: user?.experience,
-        programmingLanguages: user?.programmingLanguages,
-        frameworks: user?.frameworks,
+        fullName: showingUser?.fullName,
+        github: showingUser?.links?.github,
+        linkedIn: showingUser?.links?.linkedIn,
+        telegram: showingUser?.links?.telegram,
+        description: showingUser?.description,
+        concentration: showingUser?.concentration,
+        country: showingUser?.country,
+        experience: showingUser?.experience,
+        programmingLanguages: showingUser?.programmingLanguages,
+        frameworks: showingUser?.frameworks,
       }}
       validationSchema={editProfileValidation}
       onSubmit={handleSubmit}
@@ -103,12 +102,12 @@ const Profile = () => {
         return (
           <Form>
             <ProfileWrapper>
-              {/* <LogoContainer>
+              <LogoWrapper>
                 <PlatformLogo />
-              </LogoContainer> */}
+              </LogoWrapper>
               <ProfileContainer>
-                <ProfileInfo user={user} />
-                <ResumeInfo user={user} />
+                <ProfileInfo showingUser={showingUser} id={id} currentUser={currentUser} />
+                <ResumeInfo showingUser={showingUser} />
               </ProfileContainer>
             </ProfileWrapper>
           </Form>

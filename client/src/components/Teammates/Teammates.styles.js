@@ -66,7 +66,17 @@ export const InfoContainer = styled.div`
 `
 
 export const UserCardModal = styled(Modal)`
-  @media screen and (min-width: 0px) and (max-width: 520px) {
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
+
+  @media screen and (max-width: 520px) {
     display: none;
   }
 `

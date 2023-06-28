@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
+import { ThreeDots } from 'react-loader-spinner'
+import { useNavigate } from 'react-router-dom'
 
+import { useInviteUser } from '../../../../api/hooks/team/useInviteUser'
 import LongArrowLeft from '../../../../assets/Arrows/LongArrowLeft'
 import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
 // * Assets
@@ -8,6 +11,7 @@ import Close from '../../../../assets/Shared/Close'
 import Message from '../../../../assets/Shared/Message'
 import { frameworkColors, frameworkTextColors } from '../../../../constants/frameworkColors'
 import { languageOptions } from '../../../../constants/programmingLanguages'
+import { infoToaster } from '../../../../shared/components/Toasters/Info.toaster'
 import { calculateAge } from '../../../../utils/calculateAge'
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
 
@@ -24,7 +28,32 @@ import {
   UserImg,
 } from './UserProfile.styles'
 
-const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
+const UserProfilePhone = ({ currentUser, showingUser, mobileProfile, handleClose }) => {
+  const navigate = useNavigate()
+  const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
+
+  const handleInvite = () => {
+    const details = {
+      email: showingUser.email,
+      teamid: currentUser?.team?._id,
+      from_user_id: currentUser?._id,
+    }
+
+    inviteUser(details)
+  }
+
+  const showInviteButton = () => {
+    /** Check if current user has a team */
+    if (currentUser?.team) {
+      /** Check if  current user has showing user as team member  */
+      if (!currentUser?.team?.members?.some((member) => member === showingUser?._id)) {
+        return true
+      }
+    }
+
+    return false
+  }
+
   return (
     <MobileProfile anchor="bottom" open={mobileProfile} onClose={handleClose}>
       <MobileWrapper>
@@ -33,7 +62,11 @@ const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
             <LongArrowLeft />
             Back
           </Button>
-          <Button width="73px" background="none">
+          <Button
+            width="73px"
+            background="none"
+            onClick={() => navigate(`/profile/${showingUser._id}`)}
+          >
             Profile
             <LongArrowRight />
           </Button>
@@ -41,42 +74,65 @@ const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
         <FlexWrapper gap="24px" flexDirection="column" marginTop="32px">
           <FlexWrapper gap="32px">
             <div>
-              <UserImg src={user.image} alt={`${user?.username}'s image`} />
+              <UserImg src={showingUser.image} alt={`${showingUser?.showingUsername}'s image`} />
             </div>
             <FlexWrapper flexDirection="column" maxHeight="70px">
               <FlexWrapper gap="8px" alignItems="center" maxHeight="30px">
                 <Text fontSize="20px">
-                  {user?.fullName?.split(' ')[0]}, {calculateAge(user.dateOfBirth)}
+                  {showingUser?.fullName?.split(' ')[0]}, {calculateAge(showingUser.dateOfBirth)}
                 </Text>
-                {getCountryFlag(user.country) && <FlagIcon src={getCountryFlag(user.country)} />}
+                {getCountryFlag(showingUser?.country) && (
+                  <FlagIcon src={getCountryFlag(showingUser?.country)} />
+                )}
               </FlexWrapper>
               <Text fontSize="14px" color="#8F9094" fontWeight="400">
-                {user.concentration}
+                {showingUser?.concentration}
               </Text>
               <Text fontSize="14px" color="#8F9094" fontWeight="400">
-                {user.experience} years of experience
+                {showingUser?.experience} years of experience
               </Text>
             </FlexWrapper>
           </FlexWrapper>
-          <FlexWrapper justifyContent="space-between">
-            <FlexWrapper gap="8px">
-              <Button width="100%">
-                Invite
-                <AddUserIcon />
+          <FlexWrapper gap="8px" width="100%">
+            {showInviteButton() && (
+              <Button type="button" onClick={handleInvite} width="100%">
+                {isInviting ? (
+                  <ThreeDots
+                    height="24"
+                    width="24"
+                    radius="9"
+                    color="white"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                  />
+                ) : (
+                  <>
+                    Invite
+                    <AddUserIcon />
+                  </>
+                )}
               </Button>
-              <Button width="100%" background="none" border="2px solid #46A11B">
-                Message
-                <Message />
-              </Button>
-            </FlexWrapper>
+            )}
+
+            <Button
+              width="100%"
+              background="none"
+              border="2px solid #46A11B"
+              onClick={() => infoToaster('Coming in the next update!')}
+            >
+              Message
+              <Message />
+            </Button>
           </FlexWrapper>
-          {user?.description && (
+          {showingUser?.description && (
             <Text fontSize="16px" fontWeight="400">
-              {user.description}
+              {showingUser?.description}
             </Text>
           )}
           <FlexWrapper flexWrap="wrap" gap="8px">
-            {user?.frameworks?.map((framework) => (
+            {showingUser?.frameworks?.map((framework) => (
               <Framework
                 key={framework}
                 justifyContent="end"
@@ -90,7 +146,7 @@ const UserProfilePhone = ({ user, mobileProfile, handleClose }) => {
             ))}
           </FlexWrapper>
           <FlexWrapper flexWrap="wrap" gap="8px">
-            {user?.programmingLanguages?.map((language) => (
+            {showingUser?.programmingLanguages?.map((language) => (
               <LanguageContainer key={language} width="100%" flexBasis="50%">
                 {languageOptions[language]}
               </LanguageContainer>
