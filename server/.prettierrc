@@ -4,7 +4,7 @@
   "semi": true,
   "bracketSpacing": true,
   "arrowParens": "avoid",
-  "endOfLine": "lf",
+  "endOfLine": "auto",
   "tabWidth": 4,
   "useTabs": true,
   "parser": "typescript"

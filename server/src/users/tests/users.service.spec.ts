@@ -44,7 +44,8 @@ describe('UserService', () => {
 			imports: [
 				/* Loading the environment variables from the .env file. */
 				ConfigModule.forRoot({
-					envFilePath: `.dev.env`,
+					envFilePath: `.${process.env.NODE_ENV}.env`,
+					isGlobal: true,
 				}),
 				rootMongooseTestModule(),
 				MongooseModule.forFeature([
@@ -137,16 +138,19 @@ describe('UserService', () => {
 	});
 
 	it('should create user and update birthday date', async () => {
+		const users = await userService.getAllUsers();
+
+		console.log(users);
 		const user = await createUser();
 		expect(user.email).toBe('test@example.com');
 
 		const updateBirthdayData = {
 			email: 'test@example.com',
-			birthDate: new Date(2002, 0),
+			dateOfBirth: new Date(2002, 0),
 		};
 		// @ts-ignore
 		const updateUser = await userService.updateUser(updateBirthdayData);
-		expect(updateUser.birthDate).toEqual(updateBirthdayData.birthDate);
+		expect(updateUser.dateOfBirth).toEqual(updateBirthdayData.dateOfBirth);
 	});
 
 	it('should create user and then update university fields', async () => {

@@ -1,4 +1,4 @@
-import PlusIcon from '../../../../../../assets/PlusIcon'
+import PlusIcon from '../../../../../../assets/UserProfile/PlusIcon'
 
 import { EditButton } from './Edit.styles'
 

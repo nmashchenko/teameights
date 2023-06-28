@@ -12,6 +12,7 @@ import Exit from '../../assets/Sidebar/Exit'
 import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
+import IconWrapper from '../../shared/components/IconWrapper/IconWrapper'
 import Loader from '../../shared/components/Loader/Loader'
 
 // * Data
@@ -20,7 +21,7 @@ import NotificationsContent from './NotificationsContent/NotificationsContent'
 import Profile from './Profile/Profile'
 import { NavBarData } from './NavBar.data'
 import {
-  IconWrapper,
+  MobileNavBarIconWrapper,
   NavBarClose,
   NavBarCopyright,
   NavBarLogo,
@@ -38,6 +39,7 @@ const NavBar = () => {
 
   const { isAuth } = useSelector((state) => state.userReducer)
   const { data: user, isFetching: isUserDataLoading } = useCheckAuth()
+
   const [userNotifications, setUserNotifications] = useState(user?.notifications || [])
 
   const newNavData = [
@@ -45,7 +47,7 @@ const NavBar = () => {
     {
       title: 'Team',
       icon: <Team />,
-      path: user?.team ? '/myteam' : '/team',
+      path: user?.team ? `/team/${user.team._id}` : '/team',
     },
     ...NavBarData.slice(1),
   ]
@@ -53,7 +55,6 @@ const NavBar = () => {
   const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
   const navigate = useNavigate()
   const navMenuRef = useRef(null)
-  // let socketRef = useRef(null)
 
   useEffect(() => {
     if (user) {
@@ -112,6 +113,14 @@ const NavBar = () => {
 
   return (
     <>
+      {/* This will appear for screen width <= 768px */}
+      <MobileNavBarIconWrapper onClick={showSidebar} active={sidebar}>
+        <NavBarClose active={sidebar}>
+          <Close />
+        </NavBarClose>
+      </MobileNavBarIconWrapper>
+
+      {/* This will appear for screen width > 768px */}
       <NavWrapper active={sidebar}>
         <NavMenu ref={navMenuRef} onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
@@ -151,14 +160,14 @@ const NavBar = () => {
                 onClick={() => navigate('/auth/registration')}
                 color="white"
               >
-                <IconWrapper width="24px" height="24px">
+                <IconWrapper width="24px" height="24px" cursor="pointer">
                   <Exit />
                 </IconWrapper>
                 <p>Login</p>
               </NavInteractBtn>
             ) : (
               <NavInteractBtn active={sidebar} onClick={handleUseLogout}>
-                <IconWrapper width="24px" height="24px">
+                <IconWrapper width="24px" height="24px" cursor="pointer">
                   <Exit />
                 </IconWrapper>
                 <p>Logout</p>

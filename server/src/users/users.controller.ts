@@ -2,7 +2,9 @@ import {
 	Body,
 	Controller,
 	Get,
+	Ip,
 	Param,
+	Post,
 	Put,
 	Query,
 	Req,
@@ -10,6 +12,7 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 import { Request } from 'express';
 import mongoose from 'mongoose';
 import * as qs from 'qs';
@@ -17,6 +20,7 @@ import * as qs from 'qs';
 import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
 import { ValidationPipe } from '@/pipes/validation.pipe';
 
+import { BetaSignUpDto } from './dto/beta-sign-up.dto';
 import { Results } from './dto/results.dto';
 import { UpdateAvatarDto } from './dto/update-avatar.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -24,12 +28,14 @@ import { User } from './users.schema';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')
+@SkipThrottle()
 @Controller('/users')
 export class UsersController {
 	constructor(private userService: UsersService) {}
 
 	@ApiOperation({
-		summary: 'Get specific user by email, returns null in case nothing found',
+		summary:
+			'Get specific user by email, returns null in case nothing found',
 	})
 	@ApiResponse({ status: 200, type: User })
 	@Get('/get-by-email/:email')
@@ -45,6 +51,15 @@ export class UsersController {
 	@Get('/get-by-username/:username')
 	getByUsername(@Param('username') username: string): Promise<User> {
 		return this.userService.getUserByUsername(username);
+	}
+
+	@ApiOperation({
+		summary: 'Get partial best match usernames',
+	})
+	@ApiResponse({ status: 200, type: [User] })
+	@Get('/partial/:username')
+	getPartialUsernames(@Param('username') username: string): Promise<User[]> {
+		return this.userService.getPartialUsernames(username);
 	}
 
 	@ApiOperation({
@@ -115,7 +130,11 @@ export class UsersController {
 		/* Parsing the query string into an object. */
 		const parsedQuery = qs.parse(filtersQuery);
 
-		return this.userService.getFilteredUsersByPage(page, limit, parsedQuery);
+		return this.userService.getFilteredUsersByPage(
+			page,
+			limit,
+			parsedQuery,
+		);
 	}
 
 	@UsePipes(ValidationPipe)
@@ -138,5 +157,19 @@ export class UsersController {
 	@Put('/update-avatar')
 	updateAvatar(@Body() dto: UpdateAvatarDto): Promise<string> {
 		return this.userService.updateAvatar(dto);
+	}
+
+	@UsePipes(ValidationPipe)
+	@ApiOperation({
+		summary: 'Sign up user to beta test',
+	})
+	@ApiResponse({ status: 200, type: String })
+	@SkipThrottle(false)
+	@Post('/beta/sign-up')
+	addUserToBetaTestList(
+		@Body() dto: BetaSignUpDto,
+		@Ip() ip: any,
+	): Promise<string> {
+		return this.userService.addUserToBetaTestList(dto, ip);
 	}
 }

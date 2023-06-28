@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 
 // * Assets
-import Page404 from '../../../assets/Page404'
+import Page404 from '../../../assets/Shared/SearchingPeople'
 
 // * Styles
 import {
@@ -14,11 +14,11 @@ import {
   Text,
 } from './Page404Form.styles'
 
-const Page404Form = () => {
+const Page404Form = ({ paddingLeft = '0', findText = `Couldn't find the requested page.` }) => {
   const navigate = useNavigate()
 
   return (
-    <Container>
+    <Container paddingLeft={paddingLeft}>
       <InfoContainer>
         <LeftContainer>
           <Text fontWeight="600" fontSize="7rem" textAlign="left">
@@ -26,7 +26,7 @@ const Page404Form = () => {
           </Text>
           <Text>Oops... it looks like you're lost.</Text>
           <Text fontWeight="400" fontSize="1rem">
-            Couldn't find the requested page.
+            {findText}
           </Text>
           <Button onClick={() => navigate('/', { replace: true })}>Return Home</Button>
         </LeftContainer>

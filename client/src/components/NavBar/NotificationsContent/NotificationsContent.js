@@ -2,7 +2,8 @@
 import { memo, useEffect } from 'react'
 
 import Notification from '../../../assets/Sidebar/Notification'
-import { IconWrapper, NavInteractBtn } from '../NavBar.styles'
+import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
+import { NavInteractBtn } from '../NavBar.styles'
 import NotificationsModal from '../NotificationsModal/NotificationsModal'
 
 // this component styles
@@ -23,14 +24,14 @@ const NotificationsContent = ({
         onClick={() => setNotificationModal((prev) => !prev)}
         active={sidebar}
       >
-        <IconWrapper width="24px" height="24px">
+        <IconWrapper width="24px" height="24px" cursor="pointer">
           <Notification />
         </IconWrapper>
         <p>Notifications</p>
         {!!unreadMessages.length && !notificationModal && (
           <>
             <NotificationsCount
-              active={!sidebar}
+              pointerEvents={!sidebar}
               top="6px"
               left="28px"
               animate={{ scale: [1, 1.5, 1] }}

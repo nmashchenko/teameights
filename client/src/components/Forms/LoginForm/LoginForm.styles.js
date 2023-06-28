@@ -8,13 +8,6 @@ import styled from 'styled-components'
 // * Constants
 import { BLACK, BLUE, GREEN, WHITE } from '../../../constants/colors'
 
-export const NavBar = styled(Toolbar)`
-  &.css-hyum1k-MuiToolbar-root {
-    background: ${BLACK.background};
-    padding: 30px 40px;
-  }
-`
-
 export const LoginContainer = styled.div`
   width: 100%;
   min-height: 100vh;

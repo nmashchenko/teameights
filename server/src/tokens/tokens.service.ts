@@ -85,7 +85,9 @@ export class TokensService {
 		// * his Ipad, he will be automatically logged out on PC
 		const tokenData =
 			typeof session !== 'undefined'
-				? await this.tokenModel.findOne({ user: userId }).session(session)
+				? await this.tokenModel
+						.findOne({ user: userId })
+						.session(session)
 				: await this.tokenModel.findOne({ user: userId });
 		if (tokenData) {
 			tokenData.refreshToken = refreshToken;

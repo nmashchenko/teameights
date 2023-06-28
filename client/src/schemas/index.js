@@ -2,7 +2,7 @@
 import * as yup from 'yup'
 
 const regMatch =
-  /^((http|https):\/\/)?(www.)?(?!.*(http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+(\/)?.([\w\?[a-zA-Z-_%\/@?]+)*([^\/\w\?[a-zA-Z0-9_-]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/
+  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
 
@@ -34,11 +34,13 @@ export const finishRegistrationValidation = [
     {
       username: yup.string().required('Please input your username').max(20),
       fullName: yup.string().required('Please input your name').min(8).max(20),
-      age: yup
-        .number()
-        .required('Please input your age')
-        .typeError('Age must be a number')
-        .positive('Age must be greater than zero'),
+      dateOfBirth: yup
+        .string()
+        .matches(
+          /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/,
+          'Invalid date format. Please enter a date in the format dd/mm/yyyy',
+        )
+        .required('Please input your birthday'),
       country: yup.string().required('Please choose your country!'),
       description: yup.string().when('description', (value) => {
         if (value) {
@@ -61,12 +63,13 @@ export const finishRegistrationValidation = [
     leader: yup.string().required('Decide if you want to be a leader'),
   }),
   yup.object().shape({
-    university: yup
+    degree: yup
       .string()
-      .when(['major', 'graduationDate'], {
-        is: (major, graduationDate) => !major && !graduationDate,
+      .when(['university', 'major', 'addmissionDate', 'graduationDate'], {
+        is: (major, university, addmissionDate, graduationDate) =>
+          !major && !university && !addmissionDate && !graduationDate,
         then: yup.string(),
-        otherwise: yup.string().required('Please input your educational institution'),
+        otherwise: yup.string().required('Please input your degree'),
       })
       .matches(/^[aA-zZ\s]+$/, {
         message: 'Only alphabets are allowed for this field',
@@ -74,15 +77,15 @@ export const finishRegistrationValidation = [
       .nullable(),
     major: yup
       .string()
-      .test('all-required', 'Please fill out all fields', function (value) {
-        const { university, graduationDate } = this.parent
+      .test('all-required', 'Please input your major', function () {
+        const { major, degree, graduationDate, addmissionDate, university } = this.parent
 
-        if (!university && !graduationDate && !value) {
+        if (!degree && !addmissionDate && !university && !graduationDate) {
           return true
-        } else if (!university || !graduationDate || !value) {
-          return false
+        } else if (major) {
+          return true
         } else {
-          return true
+          return false
         }
       })
       .matches(/^[aA-zZ\s]+$/, {
@@ -90,18 +93,125 @@ export const finishRegistrationValidation = [
         excludeEmptyString: true,
       })
       .nullable(),
+    university: yup
+      .string()
+      .test('all-required', 'Please input your university', function () {
+        const { major, degree, graduationDate, addmissionDate, university } = this.parent
+
+        if (!degree && !major && !addmissionDate && !graduationDate) {
+          return true
+        } else if (university) {
+          return true
+        } else {
+          return false
+        }
+      })
+      .matches(/^[aA-zZ\s]+$/, {
+        message: 'Only alphabets are allowed for this field',
+        excludeEmptyString: true,
+      })
+      .nullable(),
+    addmissionDate: yup
+      .string()
+      .test('all-required', 'Please input admission date', function () {
+        const { major, degree, university, graduationDate, addmissionDate } = this.parent
+
+        if (!degree && !major && !university && !graduationDate) {
+          return true
+        } else if (addmissionDate) {
+          return true
+        } else {
+          return false
+        }
+      })
+      .matches(/^[0-9]*$/, {
+        message: 'Only numbers are allowed for this field',
+        excludeEmptyString: true,
+      })
+      .nullable(),
     graduationDate: yup
       .string()
-      .test('all-required', 'Please fill out all fields', function (value) {
-        const { university, major } = this.parent
+      .test('all-required', 'Please input graduation date', function () {
+        const { major, degree, university, addmissionDate, graduationDate } = this.parent
 
-        if ((!university && !value && !university) || !major) {
+        if (!degree && !major && !university && !addmissionDate) {
           return true
-        } else if (!university || !major || !value) {
-          return false
+        } else if (graduationDate) {
+          return true
         } else {
-          return true
+          return false
         }
+      })
+      .matches(/^[0-9]*$/, {
+        message: 'Only numbers are allowed for this field',
+        excludeEmptyString: true,
+      })
+      .nullable(),
+  }),
+  yup.object().shape({
+    title: yup
+      .string()
+      .when(['company', 'startDate', 'endDate'], {
+        is: (company, startDate, endDate) => !company && !startDate && !endDate,
+        then: yup.string(),
+        otherwise: yup.string().required('Please input your title'),
+      })
+      .matches(/^[aA-zZ\s]+$/, {
+        message: 'Only alphabets are allowed for this field',
+      })
+      .nullable(),
+    company: yup
+      .string()
+      .test('all-required', 'Please input your company', function () {
+        const { title, company, startDate, endDate } = this.parent
+
+        if (!title && !startDate && !endDate) {
+          return true
+        } else if (company) {
+          return true
+        } else {
+          return false
+        }
+      })
+      .matches(/^[aA-zZ\s]+$/, {
+        message: 'Only alphabets are allowed for this field',
+        excludeEmptyString: true,
+      })
+      .nullable(),
+    startDate: yup
+      .string()
+      .test('all-required', 'Please input start date', function () {
+        const { title, company, startDate, endDate } = this.parent
+
+        if (!title && !company && !endDate) {
+          return true
+        } else if (startDate) {
+          return true
+        } else {
+          return false
+        }
+      })
+      .matches(/^[0-9]*$/, {
+        message: 'Only numbers are allowed for this field',
+        excludeEmptyString: true,
+      })
+      .nullable(),
+    endDate: yup
+      .string()
+      .test('all-required', 'Please input end date', function () {
+        const { title, company, startDate, endDate } = this.parent
+
+        if (!title && !company && !startDate) {
+          return true
+        } else if (endDate) {
+          return true
+        } else {
+          return false
+        }
+      })
+      .matches(/^[0-9]*$/, {
+        message: 'Only numbers are allowed for this field',
+        excludeEmptyString: true,
       })
       .nullable(),
   }),
@@ -137,14 +247,22 @@ export const finishRegistrationValidation = [
           return yup.string().notRequired()
         }
       }),
-      // instagram: yup.string().matches(regMatch, {//   message: 'Instagram link should be a valid URL',
-      //   excludeEmptyString: true,
-      // }),
+      behance: yup.string().when('behance', (value) => {
+        if (value) {
+          return yup
+            .string()
+            .required()
+            .matches(regMatch, { message: 'Behance link should be a valid URL' })
+        } else {
+          return yup.string().notRequired()
+        }
+      }),
     },
     [
       ['github', 'github'],
       ['linkedIn', 'linkedIn'],
       ['telegram', 'telegram'],
+      ['behance', 'behance'],
     ],
   ),
   userFileValidation,
@@ -170,9 +288,9 @@ export const createTeamValidation = [
       ['description', 'description'],
     ],
   ),
-  // yup.object().shape({
-  //   members: yup.object(),
-  // }),
+  yup.object().shape({
+    members: yup.array().max(8),
+  }),
   userFileValidation,
 ]
 
@@ -229,3 +347,8 @@ export const editProfileValidation = yup.object().shape(
     ['telegram', 'telegram'],
   ],
 )
+
+export const editTeamValidation = yup.object().shape({
+  name: yup.string().max(20, '20 characters max'),
+  tag: yup.string().max(5),
+})

@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsDefined, IsNotEmpty, IsString } from 'class-validator';
+import {
+	IsDate,
+	IsDateString,
+	IsDefined,
+	IsNotEmpty,
+	IsOptional,
+	IsString,
+} from 'class-validator';
 
 export class JobDataDto {
 	@ApiProperty({ example: 'SWE', description: 'Job title' })
@@ -21,7 +28,7 @@ export class JobDataDto {
 		example: `2016-05-18T14:10:30Z`,
 		description: 'startDate in UTC',
 	})
-	@IsDate()
+	@IsDateString()
 	@IsNotEmpty({ message: 'Should not be empty' })
 	@IsDefined()
 	readonly startDate: Date;
@@ -32,7 +39,8 @@ export class JobDataDto {
 	})
 	@IsString({ message: 'Should be string' })
 	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsDate()
+	@IsDateString()
 	@IsDefined()
+	@IsOptional()
 	readonly endDate: Date;
 }

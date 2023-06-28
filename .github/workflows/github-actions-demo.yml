@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: 🪖 Creating .dev.env for nodemailer
+      - name: 🪖 Creating .dev.env for nodemailer/aws
         working-directory: ./server
         run: |
           touch .dev.env
@@ -26,6 +26,9 @@ jobs:
           echo SMTP_USER=${{ secrets.SMTP_USER }} >> .dev.env
           echo SMTP_PASS=${{ secrets.SMTP_PASS }} >> .dev.env
           echo SMTP_PORT=${{ secrets.SMTP_PORT }} >> .dev.env
+          echo AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} >> .dev.env
+          echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .dev.env
+          echo AWS_S3_REGION=${{ secrets.AWS_S3_REGION }} >> .dev.env
           cat .dev.env
       - name: 🎧 Install modules
         working-directory: ./server

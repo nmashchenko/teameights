@@ -1,23 +1,29 @@
-import { useRef, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 
 import { useReadMessages } from '../../../api/hooks/sidebar/useReadMessages'
 import Checks from '../../../assets/Sidebar/Checks'
-import Cross from '../../../assets/Sidebar/Cross'
+import NotificationClose from '../../../assets/Sidebar/NotificationClose'
+import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import { useOutsideClick } from '../../../hooks/useOutsideClick'
-import { IconWrapper } from '../NavBar.styles'
+import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
 import NotificationsList from '../NotificationsList/NotificationsList'
 
 import {
   CrossBtn,
   MarkAllBtn,
+  MarkAllBtnMobile,
+  MobileNotificationsModal,
+  MobileWrapper,
   NotificationsHeader,
   StyledNotificationsModal,
+  Text,
 } from './NotificationsModal.styles'
 
 const NotificationsModal = ({ userNotifications, notificationModal, setNotificationModal }) => {
   const [unreadIds, setUnreadIds] = useState(new Set())
   const notificationModalRef = useRef(null)
   const { mutateAsync: readMessages } = useReadMessages()
+  const width = useGetScreenWidth()
 
   useOutsideClick(notificationModalRef, closeNotificationsModal)
 
@@ -63,33 +69,70 @@ const NotificationsModal = ({ userNotifications, notificationModal, setNotificat
   }
 
   return (
-    <StyledNotificationsModal
-      ref={notificationModalRef}
-      active={notificationModal}
-      onClick={(e) => e.stopPropagation()}
-      animate={notificationModal ? 'open' : 'closed'}
-      variants={variants}
-      initial={false}
-    >
-      <NotificationsHeader>
-        <MarkAllBtn onClick={markAllAsRead}>
-          <IconWrapper width="20px" height="20px">
-            <Checks />
-          </IconWrapper>
-          <p>Mark all as read</p>
-        </MarkAllBtn>
-        <CrossBtn width="20px" height="20px" onClick={closeNotificationsModal}>
-          <Cross />
-        </CrossBtn>
-      </NotificationsHeader>
-      {notificationModal && (
-        <NotificationsList
-          userNotifications={userNotifications}
-          closeNotificationsModal={closeNotificationsModal}
-          setUnreadIds={setUnreadIds}
-        />
+    <>
+      {width > 670 && (
+        <StyledNotificationsModal
+          ref={notificationModalRef}
+          active={notificationModal.toString()}
+          onClick={(e) => e.stopPropagation()}
+          animate={notificationModal ? 'open' : 'closed'}
+          variants={variants}
+          initial={false}
+        >
+          <NotificationsHeader>
+            <MarkAllBtn onClick={markAllAsRead}>
+              <IconWrapper width="20px" height="20px">
+                <Checks />
+              </IconWrapper>
+              <p>Mark all as read</p>
+            </MarkAllBtn>
+            <CrossBtn width="20px" height="20px" onClick={closeNotificationsModal}>
+              <NotificationClose />
+            </CrossBtn>
+          </NotificationsHeader>
+          {notificationModal && (
+            <NotificationsList
+              userNotifications={userNotifications}
+              closeNotificationsModal={closeNotificationsModal}
+              setUnreadIds={setUnreadIds}
+            />
+          )}
+        </StyledNotificationsModal>
       )}
-    </StyledNotificationsModal>
+      {width <= 670 && (
+        <MobileNotificationsModal
+          anchor="bottom"
+          open={notificationModal}
+          onClose={() => setNotificationModal(false)}
+          transitionDuration={400}
+        >
+          <MobileWrapper>
+            <div>
+              <NotificationsHeader>
+                <Text>Notifications</Text>
+                <CrossBtn width="14px" height="14px" onClick={closeNotificationsModal}>
+                  <NotificationClose />
+                </CrossBtn>
+              </NotificationsHeader>
+              {notificationModal && (
+                <NotificationsList
+                  userNotifications={userNotifications}
+                  closeNotificationsModal={closeNotificationsModal}
+                  setUnreadIds={setUnreadIds}
+                />
+              )}
+            </div>
+
+            <MarkAllBtnMobile onClick={markAllAsRead}>
+              <IconWrapper width="20px" height="20px">
+                <Checks />
+              </IconWrapper>
+              <p>Mark all as read</p>
+            </MarkAllBtnMobile>
+          </MobileWrapper>
+        </MobileNotificationsModal>
+      )}
+    </>
   )
 }
 

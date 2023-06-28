@@ -31,6 +31,22 @@ export class TeamsService {
 		private readonly mailService: MailsService,
 	) {}
 
+	private getPath = (url: string, fileType: string): string => {
+		// Extracting type
+		const typeRegex = /\/([^/]+)\/[^/]+$/;
+		const typeMatch = url.match(typeRegex);
+		const type = typeMatch ? typeMatch[1] : null;
+
+		// Extracting filename
+		const filenameRegex = /\/([^/]+)$/;
+		const filenameMatch = url.match(filenameRegex);
+		const filename = filenameMatch ? filenameMatch[1] : null;
+
+		console.log(`${type}/${filename}`);
+
+		return `${fileType}/${type}/${filename}`;
+	};
+
 	/* The above code is defining a TypeScript arrow function named `isArrayOfNumbers` that takes an
 	argument `members` of type `any` and returns a boolean value. The function checks if the `members`
 	argument is an array and has a length of either 1 or 2. If the conditions are met, the function
@@ -109,9 +125,9 @@ export class TeamsService {
 		await this.userService.addTeam(candidate._id, team._id);
 
 		/* Check if there are any members to invite. */
-		if (dto?.members?.emails.length > 0) {
+		if (dto?.members?.emails.length > 1) {
 			/* Inviting all the members of the team to the team. */
-			for (let i = 0; i < dto.members.emails.length; i++) {
+			for (let i = 1; i < dto.members.emails.length; i++) {
 				const candidate = {
 					email: dto.members.emails[i],
 					from_user_id: dto.leader,
@@ -141,10 +157,17 @@ export class TeamsService {
 	 * @returns A team object
 	 */
 	async getTeamById(id: mongoose.Types.ObjectId): Promise<Team> {
-		return await this.teamModel
-			.findById(id)
-			.populate('members')
-			.populate('leader');
+		try {
+			return await this.teamModel
+				.findById(id)
+				.populate('members')
+				.populate('leader');
+		} catch (err) {
+			throw new HttpException(
+				`Team with this id: ${id} not found`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
 	}
 
 	/**
@@ -165,13 +188,15 @@ export class TeamsService {
 
 		/* Checking if the user has an image. If it does, it is removing the image. */
 		if (candidateTeam.image) {
-			await this.filesService.removeFile(candidateTeam.image);
+			const path = this.getPath(candidateTeam.image, 'image');
+			await this.filesService.removeFromS3(path, 'teameights');
 		}
 
 		/* Creating a file in the static folder. */
 		const filePath = await this.filesService.createFile(
 			FileType.TEAMS,
 			dto.image,
+			'teameights',
 		);
 
 		/* Updating the user with the given email with the new data and returning the updated user. */
@@ -182,6 +207,13 @@ export class TeamsService {
 		);
 
 		return updatedTeam;
+	}
+
+	async getAllTeams(): Promise<Team[]> {
+		return await this.teamModel
+			.find({ type: TeamType.OPEN })
+			.populate('members')
+			.populate('leader');
 	}
 
 	/**
@@ -239,8 +271,6 @@ export class TeamsService {
 		/* A type assertion. */
 		const results = {} as Results;
 
-		console.log(parsedQuery);
-
 		/* The above code is checking if the parsed query has a "members" property. If it does, it checks the
 		length of the "members" array. If the length is 1, it replaces the "members" property with a MongoDB
 		query that checks for the size of the "members" array. If the length is 2, it adds a ""
@@ -260,10 +290,16 @@ export class TeamsService {
 				parsedQuery.$expr = {
 					$and: [
 						{
-							$gte: [{ $size: '$members' }, Number(parsedQuery.members[0])],
+							$gte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[0]),
+							],
 						},
 						{
-							$lte: [{ $size: '$members' }, Number(parsedQuery.members[1])],
+							$lte: [
+								{ $size: '$members' },
+								Number(parsedQuery.members[1]),
+							],
 						},
 					],
 				};
@@ -408,7 +444,9 @@ export class TeamsService {
 		userId: mongoose.Types.ObjectId,
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<void> {
-		console.log(`Removing notification ${notificationid} from user ${userId}`);
+		console.log(
+			`Removing notification ${notificationid} from user ${userId}`,
+		);
 		/* Removing the notification from the database. */
 		await this.notificationsService.removeNotification(notificationid);
 
@@ -427,7 +465,9 @@ export class TeamsService {
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(notificationid);
+			await this.notificationsService.getTeamNotificationById(
+				notificationid,
+			);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -512,7 +552,9 @@ export class TeamsService {
 		notificationid: mongoose.Types.ObjectId,
 	): Promise<StatusResponseDto> {
 		const notification =
-			await this.notificationsService.getTeamNotificationById(notificationid);
+			await this.notificationsService.getTeamNotificationById(
+				notificationid,
+			);
 
 		if (!notification) {
 			/* Checking if the user has the notification. If it does, it is removing it. */
@@ -549,7 +591,10 @@ export class TeamsService {
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -605,12 +650,15 @@ export class TeamsService {
 	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
 	 * @returns The updated team.
 	 */
-	async leaveTeam(dto: TeamMembershipDTO): Promise<Team> {
+	async leaveTeam(dto: TeamMembershipDTO): Promise<Team | void> {
 		const candidate = await this.userService.getUserById(dto.user_id);
 
 		/* Checking if the user exists. If it doesn't, it is throwing an error. */
 		if (!candidate) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		/* Checking if the user already has a team. If it does, it is throwing an error. */
@@ -642,6 +690,28 @@ export class TeamsService {
 
 		// TODO: in the future, check if user is signed up for the tournament before allowing to leave the team
 
+		/* The above code is checking if a team leader is trying to leave a team that has other members in it.
+		If so, it throws an HTTP exception with a message indicating that the leader cannot leave the team
+		before removing all players. */
+		if (team.leader._id.equals(candidate._id) && team.members.length > 1) {
+			throw new HttpException(
+				`${candidate.username} can't leave the team before removing all players`,
+				HttpStatus.BAD_REQUEST,
+			);
+		}
+
+		/* The above code is checking if a candidate is the only member of a team and also the leader of that
+		team. If both conditions are true, it deletes the team from the database using the team's ID and
+		removes the team from the candidate's list of teams using the candidate's ID. */
+		if (
+			team.leader._id.equals(candidate._id) &&
+			team.members.length === 1
+		) {
+			await this.teamModel.findOneAndDelete({ _id: team._id });
+
+			return this.userService.removeTeam(candidate._id);
+		}
+
 		/* Removing the user to the team. */
 		const updated = await this.teamModel.findOneAndUpdate(
 			{ _id: team._id },
@@ -661,26 +731,39 @@ export class TeamsService {
 	 * @returns The updated team.
 	 */
 	async updateTeam(dto: UpdateTeamDto): Promise<Team> {
-		// check if dto has extra fields that we don't want to allow
-		const filteredDto = await teamUpdateValidate(dto);
+		try {
+			// check if dto has extra fields that we don't want to allow
+			const filteredDto = await teamUpdateValidate(dto);
 
-		const team = await this.getTeamById(dto.teamid);
+			const team = await this.getTeamById(dto.teamid);
 
-		if (!team) {
-			throw new HttpException(
-				`The team with id: ${dto.teamid} does not exist`,
-				HttpStatus.BAD_REQUEST,
+			if (!team) {
+				throw new HttpException(
+					`The team with id: ${dto.teamid} does not exist`,
+					HttpStatus.BAD_REQUEST,
+				);
+			}
+
+			/* Updating the team with the given teamid with the new data and returning the updated team. */
+			const updated = await this.teamModel.findOneAndUpdate(
+				{ _id: dto.teamid },
+				{ ...filteredDto },
+				{ new: true },
 			);
+
+			return updated;
+		} catch (error) {
+			if (error.name === 'MongoServerError' && error.code === 11000) {
+				// Handle the MongoDB error accordingly
+				throw new HttpException(
+					'This tag is already taken, please choose a different one.',
+					HttpStatus.BAD_REQUEST,
+				);
+			} else {
+				// Handle the regular error accordingly
+				throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+			}
 		}
-
-		/* Updating the team with the given teamid with the new data and returning the updated team. */
-		const updated = await this.teamModel.findOneAndUpdate(
-			{ _id: dto.teamid },
-			{ ...filteredDto },
-			{ new: true },
-		);
-
-		return updated;
 	}
 
 	/**
@@ -690,7 +773,7 @@ export class TeamsService {
 	 * @param {TeamMembershipDTO} dto - TeamMembershipDTO
 	 * @returns Team
 	 */
-	async removeMember(dto: TeamMembershipDTO): Promise<Team> {
+	async removeMember(dto: TeamMembershipDTO): Promise<Team | void> {
 		return await this.leaveTeam(dto);
 	}
 
@@ -741,13 +824,21 @@ export class TeamsService {
 		// check if leader is valid user
 		const leader = await this.userService.getUserById(dto.leader_id);
 		if (!leader) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		// check if new_leader is valid user
-		const new_leader = await this.userService.getUserById(dto.new_leader_id);
+		const new_leader = await this.userService.getUserById(
+			dto.new_leader_id,
+		);
 		if (!new_leader) {
-			throw new HttpException(`User was not found`, HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				`User was not found`,
+				HttpStatus.BAD_REQUEST,
+			);
 		}
 
 		// check if both leader and new_leader belogn to the same team
@@ -781,5 +872,9 @@ export class TeamsService {
 		// TODO: add notification here to new leader that he is now leader of the team
 
 		return newTeam;
+	}
+
+	async getByTag(tag: string): Promise<Team> {
+		return await this.teamModel.findOne({ tag: tag });
 	}
 }

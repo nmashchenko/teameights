@@ -6,34 +6,32 @@ import { Form, Formik } from 'formik'
 import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
 import { useEditUserDetails } from '../../../../api/hooks/auth/useEditUserDetails'
 import { useGetTeamData } from '../../../../api/hooks/team/useGetTeamData'
-import EditIcon from '../../../../assets/EditIcon'
+import EditIcon from '../../../../assets/Shared/EditIcon'
 import Email from '../../../../assets/UserProfile/Email'
 import Github from '../../../../assets/UserProfile/Github'
 import Linkedin from '../../../../assets/UserProfile/Linkedin'
 import Location from '../../../../assets/UserProfile/Location'
 import Star from '../../../../assets/UserProfile/Star'
+import { Framework } from '../../../../components/Teammates/components/UserCard/UserCard.styles'
 import concentrationOptions from '../../../../constants/concentrations'
 import { userExperienceOptions } from '../../../../constants/finishRegistrationData'
+import { frameworkColors, frameworkTextColors } from '../../../../constants/frameworkColors'
 import frameworkOptions from '../../../../constants/frameworks'
-import programmingLanguageOptions from '../../../../constants/programmingLanguages'
+import {
+  languageOptions,
+  programmingLanguageOptions,
+} from '../../../../constants/programmingLanguages'
 import ROUTES from '../../../../constants/routes'
 import { usePrompt } from '../../../../hooks/usePrompt'
 import { LOCAL_PATH } from '../../../../http'
 import { editProfileValidation } from '../../../../schemas'
-import {
-  frameworkColors,
-  frameworkTextColors,
-} from '../../../../screens/UsersList/components/UserCard/FrameworkColors'
-import languageOptions from '../../../../screens/UsersList/components/UserCard/ProgrammingLanguages'
-import { Framework } from '../../../../screens/UsersList/components/UserCard/UserCard.styles'
 import CustomButton from '../../../../shared/components/CustomButton/CustomButton'
-import CustomInput from '../../../../shared/components/CustomInput/CustomInput'
-import CustomSelect from '../../../../shared/components/CustomSelect/CustomSelect'
-import CustomTextArea from '../../../../shared/components/CustomTextArea/CustomTextArea'
+import CustomInput from '../../../../shared/components/Formik/CustomInput/CustomInput'
+import CustomSelect from '../../../../shared/components/Formik/CustomSelect/CustomSelect'
+import CustomTextArea from '../../../../shared/components/Formik/CustomTextArea/CustomTextArea'
 import Loader from '../../../../shared/components/Loader/Loader'
 import { Button } from '../../../../shared/styles/Button.styles'
 import { ErrorMessage } from '../../../../shared/styles/Tpography.styles'
-import Photo from '../../Photo.jpg'
 import {
   BannerLine,
   DetailsWrapper,
@@ -150,7 +148,7 @@ const ProfileForm = () => {
             <Information>
               <LeftCard>
                 <ImgContainer>
-                  <Img src={user.image ? LOCAL_PATH + '/' + user.image : Photo} />
+                  <Img src={user.image} />
                   <EditUserDetails onClick={stopEditing}>
                     <EditIcon />
                   </EditUserDetails>
