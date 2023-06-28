@@ -25,6 +25,8 @@ import { UsersService } from '@/users/users.service';
 
 import { User, UserSchema } from '../users.schema';
 import { RegisterUserDtoStub } from './stubs/register-user.dto.stub';
+import { UsersModule } from '../users.module';
+import { v4 as uuidv4 } from 'uuid';
 
 describe('UserService', () => {
 	let userService: UsersService;
@@ -45,8 +47,12 @@ describe('UserService', () => {
 					envFilePath: `.dev.env`,
 				}),
 				rootMongooseTestModule(),
-				MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-				MongooseModule.forFeature([{ name: Role.name, schema: RoleSchema }]),
+				MongooseModule.forFeature([
+					{ name: User.name, schema: UserSchema },
+				]),
+				MongooseModule.forFeature([
+					{ name: Role.name, schema: RoleSchema },
+				]),
 				/* Serving the static files. */
 				ServeStaticModule.forRoot({
 					rootPath: path.resolve(__dirname, 'static'),
@@ -93,12 +99,31 @@ describe('UserService', () => {
 	});
 
 	async function createUser(email = 'test@example.com'): Promise<User> {
+		const userRole = await rolesService.getRoleByValue('USER');
+		if (!userRole) {
+			await rolesService.createRole({
+				value: 'USER',
+				description: 'User role',
+			});
+		}
+		return await userService.createUser(RegisterUserDtoStub(email));
+	}
+
+	async function createMultipleUsers(amount: number): Promise<User[]> {
 		await rolesService.createRole({
 			value: 'USER',
 			description: 'User role',
 		});
+		const users = new Array<User>();
 
-		return await userService.createUser(RegisterUserDtoStub(email));
+		for (let i = 0; i < amount; i++) {
+			const user = await userService.createUser(
+				RegisterUserDtoStub(uuidv4().substring(0, 8) + `@gmail.com`),
+			);
+			users.push(user);
+		}
+
+		return users;
 	}
 
 	it('should be defined', () => {
@@ -180,7 +205,9 @@ describe('UserService', () => {
 		// compare all fields
 		expect(updateUser.jobData[0].title).toBe(updateJobData.jobData.title);
 
-		expect(updateUser.jobData[0].company).toBe(updateJobData.jobData.company);
+		expect(updateUser.jobData[0].company).toBe(
+			updateJobData.jobData.company,
+		);
 
 		expect(updateUser.jobData[0].startDate).toEqual(
 			updateJobData.jobData.startDate,
@@ -190,4 +217,85 @@ describe('UserService', () => {
 			updateJobData.jobData.endDate,
 		);
 	});
+	//Testing verifyActivationLink
+	it('should create a link and check it', async () => {
+		const user = await createUser();
+		const activationLink = user.activationLink;
+		await userService.verifyActivationLink(activationLink);
+		const updateUser = await userService.getUserByEmail(user.email);
+		expect(updateUser.isActivated).toBe(true);
+	});
+	//Check by Email function
+	it('should create user and check by Email', async () => {
+		const user = await createUser();
+		const candidate = await userService.getUserByEmail(user.email);
+		expect(candidate.email).toEqual(user.email);
+	});
+	//Check by username function
+	it('should create user and find by username', async () => {
+		const user = await createUser();
+		const candidate = await userService.getUserByUsername(user.username);
+		expect(candidate.username).toEqual(user.username);
+	});
+	//Check user by id
+	it('should create user and find by id', async () => {
+		const user = await createUser();
+		const candidate = await userService.getUserById(user._id);
+		expect(candidate._id).toEqual(user._id);
+	});
+	//getAllUsers
+	it('should create user and use function getAllUsers', async () => {
+		await createMultipleUsers(10);
+		const users = await userService.getAllUsers();
+		expect(users.length).toBe(10);
+	});
+	//UpdateUserPassword
+	it('should create user and update password', async () => {
+		const user = await createUser();
+		const newPassword: string = 'test1234';
+		const updateUser = await userService.updateUserPassword(
+			newPassword,
+			user.email,
+		);
+		expect(updateUser.password).toBe(newPassword);
+	});
 });
+//updateUser тест уже был написан
+// it('should update user fields and test it', async () => {
+// 	const user = await createUser('test@example.com');
+// 	const updateUserInfo = {
+// 		email: 'test@example.com',
+// 		username: 'newUser123',
+// 		fullName: 'newFullName123',
+// 		age: '54',
+// 		description: 'random description',
+// 		concentration: 'ladno',
+// 		birthDate: new Date(),
+// 		country: 'Kharkiv',
+// 		experience: '3 years',
+// 		isLeader: false,
+// 		links: {
+// 			github: 'https://github.com',
+// 			linkedIn: 'https://linked',
+// 			instagram: 'https://instagram',
+// 			telegram: 'https://telegram',
+// 		},
+// 		programmingLanguages: ['html hacker'],
+// 		frameworks: ['css hack'],
+// 		universityData: {
+// 			university: 'KhPI',
+// 			degree: 'kicked out',
+// 			major: 'who?',
+// 			addmissionDate: new Date(),
+// 			graduationDate: new Date(),
+// 		},
+// 		jobData: {
+// 			title: 'best work ever =( ',
+// 			company: 'Student KhPI',
+// 			startDate: new Date(),
+// 			endDate: new Date(),
+// 		},
+// 	};
+// 	const updateUser = await userService.updateUser(updateUserInfo);
+// 	expect(updateUserInfo).toEqual(updateUser);
+// });

@@ -49,7 +49,8 @@ export class TournamentsController {
 	}
 
 	@ApiOperation({
-		summary: 'Get all tournaments in the form /check-existance/:tournament/:id',
+		summary:
+			'Get all tournaments in the form /check-existance/:tournament/:id',
 	})
 	@ApiResponse({ status: 200, type: Object })
 	@Get('/check-existance/:tournament_id/:user_id')
