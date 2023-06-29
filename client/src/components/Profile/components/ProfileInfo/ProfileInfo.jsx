@@ -1,40 +1,37 @@
-import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
+import { useFormikContext } from 'formik'
 
 import { useInviteUser } from '../../../../api/hooks/team/useInviteUser'
-import LongArrowLeft from '../../../../assets/Arrows/LongArrowLeft'
 import BehanceIcon from '../../../../assets/Links/BehanceIcon'
 import GitHubIcon from '../../../../assets/Links/GitHubIcon'
 import LinkedInIcon from '../../../../assets/Links/LinkedInIcon'
 import TelegramIcon from '../../../../assets/Links/TelegramIcon'
-import AddUserIcon from '../../../../assets/Shared/AddUserIcon'
 import CakeIcon from '../../../../assets/UserProfile/Cake'
 import EditIcon from '../../../../assets/UserProfile/EditIcon'
 import EmailIcon from '../../../../assets/UserProfile/EmailIcon'
 import LocationIcon from '../../../../assets/UserProfile/LocationIcon'
-import MessageIcon from '../../../../assets/UserProfile/MessageIcon'
 import StarIcon from '../../../../assets/UserProfile/StarIcon'
 import UserIcon from '../../../../assets/UserProfile/UserIcon'
 import { useGetScreenWidth } from '../../../../hooks/useGetScreenWidth'
 import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
-import { infoToaster } from '../../../../shared/components/Toasters/Info.toaster'
 import { calculateAge } from '../../../../utils/calculateAge'
+import { checkUserStatus } from '../../../../utils/checkUserStatus'
 import { truncateString } from '../../../../utils/truncateString'
 import { ProfileSection } from '../../Profile.styles'
 
+import UserStatusButtons from './UserStatusButtons/UserStatusButtons'
 import {
   AvatarImg,
   AvatarWrapper,
   EditButton,
   InfoList,
   InfoListItem,
-  MessageBtn,
   SocialList,
   Text,
   UserInfo,
 } from './ProfileInfo.styles'
 
-const ProfileInfo = ({ showingUser, id, currentUser }) => {
+const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing }) => {
   const width = useGetScreenWidth()
   const navigate = useNavigate()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
@@ -67,17 +64,6 @@ const ProfileInfo = ({ showingUser, id, currentUser }) => {
     showingUser?.links?.linkedIn && { icon: <LinkedInIcon />, link: showingUser?.links?.linkedIn },
   ].filter(Boolean)
 
-  /* Check if current showingUserId is the same as passed in params */
-  const checkUserStatus = () => {
-    if (currentUser?._id === id) {
-      return 'same'
-    } else if (currentUser?.team && currentUser?.team?.members.some((member) => member === id)) {
-      return 'teammember'
-    } else {
-      return 'other'
-    }
-  }
-
   const handleInvite = () => {
     const details = {
       email: showingUser.email,
@@ -88,14 +74,27 @@ const ProfileInfo = ({ showingUser, id, currentUser }) => {
     inviteUser(details)
   }
 
+  const handleEdit = (target) => {
+    if (!isEditing) {
+      setIsEditing(target)
+    } else {
+      setIsEditing('')
+    }
+  }
+
+  const { values } = useFormikContext()
+  const userStatus = checkUserStatus(currentUser, id)
+
   return (
     <ProfileSection width="270px" padding="36px 24px 24px" align="center" gap="32px">
       <UserInfo>
         <AvatarWrapper>
-          <AvatarImg src={showingUser?.image} />
-          <EditButton>
-            <EditIcon />
-          </EditButton>
+          <AvatarImg src={values.file && isEditing ? values.file : showingUser?.image} />
+          {userStatus === 'same' && (
+            <EditButton onClick={() => handleEdit('avatar')}>
+              <EditIcon />
+            </EditButton>
+          )}
         </AvatarWrapper>
         <FlexWrapper direction="column" align="center" gap="8px">
           <Text>{showingUser?.fullName}</Text>
@@ -103,57 +102,16 @@ const ProfileInfo = ({ showingUser, id, currentUser }) => {
             @{showingUser?.username}
           </Text>
         </FlexWrapper>
-        {checkUserStatus() === 'same' && (
-          <MessageBtn type="button" background="#46A11B">
-            This is your profile
-          </MessageBtn>
-        )}
-        {checkUserStatus() === 'teammember' && (
-          <FlexWrapper gap="8px" width="100%">
-            <MessageBtn type="button" onClick={() => navigate(-1)}>
-              <LongArrowLeft />
-              Back
-            </MessageBtn>
-            <MessageBtn
-              type="button"
-              onClick={() => infoToaster('Coming in the next update!')}
-              background="#46A11B"
-            >
-              Message
-              <MessageIcon />
-            </MessageBtn>
-          </FlexWrapper>
-        )}
-        {checkUserStatus() === 'other' && (
-          <FlexWrapper gap="8px" width="100%">
-            {currentUser?.team && (
-              <MessageBtn type="button" background="#46A11B" border="none" onClick={handleInvite}>
-                {isInviting ? (
-                  <ThreeDots
-                    height="24"
-                    width="24"
-                    radius="9"
-                    color="white"
-                    ariaLabel="three-dots-loading"
-                    wrapperStyle={{}}
-                    wrapperClassName=""
-                    visible={true}
-                  />
-                ) : (
-                  <>
-                    Invite
-                    <AddUserIcon />
-                  </>
-                )}
-              </MessageBtn>
-            )}
-
-            <MessageBtn type="button" onClick={() => infoToaster('Coming in the next update!')}>
-              Message
-              <MessageIcon />
-            </MessageBtn>
-          </FlexWrapper>
-        )}
+        <UserStatusButtons
+          currentUser={currentUser}
+          id={id}
+          isEditing={isEditing}
+          handleEdit={handleEdit}
+          navigate={navigate}
+          handleInvite={handleInvite}
+          isInviting={isInviting}
+          userStatus={userStatus}
+        />
       </UserInfo>
       <InfoList>
         {infoListArr.map((item, index) => (

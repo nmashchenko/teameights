@@ -1,33 +1,44 @@
+import { Form } from 'formik'
 import styled from 'styled-components'
 
-export const ProfileWrapper = styled.div`
+export const ProfileForm = styled(Form)`
+  width: 100%;
+  min-height: 100dvh;
+  padding-left: 88px;
+  background: #26292b;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100dvh;
-  padding-left: 88px;
-  background: #26292b;
-  position: relative;
 
   @media (max-width: 768px) {
     padding-left: 0;
   }
 `
 
+export const ProfileWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+`
+
 export const ProfileContainer = styled.div`
   display: flex;
-  max-width: 800px;
+  /* max-width: 800px; */
   gap: 30px;
   margin: 0 auto;
   padding: 0 25px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 1024px) {
     flex-direction: column;
     align-items: center;
     margin: 114px 0 24px 0;
-    max-width: 600px;
-    width: 100%;
   }
 
   @media (max-width: 768px) {
@@ -38,7 +49,7 @@ export const ProfileContainer = styled.div`
 export const ProfileSection = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: ${(props) => props.align || 'normal'};
+  align-items: ${(props) => props.align || 'start'};
   gap: ${(props) => props.gap || '0'};
   width: ${(props) => props.width || 'auto'};
   height: 600px;

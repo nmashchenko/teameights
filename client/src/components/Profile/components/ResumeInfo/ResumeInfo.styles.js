@@ -19,6 +19,8 @@ export const ResumePartBtn = styled.div`
   cursor: pointer;
   color: ${(props) => (props.isActive ? '#5BD424' : '#fff')};
   transition: opacity 0.3s;
+  font-size: 20px;
+  font-weight: 500;
   &:hover {
     opacity: 0.6;
   }
@@ -29,12 +31,16 @@ export const ResumePartBtn = styled.div`
         content: '';
         position: absolute;
         left: 0;
-        bottom: -4px;
+        bottom: 0;
         height: 1px;
         background-color: #5bd424;
         width: 100%;
       }
     `}
+
+  @media screen and (max-width: 600px) {
+    font-size: 18px;
+  }
 `
 
 export const WrappableList = styled.ul`
@@ -60,4 +66,17 @@ export const LanguageItem = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+
+export const ActionButton = styled.button`
+  outline: none;
+  background: ${(props) => props.background || 'transparent'};
+  border-radius: 10px;
+  border: ${(props) => props.border || '2px solid #A5211F'};
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  width: 83px;
+  height: 32px;
+  cursor: pointer;
 `

@@ -1,6 +1,5 @@
-import { defaultTeamImages } from '../../../constants/images'
+import ChooseAvatar from '../../../shared/components/ChooseAvatar/ChooseAvatar'
 import About from '../About/About'
-import EditImage from '../EditImage/EditImage'
 import LargeCardSwitch from '../LargeCardSwitch/LargeCardSwitch'
 import Members from '../Members/Members'
 
@@ -16,12 +15,6 @@ export const TeamProfileLargeCard = ({
   handleOpenDelete,
   switchIsMembers,
   handleOpenInvite,
-  selectedImage,
-  setImgData,
-  setPicture,
-  changeSelectedImage,
-  imgData,
-  picture,
   role,
   handleOpenTransferLeader,
 }) => {
@@ -78,17 +71,7 @@ export const TeamProfileLargeCard = ({
         </>
       )}
 
-      {editImage && (
-        <EditImage
-          selectedImage={selectedImage}
-          setImgData={setImgData}
-          setPicture={setPicture}
-          changeSelectedImage={changeSelectedImage}
-          defaultTeamImages={defaultTeamImages}
-          imgData={imgData}
-          picture={picture}
-        />
-      )}
+      {editImage && <ChooseAvatar type="team" />}
     </>
   )
 }

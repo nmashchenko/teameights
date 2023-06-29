@@ -14,9 +14,12 @@ export const useEditUserDetails = (successHandler) => {
 
   return useMutation(finishRegistration, {
     mutationKey: 'finishRegistration',
-    onSuccess: async (data) => {
-      await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
-      successHandler()
+    onSuccess: (data) => {
+      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+      queryClient.invalidateQueries('getUserById', { refetchInactive: true })
+      if (successHandler) {
+        successHandler()
+      }
     },
     onError: (error) => {
       // set error message

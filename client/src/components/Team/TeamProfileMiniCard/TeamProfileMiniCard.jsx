@@ -1,9 +1,9 @@
+import { useFormikContext } from 'formik'
+
 import Cake from '../../../assets/Team/Cake'
-import Crown from '../../../assets/Team/Crown'
 import { PencilSimple } from '../../../assets/Team/PencilSimple'
 import Users from '../../../assets/Team/Users'
 import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../constants/fonts'
-import { LOCAL_PATH } from '../../../http'
 import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
 import { Text } from '../TeamForm/TeamForm.styles'
 
@@ -16,16 +16,9 @@ import {
   TeamInformationContainer,
 } from './TeamProfileMiniCard.styles'
 
-const TeamProfileMiniCard = ({
-  team,
-  picture,
-  selectedImage,
-  isEditing,
-  setEditImage,
-  actionType,
-  servedProfilePic,
-  editImage,
-}) => {
+const TeamProfileMiniCard = ({ team, isEditing, setEditImage, actionType, editImage }) => {
+  const { values } = useFormikContext()
+
   return (
     <>
       <RightContainer>
@@ -34,7 +27,7 @@ const TeamProfileMiniCard = ({
             <div style={{ position: 'relative', width: '100px', height: '124px' }}>
               <TeamImgBorder
                 alt={team?.username}
-                src={picture !== null || selectedImage !== '' ? servedProfilePic : team?.image} // not currently
+                src={values?.file ? values?.file : team?.image} // not currently
               />
               {isEditing ? (
                 <EditImageButton

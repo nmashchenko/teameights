@@ -11,6 +11,7 @@ export const DropzoneContent = styled.div`
   border: 2px dashed #86878b;
   border-radius: 10px;
   background: #2f3239;
+  height: 100px;
 `
 
 export const DropzoneText = styled.p`

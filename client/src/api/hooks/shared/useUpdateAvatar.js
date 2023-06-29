@@ -18,6 +18,8 @@ export const useUpdateAvatar = (type) => {
     onSuccess: async () => {
       if (type === 'teams') {
         await queryClient.invalidateQueries('getTeamById', { refetchInactive: true })
+      } else if (type === 'users') {
+        await queryClient.invalidateQueries('getUserById', { refetchInactive: true })
       }
 
       await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })

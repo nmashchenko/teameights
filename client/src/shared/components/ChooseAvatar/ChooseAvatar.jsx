@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useFormikContext } from 'formik'
 
+import { defaultUserAvatars } from '../../../constants/finishRegistrationData'
+import { defaultTeamAvatars } from '../../../constants/teamFormData'
+
 import CustomDropZone from './components/CustomDropZone/CustomDropZone'
 import {
   ChooseAvatarContainer,
@@ -10,32 +13,36 @@ import {
   DefaultAvatarList,
 } from './ChooseAvatar.styles'
 
-const ChooseAvatar = ({ defaultAvatars }) => {
-  const [defaultAvatarSelected, setDefaultAvatarSelected] = useState(defaultAvatars[0])
-  const [userAvatar, setUserAvatar] = useState(null)
+const ChooseAvatar = ({ type = 'user' }) => {
+  const [defaultAvatarSelected, setDefaultAvatarSelected] = useState(
+    type === 'user' ? defaultUserAvatars[0] : defaultTeamAvatars[0],
+  )
+  const [avatar, setAvatar] = useState(null)
   const { setFieldValue } = useFormikContext()
 
   const onDefaultAvatarSelect = (defaultAvatar) => {
     setDefaultAvatarSelected(defaultAvatar)
-    if (userAvatar) {
-      setUserAvatar(null)
+    if (avatar) {
+      setAvatar(null)
     }
   }
 
   useEffect(() => {
-    if (userAvatar) {
-      setFieldValue('file', userAvatar)
+    if (avatar) {
+      setFieldValue('file', avatar)
       setDefaultAvatarSelected(null)
     } else {
       setFieldValue('file', defaultAvatarSelected?.path)
     }
-  }, [userAvatar, defaultAvatarSelected])
+  }, [avatar, defaultAvatarSelected])
+
+  const avatars = type === 'user' ? defaultUserAvatars : defaultTeamAvatars
 
   return (
     <ChooseAvatarContainer>
       <ChooseAvatarText>Select one of default</ChooseAvatarText>
       <DefaultAvatarList>
-        {defaultAvatars.map((avatar) => (
+        {avatars?.map((avatar) => (
           <DefaultAvatarContainer
             onClick={() => onDefaultAvatarSelect(avatar)}
             key={avatar.name}
@@ -46,7 +53,7 @@ const ChooseAvatar = ({ defaultAvatars }) => {
         ))}
       </DefaultAvatarList>
       <ChooseAvatarText>Or add your own</ChooseAvatarText>
-      <CustomDropZone setUserAvatar={setUserAvatar} />
+      <CustomDropZone setUserAvatar={setAvatar} defaultAvatarSelected={defaultAvatarSelected} />
     </ChooseAvatarContainer>
   )
 }

@@ -1,14 +1,36 @@
 import styled, { css } from 'styled-components'
 
-import selectedIcon from '../../../../../../../assets/Avatars/defaultAvatarSelectedIcon.svg'
+import selectedIcon from '../../../assets/Avatars/defaultAvatarSelectedIcon.svg'
 
 export const ChooseAvatarContainer = styled.div`
   flex: 1;
+  width: 100%;
 `
 
 export const DefaultAvatarList = styled.ul`
   display: flex;
   gap: 0.75rem;
+  width: 100%;
+  max-width: 406px;
+
+  @media screen and (max-width: 500px) {
+    overflow-x: scroll;
+
+    ::-webkit-scrollbar {
+      /* WebKit */
+      transition: all 0.2s;
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: #5d9d0b;
+      border-radius: 10px;
+    }
+  }
 `
 
 export const DefaultAvatarContainer = styled.li`

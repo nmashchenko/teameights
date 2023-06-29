@@ -1,29 +1,52 @@
 import { useState } from 'react'
+import { useFormikContext } from 'formik'
 
-import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
 import { ProfileSection } from '../../Profile.styles'
 
-import EducationWork from './EducationWork/EducationWork'
-import ProjectsSkills from './ProjectsSkills/ProjectsSkills'
-import { ResumePartBox, ResumePartBtn } from './ResumeInfo.styles'
+import EditingComponentAvatar from './EditingComponents/EditingComponentAvatar'
+import EditingComponentDefault from './EditingComponents/EditingComponentDefault'
+import EditingComponentProfile from './EditingComponents/EditingComponentProfile'
 
-const ResumeInfo = ({ showingUser }) => {
+const ResumeInfo = ({ showingUser, isEditing, setIsEditing }) => {
   const [active, setActive] = useState('projects')
+  const { setFieldValue } = useFormikContext()
+
+  const handleCancel = () => {
+    setIsEditing('')
+    setFieldValue('file', null)
+  }
+
+  const currentData = () => {
+    let content = null
+
+    switch (isEditing) {
+      case '':
+        content = (
+          <EditingComponentDefault
+            active={active}
+            setActive={setActive}
+            showingUser={showingUser}
+          />
+        )
+        break
+      case 'avatar':
+        content = <EditingComponentAvatar handleCancel={handleCancel} />
+        break
+      case 'profile':
+        content = <EditingComponentProfile />
+        break
+
+      default:
+        content = null
+        break
+    }
+
+    return content
+  }
 
   return (
     <ProfileSection width="470px" padding="24px 32px">
-      <FlexWrapper direction="column" gap="24px" height="100%" width="100%">
-        <ResumePartBox>
-          <ResumePartBtn isActive={active === 'projects'} onClick={() => setActive('projects')}>
-            Projects & Skills
-          </ResumePartBtn>
-          <ResumePartBtn isActive={active === 'education'} onClick={() => setActive('education')}>
-            Education & Work
-          </ResumePartBtn>
-        </ResumePartBox>
-        {active === 'projects' && <ProjectsSkills showingUser={showingUser} />}
-        {active === 'education' && <EducationWork showingUser={showingUser} />}
-      </FlexWrapper>
+      {currentData()}
     </ProfileSection>
   )
 }

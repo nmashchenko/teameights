@@ -18,7 +18,6 @@ import ROUTES from '../../../constants/routes'
 import { editTeamValidation } from '../../../schemas'
 import Loader from '../../../shared/components/Loader/Loader'
 import { determineUserRoleInTeam } from '../../../utils/determineUserRoleInTeam'
-import { getServedProfilePic } from '../../../utils/getServedProfilepic'
 import Page404Form from '../../Forms/Page404Form/Page404Form'
 import TeamModal from '../Modal/TeamModal'
 import { TeamProfileLargeCard } from '../TeamProfileLargeCard/TeamProfileLargeCard'
@@ -67,18 +66,6 @@ function TeamForm() {
       setEditImage(false)
     }
   }, [isEditing])
-
-  const [selectedImage, changeSelectedImage] = useState('')
-  const [picture, setPicture] = useState(null)
-  const [imgData, setImgData] = useState(null)
-
-  useEffect(() => {
-    setPicture(null)
-    setImgData(null)
-    changeSelectedImage('')
-  }, [isEditing])
-
-  const servedProfilePic = getServedProfilePic(selectedImage, picture, imgData)
 
   // handleClose() function
   const handleClose = () => {
@@ -164,9 +151,6 @@ function TeamForm() {
       handleOpenDelete={handleOpenDelete}
       handleOpenLeave={handleOpenLeave}
       updateTeamsAvatar={updateTeamsAvatar}
-      servedProfilePic={servedProfilePic}
-      picture={picture}
-      selectedImage={selectedImage}
       role={role}
       handleJoin={handleJoin}
       updateTeam={updateTeam}
@@ -183,8 +167,7 @@ function TeamForm() {
           '',
         ),
         description: team?.description,
-        image: '',
-        default: '',
+        file: null,
       }}
       validationSchema={editTeamValidation}
     >
@@ -226,25 +209,16 @@ function TeamForm() {
                     handleOpenDelete={handleOpenDelete}
                     switchIsMembers={switchIsMembers}
                     handleOpenInvite={handleOpenInvite}
-                    selectedImage={selectedImage}
-                    setImgData={setImgData}
-                    setPicture={setPicture}
-                    changeSelectedImage={changeSelectedImage}
-                    imgData={imgData}
-                    picture={picture}
                     role={role}
                     handleOpenTransferLeader={handleOpenTransferLeader}
                   />
                 </Card>
                 <TeamProfileMiniCard
                   team={team}
-                  picture={picture}
-                  selectedImage={selectedImage}
                   isEditing={isEditing}
                   setEditImage={setEditImage}
                   actionType={actionType}
                   editImage={editImage}
-                  servedProfilePic={servedProfilePic}
                 />
               </CardContainer>
             </Container>

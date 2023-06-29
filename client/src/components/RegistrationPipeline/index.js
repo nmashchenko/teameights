@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
 import { useEditUserDetails } from '../../api/hooks/user/useEditUserDetails'
-import { defaultUserAvatars } from '../../constants/finishRegistrationData'
 import { finishRegistrationValidation } from '../../schemas'
 import { setIsFinishRegistrationStarted, setStep } from '../../store/reducers/RegistrationAuth'
 import { formatDateString } from '../../utils/convertStringToDate'
@@ -39,10 +38,7 @@ function FinishRegistration() {
     { component: <UserLinksForm />, name: 'Links', isOptional: true },
     {
       component: (
-        <AvatarForm
-          text="You can upload an image to personalize your profile or select one of our default options. The avatar can be changed at any time."
-          defaultAvatars={defaultUserAvatars}
-        />
+        <AvatarForm text="You can upload an image to personalize your profile or select one of our default options. The avatar can be changed at any time." />
       ),
       name: 'Avatar',
       isOptional: true,

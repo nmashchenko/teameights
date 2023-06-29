@@ -17,6 +17,7 @@ export const AvatarImg = styled.img`
   border-radius: 50%;
   width: 100px;
   height: 100px;
+  user-select: none;
 `
 
 export const Text = styled.p`
@@ -25,7 +26,7 @@ export const Text = styled.p`
   color: ${(props) => props.color || '#fff'}; ;
 `
 
-export const MessageBtn = styled.button`
+export const GenericButton = styled.button`
   height: 40px;
   cursor: pointer;
   display: flex;
