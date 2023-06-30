@@ -8,9 +8,9 @@ import UserPlus from '../../../assets/Team/UserPlus'
 import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import { LOCAL_PATH } from '../../../http'
+import { TeamCardTopIcon } from '../../../shared/components/Modal/TeamPreviewModal/TeamPreviewModal.styles'
 import { infoToaster } from '../../../shared/components/Toasters/Info.toaster'
 import { getCountryFlag } from '../../../utils/getCountryFlag'
-import { TeamCardTopIcon } from '../Modal/TeamPreviewModal/TeamPreviewModal.styles'
 import { Text, UserPlusContainer } from '../TeamForm/TeamForm.styles'
 
 import {

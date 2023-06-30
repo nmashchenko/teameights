@@ -4,18 +4,9 @@ import { Box, Modal, Slide } from '@mui/material'
 import Close from '../../../assets/Shared/Close'
 import UserPlus from '../../../assets/Team/UserPlus'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
-import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
-import SearchUsersAutocomplete from '../../../shared/components/SearchUsersAutocomplete/SearchUsersAutocomplete'
-import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
-import {
-  CloseContainerModal,
-  mobileFullScreenStyle,
-  mobileSemiFullScreenStyle,
-  style,
-  teamPreviewStyle,
-  Text,
-  UserPlusContainer,
-} from '../TeamForm/TeamForm.styles'
+import FlexWrapper from '../FlexWrapper/FlexWrapper'
+import SearchUsersAutocomplete from '../SearchUsersAutocomplete/SearchUsersAutocomplete'
+import { errorToaster } from '../Toasters/Error.toaster'
 
 import LeaderOptions from './LeaderOptions/LeaderOptions'
 import ActionModal from './ModalTypes/ActionModal'
@@ -24,9 +15,18 @@ import InteractiveModal from './ModalTypes/InteractiveModal'
 import TeamPreviewModal from './TeamPreviewModal/TeamPreviewModal'
 import TeamPreviewModalPhone from './TeamPreviewModalPhone/TeamPreviewModalPhone'
 import { MobileProfile } from './TeamPreviewModalPhone/TeamPreviewModalPhone.styles'
-import { Button, TeamDesktopModal } from './TeamModal.styles'
+import {
+  Button,
+  CloseContainerModal,
+  mobileFullScreenStyle,
+  mobileSemiFullScreenStyle,
+  style,
+  TeamDesktopModal,
+  teamPreviewStyle,
+  UserPlusContainer,
+} from './Modal.styles'
 
-const TeamModal = ({
+const ModalComponent = ({
   modalActive,
   chosenLeader,
   handleClose,
@@ -46,6 +46,7 @@ const TeamModal = ({
   deleteTeam,
   setModalActive,
   changeChosenLeader,
+  handleAction,
 }) => {
   const [value, setValue] = useState(null)
   const width = useGetScreenWidth()
@@ -259,6 +260,17 @@ const TeamModal = ({
           )}
         </>
       )
+    } else if (modalActive === 'DeleteProject') {
+      return (
+        <ActionModal
+          firstText="Deleting project"
+          secondText="Are you sure you want to delete this project?"
+          firstButton="Delete"
+          firstButtonHandler={handleAction}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+        />
+      )
     }
 
     return <></>
@@ -294,4 +306,4 @@ const TeamModal = ({
   )
 }
 
-export default TeamModal
+export default ModalComponent

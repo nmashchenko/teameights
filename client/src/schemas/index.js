@@ -300,14 +300,17 @@ export const editProfileValidation = yup.object().shape(
     country: yup.string().required('Please choose your country!'),
     description: yup.string().when('description', (value) => {
       if (value) {
-        return yup.string().max(220)
+        return yup.string().max(230)
       } else {
         return yup.string().notRequired()
       }
     }),
     experience: yup.string().required('Please choose your experience'),
-    programmingLanguages: yup.array().min(1, 'Select at least one language'),
-    frameworks: yup.array().min(1, 'Select at least one framework'),
+    programmingLanguages: yup
+      .array()
+      .min(1, 'Select at least one language')
+      .max(8, '8 lagnuages maximum'),
+    frameworks: yup.array().min(1, 'Select at least one framework').max(6, '6 frameworks maximum'),
     concentration: yup.string().required('Select your concentration'),
     github: yup.string().when('github', (value) => {
       if (value) {
@@ -339,6 +342,24 @@ export const editProfileValidation = yup.object().shape(
         return yup.string().notRequired()
       }
     }),
+    projectData: yup
+      .array()
+      .of(
+        yup.object().shape({
+          title: yup
+            .string('Should be string!')
+            .required('Required!')
+            .trim()
+            .min(1, 'Should not be empty!'),
+          link: yup
+            .string('Should be string!')
+            .required('Required!')
+            .trim()
+            .min(1, 'Should not be empty!')
+            .url('Should be valid URL!'),
+        }),
+      )
+      .min(0),
   },
   [
     ['description', 'description'],

@@ -1,6 +1,6 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { validate } from 'class-validator';
+import { validate, ValidationError } from 'class-validator';
 
 import { ValidationException } from '@/exceptions/validation.exception';
 
@@ -12,21 +12,26 @@ export class ValidationPipe implements PipeTransform<any> {
 
 		if (errors.length) {
 			const messages = errors.map(err => {
-				/* Checking if there are any errors in the children of the error object. If there are, it will return
-				the error message. Used for nested objects validation inside the orginial object*/
-				return err.children.length === 0
-					? `${err.property} - ${Object.values(err.constraints).join(
-							', ',
-					  )}`
-					: err.children.map(
-							err =>
-								`${err.property} - ${Object.values(
-									err.constraints,
-								).join(', ')}`,
-					  );
+				if (err.children && err.children.length > 0) {
+					return err.children.map(childErr =>
+						this.formatErrorMessage(childErr),
+					);
+				} else {
+					return this.formatErrorMessage(err);
+				}
 			});
 			throw new ValidationException(messages);
 		}
 		return value;
+	}
+
+	private formatErrorMessage(error: ValidationError): string {
+		const constraints = error.constraints;
+		if (constraints) {
+			return `${error.property} - ${Object.values(constraints).join(
+				', ',
+			)}`;
+		}
+		return 'Wrong object passed, check fields in documentation: server/api/docs';
 	}
 }

@@ -10,6 +10,7 @@ import PlatformLogo from '../../assets/Platform/TeameightsLogo'
 import { usePrompt } from '../../hooks/usePrompt'
 import { editProfileValidation } from '../../schemas'
 import Loader from '../../shared/components/Loader/Loader'
+import ModalComponent from '../../shared/components/Modal/Modal'
 import Page404Form from '../Forms/Page404Form/Page404Form'
 
 import ProfileInfo from './components/ProfileInfo/ProfileInfo'
@@ -43,6 +44,8 @@ const Profile = () => {
       linkedIn,
       programmingLanguages,
       frameworks,
+      dateOfBirth,
+      projectData,
       file,
     } = values
     const modifiedUserData = {
@@ -59,16 +62,27 @@ const Profile = () => {
       },
       programmingLanguages,
       frameworks,
+      dateOfBirth,
+      projectData,
     }
-
-    editUserDetails(modifiedUserData)
 
     if (file) {
       updateAvatar({ email: showingUser?.email, image: file.split(',')[1] })
+    } else {
+      editUserDetails(modifiedUserData)
     }
 
     setIsEditing('')
+
+    // setTimeout(function () {
+    //   editUserDetails(modifiedUserData)
+    //   setIsEditing('')
+    // }, 2000)
   }
+
+  // const handleClose = () => {
+  //   setModalActive('')
+  // }
 
   if (isLoading || isUserLoading || isFetching || isUpdatingAvatar || !showingUser) {
     return <Loader />
@@ -94,6 +108,7 @@ const Profile = () => {
         programmingLanguages: showingUser?.programmingLanguages,
         frameworks: showingUser?.frameworks,
         dateOfBirth: showingUser?.dateOfBirth,
+        projectData: showingUser?.projectData,
         file: null,
       }}
       validationSchema={editProfileValidation}
@@ -104,27 +119,31 @@ const Profile = () => {
         usePrompt('You have unsaved changes. Do you want to discard them?', dirty)
 
         return (
-          <ProfileForm>
-            <LogoWrapper>
-              <PlatformLogo />
-            </LogoWrapper>
-            <ProfileWrapper>
-              <ProfileContainer>
-                <ProfileInfo
-                  showingUser={showingUser}
-                  id={id}
-                  currentUser={currentUser}
-                  isEditing={isEditing}
-                  setIsEditing={setIsEditing}
-                />
-                <ResumeInfo
-                  showingUser={showingUser}
-                  isEditing={isEditing}
-                  setIsEditing={setIsEditing}
-                />
-              </ProfileContainer>
-            </ProfileWrapper>
-          </ProfileForm>
+          <>
+            <ProfileForm>
+              <LogoWrapper>
+                <PlatformLogo />
+              </LogoWrapper>
+              <ProfileWrapper>
+                <ProfileContainer>
+                  <ProfileInfo
+                    showingUser={showingUser}
+                    id={id}
+                    currentUser={currentUser}
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                  />
+                  <ResumeInfo
+                    showingUser={showingUser}
+                    id={id}
+                    currentUser={currentUser}
+                    isEditing={isEditing}
+                    setIsEditing={setIsEditing}
+                  />
+                </ProfileContainer>
+              </ProfileWrapper>
+            </ProfileForm>
+          </>
         )
       }}
     </Formik>

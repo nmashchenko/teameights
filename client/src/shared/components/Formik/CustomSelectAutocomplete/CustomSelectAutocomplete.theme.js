@@ -15,7 +15,7 @@ export const theme = createTheme({
           width: '100%',
           cursor: 'pointer',
           ':hover': {
-            background: '#2F3239',
+            // background: '#2F3239',
           },
         },
         listbox: {
@@ -26,7 +26,7 @@ export const theme = createTheme({
               backgroundColor: '#27431F',
             },
             '&[aria-selected="true"]': {
-              backgroundColor: 'transparent',
+              backgroundColor: '#27431F',
             },
             '&.Mui-focused[aria-selected="true"]': {
               backgroundColor: '#27431F',
@@ -69,6 +69,32 @@ export const theme = createTheme({
         },
         endAdornment: {
           right: '0 !important',
+        },
+        tag: {
+          background: '#2F3239',
+          borderRadius: '5px',
+          padding: '4px 8px',
+          color: '#C1C1C4',
+          fontSize: '14px',
+          fontWeight: 400,
+          margin: '5px',
+
+          '& .MuiChip-label': {
+            paddingRight: '12px',
+            paddingLeft: '0',
+          },
+
+          '& .MuiChip-deleteIcon': {
+            path: {
+              stroke: '#C1C1C4',
+            },
+
+            ':hover': {
+              path: {
+                stroke: '#D42422',
+              },
+            },
+          },
         },
       },
     },

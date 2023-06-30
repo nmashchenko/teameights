@@ -1,6 +1,5 @@
 import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
-import { Text } from '../../TeamForm/TeamForm.styles'
-import { Container } from '../TeamModal.styles'
+import { Container, Text } from '../Modal.styles'
 
 const InteractiveModal = ({ interactiveText, interactiveComponent, interactiveButtons }) => {
   return (

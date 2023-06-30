@@ -10,11 +10,10 @@ import ROUTES from '../../../constants/routes'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import AppHeader from '../../../shared/components/AppHeader/AppHeader'
 import Loader from '../../../shared/components/Loader/Loader'
+import Modal from '../../../shared/components/Modal/Modal'
 import SliderToTop from '../../../shared/components/SliderToTop/SliderToTop'
 import { setTeamsFilter } from '../../../store/reducers/TeamsFiltersSlice'
 import NotFound from '../../Teammates/components/NotFound/NotFound'
-import TeamModal from '../Modal/TeamModal'
-import { MobileProfile } from '../Modal/TeamPreviewModalPhone/TeamPreviewModalPhone.styles'
 
 import Teams from './Teams/Teams'
 // * Styles
@@ -87,7 +86,7 @@ function TeamsList() {
 
   return (
     <>
-      <TeamModal
+      <Modal
         modalActive={changeModal}
         open={open}
         user={user}

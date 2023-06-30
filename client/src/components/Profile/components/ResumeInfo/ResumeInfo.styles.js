@@ -11,10 +11,27 @@ export const TextArea = styled.textarea`
   font-weight: ${(props) => props.fontWeight || '500'};
   font-size: ${(props) => props.fontSize || '20px'};
   color: ${(props) => props.color || '#fff'};
-  height: 85px;
+  height: ${(props) => props.height || '85px'};
   background: #1a1c22;
-  border: none;
+  border: ${(props) => props.border || 'none'};
+  border-radius: 5px;
   resize: none;
+  padding: ${(props) => props.padding || '0'};
+
+  ::-webkit-scrollbar {
+    /* WebKit */
+    transition: all 0.2s;
+    width: 5px;
+    height: auto;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #5d9d0b;
+    border-radius: 10px;
+  }
 `
 
 export const ResumePartBox = styled.div`
@@ -97,18 +114,29 @@ export const ActionButton = styled.button`
   color: white;
   font-size: 16px;
   font-weight: 400;
-  width: 83px;
+  width: ${(props) => props.width || '83px'};
   height: 32px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
 `
 
 export const EditIconContainer = styled.div`
   cursor: pointer;
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   :hover {
     svg {
       path {
-        fill: #5bd424;
+        fill: ${(props) => (props.fill ? '#5bd424' : 'transparent')};
+        stroke: ${(props) => (props.stroke ? '#D42422' : 'transparent')};
       }
     }
   }

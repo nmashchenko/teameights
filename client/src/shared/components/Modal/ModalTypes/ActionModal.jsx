@@ -1,8 +1,7 @@
 import React from 'react'
 
 import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
-import { Text } from '../../TeamForm/TeamForm.styles'
-import { Button, Container } from '../TeamModal.styles'
+import { Button, Container, Text } from '../Modal.styles'
 
 const ActionModal = ({
   firstText,

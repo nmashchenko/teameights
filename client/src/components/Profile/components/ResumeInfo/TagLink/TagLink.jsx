@@ -1,15 +1,26 @@
 import { useNavigate } from 'react-router-dom'
 
-import { StyledTagLink, TagText } from './TagLink.styles'
+import { StyledTagButton, StyledTagLink, TagText } from './TagLink.styles'
 
-const TagLink = ({ icon, to, children }) => {
+const TagLink = ({ icon, to, children, type = 'button' }) => {
   const navigate = useNavigate()
 
   return (
-    <StyledTagLink onClick={() => navigate(to)}>
-      {icon}
-      <TagText>{children}</TagText>
-    </StyledTagLink>
+    <>
+      {type === 'button' && (
+        <StyledTagButton onClick={() => navigate(to)}>
+          {icon}
+          <TagText>{children}</TagText>
+        </StyledTagButton>
+      )}
+
+      {type === 'link' && (
+        <StyledTagLink href={to} target="_blank">
+          {icon}
+          <TagText>{children}</TagText>
+        </StyledTagLink>
+      )}
+    </>
   )
 }
 

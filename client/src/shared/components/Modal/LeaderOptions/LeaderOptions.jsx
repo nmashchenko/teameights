@@ -1,12 +1,12 @@
 import { SelectedIcon } from '../../../../assets/Team/SelectedIcon'
-import { Text } from '../../TeamForm/TeamForm.styles'
 import {
   ListBackdrop,
   NoMembersCard,
+  Text,
   UserAccordionCard,
   UserAccordionImg,
   UsernameIconContainer,
-} from '../TeamModal.styles'
+} from '../Modal.styles'
 
 const LeaderOptions = ({ team, changeChosenLeader, chosenLeader }) => {
   return (

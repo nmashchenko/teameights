@@ -16,6 +16,7 @@ import {
 
 import { JobDataDto } from './job-data.dto';
 import { LinksUserDto } from './links-user.dto';
+import { ProjectData } from './project-data.dto';
 import { UniversityDataDto } from './university-data.dto';
 
 export class UpdateUserDto {
@@ -151,4 +152,19 @@ export class UpdateUserDto {
 	@Type(() => JobDataDto)
 	@IsOptional()
 	readonly jobData: JobDataDto;
+
+	@ApiProperty({
+		example: [
+			{
+				title: 'Teameights',
+				link: `https://teameights.com`,
+			},
+		],
+		description: 'Projects data of the user',
+	})
+	@IsArray()
+	@IsOptional()
+	@ValidateNested({ each: true })
+	@Type(() => ProjectData)
+	readonly projectData: ProjectData[];
 }

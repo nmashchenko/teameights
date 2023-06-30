@@ -19,7 +19,7 @@ const UserStatusButtons = ({
   userStatus,
 }) => {
   const renderSameUserButtons = () => {
-    if (isEditing && isEditing !== 'avatar') {
+    if (isEditing && isEditing === 'profile') {
       return (
         <FlexWrapper gap="8px" width="100%" direction="column">
           <GenericButton type="submit" background="#46A11B">

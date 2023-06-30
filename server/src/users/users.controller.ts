@@ -10,6 +10,7 @@ import {
 	Req,
 	UseGuards,
 	UsePipes,
+	ValidationPipe as VP,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';

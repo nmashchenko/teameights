@@ -1,3 +1,5 @@
+import { useFormikContext } from 'formik'
+
 import EditIcon from '../../../../../assets/UserProfile/EditIcon'
 import LinkIcon from '../../../../../assets/UserProfile/LinkIcon'
 import TeamMembersIcon from '../../../../../assets/UserProfile/TeamMembersIcon'
@@ -14,15 +16,7 @@ import {
 } from '../ResumeInfo.styles'
 import TagLink from '../TagLink/TagLink'
 
-const ProjectsSkills = ({ showingUser }) => {
-  const projectsArr = [
-    { text: 'Team8s', link: '#' },
-    { text: 'BankingApp', link: '#' },
-    { text: 'Snake', link: '#' },
-    { text: 'Shopping App', link: '#' },
-    { text: 'E-learning', link: '#' },
-  ]
-
+const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
   return (
     <FlexWrapper direction="column" height="100%" width="100%" gap="16px">
       <FlexWrapper direction="column" gap="7px">
@@ -30,14 +24,14 @@ const ProjectsSkills = ({ showingUser }) => {
           <Text fontSize="16px" fontWeight="400">
             About me
           </Text>
-          <EditIconContainer>
-            <EditIcon />
-          </EditIconContainer>
+          {userStatus === 'same' && (
+            <EditIconContainer onClick={() => setIsEditing('description')} fill={true.toString()}>
+              <EditIcon />
+            </EditIconContainer>
+          )}
         </FlexWrapper>
         {showingUser?.description ? (
-          <TextArea fontSize="14px" fontWeight="400" disabled>
-            {showingUser?.description}
-          </TextArea>
+          <TextArea fontSize="14px" fontWeight="400" value={showingUser?.description} disabled />
         ) : (
           <TextArea fontSize="14px" fontWeight="400" disabled color="#8F9094">
             No description added
@@ -70,28 +64,38 @@ const ProjectsSkills = ({ showingUser }) => {
           <Text fontSize="16px" fontWeight="400">
             Projects
           </Text>
-          <EditIconContainer>
-            <EditIcon />
-          </EditIconContainer>
+          {userStatus === 'same' && (
+            <EditIconContainer onClick={() => setIsEditing('projects')} fill={true.toString()}>
+              <EditIcon />
+            </EditIconContainer>
+          )}
         </FlexWrapper>
-        <WrappableList gap="8px">
-          {projectsArr.map(({ link, text }, index) => (
-            <li key={index}>
-              <TagLink to={link} icon={<LinkIcon />}>
-                {text}
-              </TagLink>
-            </li>
-          ))}
-        </WrappableList>
+        {showingUser?.projectData?.length > 0 ? (
+          <WrappableList gap="8px">
+            {showingUser?.projectData?.map(({ title, link }, index) => (
+              <li key={index}>
+                <TagLink to={link} icon={<LinkIcon />} type="link">
+                  {title}
+                </TagLink>
+              </li>
+            ))}
+          </WrappableList>
+        ) : (
+          <Text fontSize="14px" fontWeight="400" color="#8F9094">
+            No projects yet.
+          </Text>
+        )}
       </FlexWrapper>
       <FlexWrapper direction="column" gap="7px">
         <FlexWrapper width="100%" justify="space-between" align="center">
           <Text fontSize="16px" fontWeight="400">
             Frameworks
           </Text>
-          <EditIconContainer>
-            <EditIcon />
-          </EditIconContainer>
+          {userStatus === 'same' && (
+            <EditIconContainer fill={true.toString()} onClick={() => setIsEditing('frameworks')}>
+              <EditIcon />
+            </EditIconContainer>
+          )}
         </FlexWrapper>
         <WrappableList gap="8px">
           {showingUser?.frameworks?.map((framework, index) => (
@@ -110,9 +114,11 @@ const ProjectsSkills = ({ showingUser }) => {
           <Text fontSize="16px" fontWeight="400">
             Languages
           </Text>
-          <EditIconContainer>
-            <EditIcon />
-          </EditIconContainer>
+          {userStatus === 'same' && (
+            <EditIconContainer fill={true.toString()} onClick={() => setIsEditing('languages')}>
+              <EditIcon />
+            </EditIconContainer>
+          )}
         </FlexWrapper>
         <WrappableList gap="8px">
           {showingUser?.programmingLanguages?.map((language, index) => (

@@ -1,8 +1,9 @@
-import { Autocomplete, FormControl, TextField, ThemeProvider } from '@mui/material'
+import { Autocomplete, Chip, FormControl, TextField, ThemeProvider } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import ArrowDown from '../../../../assets/Arrows/ArrowDown'
-import { Label } from '../../../styles/Tpography.styles'
+import AlertIcon from '../../../../assets/Inputs/AlertIcon'
+import { ErrorMessage, Label } from '../../../styles/Tpography.styles'
 
 import { theme } from './CustomSelectAutocomplete.theme'
 
@@ -15,11 +16,29 @@ const CustomSelectAutocomplete = ({
   displayError = true,
   margin,
   hideLabelOnSelect = false,
+  line = true,
   ...props
 }) => {
-  const { setFieldValue } = useFormikContext()
+  const { setFieldValue, values } = useFormikContext()
   const [field, meta] = useField(props)
   const isError = meta.touched && meta.error
+
+  /**
+   * The handleChange function updates the field value based on the selected option and reason.
+   */
+  const handleChange = (e, option, reason) => {
+    if (!multiple) {
+      setFieldValue(field.name, option.label)
+    } else {
+      if (reason === 'removeOption') {
+        setFieldValue(field.name, option)
+      } else if (reason === 'selectOption') {
+        let lastElement = option.pop()
+
+        setFieldValue(field.name, [...values[field.name], lastElement.label])
+      }
+    }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -32,11 +51,22 @@ const CustomSelectAutocomplete = ({
           id={field.name}
           options={options}
           disableClearable
-          popupIcon={<ArrowDown />}
+          popupIcon={isError ? <AlertIcon /> : <ArrowDown />}
           autoHighlight
           isOptionEqualToValue={(option, value) => option.label === value}
           multiple={multiple}
-          onChange={(e, option) => setFieldValue(field.name, option.label)}
+          onChange={handleChange}
+          disableCloseOnSelect={multiple ? true : false}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip
+                label={option}
+                {...getTagProps({ index })}
+                key={index}
+                deleteIcon={_deleteicon}
+              />
+            ))
+          }
           renderInput={(params) => (
             <TextField
               sx={{
@@ -54,11 +84,25 @@ const CustomSelectAutocomplete = ({
           )}
         />
 
-        {/* {line && <Line background={isError && '#cf625e'} animation={!isError && 'none'} />}
-      {displayError && isError && <ErrorMessage>{meta.error}</ErrorMessage>} */}
+        {displayError && isError && <ErrorMessage>{meta.error}</ErrorMessage>}
       </FormControl>
     </ThemeProvider>
   )
 }
+
+/* The `const _deleteicon` is a variable that holds an SVG element. It represents the delete icon used
+in the `renderTags` function of the `Autocomplete` component. This icon is displayed next to each
+selected option in the form as a visual indicator that the option can be removed. */
+const _deleteicon = (
+  <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M15.625 4.375L4.375 15.625M15.625 15.625L4.375 4.375"
+      stroke="white"
+      strokeWidth="1.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+)
 
 export default CustomSelectAutocomplete
