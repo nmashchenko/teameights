@@ -47,6 +47,7 @@ const ModalComponent = ({
   setModalActive,
   changeChosenLeader,
   handleAction,
+  isLoading = false,
 }) => {
   const [value, setValue] = useState(null)
   const width = useGetScreenWidth()
@@ -269,6 +270,31 @@ const ModalComponent = ({
           firstButtonHandler={handleAction}
           secondButton="Cancel"
           secondButtonHandler={handleClose}
+          isLoading={isLoading}
+        />
+      )
+    } else if (modalActive === 'DeleteUniversity') {
+      return (
+        <ActionModal
+          firstText="Deleting university"
+          secondText="Are you sure you want to delete this university?"
+          firstButton="Delete"
+          firstButtonHandler={handleAction}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+          isLoading={isLoading}
+        />
+      )
+    } else if (modalActive === 'DeleteJob') {
+      return (
+        <ActionModal
+          firstText="Deleting job"
+          secondText="Are you sure you want to delete this job?"
+          firstButton="Delete"
+          firstButtonHandler={handleAction}
+          secondButton="Cancel"
+          secondButtonHandler={handleClose}
+          isLoading={isLoading}
         />
       )
     }

@@ -6,7 +6,7 @@ import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
-export const useUpdateAvatar = (type) => {
+export const useUpdateAvatar = (type, successHandler) => {
   const queryClient = useQueryClient()
 
   const updateUserAvatar = async (userData) => {
@@ -20,6 +20,10 @@ export const useUpdateAvatar = (type) => {
         await queryClient.invalidateQueries('getTeamById', { refetchInactive: true })
       } else if (type === 'users') {
         await queryClient.invalidateQueries('getUserById', { refetchInactive: true })
+      }
+
+      if (successHandler) {
+        successHandler()
       }
 
       await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Formik } from 'formik'
+import { Formik, useFormikContext } from 'formik'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
 import { useEditUserDetails } from '../../api/hooks/user/useEditUserDetails'
 import { useGetUserById } from '../../api/hooks/user/useGetUserById'
 import PlatformLogo from '../../assets/Platform/TeameightsLogo'
+import { useGetScreenWidth } from '../../hooks/useGetScreenWidth'
 import { usePrompt } from '../../hooks/usePrompt'
 import { editProfileValidation } from '../../schemas'
 import Loader from '../../shared/components/Loader/Loader'
@@ -19,12 +20,15 @@ import { LogoWrapper, ProfileContainer, ProfileForm, ProfileWrapper } from './Pr
 
 const Profile = () => {
   const { id } = useParams()
-  const { mutate: editUserDetails, isLoading } = useEditUserDetails()
-  const { mutate: updateAvatar, isLoading: isUpdatingAvatar } = useUpdateAvatar('users')
+  const { mutate: editUserDetails, isLoading } = useEditUserDetails(() => setIsEditing(''))
+  const { mutate: updateAvatar, isLoading: isUpdatingAvatar } = useUpdateAvatar('users', () =>
+    setIsEditing(''),
+  )
   const { data, isLoading: isUserLoading, error } = useGetUserById(id)
   const { data: currentUser, isFetching } = useCheckAuth()
   const [isEditing, setIsEditing] = useState('')
   const [showingUser, setShowingUser] = useState(null)
+  const width = useGetScreenWidth()
 
   useEffect(() => {
     setShowingUser(data?.data)
@@ -32,7 +36,7 @@ const Profile = () => {
 
   // const showingUser = data?.data
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, { setFieldValue }) => {
     const {
       fullName,
       description,
@@ -46,6 +50,8 @@ const Profile = () => {
       frameworks,
       dateOfBirth,
       projectData,
+      jobData,
+      universityData,
       file,
     } = values
     const modifiedUserData = {
@@ -64,28 +70,16 @@ const Profile = () => {
       frameworks,
       dateOfBirth,
       projectData,
+      jobData,
+      universityData,
     }
 
     if (file) {
       updateAvatar({ email: showingUser?.email, image: file.split(',')[1] })
+      setFieldValue('file', null)
     } else {
       editUserDetails(modifiedUserData)
     }
-
-    setIsEditing('')
-
-    // setTimeout(function () {
-    //   editUserDetails(modifiedUserData)
-    //   setIsEditing('')
-    // }, 2000)
-  }
-
-  // const handleClose = () => {
-  //   setModalActive('')
-  // }
-
-  if (isLoading || isUserLoading || isFetching || isUpdatingAvatar || !showingUser) {
-    return <Loader />
   }
 
   if ((!isUserLoading && !data && !isFetching) || error) {
@@ -109,6 +103,8 @@ const Profile = () => {
         frameworks: showingUser?.frameworks,
         dateOfBirth: showingUser?.dateOfBirth,
         projectData: showingUser?.projectData,
+        jobData: showingUser?.jobData,
+        universityData: showingUser?.universityData,
         file: null,
       }}
       validationSchema={editProfileValidation}
@@ -125,6 +121,7 @@ const Profile = () => {
                 <PlatformLogo />
               </LogoWrapper>
               <ProfileWrapper>
+                {!showingUser && <Loader paddingLeft={width > 768 ? '88px' : '0'} />}
                 <ProfileContainer>
                   <ProfileInfo
                     showingUser={showingUser}
@@ -132,6 +129,7 @@ const Profile = () => {
                     currentUser={currentUser}
                     isEditing={isEditing}
                     setIsEditing={setIsEditing}
+                    isUpdatingUser={isLoading}
                   />
                   <ResumeInfo
                     showingUser={showingUser}
@@ -139,6 +137,8 @@ const Profile = () => {
                     currentUser={currentUser}
                     isEditing={isEditing}
                     setIsEditing={setIsEditing}
+                    isUpdatingUser={isLoading}
+                    isUpdatingAvatar={isUpdatingAvatar}
                   />
                 </ProfileContainer>
               </ProfileWrapper>

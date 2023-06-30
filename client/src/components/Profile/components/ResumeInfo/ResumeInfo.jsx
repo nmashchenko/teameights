@@ -7,12 +7,22 @@ import { ProfileSection } from '../../Profile.styles'
 import EditingComponentAvatar from './EditingComponents/EditingComponentAvatar'
 import EditingComponentDefault from './EditingComponents/EditingComponentDefault'
 import EditingComponentDescription from './EditingComponents/EditingComponentDescription'
+import EditingComponentEducation from './EditingComponents/EditingComponentEducation'
 import EditingComponentFrameworks from './EditingComponents/EditingComponentFrameworks'
+import EditingComponentJob from './EditingComponents/EditingComponentJob'
 import EditingComponentLanguages from './EditingComponents/EditingComponentLanguages'
 import EditingComponentProfile from './EditingComponents/EditingComponentProfile'
 import EditingComponentProjects from './EditingComponents/EditingComponentProjects'
 
-const ResumeInfo = ({ showingUser, currentUser, id, isEditing, setIsEditing }) => {
+const ResumeInfo = ({
+  showingUser,
+  currentUser,
+  id,
+  isEditing,
+  setIsEditing,
+  isUpdatingUser,
+  isUpdatingAvatar,
+}) => {
   const [active, setActive] = useState('projects')
   const { resetForm } = useFormikContext()
   const userStatus = checkUserStatus(currentUser, id)
@@ -38,14 +48,21 @@ const ResumeInfo = ({ showingUser, currentUser, id, isEditing, setIsEditing }) =
         )
         break
       case 'avatar':
-        content = <EditingComponentAvatar handleCancel={handleCancel} />
+        content = (
+          <EditingComponentAvatar handleCancel={handleCancel} isUpdatingAvatar={isUpdatingAvatar} />
+        )
         break
       case 'profile':
         content = <EditingComponentProfile />
         break
 
       case 'description':
-        content = <EditingComponentDescription handleCancel={handleCancel} />
+        content = (
+          <EditingComponentDescription
+            handleCancel={handleCancel}
+            isUpdatingUser={isUpdatingUser}
+          />
+        )
         break
 
       case 'projects':
@@ -53,11 +70,23 @@ const ResumeInfo = ({ showingUser, currentUser, id, isEditing, setIsEditing }) =
         break
 
       case 'frameworks':
-        content = <EditingComponentFrameworks handleCancel={handleCancel} />
+        content = (
+          <EditingComponentFrameworks handleCancel={handleCancel} isUpdatingUser={isUpdatingUser} />
+        )
         break
 
       case 'languages':
-        content = <EditingComponentLanguages handleCancel={handleCancel} />
+        content = (
+          <EditingComponentLanguages handleCancel={handleCancel} isUpdatingUser={isUpdatingUser} />
+        )
+        break
+
+      case 'education':
+        content = <EditingComponentEducation handleBack={handleCancel} showingUser={showingUser} />
+        break
+
+      case 'work':
+        content = <EditingComponentJob handleBack={handleCancel} showingUser={showingUser} />
         break
 
       default:

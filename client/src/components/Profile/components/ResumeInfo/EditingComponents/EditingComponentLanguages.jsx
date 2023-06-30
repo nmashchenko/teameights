@@ -1,3 +1,4 @@
+import { ThreeDots } from 'react-loader-spinner'
 import { useFormikContext } from 'formik'
 
 import { programmingLanguageOptions } from '../../../../../constants/programmingLanguages'
@@ -5,7 +6,7 @@ import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrappe
 import CustomSelectAutocomplete from '../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
 import { ActionButton, Text } from '../ResumeInfo.styles'
 
-function EditingComponentLanguages({ handleCancel }) {
+function EditingComponentLanguages({ handleCancel, isUpdatingUser }) {
   const { values } = useFormikContext()
 
   return (
@@ -20,12 +21,25 @@ function EditingComponentLanguages({ handleCancel }) {
         value={values.programmingLanguages}
         multiple
       />
-      <FlexWrapper width="100%" justify="space-between">
+      <FlexWrapper width="100%" justify="space-between" margin="24px 0 0 0">
         <ActionButton type="button" onClick={handleCancel}>
           Cancel
         </ActionButton>
         <ActionButton type="submit" border="none" background="#46A11B">
-          Save
+          {isUpdatingUser ? (
+            <ThreeDots
+              height="24"
+              width="24"
+              radius="9"
+              color="white"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            'Save'
+          )}
         </ActionButton>
       </FlexWrapper>
     </FlexWrapper>

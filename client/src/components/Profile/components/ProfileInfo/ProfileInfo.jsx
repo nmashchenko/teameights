@@ -31,7 +31,7 @@ import {
   UserInfo,
 } from './ProfileInfo.styles'
 
-const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing }) => {
+const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, isUpdatingUser }) => {
   const width = useGetScreenWidth()
   const navigate = useNavigate()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
@@ -112,6 +112,7 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing }) 
           handleInvite={handleInvite}
           isInviting={isInviting}
           userStatus={userStatus}
+          isUpdatingUser={isUpdatingUser}
         />
       </UserInfo>
       <InfoList>
@@ -128,7 +129,9 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing }) 
         <SocialList>
           {socialArr.map((social, index) => (
             <li key={index}>
-              <a href={social.link}>{social.icon}</a>
+              <a href={social.link} target="_blank" rel="noreferrer">
+                {social.icon}
+              </a>
             </li>
           ))}
         </SocialList>

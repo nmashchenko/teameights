@@ -21,7 +21,13 @@ function EditingComponentDefault({ active, setActive, showingUser, setIsEditing,
           userStatus={userStatus}
         />
       )}
-      {active === 'education' && <EducationWork showingUser={showingUser} />}
+      {active === 'education' && (
+        <EducationWork
+          showingUser={showingUser}
+          setIsEditing={setIsEditing}
+          userStatus={userStatus}
+        />
+      )}
     </FlexWrapper>
   )
 }

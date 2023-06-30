@@ -35,7 +35,7 @@ export const TextArea = styled.textarea`
 `
 
 export const ResumePartBox = styled.div`
-  height: 32px;
+  height: 42px;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -89,7 +89,7 @@ export const WrappableList = styled.ul`
 
 export const FrameWorkItem = styled.li`
   padding: 5px 0;
-  width: 100px;
+  width: 120px;
   text-align: center;
   border-radius: 5px;
   background: ${(props) => props.background || '#2F3239'};
@@ -121,6 +121,11 @@ export const ActionButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 6px;
+
+  :disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `
 
 export const EditIconContainer = styled.div`

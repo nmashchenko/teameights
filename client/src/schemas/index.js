@@ -359,7 +359,8 @@ export const editProfileValidation = yup.object().shape(
             .url('Should be valid URL!'),
         }),
       )
-      .min(0),
+      .min(0)
+      .max(5),
   },
   [
     ['description', 'description'],

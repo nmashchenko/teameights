@@ -33,9 +33,13 @@ const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
         {showingUser?.description ? (
           <TextArea fontSize="14px" fontWeight="400" value={showingUser?.description} disabled />
         ) : (
-          <TextArea fontSize="14px" fontWeight="400" disabled color="#8F9094">
-            No description added
-          </TextArea>
+          <TextArea
+            fontSize="14px"
+            fontWeight="400"
+            disabled
+            color="#8F9094"
+            value={'No description added'}
+          />
         )}
       </FlexWrapper>
       {showingUser?.team ? (

@@ -1,5 +1,6 @@
 import React from 'react'
 import { ThreeDots } from 'react-loader-spinner'
+import { useFormikContext } from 'formik'
 
 import LongArrowLeft from '../../../../../assets/Arrows/LongArrowLeft'
 import AddUserIcon from '../../../../../assets/Shared/AddUserIcon'
@@ -17,13 +18,27 @@ const UserStatusButtons = ({
   handleInvite,
   isInviting,
   userStatus,
+  isUpdatingUser,
 }) => {
   const renderSameUserButtons = () => {
     if (isEditing && isEditing === 'profile') {
       return (
         <FlexWrapper gap="8px" width="100%" direction="column">
           <GenericButton type="submit" background="#46A11B">
-            Save changes
+            {isUpdatingUser ? (
+              <ThreeDots
+                height="24"
+                width="24"
+                radius="9"
+                color="white"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              />
+            ) : (
+              'Save changes'
+            )}
           </GenericButton>
           <GenericButton
             type="button"

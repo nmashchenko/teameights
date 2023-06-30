@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
-export class ProjectData {
+export class ProjectDataDto {
 	@ApiProperty({
 		example: `Teameights`,
 		description: 'Project name',

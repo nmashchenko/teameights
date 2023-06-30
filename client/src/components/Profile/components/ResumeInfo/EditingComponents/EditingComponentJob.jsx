@@ -12,7 +12,7 @@ import CustomInput from '../../../../../shared/components/Formik/CustomInput/Cus
 import ModalComponent from '../../../../../shared/components/Modal/Modal'
 import { ActionButton, EditIconContainer, Text } from '../ResumeInfo.styles'
 
-function EditingComponentProjects({ handleBack, showingUser }) {
+function EditingComponentJob({ handleBack, showingUser }) {
   const [modalActive, setModalActive] = useState('')
   const { values, setFieldValue, resetForm } = useFormikContext()
   const [currentAction, setCurrentAction] = useState('main') // 'main', 'editing', 'adding'
@@ -25,27 +25,27 @@ function EditingComponentProjects({ handleBack, showingUser }) {
 
   const { mutate: editUserDetails, isLoading } = useEditUserDetails(handleReset)
 
-  const handleRemoveProject = () => {
-    const projects = [...values.projectData]
+  const handleRemoveUniversity = () => {
+    const jobs = [...values.jobData]
 
-    const updatedProjects = projects.filter((_, i) => i !== index)
+    const updatedJobData = jobs.filter((_, i) => i !== index)
 
-    setFieldValue('projectData', updatedProjects)
+    setFieldValue('jobData', updatedJobData)
 
-    editUserDetails({ email: showingUser.email, projectData: updatedProjects })
+    editUserDetails({ email: showingUser.email, jobData: updatedJobData })
   }
 
-  const handleEditProject = (index) => {
+  const handleEditJob = (index) => {
     setIndex(index)
     setCurrentAction('editing')
   }
 
-  const submitEditProject = () => {
-    editUserDetails({ email: showingUser.email, projectData: values.projectData })
+  const submitEditJob = () => {
+    editUserDetails({ email: showingUser.email, jobData: values.jobData })
   }
 
   const handleOpenModal = (index) => {
-    setModalActive('DeleteProject')
+    setModalActive('DeleteJob')
     setIndex(index)
   }
 
@@ -64,32 +64,32 @@ function EditingComponentProjects({ handleBack, showingUser }) {
         modalActive={modalActive}
         open={modalActive !== ''}
         handleClose={handleClose}
-        handleAction={handleRemoveProject}
+        handleAction={handleRemoveUniversity}
         isLoading={isLoading}
       />
       <FlexWrapper direction="column" gap="24px" height="100%" width="100%">
         <Text fontSize="20px" color="#5BD424" fontWeight="500">
-          Projects
+          Work Experience
         </Text>
         {currentAction === 'main' && (
-          <FieldArray name="projectData">
+          <FieldArray name="jobData">
             {({ push, remove }) => (
               <>
-                {values?.projectData?.length > 0 ? (
-                  values?.projectData.map((project, index) => (
+                {values?.jobData?.length > 0 ? (
+                  values?.jobData.map((job, index) => (
                     <FlexWrapper key={index} width="100%" justify="space-between">
                       <FlexWrapper direction="column">
                         <Text fontSize="16px" fontWeight="400">
-                          {project.title}
+                          {job.title} - {job.company}
                         </Text>
                         <Text fontSize="14px" fontWeight="400" color="#8F9094">
-                          {project.link}
+                          {job.startDate.split('-')[0]} - {job.endDate.split('-')[0]}
                         </Text>
                       </FlexWrapper>
                       <FlexWrapper>
                         <EditIconContainer
                           fill={true.toString()}
-                          onClick={() => handleEditProject(index)}
+                          onClick={() => handleEditJob(index)}
                         >
                           <EditIcon />
                         </EditIconContainer>
@@ -104,7 +104,7 @@ function EditingComponentProjects({ handleBack, showingUser }) {
                   ))
                 ) : (
                   <Text fontSize="14px" fontWeight="400" color="#8F9094">
-                    No projects added yet.
+                    No jobs added yet.
                   </Text>
                 )}
                 <FlexWrapper width="100%" justify="space-between" margin="24px 0 0 0 ">
@@ -122,11 +122,16 @@ function EditingComponentProjects({ handleBack, showingUser }) {
                     border="none"
                     background="#46A11B"
                     onClick={() => {
-                      push({ title: '', link: '' })
+                      push({
+                        title: '',
+                        company: ``,
+                        startDate: '',
+                        endDate: '',
+                      })
                       setCurrentAction('adding')
                     }}
                     type="button"
-                    disabled={values.projectData.length === 5 ? true : false}
+                    disabled={values.jobData.length === 2 ? true : false}
                   >
                     Add new
                     <PlusIconWhite />
@@ -139,23 +144,41 @@ function EditingComponentProjects({ handleBack, showingUser }) {
 
         {currentAction === 'editing' && (
           <>
-            <FlexWrapper direction="column" gap="24px" height="100%" width="100%">
+            <FlexWrapper direction="column" gap="32px" height="100%" width="100%">
               <CustomInput
-                name={`projectData[${index}].title`}
-                label="Project title"
+                name={`jobData[${index}].title`}
+                label="Job Title"
                 type="text"
                 containerWidth="100%"
-                placeholder="Input title"
-                value={values.projectData[index].title}
+                placeholder="Ex: Data Scientist"
+                value={values.jobData[index].title}
               />
               <CustomInput
-                name={`projectData[${index}].link`}
-                label="Project link"
+                name={`jobData[${index}].company`}
+                label="Company"
                 type="text"
                 containerWidth="100%"
-                placeholder="Add link"
-                value={values.projectData[index].link}
+                placeholder="Ex: Teameights"
+                value={values.jobData[index].company}
               />
+              <FlexWrapper width="100%" justify="space-between" gap="24px">
+                <CustomInput
+                  name={`jobData[${index}].startDate`}
+                  label="From"
+                  type="text"
+                  containerWidth="100%"
+                  placeholder="Input year"
+                  value={values.jobData[index].startDate}
+                />
+                <CustomInput
+                  name={`jobData[${index}].endDate`}
+                  label="To"
+                  type="text"
+                  containerWidth="100%"
+                  placeholder="Input year"
+                  value={values.jobData[index].endDate}
+                />
+              </FlexWrapper>
               <FlexWrapper width="100%" justify="space-between" margin="24px 0 0 0">
                 <ActionButton type="button" onClick={handleCancel}>
                   Cancel
@@ -164,7 +187,7 @@ function EditingComponentProjects({ handleBack, showingUser }) {
                   type="button"
                   border="none"
                   background="#46A11B"
-                  onClick={submitEditProject}
+                  onClick={submitEditJob}
                 >
                   {isLoading ? (
                     <ThreeDots
@@ -190,19 +213,35 @@ function EditingComponentProjects({ handleBack, showingUser }) {
           <>
             <FlexWrapper direction="column" gap="24px" height="100%" width="100%">
               <CustomInput
-                name={`projectData[${values?.projectData?.length - 1}].title`}
-                label="Project title"
+                name={`jobData[${values?.jobData?.length - 1}].title`}
+                label="Job Title"
                 type="text"
                 containerWidth="100%"
-                placeholder="Input title"
+                placeholder="Ex: Data Scientist"
               />
               <CustomInput
-                name={`projectData[${values?.projectData?.length - 1}].link`}
-                label="Project link"
+                name={`jobData[${values?.jobData?.length - 1}].company`}
+                label="Company"
                 type="text"
                 containerWidth="100%"
-                placeholder="Add link"
+                placeholder="Ex: Teameights"
               />
+              <FlexWrapper width="100%" justify="space-between" gap="24px">
+                <CustomInput
+                  name={`jobData[${values?.jobData?.length - 1}].startDate`}
+                  label="From"
+                  type="text"
+                  containerWidth="100%"
+                  placeholder="Input year"
+                />
+                <CustomInput
+                  name={`jobData[${values?.jobData?.length - 1}].endDate`}
+                  label="To"
+                  type="text"
+                  containerWidth="100%"
+                  placeholder="Input year"
+                />
+              </FlexWrapper>
               <FlexWrapper width="100%" justify="space-between" margin="24px 0 0 0">
                 <ActionButton type="button" onClick={handleCancel}>
                   Cancel
@@ -211,7 +250,7 @@ function EditingComponentProjects({ handleBack, showingUser }) {
                   type="button"
                   border="none"
                   background="#46A11B"
-                  onClick={submitEditProject}
+                  onClick={submitEditJob}
                 >
                   {isLoading ? (
                     <ThreeDots
@@ -237,4 +276,4 @@ function EditingComponentProjects({ handleBack, showingUser }) {
   )
 }
 
-export default EditingComponentProjects
+export default EditingComponentJob

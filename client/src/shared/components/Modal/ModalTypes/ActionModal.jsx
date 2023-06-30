@@ -1,4 +1,5 @@
 import React from 'react'
+import { ThreeDots } from 'react-loader-spinner'
 
 import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
 import { Button, Container, Text } from '../Modal.styles'
@@ -10,6 +11,7 @@ const ActionModal = ({
   firstButtonHandler,
   secondButton,
   secondButtonHandler,
+  isLoading,
 }) => {
   return (
     <Container>
@@ -23,7 +25,20 @@ const ActionModal = ({
       </FlexWrapper>
       <FlexWrapper width="100%" justify="center" align="center" direction="column" gap="8px">
         <Button onClick={firstButtonHandler} background="#46A11B" marginTop="0">
-          {firstButton}
+          {isLoading ? (
+            <ThreeDots
+              height="24"
+              width="24"
+              radius="9"
+              color="white"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            firstButton
+          )}
         </Button>
         <Button border="2px solid #A5211F" marginTop="0" onClick={secondButtonHandler}>
           {secondButton}
