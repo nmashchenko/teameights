@@ -70,7 +70,7 @@ const Profile = () => {
     setIsEditing('')
   }
 
-  if (isLoading || isUserLoading || isFetching || isUpdatingAvatar) {
+  if (isLoading || isUserLoading || isFetching || isUpdatingAvatar || !showingUser) {
     return <Loader />
   }
 

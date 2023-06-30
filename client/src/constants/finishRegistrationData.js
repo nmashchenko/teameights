@@ -69,19 +69,19 @@ export const defaultUserAvatars = [
 
 export const userExperienceOptions = [
   {
-    label: 'No experience',
+    label: '0',
     value: '0',
   },
   {
-    label: '1-3 years',
+    label: '1-3',
     value: '1-3',
   },
   {
-    label: '3-5 years',
+    label: '3-5',
     value: '3-5',
   },
   {
-    label: '5+ years',
+    label: '5+',
     value: '5+',
   },
 ]

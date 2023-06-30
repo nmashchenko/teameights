@@ -1,3 +1,4 @@
+import { Autocomplete } from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import styled from 'styled-components'
@@ -5,8 +6,8 @@ import styled from 'styled-components'
 import { GREEN, GREY, WHITE } from '../../../../constants/colors'
 import { shake } from '../../../styles/KeyFrames.styles'
 
-export const SelectCustom = styled(Select)`
-  animation-name: ${(props) => (!props.$isError ? 'none' : shake)};
+export const SelectCustom = styled(Autocomplete)`
+  /* animation-name: ${(props) => (!props.$isError ? 'none' : shake)};
   animation-duration: 0.3s;
   background: none;
   height: 45px;
@@ -27,7 +28,7 @@ export const SelectCustom = styled(Select)`
   & .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
     padding: 0;
     color: ${WHITE.main};
-  }
+  } */
 `
 
 export const Line = styled.hr`

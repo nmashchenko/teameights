@@ -4,8 +4,8 @@ import { Box, Modal, Slide } from '@mui/material'
 import Close from '../../../assets/Shared/Close'
 import UserPlus from '../../../assets/Team/UserPlus'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
-import AutocompleteInput from '../../../shared/components/AutocompleteInput/AutocompleteInput'
 import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
+import SearchUsersAutocomplete from '../../../shared/components/SearchUsersAutocomplete/SearchUsersAutocomplete'
 import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 import {
   CloseContainerModal,
@@ -135,7 +135,7 @@ const TeamModal = ({
         <InteractiveModal
           interactiveText={'Send invite'}
           interactiveComponent={
-            <AutocompleteInput
+            <SearchUsersAutocomplete
               value={value}
               setValue={handleSetValue}
               width={width > 600 ? '306px' : '100%'}

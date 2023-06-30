@@ -1,10 +1,13 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useFormikContext } from 'formik'
 
+import concentrationOptions from '../../../../../constants/concentrations'
 import { countries } from '../../../../../constants/countries'
+import { userExperienceOptions } from '../../../../../constants/finishRegistrationData'
 import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
 import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
-import CustomSelect from '../../../../../shared/components/Formik/CustomSelect/CustomSelect'
+import CustomSelectAutocomplete from '../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
+import Links from '../../../../../shared/components/Links/Links'
 import { ResumePartBox, ResumePartBtn } from '../ResumeInfo.styles'
 
 function EditingComponentProfile() {
@@ -27,34 +30,50 @@ function EditingComponentProfile() {
           Links
         </ResumePartBtn>
       </ResumePartBox>
-      <CustomInput
-        label="Full name"
-        name="fullName"
-        type="text"
-        placeholder="Full name"
-        value={values.fullName}
-      />
-      {/* <CustomInput
-        label="Username"
-        name="username"
-        type="text"
-        placeholder="Username"
-        value={values.username}
-      /> */}
-      <CustomSelect
-        label="Сountry"
-        name="country"
-        options={countries}
-        placeholder="Select country"
-        value={values.country}
-      />
-      <CustomInput
-        shouldFormatDate={true}
-        label="Birthday"
-        name="dateOfBirth"
-        type="text"
-        placeholder="DD/MM/YYYY"
-      />
+      {isActive === 'general' && (
+        <>
+          <CustomInput
+            label="Full name"
+            name="fullName"
+            type="text"
+            placeholder="Full name"
+            value={values.fullName}
+          />
+          <CustomSelectAutocomplete
+            label="Сountry"
+            name="country"
+            options={countries}
+            placeholder="Select country"
+            value={values.country}
+          />
+          <CustomInput
+            shouldFormatDate={true}
+            label="Birthday"
+            name="dateOfBirth"
+            type="text"
+            placeholder="DD/MM/YYYY"
+          />
+        </>
+      )}
+      {isActive === 'concentration' && (
+        <>
+          <CustomSelectAutocomplete
+            label="Concentration"
+            name="concentration"
+            options={concentrationOptions}
+            placeholder="Select country"
+            value={values.concentration}
+          />
+          <CustomSelectAutocomplete
+            label="Experience"
+            name="experience"
+            options={userExperienceOptions}
+            placeholder="Select experience"
+            value={values.experience}
+          />
+        </>
+      )}
+      {isActive === 'links' && <Links />}
     </FlexWrapper>
   )
 }

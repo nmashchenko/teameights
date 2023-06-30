@@ -74,16 +74,17 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing }) 
     inviteUser(details)
   }
 
+  const { values, resetForm } = useFormikContext()
+  const userStatus = checkUserStatus(currentUser, id)
+
   const handleEdit = (target) => {
     if (!isEditing) {
       setIsEditing(target)
     } else {
+      resetForm()
       setIsEditing('')
     }
   }
-
-  const { values } = useFormikContext()
-  const userStatus = checkUserStatus(currentUser, id)
 
   return (
     <ProfileSection width="270px" padding="36px 24px 24px" align="center" gap="32px">

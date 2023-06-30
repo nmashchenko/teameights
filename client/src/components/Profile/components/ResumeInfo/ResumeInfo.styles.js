@@ -7,11 +7,31 @@ export const Text = styled.p`
   line-height: '120%';
 `
 
+export const TextArea = styled.textarea`
+  font-weight: ${(props) => props.fontWeight || '500'};
+  font-size: ${(props) => props.fontSize || '20px'};
+  color: ${(props) => props.color || '#fff'};
+  height: 85px;
+  background: #1a1c22;
+  border: none;
+  resize: none;
+`
+
 export const ResumePartBox = styled.div`
   height: 32px;
   display: flex;
   align-items: center;
   gap: 16px;
+  overflow-x: scroll;
+
+  ::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
 `
 
 export const ResumePartBtn = styled.div`
@@ -21,6 +41,7 @@ export const ResumePartBtn = styled.div`
   transition: opacity 0.3s;
   font-size: 20px;
   font-weight: 500;
+  white-space: nowrap;
   &:hover {
     opacity: 0.6;
   }
@@ -79,4 +100,16 @@ export const ActionButton = styled.button`
   width: 83px;
   height: 32px;
   cursor: pointer;
+`
+
+export const EditIconContainer = styled.div`
+  cursor: pointer;
+
+  :hover {
+    svg {
+      path {
+        fill: #5bd424;
+      }
+    }
+  }
 `

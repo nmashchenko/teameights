@@ -26,6 +26,7 @@ export const Input = styled.input`
   animation-name: ${(props) => props.animation || shake};
   animation-duration: 0.3s;
   display: ${(props) => (props.isOptional ? 'none' : 'block')};
+  padding: 8px 4px;
 
   &:focus {
     border-color: ${WHITE.main};

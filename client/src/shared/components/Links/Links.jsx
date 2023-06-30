@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { userLinks } from '../../../../../constants/finishRegistrationData'
-import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
-import { InputWithIConWrapper } from '../../../../../shared/components/Formik/CustomInput/CustomInput.styles'
-import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
+import { ContentContainer } from '../../../components/RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration.styles'
+import { userLinks } from '../../../constants/finishRegistrationData'
+import CustomInput from '../Formik/CustomInput/CustomInput'
+import { InputWithIConWrapper } from '../Formik/CustomInput/CustomInput.styles'
 
-const UserLinksForm = () => {
+const Links = () => {
   return (
     <>
       <ContentContainer rows={userLinks.length} gap="2.25rem">
@@ -25,4 +25,4 @@ const UserLinksForm = () => {
   )
 }
 
-export default UserLinksForm
+export default Links

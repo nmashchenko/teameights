@@ -2,16 +2,15 @@ import { useEffect, useMemo, useState } from 'react'
 import { ThemeProvider } from '@mui/material'
 import Autocomplete from '@mui/material/Autocomplete'
 import { debounce } from '@mui/material/utils'
-import { useField } from 'formik'
 
 import { useGetUserByUsername } from '../../../api/hooks/temeights/useGetUserByUsername'
 
-import { theme } from './AutocompleteInput.theme'
 import { List } from './List'
 import { InputLoader } from './Loader'
+import { theme } from './SearchUsersAutocomplete.theme'
 import { InputTextField } from './TextField'
 
-export default function AutocompleteInput({ value, setValue, width = 412, ...props }) {
+export default function SearchUsersAutocomplete({ value, setValue, width = 412, ...props }) {
   const [inputValue, setInputValue] = useState('')
   const [user, setUser] = useState([])
 

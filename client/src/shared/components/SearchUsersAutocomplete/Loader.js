@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material'
 
-import { LoaderContainer, LoaderText } from './AutocompleteInput.styles'
+import { LoaderContainer, LoaderText } from './SearchUsersAutocomplete.styles'
 
 export const InputLoader = ({ areUsersLoading }) => {
   if (areUsersLoading) {
