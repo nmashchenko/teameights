@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik'
 import AddUserIcon from '../../../../../assets/Shared/AddUserIcon'
 import DeleteIcon from '../../../../../assets/Shared/DeleteIcon'
 import { LOCAL_PATH } from '../../../../../http'
-import AutocompleteInput from '../../../../../shared/components/AutocompleteInput/AutocompleteInput'
+import SearchUsersAutocomplete from '../../../../../shared/components/SearchUsersAutocomplete/SearchUsersAutocomplete'
 import { errorToaster } from '../../../../../shared/components/Toasters/Error.toaster'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
@@ -59,7 +59,7 @@ const InviteMembersForm = () => {
         Team members can be removed as needed.
       </InviteFormText>
       <InviteArea>
-        <AutocompleteInput value={value} setValue={setValue} name="members" />
+        <SearchUsersAutocomplete value={value} setValue={setValue} name="members" />
         <CustomButton type="button" onClick={addUsersToInviteQueue}>
           <AddUserIcon />
           Send invite

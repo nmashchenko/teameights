@@ -28,7 +28,7 @@ const ChecksTag = ({ value, filterName, filterIndex, setFilterValue }) => {
         </TagSubItem>
       </TagItem>
       {value.length > 1 && (
-        <TagItem ref={itemsListRef} onClick={() => setListIsOpened(true)}>
+        <TagItem ref={itemsListRef} onClick={() => setListIsOpened(true)} isMenu={true}>
           {listIsOpened ? (
             <>
               {value.slice(1).map((item, index) => (

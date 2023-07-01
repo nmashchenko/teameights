@@ -1,8 +1,7 @@
-import { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import countryList from 'react-select-country-list'
 
 import concentrationOptions from '../../constants/concentrations'
+import { countries } from '../../constants/countries'
 import frameworkOptions from '../../constants/frameworks'
 import { programmingLanguageOptions } from '../../constants/programmingLanguages'
 
@@ -16,8 +15,6 @@ const Search = ({ sliceName, setFilterValueAction, currFilterIndex }) => {
   const setFilterValue = (index, value) => dispatch(setFilterValueAction({ index, value }))
 
   const currFilter = filtersArr[currFilterIndex]
-
-  const countries = useMemo(() => countryList().getData(), [])
 
   switch (currFilter.type) {
     case 'text':

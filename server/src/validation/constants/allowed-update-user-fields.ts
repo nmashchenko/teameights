@@ -13,4 +13,5 @@ export const allowedUpdateUserFields: string[] = [
 	'frameworks',
 	'universityData',
 	'jobData',
+	'projectData',
 ];

@@ -1,5 +1,5 @@
 // * Modules
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 // * Constants
 // * API
 import lookup from 'country-code-lookup'
@@ -15,6 +15,7 @@ import { CardContainer } from './Cards.styles'
 
 const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
   const intObserver = useRef()
+  const [loadedPictures, setLoadedPictures] = useState(0)
 
   const {
     fetchNextPage,
@@ -83,6 +84,7 @@ const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
               ref={lastUserRef}
               key={user._id}
               person={user}
+              setLoadedPictures={setLoadedPictures}
             />
           </CardContainer>
         )
@@ -95,7 +97,12 @@ const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
           }}
           key={index}
         >
-          <UserCard countryCode={lookup.byCountry(user.userCountry)} key={user._id} person={user} />
+          <UserCard
+            countryCode={lookup.byCountry(user.userCountry)}
+            key={user._id}
+            person={user}
+            setLoadedPictures={setLoadedPictures}
+          />
         </CardContainer>
       )
     })

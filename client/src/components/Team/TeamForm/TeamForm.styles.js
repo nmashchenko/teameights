@@ -215,31 +215,6 @@ export const CaretContainer = styled.div`
   top: 5%;
 `
 
-export const CloseContainerModal = styled.div`
-  position: absolute;
-  cursor: pointer;
-  svg {
-    width: 14px;
-    height: 14px;
-    path {
-      stroke: ${(props) => props.color || '#46A11B'};
-    }
-  }
-  color: #fff;
-  opacity: 1;
-  transition: all 0.2s ease-in-out;
-  right: 3%;
-  top: 4%;
-
-  &:hover {
-    svg {
-      path {
-        stroke: #d42422;
-      }
-    }
-  }
-`
-
 export const Input = styled.input`
   margin: 0;
   outline: 0;
@@ -278,46 +253,3 @@ export const FormikContainer = styled.div`
     font-weight: ${B2fw};
   }
 `
-
-export const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '370px',
-  height: '350px',
-  bgcolor: '#1A1C22',
-  borderRadius: '15px',
-  boxShadow: 14,
-  padding: '32px 32px',
-  backdropFilter: 'blur(5px)',
-}
-
-export const teamPreviewStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '570px',
-  bgcolor: '#1A1C22',
-  borderRadius: '15px',
-  boxShadow: 14,
-  padding: '24px 32px',
-  display: 'flex',
-  alignItems: 'start',
-  flexDirection: 'column',
-  gap: '24px',
-}
-
-export const mobileFullScreenStyle = {
-  width: '100%',
-  minHeight: '100dvh',
-  background: '#26292b',
-  padding: '24px 29px',
-}
-
-export const mobileSemiFullScreenStyle = {
-  width: '100%',
-  background: '#1A1C22',
-  padding: '78px 27px',
-}

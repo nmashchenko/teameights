@@ -91,7 +91,11 @@ const UserCard = React.forwardRef((props, ref) => {
       <CardContainer plLength={plLength > 2} ufLength={ufLength > 4}>
         <UserInformationContainer>
           <div>
-            <UserImage src={person.image} alt="User's image" />
+            <UserImage
+              src={person.image}
+              alt="User's image"
+              onLoad={() => props.setLoadedPictures((prev) => prev + 1)}
+            />
           </div>
           {programmingLanguages}
         </UserInformationContainer>

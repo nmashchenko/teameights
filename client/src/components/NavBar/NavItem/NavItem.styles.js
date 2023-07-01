@@ -10,7 +10,7 @@ export const StyledLink = styled(NavLink)`
   text-decoration: none;
   color: #fff;
   padding: 8px 16px;
-  transition: background-color 0.5s;
+  /* transition: background-color 0.5s; */
   display: flex;
   align-items: center;
   gap: 8px;

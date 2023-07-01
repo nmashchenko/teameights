@@ -3,6 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   isAuth: false,
   isRegistered: false,
+  isConnected: false,
+  notifications: [],
+  userId: '',
   error: '',
 }
 
@@ -18,6 +21,7 @@ export const userAuth = createSlice({
     authUserLogout(state) {
       state.error = ''
       state.isAuth = false
+      state.isConnected = false
     },
 
     authUserError(state, action) {
@@ -27,6 +31,15 @@ export const userAuth = createSlice({
 
     authClearError(state) {
       state.error = ''
+    },
+
+    setUserNotifications(state, action) {
+      state.notifications = action.payload
+      state.isConnected = true
+    },
+
+    setUserId(state, action) {
+      state.userId = action.payload
     },
   },
 })

@@ -3,10 +3,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { useEditUserDetails } from '../../api/hooks/auth/useEditUserDetails'
-import { useUpdateAvatar } from '../../api/hooks/auth/useUpdateAvatar'
-import { defaultUserAvatars } from '../../constants/finishRegistrationData'
+import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
+import { useEditUserDetails } from '../../api/hooks/user/useEditUserDetails'
 import { finishRegistrationValidation } from '../../schemas'
+import Links from '../../shared/components/Links/Links'
 import { setIsFinishRegistrationStarted, setStep } from '../../store/reducers/RegistrationAuth'
 import { formatDateString } from '../../utils/convertStringToDate'
 import { convertYearToDate } from '../../utils/convertYearToDate'
@@ -20,7 +20,6 @@ import UserConcentrationForm from './components/RegistrationForms/UserConcentrat
 import UserEducationForm from './components/RegistrationForms/UserEducationForm/UserEducationForm'
 import UserExperienceForm from './components/RegistrationForms/UserExperienceForm/UserExperienceForm'
 import UserJobForm from './components/RegistrationForms/UserJobForm/UserJobForm'
-import UserLinksForm from './components/RegistrationForms/UserLinksForm/UserLinksForm'
 
 function FinishRegistration() {
   const { isFinishRegistrationStarted } = useSelector((state) => state.registrationReducer)
@@ -36,13 +35,10 @@ function FinishRegistration() {
     { component: <UserExperienceForm />, name: 'Experience', isOptional: false },
     { component: <UserEducationForm />, name: 'Education', isOptional: true },
     { component: <UserJobForm />, name: 'Work Experience', isOptional: true },
-    { component: <UserLinksForm />, name: 'Links', isOptional: true },
+    { component: <Links />, name: 'Links', isOptional: true },
     {
       component: (
-        <AvatarForm
-          text="You can upload an image to personalize your profile or select one of our default options. The avatar can be changed at any time."
-          defaultAvatars={defaultUserAvatars}
-        />
+        <AvatarForm text="You can upload an image to personalize your profile or select one of our default options. The avatar can be changed at any time." />
       ),
       name: 'Avatar',
       isOptional: true,

@@ -1,15 +1,11 @@
-import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
+import { useMutation } from 'react-query'
 
 import http from '../../../http'
-import { registrationAuth } from '../../../store/reducers/RegistrationAuth'
+import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
 export const useReadMessages = () => {
-  const dispatch = useDispatch()
-  const queryClient = useQueryClient()
-
   const readMessages = async (idsArr) => {
     return await api.put('notifications/read', { notifications: idsArr })
   }
@@ -21,7 +17,7 @@ export const useReadMessages = () => {
     },
     onError: (error) => {
       // set error message
-      dispatch(registrationAuth.actions.finishRegistrationError(error.response?.data?.message))
+      errorToaster(error)
     },
   })
 }

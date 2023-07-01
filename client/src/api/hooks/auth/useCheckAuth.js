@@ -20,6 +20,8 @@ export const useCheckAuth = () => {
     onSuccess: (data) => {
       if (data && data.isRegistered) {
         dispatch(userAuth.actions.authUserSuccess())
+        dispatch(userAuth.actions.setUserNotifications(data?.notifications))
+        dispatch(userAuth.actions.setUserId(data?._id))
       }
     },
     onError: (error) => {

@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import countryList from 'react-select-country-list'
 
 import { useGetByTag } from '../../../../../../api/hooks/team/useGetByTag'
 import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
+import { countries } from '../../../../../../constants/countries'
 import { teamTypes } from '../../../../../../constants/teamFormData'
 import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
   SectionContainer,
 } from '../../../../../../shared/components/Formik/CustomInput/CustomInput.styles'
-import CustomSelect from '../../../../../../shared/components/Formik/CustomSelect/CustomSelect'
+import CustomSelectAutocomplete from '../../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
 import CustomTextArea from '../../../../../../shared/components/Formik/CustomTextArea/CustomTextArea'
 import { InputsContainer } from '../InfoForm.styles'
 
 const TeamInfoForm = () => {
-  const countriesOptions = React.useMemo(() => countryList().getData(), [])
   let { mutate: getTeamByTag, data: errorStatus } = useGetByTag()
 
   // State and setters for ...
@@ -55,10 +54,10 @@ const TeamInfoForm = () => {
             <CustomInput placeholder="Input name" label="Team name" name="name" type="text" />
           </GroupContainer>
           <GroupContainer>
-            <CustomSelect
+            <CustomSelectAutocomplete
               label="Сountry"
               name="country"
-              options={countriesOptions}
+              options={countries}
               placeholder="Select country"
             />
           </GroupContainer>
@@ -76,7 +75,7 @@ const TeamInfoForm = () => {
             />
           </GroupContainer>
           <GroupContainer>
-            <CustomSelect
+            <CustomSelectAutocomplete
               label="Team type"
               name="type"
               options={teamTypes}

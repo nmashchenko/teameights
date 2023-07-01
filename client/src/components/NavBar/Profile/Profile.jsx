@@ -14,6 +14,8 @@ let defaultData = {
 }
 
 const changeData = (data) => {
+  console.log(data)
+
   return {
     userRealName: data.fullName,
     userUsername: data.username,

@@ -6,19 +6,15 @@ const ActionButtonsType = ({
   team,
   isEditing,
   setIsEditing,
-  editImage,
   handleOpenDelete,
   handleOpenLeave,
   updateTeamsAvatar,
-  servedProfilePic,
-  picture,
-  selectedImage,
   role,
   handleJoin,
   updateTeam,
 }) => {
   let action = null
-  const { values } = useFormikContext()
+  const { values, setFieldValue } = useFormikContext()
 
   switch (role) {
     case 'leader':
@@ -38,8 +34,8 @@ const ActionButtonsType = ({
 
                 updateTeam(updateTeamObj)
 
-                if (editImage && (picture || selectedImage !== '')) {
-                  updateTeamsAvatar({ teamID: team._id, image: servedProfilePic.split(',')[1] })
+                if (values?.file) {
+                  updateTeamsAvatar({ teamID: team._id, image: values?.file?.split(',')[1] })
                 }
               }
               setIsEditing((prevState) => !prevState)
@@ -53,6 +49,7 @@ const ActionButtonsType = ({
             onClick={() => {
               if (isEditing) {
                 setIsEditing((prevState) => !prevState)
+                setFieldValue('file', null)
               } else {
                 handleOpenDelete()
               }

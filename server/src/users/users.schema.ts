@@ -132,6 +132,32 @@ export class User {
 		},
 	];
 
+	/* PROJECT DATA */
+	@ApiProperty({
+		example: [
+			{
+				title: 'Teameights',
+				link: `https://teameights.com`,
+			},
+		],
+		description: 'Projects data of the user',
+	})
+	@Prop({
+		_id: false,
+		type: [
+			{
+				title: { type: String, required: true },
+				link: { type: String, required: true },
+			},
+		],
+	})
+	projectData: [
+		{
+			title: string;
+			company: string;
+		},
+	];
+
 	@ApiProperty({
 		example: 'Frontend Developer',
 		description: 'Concentration of user',

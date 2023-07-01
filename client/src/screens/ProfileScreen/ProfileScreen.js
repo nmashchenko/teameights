@@ -1,13 +1,13 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import { Cards } from '../../components/Profile/Profile.styles'
+import Profile from '../../components/Profile/Profile'
 
-function ProfileScreen({ children }) {
+function ProfileScreen() {
   return (
     <>
       <CssBaseline />
-      <Cards>{children}</Cards>
+      <Profile />
     </>
   )
 }

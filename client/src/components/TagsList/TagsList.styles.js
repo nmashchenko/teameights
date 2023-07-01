@@ -17,6 +17,10 @@ export const TagItem = styled.li`
   color: #c1c1c4;
   background: #2f3239;
   border-radius: 5px;
+
+  :hover {
+    color: ${(props) => (props.isMenu ? '#5bd424;' : '#c1c1c4')};
+  }
 `
 
 export const TagSubItem = styled.div`

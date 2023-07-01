@@ -198,20 +198,24 @@ export class MaintenanceService {
 
 		initialUser.frameworks = this.getRandomEntries(this.frameworks);
 
-		initialUser.universityData = {
-			university: faker.random.words(2),
-			major: faker.random.words(2),
-			degree: 'Bachelor',
-			addmissionDate: new Date(),
-			graduationDate: new Date(),
-		};
+		initialUser.universityData = [
+			{
+				university: faker.random.words(2),
+				major: faker.random.words(2),
+				degree: 'Bachelor',
+				addmissionDate: new Date(),
+				graduationDate: new Date(),
+			},
+		];
 
-		initialUser.jobData = {
-			title: faker.random.words(2),
-			company: faker.company.name(),
-			startDate: new Date(),
-			endDate: new Date(),
-		};
+		initialUser.jobData = [
+			{
+				title: faker.random.words(2),
+				company: faker.company.name(),
+				startDate: new Date(),
+				endDate: new Date(),
+			},
+		];
 
 		return initialUser;
 	}

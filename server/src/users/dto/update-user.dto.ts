@@ -16,6 +16,7 @@ import {
 
 import { JobDataDto } from './job-data.dto';
 import { LinksUserDto } from './links-user.dto';
+import { ProjectDataDto } from './project-data.dto';
 import { UniversityDataDto } from './university-data.dto';
 
 export class UpdateUserDto {
@@ -129,11 +130,11 @@ export class UpdateUserDto {
 		],
 		description: 'University data of the user',
 	})
-	@IsObject({ message: 'Should be object' })
-	@ValidateNested()
-	@Type(() => UniversityDataDto)
+	@IsArray()
 	@IsOptional()
-	readonly universityData: UniversityDataDto;
+	@ValidateNested({ each: true })
+	@Type(() => UniversityDataDto)
+	readonly universityData: UniversityDataDto[];
 
 	@ApiProperty({
 		example: [
@@ -146,9 +147,24 @@ export class UpdateUserDto {
 		],
 		description: 'Job data of the user',
 	})
-	@IsObject({ message: 'Should be object' })
-	@ValidateNested()
-	@Type(() => JobDataDto)
+	@IsArray()
 	@IsOptional()
-	readonly jobData: JobDataDto;
+	@ValidateNested({ each: true })
+	@Type(() => JobDataDto)
+	readonly jobData: JobDataDto[];
+
+	@ApiProperty({
+		example: [
+			{
+				title: 'Teameights',
+				link: `https://teameights.com`,
+			},
+		],
+		description: 'Projects data of the user',
+	})
+	@IsArray()
+	@IsOptional()
+	@ValidateNested({ each: true })
+	@Type(() => ProjectDataDto)
+	readonly projectData: ProjectDataDto[];
 }

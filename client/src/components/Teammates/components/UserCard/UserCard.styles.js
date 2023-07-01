@@ -128,47 +128,20 @@ export const CardContainer = styled.div`
   padding: 20px;
   background: #1a1c22;
   border-radius: 15px;
+  position: relative;
 
-  &:hover {
+  :hover {
+    border-radius: 15px;
+    background: linear-gradient(
+      146deg,
+      rgba(184, 197, 229, 0.16) 0%,
+      rgba(188, 202, 235, 0.08) 100%
+    );
+
+    /* shadow 2 */
+    box-shadow: 0px 8px 24px 0px rgba(17, 20, 27, 0.2);
     cursor: pointer;
-    transition: 0.3s ease-in-out;
-    -webkit-transform: scale(1.02);
-    -ms-transform: scale(1.02);
-    transform: scale(1.02);
-  }
-
-  &:hover ${Framework}:last-child h3 {
-    transition: 0.1s ease-in-out;
-    opacity: ${(props) => (props.ufLength ? 0.2 : 1)};
-  }
-
-  &:hover ${LanguageContainer} {
-    background: rgba(46, 50, 57, 0.35);
-    transition: 0.1s ease-in-out;
-  }
-
-  &:hover ${LanguageContainer} svg {
-    background: transparent;
-    transition: 0.1s ease-in-out;
-  }
-
-  &:hover ${LanguageContainer}:last-child svg {
-    opacity: ${(props) => (props.plLength ? 0.2 : 1)};
-    transition: 0.1s ease-in-out;
-  }
-
-  &:hover ${AndMore} {
-    transition: 0.1s ease-in-out;
-    opacity: 1;
-    background-color: rgba(46, 50, 57, 0.35);
-    z-index: 999;
-  }
-
-  &:hover + ${CrownContainer} {
-    transition: 0.3s ease-in-out;
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
+    transition: all 0.2s ease;
   }
 `
 

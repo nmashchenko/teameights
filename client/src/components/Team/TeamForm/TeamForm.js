@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 
 // * API
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
-import { useUpdateAvatar } from '../../../api/hooks/auth/useUpdateAvatar'
+import { useUpdateAvatar } from '../../../api/hooks/shared/useUpdateAvatar'
 import { useDelete } from '../../../api/hooks/team/useDelete'
 import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import { useInviteUser } from '../../../api/hooks/team/useInviteUser'
@@ -17,10 +17,9 @@ import { useUpdateTeam } from '../../../api/hooks/team/useUpdateTeam'
 import ROUTES from '../../../constants/routes'
 import { editTeamValidation } from '../../../schemas'
 import Loader from '../../../shared/components/Loader/Loader'
+import Modal from '../../../shared/components/Modal/Modal'
 import { determineUserRoleInTeam } from '../../../utils/determineUserRoleInTeam'
-import { getServedProfilePic } from '../../../utils/getServedProfilepic'
 import Page404Form from '../../Forms/Page404Form/Page404Form'
-import TeamModal from '../Modal/TeamModal'
 import { TeamProfileLargeCard } from '../TeamProfileLargeCard/TeamProfileLargeCard'
 import TeamProfileMiniCard from '../TeamProfileMiniCard/TeamProfileMiniCard'
 import TeamTypeSwitch from '../TeamTypeSwitch/TeamTypeSwitch'
@@ -67,18 +66,6 @@ function TeamForm() {
       setEditImage(false)
     }
   }, [isEditing])
-
-  const [selectedImage, changeSelectedImage] = useState('')
-  const [picture, setPicture] = useState(null)
-  const [imgData, setImgData] = useState(null)
-
-  useEffect(() => {
-    setPicture(null)
-    setImgData(null)
-    changeSelectedImage('')
-  }, [isEditing])
-
-  const servedProfilePic = getServedProfilePic(selectedImage, picture, imgData)
 
   // handleClose() function
   const handleClose = () => {
@@ -164,9 +151,6 @@ function TeamForm() {
       handleOpenDelete={handleOpenDelete}
       handleOpenLeave={handleOpenLeave}
       updateTeamsAvatar={updateTeamsAvatar}
-      servedProfilePic={servedProfilePic}
-      picture={picture}
-      selectedImage={selectedImage}
       role={role}
       handleJoin={handleJoin}
       updateTeam={updateTeam}
@@ -183,9 +167,9 @@ function TeamForm() {
           '',
         ),
         description: team?.description,
-        image: '',
-        default: '',
+        file: null,
       }}
+      enableReinitialize={true}
       validationSchema={editTeamValidation}
     >
       {() => {
@@ -193,7 +177,7 @@ function TeamForm() {
           <>
             <TeamTypeSwitch myTeam={role === 'leader' || role === 'member' ? 'team' : ''} />
             <Container>
-              <TeamModal
+              <Modal
                 modalActive={modalActive}
                 chosenLeader={chosenLeader}
                 handleClose={handleClose}
@@ -226,25 +210,16 @@ function TeamForm() {
                     handleOpenDelete={handleOpenDelete}
                     switchIsMembers={switchIsMembers}
                     handleOpenInvite={handleOpenInvite}
-                    selectedImage={selectedImage}
-                    setImgData={setImgData}
-                    setPicture={setPicture}
-                    changeSelectedImage={changeSelectedImage}
-                    imgData={imgData}
-                    picture={picture}
                     role={role}
                     handleOpenTransferLeader={handleOpenTransferLeader}
                   />
                 </Card>
                 <TeamProfileMiniCard
                   team={team}
-                  picture={picture}
-                  selectedImage={selectedImage}
                   isEditing={isEditing}
                   setEditImage={setEditImage}
                   actionType={actionType}
                   editImage={editImage}
-                  servedProfilePic={servedProfilePic}
                 />
               </CardContainer>
             </Container>

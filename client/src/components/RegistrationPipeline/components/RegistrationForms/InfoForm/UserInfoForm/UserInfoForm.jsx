@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import countryList from 'react-select-country-list'
 
-import { useValidateUsername } from '../../../../../../api/hooks/auth/useValidateUsername'
 import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
+import { useValidateUsername } from '../../../../../../api/hooks/user/useValidateUsername'
+import { countries } from '../../../../../../constants/countries'
 import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
   SectionContainer,
 } from '../../../../../../shared/components/Formik/CustomInput/CustomInput.styles'
-import CustomSelect from '../../../../../../shared/components/Formik/CustomSelect/CustomSelect'
+import CustomSelectAutocomplete from '../../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
 import CustomTextArea from '../../../../../../shared/components/Formik/CustomTextArea/CustomTextArea'
 import { InputsContainer } from '../InfoForm.styles'
 
 const UserInfoForm = () => {
-  const countriesOptions = React.useMemo(() => countryList().getData(), [])
-
   let { mutate: validateUsername, data: errorStatus } = useValidateUsername()
 
   // State and setters for ...
@@ -55,10 +54,10 @@ const UserInfoForm = () => {
             <CustomInput placeholder="Input name" label="Full name" name="fullName" type="text" />
           </GroupContainer>
           <GroupContainer>
-            <CustomSelect
+            <CustomSelectAutocomplete
               label="Сountry"
               name="country"
-              options={countriesOptions}
+              options={countries}
               placeholder="Select country"
             />
           </GroupContainer>
