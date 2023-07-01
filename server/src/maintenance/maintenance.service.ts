@@ -77,6 +77,20 @@ export class MaintenanceService {
 		'Photoshop',
 	];
 
+	concentrations: string[] = [
+		'Mobile Developer',
+		'Frontend/UI Developer',
+		'Backend Developer',
+		'Full-Stack Developer',
+		'Desktop Applications Developer',
+		'Embedded Systems Developer',
+		'Machine Learning Engineer',
+		'Data Scientist',
+		'DevOps Engineer',
+		'Data Engineer',
+		'QA/Test Engineer',
+	];
+
 	images: string[] = [
 		avatar_blue,
 		avatar_green,
@@ -100,6 +114,11 @@ export class MaintenanceService {
 		const shuffled = arr.sort(() => 0.5 - Math.random());
 		return shuffled.slice(0, numEntries);
 	}
+
+	getRandomValue = (array: string[]): string => {
+		const randomIndex = Math.floor(Math.random() * array.length);
+		return array[randomIndex];
+	};
 
 	private generateDescription(length: number): string {
 		let description = faker.lorem.sentence();
@@ -160,7 +179,7 @@ export class MaintenanceService {
 			mode: 'age',
 		})),
 			(initialUser.description = this.generateDescription(230));
-		initialUser.concentration = faker.name.jobTitle();
+		initialUser.concentration = this.getRandomValue(this.concentrations);
 		initialUser.country = faker.address.country();
 		initialUser.experience = `${faker.datatype.number({
 			min: 0,
@@ -176,6 +195,7 @@ export class MaintenanceService {
 		initialUser.programmingLanguages = this.getRandomEntries(
 			this.programmingLanguages,
 		);
+
 		initialUser.frameworks = this.getRandomEntries(this.frameworks);
 
 		initialUser.universityData = {
