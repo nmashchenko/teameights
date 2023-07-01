@@ -169,6 +169,7 @@ function TeamForm() {
         description: team?.description,
         file: null,
       }}
+      enableReinitialize={true}
       validationSchema={editTeamValidation}
     >
       {() => {

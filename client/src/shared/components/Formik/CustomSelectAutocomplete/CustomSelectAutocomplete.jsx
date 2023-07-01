@@ -70,15 +70,17 @@ const CustomSelectAutocomplete = ({
           renderInput={(params) => (
             <TextField
               sx={{
-                borderBottom: '2px solid #86878B',
+                borderBottom: '1px solid #86878B',
                 '& fieldset': { border: 'none', padding: 0 },
               }}
               {...params}
               label="" // removing jumping placeholder
-              placeholder={label}
+              placeholder={placeholder}
               InputProps={{
                 ...params.InputProps,
-                sx: { color: 'white' },
+                sx: {
+                  color: 'white',
+                },
               }}
             />
           )}

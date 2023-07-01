@@ -58,10 +58,10 @@ export const theme = createTheme({
           padding: '0 !important',
         },
         input: {
-          padding: '8px 4px',
+          padding: '8px 4px !important',
           cursor: 'pointer',
-          '::placeholder': {
-            fontWeight: '400',
+          '&::placeholder': {
+            fontWeight: '300 !important',
           },
         },
         clearIndicator: {

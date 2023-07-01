@@ -54,8 +54,11 @@ export const finishRegistrationValidation = [
     [['description', 'description']],
   ),
   yup.object().shape({
-    programmingLanguages: yup.array().min(1, 'Select at least one language'),
-    frameworks: yup.array().min(1, 'Select at least one framework'),
+    programmingLanguages: yup
+      .array()
+      .min(1, 'Select at least one language')
+      .max(8, '8 lagnuages maximum'),
+    frameworks: yup.array().min(1, 'Select at least one framework').max(6, '6 frameworks maximum'),
     concentration: yup.string().required('Select your concentration'),
   }),
   yup.object().shape({

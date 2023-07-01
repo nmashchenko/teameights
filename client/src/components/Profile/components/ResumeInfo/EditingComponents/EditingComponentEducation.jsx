@@ -32,7 +32,7 @@ function EditingComponentEducation({ handleBack, showingUser }) {
 
     setFieldValue('universityData', updatedUniversityData)
 
-    editUserDetails({ email: showingUser.email, educationData: updatedUniversityData })
+    editUserDetails({ email: showingUser.email, universityData: updatedUniversityData })
   }
 
   const handleEditUniversity = (index) => {
