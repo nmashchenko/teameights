@@ -4,6 +4,7 @@ import countryList from 'react-select-country-list'
 import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
 import { useValidateUsername } from '../../../../../../api/hooks/user/useValidateUsername'
 import { countries } from '../../../../../../constants/countries'
+import { useGetScreenWidth } from '../../../../../../hooks/useGetScreenWidth'
 import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
@@ -15,6 +16,7 @@ import { InputsContainer } from '../InfoForm.styles'
 
 const UserInfoForm = () => {
   let { mutate: validateUsername, data: errorStatus } = useValidateUsername()
+  const width = useGetScreenWidth()
 
   // State and setters for ...
   // Search term
@@ -86,12 +88,12 @@ const UserInfoForm = () => {
         </SectionContainer>
       </InputsContainer>
       <CustomTextArea
-        style={{ height: 'calc(100% - 5rem)' }}
+        style={{ height: width > 768 ? 'calc(100% - 5rem)' : '38px' }}
         label="About me (optional)"
         name="description"
-        placeholder="Write something about yourself..."
-        maxLength={200}
-        margin="0 0 5rem 0"
+        placeholder={width > 468 ? 'Write something about yourself...' : 'Write about you...'}
+        maxLength={230}
+        margin={width > 768 ? '0 0 5rem 0' : 0}
       />
     </>
   )

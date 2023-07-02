@@ -189,7 +189,7 @@ export class MaintenanceService {
 		initialUser.links = {
 			github: 'https://github.com',
 			linkedIn: 'https://www.linkedin.com/',
-			instagram: 'https://www.instagram.com/',
+			behance: 'https://www.behance.com/',
 			telegram: 'https://www.telegram.com/',
 		};
 		initialUser.programmingLanguages = this.getRandomEntries(

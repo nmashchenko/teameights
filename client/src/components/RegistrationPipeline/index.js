@@ -23,11 +23,18 @@ import UserJobForm from './components/RegistrationForms/UserJobForm/UserJobForm'
 
 function FinishRegistration() {
   const { isFinishRegistrationStarted } = useSelector((state) => state.registrationReducer)
-  const { mutate: finishRegistration, isLoading: isFinishingRegistration } =
-    useEditUserDetails(onSuccess)
+  const {
+    mutate: finishRegistration,
+    isLoading: isFinishingRegistration,
+    isError,
+    error,
+  } = useEditUserDetails(onSuccess)
   const { mutate: updateAvatar } = useUpdateAvatar('users')
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  console.log(error)
+  console.log(isFinishingRegistration)
 
   const steps = [
     { component: <InfoForm />, name: 'User Profile', isOptional: false },
@@ -56,18 +63,27 @@ function FinishRegistration() {
     concentration: '',
     experience: '',
     leader: '',
-    university: '',
-    degree: ``,
-    major: '',
-    addmissionDate: '',
-    graduationDate: '',
-    title: '',
-    company: '',
-    startDate: '',
-    endDate: '',
+    jobData: [
+      {
+        title: '',
+        company: '',
+        startDate: '',
+        endDate: '',
+      },
+    ],
+    universityData: [
+      {
+        university: '',
+        degree: ``,
+        major: '',
+        addmissionDate: '',
+        graduationDate: '',
+      },
+    ],
     github: '',
     linkedIn: '',
     telegram: '',
+    behance: '',
     file: null,
   }
 
@@ -78,55 +94,47 @@ function FinishRegistration() {
   }
 
   const submitForm = (formData, userCurrentData) => {
-    let universityDates = convertYearToDate(formData.addmissionDate, formData.graduationDate)
+    const jobAfterRemovedEmptyFields = removeEmptyFields(formData.jobData[0])
 
-    let jobDates = convertYearToDate(formData.startDate, formData.endDate)
+    if (jobAfterRemovedEmptyFields) {
+      let jobDates = convertYearToDate(formData.jobData[0].startDate, formData.jobData[0].endDate)
 
-    let universityData = {
-      university: formData.university,
-      degree: formData.degree,
-      major: formData.major,
-      addmissionDate: universityDates.dateOne,
-      graduationDate: universityDates.dateTwo,
+      formData.jobData[0].startDate = jobDates.dateOne
+      formData.jobData[0].endDate = jobDates.dateTwo
+    } else {
+      formData.jobData = undefined
     }
 
-    let universityValidated = removeEmptyFields(universityData)
+    const universityAfterRemovedEmptyFields = removeEmptyFields(formData.universityData[0])
 
-    let jobData = {
-      title: formData.title,
-      company: formData.company,
-      startDate: jobDates.dateOne,
-      endDate: jobDates.dateTwo,
+    if (universityAfterRemovedEmptyFields) {
+      let universityDates = convertYearToDate(
+        formData.universityData[0].addmissionDate,
+        formData.universityData[0].graduationDate,
+      )
+
+      formData.universityData[0].addmissionDate = universityDates.dateOne
+      formData.universityData[0].graduationDate = universityDates.dateTwo
+    } else {
+      formData.universityData = undefined
     }
 
-    let jobValidated = removeEmptyFields(jobData)
-
-    const registrationData = {
-      email: userCurrentData.email,
-      username: formData.username,
-      fullName: formData.fullName,
-      dateOfBirth: formatDateString(formData.dateOfBirth),
-      description: formData.description,
-      concentration: formData.concentration,
-      country: formData.country,
-      experience: formData.experience,
-      isLeader: formData.leader === 'true',
-      links: {
-        github: formData.github,
-        telegram: formData.telegram,
-        linkedIn: formData.linkedIn,
-      },
-      programmingLanguages: formData.programmingLanguages,
-      frameworks: formData.frameworks,
-      jobData: jobValidated !== null ? jobValidated : undefined,
-      universityData: universityValidated !== null ? universityValidated : undefined,
-      isRegistered: false,
+    formData.links = {
+      github: formData.github,
+      telegram: formData.telegram,
+      linkedIn: formData.linkedIn,
+      behance: formData.behance,
     }
+
+    formData.dateOfBirth = formatDateString(formData.dateOfBirth)
+    formData.isRegistered = false
+    formData.email = userCurrentData.email
 
     if (formData.file) {
       updateAvatar({ email: userCurrentData.email, image: formData.file.split(',')[1] })
     }
-    finishRegistration(registrationData)
+
+    finishRegistration(formData)
   }
 
   return (

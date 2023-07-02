@@ -4,59 +4,59 @@ import { useFormikContext } from 'formik'
 import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
 import CheckboxWithLabel from '../../CheckboxWithLabel/CheckboxWithLabel'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
-import { GroupItems, InputWrapper } from '../UserEducationForm/UserEducationForm.styles'
+import { InputWrapper } from '../UserEducationForm/UserEducationForm.styles'
 
 const UserJobForm = () => {
   const [checkbox, setCheckbox] = useState(false)
-  const { setFieldValue } = useFormikContext()
+  const { setFieldValue, values } = useFormikContext()
+
+  console.log(values)
 
   const handleClick = () => {
     if (checkbox) {
       setCheckbox(false)
-      setFieldValue('endDate', '')
+      setFieldValue('jobData[0].endDate', '')
     } else {
       setCheckbox(true)
-      setFieldValue('endDate', '0')
+      setFieldValue('jobData[0].endDate', '0')
     }
   }
 
   return (
     <ContentContainer>
-      <GroupItems>
-        <InputWrapper grow="2">
-          <CustomInput
-            label="Title"
-            name="title"
-            type="text"
-            placeholder="Ex: Software Developer"
-          />
-        </InputWrapper>
-        <InputWrapper width="12rem">
-          <CustomInput
-            label="From"
-            name="startDate"
-            type="number"
-            placeholder="Input year"
-            shouldFormatYear={true}
-          />
-        </InputWrapper>
-      </GroupItems>
-      <GroupItems>
-        <InputWrapper grow="2">
-          <CustomInput label="Company" name="company" type="text" placeholder="Ex: Teameights" />
-        </InputWrapper>
-        <InputWrapper width="12rem">
-          <CustomInput
-            label="To"
-            name="endDate"
-            type="number"
-            placeholder="Input year"
-            shouldFormatYear={true}
-            disabled={checkbox}
-            isOptional={checkbox}
-          />
-        </InputWrapper>
-      </GroupItems>
+      <CustomInput
+        label="Title"
+        name="jobData[0].title"
+        type="text"
+        placeholder="Ex: Software Developer"
+      />
+      <CustomInput
+        label="Company"
+        name="jobData[0].company"
+        type="text"
+        placeholder="Ex: Teameights"
+      />
+      <InputWrapper>
+        <CustomInput
+          label="From"
+          name="jobData[0].startDate"
+          type="number"
+          placeholder="Input year"
+          shouldFormatYear={true}
+          containerWidth="100%"
+        />
+        <CustomInput
+          label="To"
+          name="jobData[0].endDate"
+          type="number"
+          placeholder="Input year"
+          shouldFormatYear={true}
+          disabled={checkbox}
+          isOptional={checkbox}
+          containerWidth="100%"
+        />
+      </InputWrapper>
+
       <CheckboxWithLabel
         label="I am still working here"
         value={checkbox}

@@ -33,18 +33,31 @@ export const finishRegistrationValidation = [
   yup.object().shape(
     {
       username: yup.string().required('Please input your username').max(20),
-      fullName: yup.string().required('Please input your name').min(8).max(20),
+      fullName: yup
+        .string()
+        .required('Please input your name')
+        .min(4, 'Full name should be at least 4 characters')
+        .max(20, 'Full name should be at most 20 characters'),
       dateOfBirth: yup
         .string()
         .matches(
-          /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/,
+          /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01][0-9]|202[0-3])$/,
           'Invalid date format. Please enter a date in the format dd/mm/yyyy',
         )
+        .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+          if (value) {
+            const year = parseInt(value.split('/')[2])
+
+            return year >= 1901 && year <= new Date().getFullYear()
+          }
+
+          return true
+        })
         .required('Please input your birthday'),
       country: yup.string().required('Please choose your country!'),
       description: yup.string().when('description', (value) => {
         if (value) {
-          return yup.string().max(200)
+          return yup.string().max(230)
         } else {
           return yup.string().notRequired()
         }
@@ -65,159 +78,171 @@ export const finishRegistrationValidation = [
     experience: yup.string().required('Please choose your experience'),
     leader: yup.string().required('Decide if you want to be a leader'),
   }),
+
   yup.object().shape({
-    degree: yup
-      .string()
-      .when(['university', 'major', 'addmissionDate', 'graduationDate'], {
-        is: (major, university, addmissionDate, graduationDate) =>
-          !major && !university && !addmissionDate && !graduationDate,
-        then: yup.string(),
-        otherwise: yup.string().required('Please input your degree'),
-      })
-      .matches(/^[aA-zZ\s]+$/, {
-        message: 'Only alphabets are allowed for this field',
-      })
-      .nullable(),
-    major: yup
-      .string()
-      .test('all-required', 'Please input your major', function () {
-        const { major, degree, graduationDate, addmissionDate, university } = this.parent
+    universityData: yup
+      .array()
+      .of(
+        yup.object().shape({
+          degree: yup
+            .string()
+            .when(['university', 'major', 'addmissionDate', 'graduationDate'], {
+              is: (major, university, addmissionDate, graduationDate) =>
+                !major && !university && !addmissionDate && !graduationDate,
+              then: yup.string(),
+              otherwise: yup.string().required('Please input your degree'),
+            })
+            .nullable(),
+          major: yup
+            .string()
+            .test('all-required', 'Please input your major', function () {
+              const { major, degree, graduationDate, addmissionDate, university } = this.parent
 
-        if (!degree && !addmissionDate && !university && !graduationDate) {
-          return true
-        } else if (major) {
-          return true
-        } else {
-          return false
-        }
-      })
-      .matches(/^[aA-zZ\s]+$/, {
-        message: 'Only alphabets are allowed for this field',
-        excludeEmptyString: true,
-      })
-      .nullable(),
-    university: yup
-      .string()
-      .test('all-required', 'Please input your university', function () {
-        const { major, degree, graduationDate, addmissionDate, university } = this.parent
+              if (!degree && !addmissionDate && !university && !graduationDate) {
+                return true
+              } else if (major) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .nullable(),
+          university: yup
+            .string()
+            .test('all-required', 'Please input your university', function () {
+              const { major, degree, graduationDate, addmissionDate, university } = this.parent
 
-        if (!degree && !major && !addmissionDate && !graduationDate) {
-          return true
-        } else if (university) {
-          return true
-        } else {
-          return false
-        }
-      })
-      .matches(/^[aA-zZ\s]+$/, {
-        message: 'Only alphabets are allowed for this field',
-        excludeEmptyString: true,
-      })
-      .nullable(),
-    addmissionDate: yup
-      .string()
-      .test('all-required', 'Please input admission date', function () {
-        const { major, degree, university, graduationDate, addmissionDate } = this.parent
+              if (!degree && !major && !addmissionDate && !graduationDate) {
+                return true
+              } else if (university) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .matches(/^[aA-zZ\s]+$/, {
+              message: 'Only alphabets are allowed for this field',
+              excludeEmptyString: true,
+            })
+            .nullable(),
+          addmissionDate: yup
+            .string()
+            .test('all-required', 'Please input admission date', function () {
+              const { major, degree, university, graduationDate, addmissionDate } = this.parent
 
-        if (!degree && !major && !university && !graduationDate) {
-          return true
-        } else if (addmissionDate) {
-          return true
-        } else {
-          return false
-        }
-      })
-      .matches(/^[0-9]*$/, {
-        message: 'Only numbers are allowed for this field',
-        excludeEmptyString: true,
-      })
-      .nullable(),
-    graduationDate: yup
-      .string()
-      .test('all-required', 'Please input graduation date', function () {
-        const { major, degree, university, addmissionDate, graduationDate } = this.parent
+              if (!degree && !major && !university && !graduationDate) {
+                return true
+              } else if (addmissionDate) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .matches(/^[0-9]*$/, {
+              message: 'Only numbers are allowed for this field',
+              excludeEmptyString: true,
+            })
+            .nullable(),
+          graduationDate: yup
+            .string()
+            .test('all-required', 'Please input graduation date', function () {
+              const { major, degree, university, addmissionDate, graduationDate } = this.parent
 
-        if (!degree && !major && !university && !addmissionDate) {
-          return true
-        } else if (graduationDate) {
-          return true
-        } else {
-          return false
-        }
-      })
-      .matches(/^[0-9]*$/, {
-        message: 'Only numbers are allowed for this field',
-        excludeEmptyString: true,
-      })
-      .nullable(),
+              if (!degree && !major && !university && !addmissionDate) {
+                return true
+              } else if (graduationDate) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .matches(/^[0-9]*$/, {
+              message: 'Only numbers are allowed for this field',
+              excludeEmptyString: true,
+            })
+            .nullable(),
+        }),
+      )
+      .min(0)
+      .max(2),
   }),
+
   yup.object().shape({
-    title: yup
-      .string()
-      .when(['company', 'startDate', 'endDate'], {
-        is: (company, startDate, endDate) => !company && !startDate && !endDate,
-        then: yup.string(),
-        otherwise: yup.string().required('Please input your title'),
-      })
-      .matches(/^[aA-zZ\s]+$/, {
-        message: 'Only alphabets are allowed for this field',
-      })
-      .nullable(),
-    company: yup
-      .string()
-      .test('all-required', 'Please input your company', function () {
-        const { title, company, startDate, endDate } = this.parent
+    jobData: yup
+      .array()
+      .of(
+        yup.object().shape({
+          title: yup
+            .string()
+            .when(['company', 'startDate', 'endDate'], {
+              is: (company, startDate, endDate) => !company && !startDate && !endDate,
+              then: yup.string(),
+              otherwise: yup.string().required('Please input your title'),
+            })
+            .matches(/^[aA-zZ\s]+$/, {
+              message: 'Only alphabets are allowed for this field',
+            })
+            .nullable(),
+          company: yup
+            .string()
+            .test('all-required', 'Please input your company', function () {
+              const { title, company, startDate, endDate } = this.parent
 
-        if (!title && !startDate && !endDate) {
-          return true
-        } else if (company) {
-          return true
-        } else {
-          return false
-        }
-      })
-      .matches(/^[aA-zZ\s]+$/, {
-        message: 'Only alphabets are allowed for this field',
-        excludeEmptyString: true,
-      })
-      .nullable(),
-    startDate: yup
-      .string()
-      .test('all-required', 'Please input start date', function () {
-        const { title, company, startDate, endDate } = this.parent
+              if (!title && !startDate && !endDate) {
+                return true
+              } else if (company) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .matches(/^[aA-zZ\s]+$/, {
+              message: 'Only alphabets are allowed for this field',
+              excludeEmptyString: true,
+            })
+            .nullable(),
+          startDate: yup
+            .string()
+            .test('all-required', 'Please input start date', function () {
+              const { title, company, startDate, endDate } = this.parent
 
-        if (!title && !company && !endDate) {
-          return true
-        } else if (startDate) {
-          return true
-        } else {
-          return false
-        }
-      })
-      .matches(/^[0-9]*$/, {
-        message: 'Only numbers are allowed for this field',
-        excludeEmptyString: true,
-      })
-      .nullable(),
-    endDate: yup
-      .string()
-      .test('all-required', 'Please input end date', function () {
-        const { title, company, startDate, endDate } = this.parent
+              if (!title && !company && !endDate) {
+                return true
+              } else if (startDate) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .matches(/^[0-9]*$/, {
+              message: 'Only numbers are allowed for this field',
+              excludeEmptyString: true,
+            })
+            .nullable(),
+          endDate: yup
+            .string()
+            .test('all-required', 'Please input end date', function () {
+              const { title, company, startDate, endDate } = this.parent
 
-        if (!title && !company && !startDate) {
-          return true
-        } else if (endDate) {
-          return true
-        } else {
-          return false
-        }
-      })
-      .matches(/^[0-9]*$/, {
-        message: 'Only numbers are allowed for this field',
-        excludeEmptyString: true,
-      })
-      .nullable(),
+              if (!title && !company && !startDate) {
+                return true
+              } else if (endDate) {
+                return true
+              } else {
+                return false
+              }
+            })
+            .matches(/^[0-9]*$/, {
+              message: 'Only numbers are allowed for this field',
+              excludeEmptyString: true,
+            })
+            .nullable(),
+        }),
+      )
+      .min(0)
+      .max(2),
   }),
+
   yup.object().shape(
     {
       github: yup.string().when('github', (value) => {

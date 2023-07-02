@@ -190,7 +190,7 @@ export class User {
 		example: {
 			github: 'https://github.com',
 			linkedin: 'https://linkedin.com',
-			instagram: 'https://instagram.com',
+			behance: 'https://behance.com',
 			telegram: 'https://telegram.com',
 		},
 		description: 'Links of the user',
@@ -200,14 +200,14 @@ export class User {
 		type: {
 			github: { type: String },
 			linkedIn: { type: String },
-			instagram: { type: String },
+			behance: { type: String },
 			telegram: { type: String },
 		},
 	})
 	links: {
 		github: string;
 		linkedIn: string;
-		instagram: string;
+		behance: string;
 		telegram: string;
 	};
 

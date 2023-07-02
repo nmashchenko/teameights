@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Form, Formik } from 'formik'
 
 import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
+import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
 import Loader from '../../../../shared/components/Loader/Loader'
 import CurrentStep from '../CurrentStep/CurrentStep'
 import NavigationButtons from '../NavigationButtons/NavigationButtons'
@@ -28,9 +29,9 @@ const MultiStepRegistration = ({
     submitForm(values, userData)
   }
 
-  if (isFetching || isFinishingRegistration) {
-    return <Loader />
-  }
+  // if (isFetching) {
+  //   return <Loader />
+  // }
 
   return (
     <Formik
@@ -49,18 +50,21 @@ const MultiStepRegistration = ({
                   isOptionalStep={currentStepData.isOptional}
                   oneOfOptionalFieldsHasValue={oneOfOptionalFieldsHasValue}
                 />
-                <StepContainer>
-                  <CurrentStep steps={steps} step={step} />
-                </StepContainer>
-                <NavigationButtons
-                  step={step}
-                  validationSchema={validationSchema}
-                  isLastStep={isLastStep}
-                  steps={steps}
-                  isOptionalStep={currentStepData.isOptional}
-                  oneOfOptionalFieldsHasValue={oneOfOptionalFieldsHasValue}
-                  setOneOfOptionalFieldsHasValue={setOneOfOptionalFieldsHasValue}
-                />
+                <FlexWrapper height="100%" justify="space-between" direction="column">
+                  <StepContainer>
+                    <CurrentStep steps={steps} step={step} />
+                  </StepContainer>
+                  <NavigationButtons
+                    step={step}
+                    validationSchema={validationSchema}
+                    isLastStep={isLastStep}
+                    steps={steps}
+                    isOptionalStep={currentStepData.isOptional}
+                    oneOfOptionalFieldsHasValue={oneOfOptionalFieldsHasValue}
+                    setOneOfOptionalFieldsHasValue={setOneOfOptionalFieldsHasValue}
+                    isFinishingRegistration={isFinishingRegistration}
+                  />
+                </FlexWrapper>
               </RegistrationContainer>
             </Container>
           </Form>

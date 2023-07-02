@@ -14,11 +14,11 @@ const UserExperienceForm = () => {
     <ContentContainer rows={2} gap={'3rem'}>
       <QuestionSection>
         <QuestionText>How many years of experience you have?</QuestionText>
-        <CustomRadioButtonsGroup name="experience" options={userExperienceOptions} />
+        <CustomRadioButtonsGroup name="experience" options={userExperienceOptions} type="number" />
       </QuestionSection>
       <QuestionSection>
         <QuestionText>Do you want to be a leader of the team?</QuestionText>
-        <CustomRadioButtonsGroup name="leader" options={userLeaderOptions} />
+        <CustomRadioButtonsGroup name="leader" options={userLeaderOptions} type="text" />
         <NoteContainer>
           <NoteText>
             Please note that leaders typically have 1-3+ years of experience and will be required to
