@@ -65,6 +65,7 @@ export const RecoverTitle = styled.h3`
   font-weight: 500;
   color: ${GREEN.text};
   margin-bottom: 8px;
+  text-align: center;
 `
 export const RecoverText = styled.p`
   font-size: 16px;

@@ -13,7 +13,7 @@ const CustomInput = ({
   containerWidth = 'auto',
   inputWidth = '100%',
   onInputChange,
-  uniqueError,
+  uniqueError = false,
   uniqueErrorMessage,
   shouldFormatDate = false,
   shouldFormatYear = false,
@@ -42,7 +42,7 @@ const CustomInput = ({
 
   return (
     <Box width={containerWidth} sx={{ display: isOptional ? 'none' : 'block' }}>
-      {label && <Label htmlFor={field.name}>{label}</Label>}
+      {props?.inputValue && label && <Label htmlFor={field.name}>{label}</Label>}
       <InputWrapper>
         <Input
           {...field}
@@ -53,14 +53,14 @@ const CustomInput = ({
           id={field.name}
           onChange={handleChange} // Add the onChange event handler
         />
-        {(isError || uniqueError) && (
+        {((meta.touched && isError) || (meta.touched && uniqueError)) && (
           <IconSpan>
             <AlertIcon />
           </IconSpan>
         )}
       </InputWrapper>
       {isError && <ErrorMessage>{meta.error}</ErrorMessage>}
-      {uniqueError && <ErrorMessage>{uniqueErrorMessage}</ErrorMessage>}
+      {meta.touched && uniqueError && <ErrorMessage>{uniqueErrorMessage}</ErrorMessage>}
     </Box>
   )
 }
