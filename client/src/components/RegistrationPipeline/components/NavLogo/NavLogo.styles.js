@@ -20,6 +20,11 @@ export const SectionName = styled(Text)`
   display: flex;
   gap: 5px;
 
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+    gap: 0;
+  }
+
   @media screen and (max-width: 600px) {
     font-size: 24px;
   }

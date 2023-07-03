@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormikContext } from 'formik'
 
 import { degrees } from '../../../../../constants/degrees'
@@ -13,6 +13,12 @@ import { GroupItems, InputWrapper } from './UserEducationForm.styles'
 const UserEducationForm = () => {
   const [checkbox, setCheckbox] = useState(false)
   const { setFieldValue, values } = useFormikContext()
+
+  useEffect(() => {
+    values && values.universityData[0].graduationDate === '0'
+      ? setCheckbox(true)
+      : setCheckbox(false)
+  }, [])
 
   const handleClick = () => {
     if (checkbox) {
@@ -31,12 +37,14 @@ const UserEducationForm = () => {
         name="universityData[0].degree"
         placeholder="Ex: Bachelor’s degree"
         options={degrees}
+        value={values['universityData'][0].degree}
       />
       <CustomSelectAutocomplete
         label="Major"
         name="universityData[0].major"
         placeholder="Ex: Computer Science"
         options={majors}
+        value={values['universityData'][0].major}
       />
       <CustomInput
         label="University/School"
@@ -53,16 +61,18 @@ const UserEducationForm = () => {
           shouldFormatYear={true}
           containerWidth="100%"
         />
-        <CustomInput
-          label="To"
-          name="universityData[0].graduationDate"
-          type="number"
-          placeholder="Input year"
-          shouldFormatYear={true}
-          disabled={checkbox}
-          isOptional={checkbox}
-          containerWidth="100%"
-        />
+        {values && values.universityData[0].graduationDate !== '0' && (
+          <CustomInput
+            label="To"
+            name="universityData[0].graduationDate"
+            type="number"
+            placeholder="Input year"
+            shouldFormatYear={true}
+            disabled={checkbox}
+            isOptional={checkbox}
+            containerWidth="100%"
+          />
+        )}
       </InputWrapper>
       <CheckboxWithLabel
         label="I am still studying here"

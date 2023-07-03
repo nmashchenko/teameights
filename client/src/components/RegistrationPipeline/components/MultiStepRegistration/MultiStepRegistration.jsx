@@ -4,7 +4,6 @@ import { Form, Formik } from 'formik'
 
 import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
 import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
-import Loader from '../../../../shared/components/Loader/Loader'
 import CurrentStep from '../CurrentStep/CurrentStep'
 import NavigationButtons from '../NavigationButtons/NavigationButtons'
 import NavLogo from '../NavLogo/NavLogo'
@@ -19,19 +18,17 @@ const MultiStepRegistration = ({
   isFinishingRegistration,
   submitForm,
 }) => {
+  console.log(isFinishingRegistration)
   const [oneOfOptionalFieldsHasValue, setOneOfOptionalFieldsHasValue] = useState(false)
 
   const { step, isOptionalStep } = useSelector((state) => state.registrationReducer)
   const { data: userData, isFetching } = useCheckAuth()
+
   const currentStepData = steps[step - 1]
   const isLastStep = step === steps.length
   const handleSubmit = (values) => {
     submitForm(values, userData)
   }
-
-  // if (isFetching) {
-  //   return <Loader />
-  // }
 
   return (
     <Formik

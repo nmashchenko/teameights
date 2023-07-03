@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useFormikContext } from 'formik'
 
+import { useLogoutUser } from '../../../../api/hooks/auth/useLogoutUser'
 import ArrowNavigateBack from '../../../../assets/Arrows/ArrowNavigateBack'
 import ArrowNavigateFurther from '../../../../assets/Arrows/ArrowNavigateFurther'
 import { GREEN } from '../../../../constants/colors'
@@ -26,8 +27,9 @@ const NavigationButtons = ({
 }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isValid, values } = useFormikContext()
+  const { isValid, values, dirty } = useFormikContext()
   const width = useGetScreenWidth()
+  const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser()
 
   useEffect(() => {
     if (isOptionalStep) {
@@ -45,6 +47,9 @@ const NavigationButtons = ({
   const navigateBack = () => {
     if (step === 1) {
       navigate('/')
+      if (!dirty) {
+        logoutUser()
+      }
     } else {
       dispatch(setStep(step - 1))
     }
@@ -92,7 +97,7 @@ const NavigationButtons = ({
         <CustomButton
           type="submit"
           disabled={!isValid || !(isValid || isOptionalStep)}
-          icon={<ArrowNavigateFurther />}
+          icon={isFinishingRegistration ? null : <ArrowNavigateFurther />}
           iconPosition="right"
           background={GREEN.button}
         >

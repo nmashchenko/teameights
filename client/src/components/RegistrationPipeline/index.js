@@ -2,6 +2,7 @@ import React from 'react'
 // * Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { cloneDeep } from 'lodash'
 
 import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
 import { useEditUserDetails } from '../../api/hooks/user/useEditUserDetails'
@@ -32,9 +33,6 @@ function FinishRegistration() {
   const { mutate: updateAvatar } = useUpdateAvatar('users')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  console.log(error)
-  console.log(isFinishingRegistration)
 
   const steps = [
     { component: <InfoForm />, name: 'User Profile', isOptional: false },
@@ -94,47 +92,56 @@ function FinishRegistration() {
   }
 
   const submitForm = (formData, userCurrentData) => {
-    const jobAfterRemovedEmptyFields = removeEmptyFields(formData.jobData[0])
+    const initialObject = cloneDeep(formData)
+
+    const jobAfterRemovedEmptyFields = removeEmptyFields(initialObject.jobData[0])
 
     if (jobAfterRemovedEmptyFields) {
-      let jobDates = convertYearToDate(formData.jobData[0].startDate, formData.jobData[0].endDate)
+      let jobDates = convertYearToDate(
+        initialObject.jobData[0].startDate,
+        initialObject.jobData[0].endDate,
+      )
 
-      formData.jobData[0].startDate = jobDates.dateOne
-      formData.jobData[0].endDate = jobDates.dateTwo
+      initialObject.jobData[0].startDate = jobDates.dateOne
+      initialObject.jobData[0].endDate = jobDates.dateTwo
     } else {
-      formData.jobData = undefined
+      initialObject.jobData = undefined
     }
 
-    const universityAfterRemovedEmptyFields = removeEmptyFields(formData.universityData[0])
+    const universityAfterRemovedEmptyFields = removeEmptyFields(initialObject.universityData[0])
 
     if (universityAfterRemovedEmptyFields) {
       let universityDates = convertYearToDate(
-        formData.universityData[0].addmissionDate,
-        formData.universityData[0].graduationDate,
+        initialObject.universityData[0].addmissionDate,
+        initialObject.universityData[0].graduationDate,
       )
 
-      formData.universityData[0].addmissionDate = universityDates.dateOne
-      formData.universityData[0].graduationDate = universityDates.dateTwo
+      initialObject.universityData[0].addmissionDate = universityDates.dateOne
+      initialObject.universityData[0].graduationDate = universityDates.dateTwo
     } else {
-      formData.universityData = undefined
+      initialObject.universityData = undefined
     }
 
-    formData.links = {
-      github: formData.github,
-      telegram: formData.telegram,
-      linkedIn: formData.linkedIn,
-      behance: formData.behance,
+    initialObject.links = {
+      github: initialObject.github,
+      telegram: initialObject.telegram,
+      linkedIn: initialObject.linkedIn,
+      behance: initialObject.behance,
     }
 
-    formData.dateOfBirth = formatDateString(formData.dateOfBirth)
-    formData.isRegistered = false
-    formData.email = userCurrentData.email
+    initialObject.dateOfBirth = formatDateString(initialObject.dateOfBirth)
+    initialObject.isRegistered = false
+    initialObject.email = userCurrentData.email
 
-    if (formData.file) {
-      updateAvatar({ email: userCurrentData.email, image: formData.file.split(',')[1] })
+    try {
+      if (initialObject.file) {
+        updateAvatar({ email: userCurrentData.email, image: initialObject.file.split(',')[1] })
+      }
+
+      finishRegistration(initialObject)
+    } catch (e) {
+      /* empty */
     }
-
-    finishRegistration(formData)
   }
 
   return (

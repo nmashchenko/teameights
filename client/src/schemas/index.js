@@ -120,8 +120,8 @@ export const finishRegistrationValidation = [
                 return false
               }
             })
-            .matches(/^[aA-zZ\s]+$/, {
-              message: 'Only alphabets are allowed for this field',
+            .matches(/^[a-zA-Z0-9\s]+$/, {
+              message: 'Only alphabets and numbers are allowed for this field',
               excludeEmptyString: true,
             })
             .nullable(),
@@ -142,6 +142,13 @@ export const finishRegistrationValidation = [
               message: 'Only numbers are allowed for this field',
               excludeEmptyString: true,
             })
+            .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+              if (value) {
+                return value >= 1901 && value <= new Date().getFullYear()
+              }
+
+              return true
+            })
             .nullable(),
           graduationDate: yup
             .string()
@@ -160,6 +167,23 @@ export const finishRegistrationValidation = [
               message: 'Only numbers are allowed for this field',
               excludeEmptyString: true,
             })
+            .test(
+              'valid-year',
+              'Year must be from 1901 and bigger than addmission',
+              function (value) {
+                if (value) {
+                  const { addmissionDate } = this.parent
+
+                  if (value === '0') {
+                    return true
+                  }
+
+                  return value >= 1901 && addmissionDate < value
+                }
+
+                return true
+              },
+            )
             .nullable(),
         }),
       )
@@ -179,8 +203,9 @@ export const finishRegistrationValidation = [
               then: yup.string(),
               otherwise: yup.string().required('Please input your title'),
             })
-            .matches(/^[aA-zZ\s]+$/, {
-              message: 'Only alphabets are allowed for this field',
+            .matches(/^[a-zA-Z0-9\s]+$/, {
+              message: 'Only alphabets and numbers are allowed for this field',
+              excludeEmptyString: true,
             })
             .nullable(),
           company: yup
@@ -196,8 +221,8 @@ export const finishRegistrationValidation = [
                 return false
               }
             })
-            .matches(/^[aA-zZ\s]+$/, {
-              message: 'Only alphabets are allowed for this field',
+            .matches(/^[a-zA-Z0-9\s]+$/, {
+              message: 'Only alphabets and numbers are allowed for this field',
               excludeEmptyString: true,
             })
             .nullable(),
@@ -218,6 +243,13 @@ export const finishRegistrationValidation = [
               message: 'Only numbers are allowed for this field',
               excludeEmptyString: true,
             })
+            .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+              if (value) {
+                return value >= 1901 && value <= new Date().getFullYear()
+              }
+
+              return true
+            })
             .nullable(),
           endDate: yup
             .string()
@@ -236,6 +268,23 @@ export const finishRegistrationValidation = [
               message: 'Only numbers are allowed for this field',
               excludeEmptyString: true,
             })
+            .test(
+              'valid-year',
+              'Year must be from 1901 and bigger than addmission',
+              function (value) {
+                if (value) {
+                  const { startDate } = this.parent
+
+                  if (value === '0') {
+                    return true
+                  }
+
+                  return value >= 1901 && startDate < value
+                }
+
+                return true
+              },
+            )
             .nullable(),
         }),
       )

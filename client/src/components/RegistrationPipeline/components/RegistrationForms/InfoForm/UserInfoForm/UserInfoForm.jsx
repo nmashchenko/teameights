@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import countryList from 'react-select-country-list'
+import { useFormikContext } from 'formik'
 
 import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
 import { useValidateUsername } from '../../../../../../api/hooks/user/useValidateUsername'
 import { countries } from '../../../../../../constants/countries'
 import { useGetScreenWidth } from '../../../../../../hooks/useGetScreenWidth'
+import { usePrompt } from '../../../../../../hooks/usePrompt'
 import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
@@ -16,6 +18,7 @@ import { InputsContainer } from '../InfoForm.styles'
 
 const UserInfoForm = () => {
   let { mutate: validateUsername, data: errorStatus } = useValidateUsername()
+  const { values, dirty } = useFormikContext()
   const width = useGetScreenWidth()
 
   // State and setters for ...
@@ -48,6 +51,9 @@ const UserInfoForm = () => {
     setSearchTerm(value) // Update the search term state with the input value
   }
 
+  // prevent updating/etc when user has data
+  usePrompt('You have unsaved changes. Do you want to discard them?', dirty, true)
+
   return (
     <>
       <InputsContainer>
@@ -61,6 +67,7 @@ const UserInfoForm = () => {
               name="country"
               options={countries}
               placeholder="Select country"
+              value={values['country']}
             />
           </GroupContainer>
         </SectionContainer>

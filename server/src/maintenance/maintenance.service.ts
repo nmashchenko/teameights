@@ -63,7 +63,7 @@ export class MaintenanceService {
 		'NodeJS',
 		'Ruby',
 		'Angular',
-		'Android',
+		'AndroidSDK',
 		'IOS',
 		'Hadoop',
 		'Ember',

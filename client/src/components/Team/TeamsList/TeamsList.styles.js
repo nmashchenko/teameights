@@ -107,6 +107,8 @@ export const TeamImage = styled.img`
   width: ${(props) => props.width || '60px'};
   height: ${(props) => props.height || '60px'};
   border-radius: 50%;
+  object-fit: cover;
+  user-select: none;
 `
 
 export const TeamButton = styled.button`

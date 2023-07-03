@@ -21,12 +21,7 @@ import InviteMembersForm from '../RegistrationPipeline/components/RegistrationFo
 function CreateTeam() {
   const { mutate: updateAvatar, isLoading: isAvatarUpdating } = useUpdateAvatar('teams')
 
-  const {
-    mutate: createTeam,
-    isLoading: isCreatingTeam,
-    isError: isCreatingTeamError,
-    error,
-  } = useCreateTeam()
+  const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam()
 
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
 
@@ -77,36 +72,43 @@ function CreateTeam() {
       members: membersModified.members,
     }
 
-    createTeam(teamData, {
-      onSuccess: (data) => {
-        if (formData.file) {
-          updateAvatar(
-            { teamID: data._id, image: formData.file.split(',')[1] },
-            {
-              onSuccess: (updatedTeam) => {
-                dispatch(setIsFinishRegistrationStarted(false))
-                dispatch(setStep(1))
-                navigate(`/team/${updatedTeam.data._id}`)
+    try {
+      createTeam(teamData, {
+        onSuccess: (data) => {
+          if (formData.file) {
+            updateAvatar(
+              { teamID: data._id, image: formData.file.split(',')[1] },
+              {
+                onSuccess: (updatedTeam) => {
+                  dispatch(setIsFinishRegistrationStarted(false))
+                  dispatch(setStep(1))
+                  navigate(`/team/${updatedTeam.data._id}`)
+                },
+                onError: (error) => {
+                  errorToaster(error)
+                },
               },
-            },
-          )
-        }
-      },
-    })
-  }
-
-  if (isCreatingTeamError && !isCreatingTeam) {
-    errorToaster(error)
+            )
+          }
+        },
+        onError: (error) => {
+          errorToaster(error)
+        },
+      })
+    } catch (e) {
+      /* empty */
+    }
   }
 
   return (
     <>
-      {(isUserLoading || isCreatingTeam || isAvatarUpdating) && <Loader />}
+      {isUserLoading && <Loader />}
       <MultiStepRegistration
         steps={steps}
         validationSchema={createTeamValidation}
         initialValues={initialValues}
         submitForm={submitForm}
+        isFinishingRegistration={isCreatingTeam || isAvatarUpdating}
       />
     </>
   )

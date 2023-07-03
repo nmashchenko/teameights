@@ -32,19 +32,12 @@ function EditingComponentProfile() {
       </ResumePartBox>
       {isActive === 'general' && (
         <>
-          <CustomInput
-            label="Full name"
-            name="fullName"
-            type="text"
-            placeholder="Full name"
-            value={values.fullName}
-          />
+          <CustomInput label="Full name" name="fullName" type="text" placeholder="Full name" />
           <CustomSelectAutocomplete
             label="Сountry"
             name="country"
             options={countries}
             placeholder="Select country"
-            value={values.country}
           />
           <CustomInput
             shouldFormatDate={true}
@@ -62,14 +55,12 @@ function EditingComponentProfile() {
             name="concentration"
             options={concentrationOptions}
             placeholder="Select country"
-            value={values.concentration}
           />
           <CustomSelectAutocomplete
             label="Experience"
             name="experience"
             options={userExperienceOptions}
             placeholder="Select experience"
-            value={values.experience}
           />
         </>
       )}

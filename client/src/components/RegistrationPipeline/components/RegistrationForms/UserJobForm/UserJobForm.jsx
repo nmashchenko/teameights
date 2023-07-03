@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormikContext } from 'formik'
 
 import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
@@ -10,7 +10,9 @@ const UserJobForm = () => {
   const [checkbox, setCheckbox] = useState(false)
   const { setFieldValue, values } = useFormikContext()
 
-  console.log(values)
+  useEffect(() => {
+    values && values.jobData[0].endDate === '0' ? setCheckbox(true) : setCheckbox(false)
+  }, [])
 
   const handleClick = () => {
     if (checkbox) {
@@ -45,16 +47,18 @@ const UserJobForm = () => {
           shouldFormatYear={true}
           containerWidth="100%"
         />
-        <CustomInput
-          label="To"
-          name="jobData[0].endDate"
-          type="number"
-          placeholder="Input year"
-          shouldFormatYear={true}
-          disabled={checkbox}
-          isOptional={checkbox}
-          containerWidth="100%"
-        />
+        {values && values.jobData[0].endDate !== '0' && (
+          <CustomInput
+            label="To"
+            name="jobData[0].endDate"
+            type="number"
+            placeholder="Input year"
+            shouldFormatYear={true}
+            disabled={checkbox}
+            isOptional={checkbox}
+            containerWidth="100%"
+          />
+        )}
       </InputWrapper>
 
       <CheckboxWithLabel
