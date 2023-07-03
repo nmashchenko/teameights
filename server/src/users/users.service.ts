@@ -396,14 +396,17 @@ export class UsersService {
 		/* Checking if the user has an image. If it does, it is removing the image. */
 		if (candidate.image) {
 			const path = this.getPath(candidate.image, 'image');
-			await this.filesService.removeFromS3(path, 'teameights');
+			await this.filesService.removeFromS3(
+				path,
+				process.env.AWS_S3_BUCKET,
+			);
 		}
 
 		/* Creating a file in the static folder. */
 		const filePath = await this.filesService.createFile(
 			FileType.USERS,
 			dto.image,
-			'teameights',
+			process.env.AWS_S3_BUCKET,
 		);
 
 		/* Updating the user with the given email with the new data and returning the updated user. */

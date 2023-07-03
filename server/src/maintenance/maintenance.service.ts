@@ -238,6 +238,7 @@ export class MaintenanceService {
 			const update = this.updateGeneratedUser(user.email);
 
 			const randomIndex = Math.floor(Math.random() * this.images.length);
+
 			await this.usersService.updateAvatar({
 				email: user.email,
 				image: this.images[randomIndex],
