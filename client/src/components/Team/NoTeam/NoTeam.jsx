@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom'
 
 // * Assets
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import { startRegistration } from '../../../app/providers/store/reducers/RegistrationAuth'
 import ROUTES from '../../../constants/routes'
 import Loader from '../../../shared/components/Loader/Loader'
-import { startRegistration } from '../../../store/reducers/RegistrationAuth'
 // * Styles
 import { Container, Text } from '../TeamForm/TeamForm.styles'
 

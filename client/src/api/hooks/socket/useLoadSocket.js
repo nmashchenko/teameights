@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { userAuth } from '../../../store/reducers/UserAuth'
+import { userAuth } from '../../../app/providers/store/reducers/UserAuth'
 import { socket } from '../../sockets/notifications.socket'
 
-export const useLoadSocket = () => {
+export const UseLoadSocket = () => {
   const { notifications, userId } = useSelector((state) => state.userReducer)
 
   const dispatch = useDispatch()
@@ -47,11 +47,11 @@ export const useLoadSocket = () => {
         const updatedNotifications = [...notifications]
 
         updatedNotifications[existingIndex] = notification
-        dispatch(userAuth.actions.setUserNotifications(updatedNotifications))
+        dispatch(userAuth?.actions.setUserNotifications(updatedNotifications))
       }
       // If not, add the new notification to the array
       else {
-        dispatch(userAuth.actions.setUserNotifications([...notifications, notification]))
+        dispatch(userAuth?.actions.setUserNotifications([...notifications, notification]))
       }
     }
 

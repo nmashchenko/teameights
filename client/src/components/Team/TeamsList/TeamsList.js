@@ -6,18 +6,18 @@ import { useNavigate } from 'react-router-dom'
 import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
 import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
+import { setTeamsFilter } from '../../../app/providers/store/reducers/TeamsFiltersSlice'
 import ROUTES from '../../../constants/routes'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import AppHeader from '../../../shared/components/AppHeader/AppHeader'
 import Loader from '../../../shared/components/Loader/Loader'
 import Modal from '../../../shared/components/Modal/Modal'
 import SliderToTop from '../../../shared/components/SliderToTop/SliderToTop'
-import { setTeamsFilter } from '../../../store/reducers/TeamsFiltersSlice'
 import NotFound from '../../Teammates/components/NotFound/NotFound'
 
 import Teams from './Teams/Teams'
 // * Styles
-import { Container, NotFoundContainer, TeamCardModal } from './TeamsList.styles'
+import { Container, NotFoundContainer } from './TeamsList.styles'
 
 function TeamsList() {
   let { data: user, isLoading: isLoadingUserData } = useCheckAuth()

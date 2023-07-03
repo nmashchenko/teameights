@@ -6,12 +6,15 @@ import { useNavigate } from 'react-router-dom'
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
 import { useCreateTeam } from '../../api/hooks/team/useCreateTeam'
-import { defaultTeamAvatars } from '../../constants/teamFormData'
 // * Assets
+import {
+  setIsFinishRegistrationStarted,
+  setStep,
+} from '../../app/providers/store/reducers/RegistrationAuth'
+import { defaultTeamAvatars } from '../../constants/teamFormData'
 import { createTeamValidation } from '../../schemas'
 import Loader from '../../shared/components/Loader/Loader'
 import { errorToaster } from '../../shared/components/Toasters/Error.toaster'
-import { setIsFinishRegistrationStarted, setStep } from '../../store/reducers/RegistrationAuth'
 import { transformToCreateTeamDto } from '../../utils/transformToCreateTeamDto'
 import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
 import AvatarForm from '../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm'

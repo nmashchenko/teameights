@@ -4,10 +4,9 @@ import { ThemeProvider } from 'styled-components'
 
 // * API
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
+import { setUsersFilter } from '../../app/providers/store/reducers/UsersFiltersSlice'
 import AppHeader from '../../shared/components/AppHeader/AppHeader'
 import SliderToTop from '../../shared/components/SliderToTop/SliderToTop'
-import { GlobalStyle } from '../../shared/styles/Global.styles'
-import { setUsersFilter } from '../../store/reducers/UsersFiltersSlice'
 
 import Cards from './components/Cards/Cards'
 // * Components
@@ -60,7 +59,6 @@ function Teammates() {
   return (
     <>
       <ThemeProvider theme={{ scrollbar }}>
-        <GlobalStyle />
         <AppHeader sliceName="usersFilters" filterValueAction={setUsersFilter} />
         {/* ! USED ONLY FOR 730px or more */}
         <UserCardModal

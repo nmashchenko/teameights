@@ -28,7 +28,7 @@ import TournamentsScreen from '../screens/TournamentsScreen/Tournaments'
 // * Protected
 import ProtectFinishRegistration from './protected/ProtectFinishRegistration'
 
-export const useRoutes = () => {
+export const Routing = () => {
   return (
     <Routes>
       {/* // * for authenticated user */}

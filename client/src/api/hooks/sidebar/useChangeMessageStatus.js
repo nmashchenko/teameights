@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { registrationAuth } from '../../../app/providers/store/reducers/RegistrationAuth'
 import http from '../../../http'
-import { registrationAuth } from '../../../store/reducers/RegistrationAuth'
 
 const { api } = http
 

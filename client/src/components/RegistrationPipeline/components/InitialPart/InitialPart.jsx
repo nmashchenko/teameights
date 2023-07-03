@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
-import Loader from '../../../../shared/components/Loader/Loader'
 import {
   registrationAuth,
   setIsFinishRegistrationStarted,
-} from '../../../../store/reducers/RegistrationAuth'
+} from '../../../../app/providers/store/reducers/RegistrationAuth'
+import Loader from '../../../../shared/components/Loader/Loader'
 
 // * Assets
 import {

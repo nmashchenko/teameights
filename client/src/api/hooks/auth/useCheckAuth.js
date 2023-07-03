@@ -1,10 +1,9 @@
-import React from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 
+import { userAuth } from '../../../app/providers/store/reducers/UserAuth'
 import http from '../../../http'
 import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
-import { userAuth } from '../../../store/reducers/UserAuth'
 
 const { api } = http
 

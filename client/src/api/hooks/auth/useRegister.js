@@ -1,12 +1,11 @@
-import React from 'react'
 import { useMutation } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { userAuth } from '../../../app/providers/store/reducers/UserAuth'
 import ROUTES from '../../../constants/routes'
 import http from '../../../http'
 import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
-import { userAuth } from '../../../store/reducers/UserAuth'
 
 const { api } = http
 

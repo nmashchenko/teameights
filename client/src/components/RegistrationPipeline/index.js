@@ -5,9 +5,12 @@ import { useNavigate } from 'react-router-dom'
 
 import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
 import { useEditUserDetails } from '../../api/hooks/user/useEditUserDetails'
+import {
+  setIsFinishRegistrationStarted,
+  setStep,
+} from '../../app/providers/store/reducers/RegistrationAuth'
 import { finishRegistrationValidation } from '../../schemas'
 import Links from '../../shared/components/Links/Links'
-import { setIsFinishRegistrationStarted, setStep } from '../../store/reducers/RegistrationAuth'
 import { formatDateString } from '../../utils/convertStringToDate'
 import { convertYearToDate } from '../../utils/convertYearToDate'
 import { removeEmptyFields } from '../../utils/removeEmptyFields'
