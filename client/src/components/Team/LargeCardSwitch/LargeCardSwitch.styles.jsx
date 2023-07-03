@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
+import { B2fs, B2fw, B2lh } from '../../../shared/constants/fonts'
 
 export const DesktopButtonWrapper = styled.div`
   @media screen and (max-width: 1024px) {

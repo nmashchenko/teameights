@@ -6,8 +6,8 @@ import { useFormikContext } from 'formik'
 import { setStep } from '../../../../app/providers/store/reducers/RegistrationAuth'
 import ArrowNavigateBack from '../../../../assets/Arrows/ArrowNavigateBack'
 import ArrowNavigateFurther from '../../../../assets/Arrows/ArrowNavigateFurther'
-import { GREEN } from '../../../../constants/colors'
-import CustomButton from '../../../../shared/components/CustomButton/CustomButton'
+import { GREEN } from '../../../../shared/constants/colors'
+import CustomButton from '../../../../shared/ui/CustomButton/CustomButton'
 
 import { ButtonsContainer } from './NavigationButtons.styles'
 

@@ -1,11 +1,9 @@
-import { useChangeMessageStatus } from '../../../api/hooks/sidebar/useChangeMessageStatus'
-import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import LightningIcon from '../../../assets/Sidebar/LightningIcon'
-import WarningIcon from '../../../assets/Sidebar/WarningIcon'
-import { LOCAL_PATH } from '../../../http'
-import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
-import Loader from '../../../shared/components/Loader/Loader'
-import { getPastTime } from '../../../utils/getPastTime'
+import { useChangeMessageStatus } from '../../../shared/api/hooks/sidebar/useChangeMessageStatus'
+import { useGetTeamData } from '../../../shared/api/hooks/team/useGetTeamData'
+import { getPastTime } from '../../../shared/lib/utils/getPastTime'
+import FlexWrapper from '../../../shared/ui/FlexWrapper/FlexWrapper'
+import Loader from '../../../shared/ui/Loader/Loader'
 
 import {
   MessageButton,

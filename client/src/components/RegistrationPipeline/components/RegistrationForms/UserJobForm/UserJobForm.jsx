@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useFormikContext } from 'formik'
 
-import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
+import CustomInput from '../../../../../shared/ui/Formik/CustomInput/CustomInput'
 import CheckboxWithLabel from '../../CheckboxWithLabel/CheckboxWithLabel'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 import { GroupItems, InputWrapper } from '../UserEducationForm/UserEducationForm.styles'

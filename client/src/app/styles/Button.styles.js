@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { GREEN, RED, WHITE } from '../../constants/colors'
+import { GREEN, RED, WHITE } from '../../shared/constants/colors'
 
 export const Button = styled.button`
   font-weight: 400;

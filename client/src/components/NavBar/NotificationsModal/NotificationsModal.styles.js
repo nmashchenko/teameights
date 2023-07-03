@@ -2,7 +2,7 @@ import { Box, Drawer } from '@mui/material'
 import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
+import IconWrapper from '../../../shared/ui/IconWrapper/IconWrapper'
 
 export const StyledNotificationsModal = styled(motion.div)`
   pointer-events: ${(props) => (props.active ? 'all' : 'none')};

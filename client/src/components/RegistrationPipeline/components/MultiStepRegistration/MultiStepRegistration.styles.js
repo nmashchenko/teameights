@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { BLACK, WHITE } from '../../../../constants/colors'
+import { BLACK, WHITE } from '../../../../shared/constants/colors'
 
 export const RegistrationContainer = styled.div`
   width: 100%;

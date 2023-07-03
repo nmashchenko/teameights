@@ -1,9 +1,9 @@
 import { ThreeDots } from 'react-loader-spinner'
 import { useFormikContext } from 'formik'
 
-import { programmingLanguageOptions } from '../../../../../constants/programmingLanguages'
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
-import CustomSelectAutocomplete from '../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
+import { programmingLanguageOptions } from '../../../../../shared/constants/programmingLanguages'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
+import CustomSelectAutocomplete from '../../../../../shared/ui/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
 import { ActionButton, Text } from '../ResumeInfo.styles'
 
 function EditingComponentLanguages({ handleCancel, isUpdatingUser }) {

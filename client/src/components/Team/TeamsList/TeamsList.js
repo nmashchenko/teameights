@@ -2,17 +2,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-// * API
-import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
-import { useJoinTeam } from '../../../api/hooks/team/useJoinTeam'
-import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
 import { setTeamsFilter } from '../../../app/providers/store/reducers/TeamsFiltersSlice'
-import ROUTES from '../../../constants/routes'
-import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
-import AppHeader from '../../../shared/components/AppHeader/AppHeader'
-import Loader from '../../../shared/components/Loader/Loader'
-import Modal from '../../../shared/components/Modal/Modal'
-import SliderToTop from '../../../shared/components/SliderToTop/SliderToTop'
+// * API
+import { useCheckAuth } from '../../../shared/api/hooks/auth/useCheckAuth'
+import { useJoinTeam } from '../../../shared/api/hooks/team/useJoinTeam'
+import { useLeaveAndJoin } from '../../../shared/api/hooks/team/useLeaveAndJoin'
+import ROUTES from '../../../shared/constants/routes'
+import { useGetScreenWidth } from '../../../shared/lib/hooks/useGetScreenWidth'
+import AppHeader from '../../../shared/ui/AppHeader/AppHeader'
+import Loader from '../../../shared/ui/Loader/Loader'
+import Modal from '../../../shared/ui/Modal/Modal'
+import SliderToTop from '../../../shared/ui/SliderToTop/SliderToTop'
 import NotFound from '../../Teammates/components/NotFound/NotFound'
 
 import Teams from './Teams/Teams'

@@ -1,24 +1,24 @@
 // * Modules
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
-import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
 // * Assets
 import Close from '../../assets/Sidebar/Close'
 import Exit from '../../assets/Sidebar/Exit'
 import ShortLogo from '../../assets/Sidebar/ShortLogo'
 import Team from '../../assets/Sidebar/Team'
 import UserIcon from '../../assets/Sidebar/UserIcon'
-import { useOutsideClick } from '../../hooks/useOutsideClick'
-import IconWrapper from '../../shared/components/IconWrapper/IconWrapper'
-import Loader from '../../shared/components/Loader/Loader'
+import { useCheckAuth } from '../../shared/api/hooks/auth/useCheckAuth'
+import { useLogoutUser } from '../../shared/api/hooks/auth/useLogoutUser'
+import { useOutsideClick } from '../../shared/lib/hooks/useOutsideClick'
+import IconWrapper from '../../shared/ui/IconWrapper/IconWrapper'
+import Loader from '../../shared/ui/Loader/Loader'
 
-// * Data
 import NavItem from './NavItem/NavItem'
 import NotificationsContent from './NotificationsContent/NotificationsContent'
 import Profile from './Profile/Profile'
+// * Data
 import { NavBarData } from './NavBar.data'
 import {
   MobileNavBarIconWrapper,

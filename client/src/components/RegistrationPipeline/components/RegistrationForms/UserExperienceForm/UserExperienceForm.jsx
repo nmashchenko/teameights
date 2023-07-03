@@ -3,8 +3,8 @@ import React from 'react'
 import {
   userExperienceOptions,
   userLeaderOptions,
-} from '../../../../../constants/finishRegistrationData'
-import CustomRadioButtonsGroup from '../../../../../shared/components/Formik/CustomRadioButtonsGroup/CustomRadioButtonsGroup'
+} from '../../../../../shared/constants/finishRegistrationData'
+import CustomRadioButtonsGroup from '../../../../../shared/ui/Formik/CustomRadioButtonsGroup/CustomRadioButtonsGroup'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import { NoteContainer, NoteText, QuestionSection, QuestionText } from './UserExperienceForm.styles'

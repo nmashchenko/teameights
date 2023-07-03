@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
+import { useGetScreenWidth } from '../../../shared/lib/hooks/useGetScreenWidth'
 
 import {
   StatiscitcsWrapper,

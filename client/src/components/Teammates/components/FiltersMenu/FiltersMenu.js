@@ -2,12 +2,12 @@
 import React from 'react'
 import { useFormikContext } from 'formik'
 
-// * Assets
 import Filters from '../../../../assets/Filters/Filters'
 import Close from '../../../../assets/Shared/Close'
-import frameworkOptions from '../../../../constants/frameworks'
-import SelectValue from '../../../../shared/components/Formik/CustomSelect/components/SelectValue'
-import CustomSelect from '../../../../shared/components/Formik/CustomSelect/CustomSelect'
+// * Assets
+import frameworkOptions from '../../../../shared/constants/frameworks'
+import SelectValue from '../../../../shared/ui/Formik/CustomSelect/components/SelectValue'
+import CustomSelect from '../../../../shared/ui/Formik/CustomSelect/CustomSelect'
 
 // * Styles
 import {

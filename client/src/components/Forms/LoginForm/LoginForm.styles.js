@@ -1,12 +1,11 @@
 // * Modules
 import { Link } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton'
-import Toolbar from '@mui/material/Toolbar'
 import isEqual from 'lodash/isEqual'
 import styled from 'styled-components'
 
 // * Constants
-import { BLACK, BLUE, GREEN, WHITE } from '../../../constants/colors'
+import { BLACK, BLUE, GREEN, WHITE } from '../../../shared/constants/colors'
 
 export const LoginContainer = styled.div`
   width: 100%;

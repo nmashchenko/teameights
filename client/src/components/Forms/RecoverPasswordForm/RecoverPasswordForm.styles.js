@@ -1,8 +1,8 @@
 import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
 
-import { device } from '../../../constants/breakpoints'
-import { BLACK, GREY, LIME, WHITE } from '../../../constants/colors'
+import { device } from '../../../shared/constants/breakpoints'
+import { BLACK, GREY, LIME, WHITE } from '../../../shared/constants/colors'
 
 export const NavBar = styled(Toolbar)`
   &.css-hyum1k-MuiToolbar-root {

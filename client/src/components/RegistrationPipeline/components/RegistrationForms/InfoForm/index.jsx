@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { useCheckAuth } from '../../../../../api/hooks/auth/useCheckAuth'
-import Loader from '../../../../../shared/components/Loader/Loader'
+import { useCheckAuth } from '../../../../../shared/api/hooks/auth/useCheckAuth'
+import Loader from '../../../../../shared/ui/Loader/Loader'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import TeamInfoForm from './TeamInfoForm/TeamInfoForm'

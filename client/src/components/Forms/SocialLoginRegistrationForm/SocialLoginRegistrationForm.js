@@ -1,11 +1,10 @@
 // * Modules
 import { GoogleLogin } from '@react-oauth/google'
-import jwt_decode from 'jwt-decode'
 
 // * Redux
 // * Api
-import { useLoginUser } from '../../../api/hooks/auth/useLoginUser'
-import Loader from '../../../shared/components/Loader/Loader'
+import { useLoginUser } from '../../../shared/api/hooks/auth/useLoginUser'
+import Loader from '../../../shared/ui/Loader/Loader'
 
 const SocialLoginRegistration = () => {
   const { mutate: socialLoginRegisterUser, isLoading: isLoggingInUser } = useLoginUser('google')

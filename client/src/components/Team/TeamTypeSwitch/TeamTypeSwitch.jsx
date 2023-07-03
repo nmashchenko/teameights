@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 
-import TeameightsLogo from '../../../assets/Platform/TeameightsLogo'
-import { H4fs, H4fw, H4lh } from '../../../constants/fonts.js'
+import { H4fs, H4fw, H4lh } from '../../../shared/constants/fonts.js'
 
-import { GridContainer, LogoContainer, SelectType, Text, Textbox } from './TeamTypeSwitch.styles.js'
+import { GridContainer, SelectType, Text, Textbox } from './TeamTypeSwitch.styles.js'
 
 const TeamTypeSwitch = ({ myTeam }) => {
   const navigate = useNavigate()

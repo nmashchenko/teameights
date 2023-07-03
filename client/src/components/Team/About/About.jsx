@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Form } from 'formik'
 
-import { useGetByTag } from '../../../api/hooks/team/useGetByTag'
-import { useDebounce } from '../../../api/hooks/temeights/useDebounce'
-import { countries } from '../../../constants/countries'
-import { teamTypes } from '../../../constants/teamFormData'
-import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
-import CustomInput from '../../../shared/components/Formik/CustomInput/CustomInput'
-import CustomSelectAutocomplete from '../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
-import CustomTextArea from '../../../shared/components/Formik/CustomTextArea/CustomTextArea'
-import Loader from '../../../shared/components/Loader/Loader'
+import { useGetByTag } from '../../../shared/api/hooks/team/useGetByTag'
+import { useDebounce } from '../../../shared/api/hooks/temeights/useDebounce'
+import { countries } from '../../../shared/constants/countries'
+import { teamTypes } from '../../../shared/constants/teamFormData'
+import FlexWrapper from '../../../shared/ui/FlexWrapper/FlexWrapper'
+import CustomInput from '../../../shared/ui/Formik/CustomInput/CustomInput'
+import CustomSelectAutocomplete from '../../../shared/ui/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
+import CustomTextArea from '../../../shared/ui/Formik/CustomTextArea/CustomTextArea'
 
-import {
-  EditTeam,
-  FormContainer,
-  LabelFieldContainer,
-  LabelTextFieldContainer,
-  LeaderActionsBox,
-  LeaveTeam,
-} from './About.styles'
+import { FormContainer } from './About.styles'
 import RegularAbout from './RegularAbout'
 
 const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {

@@ -5,8 +5,7 @@ import Box from '@mui/material/Box'
 
 import ArrowLeftReset from '../../../assets/Arrows/ArrowLeftReset'
 // * Assets
-import SiteLogo from '../../../assets/Platform/TeameightsLogo'
-import ROUTES from '../../../constants/routes'
+import ROUTES from '../../../shared/constants/routes'
 
 import {
   BackButton,

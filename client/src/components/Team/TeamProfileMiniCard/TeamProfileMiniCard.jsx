@@ -3,8 +3,8 @@ import { useFormikContext } from 'formik'
 import Cake from '../../../assets/Team/Cake'
 import { PencilSimple } from '../../../assets/Team/PencilSimple'
 import Users from '../../../assets/Team/Users'
-import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../constants/fonts'
-import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
+import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../shared/constants/fonts'
+import FlexWrapper from '../../../shared/ui/FlexWrapper/FlexWrapper'
 import { Text } from '../TeamForm/TeamForm.styles'
 
 import {

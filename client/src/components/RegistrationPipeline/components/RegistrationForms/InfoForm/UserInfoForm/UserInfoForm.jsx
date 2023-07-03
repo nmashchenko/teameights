@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import countryList from 'react-select-country-list'
 
-import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
-import { useValidateUsername } from '../../../../../../api/hooks/user/useValidateUsername'
-import { countries } from '../../../../../../constants/countries'
-import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
+import { useDebounce } from '../../../../../../shared/api/hooks/temeights/useDebounce'
+import { useValidateUsername } from '../../../../../../shared/api/hooks/user/useValidateUsername'
+import { countries } from '../../../../../../shared/constants/countries'
+import CustomInput from '../../../../../../shared/ui/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
   SectionContainer,
-} from '../../../../../../shared/components/Formik/CustomInput/CustomInput.styles'
-import CustomSelectAutocomplete from '../../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
-import CustomTextArea from '../../../../../../shared/components/Formik/CustomTextArea/CustomTextArea'
+} from '../../../../../../shared/ui/Formik/CustomInput/CustomInput.styles'
+import CustomSelectAutocomplete from '../../../../../../shared/ui/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
+import CustomTextArea from '../../../../../../shared/ui/Formik/CustomTextArea/CustomTextArea'
 import { InputsContainer } from '../InfoForm.styles'
 
 const UserInfoForm = () => {

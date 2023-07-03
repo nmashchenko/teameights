@@ -1,7 +1,7 @@
 import { Drawer } from '@mui/material'
 import styled from 'styled-components'
 
-import FlexWrapper from '../../shared/components/FlexWrapper/FlexWrapper'
+import FlexWrapper from '../../shared/ui/FlexWrapper/FlexWrapper'
 
 export const ModalWrapper = styled(Drawer)``
 

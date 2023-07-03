@@ -1,8 +1,7 @@
-import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
 
-import { device } from '../../../constants/breakpoints'
-import { BLACK, GREEN, GREY, LIME, WHITE } from '../../../constants/colors'
+import { device } from '../../../shared/constants/breakpoints'
+import { BLACK, GREEN, LIME, WHITE } from '../../../shared/constants/colors'
 
 export const Container = styled.div`
   display: flex;

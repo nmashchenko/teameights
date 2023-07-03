@@ -1,6 +1,9 @@
 // * Styles
 // * Colors
-import { frameworkColors, frameworkTextColors } from '../../../../../constants/frameworkColors'
+import {
+  frameworkColors,
+  frameworkTextColors,
+} from '../../../../../shared/constants/frameworkColors'
 import { AndMore, Framework } from '../UserCard.styles'
 
 const LengthFourSlicedCase = ({ userFrameworks }) => {

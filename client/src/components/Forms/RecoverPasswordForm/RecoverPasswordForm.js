@@ -1,16 +1,15 @@
 // * Modules
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Snackbar from '@mui/material/Snackbar'
 
-// * Api
-import resetPassword from '../../../api/endpoints/reset'
 import ArrowLeftReset from '../../../assets/Arrows/ArrowLeftReset'
+// * Api
+import resetPassword from '../../../shared/api/endpoints/reset'
 // * Assets
-import SiteLogo from '../../../assets/Platform/TeameightsLogo'
-import ROUTES from '../../../constants/routes'
+import ROUTES from '../../../shared/constants/routes'
 import Alert from '../../RegistrationPipeline/components/Alert/Alert'
 
 import {

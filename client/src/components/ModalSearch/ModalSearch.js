@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import countryList from 'react-select-country-list'
 
 import Cross from '../../assets/Sidebar/Cross'
-import FlexWrapper from '../../shared/components/FlexWrapper/FlexWrapper'
-import IconWrapper from '../../shared/components/IconWrapper/IconWrapper'
-import Tag from '../../shared/components/Tag/Tag'
+import FlexWrapper from '../../shared/ui/FlexWrapper/FlexWrapper'
+import IconWrapper from '../../shared/ui/IconWrapper/IconWrapper'
+import Tag from '../../shared/ui/Tag/Tag'
 import Search from '../Search/Search'
 import TagsList from '../TagsList/TagsList'
 

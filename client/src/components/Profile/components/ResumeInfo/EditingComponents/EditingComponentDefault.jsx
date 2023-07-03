@@ -1,4 +1,4 @@
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
 import EducationWork from '../EducationWork/EducationWork'
 import ProjectsSkills from '../ProjectsSkills/ProjectsSkills'
 import { ResumePartBox, ResumePartBtn } from '../ResumeInfo.styles'

@@ -1,5 +1,5 @@
 import EditIcon from '../../../../../assets/UserProfile/EditIcon'
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
 import { EditIconContainer, Text } from '../ResumeInfo.styles'
 
 const EducationWork = ({ showingUser, setIsEditing, userStatus }) => {

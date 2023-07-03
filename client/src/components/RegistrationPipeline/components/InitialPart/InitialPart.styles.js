@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { BLACK, GREEN, WHITE } from '../../../../constants/colors'
+import { BLACK, GREEN, WHITE } from '../../../../shared/constants/colors'
 
 export const CardContainer = styled.div`
   display: flex;

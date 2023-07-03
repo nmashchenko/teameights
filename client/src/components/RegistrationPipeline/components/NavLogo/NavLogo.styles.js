@@ -3,7 +3,7 @@ import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
 
 // * Constants
-import { GREEN } from '../../../../constants/colors'
+import { GREEN } from '../../../../shared/constants/colors'
 import { Text } from '../../../../shared/styles/Tpography.styles'
 
 export const NavBar = styled(Toolbar)`

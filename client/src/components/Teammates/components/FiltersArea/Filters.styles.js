@@ -1,7 +1,7 @@
 // * Modules
 import styled from 'styled-components'
 
-import IconWrapper from '../../../../shared/components/IconWrapper/IconWrapper'
+import IconWrapper from '../../../../shared/ui/IconWrapper/IconWrapper'
 
 export const NavBar = styled.div`
   display: flex;

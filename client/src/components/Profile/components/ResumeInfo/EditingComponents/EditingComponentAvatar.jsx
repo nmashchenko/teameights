@@ -1,7 +1,7 @@
 import { ThreeDots } from 'react-loader-spinner'
 
-import ChooseAvatar from '../../../../../shared/components/ChooseAvatar/ChooseAvatar'
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
+import ChooseAvatar from '../../../../../shared/ui/ChooseAvatar/ChooseAvatar'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
 import { ActionButton, Text } from '../ResumeInfo.styles'
 
 function EditingComponentAvatar({ handleCancel, isUpdatingAvatar }) {

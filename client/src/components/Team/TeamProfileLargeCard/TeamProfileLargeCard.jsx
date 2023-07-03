@@ -1,4 +1,4 @@
-import ChooseAvatar from '../../../shared/components/ChooseAvatar/ChooseAvatar'
+import ChooseAvatar from '../../../shared/ui/ChooseAvatar/ChooseAvatar'
 import About from '../About/About'
 import LargeCardSwitch from '../LargeCardSwitch/LargeCardSwitch'
 import Members from '../Members/Members'

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { userConcentrations } from '../../../../../constants/finishRegistrationData'
-import CustomSelectAutocomplete from '../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
+import { userConcentrations } from '../../../../../shared/constants/finishRegistrationData'
+import CustomSelectAutocomplete from '../../../../../shared/ui/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 const UserConcentrationForm = () => {

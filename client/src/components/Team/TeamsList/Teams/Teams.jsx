@@ -1,7 +1,7 @@
-import { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import { Fragment, useCallback, useEffect, useRef } from 'react'
 
-import { useLoadTeams } from '../../../../api/hooks/team/useLoadTeams'
-import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
+import { useLoadTeams } from '../../../../shared/api/hooks/team/useLoadTeams'
+import CardSkeleton from '../../../../shared/ui/CardSkeleton/CardSkeleton'
 import { TeamsListBox, TeamsWrapper } from '../TeamsList.styles'
 
 import Desktop from './TeamData/TeamDataDesktop'

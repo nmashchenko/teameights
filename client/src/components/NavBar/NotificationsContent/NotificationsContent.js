@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux'
 
 import Notification from '../../../assets/Sidebar/Notification'
-import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
+import IconWrapper from '../../../shared/ui/IconWrapper/IconWrapper'
 import { NavInteractBtn } from '../NavBar.styles'
 import NotificationsModal from '../NotificationsModal/NotificationsModal'
 

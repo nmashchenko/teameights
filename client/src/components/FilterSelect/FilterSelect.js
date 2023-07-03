@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import ArrowDown from '../../assets/SearchPanel/ArrowDown'
-import { useOutsideClick } from '../../hooks/useOutsideClick'
+import { useOutsideClick } from '../../shared/lib/hooks/useOutsideClick'
 
 import { FilterSelectBox, FilterSelectBtn, OptionItem, OptionsList } from './FilterSelect.styles'
 

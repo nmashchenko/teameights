@@ -4,17 +4,17 @@ import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import { Slide } from '@mui/material'
 
-import { useInviteUser } from '../../../../api/hooks/team/useInviteUser'
 import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
 import AddUserIcon from '../../../../assets/Shared/AddUserIcon'
 import Close from '../../../../assets/Shared/Close'
 import Message from '../../../../assets/Shared/Message'
-import { frameworkColors, frameworkTextColors } from '../../../../constants/frameworkColors'
-import { languageOptions } from '../../../../constants/programmingLanguages'
-import { infoToaster } from '../../../../shared/components/Toasters/Info.toaster'
+import { useInviteUser } from '../../../../shared/api/hooks/team/useInviteUser'
+import { frameworkColors, frameworkTextColors } from '../../../../shared/constants/frameworkColors'
+import { languageOptions } from '../../../../shared/constants/programmingLanguages'
 // * Assets
-import { calculateAge } from '../../../../utils/calculateAge'
-import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import { calculateAge } from '../../../../shared/lib/utils/calculateAge'
+import { getCountryFlag } from '../../../../shared/lib/utils/getCountryFlag'
+import { infoToaster } from '../../../../shared/ui/Toasters/Info.toaster'
 
 import {
   Button,

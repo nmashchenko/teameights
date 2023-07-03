@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import { BLACK, WHITE } from '../../../constants/colors'
-import { B2fs, B2fw, B2lh } from '../../../constants/fonts'
+import { BLACK, WHITE } from '../../../shared/constants/colors'
+import { B2fs, B2fw, B2lh } from '../../../shared/constants/fonts'
 
 export const Container = styled.div`
   width: 100%;

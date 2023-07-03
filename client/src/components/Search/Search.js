@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import concentrationOptions from '../../constants/concentrations'
-import { countries } from '../../constants/countries'
-import frameworkOptions from '../../constants/frameworks'
-import { programmingLanguageOptions } from '../../constants/programmingLanguages'
+import concentrationOptions from '../../shared/constants/concentrations'
+import { countries } from '../../shared/constants/countries'
+import frameworkOptions from '../../shared/constants/frameworks'
+import { programmingLanguageOptions } from '../../shared/constants/programmingLanguages'
 
 import SearchByChecks from './SearchByChecks/SearchByChecks'
 import SearchByRange from './SearchByRange/SearchByRange'

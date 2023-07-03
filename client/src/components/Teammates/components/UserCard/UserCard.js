@@ -3,10 +3,9 @@ import React, { memo } from 'react'
 // * Images
 import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
 // * Colors
-import { languageOptions } from '../../../../constants/programmingLanguages'
-import { LOCAL_PATH } from '../../../../http'
-import { calculateAge } from '../../../../utils/calculateAge'
-import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import { languageOptions } from '../../../../shared/constants/programmingLanguages'
+import { calculateAge } from '../../../../shared/lib/utils/calculateAge'
+import { getCountryFlag } from '../../../../shared/lib/utils/getCountryFlag'
 
 import LengthFourCase from './FrameworksCases/LengthFourCase'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'

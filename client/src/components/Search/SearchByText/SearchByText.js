@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import SearchIcon from '../../../assets/Shared/SearchIcon'
-import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
+import IconWrapper from '../../../shared/ui/IconWrapper/IconWrapper'
 import { SearchBox, SearchInput } from '../Search.styles'
 
 const SearchByText = ({ placeholder, currFilter, currFilterIndex, setFilterValue }) => {

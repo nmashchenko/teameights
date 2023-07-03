@@ -1,6 +1,9 @@
 // * Styles
 // * Colors
-import { frameworkColors, frameworkTextColors } from '../../../../../constants/frameworkColors'
+import {
+  frameworkColors,
+  frameworkTextColors,
+} from '../../../../../shared/constants/frameworkColors'
 import { Framework } from '../UserCard.styles'
 
 const LengthOneCase = ({ userFrameworks }) => {

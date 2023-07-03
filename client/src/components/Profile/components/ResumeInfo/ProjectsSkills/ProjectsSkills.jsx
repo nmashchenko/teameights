@@ -1,11 +1,12 @@
-import { useFormikContext } from 'formik'
-
 import EditIcon from '../../../../../assets/UserProfile/EditIcon'
 import LinkIcon from '../../../../../assets/UserProfile/LinkIcon'
 import TeamMembersIcon from '../../../../../assets/UserProfile/TeamMembersIcon'
-import { frameworkColors, frameworkTextColors } from '../../../../../constants/frameworkColors'
-import { languageOptions } from '../../../../../constants/programmingLanguages'
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
+import {
+  frameworkColors,
+  frameworkTextColors,
+} from '../../../../../shared/constants/frameworkColors'
+import { languageOptions } from '../../../../../shared/constants/programmingLanguages'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
 import {
   EditIconContainer,
   FrameWorkItem,

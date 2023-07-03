@@ -4,12 +4,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { useCheckAuth } from '../../../../api/hooks/auth/useCheckAuth'
 import {
   registrationAuth,
   setIsFinishRegistrationStarted,
 } from '../../../../app/providers/store/reducers/RegistrationAuth'
-import Loader from '../../../../shared/components/Loader/Loader'
+import { useCheckAuth } from '../../../../shared/api/hooks/auth/useCheckAuth'
+import Loader from '../../../../shared/ui/Loader/Loader'
 
 // * Assets
 import {

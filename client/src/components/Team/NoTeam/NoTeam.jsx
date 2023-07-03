@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-// * Assets
-import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
 import { startRegistration } from '../../../app/providers/store/reducers/RegistrationAuth'
-import ROUTES from '../../../constants/routes'
-import Loader from '../../../shared/components/Loader/Loader'
+// * Assets
+import { useCheckAuth } from '../../../shared/api/hooks/auth/useCheckAuth'
+import ROUTES from '../../../shared/constants/routes'
+import Loader from '../../../shared/ui/Loader/Loader'
 // * Styles
 import { Container, Text } from '../TeamForm/TeamForm.styles'
 

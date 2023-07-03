@@ -1,0 +1,30 @@
+import { useMutation, useQueryClient } from 'react-query'
+import { useNavigate } from 'react-router-dom'
+
+import http from '../../../../shared/api/axios'
+import { errorToaster } from '../../../ui/Toasters/Error.toaster'
+
+const { api } = http
+
+export const useJoinTeam = () => {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  const joinTeam = async (details) => {
+    const response = await api.put('/teams/join', details)
+
+    return response.data
+  }
+
+  return useMutation(joinTeam, {
+    mutationKey: 'joinTeam',
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+      await queryClient.invalidateQueries('getTeamById', { refetchInactive: true })
+      navigate(`/team/${data._id}`)
+    },
+    onError: (error) => {
+      errorToaster(error)
+    },
+  })
+}

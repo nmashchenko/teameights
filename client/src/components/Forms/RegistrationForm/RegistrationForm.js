@@ -1,12 +1,12 @@
 // * Modules
 import React, { useState } from 'react'
-// * Redux
 import { useSelector } from 'react-redux'
+// * Redux
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
-import { useRegister } from '../../../api/hooks/auth/useRegister'
-import Loader from '../../../shared/components/Loader/Loader'
+import { useRegister } from '../../../shared/api/hooks/auth/useRegister'
+import Loader from '../../../shared/ui/Loader/Loader'
 // * Helpers
 import SocialLoginRegistration from '../SocialLoginRegistrationForm/SocialLoginRegistrationForm'
 

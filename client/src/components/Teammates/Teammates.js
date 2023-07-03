@@ -2,11 +2,11 @@
 import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 
-// * API
-import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { setUsersFilter } from '../../app/providers/store/reducers/UsersFiltersSlice'
-import AppHeader from '../../shared/components/AppHeader/AppHeader'
-import SliderToTop from '../../shared/components/SliderToTop/SliderToTop'
+// * API
+import { useCheckAuth } from '../../shared/api/hooks/auth/useCheckAuth'
+import AppHeader from '../../shared/ui/AppHeader/AppHeader'
+import SliderToTop from '../../shared/ui/SliderToTop/SliderToTop'
 
 import Cards from './components/Cards/Cards'
 // * Components

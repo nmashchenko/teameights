@@ -8,10 +8,9 @@ import Box from '@mui/material/Box'
 import Snackbar from '@mui/material/Snackbar'
 
 // * Api
-import resetPassword from '../../../api/endpoints/reset'
+import resetPassword from '../../../shared/api/endpoints/reset'
 // * Assets
-import SiteLogo from '../../../assets/Platform/TeameightsLogo'
-import ROUTES from '../../../constants/routes'
+import ROUTES from '../../../shared/constants/routes'
 
 import {
   AlertBox,

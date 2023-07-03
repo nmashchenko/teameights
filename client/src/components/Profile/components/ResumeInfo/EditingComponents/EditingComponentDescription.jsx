@@ -1,9 +1,9 @@
 import { ThreeDots } from 'react-loader-spinner'
 import { useFormikContext } from 'formik'
 
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
-import CustomTextArea from '../../../../../shared/components/Formik/CustomTextArea/CustomTextArea'
-import { ActionButton, Text, TextArea } from '../ResumeInfo.styles'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
+import CustomTextArea from '../../../../../shared/ui/Formik/CustomTextArea/CustomTextArea'
+import { ActionButton, Text } from '../ResumeInfo.styles'
 
 function EditingComponentDescription({ handleCancel, isUpdatingUser }) {
   const { values } = useFormikContext()

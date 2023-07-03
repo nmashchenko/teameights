@@ -1,6 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components'
-
-import { BLACK } from '../../../constants/colors'
+import styled from 'styled-components'
 
 export const GridContainer = styled.div`
   display: flex;

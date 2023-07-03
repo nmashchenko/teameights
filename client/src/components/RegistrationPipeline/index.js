@@ -3,17 +3,17 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
-import { useEditUserDetails } from '../../api/hooks/user/useEditUserDetails'
 import {
   setIsFinishRegistrationStarted,
   setStep,
 } from '../../app/providers/store/reducers/RegistrationAuth'
-import { finishRegistrationValidation } from '../../schemas'
-import Links from '../../shared/components/Links/Links'
-import { formatDateString } from '../../utils/convertStringToDate'
-import { convertYearToDate } from '../../utils/convertYearToDate'
-import { removeEmptyFields } from '../../utils/removeEmptyFields'
+import { useUpdateAvatar } from '../../shared/api/hooks/shared/useUpdateAvatar'
+import { useEditUserDetails } from '../../shared/api/hooks/user/useEditUserDetails'
+import { finishRegistrationValidation } from '../../shared/config/yup'
+import { formatDateString } from '../../shared/lib/utils/convertStringToDate'
+import { convertYearToDate } from '../../shared/lib/utils/convertYearToDate'
+import { removeEmptyFields } from '../../shared/lib/utils/removeEmptyFields'
+import Links from '../../shared/ui/Links/Links'
 
 import InitialPart from './components/InitialPart/InitialPart'
 import MultiStepRegistration from './components/MultiStepRegistration/MultiStepRegistration'

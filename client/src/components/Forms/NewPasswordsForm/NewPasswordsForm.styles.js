@@ -1,10 +1,9 @@
 import MuiAlert from '@mui/material/Alert'
 import IconButton from '@mui/material/IconButton'
-import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
 
-import { device } from '../../../constants/breakpoints'
-import { BLACK, GREY, LIME, WHITE } from '../../../constants/colors'
+import { device } from '../../../shared/constants/breakpoints'
+import { BLACK, GREY, LIME, WHITE } from '../../../shared/constants/colors'
 
 export const Container = styled.div`
   display: flex;

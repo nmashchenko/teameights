@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik'
 
-import ChooseAvatar from '../../../../../../../shared/components/ChooseAvatar/ChooseAvatar'
+import ChooseAvatar from '../../../../../../../shared/ui/ChooseAvatar/ChooseAvatar'
 
 import { Avatar, AvatarSelectionContainer } from './AvatarSelection.styles'
 

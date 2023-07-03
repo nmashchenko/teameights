@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useFormikContext } from 'formik'
 
-import { checkUserStatus } from '../../../../utils/checkUserStatus'
+import { checkUserStatus } from '../../../../shared/lib/utils/checkUserStatus'
 import { ProfileSection } from '../../Profile.styles'
 
 import EditingComponentAvatar from './EditingComponents/EditingComponentAvatar'

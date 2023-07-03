@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { WHITE } from '../../constants/colors'
+import { WHITE } from '../../shared/constants/colors'
 
 export const Text = styled.h3`
   font-size: ${(props) => props.fontSize || '18px'};

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useFormikContext } from 'formik'
 
-import concentrationOptions from '../../../../../constants/concentrations'
-import { countries } from '../../../../../constants/countries'
-import { userExperienceOptions } from '../../../../../constants/finishRegistrationData'
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
-import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
-import CustomSelectAutocomplete from '../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
-import Links from '../../../../../shared/components/Links/Links'
+import concentrationOptions from '../../../../../shared/constants/concentrations'
+import { countries } from '../../../../../shared/constants/countries'
+import { userExperienceOptions } from '../../../../../shared/constants/finishRegistrationData'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
+import CustomInput from '../../../../../shared/ui/Formik/CustomInput/CustomInput'
+import CustomSelectAutocomplete from '../../../../../shared/ui/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
+import Links from '../../../../../shared/ui/Links/Links'
 import { ResumePartBox, ResumePartBtn } from '../ResumeInfo.styles'
 
 function EditingComponentProfile() {

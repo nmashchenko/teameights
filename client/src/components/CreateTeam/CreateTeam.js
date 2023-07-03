@@ -2,20 +2,20 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-// API
-import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
-import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
-import { useCreateTeam } from '../../api/hooks/team/useCreateTeam'
 // * Assets
 import {
   setIsFinishRegistrationStarted,
   setStep,
 } from '../../app/providers/store/reducers/RegistrationAuth'
-import { defaultTeamAvatars } from '../../constants/teamFormData'
-import { createTeamValidation } from '../../schemas'
-import Loader from '../../shared/components/Loader/Loader'
-import { errorToaster } from '../../shared/components/Toasters/Error.toaster'
-import { transformToCreateTeamDto } from '../../utils/transformToCreateTeamDto'
+// API
+import { useCheckAuth } from '../../shared/api/hooks/auth/useCheckAuth'
+import { useUpdateAvatar } from '../../shared/api/hooks/shared/useUpdateAvatar'
+import { useCreateTeam } from '../../shared/api/hooks/team/useCreateTeam'
+import { createTeamValidation } from '../../shared/config/yup'
+import { defaultTeamAvatars } from '../../shared/constants/teamFormData'
+import { transformToCreateTeamDto } from '../../shared/lib/utils/transformToCreateTeamDto'
+import Loader from '../../shared/ui/Loader/Loader'
+import { errorToaster } from '../../shared/ui/Toasters/Error.toaster'
 import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
 import AvatarForm from '../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm'
 import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoForm'

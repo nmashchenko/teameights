@@ -1,11 +1,11 @@
-import { Fragment, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
-import { useReadMessages } from '../../../api/hooks/sidebar/useReadMessages'
 import Checks from '../../../assets/Sidebar/Checks'
 import NotificationClose from '../../../assets/Sidebar/NotificationClose'
-import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
-import { useOutsideClick } from '../../../hooks/useOutsideClick'
-import IconWrapper from '../../../shared/components/IconWrapper/IconWrapper'
+import { useReadMessages } from '../../../shared/api/hooks/sidebar/useReadMessages'
+import { useGetScreenWidth } from '../../../shared/lib/hooks/useGetScreenWidth'
+import { useOutsideClick } from '../../../shared/lib/hooks/useOutsideClick'
+import IconWrapper from '../../../shared/ui/IconWrapper/IconWrapper'
 import NotificationsList from '../NotificationsList/NotificationsList'
 
 import {

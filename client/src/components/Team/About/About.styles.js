@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../constants/fonts'
+import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../shared/constants/fonts'
 
 export const FormContainer = styled.div`
   display: grid;

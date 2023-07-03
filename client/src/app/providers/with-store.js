@@ -1,7 +1,7 @@
 import { Provider as ReduxProvider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
-import { UseLoadSocket } from '../../api/hooks/socket/useLoadSocket'
+import { UseLoadSocket } from '../../shared/api/hooks/socket/useLoadSocket'
 
 import { appStore, persistedStore } from './store/store'
 

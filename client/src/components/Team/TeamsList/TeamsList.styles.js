@@ -1,7 +1,7 @@
-import { Drawer, Modal } from '@mui/material'
+import { Modal } from '@mui/material'
 import styled from 'styled-components'
 
-import { BLACK, WHITE } from '../../../constants/colors'
+import { BLACK, WHITE } from '../../../shared/constants/colors'
 
 export const TeamCardModal = styled(Modal)`
   @media screen and (min-width: 0px) and (max-width: 600px) {

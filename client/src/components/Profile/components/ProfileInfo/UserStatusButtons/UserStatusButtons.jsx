@@ -1,12 +1,11 @@
 import React from 'react'
 import { ThreeDots } from 'react-loader-spinner'
-import { useFormikContext } from 'formik'
 
 import LongArrowLeft from '../../../../../assets/Arrows/LongArrowLeft'
 import AddUserIcon from '../../../../../assets/Shared/AddUserIcon'
 import MessageIcon from '../../../../../assets/UserProfile/MessageIcon'
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
-import { infoToaster } from '../../../../../shared/components/Toasters/Info.toaster'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
+import { infoToaster } from '../../../../../shared/ui/Toasters/Info.toaster'
 import { GenericButton } from '../ProfileInfo.styles'
 
 const UserStatusButtons = ({

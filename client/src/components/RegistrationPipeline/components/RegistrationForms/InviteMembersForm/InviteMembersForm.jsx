@@ -3,9 +3,8 @@ import { useFormikContext } from 'formik'
 
 import AddUserIcon from '../../../../../assets/Shared/AddUserIcon'
 import DeleteIcon from '../../../../../assets/Shared/DeleteIcon'
-import { LOCAL_PATH } from '../../../../../http'
-import SearchUsersAutocomplete from '../../../../../shared/components/SearchUsersAutocomplete/SearchUsersAutocomplete'
-import { errorToaster } from '../../../../../shared/components/Toasters/Error.toaster'
+import SearchUsersAutocomplete from '../../../../../shared/ui/SearchUsersAutocomplete/SearchUsersAutocomplete'
+import { errorToaster } from '../../../../../shared/ui/Toasters/Error.toaster'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import {

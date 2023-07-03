@@ -4,8 +4,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 // * API
 import lookup from 'country-code-lookup'
 
-import { useLoadUsers } from '../../../../api/hooks/temeights/useLoadUsers'
-import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
+import { useLoadUsers } from '../../../../shared/api/hooks/temeights/useLoadUsers'
+import CardSkeleton from '../../../../shared/ui/CardSkeleton/CardSkeleton'
 // * Components
 import UserCard from '../UserCard/UserCard'
 

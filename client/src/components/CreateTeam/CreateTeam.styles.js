@@ -1,8 +1,8 @@
 // * Modules
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 
 // * Constants
-import { BLACK, BLUE, DARK_BLUE, GREEN, WHITE } from '../../constants/colors'
+import { BLACK, DARK_BLUE, GREEN, WHITE } from '../../shared/constants/colors'
 
 export const CreateTeamContainer = styled.div`
   display: flex;

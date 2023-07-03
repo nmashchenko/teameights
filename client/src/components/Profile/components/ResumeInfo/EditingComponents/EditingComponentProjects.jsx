@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { FieldArray, useFormikContext } from 'formik'
 
-import { useEditUserDetails } from '../../../../../api/hooks/user/useEditUserDetails'
 import LongArrowLeft from '../../../../../assets/Arrows/LongArrowLeft'
 import CrossIcon from '../../../../../assets/UserProfile/CrossIcon'
 import EditIcon from '../../../../../assets/UserProfile/EditIcon'
 import PlusIconWhite from '../../../../../assets/UserProfile/PlusIconWhite'
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
-import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
-import ModalComponent from '../../../../../shared/components/Modal/Modal'
+import { useEditUserDetails } from '../../../../../shared/api/hooks/user/useEditUserDetails'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
+import CustomInput from '../../../../../shared/ui/Formik/CustomInput/CustomInput'
+import ModalComponent from '../../../../../shared/ui/Modal/Modal'
 import { ActionButton, EditIconContainer, Text } from '../ResumeInfo.styles'
 
 function EditingComponentProjects({ handleBack, showingUser }) {

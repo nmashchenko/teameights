@@ -1,4 +1,4 @@
-import { WHITE } from '../../constants/colors'
+import { WHITE } from '../../shared/constants/colors'
 
 function SkipArrow() {
   return (

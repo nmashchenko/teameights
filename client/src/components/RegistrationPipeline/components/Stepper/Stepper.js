@@ -8,7 +8,7 @@ import { styled } from '@mui/material/styles'
 import PropTypes from 'prop-types'
 
 // * Constants
-import { GREEN } from '../../../../constants/colors'
+import { GREEN } from '../../../../shared/constants/colors'
 
 // * Components
 import { CustomStepper, StepperContainer } from './Stepper.styles'

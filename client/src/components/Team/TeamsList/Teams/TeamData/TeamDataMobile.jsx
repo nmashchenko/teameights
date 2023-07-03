@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 
-import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
 import { TeamDataMobile, TeamImage, Text } from '../../TeamsList.styles'
 
 const Mobile = forwardRef(({ team, i, handleClickOpen }, ref) => {
