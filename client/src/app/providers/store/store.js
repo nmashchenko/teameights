@@ -29,12 +29,11 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [],
+  whitelist: ['userReducer'],
 }
 
 export function makeStore() {
   const store = configureStore({
-    // 👇 ATTENTION: persistReducer broke infering RootState
     reducer: persistReducer(persistConfig, rootReducer),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
