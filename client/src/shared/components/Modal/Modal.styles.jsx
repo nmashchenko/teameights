@@ -59,6 +59,7 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  gap: 4px;
   transition: all 0.2s;
   &:hover {
     transform: translateY(-2px);

@@ -20,14 +20,14 @@ export class LinksUserDto {
 	@ValidateIf(e => e.linkedIn !== '') // check only when blank string not found
 	readonly linkedIn: string;
 
-	@ApiProperty({ example: 'https://instagram.com', description: 'Instagram' })
+	@ApiProperty({ example: 'https://behance.com', description: 'Behance' })
 	@IsUrl(
-		{ host_whitelist: [/^.*instagram\.com$/] },
-		{ message: 'Should be correct linkedin url' },
+		{ host_whitelist: [/^.*behance\.com$/] },
+		{ message: 'Should be correct behance url' },
 	)
 	@IsOptional()
-	@ValidateIf(e => e.instagram !== '') // check only when blank string not found
-	readonly instagram: string;
+	@ValidateIf(e => e.behance !== '') // check only when blank string not found
+	readonly behance: string;
 
 	// TODO: Change later
 	@ApiProperty({ example: 'https://telegram.com', description: 'Telegram' })

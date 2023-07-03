@@ -23,7 +23,7 @@ const TeamProfileMiniCard = ({ team, isEditing, setEditImage, actionType, editIm
     <>
       <RightContainer>
         <TeamInformationContainer>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <FlexWrapper justify="center">
             <div style={{ position: 'relative', width: '100px', height: '124px' }}>
               <TeamImgBorder
                 alt={team?.username}
@@ -42,7 +42,7 @@ const TeamProfileMiniCard = ({ team, isEditing, setEditImage, actionType, editIm
                 <></>
               )}
             </div>
-          </div>
+          </FlexWrapper>
           <Text
             margin="0 0 16px 0"
             fontSize={`${H4fs}`}

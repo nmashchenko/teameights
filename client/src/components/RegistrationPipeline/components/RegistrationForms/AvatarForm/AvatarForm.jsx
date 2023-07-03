@@ -1,5 +1,6 @@
 import React from 'react'
 
+import ChooseAvatar from '../../../../../shared/components/ChooseAvatar/ChooseAvatar'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import AvatarSelection from './components/AvatarSelection/AvatarSelection'
@@ -7,7 +8,7 @@ import { AvatarFormText } from './AvatarForm.styles'
 
 const AvatarForm = ({ text }) => {
   return (
-    <ContentContainer gap="0">
+    <ContentContainer gap="0" transformToFlex={true}>
       <AvatarFormText>{text}</AvatarFormText>
       <AvatarSelection />
     </ContentContainer>

@@ -29,6 +29,7 @@ jobs:
           echo AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} >> .dev.env
           echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .dev.env
           echo AWS_S3_REGION=${{ secrets.AWS_S3_REGION }} >> .dev.env
+          echo AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }} >> .dev.env
           cat .dev.env
       - name: 🎧 Install modules
         working-directory: ./server

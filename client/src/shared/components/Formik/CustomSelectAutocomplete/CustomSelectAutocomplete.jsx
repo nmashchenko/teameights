@@ -1,5 +1,5 @@
 import { Autocomplete, Chip, FormControl, TextField, ThemeProvider } from '@mui/material'
-import { useField, useFormikContext } from 'formik'
+import { Field, useField, useFormikContext } from 'formik'
 
 import ArrowDown from '../../../../assets/Arrows/ArrowDown'
 import AlertIcon from '../../../../assets/Inputs/AlertIcon'
@@ -17,6 +17,7 @@ const CustomSelectAutocomplete = ({
   margin,
   hideLabelOnSelect = false,
   line = true,
+  value,
   ...props
 }) => {
   const { setFieldValue, values } = useFormikContext()
@@ -28,14 +29,13 @@ const CustomSelectAutocomplete = ({
    */
   const handleChange = (e, option, reason) => {
     if (!multiple) {
-      setFieldValue(field.name, option.label)
+      setFieldValue(field.name, option)
     } else {
       if (reason === 'removeOption') {
         setFieldValue(field.name, option)
       } else if (reason === 'selectOption') {
-        let lastElement = option.pop()
-
-        setFieldValue(field.name, [...values[field.name], lastElement.label])
+        console.log(option)
+        setFieldValue(field.name, option)
       }
     }
   }
@@ -45,7 +45,50 @@ const CustomSelectAutocomplete = ({
       <FormControl sx={{ width: width || '100%', padding: '0px' }}>
         {!hideLabelOnSelect && label && <Label htmlFor={field.name}>{label}</Label>}
 
-        <Autocomplete
+        <Field
+          component={Autocomplete}
+          name={field.name}
+          id={field.name}
+          options={options?.map((option) => option.label) ?? []}
+          // isOptionEqualToValue={(option, value) => option.label === value}
+          value={value ? value : null}
+          disableClearable
+          popupIcon={isError ? <AlertIcon /> : <ArrowDown />}
+          autoHighlight
+          getOptionLabel={(option) => option.label ?? option}
+          multiple={multiple}
+          onChange={handleChange}
+          disableCloseOnSelect={multiple ? true : false}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip
+                label={option}
+                {...getTagProps({ index })}
+                key={index}
+                deleteIcon={_deleteicon}
+              />
+            ))
+          }
+          renderInput={(params) => (
+            <TextField
+              sx={{
+                borderBottom: '1px solid #86878B',
+                '& fieldset': { border: 'none', padding: 0 },
+              }}
+              name={field.name}
+              {...params}
+              label="" // removing jumping placeholder
+              placeholder={placeholder}
+              InputProps={{
+                ...params.InputProps,
+                sx: {
+                  color: 'white',
+                },
+              }}
+            />
+          )}
+        />
+        {/* <Autocomplete
           {...field}
           {...props}
           id={field.name}
@@ -84,7 +127,7 @@ const CustomSelectAutocomplete = ({
               }}
             />
           )}
-        />
+        /> */}
 
         {displayError && isError && <ErrorMessage>{meta.error}</ErrorMessage>}
       </FormControl>

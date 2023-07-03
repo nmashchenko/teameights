@@ -63,6 +63,8 @@ export const UserImg = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 70px;
+  object-fit: cover;
+  user-select: none;
 `
 
 export const FlagIcon = styled.img`

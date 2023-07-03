@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik'
 
 import ChooseAvatar from '../../../../../../../shared/components/ChooseAvatar/ChooseAvatar'
 
-import { Avatar, AvatarSelectionContainer } from './AvatarSelection.styles'
+import { Avatar, AvatarSelectionContainer, AvatarWrapper } from './AvatarSelection.styles'
 
 const AvatarSelection = () => {
   const { getFieldProps } = useFormikContext()
@@ -10,7 +10,9 @@ const AvatarSelection = () => {
 
   return (
     <AvatarSelectionContainer>
-      <Avatar src={currentAvatar} alt="Avatar" />
+      <AvatarWrapper>
+        <Avatar src={currentAvatar} alt="Avatar" />
+      </AvatarWrapper>
       <ChooseAvatar />
     </AvatarSelectionContainer>
   )

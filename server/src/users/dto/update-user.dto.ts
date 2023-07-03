@@ -92,7 +92,7 @@ export class UpdateUserDto {
 		example: {
 			github: 'https://github.com',
 			linkedin: 'https://linkedin.com',
-			instagram: 'https://instagram.com',
+			behance: 'https://behance.com',
 			telegram: 'https://telegram.com',
 		},
 		description: 'Links of the user',

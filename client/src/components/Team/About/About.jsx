@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Form } from 'formik'
+import { Form, useFormikContext } from 'formik'
 
 import { useGetByTag } from '../../../api/hooks/team/useGetByTag'
 import { useDebounce } from '../../../api/hooks/temeights/useDebounce'
@@ -11,18 +11,12 @@ import CustomSelectAutocomplete from '../../../shared/components/Formik/CustomSe
 import CustomTextArea from '../../../shared/components/Formik/CustomTextArea/CustomTextArea'
 import Loader from '../../../shared/components/Loader/Loader'
 
-import {
-  EditTeam,
-  FormContainer,
-  LabelFieldContainer,
-  LabelTextFieldContainer,
-  LeaderActionsBox,
-  LeaveTeam,
-} from './About.styles'
+import { FormContainer } from './About.styles'
 import RegularAbout from './RegularAbout'
 
 const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
   let { mutate: getTeamByTag, data: errorStatus } = useGetByTag()
+  const { values } = useFormikContext()
 
   // State and setters for ...
   // Search term
@@ -73,12 +67,14 @@ const About = ({ team, isEditing, setIsEditing, handleOpenDelete }) => {
             name="country"
             options={countries}
             placeholder="Select country"
+            value={values['country']}
           />
           <CustomSelectAutocomplete
             label="Team type"
             name="type"
             options={teamTypes}
             placeholder="Select type"
+            value={values['type']}
           />
         </FormContainer>
         <FlexWrapper width="100%">

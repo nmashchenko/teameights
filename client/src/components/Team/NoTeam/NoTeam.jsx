@@ -45,18 +45,18 @@ function NoTeamForm() {
     <Container>
       {isUserDataLoading && <Loader />}
       {!user?.team && (
-        <Center>
-          <Text fontWeight="500" fontSize="24px" margin="0 0 8px 0">
+        <>
+          <Text fontWeight="500" fontSize="24px" margin="0 0 8px 0" textAlign="center">
             You don't have a team yet!
           </Text>
-          <Text fontSize="16px" margin="0 0 8px 0" fontWeight="400">
+          <Text fontSize="16px" margin="0 0 8px 0" fontWeight="400" textAlign="center">
             You can create a new team or join an existing team.
           </Text>
           <TeamButton background="#46a11b" onClick={handleCreate}>
             Create Team
           </TeamButton>
           <TeamButton onClick={handleJoin}>Join Team</TeamButton>
-        </Center>
+        </>
       )}
     </Container>
   )

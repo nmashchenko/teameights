@@ -7,42 +7,38 @@ export const CardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 770px;
-  height: 470px;
+  max-width: 470px;
+  width: 100%;
+  min-height: 350px;
   background: ${BLACK.cardContainer};
-  border-radius: 25px;
-  margin-bottom: 78px;
-  box-shadow: 0px 5px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 32px;
+  gap: 24px;
 `
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 50px;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
-  background: ${BLACK.background};
+  /* background: ${BLACK.background}; */
+  padding: 20px;
 `
 
 export const ContinueButton = styled.button`
   font-weight: 600;
   font-size: 16px;
-  margin-top: 80px;
   border: none;
-  width: 271px;
-  height: 50px;
+  width: 100%;
+  height: 40px;
+  padding: 0px 16px;
   color: ${WHITE.main};
-  background: ${GREEN.button};
-  border-radius: 5px;
+  background: #46a11b;
+  border-radius: 10px;
 
   &:hover {
     cursor: pointer;
-    transition: 0.3s ease-in-out;
-    -webkit-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-    transform: scale(1.05);
   }
 `
 
@@ -50,7 +46,6 @@ export const MiddleTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 550px;
   width: 100%;
 `
 

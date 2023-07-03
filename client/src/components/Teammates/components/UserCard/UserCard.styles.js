@@ -18,6 +18,8 @@ export const UserImage = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 5px;
+  object-fit: cover;
+  user-select: none;
 `
 
 export const AndMore = styled.span`
@@ -95,7 +97,6 @@ export const Framework = styled.div`
     font-weight: 400;
     font-size: 16px;
     color: ${(props) => props.color || 'white'};
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 `
 

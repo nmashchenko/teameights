@@ -58,6 +58,8 @@ export const TeamImgBorder = styled.img`
   height: 100px;
   border-radius: 50%;
   margin-bottom: 24px;
+  object-fit: cover;
+  user-select: none;
 `
 
 export const TeamInformationContainer = styled.div`
