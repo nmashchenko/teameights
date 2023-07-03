@@ -122,20 +122,20 @@ function TeamForm() {
     setModalActive('RemoveMember')
   }
 
-  if (
-    isUserTeamLoading ||
-    isDeleting ||
-    isLeaving ||
-    isRemoving ||
-    isTransferring ||
-    isUpdatingTeamsAvatar ||
-    isUpdatingTeam ||
-    isUserDataLoading ||
-    isInviting ||
-    isJoining
-  ) {
-    return <Loader />
-  }
+  // if (
+  //   isUserTeamLoading ||
+  //   isDeleting ||
+  //   isLeaving ||
+  //   isRemoving ||
+  //   isTransferring ||
+  //   isUpdatingTeamsAvatar ||
+  //   isUpdatingTeam ||
+  //   isUserDataLoading ||
+  //   isInviting ||
+  //   isJoining
+  // ) {
+  //   return <Loader />
+  // }
 
   if ((!isUserTeamLoading && !team) || error) {
     return <Page404Form findText="Couldn't find the requested team." paddingLeft="88px" />

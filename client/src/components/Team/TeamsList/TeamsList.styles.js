@@ -141,4 +141,8 @@ export const NotFoundContainer = styled.div`
   min-height: calc(100vh - 238px);
   /* height: 100%; */
   padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0px;
+  }
 `
