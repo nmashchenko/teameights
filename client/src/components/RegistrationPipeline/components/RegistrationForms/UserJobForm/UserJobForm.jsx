@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useFormikContext } from 'formik'
 
+import CheckboxWithLabel from '../../../../../shared/components/CheckboxWithLabel/CheckboxWithLabel'
 import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
-import CheckboxWithLabel from '../../CheckboxWithLabel/CheckboxWithLabel'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 import { InputWrapper } from '../UserEducationForm/UserEducationForm.styles'
 
 const UserJobForm = () => {
   const [checkbox, setCheckbox] = useState(false)
   const { setFieldValue, values } = useFormikContext()
-
-  useEffect(() => {
-    values && values.jobData[0].endDate === '0' ? setCheckbox(true) : setCheckbox(false)
-  }, [])
 
   const handleClick = () => {
     if (checkbox) {
