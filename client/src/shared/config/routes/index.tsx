@@ -12,6 +12,7 @@ import NoTeamScreen from 'pages/NoTeamScreen/NoTeamScreen'
 import ProfileScreen from 'pages/ProfileScreen/ProfileScreen'
 import RegistrationScreen from 'pages/RegistrationScreen/RegistrationScreen'
 import ResetNewPasswordsScreen from 'pages/ResetNewPasswordsScreen/ResetNewPasswordsScreen'
+// eslint-disable-next-line max-len
 import ResetPasswordConfirmationScreen from 'pages/ResetPasswordConfirmationScreen/ResetPasswordConfirmationScreen'
 import ResetPasswordScreen from 'pages/ResetPasswordScreen/ResetPasswordScreen'
 import TeammatesScreen from 'pages/TeammatesScreen/TeammatesScreen'

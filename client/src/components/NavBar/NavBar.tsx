@@ -83,7 +83,8 @@ const NavBar = () => {
 
       {/* This will appear for screen width > 768px */}
       <NavWrapper active={sidebar}>
-        <NavMenu ref={navMenuRef} onClick={(e: $TSFIXME) => e.stopPropagation()} active={sidebar} left="0">
+        <NavMenu ref={navMenuRef} onClick={
+          (e: $TSFIXME) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
             <NavBarLogo active={sidebar}>
               <ShortLogo />

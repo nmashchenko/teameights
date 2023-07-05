@@ -17,9 +17,11 @@ import { createTeamValidation } from '../../shared/config/yup'
 import { defaultTeamAvatars } from '../../shared/constants/teamFormData'
 import Loader from '../../shared/ui/Loader/Loader'
 import { errorToaster } from '../../shared/ui/Toasters/Error.toaster'
+// eslint-disable-next-line max-len
 import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
 import AvatarForm from '../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm'
 import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoForm'
+// eslint-disable-next-line max-len
 import InviteMembersForm from '../RegistrationPipeline/components/RegistrationForms/InviteMembersForm/InviteMembersForm'
 
 function CreateTeam() {
@@ -44,7 +46,9 @@ function CreateTeam() {
     {
       component: (
         <AvatarForm
-          text="You can upload an image to represent your team on the platform, or select one of our default options. The avatar can be changed at any time."
+          text="You can upload an image to represent your team 
+          on the platform, or select one of our default options. 
+          The avatar can be changed at any time."
           defaultAvatars={defaultTeamAvatars}
         />
       ),

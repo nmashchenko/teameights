@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface RegistrationAuth  {
-  step: number,
-  isLastStep: boolean,
-  isFinishRegistrationStarted: boolean,
-  isOptionalStep: boolean,
-  isLoading: boolean,
-  isFinishedAvatarLoading: boolean,
-  error: string,
+interface RegistrationAuth {
+  step: number
+  isLastStep: boolean
+  isFinishRegistrationStarted: boolean
+  isOptionalStep: boolean
+  isLoading: boolean
+  isFinishedAvatarLoading: boolean
+  error: string
   active: $TSFIXME
   userData: $TSFIXME
 }
@@ -21,7 +21,7 @@ const initialState: RegistrationAuth = {
   isFinishedAvatarLoading: false,
   error: '',
   active: null,
-  userData: null
+  userData: null,
 }
 
 export const registrationAuth = createSlice({
@@ -65,7 +65,14 @@ export const registrationAuth = createSlice({
 })
 
 export const {
-  setActiveState, setIsFinishRegistrationStarted, finishRegistrationError, setIsFinishedAvatarLoading, setIsLastStep, setIsOptionalStep, setStep, startRegistration
+  setActiveState,
+  setIsFinishRegistrationStarted,
+  finishRegistrationError,
+  setIsFinishedAvatarLoading,
+  setIsLastStep,
+  setIsOptionalStep,
+  setStep,
+  startRegistration,
 } = registrationAuth.actions
 
 export default registrationAuth.reducer

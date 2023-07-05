@@ -7,33 +7,33 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import { BuildOptions } from "./types/config"
 
 export function buildPlugins({
-    paths,
-    isDev,
+  paths,
+  isDev,
 }: BuildOptions): webpack.WebpackPluginInstance[] {
-    const plugins = [
-        new Dotenv(),
-        new HTMLWebpackPlugin({
-            template: paths.html,
-        }),
-        new webpack.ProgressPlugin(),
-        new MiniCssExtractPlugin({
-            chunkFilename: "[name].css",
-            filename: "css/[name].[contenthash:8].css",
-        }),
-        new webpack.DefinePlugin({
-            __IS_DEV__: JSON.stringify(isDev),
-        }),
-    ];
+  const plugins = [
+    new Dotenv(),
+    new HTMLWebpackPlugin({
+      template: paths.html,
+    }),
+    new webpack.ProgressPlugin(),
+    new MiniCssExtractPlugin({
+      chunkFilename: "[name].css",
+      filename: "css/[name].[contenthash:8].css",
+    }),
+    new webpack.DefinePlugin({
+      __IS_DEV__: JSON.stringify(isDev),
+    }),
+  ];
 
-    if (isDev) {
-        plugins.push(new webpack.HotModuleReplacementPlugin());
-        plugins.push(
-            new BundleAnalyzerPlugin({
-                openAnalyzer: false,
-            })
-        );
-        plugins.push(new ReactRefreshWebpackPlugin());
-    }
+  if (isDev) {
+    plugins.push(new webpack.HotModuleReplacementPlugin());
+    plugins.push(
+      new BundleAnalyzerPlugin({
+        openAnalyzer: false,
+      })
+    );
+    plugins.push(new ReactRefreshWebpackPlugin());
+  }
 
-    return plugins;
+  return plugins;
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { useAppSelector } from 'shared/model/hooks'
@@ -10,11 +10,11 @@ export const UseLoadSocket = () => {
 
   const dispatch = useDispatch()
 
-  function onConnect() {
+  const onConnect = useCallback(() => {
     console.log('connected')
     //   setIsConnected(true)
     socket.emit('subscribeToNotifications', JSON.stringify({ id: userId }))
-  }
+  }, [userId])
 
   function onDisconnect() {
     console.log('disconnecting...')
@@ -34,7 +34,7 @@ export const UseLoadSocket = () => {
         socket.off('disconnect', onDisconnect)
       }
     }
-  }, [userId])
+  }, [userId, onConnect])
 
   useEffect(() => {
     function onNotificationsEvent(notification: $TSFIXME) {
@@ -61,5 +61,5 @@ export const UseLoadSocket = () => {
     return () => {
       socket.off(`notification-${userId}`, onNotificationsEvent)
     }
-  }, [notifications])
+  }, [notifications, dispatch, userId])
 }

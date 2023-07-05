@@ -32,7 +32,8 @@ import {
 } from './ProfileInfo.styles'
 import UserStatusButtons from './UserStatusButtons/UserStatusButtons'
 
-const ProfileInfo: FC<$TSFIXME> = ({ showingUser, id, currentUser, isEditing, setIsEditing, isUpdatingUser }) => {
+const ProfileInfo: FC<$TSFIXME> = ({ 
+  showingUser, id, currentUser, isEditing, setIsEditing, isUpdatingUser }) => {
   const width = useGetScreenWidth()
   const navigate = useNavigate()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()

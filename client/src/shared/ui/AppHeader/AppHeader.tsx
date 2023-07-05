@@ -7,7 +7,7 @@ import SearchPanel from '../SearchPanel/SearchPanel'
 
 import { FiltersWrapper, LogoContainer, NavBar, SearchIconWrapper } from './AppHeader.styles'
 
-const AppHeader = ({ sliceName, filterValueAction, hideLogoForMobile = false }) => {
+function AppHeader({ sliceName, filterValueAction, hideLogoForMobile = false }: $TSFIXME) {
   const [currFilterIndex, setCurrFilterIndex] = useState(0)
   const [openModal, setOpenModal] = useState(false)
 
