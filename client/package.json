@@ -59,12 +59,15 @@
     "build:dev": "webpack --env mode=development",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lintfix": "eslint --fix ./src --ext .js,.jsx"
+    "lintfix": "eslint --fix ./src --ext .js,.jsx",
+    "storybook": "storybook dev -p 6006 -c ./config/storybook",
+    "storybook:build": "storybook build -c ./config/storybook"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended"
     ]
   },
   "browserslist": {
@@ -85,6 +88,14 @@
     "@babel/preset-react": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@storybook/addon-essentials": "^7.0.26",
+    "@storybook/addon-interactions": "^7.0.26",
+    "@storybook/addon-links": "^7.0.26",
+    "@storybook/blocks": "^7.0.26",
+    "@storybook/preset-create-react-app": "^7.0.26",
+    "@storybook/react": "^7.0.26",
+    "@storybook/react-webpack5": "^7.0.26",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@svgr/webpack": "^8.0.1",
     "@types/dotenv-webpack": "^7.0.4",
     "@types/jest": "^29.5.2",
@@ -95,6 +106,7 @@
     "@types/webpack-bundle-analyzer": "^4.6.0",
     "@types/webpack-dev-server": "^4.7.2",
     "babel-loader": "^9.1.2",
+    "babel-plugin-named-exports-order": "^0.0.2",
     "css-loader": "^6.8.1",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
@@ -102,12 +114,15 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-storybook": "^0.6.12",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "prettier": "^2.8.1",
+    "prop-types": "^15.8.1",
     "sass": "^1.63.6",
     "sass-loader": "^13.3.2",
+    "storybook": "^7.0.26",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.4",
     "ts-node": "^10.9.1",

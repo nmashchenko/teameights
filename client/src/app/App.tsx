@@ -1,8 +1,6 @@
-// * Routes
-// * Modules
 
-import { Routing } from '../routes/routes'
 
+import { Routing } from 'shared/config/routes'
 import { withProviders } from './providers'
 
 function App() {

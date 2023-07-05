@@ -1,7 +1,7 @@
 // * Modules
-import React, { useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from 'shared/model/hooks'
 
 // * Assets
 import Close from '../../assets/Sidebar/Close'
@@ -37,7 +37,7 @@ const NavBar = () => {
   const [sidebar, setSidebar] = useState(false)
   const [notificationModal, setNotificationModal] = useState(false)
 
-  const { isAuth } = useSelector((state) => state.userReducer)
+  const { isAuth } = useAppSelector((state) => state.auth)
   const { data: user } = useCheckAuth()
 
   const newNavData = [
@@ -83,7 +83,7 @@ const NavBar = () => {
 
       {/* This will appear for screen width > 768px */}
       <NavWrapper active={sidebar}>
-        <NavMenu ref={navMenuRef} onClick={(e) => e.stopPropagation()} active={sidebar} left="0">
+        <NavMenu ref={navMenuRef} onClick={(e: $TSFIXME) => e.stopPropagation()} active={sidebar} left="0">
           <NavBarToggle>
             <NavBarLogo active={sidebar}>
               <ShortLogo />

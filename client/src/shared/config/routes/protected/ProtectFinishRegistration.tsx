@@ -1,8 +1,7 @@
-import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
-import { useCheckAuth } from '../../shared/api/hooks/auth/useCheckAuth'
-import ROUTES from '../../shared/constants/routes'
+import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth'
+import ROUTES from '../../../constants/routes'
 
 const ProtectFinishRegistration = () => {
   const { data: user } = useCheckAuth()

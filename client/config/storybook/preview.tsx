@@ -1,7 +1,7 @@
-import type { Preview } from "@storybook/react";
-import React from "react";
+import type { Preview } from "@storybook/react"
+import React from "react"
 
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'
 
 const preview: Preview = {
     parameters: {
@@ -16,7 +16,7 @@ const preview: Preview = {
     decorators: [
         (Story) => (
             <BrowserRouter>
-                <div className={`app light`}>
+                <div className={`app`}>
                     <Story />
                 </div>
             </BrowserRouter>
