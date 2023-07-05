@@ -390,22 +390,43 @@ export const editProfileValidation = yup.object().shape(
         return yup.string().notRequired()
       }
     }),
-    dateOfBirth: yup
-      .string()
-      .matches(
-        /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01][0-9]|202[0-3])$/,
-        'Invalid date format. Please enter a date in the format dd/mm/yyyy',
-      )
-      .test('valid-year', 'Year must be between 1901 and current year', function (value) {
-        if (value) {
-          const year = parseInt(value.split('/')[2])
+    // dateOfBirth: yup
+    //   .string()
+    //   .matches(
+    //     /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01][0-9]|202[0-3])$/,
+    //     'Invalid date format. Please enter a date in the format dd/mm/yyyy',
+    //   )
+    //   .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+    //     if (value) {
+    //       const year = parseInt(value.split('/')[2])
 
-          return year >= 1901 && year <= new Date().getFullYear()
-        }
+    //       return year >= 1901 && year <= new Date().getFullYear()
+    //     }
 
-        return true
-      })
-      .required('Please input your birthday'),
+    //     return true
+    //   })
+    //   .required('Please input your birthday'),
+
+    dateOfBirth: yup.string().when('dateOfBirth', {
+      is: (value) => typeof value === 'string' && !isDate(value),
+      then: yup
+        .string()
+        .matches(
+          /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01][0-9]|202[0-3])$/,
+          'Invalid date format. Please enter a date in the format dd/mm/yyyy',
+        )
+        .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+          if (value) {
+            const year = parseInt(value.split('/')[2])
+
+            return year >= 1901 && year <= new Date().getFullYear()
+          }
+
+          return true
+        })
+        .required('Please input your birthday'),
+      otherwise: yup.string(),
+    }),
     experience: yup.string().required('Please choose your experience'),
     programmingLanguages: yup
       .array()
@@ -451,7 +472,8 @@ export const editProfileValidation = yup.object().shape(
             .string('Should be string!')
             .required('Required!')
             .trim()
-            .min(1, 'Should not be empty!'),
+            .min(1, 'Should not be empty!')
+            .max(20, '20 characters max'),
           link: yup
             .string('Should be string!')
             .required('Required!')
@@ -581,6 +603,7 @@ export const editProfileValidation = yup.object().shape(
     ['github', 'github'],
     ['linkedIn', 'linkedIn'],
     ['telegram', 'telegram'],
+    ['dateOfBirth', 'dateOfBirth'],
   ],
 )
 

@@ -23,11 +23,12 @@ function EditingComponentEducation({ handleBack, showingUser }) {
     values && values?.universityData[index]?.graduationDate === null
       ? setCheckbox(true)
       : setCheckbox(false)
-  }, [index])
+  }, [index, values?.universityData[index]?.graduationDate])
 
   const handleReset = () => {
     setModalActive('')
     setCurrentAction('main')
+    setIndex(0)
   }
 
   const { mutate: editUserDetails, isLoading } = useEditUserDetails(handleReset)
@@ -38,9 +39,9 @@ function EditingComponentEducation({ handleBack, showingUser }) {
     const updatedUniversityData = universities.filter((_, i) => i !== index)
 
     setFieldValue('universityData', updatedUniversityData)
-    setIndex((prev) => prev - 1)
 
     editUserDetails({ email: showingUser.email, universityData: updatedUniversityData })
+    setIndex(0)
   }
 
   const handleEditUniversity = (index) => {
@@ -50,8 +51,6 @@ function EditingComponentEducation({ handleBack, showingUser }) {
 
   const submitEditUniversity = async () => {
     const validation = await validateForm()
-
-    console.log(validation)
 
     if (!validation?.universityData) {
       const initialObject = cloneDeep(values.universityData)
@@ -67,6 +66,7 @@ function EditingComponentEducation({ handleBack, showingUser }) {
       setFieldValue(`universityData[${index}].graduationDate`, initialObject[index].graduationDate)
 
       editUserDetails({ email: showingUser.email, universityData: initialObject })
+      setIndex(0)
     } else {
       setErrors({ universityData: validation.universityData[index] })
       errorToaster('Fill in data before submission!')
@@ -80,6 +80,7 @@ function EditingComponentEducation({ handleBack, showingUser }) {
 
   const handleClose = () => {
     setModalActive('')
+    setIndex(0)
   }
 
   const handleCancel = () => {

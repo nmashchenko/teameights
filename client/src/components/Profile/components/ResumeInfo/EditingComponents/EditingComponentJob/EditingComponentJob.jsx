@@ -20,13 +20,13 @@ function EditingComponentJob({ handleBack, showingUser }) {
   const [checkbox, setCheckbox] = useState(false)
 
   useEffect(() => {
-    console.log(index)
     values && values?.jobData[index]?.endDate === null ? setCheckbox(true) : setCheckbox(false)
-  }, [index])
+  }, [index, values?.jobData[index]?.endDate])
 
   const handleReset = () => {
     setModalActive('')
     setCurrentAction('main')
+    setIndex(0)
   }
 
   const { mutate: editUserDetails, isLoading } = useEditUserDetails(handleReset)
@@ -37,9 +37,9 @@ function EditingComponentJob({ handleBack, showingUser }) {
     const updatedJobData = jobs.filter((_, i) => i !== index)
 
     setFieldValue('jobData', updatedJobData)
-    setIndex((prev) => prev - 1)
 
     editUserDetails({ email: showingUser.email, jobData: updatedJobData })
+    setIndex(0)
   }
 
   const handleEditJob = (index) => {
@@ -64,6 +64,7 @@ function EditingComponentJob({ handleBack, showingUser }) {
       setFieldValue(`jobData[${index}].endDate`, initialObject[index].endDate)
 
       editUserDetails({ email: showingUser.email, jobData: initialObject })
+      setIndex(0)
     } else {
       setErrors({ jobData: validation.jobData[index] })
       errorToaster('Fill in data before submission!')
@@ -77,6 +78,7 @@ function EditingComponentJob({ handleBack, showingUser }) {
 
   const handleClose = () => {
     setModalActive('')
+    setIndex(0)
   }
 
   const handleCancel = () => {
@@ -116,7 +118,6 @@ function EditingComponentJob({ handleBack, showingUser }) {
             handleBack={handleBack}
             setCurrentAction={setCurrentAction}
             setIndex={setIndex}
-            index={index}
           />
         )}
 

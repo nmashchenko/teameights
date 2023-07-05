@@ -36,7 +36,6 @@ const CustomInput = ({
     }
 
     helpers.setValue(formattedValue) // Manually set the value of the field
-    console.log(field, props)
 
     if (onInputChange) {
       onInputChange(formattedValue) // Pass the input value to the callback

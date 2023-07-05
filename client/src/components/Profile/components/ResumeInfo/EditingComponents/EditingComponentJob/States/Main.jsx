@@ -14,7 +14,6 @@ const Main = ({
   handleBack,
   setCurrentAction,
   setIndex,
-  index,
 }) => {
   return (
     <FieldArray name="jobData">
