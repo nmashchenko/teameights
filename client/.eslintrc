@@ -35,14 +35,14 @@
       {
         "singleQuote": true,
         "semi": false,
-        "endOfLine":"auto"
+        "endOfLine": "auto"
       }
     ],
-    // regex checks 
-    "no-useless-escape" : "off",
-    
+    // regex checks
+    "no-useless-escape": "off",
+
     // disabling unused vars check
-    "no-unused-vars" : "off",
+    "no-unused-vars": "off",
 
     // We had some issues with escaping so this is disabled for now
     "react/no-unescaped-entities": 0,
@@ -128,7 +128,7 @@
     "import/resolver": {
       "node": {
         "moduleDirectory": ["node_modules", "src/"],
-        "extensions": [".js", ".jsx"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   }

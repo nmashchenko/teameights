@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
 
+import { useAppDispatch } from 'shared/model/hooks'
 import { userAuth } from '../../../../app/providers/store/reducers/UserAuth'
-import http from '../../../../shared/api/axios'
 import { errorToaster } from '../../../ui/Toasters/Error.toaster'
 import { infoToaster } from '../../../ui/Toasters/Info.toaster'
+import http from '../../axios'
 import { socket } from '../../sockets/notifications.socket'
 
 const { api } = http
 
 export const useLogoutUser = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const queryClient = useQueryClient()
 
   const logoutUser = async () => {

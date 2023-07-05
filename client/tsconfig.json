@@ -19,5 +19,10 @@
       "module": "CommonJS"
     }
   },
-  "include": ["./config/jest/setupTests.ts", "./src/**/*.ts", "./src/**/*.tsx"]
+  "include": [
+    "./config/jest/setupTests.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "src/components/FilterSelect/FilterSelect.tsx"
+  ]
 }

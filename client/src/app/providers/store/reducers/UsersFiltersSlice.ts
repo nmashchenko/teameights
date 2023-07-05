@@ -34,7 +34,7 @@ initialState: (ITextFilter | IChecksFilter | IRangeFilter)[]
 
 */
 
-const initialState = [
+const initialState: $TSFIXME = [
   {
     name: 'name',
     text: 'Name',
@@ -75,7 +75,7 @@ const initialState = [
   },
 ]
 
-const usersFiltersSlice = createSlice({
+export const usersFiltersSlice = createSlice({
   name: 'usersFilters',
   initialState,
   reducers: {
@@ -87,8 +87,4 @@ const usersFiltersSlice = createSlice({
   },
 })
 
-const { reducer, actions } = usersFiltersSlice
-
-export default reducer
-
-export const { setUsersFilter } = actions
+export const { setUsersFilter } = usersFiltersSlice.actions

@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
+import { useAppSelector } from 'shared/model/hooks'
 import { userAuth } from '../../../../app/providers/store/reducers/UserAuth'
 import { socket } from '../../sockets/notifications.socket'
 
 export const UseLoadSocket = () => {
-  const { notifications, userId } = useSelector((state) => state.userReducer)
+  const { userId, notifications } = useAppSelector((state) => state.auth)
 
   const dispatch = useDispatch()
 
@@ -36,10 +37,10 @@ export const UseLoadSocket = () => {
   }, [userId])
 
   useEffect(() => {
-    function onNotificationsEvent(notification) {
+    function onNotificationsEvent(notification: $TSFIXME) {
       // Find the index of the existing notification with the same _id
       const existingIndex = notifications.findIndex(
-        (n) => String(n._id) === String(notification._id),
+        (n: $TSFIXME) => String(n._id) === String(notification._id),
       )
 
       // If an existing notification is found, update it

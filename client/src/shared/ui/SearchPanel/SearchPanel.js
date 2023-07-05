@@ -1,4 +1,4 @@
-import FilterSelect from '../../../components/FilterSelect/FilterSelect'
+import FilterSelect from '../../../components/FilterSelect/FilterSelect.tsx'
 import Search from '../../../components/Search/Search'
 import TagsList from '../../../components/TagsList/TagsList'
 

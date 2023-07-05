@@ -4,7 +4,7 @@ const initialState = {
   isModalOpen: false,
 }
 
-const sharedSlice = createSlice({
+export const sharedSlice = createSlice({
   name: 'shared',
   initialState,
   reducers: {
@@ -16,4 +16,3 @@ const sharedSlice = createSlice({
 
 export const { setIsModalOpen } = sharedSlice.actions
 
-export default sharedSlice.reducer

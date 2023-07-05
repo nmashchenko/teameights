@@ -1,6 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+interface UserAuth {
+  isAuth: boolean,
+  isRegistered: boolean,
+  isConnected: boolean,
+  notifications: any,
+  userId: string,
+  error: string,
+}
+
+const initialState: UserAuth = {
   isAuth: false,
   isRegistered: false,
   isConnected: false,

@@ -1,13 +1,14 @@
-import { useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 
-import ArrowDown from '../../assets/SearchPanel/ArrowDown'
-import { useOutsideClick } from '../../shared/lib/hooks/useOutsideClick'
+import { FC, useRef, useState } from 'react'
+import { useSelector } from "react-redux"
 
+
+import ArrowDown from 'assets/Arrows/ArrowDown'
+import { useOutsideClick } from 'shared/lib/hooks'
 import { FilterSelectBox, FilterSelectBtn, OptionItem, OptionsList } from './FilterSelect.styles'
 
-const FilterSelect = ({ sliceName, currFilterIndex, setCurrFilterIndex }) => {
-  const filtersArr = useSelector((state) => state[sliceName])
+const FilterSelect: FC<$TSFIXME> = ({ sliceName, currFilterIndex, setCurrFilterIndex }) => {
+  const filtersArr = useSelector((state: $TSFIXME) => state[sliceName])
 
   const currFilter = filtersArr[currFilterIndex]
 
@@ -16,7 +17,7 @@ const FilterSelect = ({ sliceName, currFilterIndex, setCurrFilterIndex }) => {
 
   useOutsideClick(selectRef, () => setSelectActive(false))
 
-  const onChangeFilter = (index) => {
+  const onChangeFilter = (index: $TSFIXME) => {
     setCurrFilterIndex(index)
     setSelectActive(false)
   }
@@ -29,7 +30,7 @@ const FilterSelect = ({ sliceName, currFilterIndex, setCurrFilterIndex }) => {
       </FilterSelectBtn>
       {selectActive && (
         <OptionsList>
-          {filtersArr.map((item, i) => {
+          {filtersArr.map((item: $TSFIXME, i: number) => {
             return (
               <OptionItem
                 isActive={currFilter.name === item.name}

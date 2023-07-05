@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'

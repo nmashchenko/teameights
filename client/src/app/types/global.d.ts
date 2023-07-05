@@ -21,3 +21,8 @@ declare module '*.gif'
 declare const __IS_DEV__: boolean
 
 declare type $TSFIXME = any
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+declare type RootState = import('../providers/store/store').RootState
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+declare type AppDispatch = import('../providers/store/store').AppDispatch

@@ -1,13 +1,13 @@
 // * Modules
-import React, { useEffect } from 'react'
-// * Redux
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
 import {
-  registrationAuth,
+  setActiveState,
   setIsFinishRegistrationStarted,
-} from '../../../../app/providers/store/reducers/RegistrationAuth'
+} from 'app/providers/store/reducers/RegistrationAuth'
+
+// * Redux
 import { useCheckAuth } from '../../../../shared/api/hooks/auth/useCheckAuth'
 import Loader from '../../../../shared/ui/Loader/Loader'
 
@@ -25,7 +25,6 @@ function InitialPart() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { setActiveState } = registrationAuth.actions
   const { curRegistration } = useSelector((state) => state.registrationReducer)
   const { data: user, isFetching } = useCheckAuth()
 
