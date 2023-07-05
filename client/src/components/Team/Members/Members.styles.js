@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 
-import { ThinClose } from '../../../assets/Team/ThinClose'
+import { ThinClose } from '../../../shared/assets/Team/ThinClose'
 
 export const ThinCloseIcon = styled(ThinClose)``
 

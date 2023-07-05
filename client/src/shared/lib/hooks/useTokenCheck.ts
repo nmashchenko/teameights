@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 // * Hooks
 // * Constants
-import ROUTES from '../../constants/routes'
+import { AuthRoutePath } from 'shared/config/routes'
 
 // * API
 // const { mutate: logoutUser } = useLogoutUser()
@@ -16,7 +16,7 @@ const useTokenCheck = () => {
   return () => {
     if (isEqual(localStorage.getItem('token'), null)) {
       // logoutUser()
-      navigate(ROUTES.login, { replace: true })
+      navigate(AuthRoutePath.login, { replace: true })
     }
   }
 }

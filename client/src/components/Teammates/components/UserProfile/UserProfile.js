@@ -1,14 +1,14 @@
 // * Modules
-import React, { forwardRef, memo } from 'react'
+import { forwardRef, memo } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import { Slide } from '@mui/material'
 
-import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
-import AddUserIcon from '../../../../assets/Shared/AddUserIcon'
-import Close from '../../../../assets/Shared/Close'
-import Message from '../../../../assets/Shared/Message'
 import { useInviteUser } from '../../../../shared/api/hooks/team/useInviteUser'
+import LongArrowRight from '../../../../shared/assets/Arrows/LongArrowRight'
+import AddUserIcon from '../../../../shared/assets/Shared/AddUserIcon'
+import Close from '../../../../shared/assets/Shared/Close'
+import Message from '../../../../shared/assets/Shared/Message'
 import { frameworkColors, frameworkTextColors } from '../../../../shared/constants/frameworkColors'
 import { languageOptions } from '../../../../shared/constants/programmingLanguages'
 // * Assets

@@ -1,8 +1,7 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
-
-import CodingImage from '../../assets/Login/CodingImage'
+import CodingImage from 'shared/assets/Login/CodingImage'
 
 import {
   AuthContainer,

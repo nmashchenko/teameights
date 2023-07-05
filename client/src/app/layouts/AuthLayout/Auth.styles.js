@@ -1,6 +1,5 @@
+import { BLACK, GREEN, WHITE } from 'shared/constants/colors'
 import styled from 'styled-components'
-
-import { BLACK, GREEN, WHITE } from '../../shared/constants/colors'
 
 export const AuthContainer = styled.div`
   width: 100%;

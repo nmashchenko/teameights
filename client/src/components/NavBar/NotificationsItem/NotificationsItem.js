@@ -1,6 +1,6 @@
-import LightningIcon from '../../../assets/Sidebar/LightningIcon'
 import { useChangeMessageStatus } from '../../../shared/api/hooks/sidebar/useChangeMessageStatus'
 import { useGetTeamData } from '../../../shared/api/hooks/team/useGetTeamData'
+import LightningIcon from '../../../shared/assets/Sidebar/LightningIcon'
 import { getPastTime } from '../../../shared/lib/utils/getPastTime'
 import FlexWrapper from '../../../shared/ui/FlexWrapper/FlexWrapper'
 import Loader from '../../../shared/ui/Loader/Loader'

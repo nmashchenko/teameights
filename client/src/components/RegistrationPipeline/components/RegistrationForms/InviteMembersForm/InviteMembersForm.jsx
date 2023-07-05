@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useFormikContext } from 'formik'
 
-import AddUserIcon from '../../../../../assets/Shared/AddUserIcon'
-import DeleteIcon from '../../../../../assets/Shared/DeleteIcon'
+import AddUserIcon from '../../../../../shared/assets/Shared/AddUserIcon'
+import DeleteIcon from '../../../../../shared/assets/Shared/DeleteIcon'
 import { useGetScreenWidth } from '../../../../../shared/lib/hooks/useGetScreenWidth'
 import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
 import SearchUsersAutocomplete from '../../../../../shared/ui/SearchUsersAutocomplete/SearchUsersAutocomplete'

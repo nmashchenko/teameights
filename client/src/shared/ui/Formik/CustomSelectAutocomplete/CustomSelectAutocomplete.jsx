@@ -1,8 +1,8 @@
 import { Autocomplete, Chip, FormControl, TextField, ThemeProvider } from '@mui/material'
 import { Field, useField, useFormikContext } from 'formik'
+import ArrowDown from 'shared/assets/Arrows/ArrowDown'
+import AlertIcon from 'shared/assets/Inputs/AlertIcon'
 
-import ArrowDown from '../../../../assets/Arrows/ArrowDown'
-import AlertIcon from '../../../../assets/Inputs/AlertIcon'
 import { ErrorMessage, Label } from '../../../styles/Tpography.styles'
 
 import { theme } from './CustomSelectAutocomplete.theme'

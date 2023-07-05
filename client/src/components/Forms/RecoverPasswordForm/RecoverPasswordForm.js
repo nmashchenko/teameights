@@ -5,9 +5,9 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Snackbar from '@mui/material/Snackbar'
 
-import ArrowLeftReset from '../../../assets/Arrows/ArrowLeftReset'
 // * Api
 import resetPassword from '../../../shared/api/endpoints/reset'
+import ArrowLeftReset from '../../../shared/assets/Arrows/ArrowLeftReset'
 // * Assets
 import ROUTES from '../../../shared/constants/routes'
 import Alert from '../../RegistrationPipeline/components/Alert/Alert'

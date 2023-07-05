@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import PlatformLogo from 'shared/assets/Platform/TeameightsLogo'
+import SearchIcon from 'shared/assets/Shared/SearchIcon'
 
-import PlatformLogo from '../../../assets/Platform/TeameightsLogo'
-import SearchIcon from '../../../assets/Shared/SearchIcon'
 import ModalSearch from '../../../components/ModalSearch/ModalSearch'
 import SearchPanel from '../SearchPanel/SearchPanel'
 

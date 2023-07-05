@@ -1,9 +1,8 @@
 // * Modules
 import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
-
 // * Assets
-import ArrowDown from '../../../../assets/Arrows/ArrowDown'
+import ArrowDown from 'shared/assets/Arrows/ArrowDown'
 
 // * Helpers
 import MenuProps from './MenuProps'

@@ -1,4 +1,5 @@
-import { SelectedIcon } from '../../../../assets/Team/SelectedIcon'
+import { SelectedIcon } from 'shared/assets/Team/SelectedIcon'
+
 import {
   ListBackdrop,
   NoMembersCard,

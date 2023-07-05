@@ -1,7 +1,7 @@
 // * Modules
 import { useState } from 'react'
 
-import InfoIcon from '../../../../assets/Shared/InfoIcon'
+import InfoIcon from '../../../../shared/assets/Shared/InfoIcon'
 import { useGetScreenWidth } from '../../../../shared/lib/hooks/useGetScreenWidth'
 import { Text } from '../../../../shared/styles/Tpography.styles'
 import FlexWrapper from '../../../../shared/ui/FlexWrapper/FlexWrapper'

@@ -1,9 +1,8 @@
-import React from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 
-import LongArrowLeft from '../../../../../assets/Arrows/LongArrowLeft'
-import AddUserIcon from '../../../../../assets/Shared/AddUserIcon'
-import MessageIcon from '../../../../../assets/UserProfile/MessageIcon'
+import LongArrowLeft from '../../../../../shared/assets/Arrows/LongArrowLeft'
+import AddUserIcon from '../../../../../shared/assets/Shared/AddUserIcon'
+import MessageIcon from '../../../../../shared/assets/UserProfile/MessageIcon'
 import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
 import { infoToaster } from '../../../../../shared/ui/Toasters/Info.toaster'
 import { GenericButton } from '../ProfileInfo.styles'

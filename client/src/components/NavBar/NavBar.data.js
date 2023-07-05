@@ -1,9 +1,8 @@
 // * Modules
-import React from 'react'
 
 // * Assets
-import SearchIcon from '../../assets/Sidebar/SearchIcon'
-import TrophyIcon from '../../assets/Sidebar/TrophyIcon'
+import SearchIcon from '../../shared/assets/Sidebar/SearchIcon'
+import TrophyIcon from '../../shared/assets/Sidebar/TrophyIcon'
 
 export const NavBarData = [
   {

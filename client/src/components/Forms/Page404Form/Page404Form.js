@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 
 // * Assets
-import Page404 from '../../../assets/Shared/SearchingPeople'
+import Page404 from '../../../shared/assets/Shared/SearchingPeople'
 
 // * Styles
 import {

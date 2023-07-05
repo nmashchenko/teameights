@@ -1,6 +1,6 @@
-import EditIcon from '../../../../../assets/UserProfile/EditIcon'
-import LinkIcon from '../../../../../assets/UserProfile/LinkIcon'
-import TeamMembersIcon from '../../../../../assets/UserProfile/TeamMembersIcon'
+import EditIcon from '../../../../../shared/assets/UserProfile/EditIcon'
+import LinkIcon from '../../../../../shared/assets/UserProfile/LinkIcon'
+import TeamMembersIcon from '../../../../../shared/assets/UserProfile/TeamMembersIcon'
 import {
   frameworkColors,
   frameworkTextColors,

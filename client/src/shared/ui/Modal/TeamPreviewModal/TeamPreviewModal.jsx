@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-
-import unregisteredImg from '../../../../assets/Images/user/unregistered.png'
-import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
-import ArrowRight from '../../../../assets/Team/ArrowRight'
-import { getCountryFlag } from '../../../../shared/lib/utils/getCountryFlag'
+import unregisteredImg from 'shared/assets/Images/user/unregistered.png'
+import SCrownRight from 'shared/assets/Shared/Crowns/SCrownRight'
+import ArrowRight from 'shared/assets/Team/ArrowRight'
+import { getCountryFlag } from 'shared/lib/utils/getCountryFlag'
 
 import {
   ButtonsContainer,

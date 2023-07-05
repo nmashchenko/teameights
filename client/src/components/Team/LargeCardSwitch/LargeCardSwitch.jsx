@@ -1,6 +1,4 @@
-import React from 'react'
-
-import UserPlus from '../../../assets/Team/UserPlus'
+import UserPlus from '../../../shared/assets/Team/UserPlus'
 import { UserPlusContainer } from '../TeamForm/TeamForm.styles'
 
 import {

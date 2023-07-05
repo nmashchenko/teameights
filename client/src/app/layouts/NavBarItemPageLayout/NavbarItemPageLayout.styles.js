@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { BLACK } from '../../shared/constants/colors'
+import { BLACK } from '../../../shared/constants/colors'
 
 export const Container = styled.div`
   display: flex;

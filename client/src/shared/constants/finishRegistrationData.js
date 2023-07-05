@@ -1,7 +1,7 @@
-import BehanceIcon from '../../assets/Links/BehanceIcon'
-import GitHubIcon from '../../assets/Links/GitHubIcon'
-import LinkedInIcon from '../../assets/Links/LinkedInIcon'
-import TelegramIcon from '../../assets/Links/TelegramIcon'
+import BehanceIcon from 'shared/assets/Links/BehanceIcon'
+import GitHubIcon from 'shared/assets/Links/GitHubIcon'
+import LinkedInIcon from 'shared/assets/Links/LinkedInIcon'
+import TelegramIcon from 'shared/assets/Links/TelegramIcon'
 
 import concentrationOptions from './concentrations'
 import frameworkOptions from './frameworks'
@@ -16,7 +16,7 @@ const avatarFilenames = [
   'default-yellow.png',
 ]
 
-const avatars = avatarFilenames.map((filename) => require(`../../assets/Images/user/${filename}`))
+const avatars = avatarFilenames.map((filename) => require(`shared/assets/Images/user/${filename}`))
 
 export const userConcentrations = [
   {

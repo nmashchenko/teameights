@@ -1,12 +1,12 @@
 // * Modules
 import React, { useEffect, useState } from 'react'
-import { Form, Formik } from 'formik'
-
-// * Assets
-import PlatformLogo from '../../../../assets/Platform/TeameightsLogo'
-import SearchIcon from '../../../../assets/Shared/SearchIcon'
 // * Components
-import { setUsersFilter } from '../../../../store/reducers/UsersFiltersSlice'
+import { setUsersFilter } from 'app/providers/store/reducers/UsersFiltersSlice'
+import { Form, Formik } from 'formik'
+// * Assets
+import PlatformLogo from 'shared/assets/Platform/TeameightsLogo'
+import SearchIcon from 'shared/assets/Shared/SearchIcon'
+
 import FilterSelect from '../../../FilterSelect/FilterSelect'
 import ModalSearch from '../../../ModalSearch/ModalSearch'
 import Search from '../../../Search/Search'

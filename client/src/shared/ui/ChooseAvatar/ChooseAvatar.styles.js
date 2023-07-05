@@ -1,6 +1,5 @@
+import selectedIcon from 'shared/assets/Avatars/defaultAvatarSelectedIcon.svg'
 import styled, { css } from 'styled-components'
-
-import selectedIcon from '../../../assets/Avatars/defaultAvatarSelectedIcon.svg'
 
 export const ChooseAvatarContainer = styled.div`
   flex: 1;

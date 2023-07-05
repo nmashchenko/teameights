@@ -1,7 +1,6 @@
 import React from 'react'
 import { TextField } from '@mui/material'
-
-import SearchIcon from '../../../assets/Shared/SearchIcon'
+import SearchIcon from 'shared/assets/Shared/SearchIcon'
 
 export const InputTextField = ({ params }) => {
   return (

@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 
-import Checks from '../../../assets/Sidebar/Checks'
-import NotificationClose from '../../../assets/Sidebar/NotificationClose'
 import { useReadMessages } from '../../../shared/api/hooks/sidebar/useReadMessages'
+import Checks from '../../../shared/assets/Sidebar/Checks'
+import NotificationClose from '../../../shared/assets/Sidebar/NotificationClose'
 import { useGetScreenWidth } from '../../../shared/lib/hooks/useGetScreenWidth'
 import { useOutsideClick } from '../../../shared/lib/hooks/useOutsideClick'
 import IconWrapper from '../../../shared/ui/IconWrapper/IconWrapper'

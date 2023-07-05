@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Box, Slide } from '@mui/material'
+import Close from 'shared/assets/Shared/Close'
+import UserPlus from 'shared/assets/Team/UserPlus'
 
-import Close from '../../../assets/Shared/Close'
-import UserPlus from '../../../assets/Team/UserPlus'
 import { useGetScreenWidth } from '../../lib/hooks/useGetScreenWidth'
 import FlexWrapper from '../FlexWrapper/FlexWrapper'
 import SearchUsersAutocomplete from '../SearchUsersAutocomplete/SearchUsersAutocomplete'

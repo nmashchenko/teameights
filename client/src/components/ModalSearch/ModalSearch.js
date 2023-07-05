@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import Cross from '../../assets/Sidebar/Cross'
+import Cross from '../../shared/assets/Sidebar/Cross'
 import FlexWrapper from '../../shared/ui/FlexWrapper/FlexWrapper'
 import IconWrapper from '../../shared/ui/IconWrapper/IconWrapper'
 import Tag from '../../shared/ui/Tag/Tag'

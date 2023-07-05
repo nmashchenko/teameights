@@ -1,6 +1,5 @@
+import checkboxImg from 'shared/assets/SearchPanel/Checkbox.svg'
 import styled from 'styled-components'
-
-import checkboxImg from '../../../assets/SearchPanel/Checkbox.svg'
 
 export const CheckListWrapper = styled.div`
   z-index: 250;

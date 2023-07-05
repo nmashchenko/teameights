@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 
-import ArrowLeftReset from '../../../assets/Arrows/ArrowLeftReset'
+import ArrowLeftReset from '../../../shared/assets/Arrows/ArrowLeftReset'
 // * Assets
 import ROUTES from '../../../shared/constants/routes'
 

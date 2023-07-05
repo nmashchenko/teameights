@@ -5,7 +5,6 @@ import { UseLoadSocket } from '../../shared/api/hooks/socket/useLoadSocket'
 
 import { appStore, persistedStore } from './store/store'
 
-console.log(appStore)
 export const withStore = (component) => () =>
   (
     <ReduxProvider store={appStore}>

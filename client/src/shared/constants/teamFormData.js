@@ -7,7 +7,7 @@ const avatarFilenames = [
   'default-yellow.png',
 ]
 
-const avatars = avatarFilenames.map((filename) => require(`../../assets/Images/team/${filename}`))
+const avatars = avatarFilenames.map((filename) => require(`shared/assets/Images/team/${filename}`))
 
 export const teamTypes = [
   {

@@ -1,11 +1,10 @@
 import React, { memo } from 'react'
-
 // * Images
-import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
+import CrownImg from 'shared/assets/UserProfile/LeaderCrown.png'
 // * Colors
-import { languageOptions } from '../../../../shared/constants/programmingLanguages'
-import { calculateAge } from '../../../../shared/lib/utils/calculateAge'
-import { getCountryFlag } from '../../../../shared/lib/utils/getCountryFlag'
+import { languageOptions } from 'shared/constants/programmingLanguages'
+import { calculateAge } from 'shared/lib/utils/calculateAge'
+import { getCountryFlag } from 'shared/lib/utils/getCountryFlag'
 
 import LengthFourCase from './FrameworksCases/LengthFourCase'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'

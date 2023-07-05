@@ -1,13 +1,15 @@
 // * Modules
 import React from 'react'
 import { useFormikContext } from 'formik'
+import Filters from 'shared/assets/Filters/Filters'
+import Close from 'shared/assets/Shared/Close'
 
-import Filters from '../../../../assets/Filters/Filters'
-import Close from '../../../../assets/Shared/Close'
 // * Assets
 import frameworkOptions from '../../../../shared/constants/frameworks'
-import SelectValue from '../../../../shared/ui/Formik/CustomSelect/components/SelectValue'
-import CustomSelect from '../../../../shared/ui/Formik/CustomSelect/CustomSelect'
+import {
+  default as CustomSelect,
+  default as SelectValue,
+} from '../../../../shared/ui/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
 
 // * Styles
 import {

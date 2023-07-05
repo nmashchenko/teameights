@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 
 // * Assets
-import JS from '../../assets/LanguageLogo/JS'
+import JS from '../../shared/assets/LanguageLogo/JS'
 
 // * Styles
 import {

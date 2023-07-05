@@ -1,4 +1,4 @@
-import AvatarEditIcon from '../../../../assets/Avatars/AvatarEditIcon'
+import AvatarEditIcon from 'shared/assets/Avatars/AvatarEditIcon'
 
 import { AvatarEditContainer } from './AvatarEditButton.styles'
 

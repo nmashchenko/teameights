@@ -1,9 +1,8 @@
 // * Modules
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { animateScroll as scroll } from 'react-scroll'
-
 // * Assets
-import Slider from '../../../assets/Shared/Slider'
+import Slider from 'shared/assets/Shared/Slider'
 
 // * Styles
 import { AccessibilityContainer, SliderContainer } from './SliderToTop.styles'

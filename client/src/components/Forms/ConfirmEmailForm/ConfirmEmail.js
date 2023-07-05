@@ -1,4 +1,4 @@
-import UserBehindPC from '../../../assets/Shared/UserBehindPC'
+import UserBehindPC from '../../../shared/assets/Shared/UserBehindPC'
 
 import { Container, ImgContainer, Text, TextContainer } from './ConfirmEmail.styles'
 

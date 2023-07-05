@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
+import LongArrowLeft from 'shared/assets/Arrows/LongArrowLeft'
+import LongArrowRight from 'shared/assets/Arrows/LongArrowRight'
+import SCrownRight from 'shared/assets/Shared/Crowns/SCrownRight'
 
-import LongArrowLeft from '../../../../assets/Arrows/LongArrowLeft'
-import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
-import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
 // * Assets
 import { getCountryFlag } from '../../../../shared/lib/utils/getCountryFlag'
 import FlexWrapper from '../../../../shared/ui/FlexWrapper/FlexWrapper'

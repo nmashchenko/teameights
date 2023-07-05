@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import SearchIcon from '../../../assets/Shared/SearchIcon'
+import SearchIcon from '../../../shared/assets/Shared/SearchIcon'
 import IconWrapper from '../../../shared/ui/IconWrapper/IconWrapper'
 import { SearchBox, SearchInput } from '../Search.styles'
 

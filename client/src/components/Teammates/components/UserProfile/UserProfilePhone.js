@@ -1,13 +1,12 @@
-import React from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 
-import LongArrowLeft from '../../../../assets/Arrows/LongArrowLeft'
-import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
 // * Assets
-import AddUserIcon from '../../../../assets/Shared/AddUserIcon'
-import Message from '../../../../assets/Shared/Message'
 import { useInviteUser } from '../../../../shared/api/hooks/team/useInviteUser'
+import LongArrowLeft from '../../../../shared/assets/Arrows/LongArrowLeft'
+import LongArrowRight from '../../../../shared/assets/Arrows/LongArrowRight'
+import AddUserIcon from '../../../../shared/assets/Shared/AddUserIcon'
+import Message from '../../../../shared/assets/Shared/Message'
 import { frameworkColors, frameworkTextColors } from '../../../../shared/constants/frameworkColors'
 import { languageOptions } from '../../../../shared/constants/programmingLanguages'
 import { calculateAge } from '../../../../shared/lib/utils/calculateAge'

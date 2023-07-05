@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import unregisteredImg from 'shared/assets/Images/user/unregistered.png'
 
-import unregisteredImg from '../../../assets/Images/user/unregistered.png'
 import { useCheckAuth } from '../../../shared/api/hooks/auth/useCheckAuth'
 
 import { ProfileIcon, UserContent, UserInfo, UserRealName, UserUsername } from './Profile.styles'
