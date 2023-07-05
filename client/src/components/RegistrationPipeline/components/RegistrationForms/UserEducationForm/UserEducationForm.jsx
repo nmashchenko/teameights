@@ -3,9 +3,9 @@ import { useFormikContext } from 'formik'
 
 import { degrees } from '../../../../../constants/degrees'
 import { majors } from '../../../../../constants/majors'
+import CheckboxWithLabel from '../../../../../shared/components/CheckboxWithLabel/CheckboxWithLabel'
 import CustomInput from '../../../../../shared/components/Formik/CustomInput/CustomInput'
 import CustomSelectAutocomplete from '../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
-import CheckboxWithLabel from '../../CheckboxWithLabel/CheckboxWithLabel'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import { GroupItems, InputWrapper } from './UserEducationForm.styles'

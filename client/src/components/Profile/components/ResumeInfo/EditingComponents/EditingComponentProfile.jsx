@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormikContext } from 'formik'
 
-import concentrationOptions from '../../../../../constants/concentrations'
+import { concentrationOptions } from '../../../../../constants/concentrations'
 import { countries } from '../../../../../constants/countries'
 import { userExperienceOptions } from '../../../../../constants/finishRegistrationData'
 import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
@@ -12,7 +12,11 @@ import { ResumePartBox, ResumePartBtn } from '../ResumeInfo.styles'
 
 function EditingComponentProfile() {
   const [isActive, setIsActive] = useState('general')
-  const { values } = useFormikContext()
+  const { values, setFieldValue } = useFormikContext()
+
+  useEffect(() => {
+    setFieldValue('dateOfBirth', '')
+  }, [])
 
   return (
     <FlexWrapper direction="column" gap="24px" height="100%" width="100%">
@@ -38,6 +42,7 @@ function EditingComponentProfile() {
             name="country"
             options={countries}
             placeholder="Select country"
+            value={values['country']}
           />
           <CustomInput
             shouldFormatDate={true}
@@ -55,12 +60,14 @@ function EditingComponentProfile() {
             name="concentration"
             options={concentrationOptions}
             placeholder="Select country"
+            value={values['concentration']}
           />
           <CustomSelectAutocomplete
             label="Experience"
             name="experience"
             options={userExperienceOptions}
             placeholder="Select experience"
+            value={values['experience']}
           />
         </>
       )}

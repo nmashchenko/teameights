@@ -6,6 +6,14 @@ const regMatch =
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
 
+const isDate = (_date) => {
+  const _regExp = new RegExp(
+    '^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$',
+  )
+
+  return _regExp.test(_date)
+}
+
 const userFileValidation = yup.object().shape({
   file: yup
     .mixed()
@@ -382,6 +390,43 @@ export const editProfileValidation = yup.object().shape(
         return yup.string().notRequired()
       }
     }),
+    // dateOfBirth: yup
+    //   .string()
+    //   .matches(
+    //     /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01][0-9]|202[0-3])$/,
+    //     'Invalid date format. Please enter a date in the format dd/mm/yyyy',
+    //   )
+    //   .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+    //     if (value) {
+    //       const year = parseInt(value.split('/')[2])
+
+    //       return year >= 1901 && year <= new Date().getFullYear()
+    //     }
+
+    //     return true
+    //   })
+    //   .required('Please input your birthday'),
+
+    dateOfBirth: yup.string().when('dateOfBirth', {
+      is: (value) => typeof value === 'string' && !isDate(value),
+      then: yup
+        .string()
+        .matches(
+          /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01][0-9]|202[0-3])$/,
+          'Invalid date format. Please enter a date in the format dd/mm/yyyy',
+        )
+        .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+          if (value) {
+            const year = parseInt(value.split('/')[2])
+
+            return year >= 1901 && year <= new Date().getFullYear()
+          }
+
+          return true
+        })
+        .required('Please input your birthday'),
+      otherwise: yup.string(),
+    }),
     experience: yup.string().required('Please choose your experience'),
     programmingLanguages: yup
       .array()
@@ -427,7 +472,8 @@ export const editProfileValidation = yup.object().shape(
             .string('Should be string!')
             .required('Required!')
             .trim()
-            .min(1, 'Should not be empty!'),
+            .min(1, 'Should not be empty!')
+            .max(20, '20 characters max'),
           link: yup
             .string('Should be string!')
             .required('Required!')
@@ -438,12 +484,126 @@ export const editProfileValidation = yup.object().shape(
       )
       .min(0)
       .max(5),
+    jobData: yup
+      .array()
+      .of(
+        yup.object().shape({
+          title: yup
+            .string()
+            .matches(/^[a-zA-Z0-9\s]+$/, {
+              message: 'Only alphabets and numbers are allowed for this field',
+              excludeEmptyString: true,
+            })
+            .required('Input your title!'),
+          company: yup
+            .string()
+            .matches(/^[a-zA-Z0-9\s]+$/, {
+              message: 'Only alphabets and numbers are allowed for this field',
+              excludeEmptyString: true,
+            })
+            .required('Input your company!'),
+          startDate: yup
+            .string()
+            .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+              /* Check if value is Date type that we got from backend */
+              if (typeof value === 'string' && isDate(value)) {
+                return true
+              }
+
+              /* Check if number is between specific range */
+              return value >= 1901 && value <= new Date().getFullYear()
+            })
+            .required('Date is required'),
+          endDate: yup
+            .string()
+            .test(
+              'valid-year',
+              'Year must be from 1901 and bigger than start date',
+              function (value) {
+                let { startDate } = this.parent
+
+                /* Check if value is Date type that we got from backend */
+                if (typeof value === 'string' && isDate(value)) {
+                  return true
+                }
+
+                /* If startDate is of type string (and not number), convert it to number */
+                if (isDate(startDate)) {
+                  startDate = Number(startDate.slice(0, 4))
+                }
+
+                /* If startDate is of type null, return true as input might be empty */
+                if (value === null) {
+                  return true
+                }
+
+                /* Finally check if number is between specific range */
+                return value >= 1901 && startDate <= value
+              },
+            )
+            .nullable(),
+        }),
+      )
+      .min(0)
+      .max(2),
+    universityData: yup
+      .array()
+      .of(
+        yup.object().shape({
+          major: yup.string().required('Input your major!'),
+          degree: yup.string().required('Input your degree!'),
+          university: yup.string().required('Input your university!'),
+          addmissionDate: yup
+            .string()
+            .test('valid-year', 'Year must be between 1901 and current year', function (value) {
+              /* Check if value is Date type that we got from backend */
+              if (typeof value === 'string' && isDate(value)) {
+                return true
+              }
+
+              /* Check if number is between specific range */
+              return value >= 1901 && value <= new Date().getFullYear()
+            })
+            .required('Date is required'),
+          graduationDate: yup
+            .string()
+            .test(
+              'valid-year',
+              'Year must be from 1901 and bigger than start date',
+              function (value) {
+                let { addmissionDate } = this.parent
+
+                /* Check if value is Date type that we got from backend */
+                if (typeof value === 'string' && isDate(value)) {
+                  return true
+                }
+
+                /* If startDate is of type string (and not number), convert it to number */
+                if (isDate(addmissionDate)) {
+                  addmissionDate = Number(addmissionDate.slice(0, 4))
+                }
+
+                /* If startDate is of type null, return true as input might be empty */
+                if (value === null) {
+                  return true
+                }
+
+                /* Finally check if number is between specific range */
+                return value >= 1901 && addmissionDate <= value
+              },
+            )
+            .nullable(),
+        }),
+      )
+      .min(0)
+      .max(2),
   },
   [
     ['description', 'description'],
     ['github', 'github'],
     ['linkedIn', 'linkedIn'],
     ['telegram', 'telegram'],
+    ['dateOfBirth', 'dateOfBirth'],
   ],
 )
 

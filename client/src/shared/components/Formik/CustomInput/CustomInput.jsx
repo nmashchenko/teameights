@@ -18,6 +18,7 @@ const CustomInput = ({
   shouldFormatDate = false,
   shouldFormatYear = false,
   isOptional = false,
+  maxLength = 524288,
   ...props
 }) => {
   const [field, meta, helpers] = useField(props)
@@ -25,6 +26,7 @@ const CustomInput = ({
 
   const handleChange = (event) => {
     const { value } = event.target
+
     let formattedValue = value
 
     if (shouldFormatDate) {
@@ -47,6 +49,7 @@ const CustomInput = ({
         <Input
           {...field}
           {...props}
+          maxLength={maxLength}
           inputWidth={inputWidth}
           borderColor={isError && '#D42422'}
           animation={!isError && 'none'}

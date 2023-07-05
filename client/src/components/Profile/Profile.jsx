@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Formik, useFormikContext } from 'formik'
+import { Formik } from 'formik'
 
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
 import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
@@ -12,6 +12,7 @@ import { usePrompt } from '../../hooks/usePrompt'
 import { editProfileValidation } from '../../schemas'
 import Loader from '../../shared/components/Loader/Loader'
 import ModalComponent from '../../shared/components/Modal/Modal'
+import { formatDateString } from '../../utils/convertStringToDate'
 import Page404Form from '../Forms/Page404Form/Page404Form'
 
 import ProfileInfo from './components/ProfileInfo/ProfileInfo'
@@ -46,6 +47,7 @@ const Profile = () => {
       github,
       telegram,
       linkedIn,
+      behance,
       programmingLanguages,
       frameworks,
       dateOfBirth,
@@ -54,6 +56,9 @@ const Profile = () => {
       universityData,
       file,
     } = values
+
+    const formattedDOB = formatDateString(dateOfBirth)
+
     const modifiedUserData = {
       email: showingUser.email,
       fullName,
@@ -65,10 +70,11 @@ const Profile = () => {
         github,
         telegram,
         linkedIn,
+        behance,
       },
       programmingLanguages,
       frameworks,
-      dateOfBirth,
+      dateOfBirth: formattedDOB,
       projectData,
       jobData,
       universityData,
@@ -95,6 +101,7 @@ const Profile = () => {
         github: showingUser?.links?.github,
         linkedIn: showingUser?.links?.linkedIn,
         telegram: showingUser?.links?.telegram,
+        behance: showingUser?.links?.behance,
         description: showingUser?.description,
         concentration: showingUser?.concentration,
         country: showingUser?.country,
@@ -112,6 +119,7 @@ const Profile = () => {
       onSubmit={handleSubmit}
     >
       {({ values, errors, dirty }) => {
+        console.log(errors)
         usePrompt('You have unsaved changes. Do you want to discard them?', dirty)
 
         return (

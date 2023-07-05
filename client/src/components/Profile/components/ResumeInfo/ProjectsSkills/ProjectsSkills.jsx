@@ -31,7 +31,13 @@ const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
           )}
         </FlexWrapper>
         {showingUser?.description ? (
-          <TextArea fontSize="14px" fontWeight="400" value={showingUser?.description} disabled />
+          <TextArea
+            fontSize="14px"
+            fontWeight="400"
+            value={showingUser?.description}
+            disabled
+            height="auto"
+          />
         ) : (
           <TextArea
             fontSize="14px"
@@ -79,7 +85,7 @@ const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
             {showingUser?.projectData?.map(({ title, link }, index) => (
               <li key={index}>
                 <TagLink to={link} icon={<LinkIcon />} type="link">
-                  {title}
+                  {title.length > 15 ? title.substring(0, 10) + '...' : title}
                 </TagLink>
               </li>
             ))}

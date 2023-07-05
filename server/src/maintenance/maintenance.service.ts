@@ -57,14 +57,17 @@ export class MaintenanceService {
 		'Dart',
 		'Perl',
 		'SQL',
+		'TS',
+		'Kotlin',
+		'Rust',
+		'R',
+		'Lua',
 	];
 
 	frameworks: string[] = [
 		'NodeJS',
 		'Ruby',
 		'Angular',
-		'AndroidSDK',
-		'IOS',
 		'Hadoop',
 		'Ember',
 		'Django',
@@ -75,6 +78,22 @@ export class MaintenanceService {
 		'Backbone',
 		'Figma',
 		'Photoshop',
+		'jQuery',
+		'MUI',
+		'ASP.NET',
+		'NumPy',
+		'Flutter',
+		'React N.',
+		'Flask',
+		'VueJS',
+		'Bootstrap',
+		'KMM',
+		'GraphQL',
+		'Laravel',
+		'PyTorch',
+		'Tensor F.',
+		'Express',
+		'Illustrator',
 	];
 
 	concentrations: string[] = [
@@ -89,6 +108,13 @@ export class MaintenanceService {
 		'DevOps Engineer',
 		'Data Engineer',
 		'QA/Test Engineer',
+		'Designer',
+		'Project Manager',
+		'Cyber Security',
+		'Web Developer',
+		'Database Developer',
+		'No-code Developer',
+		'Other',
 	];
 
 	images: string[] = [
