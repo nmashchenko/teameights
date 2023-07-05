@@ -70,4 +70,11 @@ export class MaintenanceController {
 			return this.maintenanceService.dropDatabase();
 		else return { status: 'Not authorized to make this request.' };
 	}
+
+	@Get('/heartbeat')
+	async getHeartBeat(): Promise<StatusResponseDto> {
+		return {
+			status: 'All systems are up and working. Have a good day! ⚡️',
+		};
+	}
 }

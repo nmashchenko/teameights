@@ -1,16 +1,9 @@
 // * Modules
-import Toolbar from '@mui/material/Toolbar'
 import styled from 'styled-components'
 
 // * Constants
 import { GREEN } from '../../../../shared/constants/colors'
 import { Text } from '../../../../shared/styles/Tpography.styles'
-
-export const NavBar = styled(Toolbar)`
-  background: #26292b;
-  padding: 0 !important;
-  min-height: 2.375rem !important;
-`
 
 export const InfoContainer = styled.div`
   display: flex;
@@ -26,6 +19,15 @@ export const SectionName = styled(Text)`
   line-height: 120%;
   display: flex;
   gap: 5px;
+
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 24px;
+  }
 `
 
 export const SectionNameOptionalText = styled.span`

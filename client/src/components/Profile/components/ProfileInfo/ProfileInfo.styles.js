@@ -15,6 +15,7 @@ export const AvatarWrapper = styled.div`
 export const AvatarImg = styled.img`
   display: block;
   border-radius: 50%;
+  object-fit: cover;
   width: 100px;
   height: 100px;
   user-select: none;

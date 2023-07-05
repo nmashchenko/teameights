@@ -27,7 +27,9 @@ const EducationWork = ({ showingUser, setIsEditing, userStatus }) => {
               </Text>
               <Text fontSize="14px" fontWeight="400" color="#8F9094">
                 {university?.addmissionDate?.split('-')[0]} -{' '}
-                {university?.graduationDate?.split('-')[0]}
+                {university?.addmissionDate && !university?.graduationDate
+                  ? 'Present'
+                  : university?.graduationDate?.split('-')[0]}
               </Text>
             </FlexWrapper>
           ))
@@ -55,7 +57,8 @@ const EducationWork = ({ showingUser, setIsEditing, userStatus }) => {
                 {job.title} - {job.company}
               </Text>
               <Text fontSize="14px" fontWeight="400" color="#8F9094">
-                {job.startDate.split('-')[0]} - {job.endDate.split('-')[0]}
+                {job?.startDate?.split('-')[0]} -{' '}
+                {job?.startDate && !job?.endDate ? 'Present' : job?.endDate?.split('-')[0]}
               </Text>
             </FlexWrapper>
           ))

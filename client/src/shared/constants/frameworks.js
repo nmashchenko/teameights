@@ -2,7 +2,7 @@ const frameworkOptions = [
   { label: 'NodeJS', value: 'nodejs' },
   { label: 'Ruby', value: 'ruby' },
   { label: 'Angular', value: 'angular' },
-  { label: 'Android', value: 'android' },
+  { label: 'AndroidSDK', value: 'android' },
   { label: 'IOS', value: 'ios' },
   { label: 'Hadoop', value: 'hadoop' },
   { label: 'Ember', value: 'ember' },

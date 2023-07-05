@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Form, Formik } from 'formik'
 
 import { useCheckAuth } from '../../../../shared/api/hooks/auth/useCheckAuth'
-import Loader from '../../../../shared/ui/Loader/Loader'
+import FlexWrapper from '../../../../shared/ui/FlexWrapper/FlexWrapper'
 import CurrentStep from '../CurrentStep/CurrentStep'
 import NavigationButtons from '../NavigationButtons/NavigationButtons'
 import NavLogo from '../NavLogo/NavLogo'
@@ -18,18 +18,16 @@ const MultiStepRegistration = ({
   isFinishingRegistration,
   submitForm,
 }) => {
+  console.log(isFinishingRegistration)
   const [oneOfOptionalFieldsHasValue, setOneOfOptionalFieldsHasValue] = useState(false)
 
   const { step, isOptionalStep } = useSelector((state) => state.registrationReducer)
   const { data: userData, isFetching } = useCheckAuth()
+
   const currentStepData = steps[step - 1]
   const isLastStep = step === steps.length
   const handleSubmit = (values) => {
     submitForm(values, userData)
-  }
-
-  if (isFetching || isFinishingRegistration) {
-    return <Loader />
   }
 
   return (
@@ -49,18 +47,21 @@ const MultiStepRegistration = ({
                   isOptionalStep={currentStepData.isOptional}
                   oneOfOptionalFieldsHasValue={oneOfOptionalFieldsHasValue}
                 />
-                <StepContainer>
-                  <CurrentStep steps={steps} step={step} />
-                </StepContainer>
-                <NavigationButtons
-                  step={step}
-                  validationSchema={validationSchema}
-                  isLastStep={isLastStep}
-                  steps={steps}
-                  isOptionalStep={currentStepData.isOptional}
-                  oneOfOptionalFieldsHasValue={oneOfOptionalFieldsHasValue}
-                  setOneOfOptionalFieldsHasValue={setOneOfOptionalFieldsHasValue}
-                />
+                <FlexWrapper height="100%" justify="space-between" direction="column">
+                  <StepContainer>
+                    <CurrentStep steps={steps} step={step} />
+                  </StepContainer>
+                  <NavigationButtons
+                    step={step}
+                    validationSchema={validationSchema}
+                    isLastStep={isLastStep}
+                    steps={steps}
+                    isOptionalStep={currentStepData.isOptional}
+                    oneOfOptionalFieldsHasValue={oneOfOptionalFieldsHasValue}
+                    setOneOfOptionalFieldsHasValue={setOneOfOptionalFieldsHasValue}
+                    isFinishingRegistration={isFinishingRegistration}
+                  />
+                </FlexWrapper>
               </RegistrationContainer>
             </Container>
           </Form>

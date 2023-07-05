@@ -3,6 +3,8 @@ import { useFormikContext } from 'formik'
 
 import AddUserIcon from '../../../../../assets/Shared/AddUserIcon'
 import DeleteIcon from '../../../../../assets/Shared/DeleteIcon'
+import { useGetScreenWidth } from '../../../../../shared/lib/hooks/useGetScreenWidth'
+import FlexWrapper from '../../../../../shared/ui/FlexWrapper/FlexWrapper'
 import SearchUsersAutocomplete from '../../../../../shared/ui/SearchUsersAutocomplete/SearchUsersAutocomplete'
 import { errorToaster } from '../../../../../shared/ui/Toasters/Error.toaster'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
@@ -20,6 +22,7 @@ import {
 
 const InviteMembersForm = () => {
   const [value, setValue] = useState(null)
+  const width = useGetScreenWidth()
 
   const { setFieldValue, setTouched, values } = useFormikContext()
 
@@ -52,43 +55,45 @@ const InviteMembersForm = () => {
   }
 
   return (
-    <ContentContainer gap="0">
+    <ContentContainer gap="0" transformToFlex={true}>
       <InviteFormText>
         You can invite up to 7 members to join your team. Send invites now or later. <br />
         Team members can be removed as needed.
       </InviteFormText>
-      <InviteArea>
-        <SearchUsersAutocomplete value={value} setValue={setValue} name="members" />
-        <CustomButton type="button" onClick={addUsersToInviteQueue}>
-          <AddUserIcon />
-          Send invite
-        </CustomButton>
-      </InviteArea>
-      <InvitedUsersContainer>
-        {values.members.map((member, index) => {
-          return (
-            <InvitedUser key={member?.id}>
-              <UsernameAvatarContainer>
-                <UserAvatar src={member?.image} />
-                <UserText>{member?.username}</UserText>
-              </UsernameAvatarContainer>
-              {index === 0 ? (
-                // Render without delete icon for the first user
-                <div>
-                  <UserText color="#86878B" fontSize="16px">
-                    <em>this is you</em>.
-                  </UserText>
-                </div>
-              ) : (
-                // Render with delete icon for other users
-                <div onClick={() => removeUserFromInviteQueue(member)}>
-                  <DeleteIcon />
-                </div>
-              )}
-            </InvitedUser>
-          )
-        })}
-      </InvitedUsersContainer>
+      <FlexWrapper direction="column" gap="48px" width="100%">
+        <InviteArea>
+          <SearchUsersAutocomplete value={value} setValue={setValue} name="members" width="100%" />
+          <CustomButton type="button" onClick={addUsersToInviteQueue}>
+            <AddUserIcon />
+            Send invite
+          </CustomButton>
+        </InviteArea>
+        <InvitedUsersContainer>
+          {values.members.map((member, index) => {
+            return (
+              <InvitedUser key={member?.id}>
+                <UsernameAvatarContainer>
+                  <UserAvatar src={member?.image} />
+                  <UserText>{member?.username}</UserText>
+                </UsernameAvatarContainer>
+                {index === 0 ? (
+                  // Render without delete icon for the first user
+                  <div>
+                    <UserText color="#86878B" fontSize="16px">
+                      <em>this is you</em>.
+                    </UserText>
+                  </div>
+                ) : (
+                  // Render with delete icon for other users
+                  <div onClick={() => removeUserFromInviteQueue(member)}>
+                    <DeleteIcon />
+                  </div>
+                )}
+              </InvitedUser>
+            )
+          })}
+        </InvitedUsersContainer>
+      </FlexWrapper>
     </ContentContainer>
   )
 }

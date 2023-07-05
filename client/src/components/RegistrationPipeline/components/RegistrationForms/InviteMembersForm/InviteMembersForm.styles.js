@@ -3,16 +3,27 @@ import styled from 'styled-components'
 export const InviteFormText = styled.p`
   color: #fff;
   font-weight: 400;
+
+  @media screen and (min-width: 769px) and (max-width: 800px) {
+    margin-bottom: 32px;
+  }
 `
 
 export const InviteArea = styled.div`
   display: flex;
   gap: 16px;
+  width: 100%;
+  max-width: 890px;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `
 
 export const CustomButton = styled.button`
-  width: 142px;
-  height: 48px;
+  max-width: 142px;
+  width: 100%;
+  height: 40px;
 
   background: #46a11b;
   border-radius: 10px;
@@ -28,10 +39,8 @@ export const CustomButton = styled.button`
 
   gap: 6px;
 
-  &:hover {
-    -webkit-transform: scale(1.01);
-    -ms-transform: scale(1.01);
-    transform: scale(1.01);
+  @media screen and (max-width: 600px) {
+    max-width: 100%;
   }
 `
 
@@ -41,6 +50,12 @@ export const InvitedUsersContainer = styled.div`
   grid-template-rows: repeat(4, 58px);
   grid-gap: 16px 30px; /* Adjust the gap between grid items as desired */
   grid-auto-flow: dense; /* Fills in empty spaces */
+
+  @media screen and (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 52px;
+  }
 `
 
 export const InvitedUser = styled.div`
@@ -57,6 +72,10 @@ export const InvitedUser = styled.div`
   &:hover {
     cursor: pointer;
     background: #2f3239;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
   }
 `
 

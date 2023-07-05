@@ -59,6 +59,8 @@ export const TeamImg = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 70px;
+  object-fit: cover;
+  user-select: none;
 `
 
 export const Text = styled.h3`
@@ -96,6 +98,8 @@ export const UserImg = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50px;
+  object-fit: cover;
+  user-select: none;
 
   @media screen and (max-width: 400px) {
     width: 40px;

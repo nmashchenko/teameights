@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useFormikContext } from 'formik'
 
 import { useGetByTag } from '../../../../../../shared/api/hooks/team/useGetByTag'
 import { useDebounce } from '../../../../../../shared/api/hooks/temeights/useDebounce'
 import { countries } from '../../../../../../shared/constants/countries'
 import { teamTypes } from '../../../../../../shared/constants/teamFormData'
+import { usePrompt } from '../../../../../../shared/lib/hooks/usePrompt'
 import CustomInput from '../../../../../../shared/ui/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
@@ -15,6 +17,7 @@ import { InputsContainer } from '../InfoForm.styles'
 
 const TeamInfoForm = () => {
   let { mutate: getTeamByTag, data: errorStatus } = useGetByTag()
+  const { values, dirty } = useFormikContext()
 
   // State and setters for ...
   // Search term
@@ -46,6 +49,8 @@ const TeamInfoForm = () => {
     setSearchTerm(value) // Update the search term state with the input value
   }
 
+  usePrompt('You have unsaved changes. Do you want to discard them?', dirty, false)
+
   return (
     <>
       <InputsContainer>
@@ -59,6 +64,7 @@ const TeamInfoForm = () => {
               name="country"
               options={countries}
               placeholder="Select country"
+              value={values['country']}
             />
           </GroupContainer>
         </SectionContainer>
@@ -80,6 +86,7 @@ const TeamInfoForm = () => {
               name="type"
               options={teamTypes}
               placeholder="Select type"
+              value={values['type']}
             />
           </GroupContainer>
         </SectionContainer>

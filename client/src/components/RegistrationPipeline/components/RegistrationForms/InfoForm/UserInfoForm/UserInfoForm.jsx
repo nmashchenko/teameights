@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useFormikContext } from 'formik'
 
 import { useDebounce } from '../../../../../../shared/api/hooks/temeights/useDebounce'
 import { useValidateUsername } from '../../../../../../shared/api/hooks/user/useValidateUsername'
 import { countries } from '../../../../../../shared/constants/countries'
+import { useGetScreenWidth } from '../../../../../../shared/lib/hooks/useGetScreenWidth'
+import { usePrompt } from '../../../../../../shared/lib/hooks/usePrompt'
 import CustomInput from '../../../../../../shared/ui/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
@@ -14,6 +17,8 @@ import { InputsContainer } from '../InfoForm.styles'
 
 const UserInfoForm = () => {
   let { mutate: validateUsername, data: errorStatus } = useValidateUsername()
+  const { values, dirty } = useFormikContext()
+  const width = useGetScreenWidth()
 
   // State and setters for ...
   // Search term
@@ -45,6 +50,9 @@ const UserInfoForm = () => {
     setSearchTerm(value) // Update the search term state with the input value
   }
 
+  // prevent updating/etc when user has data
+  usePrompt('You have unsaved changes. Do you want to discard them?', dirty, true)
+
   return (
     <>
       <InputsContainer>
@@ -58,6 +66,7 @@ const UserInfoForm = () => {
               name="country"
               options={countries}
               placeholder="Select country"
+              value={values['country']}
             />
           </GroupContainer>
         </SectionContainer>
@@ -85,12 +94,12 @@ const UserInfoForm = () => {
         </SectionContainer>
       </InputsContainer>
       <CustomTextArea
-        style={{ height: 'calc(100% - 5rem)' }}
+        style={{ height: width > 768 ? 'calc(100% - 5rem)' : '38px' }}
         label="About me (optional)"
         name="description"
-        placeholder="Write something about yourself..."
-        maxLength={200}
-        margin="0 0 5rem 0"
+        placeholder={width > 468 ? 'Write something about yourself...' : 'Write about you...'}
+        maxLength={230}
+        margin={width > 768 ? '0 0 5rem 0' : 0}
       />
     </>
   )

@@ -107,6 +107,8 @@ export const TeamImage = styled.img`
   width: ${(props) => props.width || '60px'};
   height: ${(props) => props.height || '60px'};
   border-radius: 50%;
+  object-fit: cover;
+  user-select: none;
 `
 
 export const TeamButton = styled.button`
@@ -139,4 +141,8 @@ export const NotFoundContainer = styled.div`
   min-height: calc(100vh - 238px);
   /* height: 100%; */
   padding-left: 88px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 0px;
+  }
 `

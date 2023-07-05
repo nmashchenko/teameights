@@ -115,7 +115,7 @@ const UserCard = React.forwardRef((props, ref) => {
       </CardContainer>
       {person.isLeader === true ? (
         <CrownContainer>
-          <img src={CrownImg} alt="crown" />
+          <img src={CrownImg} alt="crown" style={{ objectFit: 'cover' }} />
         </CrownContainer>
       ) : (
         <div></div>

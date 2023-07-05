@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import { userAuth } from '../../../../app/providers/store/reducers/UserAuth'
 import http from '../../../../shared/api/axios'
 import { errorToaster } from '../../../ui/Toasters/Error.toaster'
+import { infoToaster } from '../../../ui/Toasters/Info.toaster'
+import { socket } from '../../sockets/notifications.socket'
 
 const { api } = http
 
@@ -22,6 +24,10 @@ export const useLogoutUser = () => {
       localStorage.removeItem('token')
       dispatch(userAuth.actions.authUserLogout())
 
+      socket.disconnect()
+      socket.offAnyOutgoing()
+      socket.offAny()
+
       // remove user data
       queryClient.setQueryData('checkAuth', () => {
         return null
@@ -30,6 +36,8 @@ export const useLogoutUser = () => {
       queryClient.setQueryData('getTeamById', () => {
         return null
       })
+
+      infoToaster('Successful logout. See you soon!', 'top-center', 2500)
     },
     onError: (error) => {
       // set error message

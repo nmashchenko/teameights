@@ -35,7 +35,9 @@ export const TeamText = styled.div`
 export const TeamCardTopIcon = styled.img`
   width: ${(props) => props.w || '75px'};
   height: ${(props) => props.h || '75px'};
-  border-radius: ${(props) => props.borderRadius || '50%'}; ;
+  border-radius: ${(props) => props.borderRadius || '50%'};
+  object-fit: cover;
+  user-select: none;
 `
 
 export const TypeCountryFlagContainer = styled.div`

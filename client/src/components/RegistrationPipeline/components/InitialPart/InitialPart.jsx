@@ -19,6 +19,7 @@ import {
   MiddleTextContainer,
   TopText,
 } from './InitialPart.styles'
+import { ParticlesContainer } from './ParticlesContainer'
 
 function InitialPart() {
   const dispatch = useDispatch()
@@ -44,16 +45,11 @@ function InitialPart() {
     <>
       <Container>
         <CardContainer>
-          <div>
-            <TopText>Welcome to the family ❤️</TopText>
-          </div>
           <MiddleTextContainer>
-            <TopText fontWeight="400" fontSize="17px" margin="45px 0 0 0">
-              Please, fill the form to complete the registration.
-            </TopText>
-            <TopText fontWeight="400" fontSize="17px" margin="33px 0 0 0">
-              It will take approximately 5 minutes but will help us better understand your skills
-              and what are you looking for here.
+            <TopText margin="0 0 8px 0">Welcome to our family ❤️</TopText>
+            <TopText fontWeight="400" fontSize="17px">
+              Please fill out the registration form so we can learn more about your skills and what
+              you're looking for here. It'll only take about 5 minutes.
             </TopText>
           </MiddleTextContainer>
           <ContinueButton
@@ -67,6 +63,7 @@ function InitialPart() {
           </ContinueButton>
         </CardContainer>
       </Container>
+      <ParticlesContainer />
     </>
   )
 }

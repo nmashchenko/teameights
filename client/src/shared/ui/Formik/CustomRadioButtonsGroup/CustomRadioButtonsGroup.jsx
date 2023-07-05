@@ -8,7 +8,7 @@ import { useField, useFormikContext } from 'formik'
 import { WHITE } from '../../../../shared/constants/colors'
 import { ErrorMessage } from '../../../styles/Tpography.styles'
 
-const CustomRadioButtonsGroup = ({ options, ...props }) => {
+const CustomRadioButtonsGroup = ({ options, type = 'text', ...props }) => {
   const [field, meta] = useField(props)
 
   // Grab values and submitForm from context
@@ -75,7 +75,7 @@ const CustomRadioButtonsGroup = ({ options, ...props }) => {
       <RadioGroup
         aria-labelledby="experience-label"
         size="lg"
-        sx={{ gap: '1rem', flexDirection: 'row' }}
+        sx={{ gap: '1rem', flexDirection: 'row', flexWrap: 'wrap' }}
         {...field}
         {...props}
       >
@@ -83,13 +83,13 @@ const CustomRadioButtonsGroup = ({ options, ...props }) => {
           <Sheet
             key={label}
             sx={{
-              p: '8px 16px',
+              padding: '6px 16px 4px 16px',
               borderRadius: '10px',
               color: values.experience === '0' ? '#86878b68' : '#86878b',
             }}
           >
             <Radio
-              label={label}
+              label={type === 'text' ? label : label === '0' ? 'No experience' : `${label} years`}
               overlay
               disableIcon
               value={value}

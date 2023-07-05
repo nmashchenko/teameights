@@ -1,69 +1,79 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFormikContext } from 'formik'
 
+import { degrees } from '../../../../../shared/constants/degrees'
+import { majors } from '../../../../../shared/constants/majors'
 import CustomInput from '../../../../../shared/ui/Formik/CustomInput/CustomInput'
+import CustomSelectAutocomplete from '../../../../../shared/ui/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
 import CheckboxWithLabel from '../../CheckboxWithLabel/CheckboxWithLabel'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
-import { GroupItems, InputWrapper } from './UserEducationForm.styles'
+import { InputWrapper } from './UserEducationForm.styles'
 
 const UserEducationForm = () => {
   const [checkbox, setCheckbox] = useState(false)
-  const { setFieldValue } = useFormikContext()
+  const { setFieldValue, values } = useFormikContext()
+
+  useEffect(() => {
+    values && values.universityData[0].graduationDate === '0'
+      ? setCheckbox(true)
+      : setCheckbox(false)
+  }, [])
 
   const handleClick = () => {
     if (checkbox) {
       setCheckbox(false)
-      setFieldValue('graduationDate', '')
+      setFieldValue('universityData[0].graduationDate', '')
     } else {
       setCheckbox(true)
-      setFieldValue('graduationDate', '0')
+      setFieldValue('universityData[0].graduationDate', '0')
     }
   }
 
   return (
     <ContentContainer>
-      <GroupItems>
-        <InputWrapper grow="2">
-          <CustomInput
-            label="Degree"
-            name="degree"
-            type="text"
-            placeholder="Ex: Bachelor’s degree"
-          />
-        </InputWrapper>
-        <InputWrapper width="12rem">
-          <CustomInput
-            label="From"
-            name="addmissionDate"
-            type="number"
-            placeholder="Input year"
-            shouldFormatYear={true}
-          />
-        </InputWrapper>
-      </GroupItems>
-      <GroupItems>
-        <InputWrapper grow="2">
-          <CustomInput label="Major" name="major" type="text" placeholder="Ex: Computer Science" />
-        </InputWrapper>
-        <InputWrapper width="12rem">
+      <CustomSelectAutocomplete
+        label="Degree"
+        name="universityData[0].degree"
+        placeholder="Ex: Bachelor’s degree"
+        options={degrees}
+        value={values['universityData'][0].degree}
+      />
+      <CustomSelectAutocomplete
+        label="Major"
+        name="universityData[0].major"
+        placeholder="Ex: Computer Science"
+        options={majors}
+        value={values['universityData'][0].major}
+      />
+      <CustomInput
+        label="University/School"
+        name="universityData[0].university"
+        type="text"
+        placeholder="Ex: Northwestern University"
+      />
+      <InputWrapper>
+        <CustomInput
+          label="From"
+          name="universityData[0].addmissionDate"
+          type="number"
+          placeholder="Input year"
+          shouldFormatYear={true}
+          containerWidth="100%"
+        />
+        {values && values.universityData[0].graduationDate !== '0' && (
           <CustomInput
             label="To"
-            name="graduationDate"
+            name="universityData[0].graduationDate"
             type="number"
             placeholder="Input year"
             shouldFormatYear={true}
             disabled={checkbox}
             isOptional={checkbox}
+            containerWidth="100%"
           />
-        </InputWrapper>
-      </GroupItems>
-      <CustomInput
-        label="University/School"
-        name="university"
-        type="text"
-        placeholder="Ex: Northwestern University"
-      />
+        )}
+      </InputWrapper>
       <CheckboxWithLabel
         label="I am still studying here"
         value={checkbox}

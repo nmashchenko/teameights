@@ -56,6 +56,11 @@ export const GroupContainer = styled.div`
   display: flex;
   flex-basis: 33.3%;
   flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    flex-basis: auto;
+    width: 100%;
+  }
 `
 
 export const SectionContainer = styled.div`
@@ -65,6 +70,14 @@ export const SectionContainer = styled.div`
   align-items: baseline;
   flex-wrap: wrap;
   flex: 1;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 32px;
+    flex: 0;
+  }
 `
 
 export const InputWithIConWrapper = styled.div`

@@ -2,6 +2,7 @@ import React from 'react'
 // * Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { cloneDeep } from 'lodash'
 
 import {
   setIsFinishRegistrationStarted,
@@ -26,8 +27,12 @@ import UserJobForm from './components/RegistrationForms/UserJobForm/UserJobForm'
 
 function FinishRegistration() {
   const { isFinishRegistrationStarted } = useSelector((state) => state.registrationReducer)
-  const { mutate: finishRegistration, isLoading: isFinishingRegistration } =
-    useEditUserDetails(onSuccess)
+  const {
+    mutate: finishRegistration,
+    isLoading: isFinishingRegistration,
+    isError,
+    error,
+  } = useEditUserDetails(onSuccess)
   const { mutate: updateAvatar } = useUpdateAvatar('users')
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -59,18 +64,27 @@ function FinishRegistration() {
     concentration: '',
     experience: '',
     leader: '',
-    university: '',
-    degree: ``,
-    major: '',
-    addmissionDate: '',
-    graduationDate: '',
-    title: '',
-    company: '',
-    startDate: '',
-    endDate: '',
+    jobData: [
+      {
+        title: '',
+        company: '',
+        startDate: '',
+        endDate: '',
+      },
+    ],
+    universityData: [
+      {
+        university: '',
+        degree: ``,
+        major: '',
+        addmissionDate: '',
+        graduationDate: '',
+      },
+    ],
     github: '',
     linkedIn: '',
     telegram: '',
+    behance: '',
     file: null,
   }
 
@@ -81,55 +95,56 @@ function FinishRegistration() {
   }
 
   const submitForm = (formData, userCurrentData) => {
-    let universityDates = convertYearToDate(formData.addmissionDate, formData.graduationDate)
+    const initialObject = cloneDeep(formData)
 
-    let jobDates = convertYearToDate(formData.startDate, formData.endDate)
+    const jobAfterRemovedEmptyFields = removeEmptyFields(initialObject.jobData[0])
 
-    let universityData = {
-      university: formData.university,
-      degree: formData.degree,
-      major: formData.major,
-      addmissionDate: universityDates.dateOne,
-      graduationDate: universityDates.dateTwo,
+    if (jobAfterRemovedEmptyFields) {
+      let jobDates = convertYearToDate(
+        initialObject.jobData[0].startDate,
+        initialObject.jobData[0].endDate,
+      )
+
+      initialObject.jobData[0].startDate = jobDates.dateOne
+      initialObject.jobData[0].endDate = jobDates.dateTwo
+    } else {
+      initialObject.jobData = undefined
     }
 
-    let universityValidated = removeEmptyFields(universityData)
+    const universityAfterRemovedEmptyFields = removeEmptyFields(initialObject.universityData[0])
 
-    let jobData = {
-      title: formData.title,
-      company: formData.company,
-      startDate: jobDates.dateOne,
-      endDate: jobDates.dateTwo,
+    if (universityAfterRemovedEmptyFields) {
+      let universityDates = convertYearToDate(
+        initialObject.universityData[0].addmissionDate,
+        initialObject.universityData[0].graduationDate,
+      )
+
+      initialObject.universityData[0].addmissionDate = universityDates.dateOne
+      initialObject.universityData[0].graduationDate = universityDates.dateTwo
+    } else {
+      initialObject.universityData = undefined
     }
 
-    let jobValidated = removeEmptyFields(jobData)
-
-    const registrationData = {
-      email: userCurrentData.email,
-      username: formData.username,
-      fullName: formData.fullName,
-      dateOfBirth: formatDateString(formData.dateOfBirth),
-      description: formData.description,
-      concentration: formData.concentration,
-      country: formData.country,
-      experience: formData.experience,
-      isLeader: formData.leader === 'true',
-      links: {
-        github: formData.github,
-        telegram: formData.telegram,
-        linkedIn: formData.linkedIn,
-      },
-      programmingLanguages: formData.programmingLanguages,
-      frameworks: formData.frameworks,
-      jobData: jobValidated !== null ? jobValidated : undefined,
-      universityData: universityValidated !== null ? universityValidated : undefined,
-      isRegistered: false,
+    initialObject.links = {
+      github: initialObject.github,
+      telegram: initialObject.telegram,
+      linkedIn: initialObject.linkedIn,
+      behance: initialObject.behance,
     }
 
-    if (formData.file) {
-      updateAvatar({ email: userCurrentData.email, image: formData.file.split(',')[1] })
+    initialObject.dateOfBirth = formatDateString(initialObject.dateOfBirth)
+    initialObject.isRegistered = false
+    initialObject.email = userCurrentData.email
+
+    try {
+      if (initialObject.file) {
+        updateAvatar({ email: userCurrentData.email, image: initialObject.file.split(',')[1] })
+      }
+
+      finishRegistration(initialObject)
+    } catch (e) {
+      /* empty */
     }
-    finishRegistration(registrationData)
   }
 
   return (

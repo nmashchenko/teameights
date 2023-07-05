@@ -10,6 +10,14 @@ export const StepperContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-shrink: 0;
+
+  @media screen and (max-width: 1024px) {
+    width: 160px;
+  }
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `
 
 export const CustomStepper = styled(Stepper)`
