@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { useLogoutUser } from '../api/hooks/auth/useLogoutUser'
+import { useLogoutUser } from '../../api/hooks/auth/useLogoutUser'
 
 import { useBlocker } from './useBlocker'
 

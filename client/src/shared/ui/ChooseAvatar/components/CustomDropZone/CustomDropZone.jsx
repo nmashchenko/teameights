@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-import { ReactComponent as UploadAvatarIcon } from '../../../../../assets/Avatars/uploadAvatarIcon.svg'
+import UploadAvatarIcon from '../../../../../assets/Avatars/uploadAvatarIcon.svg'
 
 import { DropzoneContent, DropzoneText } from './CustomDropZone.styles'
 

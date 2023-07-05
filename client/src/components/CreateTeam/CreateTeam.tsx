@@ -1,3 +1,4 @@
+// @ts-nocheck
 // * Modules
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -8,12 +9,12 @@ import {
   setStep,
 } from '../../app/providers/store/reducers/RegistrationAuth'
 // API
+import { transformToCreateTeamDto } from 'shared/lib/utils'
 import { useCheckAuth } from '../../shared/api/hooks/auth/useCheckAuth'
 import { useUpdateAvatar } from '../../shared/api/hooks/shared/useUpdateAvatar'
 import { useCreateTeam } from '../../shared/api/hooks/team/useCreateTeam'
 import { createTeamValidation } from '../../shared/config/yup'
 import { defaultTeamAvatars } from '../../shared/constants/teamFormData'
-import { transformToCreateTeamDto } from '../../shared/lib/utils/transformToCreateTeamDto'
 import Loader from '../../shared/ui/Loader/Loader'
 import { errorToaster } from '../../shared/ui/Toasters/Error.toaster'
 import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
@@ -62,7 +63,7 @@ function CreateTeam() {
     file: null,
   }
 
-  const submitForm = (formData) => {
+  const submitForm = (formData: $TSFIXME) => {
     let membersModified = transformToCreateTeamDto(formData.members)
 
     const teamData = {

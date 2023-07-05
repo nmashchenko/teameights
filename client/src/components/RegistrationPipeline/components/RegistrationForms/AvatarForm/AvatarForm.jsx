@@ -1,6 +1,5 @@
 import React from 'react'
 
-import ChooseAvatar from '../../../../../shared/components/ChooseAvatar/ChooseAvatar'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 import AvatarSelection from './components/AvatarSelection/AvatarSelection'

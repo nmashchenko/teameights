@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
 import { useFormikContext } from 'formik'
+import { useNavigate } from 'react-router-dom'
 
 import BehanceIcon from '../../../../assets/Links/BehanceIcon'
 import GitHubIcon from '../../../../assets/Links/GitHubIcon'
@@ -13,13 +13,13 @@ import StarIcon from '../../../../assets/UserProfile/StarIcon'
 import UserIcon from '../../../../assets/UserProfile/UserIcon'
 import { useInviteUser } from '../../../../shared/api/hooks/team/useInviteUser'
 import { useGetScreenWidth } from '../../../../shared/lib/hooks/useGetScreenWidth'
-import { calculateAge } from '../../../../shared/lib/utils/calculateAge'
 import { checkUserStatus } from '../../../../shared/lib/utils/checkUserStatus'
 import { truncateString } from '../../../../shared/lib/utils/truncateString'
 import FlexWrapper from '../../../../shared/ui/FlexWrapper/FlexWrapper'
 import { ProfileSection } from '../../Profile.styles'
 
-import UserStatusButtons from './UserStatusButtons/UserStatusButtons'
+import { FC } from 'react'
+import { calculateAge } from 'shared/lib/utils'
 import {
   AvatarImg,
   AvatarWrapper,
@@ -30,8 +30,9 @@ import {
   Text,
   UserInfo,
 } from './ProfileInfo.styles'
+import UserStatusButtons from './UserStatusButtons/UserStatusButtons'
 
-const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, isUpdatingUser }) => {
+const ProfileInfo: FC<$TSFIXME> = ({ showingUser, id, currentUser, isEditing, setIsEditing, isUpdatingUser }) => {
   const width = useGetScreenWidth()
   const navigate = useNavigate()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
@@ -77,7 +78,7 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, is
   const { values, resetForm } = useFormikContext()
   const userStatus = checkUserStatus(currentUser, id)
 
-  const handleEdit = (target) => {
+  const handleEdit = (target: $TSFIXME) => {
     if (!isEditing) {
       setIsEditing(target)
     } else {
@@ -90,6 +91,7 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, is
     <ProfileSection width="270px" padding="36px 24px 24px" align="center" gap="32px">
       <UserInfo>
         <AvatarWrapper>
+          {/* @ts-ignore */}
           <AvatarImg src={values.file && isEditing ? values.file : showingUser?.image} />
           {userStatus === 'same' && (
             <EditButton onClick={() => handleEdit('avatar')}>
