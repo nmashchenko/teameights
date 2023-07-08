@@ -14,11 +14,10 @@ export const useValidateUsername = () => {
   return useMutation(validateUsername, {
     mutationKey: 'validateUsername',
     onSuccess: async (response) => {
-      console.log(response)
       if (response?.data) {
-        errorToaster('Username is already taken by another user, please change it!')
+        errorToaster('Username is already taken by another user, please change it!', 'top-center')
       } else {
-        successToaster('Username is available!')
+        successToaster('Username is available!', 'top-center')
       }
     },
   })

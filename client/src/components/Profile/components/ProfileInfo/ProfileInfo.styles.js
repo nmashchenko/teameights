@@ -10,6 +10,7 @@ export const UserInfo = styled.div`
 
 export const AvatarWrapper = styled.div`
   position: relative;
+  display: ${(props) => props.display || 'block'};
 `
 
 export const AvatarImg = styled.img`

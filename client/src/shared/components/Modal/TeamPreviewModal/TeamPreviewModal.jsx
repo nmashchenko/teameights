@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 
@@ -7,6 +8,7 @@ import ArrowRight from '../../../../assets/Team/ArrowRight'
 import Crown from '../../../../assets/Team/Crown'
 import { LOCAL_PATH } from '../../../../http'
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import CardSkeleton from '../../CardSkeleton/CardSkeleton'
 
 import {
   ButtonsContainer,
@@ -30,6 +32,7 @@ import {
 } from './TeamPreviewModal.styles'
 
 const TeamPreviewModal = ({ user, team, handleJoin, isLoading }) => {
+  const [imgLoading, setImgLoading] = useState(true)
   const members = team?.members
 
   const teammates = members?.slice(1, members.length)
@@ -55,7 +58,17 @@ const TeamPreviewModal = ({ user, team, handleJoin, isLoading }) => {
   return (
     <>
       <TeamCardTop>
-        <TeamCardTopIcon src={team?.image} />
+        <div style={{ display: imgLoading ? 'block' : 'none' }}>
+          <CardSkeleton width="75px" height="75px" borderRadius="50%" />
+        </div>
+        <div style={{ display: imgLoading ? 'none' : 'block' }}>
+          <TeamCardTopIcon
+            src={team?.image}
+            alt="Team's image"
+            onLoad={() => setImgLoading(false)}
+          />
+        </div>
+
         <TeamCardTopInfo>
           <ColumnContainer>
             <TeamText fontSize="20px" fontWeight="500">
