@@ -10,9 +10,9 @@ export const GlobalStyle = createGlobalStyle`
    font-family: 'Rubik', sans-serif !important;
  }
 
- html {
-  scroll-behavior: smooth;
-}
+ /* html {
+  background: #26292B !important;
+ } */
 
  body {
    background: #26292B !important;
