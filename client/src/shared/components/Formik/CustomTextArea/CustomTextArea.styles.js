@@ -23,6 +23,22 @@ export const TextArea = styled.textarea`
   resize: none;
   animation-name: ${(props) => props.animation || shake};
   animation-duration: 0.3s;
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    /* WebKit */
+    transition: all 0.2s;
+    width: 5px;
+    height: 0;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #5d9d0b;
+    border-radius: 10px;
+  }
 `
 
 export const TextLimitContainer = styled.div`

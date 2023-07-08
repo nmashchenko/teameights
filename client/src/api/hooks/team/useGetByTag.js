@@ -15,9 +15,9 @@ export const useGetByTag = () => {
     mutationKey: 'getTeamByTag',
     onSuccess: async (response) => {
       if (response?.data) {
-        errorToaster('TAG is already taken by another team, please change it!')
+        errorToaster('TAG is already taken by another team, please change it!', 'top-center')
       } else {
-        successToaster('Tag is available!')
+        successToaster('Tag is available!', 'top-center')
       }
     },
   })

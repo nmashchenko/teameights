@@ -119,7 +119,6 @@ const Profile = () => {
       onSubmit={handleSubmit}
     >
       {({ values, errors, dirty }) => {
-        console.log(errors)
         usePrompt('You have unsaved changes. Do you want to discard them?', dirty)
 
         return (

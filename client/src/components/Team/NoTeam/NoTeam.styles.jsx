@@ -11,7 +11,8 @@ export const Center = styled.div`
 `
 
 export const TeamButton = styled.button`
-  width: 306px;
+  max-width: 306px;
+  width: 100%;
   height: 44px;
   background: ${(props) => props.background || 'transparent'};
   border: ${(props) => props.border || '2px solid #46a11b'};

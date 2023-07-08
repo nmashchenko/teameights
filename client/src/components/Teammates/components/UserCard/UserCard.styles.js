@@ -1,5 +1,5 @@
 // * Modules
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const Wrapper = styled.figure`
   position: relative;
@@ -112,8 +112,9 @@ export const FrameWorksContainer = styled.div`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  margin-bottom: 285px;
-  margin-right: 225px;
+  top: 0;
+  left: 0;
+  transform: rotate(-36.01deg) translate(0, -30px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,18 +132,22 @@ export const CardContainer = styled.div`
   border-radius: 15px;
   position: relative;
 
+  &:hover ${CrownContainer} {
+    transition: 0.2s ease all;
+  }
+
   :hover {
-    border-radius: 15px;
+    border: 1px solid rgba(188, 202, 235, 0.4);
     background: linear-gradient(
       146deg,
       rgba(184, 197, 229, 0.16) 0%,
       rgba(188, 202, 235, 0.08) 100%
     );
-
     /* shadow 2 */
     box-shadow: 0px 8px 24px 0px rgba(17, 20, 27, 0.2);
     cursor: pointer;
-    transition: all 0.2s ease;
+    padding: 19px;
+    transition: background, box-shadow, border 0.2s;
   }
 `
 

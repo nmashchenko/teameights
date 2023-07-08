@@ -6,11 +6,11 @@ import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistrat
 import AvatarSelection from './components/AvatarSelection/AvatarSelection'
 import { AvatarFormText } from './AvatarForm.styles'
 
-const AvatarForm = ({ text }) => {
+const AvatarForm = ({ text, type }) => {
   return (
     <ContentContainer gap="0" transformToFlex={true}>
       <AvatarFormText>{text}</AvatarFormText>
-      <AvatarSelection />
+      <AvatarSelection type={type} />
     </ContentContainer>
   )
 }

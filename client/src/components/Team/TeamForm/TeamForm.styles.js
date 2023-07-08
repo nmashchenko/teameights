@@ -14,7 +14,7 @@ export const Container = styled.div`
   padding-left: 88px;
 
   @media screen and (max-width: 768px) {
-    padding-left: 0;
+    padding: 0 25px;
   }
 `
 
@@ -40,8 +40,10 @@ export const Card = styled.div`
   height: 400px;
   background: #1a1c22;
   border-radius: 15px;
-  gap: 30px;
+  gap: ${(props) => props.gap || '16px'};
   padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
 
   @media screen and (max-width: 1024px) {
     max-width: 570px;
@@ -153,6 +155,10 @@ export const EditTeam = styled.button`
   cursor: pointer;
   border: none;
   transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  opacity: ${(props) => (props.disabled ? '0.4' : '1')};
+  align-items: center;
   &:hover {
     transform: translateY(-1.25px);
   }

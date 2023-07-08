@@ -55,6 +55,7 @@ export const GenericButton = styled.button`
 export const InfoList = styled.ul`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 9px;
   @media (max-width: 1024px) {
     align-self: flex-start;

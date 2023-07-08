@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import SCrownRight from '../../../assets/Shared/Crowns/SCrownRight'
+// import SCrownRight from '../../../assets/Shared/Crowns/SCrownRight'
 import Chat from '../../../assets/Team/Chat'
 import Person from '../../../assets/Team/Person'
 import UserPlus from '../../../assets/Team/UserPlus'
@@ -66,9 +66,7 @@ const Members = ({
             <UserImg src={member.image} />
             {(chosenLeader.username === '' && team.leader._id === member._id) ||
             chosenLeader.username === member.username ? (
-              <CrownContainer>
-                <SCrownRight />
-              </CrownContainer>
+              <CrownContainer>{/* <SCrownRight /> */}</CrownContainer>
             ) : (
               <> </>
             )}

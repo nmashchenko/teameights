@@ -8,7 +8,7 @@ const { api } = http
 
 // refetch data
 
-export const useRemoveMember = () => {
+export const useRemoveMember = (successHandler) => {
   const queryClient = useQueryClient()
   const removeMember = async (details) => {
     const response = await api.put(`/teams/remove-member`, details)
@@ -20,6 +20,9 @@ export const useRemoveMember = () => {
     mutationKey: 'removeMember',
     onSuccess: async () => {
       await queryClient.invalidateQueries('getTeamById') // useQuery key
+      if (successHandler) {
+        successHandler()
+      }
     },
     onError: (error) => {
       errorToaster(error)

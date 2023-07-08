@@ -35,13 +35,10 @@ export const StatisticsFlex = styled.div`
 `
 
 export const TeamCardBody = styled.div`
-  margin-top: 24px;
   display: flex;
   flex-direction: column;
   background-color: transparent;
-  gap: 8px;
-  justify-content: space-between;
-  height: calc(100% - 94px);
+  gap: 16px;
 `
 
 export const TeamCardBodyPoint = styled.div`
@@ -53,18 +50,25 @@ export const TeamCardBodyPoint = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+  height: ${(props) => props.height || 'auto'};
 `
 
 export const TeamCardDesc = styled.p`
   color: #fff;
-  line-height: 1.4;
+  line-height: 140%;
   margin: 0;
+  word-wrap: break-word;
 `
 
 export const TeamCardFigure = styled.div`
   background-color: transparent;
   margin: 0;
-  height: calc(100% - 31px);
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  width: 100%;
+  overflow: scroll;
+
   h3 {
     font-size: ${B3fs};
     line-height: ${B3lh};
@@ -81,7 +85,10 @@ export const TeamCardFigure = styled.div`
 
 export const TeamCardTop = styled.div`
   display: grid;
-  grid-template-columns: 140px 80px 100px 140px;
+  grid-template-columns: 1fr 1fr;
+  /* grid-template-rows: auto auto 2fr; */
+  row-gap: 16px;
+  column-gap: 24px;
 
   @media screen and (max-width: 1024px) {
     display: flex;

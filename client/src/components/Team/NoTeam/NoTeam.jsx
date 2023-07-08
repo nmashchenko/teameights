@@ -11,7 +11,7 @@ import { startRegistration } from '../../../store/reducers/RegistrationAuth'
 // * Styles
 import { Container, Text } from '../TeamForm/TeamForm.styles'
 
-import { Center, TeamButton } from './NoTeam.styles'
+import { TeamButton } from './NoTeam.styles'
 
 function NoTeamForm() {
   const navigate = useNavigate()

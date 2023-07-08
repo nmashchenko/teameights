@@ -390,22 +390,6 @@ export const editProfileValidation = yup.object().shape(
         return yup.string().notRequired()
       }
     }),
-    // dateOfBirth: yup
-    //   .string()
-    //   .matches(
-    //     /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19\d\d|20[01][0-9]|202[0-3])$/,
-    //     'Invalid date format. Please enter a date in the format dd/mm/yyyy',
-    //   )
-    //   .test('valid-year', 'Year must be between 1901 and current year', function (value) {
-    //     if (value) {
-    //       const year = parseInt(value.split('/')[2])
-
-    //       return year >= 1901 && year <= new Date().getFullYear()
-    //     }
-
-    //     return true
-    //   })
-    //   .required('Please input your birthday'),
 
     dateOfBirth: yup.string().when('dateOfBirth', {
       is: (value) => typeof value === 'string' && !isDate(value),

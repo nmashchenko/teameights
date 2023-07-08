@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import LongArrowLeft from '../../../../assets/Arrows/LongArrowLeft'
 import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
 import unregisteredImg from '../../../../assets/Images/user/unregistered.png'
-import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
+// import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
 import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
 // * Assets
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
@@ -93,9 +93,7 @@ const TeamPreviewModalPhone = ({ user, team, handleClose, handleJoin }) => {
         )}
         <FlexWrapper direction="column" gap="20px" margin="0 0 24px 0">
           <FlexWrapper position="relative" gap="12px">
-            <CrownContainer>
-              <SCrownRight />
-            </CrownContainer>
+            <CrownContainer>{/* <SCrownRight /> */}</CrownContainer>
             <UserImg src={team?.leader?.image} />
             <FlexWrapper direction="column">
               <FlexWrapper gap="8px" alignItems="baseline">

@@ -12,8 +12,6 @@ export const useInviteUser = () => {
   const inviteUser = async (details) => {
     const { email, teamid, from_user_id } = details
 
-    console.log(details)
-
     const response = await api.post('/teams/invite', {
       email,
       teamid: teamid,

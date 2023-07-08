@@ -1,7 +1,8 @@
+import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 
 import unregisteredImg from '../../../../assets/Images/user/unregistered.png'
-import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
+// import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
 import ArrowRight from '../../../../assets/Team/ArrowRight'
 import Crown from '../../../../assets/Team/Crown'
 import { LOCAL_PATH } from '../../../../http'
@@ -28,7 +29,7 @@ import {
   TypeCountryFlagContainer,
 } from './TeamPreviewModal.styles'
 
-const TeamPreviewModal = ({ user, team, handleJoin }) => {
+const TeamPreviewModal = ({ user, team, handleJoin, isLoading }) => {
   const members = team?.members
 
   const teammates = members?.slice(1, members.length)
@@ -99,9 +100,7 @@ const TeamPreviewModal = ({ user, team, handleJoin }) => {
       <ImagesContainer>
         <div>
           <TeamCardPerson>
-            <CrownContainer>
-              <SCrownRight />
-            </CrownContainer>
+            <CrownContainer>{/* <SCrownRight /> */}</CrownContainer>
             <TeamCardPicture src={team?.leader.image} />
           </TeamCardPerson>
         </div>
@@ -127,7 +126,20 @@ const TeamPreviewModal = ({ user, team, handleJoin }) => {
       </ImagesContainer>
       <ButtonsContainer>
         <JoinTeam disabled={usersTeam === 'Your'} onClick={handleJoin}>
-          {usersTeam} Team
+          {isLoading ? (
+            <ThreeDots
+              height="24"
+              width="24"
+              radius="9"
+              color="white"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            `${usersTeam} Team`
+          )}
         </JoinTeam>
         <ProfileButton onClick={() => navigate('/team/' + team?._id)}>
           Profile
