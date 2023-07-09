@@ -1,6 +1,5 @@
 // * Modules
 import React, { useState } from 'react'
-import { ThemeProvider } from 'styled-components'
 
 // * API
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'

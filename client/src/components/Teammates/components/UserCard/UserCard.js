@@ -2,13 +2,12 @@ import React, { memo, useState } from 'react'
 
 import Crown from '../../../../assets/Shared/Crowns/Crown'
 // * Images
-// import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
 // * Colors
 import { languageOptions } from '../../../../constants/programmingLanguages'
-import { LOCAL_PATH } from '../../../../http'
 import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 import { calculateAge } from '../../../../utils/calculateAge'
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import { HidableWrapper } from '../../Teammates.styles'
 
 import LengthFourCase from './FrameworksCases/LengthFourCase'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
@@ -93,13 +92,19 @@ const UserCard = React.forwardRef((props, ref) => {
   return (
     <Wrapper ref={ref}>
       <CardContainer plLength={plLength > 2} ufLength={ufLength > 4}>
+        {person.isLeader === true && (
+          <CrownContainer>
+            <Crown />
+          </CrownContainer>
+        )}
         <UserInformationContainer>
-          <div style={{ display: imgLoading ? 'block' : 'none' }}>
+          <HidableWrapper display={imgLoading ? 'block' : 'none'}>
             <CardSkeleton width="70px" height="70px" borderRadius="15px" />
-          </div>
-          <div style={{ display: imgLoading ? 'none' : 'block' }}>
+          </HidableWrapper>
+
+          <HidableWrapper display={imgLoading ? 'none' : 'block'}>
             <UserImage src={person.image} alt="User's image" onLoad={() => setImgLoading(false)} />
-          </div>
+          </HidableWrapper>
           {programmingLanguages}
         </UserInformationContainer>
         <TextContainer>

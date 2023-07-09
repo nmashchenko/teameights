@@ -80,3 +80,7 @@ export const UserCardModal = styled(Modal)`
     display: none;
   }
 `
+
+export const HidableWrapper = styled.div`
+  display: ${(props) => props.display || 'none'};
+`

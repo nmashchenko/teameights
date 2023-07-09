@@ -76,9 +76,10 @@ export const TeamCardDesc = styled.p`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  width: 22px;
-  height: 22px;
-  transform: rotate(25deg) translate(90%, -100%);
+  width: 28px;
+  height: 28px;
+  transform: rotate(25deg) translate(65%, -90%);
+  z-index: 1000;
   svg {
     width: 100%;
     height: 100%;
@@ -94,6 +95,7 @@ export const TeamCardPicture = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 `
 
 export const TeamCardMembers = styled.div`

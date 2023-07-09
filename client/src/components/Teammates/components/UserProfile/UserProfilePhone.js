@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 
@@ -7,17 +7,17 @@ import LongArrowLeft from '../../../../assets/Arrows/LongArrowLeft'
 import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
 // * Assets
 import AddUserIcon from '../../../../assets/Shared/AddUserIcon'
-import Close from '../../../../assets/Shared/Close'
 import Message from '../../../../assets/Shared/Message'
 import { frameworkColors, frameworkTextColors } from '../../../../constants/frameworkColors'
 import { languageOptions } from '../../../../constants/programmingLanguages'
+import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 import { infoToaster } from '../../../../shared/components/Toasters/Info.toaster'
 import { calculateAge } from '../../../../utils/calculateAge'
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import { HidableWrapper } from '../../Teammates.styles'
 
 import {
   Button,
-  CloseContainer,
   FlagIcon,
   FlexWrapper,
   Framework,
@@ -31,6 +31,7 @@ import {
 const UserProfilePhone = ({ currentUser, showingUser, mobileProfile, handleClose }) => {
   const navigate = useNavigate()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
+  const [imgLoading, setImgLoading] = useState(true)
 
   const handleInvite = () => {
     const details = {
@@ -58,7 +59,14 @@ const UserProfilePhone = ({ currentUser, showingUser, mobileProfile, handleClose
     <MobileProfile anchor="bottom" open={mobileProfile} onClose={handleClose}>
       <MobileWrapper>
         <FlexWrapper justifyContent="space-between">
-          <Button width="73px" background="none" onClick={handleClose}>
+          <Button
+            width="73px"
+            background="none"
+            onClick={() => {
+              setImgLoading(true)
+              handleClose()
+            }}
+          >
             <LongArrowLeft />
             Back
           </Button>
@@ -73,9 +81,16 @@ const UserProfilePhone = ({ currentUser, showingUser, mobileProfile, handleClose
         </FlexWrapper>
         <FlexWrapper gap="24px" flexDirection="column" marginTop="32px">
           <FlexWrapper gap="32px">
-            <div>
-              <UserImg src={showingUser.image} alt={`${showingUser?.showingUsername}'s image`} />
-            </div>
+            <HidableWrapper display={imgLoading ? 'block' : 'none'}>
+              <CardSkeleton width="70px" height="70px" borderRadius="50%" />
+            </HidableWrapper>
+            <HidableWrapper display={imgLoading ? 'none' : 'block'}>
+              <UserImg
+                src={showingUser?.image}
+                alt={`${showingUser?.username}'s image`}
+                onLoad={() => setImgLoading(false)}
+              />
+            </HidableWrapper>
             <FlexWrapper flexDirection="column" maxHeight="70px">
               <FlexWrapper gap="8px" alignItems="center" maxHeight="30px">
                 <Text fontSize="20px">
@@ -158,4 +173,4 @@ const UserProfilePhone = ({ currentUser, showingUser, mobileProfile, handleClose
   )
 }
 
-export default UserProfilePhone
+export default memo(UserProfilePhone)

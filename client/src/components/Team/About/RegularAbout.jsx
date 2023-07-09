@@ -22,9 +22,7 @@ const RegularAbout = ({ team }) => {
       <TeamCardTop>
         <TeamCardTopInfo>
           <h3>Name</h3>
-          <p>
-            {team.name.length > 10 && width >= 1024 ? team.name.slice(0, 10) + '...' : team.name}
-          </p>
+          <p>{team.name}</p>
         </TeamCardTopInfo>
         <TeamCardTopInfo>
           <h3>Tag</h3>

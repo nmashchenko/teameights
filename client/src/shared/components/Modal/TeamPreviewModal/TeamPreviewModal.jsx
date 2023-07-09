@@ -1,19 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 
 import unregisteredImg from '../../../../assets/Images/user/unregistered.png'
-// import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
 import ArrowRight from '../../../../assets/Team/ArrowRight'
-import Crown from '../../../../assets/Team/Crown'
-import { LOCAL_PATH } from '../../../../http'
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
 import CardSkeleton from '../../CardSkeleton/CardSkeleton'
+import { HidableWrapper } from '../Modal.styles'
 
+import TeamCardPersonBox from './TeamCardPerson'
 import {
   ButtonsContainer,
   ColumnContainer,
-  CrownContainer,
   ImagesContainer,
   JoinTeam,
   ProfileButton,
@@ -22,8 +20,6 @@ import {
   TeamCardBodyPoint,
   TeamCardDesc,
   TeamCardMembers,
-  TeamCardPerson,
-  TeamCardPicture,
   TeamCardTop,
   TeamCardTopIcon,
   TeamCardTopInfo,
@@ -33,41 +29,38 @@ import {
 
 const TeamPreviewModal = ({ user, team, handleJoin, isLoading }) => {
   const [imgLoading, setImgLoading] = useState(true)
+  const [usersTeam, setUsersTeam] = useState('')
+
   const members = team?.members
-
   const teammates = members?.slice(1, members.length)
-
   const countryFlag = getCountryFlag(team.country)
-
   const navigate = useNavigate()
 
-  const getTeam = () => {
+  useEffect(() => {
     if (user?.team === undefined || user?.team._id !== team?._id) {
-      return 'Join'
+      setUsersTeam('Join')
     }
 
-    const teamid = user?.team._id
+    const teamid = user?.team?._id
 
     if (team?._id === teamid) {
-      return 'Your'
+      setUsersTeam('Your')
     }
-  }
-
-  const usersTeam = getTeam()
+  }, [user, team])
 
   return (
     <>
       <TeamCardTop>
-        <div style={{ display: imgLoading ? 'block' : 'none' }}>
+        <HidableWrapper display={imgLoading ? 'block' : 'none'}>
           <CardSkeleton width="75px" height="75px" borderRadius="50%" />
-        </div>
-        <div style={{ display: imgLoading ? 'none' : 'block' }}>
+        </HidableWrapper>
+        <HidableWrapper display={imgLoading ? 'none' : 'block'}>
           <TeamCardTopIcon
             src={team?.image}
             alt="Team's image"
             onLoad={() => setImgLoading(false)}
           />
-        </div>
+        </HidableWrapper>
 
         <TeamCardTopInfo>
           <ColumnContainer>
@@ -112,26 +105,25 @@ const TeamPreviewModal = ({ user, team, handleJoin, isLoading }) => {
       )}
       <ImagesContainer>
         <div>
-          <TeamCardPerson>
-            <CrownContainer>{/* <SCrownRight /> */}</CrownContainer>
-            <TeamCardPicture src={team?.leader.image} />
-          </TeamCardPerson>
+          <TeamCardPersonBox
+            src={team?.leader.image}
+            shouldLoadImage={true}
+            shouldHaveCrown={true}
+          />
         </div>
         <div>
           <TeamCardMembers>
             {[...Array(7)].map((_, index) => {
               if (index < teammates.length) {
                 return (
-                  <TeamCardPerson key={index}>
-                    <TeamCardPicture src={teammates[index].image} />
-                  </TeamCardPerson>
+                  <TeamCardPersonBox
+                    key={index}
+                    src={teammates[index].image}
+                    shouldLoadImage={true}
+                  />
                 )
               } else {
-                return (
-                  <TeamCardPerson key={index}>
-                    <TeamCardPicture src={unregisteredImg} />
-                  </TeamCardPerson>
-                )
+                return <TeamCardPersonBox key={index} src={unregisteredImg} />
               }
             })}
           </TeamCardMembers>

@@ -43,12 +43,11 @@ export const TeamsListBox = styled.div`
   max-width: 1134px;
   background: #1a1c22;
   border-radius: 15px;
-  padding: 32px 32px;
-  gap: 60px;
+  padding: 20px 32px 32px 32px;
 
   @media screen and (max-width: 1440px) {
     max-width: 784px;
-    padding: 24px 24px;
+    padding: 12px 24px 24px 24px;
   }
 
   @media screen and (max-width: 1024px) {
@@ -74,13 +73,13 @@ export const Text = styled.h3`
 export const TeamDataDesktop = styled.div`
   width: 100%;
   display: grid;
-  justify-content: space-between;
-  align-items: center;
-  display: grid;
-  grid-template-columns: 1fr 3fr 2fr repeat(2, 1fr);
+  grid-template-columns: 0.7fr 3fr repeat(3, 1fr);
   justify-content: center;
   align-items: center;
   margin-top: ${(props) => props.margin || '0'};
+  padding: ${(props) => props.padding || '0'};
+  border-bottom: 1px solid #2f3239;
+  min-height: 50px;
 
   @media screen and (max-width: 900px) {
     display: none;

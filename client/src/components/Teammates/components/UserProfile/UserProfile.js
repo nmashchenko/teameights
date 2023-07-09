@@ -1,5 +1,5 @@
 // * Modules
-import React, { forwardRef, memo } from 'react'
+import React, { forwardRef, memo, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import { Slide } from '@mui/material'
@@ -11,10 +11,12 @@ import Close from '../../../../assets/Shared/Close'
 import Message from '../../../../assets/Shared/Message'
 import { frameworkColors, frameworkTextColors } from '../../../../constants/frameworkColors'
 import { languageOptions } from '../../../../constants/programmingLanguages'
+import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 import { infoToaster } from '../../../../shared/components/Toasters/Info.toaster'
 // * Assets
 import { calculateAge } from '../../../../utils/calculateAge'
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import { HidableWrapper } from '../../Teammates.styles'
 
 import {
   Button,
@@ -30,6 +32,7 @@ import {
 } from './UserProfile.styles'
 
 const UserProfile = ({ showingUser, currentUser, handleClose, open }, ref) => {
+  const [imgLoading, setImgLoading] = useState(true)
   const navigate = useNavigate()
 
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
@@ -65,9 +68,17 @@ const UserProfile = ({ showingUser, currentUser, handleClose, open }, ref) => {
           </CloseContainer>
           <FlexWrapper gap="24px" flexDirection="column">
             <FlexWrapper gap="32px">
-              <div>
-                <UserImg src={showingUser?.image} alt={`${showingUser?.username}'s image`} />
-              </div>
+              <HidableWrapper display={imgLoading ? 'block' : 'none'}>
+                <CardSkeleton width="70px" height="70px" borderRadius="50%" />
+              </HidableWrapper>
+              <HidableWrapper display={imgLoading ? 'none' : 'block'}>
+                <UserImg
+                  src={showingUser?.image}
+                  alt={`${showingUser?.username}'s image`}
+                  onLoad={() => setImgLoading(false)}
+                />
+              </HidableWrapper>
+
               <FlexWrapper flexDirection="column" maxHeight="70px">
                 <FlexWrapper gap="8px" alignItems="center" maxHeight="30px">
                   <Text fontSize="20px">

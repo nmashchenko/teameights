@@ -24,7 +24,7 @@ const ActionModal = ({
         </Text>
       </FlexWrapper>
       <FlexWrapper width="100%" justify="center" align="center" direction="column" gap="8px">
-        <Button onClick={firstButtonHandler} background="#46A11B" marginTop="0">
+        <Button onClick={firstButtonHandler} border="2px solid #A5211F" marginTop="0">
           {isLoading ? (
             <ThreeDots
               height="24"
@@ -40,7 +40,7 @@ const ActionModal = ({
             firstButton
           )}
         </Button>
-        <Button border="2px solid #A5211F" marginTop="0" onClick={secondButtonHandler}>
+        <Button border="2px solid #46A11B" marginTop="0" onClick={secondButtonHandler}>
           {secondButton}
         </Button>
       </FlexWrapper>

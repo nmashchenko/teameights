@@ -114,10 +114,16 @@ export const CrownContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  transform: rotate(-36.01deg) translate(0, -30px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+  transform: rotate(-36.01deg) translate(0, -25px);
+
+  width: 42px;
+  height: 42px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export const CardContainer = styled.div`

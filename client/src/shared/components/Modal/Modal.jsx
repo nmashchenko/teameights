@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
-import { Box, Modal, Slide } from '@mui/material'
+import { Box, Slide } from '@mui/material'
 
 import Close from '../../../assets/Shared/Close'
 import UserPlus from '../../../assets/Team/UserPlus'
@@ -106,8 +106,6 @@ const ModalComponent = ({
         return
       }
     }
-    // handleClose()
-    // setModalActive('')
   }
 
   const handleModal = () => {
@@ -148,7 +146,12 @@ const ModalComponent = ({
             />
           }
           interactiveButtons={
-            <Button color={email !== '' ? '1' : '.4'} onClick={handleActions} marginTop="0">
+            <Button
+              color={email !== '' ? '1' : '.4'}
+              onClick={handleActions}
+              marginTop="0"
+              background="#46a11b"
+            >
               {isLoading ? (
                 <ThreeDots
                   height="24"

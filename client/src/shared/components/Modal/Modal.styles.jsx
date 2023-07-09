@@ -173,6 +173,7 @@ export const teamPreviewStyle = {
   alignItems: 'start',
   flexDirection: 'column',
   gap: '24px',
+  outline: 'none',
 }
 
 export const mobileFullScreenStyle = {
@@ -191,4 +192,8 @@ export const mobileSemiFullScreenStyle = {
 export const UserPlusContainer = styled.div`
   width: 20px;
   height: 20px;
+`
+
+export const HidableWrapper = styled.div`
+  display: ${(props) => props.display || 'none'};
 `

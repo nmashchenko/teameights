@@ -1,11 +1,13 @@
+import { useState } from 'react'
 import { useFormikContext } from 'formik'
 
 import Cake from '../../../assets/Team/Cake'
 import { PencilSimple } from '../../../assets/Team/PencilSimple'
 import Users from '../../../assets/Team/Users'
 import { B2fs, B2fw, B2lh, H4fs, H4fw, H4lh } from '../../../constants/fonts'
+import CardSkeleton from '../../../shared/components/CardSkeleton/CardSkeleton'
 import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
-import { Text } from '../TeamForm/TeamForm.styles'
+import { HidableWrapper, Text } from '../TeamForm/TeamForm.styles'
 
 import {
   CakeBox,
@@ -18,17 +20,25 @@ import {
 
 const TeamProfileMiniCard = ({ team, isEditing, setEditImage, actionType, editImage }) => {
   const { values } = useFormikContext()
+  const [imgLoading, setImgLoading] = useState(true)
 
   return (
     <>
       <RightContainer>
         <TeamInformationContainer>
           <FlexWrapper justify="center">
-            <div style={{ position: 'relative', width: '100px', height: '124px' }}>
-              <TeamImgBorder
-                alt={team?.username}
-                src={values?.file ? values?.file : team?.image} // not currently
-              />
+            <FlexWrapper position="relative" width="100px" height="124px">
+              <HidableWrapper display={imgLoading ? 'block' : 'none'}>
+                <CardSkeleton width="100px" height="100px" borderRadius="50%" />
+              </HidableWrapper>
+              <HidableWrapper display={imgLoading ? 'none' : 'block'}>
+                <TeamImgBorder
+                  alt={team?.username}
+                  src={values?.file ? values?.file : team?.image}
+                  onLoad={() => setImgLoading(false)}
+                />
+              </HidableWrapper>
+
               {isEditing ? (
                 <EditImageButton
                   editImage={editImage}
@@ -41,7 +51,7 @@ const TeamProfileMiniCard = ({ team, isEditing, setEditImage, actionType, editIm
               ) : (
                 <></>
               )}
-            </div>
+            </FlexWrapper>
           </FlexWrapper>
           <Text
             margin="0 0 16px 0"

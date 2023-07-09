@@ -259,3 +259,7 @@ export const FormikContainer = styled.div`
     font-weight: ${B2fw};
   }
 `
+
+export const HidableWrapper = styled.div`
+  display: ${(props) => props.display || 'none'};
+`

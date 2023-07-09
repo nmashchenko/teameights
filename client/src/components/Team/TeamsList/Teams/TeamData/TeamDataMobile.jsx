@@ -4,7 +4,7 @@ import CardSkeleton from '../../../../../shared/components/CardSkeleton/CardSkel
 import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
 import { TeamDataMobile, TeamImage, Text } from '../../TeamsList.styles'
 
-const Mobile = forwardRef(({ team, i, handleClickOpen }, ref) => {
+const Mobile = forwardRef(({ team, handleClickOpen }, ref) => {
   const [imgLoading, setImgLoading] = useState(true)
 
   return (
