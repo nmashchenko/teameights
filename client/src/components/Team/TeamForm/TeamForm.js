@@ -16,7 +16,6 @@ import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
 import { useUpdateTeam } from '../../../api/hooks/team/useUpdateTeam'
 import ROUTES from '../../../constants/routes'
 import { editTeamValidation } from '../../../schemas'
-import Loader from '../../../shared/components/Loader/Loader'
 import Modal from '../../../shared/components/Modal/Modal'
 import { determineUserRoleInTeam } from '../../../utils/determineUserRoleInTeam'
 import Page404Form from '../../Forms/Page404Form/Page404Form'
@@ -176,7 +175,6 @@ function TeamForm() {
         return (
           <>
             <TeamTypeSwitch myTeam={role === 'leader' || role === 'member' ? 'team' : ''} />
-            {isUserTeamLoading && <Loader />}
             <Container>
               <Modal
                 modalActive={modalActive}

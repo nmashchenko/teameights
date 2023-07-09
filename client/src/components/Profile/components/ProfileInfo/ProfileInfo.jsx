@@ -106,11 +106,19 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, is
             </EditButton>
           )}
         </AvatarWrapper>
-        <FlexWrapper direction="column" align="center" gap="8px">
-          <Text>{showingUser?.fullName}</Text>
-          <Text color="#c1c1c4" fontWeight="300" fontSize="14px">
-            @{showingUser?.username}
-          </Text>
+        <FlexWrapper direction="column" align="center" gap="8px" width="100%">
+          {!showingUser ? (
+            <CardSkeleton width="100%" height="24px" borderRadius="5px" />
+          ) : (
+            <Text>{showingUser?.fullName}</Text>
+          )}
+          {!showingUser ? (
+            <CardSkeleton width="100%" height="24px" borderRadius="5px" />
+          ) : (
+            <Text color="#c1c1c4" fontWeight="300" fontSize="14px">
+              @{showingUser?.username}
+            </Text>
+          )}
         </FlexWrapper>
         <UserStatusButtons
           currentUser={currentUser}
@@ -128,9 +136,13 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, is
         {infoListArr.map((item, index) => (
           <InfoListItem key={index}>
             {item.icon}
-            <Text fontSize="16px" fontWeight="400">
-              {item.infoEl}
-            </Text>
+            {!showingUser ? (
+              <CardSkeleton width="100%" height="24px" borderRadius="5px" />
+            ) : (
+              <Text fontSize="16px" fontWeight="400">
+                {item.infoEl}
+              </Text>
+            )}
           </InfoListItem>
         ))}
       </InfoList>

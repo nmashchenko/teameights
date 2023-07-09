@@ -7,7 +7,8 @@ export const CakeBox = styled.div`
 `
 export const RightContainer = styled.div`
   padding: 48px 24px 24px 24px;
-  height: 400px;
+  min-height: 400px;
+  height: 100%;
   width: 270px;
   border-radius: 15px;
   align-items: center;
@@ -67,5 +68,6 @@ export const TeamInformationContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   flex-direction: column;
 `

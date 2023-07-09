@@ -43,7 +43,7 @@ function NoTeamForm() {
 
   return (
     <Container>
-      {isUserDataLoading && <Loader />}
+      {/* {isUserDataLoading && <Loader />} */}
       {!user?.team && (
         <>
           <Text fontWeight="500" fontSize="24px" margin="0 0 8px 0" textAlign="center">

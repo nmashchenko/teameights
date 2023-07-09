@@ -19,7 +19,9 @@ const ActionButtonsType = ({
   let action = null
   const { values, setFieldValue, errors } = useFormikContext()
 
-  console.log(errors)
+  if (!team) {
+    return null
+  }
 
   switch (role) {
     case 'leader':

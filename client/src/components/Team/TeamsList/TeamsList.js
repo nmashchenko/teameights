@@ -9,7 +9,6 @@ import { useLeaveAndJoin } from '../../../api/hooks/team/useLeaveAndJoin'
 import ROUTES from '../../../constants/routes'
 import { useGetScreenWidth } from '../../../hooks/useGetScreenWidth'
 import AppHeader from '../../../shared/components/AppHeader/AppHeader'
-import Loader from '../../../shared/components/Loader/Loader'
 import Modal from '../../../shared/components/Modal/Modal'
 import SliderToTop from '../../../shared/components/SliderToTop/SliderToTop'
 import { setTeamsFilter } from '../../../store/reducers/TeamsFiltersSlice'
@@ -76,13 +75,13 @@ function TeamsList() {
     await leaveAndJoin.mutateAsync({ leaveDetails, joinDetails })
   }
 
-  if (isUserTeamLoading || isLeaving || isJoining) {
-    return (
-      <Container>
-        <Loader />
-      </Container>
-    )
-  }
+  // if (isUserTeamLoading || isLeaving || isJoining) {
+  //   return (
+  //     <Container>
+  //       <Loader />
+  //     </Container>
+  //   )
+  // }
 
   return (
     <>

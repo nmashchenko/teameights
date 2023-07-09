@@ -5,10 +5,8 @@ import styled from 'styled-components'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 export const CardGridContainer = styled.div`
-  display: flex; /* new */
-  align-items: center; /* new */
-  justify-content: center; /* new */
-  width: ${(props) => props.width || 'auto'};
+  width: 100%;
+  max-width: ${(props) => props.parentMaxWidth || 'none'};
 `
 
 export const CardContainer = styled.div`

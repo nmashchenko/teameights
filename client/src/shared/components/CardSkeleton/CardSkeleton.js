@@ -1,11 +1,18 @@
 // * Styles
 import { CardContainer, CardGridContainer, SkeletonCard } from './CardSkeleton.styles'
 
-const CardSkeleton = ({ cards, width, height, borderRadius, maxWidth }) => {
+const CardSkeleton = ({
+  cards,
+  width,
+  height,
+  borderRadius,
+  maxWidth,
+  parentMaxWidth = 'none',
+}) => {
   return Array(cards)
     .fill(0)
     .map((item, i) => (
-      <CardGridContainer key={i} width={width}>
+      <CardGridContainer key={i} parentMaxWidth={parentMaxWidth}>
         <CardContainer borderRadius={borderRadius} width={width}>
           <SkeletonCard
             baseColor="#313131"

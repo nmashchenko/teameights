@@ -5,6 +5,7 @@ import LinkIcon from '../../../../../assets/UserProfile/LinkIcon'
 import TeamMembersIcon from '../../../../../assets/UserProfile/TeamMembersIcon'
 import { frameworkColors, frameworkTextColors } from '../../../../../constants/frameworkColors'
 import { languageOptions } from '../../../../../constants/programmingLanguages'
+import CardSkeleton from '../../../../../shared/components/CardSkeleton/CardSkeleton'
 import FlexWrapper from '../../../../../shared/components/FlexWrapper/FlexWrapper'
 import {
   EditIconContainer,
@@ -24,13 +25,16 @@ const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
           <Text fontSize="16px" fontWeight="400">
             About me
           </Text>
+
           {userStatus === 'same' && (
             <EditIconContainer onClick={() => setIsEditing('description')} fill={true.toString()}>
               <EditIcon />
             </EditIconContainer>
           )}
         </FlexWrapper>
-        {showingUser?.description ? (
+        {!showingUser ? (
+          <CardSkeleton width="100%" height="85px" borderRadius="5px" />
+        ) : showingUser?.description ? (
           <TextArea
             fontSize="14px"
             fontWeight="400"
@@ -48,7 +52,14 @@ const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
           />
         )}
       </FlexWrapper>
-      {showingUser?.team ? (
+      {!showingUser ? (
+        <FlexWrapper gap="7px" align="center">
+          <Text fontSize="16px" fontWeight="400">
+            Team
+          </Text>
+          <CardSkeleton width="100%" height="27px" borderRadius="5px" />
+        </FlexWrapper>
+      ) : showingUser?.team ? (
         <FlexWrapper gap="7px" align="center">
           <Text fontSize="16px" fontWeight="400">
             Team
@@ -80,7 +91,21 @@ const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
             </EditIconContainer>
           )}
         </FlexWrapper>
-        {showingUser?.projectData?.length > 0 ? (
+        {!showingUser ? (
+          <WrappableList gap="8px">
+            {Array(5)
+              .fill(null)
+              .map((_, index) => (
+                <CardSkeleton
+                  width="120px"
+                  height="27px"
+                  borderRadius="5px"
+                  key={index}
+                  parentMaxWidth="120px"
+                />
+              ))}
+          </WrappableList>
+        ) : showingUser?.projectData?.length > 0 ? (
           <WrappableList gap="8px">
             {showingUser?.projectData?.map(({ title, link }, index) => (
               <li key={index}>
@@ -108,15 +133,31 @@ const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
           )}
         </FlexWrapper>
         <WrappableList gap="8px">
-          {showingUser?.frameworks?.map((framework, index) => (
-            <FrameWorkItem
-              key={index}
-              background={frameworkColors[framework]}
-              color={frameworkTextColors[framework]}
-            >
-              {framework}
-            </FrameWorkItem>
-          ))}
+          {!showingUser ? (
+            <WrappableList gap="8px">
+              {Array(6)
+                .fill(null)
+                .map((_, index) => (
+                  <CardSkeleton
+                    width="120px"
+                    height="34px"
+                    borderRadius="5px"
+                    key={index}
+                    parentMaxWidth="120px"
+                  />
+                ))}
+            </WrappableList>
+          ) : (
+            showingUser?.frameworks?.map((framework, index) => (
+              <FrameWorkItem
+                key={index}
+                background={frameworkColors[framework]}
+                color={frameworkTextColors[framework]}
+              >
+                {framework}
+              </FrameWorkItem>
+            ))
+          )}
         </WrappableList>
       </FlexWrapper>
       <FlexWrapper direction="column" gap="7px">
@@ -131,9 +172,25 @@ const ProjectsSkills = ({ showingUser, setIsEditing, userStatus }) => {
           )}
         </FlexWrapper>
         <WrappableList gap="8px">
-          {showingUser?.programmingLanguages?.map((language, index) => (
-            <LanguageItem key={index}>{languageOptions[language]}</LanguageItem>
-          ))}
+          {!showingUser ? (
+            <WrappableList gap="8px">
+              {Array(8)
+                .fill(null)
+                .map((_, index) => (
+                  <CardSkeleton
+                    width="40px"
+                    height="40px"
+                    borderRadius="5px"
+                    key={index}
+                    parentMaxWidth="40px"
+                  />
+                ))}
+            </WrappableList>
+          ) : (
+            showingUser?.programmingLanguages?.map((language, index) => (
+              <LanguageItem key={index}>{languageOptions[language]}</LanguageItem>
+            ))
+          )}
         </WrappableList>
       </FlexWrapper>
     </FlexWrapper>

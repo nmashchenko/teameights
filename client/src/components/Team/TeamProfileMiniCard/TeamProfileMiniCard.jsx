@@ -53,35 +53,54 @@ const TeamProfileMiniCard = ({ team, isEditing, setEditImage, actionType, editIm
               )}
             </FlexWrapper>
           </FlexWrapper>
-          <Text
-            margin="0 0 16px 0"
-            fontSize={`${H4fs}`}
-            lineHeight={`${H4lh}`}
-            fontWeight={`${H4fw}`}
+          {!team ? (
+            <CardSkeleton width="100%" height="30px" borderRadius="5px" />
+          ) : (
+            <Text
+              fontSize={`${H4fs}`}
+              lineHeight={`${H4lh}`}
+              fontWeight={`${H4fw}`}
+              textAlign="center"
+            >
+              {team?.name}
+            </Text>
+          )}
+
+          <FlexWrapper
+            direction="column"
+            gap="8px"
+            align="start"
+            justify="start"
+            margin="16px 0 0 0"
           >
-            {team?.name}
-          </Text>
-          <FlexWrapper direction="column" gap="8px" align="start" justify="start">
             <SVGAndText margin="0 0 8px 0">
               <CakeBox>
                 <Cake />
               </CakeBox>
-              <Text
-                margin="0 0 0 0"
-                fontSize={`${B2fs}`}
-                lineHeight={`${B2lh}`}
-                fontWeight={`${B2fw}`}
-              >
-                {team?.createdAt.split('T')[0]}
-              </Text>
+              {!team ? (
+                <CardSkeleton width="93px" parentMaxWidth="93px" height="24px" borderRadius="5px" />
+              ) : (
+                <Text
+                  margin="0 0 0 0"
+                  fontSize={`${B2fs}`}
+                  lineHeight={`${B2lh}`}
+                  fontWeight={`${B2fw}`}
+                >
+                  {team?.createdAt.split('T')[0]}
+                </Text>
+              )}
             </SVGAndText>
             <SVGAndText>
               <CakeBox>
                 <Users />
               </CakeBox>
-              <Text fontSize={`${B2fs}`} lineHeight={`${B2lh}`} fontWeight={`${B2fw}`}>
-                {team?.members.length}/8 members
-              </Text>
+              {!team ? (
+                <CardSkeleton width="93px" parentMaxWidth="93px" height="24px" borderRadius="5px" />
+              ) : (
+                <Text fontSize={`${B2fs}`} lineHeight={`${B2lh}`} fontWeight={`${B2fw}`}>
+                  {team?.members.length}/8 members
+                </Text>
+              )}
             </SVGAndText>
           </FlexWrapper>
         </TeamInformationContainer>

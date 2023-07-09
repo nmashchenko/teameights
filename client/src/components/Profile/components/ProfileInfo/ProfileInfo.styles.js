@@ -79,7 +79,6 @@ export const InfoListItem = styled.li`
   align-items: center;
   gap: 8px;
   width: 100%;
-  flex-wrap: wrap;
 `
 
 export const SocialList = styled.ul`

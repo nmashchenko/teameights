@@ -246,6 +246,8 @@ export const LeaderActionsBox = styled.div`
   justify-content: center;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 25px;
   button {
     width: 107px;
     font-size: 16px;

@@ -10,8 +10,6 @@ import PlatformLogo from '../../assets/Platform/TeameightsLogo'
 import { useGetScreenWidth } from '../../hooks/useGetScreenWidth'
 import { usePrompt } from '../../hooks/usePrompt'
 import { editProfileValidation } from '../../schemas'
-import Loader from '../../shared/components/Loader/Loader'
-import ModalComponent from '../../shared/components/Modal/Modal'
 import { formatDateString } from '../../utils/convertStringToDate'
 import Page404Form from '../Forms/Page404Form/Page404Form'
 
@@ -128,7 +126,6 @@ const Profile = () => {
                 <PlatformLogo />
               </LogoWrapper>
               <ProfileWrapper>
-                {!showingUser && <Loader paddingLeft={width > 768 ? '88px' : '0'} />}
                 <ProfileContainer>
                   <ProfileInfo
                     showingUser={showingUser}
