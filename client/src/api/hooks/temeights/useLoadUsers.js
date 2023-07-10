@@ -34,7 +34,6 @@ export const useLoadUsers = () => {
   }
 
   const getUsersFiltered = async ({ pageParam = 1 }) => {
-    console.log(normalizedFilters)
     const filtersQuery = filteredQueryMaker.users(
       normalizedFilters.countries,
       normalizedFilters.concentrations,

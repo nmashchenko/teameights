@@ -12,9 +12,7 @@ export const useReadMessages = () => {
 
   return useMutation(readMessages, {
     mutationKey: 'readMessages',
-    onSuccess: () => {
-      console.log('success!')
-    },
+    onSuccess: () => {},
     onError: (error) => {
       // set error message
       errorToaster(error)

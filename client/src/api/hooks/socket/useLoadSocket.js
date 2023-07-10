@@ -10,14 +10,11 @@ export const useLoadSocket = () => {
   const dispatch = useDispatch()
 
   function onConnect() {
-    console.log('connected')
     //   setIsConnected(true)
     socket.emit('subscribeToNotifications', JSON.stringify({ id: userId }))
   }
 
-  function onDisconnect() {
-    console.log('disconnecting...')
-  }
+  function onDisconnect() {}
 
   useEffect(() => {
     if (userId) {

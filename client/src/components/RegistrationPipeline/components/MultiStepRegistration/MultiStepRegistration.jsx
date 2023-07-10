@@ -18,7 +18,6 @@ const MultiStepRegistration = ({
   isFinishingRegistration,
   submitForm,
 }) => {
-  console.log(isFinishingRegistration)
   const [oneOfOptionalFieldsHasValue, setOneOfOptionalFieldsHasValue] = useState(false)
 
   const { step, isOptionalStep } = useSelector((state) => state.registrationReducer)

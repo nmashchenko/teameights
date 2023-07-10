@@ -34,7 +34,6 @@ const CustomSelectAutocomplete = ({
       if (reason === 'removeOption') {
         setFieldValue(field.name, option)
       } else if (reason === 'selectOption') {
-        console.log(option)
         setFieldValue(field.name, option)
       }
     }

@@ -11,7 +11,6 @@ const SearchByRange = ({ currFilter, currFilterIndex, setFilterValue }) => {
 
   const handleChange = (value) => {
     if (!currFilter.value || currFilter.value[0] !== value[0] || currFilter.value[1] !== value[1]) {
-      console.log(1)
       setFilterValue(currFilterIndex, value)
     }
   }
