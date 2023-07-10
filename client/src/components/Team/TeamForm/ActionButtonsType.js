@@ -1,4 +1,6 @@
+import { ThreeDots } from 'react-loader-spinner'
 import { useFormikContext } from 'formik'
+import { isEmpty } from 'lodash'
 
 import { EditTeam, GenericButton, LeaderActionsBox } from './TeamForm.styles'
 
@@ -12,15 +14,21 @@ const ActionButtonsType = ({
   role,
   handleJoin,
   updateTeam,
+  isDataLoading,
 }) => {
   let action = null
-  const { values, setFieldValue } = useFormikContext()
+  const { values, setFieldValue, errors } = useFormikContext()
+
+  if (!team) {
+    return null
+  }
 
   switch (role) {
     case 'leader':
       action = (
         <LeaderActionsBox>
           <EditTeam
+            disabled={isEditing && !isEmpty(errors) ? true : false}
             onClick={() => {
               if (isEditing) {
                 const updateTeamObj = {
@@ -37,12 +45,30 @@ const ActionButtonsType = ({
                 if (values?.file) {
                   updateTeamsAvatar({ teamID: team._id, image: values?.file?.split(',')[1] })
                 }
+              } else {
+                setIsEditing((prevState) => !prevState)
               }
-              setIsEditing((prevState) => !prevState)
             }}
             type={isEditing ? 'submit' : 'text'}
           >
-            {isEditing ? 'Save' : 'Edit'}
+            {isEditing ? (
+              isDataLoading ? (
+                <ThreeDots
+                  height="24"
+                  width="24"
+                  radius="9"
+                  color="white"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={true}
+                />
+              ) : (
+                'Save'
+              )
+            ) : (
+              'Edit'
+            )}
           </EditTeam>
           <GenericButton
             height="40px"
@@ -70,7 +96,20 @@ const ActionButtonsType = ({
     default:
       action = (
         <GenericButton onClick={handleJoin} border="none" boxShadow="none" background="#46A11B">
-          Join Team
+          {isDataLoading ? (
+            <ThreeDots
+              height="24"
+              width="24"
+              radius="9"
+              color="white"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
+          ) : (
+            'Join Team'
+          )}
         </GenericButton>
       )
       break

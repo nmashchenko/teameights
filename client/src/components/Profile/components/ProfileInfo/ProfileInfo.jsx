@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useFormikContext } from 'formik'
 
@@ -13,6 +14,7 @@ import LocationIcon from '../../../../assets/UserProfile/LocationIcon'
 import StarIcon from '../../../../assets/UserProfile/StarIcon'
 import UserIcon from '../../../../assets/UserProfile/UserIcon'
 import { useGetScreenWidth } from '../../../../hooks/useGetScreenWidth'
+import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
 import { calculateAge } from '../../../../utils/calculateAge'
 import { checkUserStatus } from '../../../../utils/checkUserStatus'
@@ -35,6 +37,7 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, is
   const width = useGetScreenWidth()
   const navigate = useNavigate()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
+  const [imgLoading, setImgLoading] = useState(true)
 
   const infoListArr = [
     { icon: <UserIcon />, infoEl: truncateString(showingUser?.concentration, width) },
@@ -89,19 +92,33 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, is
   return (
     <ProfileSection width="270px" padding="36px 24px 24px" align="center" gap="32px">
       <UserInfo>
-        <AvatarWrapper>
-          <AvatarImg src={values.file && isEditing ? values.file : showingUser?.image} />
+        <div style={{ display: imgLoading ? 'block' : 'none' }}>
+          <CardSkeleton width="100px" height="100px" borderRadius="50%" />
+        </div>
+        <AvatarWrapper display={imgLoading ? 'none' : 'block'}>
+          <AvatarImg
+            src={values.file && isEditing ? values.file : showingUser?.image}
+            onLoad={() => setImgLoading(false)}
+          />
           {userStatus === 'same' && (
             <EditButton onClick={() => handleEdit('avatar')}>
               <EditIcon />
             </EditButton>
           )}
         </AvatarWrapper>
-        <FlexWrapper direction="column" align="center" gap="8px">
-          <Text>{showingUser?.fullName}</Text>
-          <Text color="#c1c1c4" fontWeight="300" fontSize="14px">
-            @{showingUser?.username}
-          </Text>
+        <FlexWrapper direction="column" align="center" gap="8px" width="100%">
+          {!showingUser ? (
+            <CardSkeleton width="100%" height="24px" borderRadius="5px" />
+          ) : (
+            <Text>{showingUser?.fullName}</Text>
+          )}
+          {!showingUser ? (
+            <CardSkeleton width="100%" height="24px" borderRadius="5px" />
+          ) : (
+            <Text color="#c1c1c4" fontWeight="300" fontSize="14px">
+              @{showingUser?.username}
+            </Text>
+          )}
         </FlexWrapper>
         <UserStatusButtons
           currentUser={currentUser}
@@ -119,9 +136,13 @@ const ProfileInfo = ({ showingUser, id, currentUser, isEditing, setIsEditing, is
         {infoListArr.map((item, index) => (
           <InfoListItem key={index}>
             {item.icon}
-            <Text fontSize="16px" fontWeight="400">
-              {item.infoEl}
-            </Text>
+            {!showingUser ? (
+              <CardSkeleton width="100%" height="24px" borderRadius="5px" />
+            ) : (
+              <Text fontSize="16px" fontWeight="400">
+                {item.infoEl}
+              </Text>
+            )}
           </InfoListItem>
         ))}
       </InfoList>

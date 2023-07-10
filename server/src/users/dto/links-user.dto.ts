@@ -22,7 +22,7 @@ export class LinksUserDto {
 
 	@ApiProperty({ example: 'https://behance.com', description: 'Behance' })
 	@IsUrl(
-		{ host_whitelist: [/^.*behance\.com$/] },
+		{ host_whitelist: [/^.*behance\.com$/, /^.*behance\.net$/] },
 		{ message: 'Should be correct behance url' },
 	)
 	@IsOptional()

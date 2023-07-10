@@ -8,11 +8,12 @@ export const ProfileForm = styled(Form)`
   background: #26292b;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 
   @media (max-width: 768px) {
     padding-left: 0;
+    justify-content: start;
   }
 `
 
@@ -23,6 +24,12 @@ export const ProfileWrapper = styled.div`
   align-items: center;
   position: relative;
   width: 100%;
+  min-height: calc(100dvh - 135px);
+  padding-bottom: 48px;
+
+  @media (max-width: 768px) {
+    min-height: calc(100dvh - 107px);
+  }
 `
 
 export const ProfileContainer = styled.div`
@@ -38,11 +45,10 @@ export const ProfileContainer = styled.div`
   @media (max-width: 1024px) {
     flex-direction: column;
     align-items: center;
-    margin: 114px 0 24px 0;
   }
 
   @media (max-width: 768px) {
-    margin: 96px 0 24px 0;
+    margin: 0;
   }
 `
 
@@ -66,10 +72,14 @@ export const ProfileSection = styled.div`
 `
 
 export const LogoWrapper = styled.div`
-  position: absolute;
-  top: 48px;
+  height: 135px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  width: 100%;
+  padding-bottom: 48px;
 
   @media (max-width: 768px) {
-    top: 32px;
+    height: 107px;
   }
 `

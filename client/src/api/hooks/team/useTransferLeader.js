@@ -6,7 +6,7 @@ import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
-export const useTransferLeader = () => {
+export const useTransferLeader = (successHandler) => {
   const queryClient = useQueryClient()
   const transferLeader = async (details) => {
     const response = await api.put(`/teams/leader/transfer`, details)
@@ -17,6 +17,10 @@ export const useTransferLeader = () => {
   return useMutation(transferLeader, {
     mutationKey: 'transferLeader',
     onSuccess: async () => {
+      if (successHandler) {
+        successHandler()
+      }
+
       await queryClient.invalidateQueries('getTeamById')
       await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
     },

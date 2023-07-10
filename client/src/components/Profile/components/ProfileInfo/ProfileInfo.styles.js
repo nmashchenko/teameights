@@ -10,6 +10,7 @@ export const UserInfo = styled.div`
 
 export const AvatarWrapper = styled.div`
   position: relative;
+  display: ${(props) => props.display || 'block'};
 `
 
 export const AvatarImg = styled.img`
@@ -55,6 +56,7 @@ export const GenericButton = styled.button`
 export const InfoList = styled.ul`
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 9px;
   @media (max-width: 1024px) {
     align-self: flex-start;
@@ -77,7 +79,6 @@ export const InfoListItem = styled.li`
   align-items: center;
   gap: 8px;
   width: 100%;
-  flex-wrap: wrap;
 `
 
 export const SocialList = styled.ul`

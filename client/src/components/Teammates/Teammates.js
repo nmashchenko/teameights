@@ -1,6 +1,6 @@
 // * Modules
 import React, { useState } from 'react'
-import { ThemeProvider } from 'styled-components'
+import { Slide } from '@mui/material'
 
 // * API
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
@@ -51,59 +51,53 @@ function Teammates() {
     setOpen(false)
   }
 
-  const [scrollbar, toggleScrollbar] = useState(false)
-
-  const showScrollbar = () => {
-    toggleScrollbar((prevState) => !prevState)
-  }
-
   return (
     <>
-      <ThemeProvider theme={{ scrollbar }}>
-        <GlobalStyle />
-        <AppHeader sliceName="usersFilters" filterValueAction={setUsersFilter} />
-        {/* ! USED ONLY FOR 730px or more */}
-        <UserCardModal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          sx={{ zIndex: 100 }}
-        >
+      <GlobalStyle />
+      <AppHeader sliceName="usersFilters" filterValueAction={setUsersFilter} />
+      {/* ! USED ONLY FOR 730px or more */}
+      <UserCardModal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{ zIndex: 100 }}
+      >
+        <Slide direction="up" in={open}>
           <UserProfile
             currentUser={user}
             showingUser={showUser}
             handleClose={handleClose}
             open={open}
           />
-        </UserCardModal>
-        {/* ! USED ONLY FOR 730px or less */}
-        <UserProfilePhone
-          currentUser={user}
-          showingUser={showUser}
-          mobileProfile={open}
-          handleClose={handleClose}
-        />
-        {/* If nothing was found, show user a NotFound container */}
-        {isNotFound ? (
-          <InfoContainer>
-            <NotFound handleComeback={handleComeback} />
-          </InfoContainer>
-        ) : (
-          <CardsZone>
-            <GridContainer>
-              <CardsContainer>
-                <Cards
-                  setIsNotFound={setIsNotFound}
-                  handleOpen={handleOpen}
-                  isLoadingUseData={isLoadingUseData}
-                />
-              </CardsContainer>
-            </GridContainer>
-            <SliderToTop scrollbar={scrollbar} toggleScrollbar={showScrollbar} />
-          </CardsZone>
-        )}
-      </ThemeProvider>
+        </Slide>
+      </UserCardModal>
+      {/* ! USED ONLY FOR 730px or less */}
+      <UserProfilePhone
+        currentUser={user}
+        showingUser={showUser}
+        mobileProfile={open}
+        handleClose={handleClose}
+      />
+      {/* If nothing was found, show user a NotFound container */}
+      {isNotFound ? (
+        <InfoContainer>
+          <NotFound handleComeback={handleComeback} />
+        </InfoContainer>
+      ) : (
+        <CardsZone>
+          <GridContainer>
+            <CardsContainer>
+              <Cards
+                setIsNotFound={setIsNotFound}
+                handleOpen={handleOpen}
+                isLoadingUseData={isLoadingUseData}
+              />
+            </CardsContainer>
+          </GridContainer>
+          <SliderToTop />
+        </CardsZone>
+      )}
     </>
   )
 }

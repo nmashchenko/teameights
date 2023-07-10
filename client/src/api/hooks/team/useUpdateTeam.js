@@ -5,7 +5,7 @@ import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
-export const useUpdateTeam = () => {
+export const useUpdateTeam = (successHandler) => {
   const queryClient = useQueryClient()
   const updateTeam = async (details) => {
     const response = await api.put(`/teams/update-team`, details)
@@ -16,6 +16,10 @@ export const useUpdateTeam = () => {
   return useMutation(updateTeam, {
     mutationKey: 'updateTeam',
     onSuccess: () => {
+      if (successHandler) {
+        successHandler()
+      }
+
       queryClient.invalidateQueries('getTeamById')
     },
     onError: (error) => {

@@ -1,18 +1,26 @@
+import { useState } from 'react'
 import { Grid } from '@mui/material'
 
-import { LOCAL_PATH } from '../../../http'
+import CardSkeleton from '../CardSkeleton/CardSkeleton'
+import FlexWrapper from '../FlexWrapper/FlexWrapper'
+import { HidableWrapper } from '../Modal/Modal.styles'
+
+import { UserImg, UsernameText } from './SearchUsersAutocomplete.styles'
 
 export const List = ({ props, option }) => {
+  const [imgLoading, setImgLoading] = useState(true)
+
   return (
     <li {...props} key={option.username}>
-      <Grid container alignItems="center">
-        <Grid item sx={{ display: 'flex', width: 38 }}>
-          <img style={{ width: '30px', height: '30px', borderRadius: '50%' }} src={option.image} />
-        </Grid>
-        <Grid item sx={{ width: 'calc(100% - 44px)', wordWrap: 'break-word' }}>
-          <h3 style={{ fontSize: '18px', color: 'white', fontWeight: 400 }}>{option.username}</h3>
-        </Grid>
-      </Grid>
+      <FlexWrapper gap="8px" maxHeight="30px" justify="center" align="center">
+        <HidableWrapper display={imgLoading ? 'block' : 'none'}>
+          <CardSkeleton width="30px" parentMaxWidth="30px" height="30px" borderRadius="50%" />
+        </HidableWrapper>
+        <HidableWrapper display={imgLoading ? 'none' : 'block'}>
+          <UserImg src={option.image} alt="User's image" onLoad={() => setImgLoading(false)} />
+        </HidableWrapper>
+        <UsernameText>{option.username}</UsernameText>
+      </FlexWrapper>
     </li>
   )
 }

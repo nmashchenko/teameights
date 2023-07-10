@@ -32,7 +32,6 @@ const Teams = ({ handleClickOpen, setIsNotFound, isLoadingUserData, width }) => 
 
       intObserver.current = new IntersectionObserver(
         (teamsPerPage) => {
-          console.log(teamsPerPage[0])
           if (teamsPerPage[0].isIntersecting && hasNextPage) {
             fetchNextPage()
           }
@@ -55,10 +54,10 @@ const Teams = ({ handleClickOpen, setIsNotFound, isLoadingUserData, width }) => 
         return (
           <Fragment key={index}>
             {width > 900 && (
-              <Desktop team={team} i={index} handleClickOpen={handleClickOpen} ref={lastTeamRef} />
+              <Desktop team={team} handleClickOpen={handleClickOpen} ref={lastTeamRef} />
             )}
             {width <= 900 && (
-              <Mobile team={team} i={index} handleClickOpen={handleClickOpen} ref={lastTeamRef} />
+              <Mobile team={team} handleClickOpen={handleClickOpen} ref={lastTeamRef} />
             )}
           </Fragment>
         )
@@ -66,8 +65,8 @@ const Teams = ({ handleClickOpen, setIsNotFound, isLoadingUserData, width }) => 
 
       return (
         <Fragment key={index}>
-          <Desktop team={team} i={index} handleClickOpen={handleClickOpen} />
-          <Mobile team={team} i={index} handleClickOpen={handleClickOpen} />
+          <Desktop team={team} handleClickOpen={handleClickOpen} />
+          <Mobile team={team} handleClickOpen={handleClickOpen} />
         </Fragment>
       )
     })
@@ -87,7 +86,7 @@ const Teams = ({ handleClickOpen, setIsNotFound, isLoadingUserData, width }) => 
           <CardSkeleton
             cards={9}
             borderRadius={'15px'}
-            height={width > 900 ? '60px' : '74px'}
+            height={width > 900 ? '82px' : '81px'}
             width="100%"
           />
         )}

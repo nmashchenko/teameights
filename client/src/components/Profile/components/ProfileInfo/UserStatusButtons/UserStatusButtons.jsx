@@ -108,11 +108,11 @@ const UserStatusButtons = ({
 
   return (
     <>
-      {userStatus === 'same' && renderSameUserButtons()}
+      {userStatus === 'same' && currentUser && renderSameUserButtons()}
 
-      {userStatus === 'teammember' && renderTeamMemberButtons()}
+      {userStatus === 'teammember' && currentUser && renderTeamMemberButtons()}
 
-      {userStatus === 'other' && renderOtherUserButtons()}
+      {userStatus === 'other' && currentUser && renderOtherUserButtons()}
     </>
   )
 }

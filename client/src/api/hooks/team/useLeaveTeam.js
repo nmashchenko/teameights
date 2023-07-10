@@ -19,6 +19,7 @@ export const useLeave = () => {
   return useMutation(leaveTeam, {
     mutationKey: 'leaveTeam',
     onSuccess: () => {
+      queryClient.invalidateQueries('getTeamById', { refetchInactive: true })
       queryClient.invalidateQueries('checkAuth')
       navigate(`/teams`)
     },

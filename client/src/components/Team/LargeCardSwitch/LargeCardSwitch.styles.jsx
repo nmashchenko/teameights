@@ -76,5 +76,4 @@ export const TopContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: ${(props) => (props.isMembers ? '32px' : '24px')};
 `

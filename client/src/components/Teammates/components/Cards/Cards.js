@@ -1,10 +1,11 @@
 // * Modules
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 // * Constants
 // * API
 import lookup from 'country-code-lookup'
 
 import { useLoadUsers } from '../../../../api/hooks/temeights/useLoadUsers'
+import { useGetScreenWidth } from '../../../../hooks/useGetScreenWidth'
 import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 // * Components
 import UserCard from '../UserCard/UserCard'
@@ -15,7 +16,7 @@ import { CardContainer } from './Cards.styles'
 
 const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
   const intObserver = useRef()
-  const [loadedPictures, setLoadedPictures] = useState(0)
+  const width = useGetScreenWidth()
 
   const {
     fetchNextPage,
@@ -84,7 +85,6 @@ const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
               ref={lastUserRef}
               key={user._id}
               person={user}
-              setLoadedPictures={setLoadedPictures}
             />
           </CardContainer>
         )
@@ -97,12 +97,7 @@ const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
           }}
           key={index}
         >
-          <UserCard
-            countryCode={lookup.byCountry(user.userCountry)}
-            key={user._id}
-            person={user}
-            setLoadedPictures={setLoadedPictures}
-          />
+          <UserCard countryCode={lookup.byCountry(user.userCountry)} key={user._id} person={user} />
         </CardContainer>
       )
     })

@@ -125,9 +125,10 @@ export const UserImg = styled.img`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  width: 22px;
-  height: 22px;
-  transform: rotate(25deg) translate(70%, -150%);
+  width: 25px;
+  height: 25px;
+  transform: rotate(25deg) translate(70%, -130%);
+  z-index: 100;
   svg {
     width: 100%;
     height: 100%;

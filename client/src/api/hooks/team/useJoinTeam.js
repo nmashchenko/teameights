@@ -6,7 +6,7 @@ import { errorToaster } from '../../../shared/components/Toasters/Error.toaster'
 
 const { api } = http
 
-export const useJoinTeam = () => {
+export const useJoinTeam = (successHandler) => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
@@ -19,8 +19,12 @@ export const useJoinTeam = () => {
   return useMutation(joinTeam, {
     mutationKey: 'joinTeam',
     onSuccess: async (data) => {
-      await queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
-      await queryClient.invalidateQueries('getTeamById', { refetchInactive: true })
+      queryClient.invalidateQueries('getTeamById', { refetchInactive: true })
+      queryClient.invalidateQueries('checkAuth', { refetchInactive: true })
+
+      if (successHandler) {
+        successHandler()
+      }
       navigate(`/team/${data._id}`)
     },
     onError: (error) => {

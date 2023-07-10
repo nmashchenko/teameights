@@ -11,7 +11,7 @@ import { startRegistration } from '../../../store/reducers/RegistrationAuth'
 // * Styles
 import { Container, Text } from '../TeamForm/TeamForm.styles'
 
-import { Center, TeamButton } from './NoTeam.styles'
+import { TeamButton } from './NoTeam.styles'
 
 function NoTeamForm() {
   const navigate = useNavigate()
@@ -43,7 +43,7 @@ function NoTeamForm() {
 
   return (
     <Container>
-      {isUserDataLoading && <Loader />}
+      {/* {isUserDataLoading && <Loader />} */}
       {!user?.team && (
         <>
           <Text fontWeight="500" fontSize="24px" margin="0 0 8px 0" textAlign="center">

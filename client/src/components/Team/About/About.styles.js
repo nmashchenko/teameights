@@ -7,7 +7,7 @@ export const FormContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto 2fr;
   row-gap: 16px;
-  column-gap: 36px;
+  column-gap: 24px;
   input {
     font-size: ${B2fs};
     line-height: ${B2lh};

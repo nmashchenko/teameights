@@ -16,7 +16,6 @@ import { useTransferLeader } from '../../../api/hooks/team/useTransferLeader'
 import { useUpdateTeam } from '../../../api/hooks/team/useUpdateTeam'
 import ROUTES from '../../../constants/routes'
 import { editTeamValidation } from '../../../schemas'
-import Loader from '../../../shared/components/Loader/Loader'
 import Modal from '../../../shared/components/Modal/Modal'
 import { determineUserRoleInTeam } from '../../../utils/determineUserRoleInTeam'
 import Page404Form from '../../Forms/Page404Form/Page404Form'
@@ -53,12 +52,8 @@ function TeamForm() {
 
   const { mutate: deleteTeam, isLoading: isDeleting } = useDelete()
   const { mutate: leaveTeam, isLoading: isLeaving } = useLeave()
-  const { mutate: removeFromTeam, isLoading: isRemoving } = useRemoveMember()
   const { mutate: updateTeamsAvatar, isLoading: isUpdatingTeamsAvatar } = useUpdateAvatar('teams')
-  const { mutate: transferLeader, isLoading: isTransferring } = useTransferLeader()
   const { mutate: inviteUser, isLoading: isInviting } = useInviteUser()
-  const { mutate: joinUser, isLoading: isJoining } = useJoinTeam()
-  const { mutate: updateTeam, isLoading: isUpdatingTeam } = useUpdateTeam()
 
   useEffect(() => {
     // maybe we need to turn off edits if we switch tabs
@@ -69,11 +64,17 @@ function TeamForm() {
 
   // handleClose() function
   const handleClose = () => {
-    setOpen(false)
     setRemoveMemberActive('')
     changeChosenLeader({ username: '', id: '' })
+    setIsEditing(false)
+    setOpen(false)
     setModalActive('')
   }
+
+  const { mutate: removeFromTeam, isLoading: isRemoving } = useRemoveMember(handleClose)
+  const { mutate: updateTeam, isLoading: isUpdatingTeam } = useUpdateTeam(handleClose)
+  const { mutate: transferLeader, isLoading: isTransferring } = useTransferLeader(handleClose)
+  const { mutate: joinUser, isLoading: isJoining } = useJoinTeam(handleClose)
 
   // handleInvite() function
   const handleInvite = () => {
@@ -122,20 +123,17 @@ function TeamForm() {
     setModalActive('RemoveMember')
   }
 
-  // if (
-  //   isUserTeamLoading ||
-  //   isDeleting ||
-  //   isLeaving ||
-  //   isRemoving ||
-  //   isTransferring ||
-  //   isUpdatingTeamsAvatar ||
-  //   isUpdatingTeam ||
-  //   isUserDataLoading ||
-  //   isInviting ||
-  //   isJoining
-  // ) {
-  //   return <Loader />
-  // }
+  const isDataLoading =
+    isUserTeamLoading ||
+    isDeleting ||
+    isLeaving ||
+    isRemoving ||
+    isTransferring ||
+    isUpdatingTeamsAvatar ||
+    isUpdatingTeam ||
+    isUserDataLoading ||
+    isInviting ||
+    isJoining
 
   if ((!isUserTeamLoading && !team) || error) {
     return <Page404Form findText="Couldn't find the requested team." paddingLeft="88px" />
@@ -154,6 +152,7 @@ function TeamForm() {
       role={role}
       handleJoin={handleJoin}
       updateTeam={updateTeam}
+      isDataLoading={isDataLoading}
     />
   )
 
@@ -195,9 +194,10 @@ function TeamForm() {
                 deleteTeam={deleteTeam}
                 setModalActive={setModalActive}
                 changeChosenLeader={changeChosenLeader}
+                isLoading={isDataLoading}
               />
               <CardContainer>
-                <Card>
+                <Card gap={isMembers ? '32px' : '16px'}>
                   <TeamProfileLargeCard
                     isMembers={isMembers}
                     editImage={editImage}

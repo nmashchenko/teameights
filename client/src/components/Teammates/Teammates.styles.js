@@ -14,8 +14,6 @@ export const GridContainer = styled.div`
 export const CardsContainer = styled.div`
   display: grid;
   row-gap: 50px;
-  justify-content: center;
-  align-items: center;
   margin-top: 15px;
   width: 100%;
   max-width: 1196px;
@@ -79,4 +77,8 @@ export const UserCardModal = styled(Modal)`
   @media screen and (max-width: 520px) {
     display: none;
   }
+`
+
+export const HidableWrapper = styled.div`
+  display: ${(props) => props.display || 'none'};
 `

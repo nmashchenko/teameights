@@ -1,44 +1,36 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import LongArrowLeft from '../../../../assets/Arrows/LongArrowLeft'
 import LongArrowRight from '../../../../assets/Arrows/LongArrowRight'
-import unregisteredImg from '../../../../assets/Images/user/unregistered.png'
-import SCrownRight from '../../../../assets/Shared/Crowns/SCrownRight'
 import FlexWrapper from '../../../../shared/components/FlexWrapper/FlexWrapper'
 // * Assets
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import CardSkeleton from '../../CardSkeleton/CardSkeleton'
+import { HidableWrapper } from '../Modal.styles'
 
-import {
-  Button,
-  CrownContainer,
-  FlagIcon,
-  MobileWrapper,
-  NumberSpan,
-  TeamImg,
-  Text,
-  UserImg,
-} from './TeamPreviewModalPhone.styles'
+import TeamMember from './TeamMember'
+import { Button, FlagIcon, NumberSpan, TeamImg, Text } from './TeamPreviewModalPhone.styles'
 
 const TeamPreviewModalPhone = ({ user, team, handleClose, handleJoin }) => {
+  const [usersTeam, setUsersTeam] = useState('')
+  const [imgLoading, setImgLoading] = useState(true)
+
   const members = team?.members
-
   const teammates = members?.slice(1, members.length)
-
   const navigate = useNavigate()
 
-  const getTeam = () => {
+  useEffect(() => {
     if (user?.team === undefined || user?.team._id !== team?._id) {
-      return 'Join'
+      setUsersTeam('Join')
     }
 
-    const teamid = user?.team._id
+    const teamid = user?.team?._id
 
     if (team?._id === teamid) {
-      return 'Your'
+      setUsersTeam('Your')
     }
-  }
-
-  const usersTeam = getTeam()
+  }, [user, team])
 
   return (
     <>
@@ -53,10 +45,18 @@ const TeamPreviewModalPhone = ({ user, team, handleClose, handleJoin }) => {
         </Button>
       </FlexWrapper>
       <FlexWrapper gap="24px" direction="column" margin="32px 0 0 0">
-        <FlexWrapper gap="32px" align="center">
-          <div>
-            <TeamImg src={team.image} alt={`${team?.name}'s image`} />
-          </div>
+        <FlexWrapper gap="32px" align="center" maxHeight="70px">
+          <HidableWrapper display={imgLoading ? 'block' : 'none'}>
+            <CardSkeleton width="70px" height="70px" borderRadius="50%" />
+          </HidableWrapper>
+          <HidableWrapper display={imgLoading ? 'none' : 'block'}>
+            <TeamImg
+              src={team.image}
+              alt={`${team?.name}'s image`}
+              onLoad={() => setImgLoading(false)}
+            />
+          </HidableWrapper>
+
           <FlexWrapper direction="column" maxHeight="70px">
             <FlexWrapper gap="8px" alignItems="center" maxHeight="30px">
               <Text fontSize="20px">{team?.name}</Text>
@@ -92,40 +92,22 @@ const TeamPreviewModalPhone = ({ user, team, handleClose, handleJoin }) => {
           </Text>
         )}
         <FlexWrapper direction="column" gap="20px" margin="0 0 24px 0">
-          <FlexWrapper position="relative" gap="12px">
-            <CrownContainer>
-              <SCrownRight />
-            </CrownContainer>
-            <UserImg src={team?.leader?.image} />
-            <FlexWrapper direction="column">
-              <FlexWrapper gap="8px" alignItems="baseline">
-                <Text fontSize="16px" color="#fff" fontWeight="400" margin="4px 0 0 0">
-                  {team?.leader?.username}
-                </Text>
-                {getCountryFlag(team.country) && <FlagIcon src={getCountryFlag(team.country)} />}
-              </FlexWrapper>
-              <Text fontSize="14px" color="#8F9094" fontWeight="400">
-                {team?.leader?.concentration}
-              </Text>
-            </FlexWrapper>
-          </FlexWrapper>
+          <TeamMember
+            src={team?.leader?.image}
+            username={team?.leader?.username}
+            concentration={team?.leader?.concentration}
+            country={team.country}
+            shouldHaveCrown={true}
+          />
+
           {teammates?.map((teammate, index) => (
-            <FlexWrapper gap="12px" key={index}>
-              <UserImg src={teammate?.image} />
-              <FlexWrapper direction="column">
-                <FlexWrapper gap="8px" alignItems="baseline">
-                  <Text fontSize="16px" color="#fff" fontWeight="400" margin="4px 0 0 0">
-                    {teammate?.username}
-                  </Text>
-                  {getCountryFlag(teammate?.country) && (
-                    <FlagIcon src={getCountryFlag(teammate?.country)} />
-                  )}
-                </FlexWrapper>
-                <Text fontSize="14px" color="#8F9094" fontWeight="400">
-                  {teammate?.concentration}
-                </Text>
-              </FlexWrapper>
-            </FlexWrapper>
+            <TeamMember
+              src={teammate?.image}
+              username={teammate?.username}
+              concentration={teammate?.concentration}
+              country={teammate?.country}
+              key={index}
+            />
           ))}
         </FlexWrapper>
       </FlexWrapper>

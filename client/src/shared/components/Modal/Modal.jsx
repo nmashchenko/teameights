@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Box, Modal, Slide } from '@mui/material'
+import React, { useMemo, useState } from 'react'
+import { ThreeDots } from 'react-loader-spinner'
+import { Box, Slide } from '@mui/material'
 
 import Close from '../../../assets/Shared/Close'
 import UserPlus from '../../../assets/Team/UserPlus'
@@ -105,8 +106,6 @@ const ModalComponent = ({
         return
       }
     }
-    handleClose()
-    setModalActive('')
   }
 
   const handleModal = () => {
@@ -119,6 +118,7 @@ const ModalComponent = ({
           firstButtonHandler={handleActions}
           secondButton="Cancel"
           secondButtonHandler={handleClose}
+          isLoading={isLoading}
         />
       )
     } else if (modalActive === 'RemoveMember') {
@@ -130,12 +130,14 @@ const ModalComponent = ({
           firstButtonHandler={handleActions}
           secondButton="Cancel"
           secondButtonHandler={handleClose}
+          isLoading={isLoading}
         />
       )
     } else if (modalActive === 'Invite') {
       return (
         <InteractiveModal
           interactiveText={'Send invite'}
+          isLoading={isLoading}
           interactiveComponent={
             <SearchUsersAutocomplete
               value={value}
@@ -144,11 +146,31 @@ const ModalComponent = ({
             />
           }
           interactiveButtons={
-            <Button color={email !== '' ? '1' : '.4'} onClick={handleActions} marginTop="0">
-              <UserPlusContainer>
-                <UserPlus />
-              </UserPlusContainer>
-              Invite
+            <Button
+              color={email !== '' ? '1' : '.4'}
+              onClick={handleActions}
+              marginTop="0"
+              background="#46a11b"
+            >
+              {isLoading ? (
+                <ThreeDots
+                  height="24"
+                  width="24"
+                  radius="9"
+                  color="white"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={true}
+                />
+              ) : (
+                <>
+                  <UserPlusContainer>
+                    <UserPlus />
+                  </UserPlusContainer>
+                  Invite
+                </>
+              )}
             </Button>
           }
         />
@@ -169,6 +191,7 @@ const ModalComponent = ({
           firstButtonHandler={handleActions}
           secondButton="Cancel"
           secondButtonHandler={handleClose}
+          isLoading={isLoading}
         />
       )
     } else if (modalActive === 'TransferLeader') {
@@ -180,6 +203,7 @@ const ModalComponent = ({
           firstButtonHandler={handleActions}
           secondButton="Cancel"
           secondButtonHandler={handleClose}
+          isLoading={isLoading}
         />
       )
     } else if (modalActive === 'SetNewLeader') {
@@ -245,6 +269,7 @@ const ModalComponent = ({
                 handleJoin={handleJoin}
                 team={team}
                 handleClose={handleClose}
+                isLoading={isLoading}
               />
             </>
           )}

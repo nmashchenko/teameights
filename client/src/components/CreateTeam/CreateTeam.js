@@ -41,7 +41,7 @@ function CreateTeam() {
       component: (
         <AvatarForm
           text="You can upload an image to represent your team on the platform, or select one of our default options. The avatar can be changed at any time."
-          defaultAvatars={defaultTeamAvatars}
+          type="team"
         />
       ),
       name: 'Add team avatar',
@@ -85,14 +85,14 @@ function CreateTeam() {
                   navigate(`/team/${updatedTeam.data._id}`)
                 },
                 onError: (error) => {
-                  errorToaster(error)
+                  errorToaster(error, 'top-center')
                 },
               },
             )
           }
         },
         onError: (error) => {
-          errorToaster(error)
+          errorToaster(error, 'top-center')
         },
       })
     } catch (e) {

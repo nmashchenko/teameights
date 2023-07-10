@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 export const Text = styled.p`
   font-weight: ${(props) => props.fontWeight || '500'};
@@ -51,6 +51,15 @@ export const ResumePartBox = styled.div`
   }
 `
 
+const fadeInAnimation = keyframes`
+  from {
+    transform: scaleX(0)
+  }
+  to {
+    transform: scaleX(100%)
+  }
+`
+
 export const ResumePartBtn = styled.div`
   position: relative;
   cursor: pointer;
@@ -73,6 +82,7 @@ export const ResumePartBtn = styled.div`
         height: 1px;
         background-color: #5bd424;
         width: 100%;
+        animation: ${fadeInAnimation} 0.3s forwards;
       }
     `}
 

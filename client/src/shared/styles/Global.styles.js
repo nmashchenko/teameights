@@ -34,6 +34,22 @@ export const GlobalStyle = createGlobalStyle`
     border-radius: 10px;
   }
  }
+
+ div {
+  ::-webkit-scrollbar { /* WebKit */
+   transition: all 0.2s;
+     width:  5px;
+     height:  0;
+   }
+   ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #5D9D0B;
+    border-radius: 10px;
+  }
+ }
   
  ul{
    list-style-type: none;

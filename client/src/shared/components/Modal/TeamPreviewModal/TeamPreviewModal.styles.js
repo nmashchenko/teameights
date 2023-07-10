@@ -1,16 +1,17 @@
 import styled from 'styled-components'
 
 import { WHITE } from '../../../../constants/colors'
-import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../../constants/fonts'
 
 export const ImagesContainer = styled.div`
   display: flex;
   gap: 36px;
+  max-height: 50px;
 `
 
 export const TeamCardTop = styled.div`
   display: flex;
   gap: 32px;
+  max-height: 75px;
 `
 export const TeamCardTopInfo = styled.div`
   display: flex;
@@ -76,9 +77,10 @@ export const TeamCardDesc = styled.p`
 
 export const CrownContainer = styled.div`
   position: absolute;
-  width: 22px;
-  height: 22px;
-  transform: rotate(25deg) translate(90%, -100%);
+  width: 28px;
+  height: 28px;
+  transform: rotate(25deg) translate(65%, -90%);
+  z-index: 1000;
   svg {
     width: 100%;
     height: 100%;
@@ -94,6 +96,7 @@ export const TeamCardPicture = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 `
 
 export const TeamCardMembers = styled.div`
@@ -132,6 +135,10 @@ export const JoinTeam = styled.button`
   background-color: #46a11b;
   padding: 10px 16px 8px;
   border-radius: 10px;
+  width: 109px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
@@ -140,6 +147,7 @@ export const JoinTeam = styled.button`
   opacity: ${(props) => (props.disabled ? '.5' : '1')};
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   user-select: ${(props) => (props.disabled ? 'none' : 'auto')};
+
   &:hover {
     transform: translateY(-1.25px);
   }

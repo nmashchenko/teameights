@@ -1,12 +1,13 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 
+import Crown from '../../../../assets/Shared/Crowns/Crown'
 // * Images
-import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
 // * Colors
 import { languageOptions } from '../../../../constants/programmingLanguages'
-import { LOCAL_PATH } from '../../../../http'
+import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 import { calculateAge } from '../../../../utils/calculateAge'
 import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import { HidableWrapper } from '../../Teammates.styles'
 
 import LengthFourCase from './FrameworksCases/LengthFourCase'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
@@ -34,6 +35,8 @@ import {
 
 // PASS IN PROPS TO RESPECTIVE COMPONENT TO RENDER
 const UserCard = React.forwardRef((props, ref) => {
+  const [imgLoading, setImgLoading] = useState(true)
+
   const person = props.person
 
   const plLength = person.programmingLanguages.length
@@ -89,14 +92,19 @@ const UserCard = React.forwardRef((props, ref) => {
   return (
     <Wrapper ref={ref}>
       <CardContainer plLength={plLength > 2} ufLength={ufLength > 4}>
+        {person.isLeader === true && (
+          <CrownContainer>
+            <Crown />
+          </CrownContainer>
+        )}
         <UserInformationContainer>
-          <div>
-            <UserImage
-              src={person.image}
-              alt="User's image"
-              onLoad={() => props.setLoadedPictures((prev) => prev + 1)}
-            />
-          </div>
+          <HidableWrapper display={imgLoading ? 'block' : 'none'}>
+            <CardSkeleton width="70px" height="70px" borderRadius="5px" />
+          </HidableWrapper>
+
+          <HidableWrapper display={imgLoading ? 'none' : 'block'}>
+            <UserImage src={person.image} alt="User's image" onLoad={() => setImgLoading(false)} />
+          </HidableWrapper>
           {programmingLanguages}
         </UserInformationContainer>
         <TextContainer>
@@ -114,13 +122,6 @@ const UserCard = React.forwardRef((props, ref) => {
         </TextContainer>
         {frameworksContainer}
       </CardContainer>
-      {person.isLeader === true ? (
-        <CrownContainer>
-          <img src={CrownImg} alt="crown" style={{ objectFit: 'cover' }} />
-        </CrownContainer>
-      ) : (
-        <div></div>
-      )}
     </Wrapper>
   )
 })
