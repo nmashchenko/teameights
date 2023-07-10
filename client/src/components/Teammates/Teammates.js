@@ -29,11 +29,6 @@ function Teammates() {
    */
   const [open, setOpen] = useState(false)
   const [showUser, setShowUser] = useState({})
-  const [isNotFound, setIsNotFound] = useState(false)
-
-  const handleComeback = () => {
-    setIsNotFound(false)
-  }
 
   /**
    * Get global state from redux
@@ -79,25 +74,10 @@ function Teammates() {
         mobileProfile={open}
         handleClose={handleClose}
       />
-      {/* If nothing was found, show user a NotFound container */}
-      {isNotFound ? (
-        <InfoContainer>
-          <NotFound handleComeback={handleComeback} />
-        </InfoContainer>
-      ) : (
-        <CardsZone>
-          <GridContainer>
-            <CardsContainer>
-              <Cards
-                setIsNotFound={setIsNotFound}
-                handleOpen={handleOpen}
-                isLoadingUseData={isLoadingUseData}
-              />
-            </CardsContainer>
-          </GridContainer>
-          <SliderToTop />
-        </CardsZone>
-      )}
+
+      <CardsZone>
+        <Cards handleOpen={handleOpen} isLoadingUseData={isLoadingUseData} />
+      </CardsZone>
     </>
   )
 }

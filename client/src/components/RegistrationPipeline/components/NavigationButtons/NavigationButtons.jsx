@@ -69,6 +69,7 @@ const NavigationButtons = ({
         iconPosition="left"
         border="2px solid #46A11B"
         background="transparent"
+        maxWidth="170px"
       >
         {step === 1 ? 'Cancel' : 'Back'}
       </CustomButton>
@@ -85,6 +86,7 @@ const NavigationButtons = ({
           icon={<ArrowNavigateFurther />}
           iconPosition="right"
           background={GREEN.button}
+          maxWidth="170px"
         >
           {isOptionalStep && !oneOfOptionalFieldsHasValue
             ? 'Skip'
@@ -100,6 +102,7 @@ const NavigationButtons = ({
           icon={isFinishingRegistration ? null : <ArrowNavigateFurther />}
           iconPosition="right"
           background={GREEN.button}
+          maxWidth="170px"
         >
           {isFinishingRegistration ? (
             <ThreeDots

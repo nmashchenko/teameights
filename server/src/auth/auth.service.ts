@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import * as bcrypt from 'bcryptjs';
-import { passwordStrength } from 'check-password-strength';
 import { OAuth2Client } from 'google-auth-library';
 import mongoose from 'mongoose';
 import * as uuid from 'uuid';
@@ -51,11 +50,6 @@ export class AuthService {
 					HttpStatus.BAD_REQUEST,
 				);
 			}
-
-			/* TODO: add check for medium/strong password */
-			// const security = passwordStrength(dto.password).value;
-
-			// console.log(security);
 
 			/* Hashing the password. */
 			const hashPassword = await bcrypt.hash(dto.password, 5);

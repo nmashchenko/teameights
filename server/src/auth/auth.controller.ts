@@ -176,10 +176,19 @@ export class AuthController {
 		@Param('token') token: string,
 		@Res() res: Response,
 	): Promise<void> {
-		await this.authService.verifyReset(email, token);
-		return res.redirect(
-			`${process.env.CLIENT_URL}/auth/password-recover/${email}/${token}`,
-		);
+		try {
+			await this.authService.verifyReset(email, token);
+
+			return res.redirect(
+				`${process.env.CLIENT_URL}/auth/password-recover/${email}/${token}`,
+			);
+		} catch (err) {
+			if (err.status === 403) {
+				res.redirect(`${process.env.CLIENT_URL}/auth/token-expired`);
+			} else {
+				throw err;
+			}
+		}
 	}
 
 	@ApiOperation({
@@ -191,7 +200,7 @@ export class AuthController {
 		description: 'Updates password for the user',
 	})
 	@UsePipes(ValidationPipe)
-	@Get('/update-password')
+	@Post('/update-password')
 	async updatePassword(
 		@Body() dto: ResetUserDto,
 		@Res() res: Response,

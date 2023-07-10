@@ -1,6 +1,5 @@
 import React from 'react'
 import { ThreeDots } from 'react-loader-spinner'
-import { useFormikContext } from 'formik'
 
 import LongArrowLeft from '../../../../../assets/Arrows/LongArrowLeft'
 import AddUserIcon from '../../../../../assets/Shared/AddUserIcon'

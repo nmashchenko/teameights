@@ -27,7 +27,6 @@ const Profile = () => {
   const { data: currentUser, isFetching } = useCheckAuth()
   const [isEditing, setIsEditing] = useState('')
   const [showingUser, setShowingUser] = useState(null)
-  const width = useGetScreenWidth()
 
   useEffect(() => {
     setShowingUser(data?.data)

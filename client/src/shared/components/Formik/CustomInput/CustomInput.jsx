@@ -13,12 +13,13 @@ const CustomInput = ({
   containerWidth = 'auto',
   inputWidth = '100%',
   onInputChange,
-  uniqueError,
+  uniqueError = false,
   uniqueErrorMessage,
   shouldFormatDate = false,
   shouldFormatYear = false,
   isOptional = false,
   maxLength = 524288,
+  withIcon = true,
   ...props
 }) => {
   const [field, meta, helpers] = useField(props)
@@ -56,14 +57,14 @@ const CustomInput = ({
           id={field.name}
           onChange={handleChange} // Add the onChange event handler
         />
-        {(isError || uniqueError) && (
+        {((meta.touched && isError) || (meta.touched && uniqueError)) && withIcon && (
           <IconSpan>
             <AlertIcon />
           </IconSpan>
         )}
       </InputWrapper>
       {isError && <ErrorMessage>{meta.error}</ErrorMessage>}
-      {uniqueError && <ErrorMessage>{uniqueErrorMessage}</ErrorMessage>}
+      {meta.touched && uniqueError && <ErrorMessage>{uniqueErrorMessage}</ErrorMessage>}
     </Box>
   )
 }

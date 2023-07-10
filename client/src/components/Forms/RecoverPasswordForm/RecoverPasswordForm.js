@@ -1,101 +1,95 @@
 // * Modules
-import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Snackbar from '@mui/material/Snackbar'
+import { ThreeDots } from 'react-loader-spinner'
+import { useNavigate } from 'react-router-dom'
+import { Formik } from 'formik'
+import { isEmpty } from 'lodash'
 
-// * Api
-import resetPassword from '../../../api/endpoints/reset'
-import ArrowLeftReset from '../../../assets/Arrows/ArrowLeftReset'
+import { useResetPasssword } from '../../../api/hooks/auth/useResetPassword'
 // * Assets
-import SiteLogo from '../../../assets/Platform/TeameightsLogo'
+import ArrowNavigateBack from '../../../assets/Arrows/ArrowNavigateBack'
 import ROUTES from '../../../constants/routes'
-import Alert from '../../RegistrationPipeline/components/Alert/Alert'
+import CustomButton from '../../../shared/components/CustomButton/CustomButton'
+import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
+import CustomInput from '../../../shared/components/Formik/CustomInput/CustomInput'
 
 import {
-  BackButton,
-  ButtonContainer,
+  ButtonsContainer,
   Container,
   RecoverBox,
-  RecoverButton,
-  RecoverContainer,
-  RecoverInput,
-  SubTitleText,
-  TextContainer,
-  TitleText,
+  RecoverForm,
+  RecoverText,
+  RecoverTitle,
 } from './RecoverPasswordForm.styles'
 import emailValidation from './RecoverValidation'
 
-function RecoverPassword() {
+const RecoverPassword2 = () => {
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [open, setOpen] = useState(false)
-  const [errors, setErrors] = useState([])
 
-  const handleReset = async () => {
-    try {
-      await emailValidation.validate({ email })
-      resetPassword.getRegistrationEmail(email)
-      navigate(ROUTES.passwordRecoverConfirm, {
-        replace: true,
-        state: { email },
-      })
-    } catch (err) {
-      setErrors(err.errors)
-      setOpen(true)
-    }
-  }
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setOpen(false)
-  }
+  const { mutate: resetPassword, isLoading: isResetting } = useResetPasssword()
 
   return (
     <Container>
-      {errors.length > 0 && (
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
+      <RecoverBox>
+        <FlexWrapper direction="column" gap="8px">
+          <RecoverTitle>Recover Password</RecoverTitle>
+          <RecoverText>
+            Enter the email you used to register and we will send you link to reset your password
+          </RecoverText>
+        </FlexWrapper>
+
+        <Formik
+          initialValues={{
+            email: '',
           }}
+          validationSchema={emailValidation}
+          onSubmit={({ email }, _) => resetPassword(email)}
         >
-          <Alert onClose={handleClose} severity="error">
-            {errors[0]}
-          </Alert>
-        </Snackbar>
-      )}
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}></AppBar>
-      </Box>
-      <RecoverContainer>
-        <RecoverBox>
-          <TextContainer>
-            <TitleText margin="0 0 24px 0">Recover Password</TitleText>
-          </TextContainer>
-          <TextContainer>
-            <SubTitleText>
-              Enter the email address you used to register and we will send you the instructions
-            </SubTitleText>
-          </TextContainer>
-          <RecoverInput placeholder="EMAIL" onChange={(e) => setEmail(e.target.value)} required />
-          <RecoverButton onClick={handleReset}>RESET PASSWORD</RecoverButton>
-          <ButtonContainer>
-            <ArrowLeftReset />
-            <BackButton onClick={() => navigate(ROUTES.login, { replace: true })}>
-              BACK TO SIGN IN
-            </BackButton>
-          </ButtonContainer>
-        </RecoverBox>
-      </RecoverContainer>
+          {({ values, errors }) => (
+            <RecoverForm>
+              <CustomInput containerWidth="100%" placeholder="Email" name="email" type="email" />
+
+              <ButtonsContainer>
+                <CustomButton
+                  width="100%"
+                  fontSize="16px"
+                  disabled={!isEmpty(errors)}
+                  type="onSubmit"
+                  name="email"
+                >
+                  {isResetting ? (
+                    <ThreeDots
+                      height="24"
+                      width="24"
+                      radius="9"
+                      color="white"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClassName=""
+                      visible={true}
+                    />
+                  ) : (
+                    'Reset password'
+                  )}
+                </CustomButton>
+
+                <CustomButton
+                  width="100%"
+                  icon={<ArrowNavigateBack />}
+                  iconPosition="left"
+                  border="2px solid #46A11B"
+                  background="transparent"
+                  fontSize="16px"
+                  onClick={() => navigate(ROUTES.login, { replace: true })}
+                >
+                  Back to Log in
+                </CustomButton>
+              </ButtonsContainer>
+            </RecoverForm>
+          )}
+        </Formik>
+      </RecoverBox>
     </Container>
   )
 }
 
-export default RecoverPassword
+export default RecoverPassword2

@@ -7,7 +7,7 @@ export const Button = styled.button`
   border: ${(props) => (props.border ? props.border : 'none')};
   color: ${(props) => (props.transparent ? '#007bff' : '#fff')};
   padding: 0.875rem 0;
-  max-width: 10.625rem;
+  max-width: ${(props) => props.maxWidth || 'none'};
   width: 100%;
   border-radius: 10px;
   display: flex;
