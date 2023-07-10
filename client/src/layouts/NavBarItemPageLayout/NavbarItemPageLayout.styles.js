@@ -9,5 +9,5 @@ export const Container = styled.div`
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  background: ${BLACK.background};
+  /* background: ${BLACK.background}; */
 `

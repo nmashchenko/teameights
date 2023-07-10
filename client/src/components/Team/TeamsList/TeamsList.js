@@ -28,11 +28,6 @@ function TeamsList() {
   let [changeModal, setChangeModal] = useState('')
 
   const { mutate: joinUser, isLoading: isUserTeamLoading } = useJoinTeam()
-  const [isNotFound, setIsNotFound] = useState(false)
-
-  const handleComeback = () => {
-    setIsNotFound(false)
-  }
 
   const { leaveAndJoin, isLeaving, isJoining } = useLeaveAndJoin()
 
@@ -75,14 +70,6 @@ function TeamsList() {
     await leaveAndJoin.mutateAsync({ leaveDetails, joinDetails })
   }
 
-  // if (isUserTeamLoading || isLeaving || isJoining) {
-  //   return (
-  //     <Container>
-  //       <Loader />
-  //     </Container>
-  //   )
-  // }
-
   return (
     <>
       <Modal
@@ -101,21 +88,14 @@ function TeamsList() {
         hideLogoForMobile={true}
       />
 
-      {isNotFound ? (
-        <NotFoundContainer>
-          <NotFound handleComeback={handleComeback} />
-        </NotFoundContainer>
-      ) : (
-        <Container>
-          <Teams
-            handleClickOpen={handleClickOpen}
-            setIsNotFound={setIsNotFound}
-            isLoadingUserData={isLoadingUserData}
-            width={width}
-          />
-          <SliderToTop />
-        </Container>
-      )}
+      <Container>
+        <Teams
+          handleClickOpen={handleClickOpen}
+          isLoadingUserData={isLoadingUserData}
+          width={width}
+        />
+        <SliderToTop />
+      </Container>
     </>
   )
 }

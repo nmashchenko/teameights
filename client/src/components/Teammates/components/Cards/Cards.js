@@ -1,5 +1,5 @@
 // * Modules
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 // * Constants
 // * API
 import lookup from 'country-code-lookup'
@@ -7,6 +7,9 @@ import lookup from 'country-code-lookup'
 import { useLoadUsers } from '../../../../api/hooks/temeights/useLoadUsers'
 import { useGetScreenWidth } from '../../../../hooks/useGetScreenWidth'
 import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
+import SliderToTop from '../../../../shared/components/SliderToTop/SliderToTop'
+import { CardsContainer, GridContainer } from '../../Teammates.styles'
+import NotFound from '../NotFound/NotFound'
 // * Components
 import UserCard from '../UserCard/UserCard'
 
@@ -14,9 +17,9 @@ import UserCard from '../UserCard/UserCard'
 // * Styles
 import { CardContainer } from './Cards.styles'
 
-const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
+const Cards = ({ handleOpen, isLoadingUseData }) => {
   const intObserver = useRef()
-  const width = useGetScreenWidth()
+  const [isNotFound, setIsNotFound] = useState(false)
 
   const {
     fetchNextPage,
@@ -103,21 +106,31 @@ const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
     })
   })
 
-  {
-    /* If nothing was found, show user a NotFound container */
-  }
-
   useEffect(() => {
-    if (isFetched && !content[0].length && !filtered) {
+    if (isFetched && !content[0].length) {
       setIsNotFound(true)
+    } else {
+      setIsNotFound(false)
     }
   }, [isFetched, content])
 
+  {
+    /* If nothing was found, show user a NotFound container */
+  }
+  if (isNotFound) {
+    return <NotFound />
+  }
+
   return (
     <>
-      {content}
-      {/* Load skeleton before showing real cards to improve performance of the app */}
-      {(isFetchingNextPage || isLoadingUseData || isLoading) && <CardSkeleton cards={9} />}
+      <GridContainer>
+        <CardsContainer>
+          {content}
+          {/* Load skeleton before showing real cards to improve performance of the app */}
+          {(isFetchingNextPage || isLoadingUseData || isLoading) && <CardSkeleton cards={9} />}
+        </CardsContainer>
+      </GridContainer>
+      <SliderToTop />
     </>
   )
 }

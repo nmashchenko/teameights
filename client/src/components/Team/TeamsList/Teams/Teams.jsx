@@ -2,13 +2,15 @@ import { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 
 import { useLoadTeams } from '../../../../api/hooks/team/useLoadTeams'
 import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
+import NotFound from '../../../Teammates/components/NotFound/NotFound'
 import { TeamsListBox, TeamsWrapper } from '../TeamsList.styles'
 
 import Desktop from './TeamData/TeamDataDesktop'
 import Mobile from './TeamData/TeamDataMobile'
 
-const Teams = ({ handleClickOpen, setIsNotFound, isLoadingUserData, width }) => {
+const Teams = ({ handleClickOpen, isLoadingUserData, width }) => {
   const intObserver = useRef()
+  const [isNotFound, setIsNotFound] = useState(false)
 
   const {
     fetchNextPage,
@@ -73,10 +75,16 @@ const Teams = ({ handleClickOpen, setIsNotFound, isLoadingUserData, width }) => 
   })
 
   useEffect(() => {
-    if (isFetched && !content[0].length && !filtered) {
+    if (isFetched && !content[0].length) {
       setIsNotFound(true)
+    } else {
+      setIsNotFound(false)
     }
   }, [isFetched, content])
+
+  if (isNotFound) {
+    return <NotFound />
+  }
 
   return (
     <TeamsWrapper>

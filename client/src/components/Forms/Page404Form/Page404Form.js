@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import LongArrowLeft from '../../../assets/Arrows/LongArrowLeft'
 // * Assets
-import Page404 from '../../../assets/Shared/SearchingPeople'
+import Page404 from '../../../assets/Shared/NonFound'
 import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
 
 // * Styles

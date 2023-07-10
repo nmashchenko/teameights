@@ -134,17 +134,3 @@ export const TeamButton = styled.button`
     transform: translateY(-1.25px);
   }
 `
-
-export const NotFoundContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: calc(100vh - 238px);
-  /* height: 100%; */
-  padding-left: 88px;
-
-  @media screen and (max-width: 768px) {
-    padding-left: 0px;
-  }
-`
