@@ -1,12 +1,15 @@
 import styled from 'styled-components'
 
 export const GroupItems = styled.div`
-  display: flex;
-  justify-content: space-around;
-  gap: 130px;
+  width: 100%;
 `
 
 export const InputWrapper = styled.div`
-  flex-grow: ${(props) => props.grow || '1'};
-  width: ${(props) => props.width || '100%'};
+  display: flex;
+  gap: 130px;
+  width: 100%;
+
+  @media screen and (max-width: 600px) {
+    gap: 100px;
+  }
 `

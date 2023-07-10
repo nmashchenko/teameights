@@ -1,21 +1,23 @@
 import React from 'react'
+import { useFormikContext } from 'formik'
 
 import { userConcentrations } from '../../../../../constants/finishRegistrationData'
-import SelectValue from '../../../../../shared/components/CustomSelect/components/SelectValue'
-import CustomSelect from '../../../../../shared/components/CustomSelect/CustomSelect'
+import CustomSelectAutocomplete from '../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
 import { ContentContainer } from '../../MultiStepRegistration/MultiStepRegistration.styles'
 
 const UserConcentrationForm = () => {
+  const { values } = useFormikContext()
+
   return (
     <ContentContainer rows={userConcentrations.length}>
       {userConcentrations.map((concentration) => (
-        <CustomSelect
+        <CustomSelectAutocomplete
           key={concentration.name}
           multiple={concentration.multiple}
           label={concentration.label}
           name={concentration.name}
-          renderValue={(selected) => <SelectValue selected={selected} max={3} />}
           options={concentration.options}
+          value={values[concentration.name]}
         />
       ))}
     </ContentContainer>

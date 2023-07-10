@@ -7,8 +7,8 @@ export const Button = styled.button`
   border: ${(props) => (props.border ? props.border : 'none')};
   color: ${(props) => (props.transparent ? '#007bff' : '#fff')};
   padding: 0.875rem 0;
-  width: ${(props) => props.width || '10.625rem'};
-  font-size: ${(props) => props.fontSize};
+  max-width: 10.625rem;
+  width: 100%;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -16,16 +16,19 @@ export const Button = styled.button`
   line-height: 140%;
   cursor: pointer;
   opacity: ${(props) => (props.disabled ? '0.4' : '1')};
+  font-size: 16px;
 
-  //&:hover {
-  //  border: none;
-  //  cursor: pointer;
-  //  transition: 0.15s;
-  //}
+  @media screen and (max-width: 600px) {
+    padding: 0.575rem 0;
+  }
 `
 
 export const IconWrapper = styled.span`
   display: flex;
   margin-right: ${(props) => (props.iconPosition === 'right' ? 0 : '0.5rem')};
   margin-left: ${(props) => (props.iconPosition === 'left' ? 0 : '0.5rem')};
+
+  @media screen and (max-width: 600px) {
+    margin: 0;
+  }
 `

@@ -1,14 +1,17 @@
 // * Modules
-import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 // API
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
+import { useUpdateAvatar } from '../../api/hooks/shared/useUpdateAvatar'
 import { useCreateTeam } from '../../api/hooks/team/useCreateTeam'
 import { defaultTeamAvatars } from '../../constants/teamFormData'
 // * Assets
 import { createTeamValidation } from '../../schemas'
 import Loader from '../../shared/components/Loader/Loader'
 import { errorToaster } from '../../shared/components/Toasters/Error.toaster'
+import { setIsFinishRegistrationStarted, setStep } from '../../store/reducers/RegistrationAuth'
 import { transformToCreateTeamDto } from '../../utils/transformToCreateTeamDto'
 import MultiStepRegistration from '../RegistrationPipeline/components/MultiStepRegistration/MultiStepRegistration'
 import AvatarForm from '../RegistrationPipeline/components/RegistrationForms/AvatarForm/AvatarForm'
@@ -16,14 +19,16 @@ import InfoForm from '../RegistrationPipeline/components/RegistrationForms/InfoF
 import InviteMembersForm from '../RegistrationPipeline/components/RegistrationForms/InviteMembersForm/InviteMembersForm'
 
 function CreateTeam() {
-  const [teamAvatar, setTeamAvatar] = useState(null)
-  const {
-    mutate: createTeam,
-    isLoading: isCreatingTeam,
-    isError: isCreatingTeamError,
-    error,
-  } = useCreateTeam(teamAvatar)
+  const { mutate: updateAvatar, isLoading: isAvatarUpdating } = useUpdateAvatar('teams')
+
+  const { mutate: createTeam, isLoading: isCreatingTeam } = useCreateTeam()
+
   const { data: user, isLoading: isUserLoading } = useCheckAuth()
+
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
   const userId = user?._id
   const steps = [
     { component: <InfoForm />, name: 'Create team', isOptional: false },
@@ -36,7 +41,7 @@ function CreateTeam() {
       component: (
         <AvatarForm
           text="You can upload an image to represent your team on the platform, or select one of our default options. The avatar can be changed at any time."
-          defaultAvatars={defaultTeamAvatars}
+          type="team"
         />
       ),
       name: 'Add team avatar',
@@ -54,7 +59,7 @@ function CreateTeam() {
     file: null,
   }
 
-  const submitForm = async (formData) => {
+  const submitForm = (formData) => {
     let membersModified = transformToCreateTeamDto(formData.members)
 
     const teamData = {
@@ -67,23 +72,43 @@ function CreateTeam() {
       members: membersModified.members,
     }
 
-    setTeamAvatar(formData.file)
-
-    createTeam(teamData)
-  }
-
-  if (isCreatingTeamError && !isCreatingTeam) {
-    errorToaster(error)
+    try {
+      createTeam(teamData, {
+        onSuccess: (data) => {
+          if (formData.file) {
+            updateAvatar(
+              { teamID: data._id, image: formData.file.split(',')[1] },
+              {
+                onSuccess: (updatedTeam) => {
+                  dispatch(setIsFinishRegistrationStarted(false))
+                  dispatch(setStep(1))
+                  navigate(`/team/${updatedTeam.data._id}`)
+                },
+                onError: (error) => {
+                  errorToaster(error, 'top-center')
+                },
+              },
+            )
+          }
+        },
+        onError: (error) => {
+          errorToaster(error, 'top-center')
+        },
+      })
+    } catch (e) {
+      /* empty */
+    }
   }
 
   return (
     <>
-      {(isUserLoading || isCreatingTeam) && <Loader />}
+      {isUserLoading && <Loader />}
       <MultiStepRegistration
         steps={steps}
         validationSchema={createTeamValidation}
         initialValues={initialValues}
         submitForm={submitForm}
+        isFinishingRegistration={isCreatingTeam || isAvatarUpdating}
       />
     </>
   )

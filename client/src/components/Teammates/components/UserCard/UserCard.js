@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { memo, useState } from 'react'
 
+import Crown from '../../../../assets/Shared/Crowns/Crown'
 // * Images
-import CrownImg from '../../../../assets/UserProfile/LeaderCrown.png'
 // * Colors
 import { languageOptions } from '../../../../constants/programmingLanguages'
-import { LOCAL_PATH } from '../../../../http'
+import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 import { calculateAge } from '../../../../utils/calculateAge'
+import { getCountryFlag } from '../../../../utils/getCountryFlag'
+import { HidableWrapper } from '../../Teammates.styles'
 
 import LengthFourCase from './FrameworksCases/LengthFourCase'
 import LengthFourSlicedCase from './FrameworksCases/LengthFourSlicedCase'
@@ -19,6 +21,7 @@ import {
   CardContainer,
   CountryContainer,
   CrownContainer,
+  FlagIcon,
   FrameWorksContainer,
   LanguageContainer,
   ProgrammingLanguagesContainer,
@@ -32,6 +35,8 @@ import {
 
 // PASS IN PROPS TO RESPECTIVE COMPONENT TO RENDER
 const UserCard = React.forwardRef((props, ref) => {
+  const [imgLoading, setImgLoading] = useState(true)
+
   const person = props.person
 
   const plLength = person.programmingLanguages.length
@@ -43,6 +48,14 @@ const UserCard = React.forwardRef((props, ref) => {
 
         if (i === 1 && plLength > 2) {
           andMore = <AndMore makeWhite={false}>{plLength - 2}+</AndMore>
+        }
+
+        if (plLength === 1) {
+          return (
+            <LanguageContainer key={element} width="100%">
+              {languageOptions[element]}
+            </LanguageContainer>
+          )
         }
 
         return (
@@ -79,36 +92,38 @@ const UserCard = React.forwardRef((props, ref) => {
   return (
     <Wrapper ref={ref}>
       <CardContainer plLength={plLength > 2} ufLength={ufLength > 4}>
+        {person.isLeader === true && (
+          <CrownContainer>
+            <Crown />
+          </CrownContainer>
+        )}
         <UserInformationContainer>
-          {/* TODO: Change for real image! */}
-          <div>
-            <UserImage src={LOCAL_PATH + '/' + person.image} alt="User's image" />
-          </div>
+          <HidableWrapper display={imgLoading ? 'block' : 'none'}>
+            <CardSkeleton width="70px" height="70px" borderRadius="5px" />
+          </HidableWrapper>
+
+          <HidableWrapper display={imgLoading ? 'none' : 'block'}>
+            <UserImage src={person.image} alt="User's image" onLoad={() => setImgLoading(false)} />
+          </HidableWrapper>
           {programmingLanguages}
         </UserInformationContainer>
         <TextContainer>
           <UserData>
             <CountryContainer>
-              <TitleText fontWeight="500" fontSize="12px" margin="0 7px 0 0">
-                {person.fullName}, {calculateAge(person.dateOfBirth)}
+              <TitleText fontWeight="400" fontSize="16px" margin="0 7px 0 0">
+                {person.fullName.split(' ')[0]}, {calculateAge(person.dateOfBirth)}
               </TitleText>
+              {getCountryFlag(person.country) && <FlagIcon src={getCountryFlag(person.country)} />}
             </CountryContainer>
-            <TitleText fontWeight="600" fontSize="12px">
+            <TitleText fontWeight="400" fontSize="14px" color="#8F9094">
               {person.concentration}
             </TitleText>
           </UserData>
         </TextContainer>
         {frameworksContainer}
       </CardContainer>
-      {person.isLeader === true ? (
-        <CrownContainer>
-          <img src={CrownImg} alt="crown"></img>
-        </CrownContainer>
-      ) : (
-        <div></div>
-      )}
     </Wrapper>
   )
 })
 
-export default UserCard
+export default memo(UserCard)

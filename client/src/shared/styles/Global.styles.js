@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
    font-family: 'Rubik', sans-serif !important;
  }
 
+ /* html {
+  background: #26292B !important;
+ } */
+
  body {
    background: #26292B !important;
    overflow-y: scroll;
@@ -27,6 +31,22 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-thumb {
     background-color: 
     ${(props) => (props.theme.scrollbar ? `#5D9D0B;` : '#000000')};
+    border-radius: 10px;
+  }
+ }
+
+ div {
+  ::-webkit-scrollbar { /* WebKit */
+   transition: all 0.2s;
+     width:  5px;
+     height:  0;
+   }
+   ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #5D9D0B;
     border-radius: 10px;
   }
  }

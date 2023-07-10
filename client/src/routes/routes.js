@@ -2,9 +2,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-// * Components
-import ProfileDetails from '../components/Profile/components/ProfileDetails/ProfileDetails'
-import ProfileForm from '../components/Profile/components/ProfileForm'
 // * Constants
 import ROUTES from '../constants/routes'
 // * Layouts
@@ -38,22 +35,7 @@ export const useRoutes = () => {
       {/* // * for authenticated user */}
       <Route element={<NavBarItemPageLayout />}>
         <Route path={ROUTES.default} element={<TeammatesScreen />} />
-        <Route
-          path={ROUTES.profile}
-          element={
-            <ProfileScreen>
-              <ProfileDetails />
-            </ProfileScreen>
-          }
-        />
-        <Route
-          path={ROUTES.profileEdit}
-          element={
-            <ProfileScreen>
-              <ProfileForm />
-            </ProfileScreen>
-          }
-        />
+        <Route path={ROUTES.profile} element={<ProfileScreen />} />
         <Route path={ROUTES.tournaments} element={<TournamentsScreen />} />
         <Route path={ROUTES.specificTeam} element={<TeamScreen />} />
         <Route path={ROUTES.noTeam} element={<NoTeamScreen />} />

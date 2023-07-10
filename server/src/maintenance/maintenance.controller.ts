@@ -1,11 +1,13 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 import mongoose from 'mongoose';
 
 import { StatusResponseDto } from './dto/status-response.dto';
 import { MaintenanceService } from './maintenance.service';
 
 @ApiTags('Maintenance')
+@SkipThrottle()
 @Controller('maintenance')
 export class MaintenanceController {
 	constructor(private maintenanceService: MaintenanceService) {}
@@ -67,5 +69,12 @@ export class MaintenanceController {
 		if (hash === '0578c31575bd7b04ca526296db4ba1b73ffe8f8c55b491cf3409b244')
 			return this.maintenanceService.dropDatabase();
 		else return { status: 'Not authorized to make this request.' };
+	}
+
+	@Get('/heartbeat')
+	async getHeartBeat(): Promise<StatusResponseDto> {
+		return {
+			status: 'All systems are up and working. Have a good day! ⚡️',
+		};
 	}
 }

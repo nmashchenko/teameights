@@ -5,6 +5,7 @@ import mongoose, { Connection } from 'mongoose';
 import { performance } from 'perf_hooks';
 import { uuid } from 'uuidv4';
 
+import { FileService } from '@/files/file.service';
 import { NotificationsService } from '@/notifications/notifications.service';
 import { RolesService } from '@/roles/roles.service';
 import { CreateTeamDto } from '@/teams/dto/create-team.dto';
@@ -21,6 +22,12 @@ import {
 	avatar_pink,
 	avatar_purple,
 	avatar_yellow,
+	team_avatar_blue,
+	team_avatar_green,
+	team_avatar_orange,
+	team_avatar_pink,
+	team_avatar_purple,
+	team_avatar_yellow,
 } from './maintenance.data';
 
 @Injectable()
@@ -31,6 +38,7 @@ export class MaintenanceService {
 		private rolesService: RolesService,
 		private teamsService: TeamsService,
 		private notificationsService: NotificationsService,
+		private filesService: FileService,
 	) {}
 
 	programmingLanguages: string[] = [
@@ -49,14 +57,17 @@ export class MaintenanceService {
 		'Dart',
 		'Perl',
 		'SQL',
+		'TS',
+		'Kotlin',
+		'Rust',
+		'R',
+		'Lua',
 	];
 
 	frameworks: string[] = [
 		'NodeJS',
 		'Ruby',
 		'Angular',
-		'Android',
-		'IOS',
 		'Hadoop',
 		'Ember',
 		'Django',
@@ -67,6 +78,43 @@ export class MaintenanceService {
 		'Backbone',
 		'Figma',
 		'Photoshop',
+		'jQuery',
+		'MUI',
+		'ASP.NET',
+		'NumPy',
+		'Flutter',
+		'React N.',
+		'Flask',
+		'VueJS',
+		'Bootstrap',
+		'KMM',
+		'GraphQL',
+		'Laravel',
+		'PyTorch',
+		'Tensor F.',
+		'Express',
+		'Illustrator',
+	];
+
+	concentrations: string[] = [
+		'Mobile Developer',
+		'Frontend/UI Developer',
+		'Backend Developer',
+		'Full-Stack Developer',
+		'Desktop Applications Developer',
+		'Embedded Systems Developer',
+		'Machine Learning Engineer',
+		'Data Scientist',
+		'DevOps Engineer',
+		'Data Engineer',
+		'QA/Test Engineer',
+		'Designer',
+		'Project Manager',
+		'Cyber Security',
+		'Web Developer',
+		'Database Developer',
+		'No-code Developer',
+		'Other',
 	];
 
 	images: string[] = [
@@ -78,10 +126,33 @@ export class MaintenanceService {
 		avatar_yellow,
 	];
 
+	team_images: string[] = [
+		team_avatar_blue,
+		team_avatar_green,
+		team_avatar_pink,
+		team_avatar_purple,
+		team_avatar_orange,
+		team_avatar_yellow,
+	];
+
 	private getRandomEntries(arr: string[]): string[] {
 		const numEntries = Math.floor(Math.random() * 7) + 1;
 		const shuffled = arr.sort(() => 0.5 - Math.random());
 		return shuffled.slice(0, numEntries);
+	}
+
+	getRandomValue = (array: string[]): string => {
+		const randomIndex = Math.floor(Math.random() * array.length);
+		return array[randomIndex];
+	};
+
+	private generateDescription(length: number): string {
+		let description = faker.lorem.sentence();
+
+		while (description.length < length) {
+			description += ' ' + faker.lorem.sentence();
+		}
+		return description.slice(0, length);
 	}
 
 	private generateTeam(leader: mongoose.Types.ObjectId): any {
@@ -94,7 +165,7 @@ export class MaintenanceService {
 		const team: RemoveReadonly = dto;
 
 		team.name = faker.internet.userName();
-		team.description = faker.lorem.paragraph();
+		team.description = this.generateDescription(230);
 		team.leader = leader;
 		team.country = faker.address.country();
 		team.type = 'open';
@@ -133,8 +204,8 @@ export class MaintenanceService {
 			max: 65,
 			mode: 'age',
 		})),
-			(initialUser.description = faker.lorem.sentence());
-		initialUser.concentration = faker.name.jobTitle();
+			(initialUser.description = this.generateDescription(230));
+		initialUser.concentration = this.getRandomValue(this.concentrations);
 		initialUser.country = faker.address.country();
 		initialUser.experience = `${faker.datatype.number({
 			min: 0,
@@ -144,28 +215,33 @@ export class MaintenanceService {
 		initialUser.links = {
 			github: 'https://github.com',
 			linkedIn: 'https://www.linkedin.com/',
-			instagram: 'https://www.instagram.com/',
+			behance: 'https://www.behance.com/',
 			telegram: 'https://www.telegram.com/',
 		};
 		initialUser.programmingLanguages = this.getRandomEntries(
 			this.programmingLanguages,
 		);
+
 		initialUser.frameworks = this.getRandomEntries(this.frameworks);
 
-		initialUser.universityData = {
-			university: faker.random.words(2),
-			major: faker.random.words(2),
-			degree: 'Bachelor',
-			addmissionDate: new Date(),
-			graduationDate: new Date(),
-		};
+		initialUser.universityData = [
+			{
+				university: faker.random.words(2),
+				major: faker.random.words(2),
+				degree: 'Bachelor',
+				addmissionDate: new Date(),
+				graduationDate: new Date(),
+			},
+		];
 
-		initialUser.jobData = {
-			title: faker.random.words(2),
-			company: faker.company.name(),
-			startDate: new Date(),
-			endDate: new Date(),
-		};
+		initialUser.jobData = [
+			{
+				title: faker.random.words(2),
+				company: faker.company.name(),
+				startDate: new Date(),
+				endDate: new Date(),
+			},
+		];
 
 		return initialUser;
 	}
@@ -188,6 +264,7 @@ export class MaintenanceService {
 			const update = this.updateGeneratedUser(user.email);
 
 			const randomIndex = Math.floor(Math.random() * this.images.length);
+
 			await this.usersService.updateAvatar({
 				email: user.email,
 				image: this.images[randomIndex],
@@ -211,10 +288,27 @@ export class MaintenanceService {
 			const newUser = this.generateInitialUser();
 			const user = await this.usersService.createUser(newUser);
 			const update = this.updateGeneratedUser(user.email);
+
+			const randomUserIndex = Math.floor(
+				Math.random() * this.images.length,
+			);
+			await this.usersService.updateAvatar({
+				email: user.email,
+				image: this.images[randomUserIndex],
+			});
 			await this.usersService.updateUser(update);
+
 			const team = this.generateTeam(user._id);
 
-			await this.teamsService.createTeam(team);
+			const createdTeam = await this.teamsService.createTeam(team);
+
+			const randomTeamIndex = Math.floor(
+				Math.random() * this.images.length,
+			);
+			await this.teamsService.updateTeamAvatar({
+				teamID: createdTeam._id,
+				image: this.team_images[randomTeamIndex],
+			});
 		}
 
 		const endTime = performance.now();
@@ -235,6 +329,12 @@ export class MaintenanceService {
 			const newUser = this.generateInitialUser();
 			const user = await this.usersService.createUser(newUser);
 			const update = this.updateGeneratedUser(user.email);
+
+			const randomIndex = Math.floor(Math.random() * this.images.length);
+			await this.usersService.updateAvatar({
+				email: user.email,
+				image: this.images[randomIndex],
+			});
 			await this.usersService.updateUser(update);
 
 			const joinDto = {
@@ -288,6 +388,8 @@ export class MaintenanceService {
 		const startTime = performance.now();
 
 		await this.connection.dropDatabase();
+
+		await this.filesService.deleteFolderFromS3('image', 'teameights');
 
 		await this.rolesService.createRole({
 			value: 'USER',

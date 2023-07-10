@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import countryList from 'react-select-country-list'
+import { useFormikContext } from 'formik'
 
-import { useValidateUsername } from '../../../../../../api/hooks/auth/useValidateUsername'
 import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
-import CustomInput from '../../../../../../shared/components/CustomInput/CustomInput'
+import { useValidateUsername } from '../../../../../../api/hooks/user/useValidateUsername'
+import { countries } from '../../../../../../constants/countries'
+import { useGetScreenWidth } from '../../../../../../hooks/useGetScreenWidth'
+import { usePrompt } from '../../../../../../hooks/usePrompt'
+import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
   SectionContainer,
-} from '../../../../../../shared/components/CustomInput/CustomInput.styles'
-import CustomSelect from '../../../../../../shared/components/CustomSelect/CustomSelect'
-import CustomTextArea from '../../../../../../shared/components/CustomTextArea/CustomTextArea'
+} from '../../../../../../shared/components/Formik/CustomInput/CustomInput.styles'
+import CustomSelectAutocomplete from '../../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
+import CustomTextArea from '../../../../../../shared/components/Formik/CustomTextArea/CustomTextArea'
 import { InputsContainer } from '../InfoForm.styles'
 
 const UserInfoForm = () => {
-  const countriesOptions = React.useMemo(() => countryList().getData(), [])
-
   let { mutate: validateUsername, data: errorStatus } = useValidateUsername()
+  const { values, dirty } = useFormikContext()
+  const width = useGetScreenWidth()
 
   // State and setters for ...
   // Search term
@@ -47,6 +51,9 @@ const UserInfoForm = () => {
     setSearchTerm(value) // Update the search term state with the input value
   }
 
+  // prevent updating/etc when user has data
+  usePrompt('You have unsaved changes. Do you want to discard them?', dirty, true)
+
   return (
     <>
       <InputsContainer>
@@ -55,11 +62,12 @@ const UserInfoForm = () => {
             <CustomInput placeholder="Input name" label="Full name" name="fullName" type="text" />
           </GroupContainer>
           <GroupContainer>
-            <CustomSelect
+            <CustomSelectAutocomplete
               label="Сountry"
               name="country"
-              options={countriesOptions}
+              options={countries}
               placeholder="Select country"
+              value={values['country']}
             />
           </GroupContainer>
         </SectionContainer>
@@ -87,12 +95,12 @@ const UserInfoForm = () => {
         </SectionContainer>
       </InputsContainer>
       <CustomTextArea
-        style={{ height: 'calc(100% - 5rem)' }}
+        style={{ height: width > 768 ? 'calc(100% - 5rem)' : '38px' }}
         label="About me (optional)"
         name="description"
-        placeholder="Write something about yourself..."
-        maxLength={200}
-        margin="0 0 5rem 0"
+        placeholder={width > 468 ? 'Write something about yourself...' : 'Write about you...'}
+        maxLength={230}
+        margin={width > 768 ? '0 0 5rem 0' : 0}
       />
     </>
   )

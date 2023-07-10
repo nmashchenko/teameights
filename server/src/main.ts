@@ -1,24 +1,28 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
 // import { JwtAuthGuard } from "./auth/jwt-auth.guard";
 // import { ValidationPipe } from "./pipes/validation.pipe";
 import cookieParser from 'cookie-parser';
 import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
 
 import { AppModule } from './app.module';
-import { ValidationPipe } from './pipes/validation.pipe';
 
 async function start(): Promise<void> {
 	try {
 		const PORT = process.env.PORT || 5001;
 
 		const app = await NestFactory.create(AppModule);
+		//
 
 		// checking cors
 		app.enableCors({
 			credentials: true,
-			origin: process.env.CLIENT_URL,
+			origin: [process.env.CLIENT_URL, process.env.LANDING_URL],
 		});
+
+		app.use(bodyParser.json({ limit: '10mb' }));
+		app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 		app.setGlobalPrefix('/api');
 		app.use(cookieParser());

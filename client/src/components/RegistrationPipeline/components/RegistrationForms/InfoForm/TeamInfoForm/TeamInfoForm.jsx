@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import countryList from 'react-select-country-list'
+import { useFormikContext } from 'formik'
 
 import { useGetByTag } from '../../../../../../api/hooks/team/useGetByTag'
 import { useDebounce } from '../../../../../../api/hooks/temeights/useDebounce'
+import { countries } from '../../../../../../constants/countries'
 import { teamTypes } from '../../../../../../constants/teamFormData'
-import CustomInput from '../../../../../../shared/components/CustomInput/CustomInput'
+import { usePrompt } from '../../../../../../hooks/usePrompt'
+import CustomInput from '../../../../../../shared/components/Formik/CustomInput/CustomInput'
 import {
   GroupContainer,
   SectionContainer,
-} from '../../../../../../shared/components/CustomInput/CustomInput.styles'
-import CustomSelect from '../../../../../../shared/components/CustomSelect/CustomSelect'
-import CustomTextArea from '../../../../../../shared/components/CustomTextArea/CustomTextArea'
+} from '../../../../../../shared/components/Formik/CustomInput/CustomInput.styles'
+import CustomSelectAutocomplete from '../../../../../../shared/components/Formik/CustomSelectAutocomplete/CustomSelectAutocomplete'
+import CustomTextArea from '../../../../../../shared/components/Formik/CustomTextArea/CustomTextArea'
 import { InputsContainer } from '../InfoForm.styles'
 
 const TeamInfoForm = () => {
-  const countriesOptions = React.useMemo(() => countryList().getData(), [])
   let { mutate: getTeamByTag, data: errorStatus } = useGetByTag()
+  const { values, dirty } = useFormikContext()
 
   // State and setters for ...
   // Search term
@@ -47,6 +49,8 @@ const TeamInfoForm = () => {
     setSearchTerm(value) // Update the search term state with the input value
   }
 
+  usePrompt('You have unsaved changes. Do you want to discard them?', dirty, false)
+
   return (
     <>
       <InputsContainer>
@@ -55,11 +59,12 @@ const TeamInfoForm = () => {
             <CustomInput placeholder="Input name" label="Team name" name="name" type="text" />
           </GroupContainer>
           <GroupContainer>
-            <CustomSelect
+            <CustomSelectAutocomplete
               label="Сountry"
               name="country"
-              options={countriesOptions}
+              options={countries}
               placeholder="Select country"
+              value={values['country']}
             />
           </GroupContainer>
         </SectionContainer>
@@ -76,11 +81,12 @@ const TeamInfoForm = () => {
             />
           </GroupContainer>
           <GroupContainer>
-            <CustomSelect
+            <CustomSelectAutocomplete
               label="Team type"
               name="type"
               options={teamTypes}
               placeholder="Select type"
+              value={values['type']}
             />
           </GroupContainer>
         </SectionContainer>

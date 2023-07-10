@@ -6,16 +6,18 @@ const { api } = http
 
 export const useGetTeamData = (teamId) => {
   const getTeamById = async () => {
-    const response = await api.get(`/teams/${teamId}`)
+    if (teamId) {
+      const response = await api.get(`/teams/${teamId}`)
 
-    return response.data
+      return response.data
+    }
   }
 
-  const { data, isLoading: isTeamLoading } = useQuery(['getTeamById', teamId], getTeamById, {
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    enabled: !!teamId,
-  })
+  const {
+    data,
+    isLoading: isTeamLoading,
+    error,
+  } = useQuery(['getTeamById', teamId], getTeamById, { retry: 0 })
 
-  return { data, isLoading: isTeamLoading }
+  return { data, isLoading: isTeamLoading, error }
 }

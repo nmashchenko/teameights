@@ -9,6 +9,7 @@ import { RolesService } from '@/roles/roles.service';
 import { TokensService } from '@/tokens/tokens.service';
 import { userUpdateValidate } from '@/validation/user-update.validation';
 
+import { BetaSignUpDto } from './dto/beta-sign-up.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { Results } from './dto/results.dto';
 import { UpdateAvatarDto } from './dto/update-avatar.dto';
@@ -24,6 +25,22 @@ export class UsersService {
 		private filesService: FileService,
 		private notificationService: NotificationsService,
 	) {}
+
+	private getPath = (url: string, fileType: string): string => {
+		// Extracting type
+		const typeRegex = /\/([^/]+)\/[^/]+$/;
+		const typeMatch = url.match(typeRegex);
+		const type = typeMatch ? typeMatch[1] : null;
+
+		// Extracting filename
+		const filenameRegex = /\/([^/]+)$/;
+		const filenameMatch = url.match(filenameRegex);
+		const filename = filenameMatch ? filenameMatch[1] : null;
+
+		console.log(`${type}/${filename}`);
+
+		return `${fileType}/${type}/${filename}`;
+	};
 
 	/**
 	 * It creates a user with the given data, and returns the created user
@@ -252,32 +269,43 @@ export class UsersService {
 		/* A type assertion. */
 		const results = {} as Results;
 
-		/* Getting the total number of users that match the query. */
-		results.total = await this.userModel
-			.find(parsedQuery as FilterQuery<any>)
-			.count();
+		try {
+			/* Getting the total number of users that match the query. */
+			results.total = await this.userModel
+				.find(parsedQuery as FilterQuery<any>)
+				.count();
 
-		/* Calculating the last page and the limit. */
-		results.last_page = Math.ceil(results.total / limit);
-		results.limit = limit;
+			/* Calculating the last page and the limit. */
+			results.last_page = Math.ceil(results.total / limit);
+			results.limit = limit;
 
-		/* Getting all the users that match the query, limiting the number of users to the limit, skipping the
+			/* Getting all the users that match the query, limiting the number of users to the limit, skipping the
 		users that are not on the current page, limiting the number of users to the limit, populating the
 		roles and executing the query. */
-		const users = await this.userModel
-			/* Casting the parsedQuery to FilterQuery<any> */
-			.find(parsedQuery as FilterQuery<any>)
-			.limit(limit)
-			.skip((page - 1) * limit)
-			.limit(limit)
-			.populate('roles')
-			.exec();
+			const users = await this.userModel
+				/* Casting the parsedQuery to FilterQuery<any> */
+				.find(parsedQuery as FilterQuery<any>)
+				.limit(limit)
+				.skip((page - 1) * limit)
+				.limit(limit)
+				.populate('roles')
+				.exec();
 
-		/* Setting the number of users on the current page and the data of the users. */
-		results.on_current_page = users.length;
-		results.data = users;
-		/* Returning the results object. */
-		return results;
+			/* Setting the number of users on the current page and the data of the users. */
+			results.on_current_page = users.length;
+			results.data = users;
+			/* Returning the results object. */
+			return results;
+		} catch (e) {
+			console.log(e.message);
+			results.total = 0;
+			results.data = [];
+			results.last_page = 0;
+			results.limit = 9;
+			results.on_current_page = 0;
+			results.page = 0;
+			return results;
+		}
 	}
 
 	/**
@@ -311,14 +339,41 @@ export class UsersService {
 			}
 		}
 
-		/* Updating the user with the given email with the new data and returning the updated user. */
-		const user = await this.userModel.findOneAndUpdate(
+		/* 
+		The above code is updating a user document in a MongoDB database using the Mongoose library. It
+		first filters the data to be updated using a spread operator and sets the "isRegistered" field to
+		true. Then it uses the "updateOne" method to update the document with the specified email. If the
+		update is successful (i.e., the modifiedCount is 1), it fetches the updated document using the
+		"findOne" method and returns it. If the update is not successful, it throws an HttpException with a
+		message indicating an error occurred while updating the user. 
+		
+		This approach gurantees data consistency as we would wait for update and then get full object back.
+		*/
+		const updateResult = await this.userModel.updateOne(
 			{ email: dto.email },
 			{ ...filtered, isRegistered: true },
-			{ new: true },
 		);
 
-		return user;
+		if (updateResult.modifiedCount === 1) {
+			// Fetch the updated document
+			const updatedDocument = await this.userModel.findOne({
+				email: dto.email,
+			});
+			return updatedDocument;
+		} else {
+			// Handle the case when the update was not successful
+			throw new HttpException(
+				`Error while updating user`,
+				HttpStatus.INTERNAL_SERVER_ERROR,
+			);
+		}
+		// const user = await this.userModel.findOneAndUpdate(
+		// 	{ email: dto.email },
+		// 	{ ...filtered, isRegistered: true },
+		// 	{ new: true },
+		// );
+
+		// return user;
 	}
 
 	/**
@@ -340,13 +395,18 @@ export class UsersService {
 
 		/* Checking if the user has an image. If it does, it is removing the image. */
 		if (candidate.image) {
-			await this.filesService.removeFile(candidate.image);
+			const path = this.getPath(candidate.image, 'image');
+			await this.filesService.removeFromS3(
+				path,
+				process.env.AWS_S3_BUCKET,
+			);
 		}
 
 		/* Creating a file in the static folder. */
 		const filePath = await this.filesService.createFile(
 			FileType.USERS,
 			dto.image,
+			process.env.AWS_S3_BUCKET,
 		);
 
 		/* Updating the user with the given email with the new data and returning the updated user. */
@@ -437,5 +497,32 @@ export class UsersService {
 			{ _id: userID },
 			{ $unset: { team: null } },
 		);
+	}
+
+	/**
+	 * The function adds a user's email and IP address to a beta test list by creating a new text file
+	 * using the `createFile` method of the `filesService` object.
+	 * @param {BetaSignUpDto} dto - A data transfer object (DTO) containing information about a user
+	 * signing up for a beta test. It likely includes the user's email address.
+	 * @param {any} ip - The `ip` parameter is likely the IP address of the user who is signing up for the
+	 * beta test. It is being passed to the `addUserToBetaTestList` method along with a `BetaSignUpDto`
+	 * object that contains the user's email address. The method then formats this information
+	 * @returns a string that contains the email and IP address of the user in a formatted string.
+	 */
+	async addUserToBetaTestList(dto: BetaSignUpDto, ip: any): Promise<string> {
+		const email = dto.email;
+		const formattedString = `email: ${email}\nip: ${ip}`;
+
+		/* The above code is using the `await` keyword to asynchronously call the `createFile` method of the
+		`filesService` object. The method takes three arguments: `FileType.TEXT`, `formattedString`, and
+		`'t8s-betalist'`. It is likely that the `createFile` method creates a new file of type `text` with
+		the contents of `formattedString` and saves it to a location named `'t8s-betalist'`. */
+		await this.filesService.createFile(
+			FileType.TEXT,
+			formattedString,
+			't8s-betalist',
+		);
+
+		return formattedString;
 	}
 }

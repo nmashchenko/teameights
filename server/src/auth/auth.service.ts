@@ -200,6 +200,7 @@ export class AuthService {
 	 * @returns { ...tokens, user }
 	 */
 	async refresh(refreshToken: string): Promise<AuthResponseDto> {
+		console.log(refreshToken);
 		if (!refreshToken) {
 			throw new HttpException(
 				`No refresh token was found in the request`,
@@ -212,6 +213,8 @@ export class AuthService {
 			process.env.JWT_REFRESH_KEY,
 		);
 		const tokenFromDb = await this.tokensService.findToken(refreshToken);
+
+		console.log(tokenFromDb);
 
 		/* It's checking if the user & token exists. */
 		if (!userData || !tokenFromDb) {

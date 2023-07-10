@@ -11,6 +11,7 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SkipThrottle } from '@nestjs/throttler';
 import mongoose from 'mongoose';
 import * as qs from 'qs';
 
@@ -23,7 +24,6 @@ import { InviteToTeamResponseDto } from './dto/invite-to-team.response.dto';
 import { TeamMembershipDTO } from './dto/membership.dto';
 import { Results } from './dto/results.dto';
 import { StatusResponseDto } from './dto/status-response.dto';
-import { TeamSearchDto } from './dto/team-search.dto';
 import { TransferLeaderDto } from './dto/transfer-leader.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { UpdateTeamAvatarDto } from './dto/update-team-avatar.dto';
@@ -31,6 +31,7 @@ import { Team } from './teams.schema';
 import { TeamsService } from './teams.service';
 
 @ApiTags('Teams')
+@SkipThrottle()
 @Controller('/teams')
 export class TeamsController {
 	constructor(private teamsService: TeamsService) {}
@@ -91,6 +92,15 @@ export class TeamsController {
 			limit,
 			parsedQuery,
 		);
+	}
+
+	@ApiOperation({
+		summary: 'Get all open type teams',
+	})
+	@ApiResponse({ status: 200, type: [Team] })
+	@Get('/all')
+	getAllTeams(): Promise<Team[]> {
+		return this.teamsService.getAllTeams();
 	}
 
 	@ApiOperation({
