@@ -19,7 +19,6 @@ import NoTeamScreen from '../screens/NoTeamScreen/NoTeamScreen'
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen'
 import RegistrationScreen from '../screens/RegistrationScreen/RegistrationScreen'
 import ResetNewPasswordsScreen from '../screens/ResetNewPasswordsScreen/ResetNewPasswordsScreen'
-import ResetPasswordConfirmationScreen from '../screens/ResetPasswordConfirmationScreen/ResetPasswordConfirmationScreen'
 import ResetPasswordScreen from '../screens/ResetPasswordScreen/ResetPasswordScreen'
 import TeammatesScreen from '../screens/TeammatesScreen/TeammatesScreen'
 import TeamScreen from '../screens/TeamScreen/TeamScreen'
@@ -55,7 +54,6 @@ export const useRoutes = () => {
       <Route element={<ResetPasswordPageLayout />}>
         <Route path={ROUTES.confirmEmail} element={<ConfirmationScreen />} />
         <Route path={ROUTES.passwordRecover} element={<ResetPasswordScreen />} />
-        <Route path={ROUTES.passwordRecoverConfirm} element={<ResetPasswordConfirmationScreen />} />
         <Route path={ROUTES.passwordRecoverSuccess} element={<ResetNewPasswordsScreen />} />
       </Route>
 

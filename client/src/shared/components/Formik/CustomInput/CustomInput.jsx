@@ -19,6 +19,7 @@ const CustomInput = ({
   shouldFormatYear = false,
   isOptional = false,
   maxLength = 524288,
+  withIcon = true,
   ...props
 }) => {
   const [field, meta, helpers] = useField(props)
@@ -44,7 +45,7 @@ const CustomInput = ({
 
   return (
     <Box width={containerWidth} sx={{ display: isOptional ? 'none' : 'block' }}>
-      {props?.inputValue && label && <Label htmlFor={field.name}>{label}</Label>}
+      {label && <Label htmlFor={field.name}>{label}</Label>}
       <InputWrapper>
         <Input
           {...field}
@@ -56,7 +57,7 @@ const CustomInput = ({
           id={field.name}
           onChange={handleChange} // Add the onChange event handler
         />
-        {((meta.touched && isError) || (meta.touched && uniqueError)) && (
+        {((meta.touched && isError) || (meta.touched && uniqueError)) && withIcon && (
           <IconSpan>
             <AlertIcon />
           </IconSpan>

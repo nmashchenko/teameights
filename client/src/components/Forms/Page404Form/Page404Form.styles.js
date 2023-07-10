@@ -4,43 +4,14 @@ export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   display: flex;
-  background: #26292b;
   align-items: center;
   justify-content: center;
   padding-left: ${(props) => props.paddingLeft || '0'};
+  flex-direction: column;
+  gap: 48px;
 
   @media screen and (max-width: 768px) {
     padding-left: 0;
-  }
-`
-export const InfoContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-  padding: 5rem 0;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-
-  @media (max-width: 995px) {
-    flex-direction: column;
-    padding: 0;
-  }
-`
-export const LeftContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-`
-export const RightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-  @media (max-width: 995px) {
-    width: 75%;
   }
 `
 
@@ -54,20 +25,20 @@ export const Text = styled.h1`
 `
 
 export const Button = styled.button`
-  width: 14rem;
-  height: 3.5rem;
-  background: #5d9d0b;
-  box-shadow: 0px 0px 50px rgba(93, 157, 11, 0.15);
-  border-radius: 5px;
+  width: 100%;
+  max-width: 160px;
+  height: 48px;
+  padding: 0px 16px;
+  background: #46a11b;
+  border-radius: 10px;
   color: white;
-  font-weight: 700;
-  font-size: 1rem;
-  border-style: none;
+  font-weight: 400;
+  font-size: 16px;
+  border: none;
   cursor: pointer;
   transition: all 0.2s linear;
-  margin-top: 1rem;
-
-  :hover {
-    transform: scale(1.1);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 `

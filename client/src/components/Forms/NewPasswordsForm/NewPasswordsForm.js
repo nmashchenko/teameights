@@ -1,17 +1,22 @@
 // * Modules
 import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { ThreeDots } from 'react-loader-spinner'
+import { useParams } from 'react-router-dom'
 import VisibilityOff from '@mui/icons-material/VisibilityOffOutlined'
 import Visibility from '@mui/icons-material/VisibilityOutlined'
-import { Form, Formik } from 'formik'
+import { Formik } from 'formik'
+import { isEmpty } from 'lodash'
 
-// * Api
-import resetPassword from '../../../api/endpoints/reset'
+import { useUpdatePassword } from '../../../api/hooks/auth/useUpdatePassword'
 // * Assets
-import ROUTES from '../../../constants/routes'
 import CustomButton from '../../../shared/components/CustomButton/CustomButton'
-import CustomInput from '../../../shared/components/CustomInput/CustomInput'
-import { RecoverText, RecoverTitle } from '../RecoverPasswordForm/RecoverPasswordForm.styles'
+import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper'
+import CustomInput from '../../../shared/components/Formik/CustomInput/CustomInput'
+import {
+  FormWrapper,
+  RecoverText,
+  RecoverTitle,
+} from '../RecoverPasswordForm/RecoverPasswordForm.styles'
 
 import {
   Container,
@@ -23,59 +28,48 @@ import {
 import newPasswordValidation from './NewPasswordsValidation'
 
 function NewPassword() {
-  const navigate = useNavigate()
-
-  let { id, token } = useParams()
+  let { id: email, token } = useParams()
+  const { mutate: updateUserPassword, isLoading: isUpdating } = useUpdatePassword()
   const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState({})
-
-  const handleReset = async () => {
-    // const error = await resetPassword.updatePassword(id, token, password, repeatPassword)
-
-    if (!error) {
-      navigate(ROUTES.login, { replace: true })
-    } else {
-      setError(error)
-    }
-  }
 
   return (
     <Container>
       <NewPasswordBox>
-        <RecoverTitle>Recover Password</RecoverTitle>
-        <RecoverText>
-          Enter a new password and confirm it by re-entering it in the appropriate fields
-        </RecoverText>
+        <FlexWrapper gap="8px" direction="column">
+          <RecoverTitle>Recover Password</RecoverTitle>
+          <RecoverText>
+            Enter a new password and confirm it by re-entering it in the appropriate fields
+          </RecoverText>
+        </FlexWrapper>
         <Formik
           initialValues={{
+            email: email,
+            token: token,
             password: '',
             confirmPassword: '',
           }}
           validationSchema={newPasswordValidation}
-          onSubmit={() => handleReset()}
+          onSubmit={({ email, token, password }) => updateUserPassword({ email, token, password })}
         >
-          {({ values }) => (
-            <Form>
+          {({ values, errors }) => (
+            <FormWrapper>
               <PasswordsContainer>
                 <PasswordContainer>
                   <CustomInput
                     label="Create Password"
-                    inputValue={values.password}
                     width="100%"
                     placeholder="Create Password"
                     name="password"
                     type={showPassword ? 'text' : 'password'}
-                    setError={setError}
+                    withIcon={false}
                   />
-                  {!error?.isError && (
-                    <ShowPass onClick={() => setShowPassword(!showPassword)}>
-                      {showPassword ? (
-                        <Visibility sx={{ color: 'white' }} />
-                      ) : (
-                        <VisibilityOff sx={{ color: 'white' }} />
-                      )}
-                    </ShowPass>
-                  )}
+                  <ShowPass onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? (
+                      <Visibility sx={{ color: 'white' }} />
+                    ) : (
+                      <VisibilityOff sx={{ color: 'white' }} />
+                    )}
+                  </ShowPass>
                 </PasswordContainer>
                 <PasswordContainer>
                   <CustomInput
@@ -85,11 +79,7 @@ function NewPassword() {
                     placeholder="Confirm Password"
                     name="confirmPassword"
                     type={showPassword ? 'text' : 'password'}
-                    confirmPasswordValue={values.confirmPassword}
-                    uniqueError={values.password === values.confirmPassword ? false : true}
-                    uniqueErrorMessage={
-                      values.password !== values.confirmPassword ? "Passwords don't match" : null
-                    }
+                    withIcon={false}
                   />
                   <ShowPass onClick={() => setShowPassword(!showPassword)}>
                     {showPassword ? (
@@ -100,10 +90,28 @@ function NewPassword() {
                   </ShowPass>
                 </PasswordContainer>
               </PasswordsContainer>
-              <CustomButton width="100%" fontSize="16px" type="onSubmit">
-                Save
+              <CustomButton
+                width="100%"
+                fontSize="16px"
+                type="onSubmit"
+                disabled={!isEmpty(errors)}
+              >
+                {isUpdating ? (
+                  <ThreeDots
+                    height="24"
+                    width="24"
+                    radius="9"
+                    color="white"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                  />
+                ) : (
+                  '                Save'
+                )}
               </CustomButton>
-            </Form>
+            </FormWrapper>
           )}
         </Formik>
       </NewPasswordBox>

@@ -8,10 +8,18 @@ const CustomButton = ({
   icon,
   iconPosition,
   onClick,
+  maxWidth,
   ...props
 }) => {
   return (
-    <Button type={type} border={border} background={background} onClick={onClick} {...props}>
+    <Button
+      type={type}
+      border={border}
+      background={background}
+      onClick={onClick}
+      maxWidth={maxWidth}
+      {...props}
+    >
       {icon && iconPosition === 'left' && <IconWrapper>{icon}</IconWrapper>}
       {children}
       {icon && iconPosition === 'right' && <IconWrapper>{icon}</IconWrapper>}

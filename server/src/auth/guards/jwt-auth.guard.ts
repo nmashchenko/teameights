@@ -31,6 +31,8 @@ export class JwtAuthGuard implements CanActivate {
 				token,
 				process.env.JWT_ACCESS_KEY,
 			);
+			console.log(user);
+
 			if (!user) {
 				throw new UnauthorizedException({
 					message: 'User is not authorized.',

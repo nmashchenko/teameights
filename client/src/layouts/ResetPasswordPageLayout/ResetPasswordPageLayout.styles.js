@@ -1,19 +1,14 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { GREEN, WHITE } from '../../constants/colors'
+import { BLACK, GREEN, WHITE } from '../../constants/colors'
 
 export const Navbar = styled.nav`
   width: 100%;
-  height: 40px;
+  height: 88px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  margin-top: 49px;
-  padding: 0 55px;
-  z-index: 999;
+  justify-content: center;
+  align-items: end;
 `
 
 export const AccountActions = styled.div`
@@ -37,4 +32,14 @@ export const NavigationLink = styled(NavLink)`
 export const NavigationLinkActive = styled(NavigationLink)`
   color: ${GREEN.text};
   border-bottom: 1px solid ${GREEN.border};
+`
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100dvh;
+  width: 100%;
+  background: ${BLACK.background};
 `

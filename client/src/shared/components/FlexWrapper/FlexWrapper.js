@@ -11,6 +11,7 @@ const StyledFlexWrapper = styled.div`
   max-height: ${(props) => props.maxHeight || 'none'};
   position: ${(props) => props.position || 'static'};
   width: ${(props) => props.width || 'auto'};
+  max-width: ${(props) => props.maxWidth || 'none'};
   height: ${(props) => props.height || 'auto'};
 `
 

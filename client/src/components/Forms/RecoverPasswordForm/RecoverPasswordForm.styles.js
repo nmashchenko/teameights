@@ -5,28 +5,16 @@ import styled from 'styled-components'
 import { BLACK, GREEN, GREY, LIME, WHITE } from '../../../constants/colors'
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: calc(100dvh - 88px);
   display: flex;
   justify-content: center;
   align-items: center;
   background: ${BLACK.background};
-  position: relative;
+  padding: 48px 24px;
 `
 export const RecoverForm = styled(Form)`
   width: 100%;
-`
-
-export const Navbar = styled.nav`
-  width: 100%;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  margin-top: 49px;
-  padding: 0 55px;
 `
 
 export const AccountActions = styled.div`
@@ -53,9 +41,9 @@ export const NavigationLink = styled(NavLink)`
 `
 
 export const RecoverBox = styled.div`
-  max-width: 370px;
+  max-width: 470px;
   width: 100%;
-  min-height: 327px;
+  gap: 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,7 +52,6 @@ export const RecoverTitle = styled.h3`
   font-size: 24px;
   font-weight: 500;
   color: ${GREEN.text};
-  margin-bottom: 8px;
   text-align: center;
 `
 export const RecoverText = styled.p`
@@ -72,7 +59,6 @@ export const RecoverText = styled.p`
   font-weight: 400;
   color: ${WHITE.main};
   text-align: center;
-  margin-bottom: 48px;
 `
 
 export const ButtonsContainer = styled.div`
@@ -81,4 +67,13 @@ export const ButtonsContainer = styled.div`
   flex-direction: column;
   row-gap: 16px;
   margin-top: 48px;
+`
+
+export const FormWrapper = styled(Form)`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex-direction: column;
 `
