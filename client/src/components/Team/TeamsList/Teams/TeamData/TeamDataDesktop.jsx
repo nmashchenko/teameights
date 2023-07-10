@@ -10,7 +10,7 @@ const Desktop = forwardRef(({ team, handleClickOpen }, ref) => {
   return (
     <TeamDataDesktop ref={ref} padding="12px 0">
       <HidableWrapper display={imgLoading ? 'block' : 'none'}>
-        <CardSkeleton width="50px" height="50px" borderRadius="50%" />
+        <CardSkeleton width="50px" height="50px" borderRadius="50%" justify="start" />
       </HidableWrapper>
       <HidableWrapper display={imgLoading ? 'none' : 'block'}>
         <TeamImage

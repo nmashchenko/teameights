@@ -14,8 +14,6 @@ export const GridContainer = styled.div`
 export const CardsContainer = styled.div`
   display: grid;
   row-gap: 50px;
-  justify-content: center;
-  align-items: center;
   margin-top: 15px;
   width: 100%;
   max-width: 1196px;

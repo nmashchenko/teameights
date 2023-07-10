@@ -12,7 +12,7 @@ const TeamMember = ({ src, username, country, concentration, shouldHaveCrown = f
   const [imgLoading, setImgLoading] = useState(true)
 
   return (
-    <FlexWrapper position="relative" gap="12px">
+    <FlexWrapper position="relative" gap="12px" maxHeight="50px">
       <HidableWrapper display={imgLoading ? 'block' : 'none'}>
         {shouldHaveCrown && (
           <CrownContainer>

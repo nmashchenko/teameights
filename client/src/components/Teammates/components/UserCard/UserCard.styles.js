@@ -12,6 +12,7 @@ export const UserInformationContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 32px;
+  height: 70px;
 `
 
 export const UserImage = styled.img`

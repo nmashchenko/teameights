@@ -80,7 +80,7 @@ const UserProfilePhone = ({ currentUser, showingUser, mobileProfile, handleClose
           </Button>
         </FlexWrapper>
         <FlexWrapper gap="24px" flexDirection="column" marginTop="32px">
-          <FlexWrapper gap="32px">
+          <FlexWrapper gap="32px" maxHeight="70px">
             <HidableWrapper display={imgLoading ? 'block' : 'none'}>
               <CardSkeleton width="70px" height="70px" borderRadius="50%" />
             </HidableWrapper>

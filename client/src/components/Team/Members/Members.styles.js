@@ -128,7 +128,7 @@ export const CrownContainer = styled.div`
   width: 25px;
   height: 25px;
   transform: rotate(25deg) translate(70%, -130%);
-  z-index: 1000;
+  z-index: 100;
   svg {
     width: 100%;
     height: 100%;

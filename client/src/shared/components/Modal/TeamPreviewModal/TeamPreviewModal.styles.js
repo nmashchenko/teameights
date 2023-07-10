@@ -1,16 +1,17 @@
 import styled from 'styled-components'
 
 import { WHITE } from '../../../../constants/colors'
-import { B2fs, B2fw, B2lh, B3fs, B3fw, B3lh } from '../../../../constants/fonts'
 
 export const ImagesContainer = styled.div`
   display: flex;
   gap: 36px;
+  max-height: 50px;
 `
 
 export const TeamCardTop = styled.div`
   display: flex;
   gap: 32px;
+  max-height: 75px;
 `
 export const TeamCardTopInfo = styled.div`
   display: flex;
@@ -134,6 +135,10 @@ export const JoinTeam = styled.button`
   background-color: #46a11b;
   padding: 10px 16px 8px;
   border-radius: 10px;
+  width: 109px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   font-size: 16px;
   cursor: pointer;
@@ -142,6 +147,7 @@ export const JoinTeam = styled.button`
   opacity: ${(props) => (props.disabled ? '.5' : '1')};
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   user-select: ${(props) => (props.disabled ? 'none' : 'auto')};
+
   &:hover {
     transform: translateY(-1.25px);
   }

@@ -1,10 +1,11 @@
 // * Modules
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 // * Constants
 // * API
 import lookup from 'country-code-lookup'
 
 import { useLoadUsers } from '../../../../api/hooks/temeights/useLoadUsers'
+import { useGetScreenWidth } from '../../../../hooks/useGetScreenWidth'
 import CardSkeleton from '../../../../shared/components/CardSkeleton/CardSkeleton'
 // * Components
 import UserCard from '../UserCard/UserCard'
@@ -15,6 +16,7 @@ import { CardContainer } from './Cards.styles'
 
 const Cards = ({ handleOpen, isLoadingUseData, setIsNotFound }) => {
   const intObserver = useRef()
+  const width = useGetScreenWidth()
 
   const {
     fetchNextPage,

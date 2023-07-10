@@ -86,7 +86,7 @@ const Teams = ({ handleClickOpen, setIsNotFound, isLoadingUserData, width }) => 
           <CardSkeleton
             cards={9}
             borderRadius={'15px'}
-            height={width > 900 ? '85px' : '81px'}
+            height={width > 900 ? '82px' : '81px'}
             width="100%"
           />
         )}

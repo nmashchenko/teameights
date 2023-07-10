@@ -45,7 +45,7 @@ const TeamPreviewModalPhone = ({ user, team, handleClose, handleJoin }) => {
         </Button>
       </FlexWrapper>
       <FlexWrapper gap="24px" direction="column" margin="32px 0 0 0">
-        <FlexWrapper gap="32px" align="center">
+        <FlexWrapper gap="32px" align="center" maxHeight="70px">
           <HidableWrapper display={imgLoading ? 'block' : 'none'}>
             <CardSkeleton width="70px" height="70px" borderRadius="50%" />
           </HidableWrapper>

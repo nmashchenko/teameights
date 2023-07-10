@@ -99,7 +99,7 @@ const UserCard = React.forwardRef((props, ref) => {
         )}
         <UserInformationContainer>
           <HidableWrapper display={imgLoading ? 'block' : 'none'}>
-            <CardSkeleton width="70px" height="70px" borderRadius="15px" />
+            <CardSkeleton width="70px" height="70px" borderRadius="5px" />
           </HidableWrapper>
 
           <HidableWrapper display={imgLoading ? 'none' : 'block'}>

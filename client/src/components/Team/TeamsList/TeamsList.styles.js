@@ -44,6 +44,7 @@ export const TeamsListBox = styled.div`
   background: #1a1c22;
   border-radius: 15px;
   padding: 20px 32px 32px 32px;
+  gap: ${(props) => (props.isLoading ? '12px' : 0)};
 
   @media screen and (max-width: 1440px) {
     max-width: 784px;
@@ -76,6 +77,7 @@ export const TeamDataDesktop = styled.div`
   grid-template-columns: 0.7fr 3fr repeat(3, 1fr);
   justify-content: center;
   align-items: center;
+  height: 82px;
   margin-top: ${(props) => props.margin || '0'};
   padding: ${(props) => props.padding || '0'};
   border-bottom: 1px solid #2f3239;
@@ -90,6 +92,7 @@ export const TeamDataMobile = styled.div`
   margin-top: ${(props) => props.margin || '0'};
   background: #1a1c22;
   padding: 12px 16px;
+  height: 81px;
   border-radius: 15px;
   width: 100%;
   justify-content: space-between;

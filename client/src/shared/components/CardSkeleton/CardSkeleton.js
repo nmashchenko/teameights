@@ -7,12 +7,13 @@ const CardSkeleton = ({
   height,
   borderRadius,
   maxWidth,
+  justify = 'center',
   parentMaxWidth = 'none',
 }) => {
   return Array(cards)
     .fill(0)
     .map((item, i) => (
-      <CardGridContainer key={i} parentMaxWidth={parentMaxWidth}>
+      <CardGridContainer key={i} parentMaxWidth={parentMaxWidth} justify={justify}>
         <CardContainer borderRadius={borderRadius} width={width}>
           <SkeletonCard
             baseColor="#313131"

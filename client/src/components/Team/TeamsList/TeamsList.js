@@ -93,6 +93,7 @@ function TeamsList() {
         handleLeaveAndJoin={handleLeaveAndJoin}
         handleJoin={handleJoin}
         team={selectedTeam}
+        isLoading={isUserTeamLoading || isLeaving || isJoining}
       />
       <AppHeader
         sliceName="teamsFilters"

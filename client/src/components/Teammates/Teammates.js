@@ -1,5 +1,6 @@
 // * Modules
 import React, { useState } from 'react'
+import { Slide } from '@mui/material'
 
 // * API
 import { useCheckAuth } from '../../api/hooks/auth/useCheckAuth'
@@ -62,12 +63,14 @@ function Teammates() {
         aria-describedby="modal-modal-description"
         sx={{ zIndex: 100 }}
       >
-        <UserProfile
-          currentUser={user}
-          showingUser={showUser}
-          handleClose={handleClose}
-          open={open}
-        />
+        <Slide direction="up" in={open}>
+          <UserProfile
+            currentUser={user}
+            showingUser={showUser}
+            handleClose={handleClose}
+            open={open}
+          />
+        </Slide>
       </UserCardModal>
       {/* ! USED ONLY FOR 730px or less */}
       <UserProfilePhone

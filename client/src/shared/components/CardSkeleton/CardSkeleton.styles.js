@@ -7,6 +7,10 @@ import 'react-loading-skeleton/dist/skeleton.css'
 export const CardGridContainer = styled.div`
   width: 100%;
   max-width: ${(props) => props.parentMaxWidth || 'none'};
+  line-height: 0;
+  display: flex;
+  justify-content: ${(props) => props.justify || 'center'};
+  align-items: center;
 `
 
 export const CardContainer = styled.div`
