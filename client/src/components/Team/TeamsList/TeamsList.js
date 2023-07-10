@@ -16,7 +16,7 @@ import NotFound from '../../Teammates/components/NotFound/NotFound'
 
 import Teams from './Teams/Teams'
 // * Styles
-import { Container, NotFoundContainer, TeamCardModal } from './TeamsList.styles'
+import { Container } from './TeamsList.styles'
 
 function TeamsList() {
   let { data: user, isLoading: isLoadingUserData } = useCheckAuth()
