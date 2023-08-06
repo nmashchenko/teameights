@@ -36,6 +36,7 @@ The new stack offers several advantages over the old one:
 
 ## FSD (Feature Slice Design) Architecture 🏗️
 
+![FSD](https://raw.githubusercontent.com/feature-sliced/documentation/master/static/img/banner.jpg)
 We are adopting the FSD (Feature Slice Design) architecture, which brings numerous benefits:
 
 - **Enhanced Modularity**: Features are divided into slices, making the codebase easier to navigate and maintain. 🔍
@@ -46,6 +47,8 @@ We are adopting the FSD (Feature Slice Design) architecture, which brings numero
 
 1. **Authentication Slice**: All logic related to authentication can be placed in a single slice, containing actions, reducers, selectors, and UI components related to user login and registration.
 2. **Product Slice**: Product-related logic can be organized into a separate slice, containing actions, reducers, selectors, and UI components related to product display and management.
+
+![Arch](https://feature-sliced.design/assets/ideal-img/visual_schema.b6c18f6.1030.jpg)
 
 ### Positive Sides Compared to Non-Architecture Approach ✅
 
@@ -61,11 +64,94 @@ By embracing the FSD architecture, we're introducing a systematic, organized, an
 
 We will develop our personal toolkit with shared components to ensure reusability across the project. This approach emphasizes optimization, minimizing unnecessary renders, and boosting performance. 📈
 
+## Git Semantic Commits 🧠
+
+We are adopting Git Semantic Commits, a practice that standardizes our Git commit messages to make them more human-readable and easier to follow. This will enhance collaboration and help us keep a clean and informative commit history. 📘
+
+### New Git Commands 🛠️
+
+We've introduced 8 new Git commands to standardize our commit messages:
+
+1. **Feature Commits**:
+
+   - **Command**: `git feat "commit message here"`
+   - **Equivalent**: `git commit -m 'feat: commit message here'`
+   - **Usage**: For introducing new features. 🌟
+
+2. **Documentation Commits**:
+
+   - **Command**: `git docs "commit message here"`
+   - **Equivalent**: `git commit -m 'docs: commit message here'`
+   - **Usage**: For updating documentation. 📝
+
+3. **Chore Commits**:
+
+   - **Command**: `git chore "commit message here"`
+   - **Equivalent**: `git commit -m 'chore: commit message here'`
+   - **Usage**: For routine tasks and maintenance. ⚙️
+
+4. **Fix Commits**:
+
+   - **Command**: `git fix "commit message here"`
+   - **Equivalent**: `git commit -m 'fix: commit message here'`
+   - **Usage**: For bug fixes. 🐛
+
+5. **Refactor Commits**:
+
+   - **Command**: `git refactor "commit message here"`
+   - **Equivalent**: `git commit -m 'refactor: commit message here'`
+   - **Usage**: For code refactoring. 🔧
+
+6. **Style Commits**:
+
+   - **Command**: `git style "commit message here"`
+   - **Equivalent**: `git commit -m 'style: commit message here'`
+   - **Usage**: For code styling changes. 🎨
+
+7. **Test Commits**:
+
+   - **Command**: `git test "commit message here"`
+   - **Equivalent**: `git commit -m 'test: commit message here'`
+   - **Usage**: For adding or updating tests. 🧪
+
+8. **Localization Commits**:
+   - **Command**: `git localize "commit message here"`
+   - **Equivalent**: `git commit -m 'localize: commit message here'`
+   - **Usage**: For localization and internationalization adjustments. 🌍
+
+By adopting these standardized commit practices, we aim to maintain a clear and meaningful commit history, facilitating effective collaboration and understanding within our development team. 🚀
+
 ## Testing, Stories & Linter Checks 🧪
 
 - **Testing**: All new components will be thoroughly tested using Jest to ensure quality. 🧪
 - **Stories**: Storybook will be used to automate the flow, facilitating collaboration and reducing manual effort. 📚
 - **Linter Checks**: All code will undergo linter checks, adhering to our coding standards and ensuring consistency. ✔️
+
+## Repository Structure 🏢
+
+In alignment with our evolving technology stack, we are introducing changes to our repository structure to ensure smooth development and maintenance.
+
+### Two Development Branches 🌳
+
+We will now have two development branches:
+
+1. **`dev`**: This branch will continue to contain the old code, allowing us to maintain our existing functionality. It will be used for regular development, bug fixes, and enhancements related to the old stack.
+2. **`dev-nextjs`**: This branch will contain the new code built with the updated technology stack, including Next.js. It will be the main development branch for all new features and updates related to the new stack.
+
+### Branch Naming Conventions 🏷️
+
+To differentiate between the two development branches and avoid confusion, we have introduced specific naming conventions:
+
+- Branches related to the current main development (`dev`) should be named regularly. For example, `feature/user-profile`.
+- Branches related to the new development (`dev-nextjs`) must have `-nextjs` at the end of the name. For example, `feature/user-profile-nextjs`.
+
+### Why This Structure? 🧩
+
+- **Clarity**: Having separate branches for the old and new codebases helps in clearly distinguishing between the two, reducing confusion.
+- **Synchronization**: This structure allows us to keep all code in one place, facilitating easy synchronization with the backend across both branches.
+- **Transition**: As we gradually move towards the new technology stack, having two distinct branches ensures a smooth transition without disrupting ongoing development.
+
+This approach represents our commitment to a well-organized and efficient development workflow. By adopting this structure, we are setting the stage for a successful implementation of our new technology stack, while maintaining flexibility and control. 💪
 
 ---
 
