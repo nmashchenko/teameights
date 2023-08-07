@@ -6,8 +6,8 @@
 
 We have introduced a new technology stack to enhance our frontend development workflow, including:
 
-- **Redux Toolkit**: Simplifies Redux code and accelerates development. ![Redux Logo](https://upload.wikimedia.org/wikipedia/commons/4/49/Redux.png)
-- **RTK Query**: Automatically manages our API cache, simplifying data fetching logic. ![RTK Query Logo](https://raw.githubusercontent.com/rtk-incubator/rtk-query/main/logo.png)
+- **Redux Toolkit**: Simplifies Redux code and accelerates development. ![Redux Logo](![Alt text](image.png))
+- **RTK Query**: Automatically manages our API cache, simplifying data fetching logic. ![RTK Query Logo](https://www.educative.io/cdn-cgi/image/f=auto,fit=contain,w=600/api/page/5186775737696256/image/download/6611525209948160)
 - **TypeScript**: Provides strong typing, improving code quality and maintainability. ![TypeScript Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/512px-Typescript_logo_2020.svg.png)
 - **React Hook Forms**: Offers better performance and more concise code for forms. ![React Hook Forms Logo](https://react-hook-form.com/images/logo/react-hook-form-logo-only.png)
 - **Storybook**: Enables the development of UI components in isolation. ![Storybook Logo](https://static-00.iconduck.com/assets.00/storybook-icon-icon-412x512-341bo8r1.png)
