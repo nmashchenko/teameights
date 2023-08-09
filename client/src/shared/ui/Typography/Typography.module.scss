@@ -1,0 +1,35 @@
+.heading {
+  &_s {
+    font: var(--font-heading-s);
+  }
+
+  &_m {
+    font: var(--font-heading-m);
+  }
+
+  &_l {
+    font: var(--font-heading-l);
+  }
+
+  &_xl {
+    font: var(--font-heading-xl);
+  }
+}
+
+.body {
+  &_m {
+    font: var(--font-body-m);
+  }
+
+  &_l {
+    font: var(--font-body-l);
+  }
+
+  &_xl {
+    font: var(--font-body-xl);
+  }
+}
+
+.caption {
+  font: var(--font-caption);
+}
