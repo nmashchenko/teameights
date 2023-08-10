@@ -2,13 +2,9 @@
 @import 'variables';
 
 body {
-  font: var(--font-body-xl);
   font-family: var(--font-rubik);
   color: var(--white-color);
   background-color: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
 }
 
 * {

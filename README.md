@@ -12,7 +12,7 @@ We have introduced a new technology stack to enhance our frontend development wo
 - **React Hook Forms**: Offers better performance and more concise code for forms. ![React Hook Forms Logo](https://react-hook-form.com/images/logo/react-hook-form-logo-only.png)
 - **Storybook**: Enables the development of UI components in isolation. ![Storybook Logo](https://static-00.iconduck.com/assets.00/storybook-icon-icon-412x512-341bo8r1.png)
 - **Jest**: Ensures that all components work as intended by allowing for comprehensive testing. ![Jest Logo](https://assets.stickpng.com/images/62a765c8bd73a4af5c5d4fbc.png)
-- **Styled-components**: Helps in writing CSS that's scoped to a single component, enhancing the styling workflow. ![Styled-components Logo](https://www.cdnlogo.com/logos/s/10/styled-components.svg)
+- **CSS-Modules + SASS**: A CSS Module is a CSS file in which all class names and animation names are scoped locally by default. ![Styled-components Logo](https://res.cloudinary.com/practicaldev/image/fetch/s--fmg7rAhn--/c_imagga_scale,f_auto,fl_progressive,h_720,q_auto,w_1280/https://cl.ly/2t460f1X081o/Image%25202018-06-14%2520at%25208.12.28%2520PM.png)
 - **Next.js**: Provides a framework for server-rendered React applications, improving performance and SEO. ![Next.js Logo](https://images.ctfassets.net/23aumh6u8s0i/c04wENP3FnbevwdWzrePs/1e2739fa6d0aa5192cf89599e009da4e/nextjs)
 
 ### Old Technology Stack 📜
@@ -24,6 +24,7 @@ Previously, our technology stack consisted of:
 - Formik
 - Tanstack Query
 - Redux Toolkit
+- Styled Components
 
 ### Why the New Stack? 🌟
 

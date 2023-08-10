@@ -65,9 +65,7 @@ export const Typography: FC<TypographyProps> = (props) => {
   return (
     <Component
       className={clsx(
-        styles.Typography,
         {
-          [`typography--variant-${variant}`]: variant,
           [styles[size]]: size,
         },
         [className]
