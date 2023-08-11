@@ -2,7 +2,8 @@
 @import 'variables';
 
 body {
-  font-family: var(--font-rubik);
+  font: var(--font-body-weight-l) var(--font-body-size-l) /
+    var(--font-body-line-l) var(--font-rubik);
   color: var(--white-color);
   background-color: var(--bg-color);
 }

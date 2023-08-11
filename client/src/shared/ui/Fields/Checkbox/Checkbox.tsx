@@ -7,6 +7,9 @@ import styles from './Checkbox.module.scss';
 
 /**
  * You can either pass label or not, it will be displayed as regular checkbox or checkbox with text
+ *
+ * Example of usage:
+ * <Checkbox name="123" label="Label" disabled isActive />
  */
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {

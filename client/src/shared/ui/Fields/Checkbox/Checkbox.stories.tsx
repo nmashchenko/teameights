@@ -3,7 +3,7 @@ import { Checkbox } from './Checkbox';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Checkbox> = {
-  title: 'shared/Fields',
+  title: 'shared/Fields/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
   argTypes: {},
