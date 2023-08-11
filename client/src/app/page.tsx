@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { Plus } from 'shared/assets/Icons/Plus';
 import { Button } from 'shared/ui/Button/Button';
 import { Checkbox } from 'shared/ui/Fields/Checkbox/Checkbox';
@@ -9,6 +12,7 @@ import {
 } from 'shared/ui/Typography/Typography';
 
 export default function Home() {
+  const [value, setValue] = useState('strign');
   return (
     <>
       <Typography size={TypographySize.Body_XL} variant={TypographyVariants.h6}>
@@ -21,13 +25,12 @@ export default function Home() {
       </Button>
       <Checkbox name="123" label="123" />
       <Checkbox name="123" width="16px" height="16px" />
-      <Input name="123" error="test error" maxWidth="200px" />
       <Input
-        name="1234"
+        name="123"
         error="test error"
         maxWidth="200px"
-        type="password"
-        label="Input password"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
     </>
   );

@@ -1,36 +1,38 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, InputHTMLAttributes, useState } from 'react';
-import { Eye } from 'shared/assets/Icons/Eye';
-import { EyeClosed } from 'shared/assets/Icons/EyeClosed';
+import { ChangeEvent, FC, InputHTMLAttributes } from 'react';
 import { WarningCircle } from 'shared/assets/Icons/WarningCircle';
 import styles from './Input.module.scss';
 
 /**
- * Accepts name, label, error and maxWidth as well as TYPE (passed via default props)
- *
- * If we get error AND type 'password' we would show both icons and paddingRight: '60px', otherwise just one and paddingRight: '32px'
+ * Requires @name, @value (used to control input), @onChange (used to control input change)
+ * Not required: @label (will be displayed on top), @className , @error , @maxWidth , @type , @subIcon , @subIconPosition
  * 
- * Also accepts maxWidth to limit width:100%
+ * @subIconPosition is used to place additional icon you want in the 'start' | 'end'
+ * @subIcon is the actual subIcon you want to place
  * 
  * Example of usage:
  *  <Input
-      name="1234"
+      name="input"
       error="test error"
       maxWidth="200px"
-      type="password"
       label="Input password"
     />
  */
 
+type IconPosition = 'start' | 'end';
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
   className?: string;
   error?: string;
   maxWidth?: string;
   type?: 'text' | 'password'; // Explicitly limit the type to 'text' or 'password'
+  subIconPosition?: IconPosition;
+  subIcon?: JSX.Element;
 }
 
 export const Input: FC<InputProps> = ({
@@ -42,10 +44,31 @@ export const Input: FC<InputProps> = ({
   placeholder,
   disabled,
   type = 'text',
+  subIconPosition = 'end',
+  subIcon,
+  value,
+  onChange,
   ...props
 }) => {
-  const [showPassword, setShowPassword] = useState<boolean>(
-    type === 'password' ? false : true
+  const hasSubIcon = Boolean(subIcon);
+  const isSubIconEnd = hasSubIcon && subIconPosition === 'end';
+
+  const renderErrorIcon = () => (
+    <div className={styles.error_icon}>
+      <WarningCircle />
+    </div>
+  );
+
+  const renderSubIcon = () => (
+    <div
+      className={clsx(styles.sub_icon, {
+        [styles.sub_icon__start]: subIconPosition === 'start',
+        [styles.sub_icon__two_icons_end]:
+          subIcon && subIconPosition === 'end' && error,
+      })}
+    >
+      {subIcon}
+    </div>
   );
 
   return (
@@ -55,7 +78,7 @@ export const Input: FC<InputProps> = ({
         { [styles.wrapper__disabled]: disabled },
         className
       )}
-      style={{ maxWidth }}
+      style={{ maxWidth: maxWidth }}
     >
       {label && (
         <label htmlFor={name} className={styles.label}>
@@ -64,25 +87,23 @@ export const Input: FC<InputProps> = ({
       )}
       <div className={styles.input_wrapper}>
         <input
-          id={name}
+          name={name}
           className={clsx(styles.input, {
-            [styles.input_icon]: type === 'password' || error,
-            [styles.input_icons]: type === 'password' && error,
+            [styles.input__icon_start]:
+              hasSubIcon && subIconPosition === 'start',
+            [styles.input__icon_end]: isSubIconEnd || error,
+            [styles.input__two_icons_end]: isSubIconEnd && error,
           })}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${name}-error` : undefined}
           placeholder={placeholder}
           type={type}
+          value={value}
+          onChange={onChange}
           {...props}
         />
-        <div className={styles.indicators}>
-          {error && <WarningCircle />}
-          {type === 'password' && (
-            <div onClick={() => setShowPassword((prev) => !prev)}>
-              {showPassword ? <Eye /> : <EyeClosed />}
-            </div>
-          )}
-        </div>
+        {error && renderErrorIcon()}
+        {subIcon && renderSubIcon()}
         {error && (
           <span className={styles.error} id={`${name}-error`} role="alert">
             {error}
