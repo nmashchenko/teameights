@@ -159,3 +159,7 @@ This approach represents our commitment to a well-organized and efficient develo
 By embracing these changes, we are positioning ourselves to deliver a more robust, efficient, and maintainable codebase. It represents a significant evolution in our development approach, providing the tools and practices to build better products faster. ✨
 
 For any questions or further details, please consult the updated documentation or contact the development team. 📧
+
+## Package manager 🧰
+
+YARN will be forced to use across the app, any adds of packages, installs and other are required to be done via YARN.

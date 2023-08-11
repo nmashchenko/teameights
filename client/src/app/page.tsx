@@ -1,5 +1,6 @@
 import { Plus } from 'shared/assets/Icons/Plus';
 import { Button } from 'shared/ui/Button/Button';
+import { Checkbox } from 'shared/ui/Fields/Checkbox/Checkbox';
 import {
   Typography,
   TypographySize,
@@ -17,6 +18,8 @@ export default function Home() {
       <Button typeBtn="primary" content="icon_button" size="l">
         <Plus />
       </Button>
+      <Checkbox name="123" label="123" />
+      <Checkbox name="123" width="16px" height="16px" />
     </>
   );
 }
