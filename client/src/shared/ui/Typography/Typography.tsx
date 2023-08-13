@@ -51,15 +51,13 @@ interface TypographyProps {
   variant?: TypographyVariants;
 }
 
-export const Typography: FC<TypographyProps> = (props) => {
-  const {
-    children,
-    className,
-    size = TypographySize.Body_M,
-    variant = TypographyVariants.p,
-    ...otherProps
-  } = props;
-
+export const Typography: FC<TypographyProps> = ({
+  children,
+  className,
+  size = TypographySize.Body_M,
+  variant = TypographyVariants.p,
+  ...props
+}) => {
   const Component = variant;
 
   return (
@@ -70,7 +68,7 @@ export const Typography: FC<TypographyProps> = (props) => {
         },
         [className]
       )}
-      {...otherProps}
+      {...props}
     >
       {children}
     </Component>

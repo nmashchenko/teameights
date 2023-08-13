@@ -1,7 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
-import { InputHTMLAttributes, useState } from 'react';
+import { FC, InputHTMLAttributes, useState } from 'react';
 import { Check } from 'shared/assets/Icons/Check';
 import styles from './Checkbox.module.scss';
 
@@ -22,15 +22,15 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
 }
 
-export const Checkbox = (props: CheckboxProps) => {
-  const {
-    disabled = false,
-    className,
-    label,
-    width,
-    height,
-    isActive = false,
-  } = props;
+export const Checkbox: FC<CheckboxProps> = ({
+  disabled = false,
+  className,
+  label,
+  width,
+  height,
+  isActive = false,
+  // ...props
+}) => {
   const [checked, setChecked] = useState<boolean>(isActive);
 
   return (

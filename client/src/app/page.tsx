@@ -5,6 +5,7 @@ import { Plus } from 'shared/assets/Icons/Plus';
 import { Button } from 'shared/ui/Button/Button';
 import { Checkbox } from 'shared/ui/Fields/Checkbox/Checkbox';
 import { Input } from 'shared/ui/Fields/Input/Input';
+import { TextArea } from 'shared/ui/Fields/TextArea/TextArea';
 import {
   Typography,
   TypographySize,
@@ -31,6 +32,14 @@ export default function Home() {
         maxWidth="200px"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+      />
+      <TextArea
+        name="1232"
+        label="Description"
+        counterPosition="bottom"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        maxWidth="300px"
       />
     </>
   );
