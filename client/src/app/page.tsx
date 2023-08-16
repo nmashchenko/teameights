@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { Plus } from 'shared/assets/Icons/Plus';
+import concentrations from 'shared/constant/concentrations';
 import { Button } from 'shared/ui/Button/Button';
 import { Checkbox } from 'shared/ui/Fields/Checkbox/Checkbox';
 import { Input } from 'shared/ui/Fields/Input/Input';
+import { Select } from 'shared/ui/Fields/Select/Select';
 import { TextArea } from 'shared/ui/Fields/TextArea/TextArea';
 import {
   Typography,
@@ -14,11 +16,13 @@ import {
 
 export default function Home() {
   const [value, setValue] = useState('strign');
+  const [selectV, setSelectV] = useState(concentrations[0].value);
   return (
     <>
       <Typography size={TypographySize.Body_XL} variant={TypographyVariants.h6}>
         Hello everyone!
       </Typography>
+
       <Typography size={TypographySize.Body_L}>Hello everyone!</Typography>
       <Typography size={TypographySize.Body_M}>Hello everyone!</Typography>
       <Button typeBtn="primary" content="icon_button" size="l">
@@ -41,6 +45,14 @@ export default function Home() {
         onChange={(e) => setValue(e.target.value)}
         maxWidth="300px"
       />
+      <div style={{ width: '400px' }}>
+        <Select
+          options={concentrations}
+          name="concentration"
+          value={selectV}
+          onChange={(e) => setSelectV(e.target.value)}
+        />
+      </div>
     </>
   );
 }

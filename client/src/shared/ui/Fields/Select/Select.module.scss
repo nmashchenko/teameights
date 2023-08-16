@@ -1,0 +1,50 @@
+.wrapper {
+  width: 100%;
+}
+
+.label {
+  font: var(--font-body-m);
+  color: var(--grey-normal-color);
+
+  &:not(--last-child) {
+    padding-bottom: 4px;
+  }
+}
+
+.input_wrapper {
+  position: relative;
+}
+
+.error {
+  padding-top: 8px;
+  font: var(--font-body-m);
+  color: var(--red-error-color);
+}
+
+.indicators {
+  position: absolute;
+  right: 4px;
+  top: 15px;
+  display: flex;
+  gap: 9px;
+  cursor: pointer;
+
+  &__disabled {
+    pointer-events: none;
+  }
+}
+
+.arrow {
+  transition: all 0.3s ease 0s;
+  transform: rotate(-180deg);
+}
+
+.open {
+  transform: rotate(0deg);
+}
+
+.error {
+  color: var(--red-error-color);
+  font: var(--font-body-weight-m) var(--font-body-size-m) /
+    var(--font-body-line-m) var(--font-rubik);
+}
