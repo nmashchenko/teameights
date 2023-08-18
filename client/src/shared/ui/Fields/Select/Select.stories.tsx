@@ -1,5 +1,4 @@
 import type { Meta } from '@storybook/react';
-import { useState } from 'react';
 import concentrations from 'shared/constant/concentrations';
 import { Select } from './Select';
 // import { useForm } from 'react-hook-form'
@@ -17,8 +16,6 @@ export default meta;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Select_default = () => {
-  const [selectV, setSelectV] = useState(concentrations[0].value);
-
   return (
     <div
       style={{
@@ -26,6 +23,7 @@ export const Select_default = () => {
         flexDirection: 'column',
         gap: 30,
         width: '300px',
+        minHeight: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -33,9 +31,7 @@ export const Select_default = () => {
         <Select
           // control={control}
           name="concentration"
-          value={selectV}
-          onChange={(e) => setSelectV(e.target.value)}
-          label="Description"
+          label="Single select"
           options={concentrations}
         />
       </div>
@@ -44,32 +40,100 @@ export const Select_default = () => {
   );
 };
 
-// TODO: FIX ERROR
-// export const Select_error = () => {
-//   const [selectV, setSelectV] = useState(concentrations[0].value);
+export const Select_default_multiple = () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 30,
+        width: '300px',
+        minHeight: '400px',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+        <p>Type - Multiple</p>
+        <Select
+          // control={control}
+          name="concentration"
+          label="Multiple select"
+          options={concentrations}
+          isMulti={true}
+        />
+      </div>
+    </div>
+  );
+};
 
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         flexDirection: 'column',
-//         gap: 30,
-//         width: '300px',
-//       }}
-//     >
-//       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
-//         <p>Type - Single with error</p>
-//         <Select
-//           // control={control}
-//           name="concentration"
-//           value={selectV}
-//           onChange={(e) => setSelectV(e.target.value)}
-//           label="Description"
-//           options={concentrations}
-//           error="test error"
-//         />
-//       </div>
-//     </div>
-//     // )
-//   );
-// };
+export const Select_error = () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 30,
+        width: '300px',
+        minHeight: '400px',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+        <p>Type - Single with error</p>
+        <Select
+          name="concentration"
+          label="Description"
+          options={concentrations}
+          error="test error"
+        />
+      </div>
+    </div>
+  );
+};
+
+export const Select_error_multiple = () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 30,
+        width: '300px',
+        minHeight: '400px',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+        <p>Type - Multiple with error</p>
+        <Select
+          name="concentration"
+          label="Description"
+          options={concentrations}
+          error="test error"
+          isMulti
+        />
+      </div>
+    </div>
+  );
+};
+
+export const Select_disabled = () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 30,
+        width: '300px',
+        minHeight: '400px',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+        <p>Type - Single disabled</p>
+        <Select
+          name="concentration"
+          label="Description"
+          options={concentrations}
+          disabled
+        />
+      </div>
+    </div>
+  );
+};

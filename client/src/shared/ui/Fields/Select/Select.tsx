@@ -1,74 +1,77 @@
 import clsx from 'clsx';
-import ReactSelect, { components, DropdownIndicatorProps } from 'react-select';
-import { CaretDown } from 'shared/assets/Icons/Caret/CaretDown';
-import { CaretUp } from 'shared/assets/Icons/Caret/CaretUp';
-import { InputProps } from '../Input/Input';
+import ReactSelect, { GroupBase, Props } from 'react-select';
+
+import {
+  DropdownIndicator,
+  ErrorIndicator,
+  MultiValueRemove,
+} from './Select.components';
 import styles from './Select.module.scss';
 import { selectStyles } from './Select.styles';
 /* 
 ex: 
 <Select
-    control={control}
     name='select'
     label='Select'
-    options={SelectOptions}
-    type='checkboxes'
+    options={selectOptions}
+    isMulti={true}
 />
 */
 
-type OptionsType = {
-  value: string | number;
+type Option = {
   label: string;
+  value: string;
 };
 
-interface SelectProps extends Omit<InputProps, 'register'> {
-  isMulti?: boolean;
-  options: OptionsType[];
+interface CustomSelectProps {
+  error?: string;
+  label?: string;
   disabled?: boolean;
-  //   value: string;
-  //   onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  options: Option[];
 }
 
-export const Select = ({
-  label,
-  name,
+export const Select = <
+  Option,
+  IsMulti extends boolean = false,
+  Group extends GroupBase<Option> = GroupBase<Option>,
+>({
   error,
-  options,
-  disabled = false, //   value,
-} //   onChange,
-: SelectProps) => {
-  const DropdownIndicator = (props: DropdownIndicatorProps) => {
-    return (
-      components.DropdownIndicator && (
-        <components.DropdownIndicator {...props}>
-          {props.selectProps.menuIsOpen ? <CaretUp /> : <CaretDown />}
-        </components.DropdownIndicator>
-      )
-    );
-  };
-
+  label,
+  disabled,
+  isMulti,
+  name,
+  ...props
+}: Props<Option, IsMulti, Group> & CustomSelectProps) => {
   return (
-    <div className={clsx(styles.wrapper, {}, [])}>
+    <div
+      className={clsx(styles.wrapper, { [styles.wrapper__disabled]: disabled })}
+    >
       {label && (
         <label htmlFor={name} className={styles.label}>
           {label}
         </label>
       )}
-
       <ReactSelect
-        closeMenuOnSelect={true}
-        styles={selectStyles}
+        {...props}
+        instanceId="t8s-select"
+        closeMenuOnSelect={!isMulti}
+        styles={selectStyles<Option, IsMulti, Group>()}
         name={name}
-        options={options}
-        defaultValue={options ? options[0] : null}
-        components={{ DropdownIndicator, IndicatorSeparator: () => null }}
+        components={{
+          DropdownIndicator: error ? ErrorIndicator : DropdownIndicator,
+          IndicatorSeparator: () => null,
+          MultiValueRemove,
+        }}
         isDisabled={disabled}
         captureMenuScroll={false}
+        isMulti={isMulti}
+        isClearable={false}
+        menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
       />
       {error && (
-        <span className={styles.error} id={`${name}-error`} role="alert">
+        <p className={styles.error} id={`${name}-error`} role="alert">
           {error}
-        </span>
+        </p>
       )}
     </div>
   );

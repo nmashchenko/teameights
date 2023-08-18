@@ -16,7 +16,10 @@ import {
 
 export default function Home() {
   const [value, setValue] = useState('strign');
-  const [selectV, setSelectV] = useState(concentrations[0].value);
+  // const [selectV, setSelectV] = useState([concentrations[0]]);
+
+  // console.log(selectV);
+
   return (
     <>
       <Typography size={TypographySize.Body_XL} variant={TypographyVariants.h6}>
@@ -48,9 +51,9 @@ export default function Home() {
       <div style={{ width: '400px' }}>
         <Select
           options={concentrations}
-          name="concentration"
-          value={selectV}
-          onChange={(e) => setSelectV(e.target.value)}
+          // value={selectV}
+          // onChange={(selections: any) => setSelectV(selections)}
+          isMulti={true}
         />
       </div>
     </>

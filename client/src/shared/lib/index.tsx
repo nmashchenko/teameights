@@ -1,1 +1,1 @@
-export { getCSSVariable } from './getCSSVariables/getCSSVariables';
+/**index.tsx for lib */
