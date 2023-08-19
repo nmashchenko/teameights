@@ -137,3 +137,52 @@ export const Select_disabled = () => {
     </div>
   );
 };
+
+export const Select_checkbox = () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 30,
+        width: '300px',
+        minHeight: '400px',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+        <p>Type - Checkbox</p>
+        <Select
+          name="concentration"
+          label="Description"
+          options={concentrations}
+          isCheckbox
+        />
+      </div>
+    </div>
+  );
+};
+
+export const Select_checkbox_multiple = () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 30,
+        width: '300px',
+        minHeight: '400px',
+      }}
+    >
+      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+        <p>Type - Checkbox multy</p>
+        <Select
+          name="concentration"
+          label="Description"
+          options={concentrations}
+          isCheckbox
+          isMulti
+        />
+      </div>
+    </div>
+  );
+};

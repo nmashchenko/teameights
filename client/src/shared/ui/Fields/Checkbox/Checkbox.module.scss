@@ -4,7 +4,7 @@
   height: 20px;
   border: 1px solid var(--white-color);
   border-radius: 5px;
-  transition: all 0.3s ease 0s;
+  transition: all 0.2s ease-in-out 0s;
 
   svg {
     display: none;
@@ -15,11 +15,16 @@
   color: var(--white-color);
   font: var(--font-body-weight-l) var(--font-body-size-l) /
     var(--font-body-line-l) var(--font-rubik);
-  transition: all 0.3s ease 0s;
+  transition: all 0.2s ease-in-out 0s;
+  cursor: 'pointer';
+
+  &__disabled {
+    opacity: 0.4;
+  }
 }
 
 .Checkbox {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
@@ -32,10 +37,6 @@
     .checkmark {
       border-color: var(--green-bright-color);
     }
-
-    // .label {
-    //   color: var(--green-bright-color);
-    // }
   }
 }
 

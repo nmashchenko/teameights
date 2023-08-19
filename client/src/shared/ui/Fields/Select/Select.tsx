@@ -5,6 +5,7 @@ import {
   DropdownIndicator,
   ErrorIndicator,
   MultiValueRemove,
+  Option,
 } from './Select.components';
 import styles from './Select.module.scss';
 import { selectStyles } from './Select.styles';
@@ -27,6 +28,7 @@ interface CustomSelectProps {
   error?: string;
   label?: string;
   disabled?: boolean;
+  isCheckbox?: boolean;
   options: Option[];
 }
 
@@ -39,6 +41,7 @@ export const Select = <
   label,
   disabled,
   isMulti,
+  isCheckbox = false,
   name,
   ...props
 }: Props<Option, IsMulti, Group> & CustomSelectProps) => {
@@ -55,17 +58,19 @@ export const Select = <
         {...props}
         instanceId="t8s-select"
         closeMenuOnSelect={!isMulti}
-        styles={selectStyles<Option, IsMulti, Group>()}
+        styles={selectStyles<Option, IsMulti, Group>(isCheckbox)}
         name={name}
         components={{
           DropdownIndicator: error ? ErrorIndicator : DropdownIndicator,
           IndicatorSeparator: () => null,
           MultiValueRemove,
+          ...(isCheckbox ? { Option } : {}), // Conditionally include custom Option component
         }}
         isDisabled={disabled}
         captureMenuScroll={false}
         isMulti={isMulti}
         isClearable={false}
+        hideSelectedOptions={!isCheckbox}
         menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
       />
       {error && (

@@ -16,6 +16,7 @@ import {
 
 export default function Home() {
   const [value, setValue] = useState('strign');
+  const [checked, setChecked] = useState(true);
   // const [selectV, setSelectV] = useState([concentrations[0]]);
 
   // console.log(selectV);
@@ -31,8 +32,25 @@ export default function Home() {
       <Button typeBtn="primary" content="icon_button" size="l">
         <Plus />
       </Button>
-      <Checkbox name="123" label="123" />
-      <Checkbox name="123" width="16px" height="16px" />
+      <div>
+        <Checkbox
+          name="123"
+          label="123"
+          checked={checked}
+          onChange={() => setChecked((prev) => !prev)}
+        />
+      </div>
+
+      <div>
+        <Checkbox
+          name="123"
+          width="16px"
+          height="16px"
+          checked={checked}
+          onChange={() => setChecked((prev) => !prev)}
+        />
+      </div>
+
       <Input
         name="123"
         error="test error"
@@ -53,7 +71,8 @@ export default function Home() {
           options={concentrations}
           // value={selectV}
           // onChange={(selections: any) => setSelectV(selections)}
-          isMulti={true}
+          isCheckbox
+          isMulti
         />
       </div>
     </>

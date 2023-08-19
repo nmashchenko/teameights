@@ -1,4 +1,9 @@
-import { GroupBase, StylesConfig } from 'react-select';
+import {
+  CSSObjectWithLabel,
+  GroupBase,
+  OptionProps,
+  StylesConfig,
+} from 'react-select';
 
 const _colors = {
   grey: {
@@ -19,12 +24,60 @@ const _focusAndActiveStyles = {
   boxShadow: 'none',
   borderBottom: `1px solid ${_colors.white}`,
 };
+const _checkboxOption = <
+  OptionType,
+  IsMultiType extends boolean = false,
+  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
+>(
+  styles: CSSObjectWithLabel,
+  { isFocused, isSelected }: OptionProps<OptionType, IsMultiType, GroupType>
+) => ({
+  ...styles,
+  background:
+    isFocused && !isSelected
+      ? _colors.green.dark
+      : isSelected
+      ? 'transparent'
+      : undefined,
+  display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer',
+  gap: '10px',
+
+  ':active': {
+    background: 'transparent',
+  },
+});
+
+const _regularOption = <
+  OptionType,
+  IsMultiType extends boolean = false,
+  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
+>(
+  styles: CSSObjectWithLabel,
+  { isFocused, isSelected }: OptionProps<OptionType, IsMultiType, GroupType>
+) => ({
+  ...styles,
+  cursor: 'pointer',
+  background:
+    isFocused && !isSelected
+      ? _colors.green.dark
+      : isSelected
+      ? _colors.green.active
+      : undefined,
+
+  ':active': {
+    background: _colors.green.dark,
+  },
+});
 
 export const selectStyles = <
   OptionType,
   IsMultiType extends boolean = false,
   GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
->(): StylesConfig<OptionType, IsMultiType, GroupType> => {
+>(
+  isCheckbox = false
+): StylesConfig<OptionType, IsMultiType, GroupType> => {
   return {
     control: (styles) => ({
       ...styles,
@@ -83,20 +136,10 @@ export const selectStyles = <
       boxShadow: '0 4px 24px 0 rgb(17 20 27 / 25%)',
       background: _colors.grey.dark,
     }),
-    option: (styles, { isFocused, isSelected }) => ({
-      ...styles,
-      cursor: 'pointer',
-      background:
-        isFocused && !isSelected
-          ? _colors.green.dark
-          : isSelected
-          ? _colors.green.active
-          : undefined,
-
-      ':active': {
-        background: _colors.green.dark,
-      },
-    }),
+    option: (styles, props) =>
+      isCheckbox
+        ? _checkboxOption(styles, props)
+        : _regularOption(styles, props),
     multiValue: (styles) => ({
       ...styles,
       cursor: 'pointer',
