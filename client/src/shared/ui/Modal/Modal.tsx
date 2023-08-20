@@ -9,7 +9,7 @@ interface ModalProps {
 }
 
 const Modal: FC<PropsWithChildren<ModalProps>> = (props) => {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, children } = props;
 
   return (
     <ReactModal
@@ -19,7 +19,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = (props) => {
       className="modal-body"
     >
       <Cross className="close-button" />
-      {props.children}
+      {children}
     </ReactModal>
   );
 };
