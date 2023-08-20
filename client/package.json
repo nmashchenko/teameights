@@ -30,6 +30,7 @@
     "react-dom": "18.2.0",
     "react-select": "^5.7.4",
     "sass": "^1.64.2",
+    "styled-components": "^6.0.7",
     "typescript": "5.1.6"
   },
   "devDependencies": {
@@ -52,5 +53,6 @@
   },
   "resolutions": {
     "webpack": "^5"
-  }
+  },
+  "packageManager": "yarn@3.6.2"
 }
