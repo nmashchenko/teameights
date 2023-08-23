@@ -1,0 +1,20 @@
+.badge_language {
+  position: relative;
+  background: #2f3239;
+  border-radius: 5px;
+  padding: 8px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.badge_language_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  width: 57%;
+  margin-bottom: 10px;
+}
