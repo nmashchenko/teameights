@@ -28,6 +28,7 @@
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-modal": "^3.16.1",
     "react-select": "^5.7.4",
     "sass": "^1.64.2",
     "typescript": "5.1.6"
@@ -43,6 +44,7 @@
     "@storybook/nextjs": "7.2.1",
     "@storybook/react": "7.2.1",
     "@storybook/testing-library": "0.2.0",
+    "@types/react-modal": "^3.16.0",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "eslint-plugin-storybook": "^0.6.13",
