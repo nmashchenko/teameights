@@ -34,7 +34,7 @@ export const Button: FC<ButtonProps> = (props) => {
     <button
       disabled={isDisabled}
       style={{ width: width }}
-      className={clsx(styles.Button, {}, [
+      className={clsx(styles.container, {}, [
         className,
         styles[`size_${size}`],
         styles[typeBtn],

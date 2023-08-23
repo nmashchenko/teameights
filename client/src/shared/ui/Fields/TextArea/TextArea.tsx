@@ -7,13 +7,9 @@ type CounterPosition = 'top' | 'bottom';
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
-  className?: string;
-  maxLength?: number;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   counterPosition?: CounterPosition;
   maxWidth?: string;
+  value?: string;
 }
 
 export const TextArea: FC<TextAreaProps> = ({
@@ -31,15 +27,19 @@ export const TextArea: FC<TextAreaProps> = ({
 
   useAutosizeTextArea(textAreaRef.current, value);
 
-  const LetterCounter = () => (
-    <span className={styles.counter}>
-      {value.length}/{maxLength}
-    </span>
-  );
+  const LetterCounter = () => {
+    if (!value) return null;
+
+    return (
+      <span className={styles.counter}>
+        {value.length}/{maxLength}
+      </span>
+    );
+  };
 
   return (
     <div
-      className={clsx(styles.TextArea, {}, [className])}
+      className={clsx(styles.container, {}, [className])}
       style={{ maxWidth: maxWidth }}
     >
       <div className={styles.label__wrapper}>

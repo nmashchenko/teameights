@@ -8,6 +8,7 @@ import { Checkbox } from 'shared/ui/Fields/Checkbox/Checkbox';
 import { Input } from 'shared/ui/Fields/Input/Input';
 import { Select } from 'shared/ui/Fields/Select/Select';
 import { TextArea } from 'shared/ui/Fields/TextArea/TextArea';
+import Tabs from 'shared/ui/Tabs/Tabs';
 import {
   Typography,
   TypographySize,
@@ -17,6 +18,7 @@ import {
 export default function Home() {
   const [value, setValue] = useState('strign');
   const [checked, setChecked] = useState(true);
+  const [tab, setTab] = useState('test1');
   // const [selectV, setSelectV] = useState([concentrations[0]]);
 
   // console.log(selectV);
@@ -75,6 +77,12 @@ export default function Home() {
           isMulti
         />
       </div>
+
+      <Tabs
+        options={['test1', 'test2']}
+        currentTab={tab}
+        onTabChange={(option: string) => setTab(option)}
+      />
     </>
   );
 }

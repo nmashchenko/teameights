@@ -1,7 +1,5 @@
-'use client';
-
 import clsx from 'clsx';
-import { ChangeEvent, FC, InputHTMLAttributes } from 'react';
+import { FC, InputHTMLAttributes } from 'react';
 import { WarningCircle } from 'shared/assets/Icons/WarningCircle';
 import styles from './Input.module.scss';
 
@@ -22,15 +20,11 @@ import styles from './Input.module.scss';
  */
 
 type IconPosition = 'start' | 'end';
+
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   label?: string;
-  className?: string;
   error?: string;
   maxWidth?: string;
-  type?: 'text' | 'password'; // Explicitly limit the type to 'text' or 'password'
   subIconPosition?: IconPosition;
   subIcon?: JSX.Element;
 }
@@ -43,11 +37,8 @@ export const Input: FC<InputProps> = ({
   maxWidth,
   placeholder,
   disabled,
-  type = 'text',
   subIconPosition = 'end',
   subIcon,
-  value,
-  onChange,
   ...props
 }) => {
   const hasSubIcon = Boolean(subIcon);
@@ -74,9 +65,9 @@ export const Input: FC<InputProps> = ({
   return (
     <div
       className={clsx(
-        styles.wrapper,
-        { [styles.wrapper__disabled]: disabled },
-        className
+        styles.container,
+        { [styles.container__disabled]: disabled },
+        [className]
       )}
       style={{ maxWidth: maxWidth }}
     >
@@ -85,7 +76,7 @@ export const Input: FC<InputProps> = ({
           {label}
         </label>
       )}
-      <div className={styles.input_wrapper}>
+      <div className={styles.input_container}>
         <input
           name={name}
           className={clsx(styles.input, {
@@ -97,9 +88,6 @@ export const Input: FC<InputProps> = ({
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${name}-error` : undefined}
           placeholder={placeholder}
-          type={type}
-          value={value}
-          onChange={onChange}
           {...props}
         />
         {error && renderErrorIcon()}

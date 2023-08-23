@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tab {
+  transition: all 0.2s;
+  position: relative;
+  color: var(--white-color);
+  font: var(--font-heading-weight-s) var(--font-heading-size-s) /
+    var(--font-heading-line-s) var(--font-rubik);
+  cursor: pointer;
+
+  span {
+    transform: translateX(-50%) scaleX(0);
+  }
+
+  &__active {
+    color: var(--green-bright-color);
+
+    span {
+      width: 100%;
+      height: 1px;
+      position: absolute;
+      bottom: -10%;
+      left: 50%;
+      background-color: var(--green-bright-color);
+      transition: all 0.2s;
+      transform: translateX(-50%) scaleX(100%);
+    }
+  }
+}
