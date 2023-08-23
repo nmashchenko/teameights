@@ -8,6 +8,7 @@ import { Checkbox } from 'shared/ui/Fields/Checkbox/Checkbox';
 import { Input } from 'shared/ui/Fields/Input/Input';
 import { Select } from 'shared/ui/Fields/Select/Select';
 import { TextArea } from 'shared/ui/Fields/TextArea/TextArea';
+import { Modal } from 'shared/ui/Modal/Modal';
 import {
   Typography,
   TypographySize,
@@ -17,6 +18,7 @@ import {
 export default function Home() {
   const [value, setValue] = useState('strign');
   const [checked, setChecked] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // const [selectV, setSelectV] = useState([concentrations[0]]);
 
   // console.log(selectV);
@@ -75,6 +77,10 @@ export default function Home() {
           isMulti
         />
       </div>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        Some text
+      </Modal>
+      <Button onClick={() => setIsModalOpen(true)}>Open modal</Button>
     </>
   );
 }
