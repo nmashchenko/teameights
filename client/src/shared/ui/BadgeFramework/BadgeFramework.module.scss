@@ -1,0 +1,15 @@
+.badge {
+    &_framework {
+    // width: ${(props) => props.width || '91px'};
+    height: 32px;
+    // margin-right: ${(props) => props.marginRight || '0'};
+    // margin-bottom: ${(props) => props.marginBottom || '0'};
+    // flex-grow: ${(props) => props.flexGrow || '1'};
+    // background: ${(props) => props.background || '#E0FF00'};
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    }
+}
