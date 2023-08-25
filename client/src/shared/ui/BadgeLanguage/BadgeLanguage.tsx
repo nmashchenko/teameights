@@ -12,13 +12,17 @@ interface BadgeLanguageProps {
 export const BadgeLanguage: FC<BadgeLanguageProps> = ({
   userLanguages,
   className,
-  width = '91px',
+  width,
   ...props
 }) => {
   return (
     <BadgeLanguageContainer {...props} className={className}>
       {userLanguages.map((item, id) => (
-        <div className={styles.badge_language} key={id}>
+        <div
+          className={styles.badge_language}
+          key={id}
+          style={{ width: `${width ? width : '91px'}` }}
+        >
           {languageOptions[item]}
         </div>
       ))}
