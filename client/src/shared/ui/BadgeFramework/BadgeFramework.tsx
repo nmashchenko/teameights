@@ -23,15 +23,12 @@ export const BadgeFramework: FC<BadgeFrameworkProps> = ({
   marginRight,
   marginBottom,
   flexGrow,
-  backgroundColor,
   userFrameworks,
   ...props
 }) => {
-  console.log(styles);
-
   return (
     <BadgeFrameworkContainer {...props}>
-      {userFrameworks.map((item, id) => (
+      {userFrameworks.map((item: string, id: number) => (
         <div
           key={id}
           className={clsx([className], styles.badge_framework)}

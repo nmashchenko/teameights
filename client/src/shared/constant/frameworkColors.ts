@@ -1,4 +1,12 @@
-const frameworkColors = Object.freeze({
+interface IframeworkColors {
+  [tech: string]: string
+}
+
+interface IframeworkTextColors {
+  [tech: string]: string
+}
+
+const frameworkColors: IframeworkColors = Object.freeze({
   NodeJS: '#73B212',
   Ruby: '#BF2626',
   Angular: '#BF2626',
@@ -30,7 +38,7 @@ const frameworkColors = Object.freeze({
   Illustrator: '#D9790B',
 })
 
-const frameworkTextColors = Object.freeze({
+const frameworkTextColors: IframeworkTextColors = Object.freeze({
   NodeJS: 'white',
   Ruby: 'white',
   Angular: 'white',

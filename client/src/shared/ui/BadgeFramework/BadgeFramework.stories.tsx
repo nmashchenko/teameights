@@ -15,6 +15,14 @@ type BadgeFramework = StoryObj<typeof BadgeFramework>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const BadgeFrameworks: BadgeFramework = {
   args: {
-    userFrameworks: ['React', 'NodeJS', 'Angular', 'MUI'],
+    userFrameworks: [
+      'React',
+      'NodeJS',
+      'Angular',
+      'MUI',
+      'jQuery',
+      'Flutter',
+      'VueJS',
+    ],
   },
 };
