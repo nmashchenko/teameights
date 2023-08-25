@@ -5,6 +5,7 @@ import {
   frameworkColors,
   frameworkTextColors,
 } from 'shared/constant/frameworkColors';
+import { BadgeFrameworkContainer } from './components/BadgeFrameworkContainer/BadgeFrameworkContainer';
 
 interface BadgeFrameworkProps {
   userFrameworks: Array<string>;
@@ -26,33 +27,26 @@ export const BadgeFramework: FC<BadgeFrameworkProps> = ({
   userFrameworks,
   ...props
 }) => {
-  // TODO: Create container for BadgeFramework
+  console.log(styles);
+
   return (
-    <div {...props}>
+    <BadgeFrameworkContainer {...props}>
       {userFrameworks.map((item, id) => (
         <div
           key={id}
-          className={
-            (clsx(
-              {
-                [styles[width]]: width,
-                [styles[marginRight]]: marginRight,
-                [styles[marginBottom]]: marginBottom,
-                [styles[flexGrow]]: flexGrow,
-                [styles[backgroundColor]]: backgroundColor,
-              },
-              [className]
-            ),
-            styles.badge_framework)
-          }
+          className={clsx([className], styles.badge_framework)}
           style={{
             backgroundColor: frameworkColors[item],
             color: frameworkTextColors[item],
+            width: `${width ? width : '91px'}`,
+            marginRight: `${marginRight ? marginRight : '0'}`,
+            marginBottom: `${marginBottom ? marginBottom : '0'}`,
+            flexGrow: `${flexGrow ? flexGrow : '1'}`,
           }}
         >
           {item}
         </div>
       ))}
-    </div>
+    </BadgeFrameworkContainer>
   );
 };
