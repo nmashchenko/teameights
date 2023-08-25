@@ -19,11 +19,11 @@ interface BadgeFrameworkProps {
 
 export const BadgeFramework: FC<BadgeFrameworkProps> = ({
   className,
-  width = '91px',
-  marginRight = '0',
-  marginBottom = '0',
-  flexGrow = '1',
-  backgroundColor = '#E0FF00',
+  width,
+  marginRight,
+  marginBottom,
+  flexGrow,
+  backgroundColor,
   userFrameworks,
   ...props
 }) => {
