@@ -20,6 +20,7 @@ export const BadgeFrameworkContainer: FC<BadgeFrameworkContainerProps> = ({
         }),
         styles.BadgeFrameworkContainer)
       }
+      {...props}
     >
       {children}
     </div>
