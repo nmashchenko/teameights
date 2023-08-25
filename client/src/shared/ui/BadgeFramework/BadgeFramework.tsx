@@ -36,7 +36,9 @@ export const BadgeFramework: FC<BadgeFrameworkProps> = ({
           key={id}
           className={clsx([className], styles.badge_framework)}
           style={{
-            backgroundColor: frameworkColors[item],
+            backgroundColor: `${
+              frameworkColors[item] ? frameworkColors[item] : '#2F3239'
+            }`,
             color: frameworkTextColors[item],
             width: `${width ? width : '91px'}`,
             marginRight: `${marginRight ? marginRight : '0'}`,
