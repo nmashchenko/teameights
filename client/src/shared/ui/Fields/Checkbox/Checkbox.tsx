@@ -26,8 +26,8 @@ export const Checkbox: FC<CheckboxProps> = ({
   return (
     <label
       className={clsx(
-        styles.Checkbox,
-        { [styles.Checkbox__disabled]: disabled },
+        styles.container,
+        { [styles.container__disabled]: disabled },
         [className]
       )}
     >

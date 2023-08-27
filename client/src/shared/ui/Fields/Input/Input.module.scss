@@ -1,4 +1,4 @@
-.wrapper {
+.container {
   width: 100%;
   display: flex;
   gap: 4px;
@@ -16,7 +16,7 @@
     var(--font-body-line-m) var(--font-rubik);
 }
 
-.input_wrapper {
+.input_container {
   position: relative;
   display: flex;
   flex-direction: column;

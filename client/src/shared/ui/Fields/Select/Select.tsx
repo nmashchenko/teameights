@@ -47,7 +47,9 @@ export const Select = <
 }: Props<Option, IsMulti, Group> & CustomSelectProps) => {
   return (
     <div
-      className={clsx(styles.wrapper, { [styles.wrapper__disabled]: disabled })}
+      className={clsx(styles.container, {
+        [styles.container__disabled]: disabled,
+      })}
     >
       {label && (
         <label htmlFor={name} className={styles.label}>
