@@ -1,5 +1,7 @@
 .container {
-  font: var(--font-body-l);
+  /* Change for normal font */
+  font: var(--font-body-weight-l) var(--font-body-size-l) / var(--font-body-line-l)
+    var(--font-rubik);
   overflow: hidden;
   justify-content: center;
   align-items: center;

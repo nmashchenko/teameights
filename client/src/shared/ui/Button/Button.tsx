@@ -33,12 +33,14 @@ export const Button: FC<ButtonProps> = (props) => {
   return (
     <button
       disabled={isDisabled}
-      style={{ width: width }}
+      style={{
+        width: width ? `${width}` : undefined
+      }}
       className={clsx(styles.container, {}, [
         className,
         styles[`size_${size}`],
         styles[typeBtn],
-        styles[content],
+        styles[content]
       ])}
       {...otherProps}
     >
