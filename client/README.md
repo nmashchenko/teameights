@@ -165,3 +165,11 @@ For any questions or further details, please consult the updated documentation o
 ## Package manager 🧰
 
 YARN will be forced to use across the app, any adds of packages, installs and other are required to be done via YARN. YARN is also used for vercel deployments.
+
+We are using yarn stable version:
+
+```
+yarn set version stable
+```
+
+Stable is used to prevent all isues with storybook/etc.
