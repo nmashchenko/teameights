@@ -1,5 +1,6 @@
 import { clsx } from 'clsx';
 import { FC, ReactNode } from 'react';
+import { Colors } from 'shared/constant/colors';
 import styles from './Typography.module.scss';
 
 {
@@ -31,7 +32,7 @@ export enum TypographySize {
   Body_M = 'body_m',
   Body_L = 'body_l',
   Body_XL = 'body_xl',
-  Caption = 'caption',
+  Caption = 'caption'
 }
 
 export enum TypographyVariants {
@@ -41,7 +42,7 @@ export enum TypographyVariants {
   h4 = 'h4',
   h5 = 'h5',
   h6 = 'h6',
-  p = 'p',
+  p = 'p'
 }
 
 interface TypographyProps {
@@ -49,6 +50,7 @@ interface TypographyProps {
   className?: string;
   size?: TypographySize;
   variant?: TypographyVariants;
+  color?: Colors;
 }
 
 export const Typography: FC<TypographyProps> = ({
@@ -56,6 +58,7 @@ export const Typography: FC<TypographyProps> = ({
   className,
   size = TypographySize.Body_M,
   variant = TypographyVariants.p,
+  color,
   ...props
 }) => {
   const Component = variant;
@@ -64,10 +67,11 @@ export const Typography: FC<TypographyProps> = ({
     <Component
       className={clsx(
         {
-          [styles[size]]: size,
+          [styles[size]]: size
         },
         [className]
       )}
+      style={color ? { color: `var(${color})` } : undefined}
       {...props}
     >
       {children}
