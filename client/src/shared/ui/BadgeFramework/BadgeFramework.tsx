@@ -10,19 +10,12 @@ import { BadgeFrameworkContainer } from './components/BadgeFrameworkContainer/Ba
 interface BadgeFrameworkProps {
   userFrameworks: Array<string>;
   className?: string;
-  width?: string;
-  marginRight?: string;
-  marginBottom?: string;
-  flexGrow?: string;
-  backgroundColor?: string;
+  maxWidth?: string;
 }
 
 export const BadgeFramework: FC<BadgeFrameworkProps> = ({
   className,
-  width,
-  marginRight,
-  marginBottom,
-  flexGrow,
+  maxWidth,
   userFrameworks,
   ...props
 }) => {
@@ -37,10 +30,7 @@ export const BadgeFramework: FC<BadgeFrameworkProps> = ({
               frameworkColors[item] ? frameworkColors[item] : '#2F3239'
             }`,
             color: frameworkTextColors[item],
-            width: `${width ? width : '91px'}`,
-            marginRight: `${marginRight ? marginRight : '0'}`,
-            marginBottom: `${marginBottom ? marginBottom : '0'}`,
-            flexGrow: `${flexGrow ? flexGrow : '1'}`,
+            maxWidth: `${maxWidth ? maxWidth : '100%'}`,
           }}
         >
           {item}
