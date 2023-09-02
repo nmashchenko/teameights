@@ -16,12 +16,21 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = (props) => {
   return (
     <ReactModal
       isOpen={isOpen}
+      closeTimeoutMS={225}
       onRequestClose={onClose}
-      overlayClassName={styles.modalOverlay}
-      className={styles.modalBody}
+      overlayClassName={{
+        base: styles.modalOverlay,
+        afterOpen: styles.modalOverlay__afterOpen,
+        beforeClose: styles.modalOverlay__beforeClose
+      }}
+      className={{
+        base: styles.modalBody,
+        afterOpen: styles.modalBody__afterOpen,
+        beforeClose: styles.modalBody__beforeClose
+      }}
     >
       <Cross className={styles.closeButton} onClick={onClose} />
-      {children}
+      <div className={styles.modalContent}>{children}</div>
     </ReactModal>
   );
 };
