@@ -24,7 +24,7 @@
   position: absolute;
   left: 50%;
   bottom: 0;
-  width: 470px;
+  width: 100%;
   padding: 32px;
   border-radius: 15px;
   background: var(--base-cards-color, #1a1c22);
@@ -40,6 +40,22 @@
 .modalBody__beforeClose {
   bottom: 0;
   transform: translate(-50%, 100%);
+}
+
+.modalBody,
+.modalBody__afterOpen,
+.modalBody__beforeClose {
+  &.size_l {
+    max-width: 570px;
+  }
+
+  &.size_m {
+    max-width: 470px;
+  }
+
+  &.size_s {
+    max-width: 370px;
+  }
 }
 
 .modalContent {

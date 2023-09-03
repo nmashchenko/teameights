@@ -1,3 +1,4 @@
+import classNames from 'clsx';
 import { FC, PropsWithChildren } from 'react';
 import ReactModal from 'react-modal';
 
@@ -8,10 +9,11 @@ import { Cross } from 'shared/assets/Icons/Cross';
 interface ModalProps {
   isOpen: boolean;
   onClose?: () => void;
+  size?: 's' | 'm' | 'l';
 }
 
 export const Modal: FC<PropsWithChildren<ModalProps>> = (props) => {
-  const { isOpen, onClose, children } = props;
+  const { isOpen, onClose, size = 's', children } = props;
 
   return (
     <ReactModal
@@ -24,9 +26,9 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = (props) => {
         beforeClose: styles.modalOverlay__beforeClose
       }}
       className={{
-        base: styles.modalBody,
-        afterOpen: styles.modalBody__afterOpen,
-        beforeClose: styles.modalBody__beforeClose
+        base: classNames(styles.modalBody, {}, [styles[`size_${size}`]]),
+        afterOpen: classNames(styles.modalBody__afterOpen, {}, [styles[`size_${size}`]]),
+        beforeClose: classNames(styles.modalBody__beforeClose, {}, [styles[`size_${size}`]])
       }}
     >
       <Cross className={styles.closeButton} onClick={onClose} />
