@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { useState } from 'react';
 import { Button } from '../Button/Button';
 import { Modal } from './Modal';
@@ -8,26 +8,23 @@ const meta: Meta<typeof Modal> = {
   title: 'shared/Modal',
   component: Modal,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {}
 };
 
 export default meta;
-type Story = StoryObj<typeof Modal>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Modal_Opened: Story = {
-  render: () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+export const Modal_Opened = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    return (
-      <div>
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          Some Text
-        </Modal>
-        <Button typeBtn="primary" size="m" onClick={() => setIsModalOpen(true)}>
-          Open modal
-        </Button>
-      </div>
-    );
-  },
+  return (
+    <div>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        Some Text
+      </Modal>
+      <Button typeBtn='primary' size='m' onClick={() => setIsModalOpen(true)}>
+        Open modal
+      </Button>
+    </div>
+  );
 };
