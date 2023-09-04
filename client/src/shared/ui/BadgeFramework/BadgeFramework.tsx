@@ -5,10 +5,22 @@ import {
   frameworkColors,
   frameworkTextColors,
 } from 'shared/constant/frameworkColors';
-import { BadgeFrameworkContainer } from './components/BadgeFrameworkContainer/BadgeFrameworkContainer';
+
+/* Example of usage:
+ *
+ * export const BadgeFramework = ({userFrameworks, ...props}) => {
+ *   return (
+ *     <BadgeFrameworkContainer {...props}>
+ *         {userFrameworks.map((item, id) => (
+ *                 <BadgeFramework data={item} key={id} />
+ *         ))}
+ *     </BadgeFrameworkContainer>
+ *   );
+ * }; */
 
 interface BadgeFrameworkProps {
-  userFrameworks: Array<string>;
+  data: string;
+  key: number;
   className?: string;
   maxWidth?: string;
 }
@@ -16,26 +28,22 @@ interface BadgeFrameworkProps {
 export const BadgeFramework: FC<BadgeFrameworkProps> = ({
   className,
   maxWidth,
-  userFrameworks,
+  data,
+  key,
   ...props
-}) => {
-  return (
-    <BadgeFrameworkContainer {...props}>
-      {userFrameworks.map((item: string, id: number) => (
-        <div
-          key={id}
-          className={clsx([className], styles.badge_framework)}
-          style={{
-            backgroundColor: `${
-              frameworkColors[item] ? frameworkColors[item] : '#2F3239'
-            }`,
-            color: frameworkTextColors[item],
-            maxWidth: `${maxWidth ? maxWidth : '100%'}`,
-          }}
-        >
-          {item}
-        </div>
-      ))}
-    </BadgeFrameworkContainer>
-  );
-};
+}) => (
+  <div
+    key={key}
+    className={clsx([className], styles.badge_framework)}
+    style={{
+      backgroundColor: `${
+        frameworkColors[data] ? frameworkColors[data] : '#2F3239'
+      }`,
+      color: frameworkTextColors[data],
+      maxWidth: `${maxWidth ? maxWidth : '100%'}`,
+    }}
+    {...props}
+  >
+    {data}
+  </div>
+);

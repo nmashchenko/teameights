@@ -1,6 +1,6 @@
-function Lua() {
+export const Lua: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         d="M23.8688 2.83115C23.8688 1.3499 22.6688 0.149902 21.1875 0.149902C19.7063 0.149902 18.4875 1.33115 18.4875 2.83115C18.4875 4.33115 19.6875 5.5124 21.1875 5.5124C22.6875 5.5124 23.8688 4.3124 23.8688 2.83115"
         fill="white"
@@ -16,5 +16,3 @@ function Lua() {
     </svg>
   )
 }
-
-export default Lua

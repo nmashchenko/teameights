@@ -1,6 +1,6 @@
-function GO() {
+export const GO: React.FC<React.SVGProps<SVGSVGElement>> = (props) =>  {
   return (
-    <svg width="24" height="10" viewBox="0 0 24 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="24" height="10" viewBox="0 0 24 10" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -14,5 +14,3 @@ function GO() {
     </svg>
   )
 }
-
-export default GO

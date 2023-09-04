@@ -1,4 +1,4 @@
-function Java() {
+export const Java: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg width="18" height="24" viewBox="0 0 18 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_420_11992)">
@@ -32,4 +32,3 @@ function Java() {
   )
 }
 
-export default Java
