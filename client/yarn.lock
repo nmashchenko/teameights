@@ -4652,29 +4652,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:4.33.0":
-  version: 4.33.0
-  resolution: "@tanstack/query-core@npm:4.33.0"
-  checksum: fae325f1d79b936435787797c32367331d5b8e9c5ced84852bf2085115e3aafef57a7ae530a6b0af46da4abafb4b0afaef885926b71715a0e6f166d74da61c7f
+"@tanstack/query-core@npm:5.0.0-beta.20":
+  version: 5.0.0-beta.20
+  resolution: "@tanstack/query-core@npm:5.0.0-beta.20"
+  checksum: d0147ed4edc77eb62969497dbd3d247cebe0b1b6128072f101eda9dbcf0934eb98275826987d4956aa5e93d89b9b0826bfbd9ea2baca2e6b209b9c9c4c60d5b0
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^4.33.0":
-  version: 4.33.0
-  resolution: "@tanstack/react-query@npm:4.33.0"
+"@tanstack/react-query@npm:beta":
+  version: 5.0.0-beta.20
+  resolution: "@tanstack/react-query@npm:5.0.0-beta.20"
   dependencies:
-    "@tanstack/query-core": 4.33.0
-    use-sync-external-store: ^1.2.0
+    "@tanstack/query-core": 5.0.0-beta.20
+    client-only: 0.0.1
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
     react-native: "*"
   peerDependenciesMeta:
     react-dom:
       optional: true
     react-native:
       optional: true
-  checksum: b3cf4afa427435e464e077b3f23c891e38e5f78873518f15c1d061ad55f1464d6241ecd92d796a5dbc9412b4fd7eb30b01f2a9cfc285ee9f30dfdd2ca0ecaf4b
+  checksum: c1968db9c0760c719fe859b25453cdae485fbb06eeb36c44943773854f70ad0586c61830ab84a35e7e1ab0aa4f5aeeaab6863a7c9fa96a857097bdb38ec447b2
   languageName: node
   linkType: hard
 
@@ -5688,6 +5688,13 @@ __metadata:
   bin:
     acorn: bin/acorn
   checksum: 538ba38af0cc9e5ef983aee196c4b8b4d87c0c94532334fa7e065b2c8a1f85863467bb774231aae91613fcda5e68740c15d97b1967ae3394d20faddddd8af61d
+  languageName: node
+  linkType: hard
+
+"add@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "add@npm:2.0.6"
+  checksum: e2d23d40494565dfed4acd65e478570c444db5ac6c053551ed429c39ea0f2c99d83df63e7befec936df601827d2254d06a2fb6f7dcfd2022e810b25eab818b8c
   languageName: node
   linkType: hard
 
@@ -6843,12 +6850,13 @@ __metadata:
     "@storybook/nextjs": 7.2.1
     "@storybook/react": 7.2.1
     "@storybook/testing-library": 0.2.0
-    "@tanstack/react-query": ^4.33.0
+    "@tanstack/react-query": beta
     "@types/node": 20.4.8
     "@types/react": 18.2.18
     "@types/react-dom": 18.2.7
     "@typescript-eslint/eslint-plugin": ^6.3.0
     "@typescript-eslint/parser": ^6.3.0
+    add: ^2.0.6
     clsx: ^2.0.0
     eslint: 8.46.0
     eslint-config-next: 13.4.12
@@ -6862,6 +6870,7 @@ __metadata:
     sass: ^1.64.2
     storybook: 7.2.1
     typescript: 5.1.6
+    yarn: ^1.22.19
   languageName: unknown
   linkType: soft
 
@@ -14660,15 +14669,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "use-sync-external-store@npm:1.2.0"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
-  languageName: node
-  linkType: hard
-
 "util-deprecate@npm:^1.0.1, util-deprecate@npm:^1.0.2, util-deprecate@npm:~1.0.1":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
@@ -15114,6 +15114,16 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
+  languageName: node
+  linkType: hard
+
+"yarn@npm:^1.22.19":
+  version: 1.22.19
+  resolution: "yarn@npm:1.22.19"
+  bin:
+    yarn: bin/yarn.js
+    yarnpkg: bin/yarn.js
+  checksum: b43d2cc5fee7e933beb12a8aee7dfceca9e9ef2dd17c5d04d15a12ab7bec5f5744ea34a07b86e013da7f291a18c4e1ad8f70e150f5ed2f4666e6723c7f0a8452
   languageName: node
   linkType: hard
 
