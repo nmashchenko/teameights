@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ArrowLeft } from 'shared/assets/Icons/Arrows/ArrowLeft';
 import { LogoBig } from 'shared/assets/Icons/Logo/LogoBig';
-import { Button } from 'shared/ui/Button/Button';
-import Tabs from 'shared/ui/Tabs/Tabs';
+import { Button, Tabs } from 'shared/ui';
 import styles from './Layout.module.scss';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {

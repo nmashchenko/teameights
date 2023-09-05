@@ -2,54 +2,63 @@
 
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Github } from 'shared/assets/Icons/Socials/Github';
 import { Google } from 'shared/assets/Icons/Socials/Google';
 import { Login } from 'shared/assets/Illustrations/Login';
 import { Colors } from 'shared/constant/colors';
-import { Button } from 'shared/ui/Button/Button';
-import { Input } from 'shared/ui/Fields/Input/Input';
-import { InputPassword } from 'shared/ui/Fields/Input/InputPassword';
-import { Typography, TypographySize } from 'shared/ui/Typography/Typography';
+
+import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
+
+import { useState } from 'react';
 import styles from '../Auth.module.scss';
 
+interface LoginProps {
+  email: string;
+  password: string;
+}
+
 export default function LoginPage() {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginProps>();
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => console.log(codeResponse),
     flow: 'auth-code'
   });
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const onSubmit: SubmitHandler<LoginProps> = (data) => console.log(data);
 
   return (
-    <div className={styles.container}>
+    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.left}>
         <div className={styles.interactive_container}>
           <div className={styles.flex_wrapper}>
             <Input
-              name='email'
               placeholder='Email'
+              {...register('email', { required: 'Email is required!' })}
               type='email'
+              error={errors?.email ? errors.email.message : undefined}
               value={email}
-              onChange={onEmailChange}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <div>
               <InputPassword
-                name='password'
                 placeholder='Password'
+                {...register('password', {
+                  required: 'Password is required!',
+                  minLength: { value: 8, message: 'Minimum length is 8!' }
+                })}
+                error={errors?.password ? errors.password.message : undefined}
                 value={password}
-                onChange={onPasswordChange}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <div className={styles.forgot_link_wrapper}>
                 <div className={styles.forgot_link} onClick={() => router.push('/forgot-password')}>
@@ -61,7 +70,7 @@ export default function LoginPage() {
             </div>
           </div>
           <div className={styles.flex_wrapper__s}>
-            <Button>Log in</Button>
+            <Button type='submit'>Log in</Button>
             <div className={styles.lines_container}>
               <div className={styles.line} />
               <Typography size={TypographySize.Body_L} color={Colors.GreyNormal}>
@@ -86,6 +95,6 @@ export default function LoginPage() {
           <Login />
         </div>
       </div>
-    </div>
+    </form>
   );
 }
