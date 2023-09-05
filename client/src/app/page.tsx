@@ -1,6 +1,6 @@
 'use client';
 
-import { Typography, TypographySize, TypographyVariants } from 'shared/ui/typography/ui';
+import { Typography, TypographySize, TypographyVariants } from 'shared/ui';
 
 export default function Home() {
   return (

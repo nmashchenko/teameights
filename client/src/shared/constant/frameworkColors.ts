@@ -1,9 +1,9 @@
 interface IframeworkColors {
-  [tech: string]: string
+  [tech: string]: string;
 }
 
 interface IframeworkTextColors {
-  [tech: string]: string
+  [tech: string]: string;
 }
 
 const frameworkColors: IframeworkColors = Object.freeze({
@@ -35,8 +35,8 @@ const frameworkColors: IframeworkColors = Object.freeze({
   PyTorch: '#D9790B',
   'Tensor F.': '#D9790B',
   Express: '#FAFAFA',
-  Illustrator: '#D9790B',
-})
+  Illustrator: '#D9790B'
+});
 
 const frameworkTextColors: IframeworkTextColors = Object.freeze({
   NodeJS: 'white',
@@ -67,7 +67,7 @@ const frameworkTextColors: IframeworkTextColors = Object.freeze({
   PyTorch: 'white',
   'Tensor F.': 'white',
   Express: '#1E1E1E',
-  Illustrator: 'white',
-})
+  Illustrator: 'white'
+});
 
-export { frameworkColors, frameworkTextColors }
+export { frameworkColors, frameworkTextColors };

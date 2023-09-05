@@ -1,8 +1,7 @@
-import { FC } from 'react';
-import styles from './BadgeLanguage.module.scss';
-import { languageOptions } from '../../constant/programmingLanguages';
 import clsx from 'clsx';
-import { BadgeLanguageProps } from './BadgeLanguageProps';
+import { FC } from 'react';
+import { languageOptions } from 'shared/constant/programmingLanguages';
+import styles from './styles.module.scss';
 
 /* Example of usage:
  *
@@ -14,7 +13,15 @@ import { BadgeLanguageProps } from './BadgeLanguageProps';
  *         ))}
  *     </BadgeLanguageContainer>
  *   );
- * }; */
+ * };
+ */
+
+interface BadgeLanguageProps {
+  data: string;
+  key: number;
+  className?: string;
+  maxWidth?: string;
+}
 
 export const BadgeLanguage: FC<BadgeLanguageProps> = ({
   data,
