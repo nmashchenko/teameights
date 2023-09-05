@@ -1,13 +1,13 @@
 import type { Meta } from '@storybook/react';
 import { useState } from 'react';
-import Tabs from './Tabs';
+import { Tabs } from './ui';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Tabs> = {
   title: 'shared/Tabs',
   component: Tabs,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {}
 };
 
 export default meta;
@@ -23,16 +23,12 @@ export const TextArea_default = () => {
         display: 'flex',
         flexDirection: 'column',
         gap: 30,
-        width: '400px',
+        width: '400px'
       }}
     >
       <div>
         <p>Three tabs</p>
-        <Tabs
-          options={tabs}
-          currentTab={tab}
-          onTabChange={(option: string) => setTab(option)}
-        />
+        <Tabs options={tabs} currentTab={tab} onTabChange={(option: string) => setTab(option)} />
       </div>
     </div>
   );
