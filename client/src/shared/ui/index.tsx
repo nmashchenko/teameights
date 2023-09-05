@@ -1,3 +1,5 @@
+export * from './badge/framework';
+export * from './badge/language';
 export * from './button';
 export * from './checkbox';
 export * from './input';
