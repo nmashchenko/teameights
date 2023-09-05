@@ -1,31 +1,36 @@
 import { FC } from 'react';
 import styles from './BadgeLanguage.module.scss';
 import { languageOptions } from '../../constant/programmingLanguages';
-import { BadgeLanguageContainer } from './components/BadgeLanguageContainer/BadgeLanguageContainer';
+import clsx from 'clsx';
+import { BadgeLanguageProps } from './BadgeLanguageProps';
 
-interface BadgeLanguageProps {
-  userLanguages: Array<string>;
-  className?: string;
-  width?: string;
-}
+/* Example of usage:
+ *
+ * export const UserLanguages = ({userLanguages, ...props}) => {
+ *   return (
+ *     <BadgeLanguageContainer {...props}>
+ *         {userLanguages.map((item, id) => (
+ *                 <BadgeLanguage data={item} key={id} />
+ *         ))}
+ *     </BadgeLanguageContainer>
+ *   );
+ * }; */
 
 export const BadgeLanguage: FC<BadgeLanguageProps> = ({
-  userLanguages,
+  data,
   className,
-  width,
+  maxWidth,
+  key,
   ...props
 }) => {
   return (
-    <BadgeLanguageContainer {...props} className={className}>
-      {userLanguages.map((item, id) => (
-        <div
-          className={styles.badge_language}
-          key={id}
-          style={{ width: `${width ? width : '91px'}` }}
-        >
-          {languageOptions[item]}
-        </div>
-      ))}
-    </BadgeLanguageContainer>
+    <div
+      key={key}
+      className={clsx([className], styles.badge_language)}
+      style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
+      {...props}
+    >
+      {languageOptions[data]}
+    </div>
   );
 };

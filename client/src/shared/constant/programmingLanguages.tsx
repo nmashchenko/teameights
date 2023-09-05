@@ -1,25 +1,25 @@
 // * Logos
-import C from '../assets/LanguageLogo/C';
-import Cplusplus from '../assets/LanguageLogo/Cplusplus';
-import Csharp from '../assets/LanguageLogo/Csharp';
-import CSS from '../assets/LanguageLogo/CSS';
-import Dart from '../assets/LanguageLogo/Dart';
-import GO from '../assets/LanguageLogo/GO';
-import Html from '../assets/LanguageLogo/Html';
-import Java from '../assets/LanguageLogo/Java';
-import JS from '../assets/LanguageLogo/JS';
-import Kotlin from '../assets/LanguageLogo/Kotlin';
-import Lua from '../assets/LanguageLogo/Lua';
-import Perl from '../assets/LanguageLogo/Perl';
-import Php from '../assets/LanguageLogo/Php';
-import Python from '../assets/LanguageLogo/Python';
-import R from '../assets/LanguageLogo/R';
-import Ruby from '../assets/LanguageLogo/Ruby';
-import Rust from '../assets/LanguageLogo/Rust';
-import Scala from '../assets/LanguageLogo/Scala';
-import SQL from '../assets/LanguageLogo/SQL';
-import Swift from '../assets/LanguageLogo/Swift';
-import TS from '../assets/LanguageLogo/TS';
+import {C} from '../assets/LanguageLogo/C';
+import {Cplusplus} from '../assets/LanguageLogo/Cplusplus';
+import {Csharp} from '../assets/LanguageLogo/Csharp';
+import {CSS} from '../assets/LanguageLogo/CSS';
+import {Dart} from '../assets/LanguageLogo/Dart';
+import {GO} from '../assets/LanguageLogo/GO';
+import {Html} from '../assets/LanguageLogo/Html';
+import {Java} from '../assets/LanguageLogo/Java';
+import {JS} from '../assets/LanguageLogo/JS';
+import {Kotlin} from '../assets/LanguageLogo/Kotlin';
+import {Lua} from '../assets/LanguageLogo/Lua';
+import {Perl} from '../assets/LanguageLogo/Perl';
+import {Php} from '../assets/LanguageLogo/Php';
+import {Python} from '../assets/LanguageLogo/Python';
+import {R} from '../assets/LanguageLogo/R';
+import {Ruby} from '../assets/LanguageLogo/Ruby';
+import {Rust} from '../assets/LanguageLogo/Rust';
+import {Scala} from '../assets/LanguageLogo/Scala';
+import {SQL} from '../assets/LanguageLogo/SQL';
+import {Swift} from '../assets/LanguageLogo/Swift';
+import {TS} from '../assets/LanguageLogo/TS';
 
 interface LanguageOption {
   label: string;
@@ -51,7 +51,7 @@ const programmingLanguageOptions: LanguageOption[] = [
 ];
 
 interface LanguageOptions {
-  [key: string]: JSX.Element;
+  [lang: string]: JSX.Element;
 }
 
 const languageOptions: LanguageOptions = {
