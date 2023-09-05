@@ -51,6 +51,8 @@ We are adopting the FSD (Feature Slice Design) architecture, which brings numero
 
 ![Arch](https://feature-sliced.design/assets/ideal-img/visual_schema.b6c18f6.1030.jpg)
 
+![Example](https://feature-sliced.design/assets/images/decompose-github-a0eeb839a4b5ef5c480a73726a4451b0.jpg)
+
 ### Positive Sides Compared to Non-Architecture Approach ✅
 
 The FSD architecture contrasts with the non-architecture approach in several key ways:
@@ -163,3 +165,11 @@ For any questions or further details, please consult the updated documentation o
 ## Package manager 🧰
 
 YARN will be forced to use across the app, any adds of packages, installs and other are required to be done via YARN. YARN is also used for vercel deployments.
+
+We are using yarn stable version:
+
+```
+yarn set version stable
+```
+
+Stable is used to prevent all isues with storybook/etc.
