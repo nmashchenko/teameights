@@ -173,3 +173,11 @@ yarn set version stable
 ```
 
 Stable is used to prevent all isues with storybook/etc.
+
+## Known issues 🔧
+
+To fix husky issues:
+
+```
+chmod ug+x .husky/*
+```
