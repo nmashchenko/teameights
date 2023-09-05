@@ -1,0 +1,43 @@
+.heading {
+  &_s {
+    font: var(--font-heading-weight-s) var(--font-heading-size-s) /
+      var(--font-heading-line-s) var(--font-rubik);
+  }
+
+  &_m {
+    font: var(--font-heading-weight-m) var(--font-heading-size-m) /
+      var(--font-heading-line-m) var(--font-rubik);
+  }
+
+  &_l {
+    font: var(--font-heading-weight-l) var(--font-heading-size-l) /
+      var(--font-heading-line-l) var(--font-rubik);
+  }
+
+  &_xl {
+    font: var(--font-heading-weight-xl) var(--font-heading-size-xl) /
+      var(--font-heading-line-xl) var(--font-rubik);
+  }
+}
+
+.body {
+  &_m {
+    font: var(--font-body-weight-m) var(--font-body-size-m) /
+      var(--font-body-line-m) var(--font-rubik);
+  }
+
+  &_l {
+    font: var(--font-body-weight-l) var(--font-body-size-l) /
+      var(--font-body-line-l) var(--font-rubik);
+  }
+
+  &_xl {
+    font: var(--font-body-weight-xl) var(--font-body-size-xl) /
+      var(--font-body-line-xl) var(--font-rubik);
+  }
+}
+
+.caption {
+  font: var(--font-caption-weight) var(--font-caption-size) /
+    var(--font-caption-line) var(--font-rubik);
+}
