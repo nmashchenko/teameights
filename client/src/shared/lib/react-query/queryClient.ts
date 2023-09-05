@@ -1,6 +1,7 @@
 'use client';
 
 import { QueryCache, QueryClient } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -9,12 +10,8 @@ export const queryClient = new QueryClient({
     }
   },
   queryCache: new QueryCache({
-    onError: (error, query) => {
-      if (query?.meta?.errorMessage) {
-        // after toast will be installed, instead of the string bellow
-        // will be: toast.error(query.meta.errorMessage)
-        console.error(query.meta.errorMessage);
-      }
+    onError: (error) => {
+      toast.error(error.message);
     }
   })
 });

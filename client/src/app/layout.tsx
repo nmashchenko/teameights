@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Rubik } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
 import { ReactQueryProvider } from './providers';
 import './styles/globals.scss';
 
@@ -14,7 +15,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ReactQueryProvider>
       <html lang='en'>
-        <body className={inter.variable}>{children}</body>
+        <body className={inter.variable}>
+          <Toaster
+            gutter={8}
+            toastOptions={{
+              style: { ...inter.style, background: '#2F3239', color: 'white' },
+              duration: 2000
+            }}
+          />
+          {children}
+        </body>
       </html>
     </ReactQueryProvider>
   );
