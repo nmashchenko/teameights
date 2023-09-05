@@ -13,7 +13,7 @@
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
-    "prepare": "cd .. && husky install ./client/.husky | chmod ug+x .husky/*",
+    "prepare": "cd .. && husky install ./client/.husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

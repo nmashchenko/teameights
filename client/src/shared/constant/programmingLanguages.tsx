@@ -1,25 +1,25 @@
 // * Logos
-import { C } from '../assets/LanguageLogo/C';
-import { Cplusplus } from '../assets/LanguageLogo/Cplusplus';
-import { Csharp } from '../assets/LanguageLogo/Csharp';
-import { CSS } from '../assets/LanguageLogo/CSS';
-import { Dart } from '../assets/LanguageLogo/Dart';
-import { GO } from '../assets/LanguageLogo/GO';
-import { Html } from '../assets/LanguageLogo/Html';
-import { Java } from '../assets/LanguageLogo/Java';
-import { JS } from '../assets/LanguageLogo/JS';
-import { Kotlin } from '../assets/LanguageLogo/Kotlin';
-import { Lua } from '../assets/LanguageLogo/Lua';
-import { Perl } from '../assets/LanguageLogo/Perl';
-import { Php } from '../assets/LanguageLogo/Php';
-import { Python } from '../assets/LanguageLogo/Python';
-import { R } from '../assets/LanguageLogo/R';
-import { Ruby } from '../assets/LanguageLogo/Ruby';
-import { Rust } from '../assets/LanguageLogo/Rust';
-import { Scala } from '../assets/LanguageLogo/Scala';
-import { SQL } from '../assets/LanguageLogo/SQL';
-import { Swift } from '../assets/LanguageLogo/Swift';
-import { TS } from '../assets/LanguageLogo/TS';
+import { C } from '../assets/Icons/LanguageLogo/C';
+import { Cplusplus } from '../assets/Icons/LanguageLogo/Cplusplus';
+import { Csharp } from '../assets/Icons/LanguageLogo/Csharp';
+import { CSS } from '../assets/Icons/LanguageLogo/CSS';
+import { Dart } from '../assets/Icons/LanguageLogo/Dart';
+import { GO } from '../assets/Icons/LanguageLogo/GO';
+import { Html } from '../assets/Icons/LanguageLogo/Html';
+import { Java } from '../assets/Icons/LanguageLogo/Java';
+import { JS } from '../assets/Icons/LanguageLogo/JS';
+import { Kotlin } from '../assets/Icons/LanguageLogo/Kotlin';
+import { Lua } from '../assets/Icons/LanguageLogo/Lua';
+import { Perl } from '../assets/Icons/LanguageLogo/Perl';
+import { Php } from '../assets/Icons/LanguageLogo/Php';
+import { Python } from '../assets/Icons/LanguageLogo/Python';
+import { R } from '../assets/Icons/LanguageLogo/R';
+import { Ruby } from '../assets/Icons/LanguageLogo/Ruby';
+import { Rust } from '../assets/Icons/LanguageLogo/Rust';
+import { Scala } from '../assets/Icons/LanguageLogo/Scala';
+import { SQL } from '../assets/Icons/LanguageLogo/SQL';
+import { Swift } from '../assets/Icons/LanguageLogo/Swift';
+import { TS } from '../assets/Icons/LanguageLogo/TS';
 
 interface LanguageOption {
   label: string;
