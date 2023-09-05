@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Rubik } from 'next/font/google';
-import { ReactQueryProvider } from 'shared/api/ReactQueryProvider';
+import { ReactQueryProvider } from './providers';
 import './styles/globals.scss';
 
 const inter = Rubik({ subsets: ['latin'], variable: '--font-rubik' });
