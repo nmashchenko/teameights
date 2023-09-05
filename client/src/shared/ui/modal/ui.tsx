@@ -2,7 +2,7 @@ import classNames from 'clsx';
 import { FC, PropsWithChildren } from 'react';
 import ReactModal from 'react-modal';
 
-import styles from './Modal.module.scss';
+import styles from './styles.module.scss';
 
 import { Cross } from 'shared/assets/Icons/Cross';
 
