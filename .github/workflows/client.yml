@@ -52,3 +52,29 @@ jobs:
       - name: Build project
         working-directory: ./client
         run: yarn build
+
+  deploy:
+    needs: pipeline
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check if deployed
+        id: cache-check
+        uses: actions/cache@v2.1.6
+        with:
+          path: ./DEPLOYED
+          key: deployed-frontend
+
+      - name: Deploy to Vercel
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        uses: amondnet/vercel-action@v19
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Mark as deployed
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        run: touch ./DEPLOYED
