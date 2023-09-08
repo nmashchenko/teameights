@@ -1,0 +1,28 @@
+name: Check PR can be merged
+
+on: [pull_request, pull_request_review, issue_comment]
+
+jobs:
+  automerge:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Helper
+        uses: Matticusau/pr-helper@v1.3.3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-prmerge-automation: true
+          enable-prcomment-automation: true
+          enable-prlabel-automation: true
+          prmerge-requireallchecks: true
+          prmerge-requirereviewcount: 1
+          prmerge-method: 'squash'
+          prlabel-default: 'pr-onhold'
+          prlabel-ready: 'pr-ready'
+          prlabel-onhold: 'pr-onhold'
+          prlabel-reviewrequired: 'review-required'
+          prlabel-automerge: 'auto-merge'
