@@ -61,6 +61,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Check if deployed
+        id: cache-check
+        uses: actions/cache@v2.1.6
+        with:
+          path: ./DEPLOYED
+          key: deployed-frontend
+
       - name: Deploy to Vercel Project (Preview)
         if: github.event_name == 'pull_request'
         uses: amondnet/vercel-action@v25
