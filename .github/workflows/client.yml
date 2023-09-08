@@ -70,7 +70,7 @@ jobs:
 
       - name: Deploy to Vercel
         if: steps.cache-check.outputs.cache-hit != 'true'
-        uses: amondnet/vercel-action@v19
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
