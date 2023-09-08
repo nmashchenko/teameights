@@ -13,8 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Check files
-        run: ls -a
+      - name: List contents of client_artifact directory
+        run: ls -la client_artifact
+
+      - name: List contents of server_artifact directory
+        run: ls -la server_artifact
 
       - name: Download client artifact
         uses: actions/download-artifact@v2
