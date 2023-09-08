@@ -56,6 +56,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Set Vercel Args
+        id: vercel_args
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            echo "::set-output name=args::--prod"
+          else
+            echo "::set-output name=args::"
+          fi
 
       - name: Deploy Frontend
         uses: amondnet/vercel-action@v25
@@ -63,8 +71,8 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-project-id: ${{ github.event_name == 'push' && secrets.PROJECT_ID }}
-          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-args: ${{ steps.vercel_args.outputs.args }}
 
       - name: Deploy Storybook
         uses: amondnet/vercel-action@v25
@@ -72,5 +80,5 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-project-id: ${{ github.event_name == 'push' && secrets.PROJECT_ID_STORYBOOK }}
-          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
+          vercel-project-id: ${{ secrets.PROJECT_ID_STORYBOOK }}
+          vercel-args: ${{ steps.vercel_args.outputs.args }}
