@@ -14,10 +14,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: List contents of client_artifact directory
-        run: ls -la client_artifact
+        run: ls -la
 
       - name: List contents of server_artifact directory
-        run: ls -la server_artifact
+        run: ls -la
 
       - name: Download client artifact
         uses: actions/download-artifact@v2
