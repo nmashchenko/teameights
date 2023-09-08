@@ -7,32 +7,39 @@ on:
     types: [completed]
 
 jobs:
+  check_status:
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.check.outputs.should_deploy }}
+    steps:
+      - name: Check frontend CI status
+        id: check
+        run: |
+          frontend_status=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/frontend%20CI.yml/runs?branch=${{ github.ref }}" \
+            | jq '.workflow_runs[0].conclusion')
+          
+          server_status=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/server%20CI.yml/runs?branch=${{ github.ref }}" \
+            | jq '.workflow_runs[0].conclusion')
+
+          if [[ "$frontend_status" == "\"success\"" && "$server_status" != "\"failure\"" ]]; then
+            echo "::set-output name=should_deploy::true"
+          elif [[ "$frontend_status" != "\"failure\"" && "$server_status" == "\"success\"" ]]; then
+            echo "::set-output name=should_deploy::true"
+          elif [[ "$frontend_status" == "\"success\"" && "$server_status" == "\"success\"" ]]; then
+            echo "::set-output name=should_deploy::true"
+          else
+            echo "::set-output name=should_deploy::false"
+          fi
+
   deploy:
+    needs: check_status
+    if: needs.check_status.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      #      - name: Download client artifact
-      #        uses: actions/download-artifact@v2
-      #        with:
-      #          name: client-success-artifact
-      #          path: client_artifact
-      #        continue-on-error: true
-      #
-      #      - name: Download server artifact
-      #        uses: actions/download-artifact@v2
-      #        with:
-      #          name: server-success-artifact
-      #          path: server_artifact
-      #        continue-on-error: true
-      #
-      #      - name: Check artifacts
-      #        run: |
-      #          if [ ! -f client_artifact/client_success.txt ] || [ ! -f server_artifact/server_success.txt ]; then
-      #            echo "One or both workflows did not succeed. Skipping deployment."
-      #            exit 1
-      #          fi
 
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v19
