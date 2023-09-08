@@ -3,16 +3,16 @@
   flex-direction: column;
   row-gap: 8px;
   color: var(--grey-normal-color);
-  font: var(--font-body-weight-m) var(--font-body-size-m) /
-    var(--font-body-line-m) var(--font-rubik);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
 }
 
 .textarea {
   min-height: 76px;
   width: 100%;
   background: transparent;
-  font: var(--font-body-weight-l) var(--font-body-size-l) /
-    var(--font-body-line-l) var(--font-rubik);
+  font: var(--font-body-weight-l) var(--font-body-size-l) / var(--font-body-line-l)
+    var(--font-rubik);
   color: var(--white-color);
   caret-color: var(--green-bright-color);
   border-radius: 5px;
