@@ -14,7 +14,7 @@
     "lint": "next lint",
     "lint:ts:check": "npx eslint \"**/*.{ts,tsx}\"",
     "lint:ts:fix": "npx eslint \"**/*.{ts,tsx}\" --fix",
-    "prettier:check": "npx prettier --check **/*.{ts,tsx,css,mdx}",
+    "prettier:check": "prettier --check \"**/*.{ts,tsx,css,mdx}\"",
     "prettier:fix": "prettier --write .",
     "prepare": "cd .. && husky install ./client/.husky",
     "storybook": "storybook dev -p 6006",
@@ -58,7 +58,7 @@
     "@typescript-eslint/parser": "^6.3.0",
     "eslint-plugin-storybook": "^0.6.13",
     "husky": "^8.0.3",
-    "prettier": "^3.0.1",
+    "prettier": "latest",
     "storybook": "7.2.1"
   },
   "resolutions": {
