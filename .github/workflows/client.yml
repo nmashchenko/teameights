@@ -1,4 +1,4 @@
-name: frontendCI
+name: frontend CI
 run-name: ${{ github.actor }} is testing frontend code 🪲
 
 on:
