@@ -7,35 +7,7 @@ on:
     types: [completed]
 
 jobs:
-  check_status:
-    runs-on: ubuntu-latest
-    outputs:
-      should_deploy: ${{ steps.check.outputs.should_deploy }}
-    steps:
-      - name: Check frontend CI status
-        id: check
-        run: |
-          frontend_status=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/frontend%20CI.yml/runs?branch=${{ github.ref }}" \
-            | jq '.workflow_runs[0].conclusion')
-          
-          server_status=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/server%20CI.yml/runs?branch=${{ github.ref }}" \
-            | jq '.workflow_runs[0].conclusion')
-
-          if [[ "$frontend_status" == "\"success\"" && "$server_status" != "\"failure\"" ]]; then
-            echo "::set-output name=should_deploy::true"
-          elif [[ "$frontend_status" != "\"failure\"" && "$server_status" == "\"success\"" ]]; then
-            echo "::set-output name=should_deploy::true"
-          elif [[ "$frontend_status" == "\"success\"" && "$server_status" == "\"success\"" ]]; then
-            echo "::set-output name=should_deploy::true"
-          else
-            echo "::set-output name=should_deploy::false"
-          fi
-
   deploy:
-    needs: check_status
-    if: needs.check_status.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
