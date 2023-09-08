@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        run: ls -a
 
       - name: Download client artifact
         uses: actions/download-artifact@v2
