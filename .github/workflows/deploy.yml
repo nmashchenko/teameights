@@ -1,11 +1,16 @@
 name: Deploy to Vercel
 
 on:
+  pull_request:
+    branches:
+      - dev-nextjs
+    paths:
+      - "client/**"
+      - "server/**"
   workflow_run:
     workflows: ["frontend CI"]
     types:
       - completed
-      - in_progress
 
 jobs:
   deploy:
