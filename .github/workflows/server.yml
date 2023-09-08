@@ -1,4 +1,4 @@
-name: Server CI 🥵
+name: Server CI
 run-name: ${{ github.actor }} is making deploy 🚀 Let's pray he will pass tests 😉
 on:
   push:
