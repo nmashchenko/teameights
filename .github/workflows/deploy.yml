@@ -3,9 +3,8 @@ name: Deploy to Vercel
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["frontend CI"]
-    types:
-      - completed
+    workflows: [frontendCI]
+    types: [completed]
 
 jobs:
   deploy:
