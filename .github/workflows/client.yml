@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: client-success-artifact
-          path: ./client
+          path: ./client/client_success.txt
 
     # Uncomment below to run tests when they are available
     # - name: Run tests
