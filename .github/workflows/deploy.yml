@@ -5,6 +5,7 @@ on:
     workflows: ["frontend CI"]
     types:
       - completed
+      - in_progress
 
 jobs:
   deploy:
