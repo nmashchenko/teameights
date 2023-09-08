@@ -68,12 +68,39 @@ jobs:
           path: ./DEPLOYED
           key: deployed-frontend
 
-      - name: Deploy to Vercel
-        if: steps.cache-check.outputs.cache-hit != 'true'
+      - name: Deploy to Vercel Project (Preview)
+        if: steps.cache-check.outputs.cache-hit != 'true' && github.event_name == 'pull_request'
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Vercel Project (Production)
+        if: steps.cache-check.outputs.cache-hit != 'true' && github.event_name == 'push'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Vercel Storybook (Preview)
+        if: steps.cache-check.outputs.cache-hit != 'true' && github.event_name == 'pull_request'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-project-id: ${{ secrets.PROJECT_ID_STORYBOOK }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Vercel Storybook (Production)
+        if: steps.cache-check.outputs.cache-hit != 'true' && github.event_name == 'push'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-project-id: ${{ secrets.PROJECT_ID_STORYBOOK }}
           vercel-org-id: ${{ secrets.ORG_ID }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 

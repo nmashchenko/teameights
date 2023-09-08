@@ -7,8 +7,9 @@
     "automerge": false
   },
   "labels": ["dependencies", "renovate"],
-  "schedule": ["every day"],
-  "prHourlyLimit": 15,
+  "schedule": ["every weekday"],
+  "prHourlyLimit": 1,
+  "prConcurrentLimit": 10,
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["before 5am on monday"]
