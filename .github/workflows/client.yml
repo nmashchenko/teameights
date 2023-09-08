@@ -54,10 +54,6 @@ jobs:
     needs: pipeline
     if: success()
     runs-on: ubuntu-latest
-    environment:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      ORG_ID: ${{ secrets.ORG_ID }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check if deployed
         id: cache-check
@@ -69,8 +65,8 @@ jobs:
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
-          vercel-token: ${{ env.VERCEL_TOKEN }}
-          vercel-org-id: ${{ env.ORG_ID }}
-          github-token: ${{ env.GITHUB_TOKEN }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-project-id: ${{ github.event_name == 'push' && secrets.PROJECT_ID || secrets.PROJECT_ID_STORYBOOK }}
           vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
