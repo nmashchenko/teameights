@@ -2,8 +2,7 @@ name: Deploy to Vercel
 
 on:
   workflow_run:
-    workflows:
-      - frontend CI
+    workflows: ["frontend CI"]
     types:
       - completed
 
