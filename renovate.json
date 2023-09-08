@@ -3,5 +3,18 @@
   "extends": [
     "config:base"
   ],
-  "baseBranches": ["dev-nextjs"]
+  "baseBranches": ["dev-nextjs"],
+  "automerge": true,
+  "automergeType": "pr",
+  "prConcurrentLimit": 10,
+  "major": {
+    "automerge": false
+  },
+  "labels": ["dependencies", "renovate"],
+  "schedule": ["every day"],
+  "prHourlyLimit": 10,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 5am on monday"]
+  }
 }
