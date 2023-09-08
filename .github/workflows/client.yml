@@ -64,6 +64,6 @@ jobs:
           path: ./client/client_success.txt
 
     # Uncomment below to run tests when they are available
-    # - name: Run tests
+    # - name: Run testsa
     #   working-directory: ./client
     #   run: npm test
