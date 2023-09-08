@@ -43,11 +43,11 @@ jobs:
 
       - name: Run Linting
         working-directory: ./client
-        run: yarn lint:ts
+        run: yarn lint:ts:check
 
       - name: Run Prettier formatter
         working-directory: ./client
-        run: yarn format
+        run: yarn prettier:check
 
       - name: Build project
         working-directory: ./client
