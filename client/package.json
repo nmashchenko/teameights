@@ -12,7 +12,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --write .",
+    "lint:ts": "npx eslint \"**/*.{ts,tsx}\"",
+    "lint:ts:fix": "npx eslint \"**/*.{ts,tsx}\" --fix",
+    "prettier": "npx prettier --check **/*.{ts,tsx,css,mdx}",
+    "prettier:fix": "prettier --write .",
     "prepare": "cd .. && husky install ./client/.husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

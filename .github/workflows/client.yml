@@ -1,0 +1,59 @@
+name: frontend CI
+run-name: ${{ github.actor }} is testing frontend code 🪲
+
+on:
+  push:
+    branches:
+      - dev-nextjs
+    paths:
+      - "client/**"
+  pull_request:
+    branches:
+      - dev-nextjs
+    paths:
+      - "client/**"
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Starting Node.JS ${{matrix.node-version}}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: ./client/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('./client/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: install yarn
+        run: npm install --global yarn
+
+      - name: Install dependencies
+        working-directory: ./client
+        run: yarn install --frozen-lockfile
+
+      - name: Run Linting
+        working-directory: ./client
+        run: yarn lint:ts
+
+      - name: Run Prettier formatter
+        working-directory: ./client
+        run: yarn format
+
+      - name: Build project
+        working-directory: ./client
+        run: yarn build
+
+    # Uncomment below to run tests when they are available
+    # - name: Run tests
+    #   working-directory: ./client
+    #   run: npm test
