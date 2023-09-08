@@ -2,22 +2,40 @@ name: Deploy to Vercel
 
 on:
   workflow_run:
-    workflows:
-    - frontend CI
-    - Server CI
+    workflows: [frontend CI, Server CI]
     types:
       - completed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download client artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: client-success-artifact
+          path: client_artifact
+        continue-on-error: true
+
+      - name: Download server artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: server-success-artifact
+          path: server_artifact
+        continue-on-error: true
+
+      - name: Check artifacts
+        run: |
+          if [ ! -f client_artifact/client_success.txt ] || [ ! -f server_artifact/server_success.txt ]; then
+            echo "One or both workflows did not succeed. Skipping deployment."
+            exit 1
+          fi
+
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25s
+        uses: amondnet/vercel-action@v19
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
