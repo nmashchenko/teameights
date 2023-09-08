@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from './SidebarProfile.module.scss';
+import Image from 'next/image';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
 const unregisteredImg = '/Images/user/unregistered.png';
@@ -41,11 +42,13 @@ export const SidebarProfile: React.FC<SidebarProfileProps> = ({ active }) => {
     } else {
       setData(defaultData);
     }
-  }, [user]);
+  }, [isUserRegistered, user]);
 
   return (
     <div className={styles.userInfo}>
-      <img
+      <Image
+        width={32}
+        height={32}
         className={styles.profileIcon}
         src={data.userImg || unregisteredImg}
         alt='Profile icon'
