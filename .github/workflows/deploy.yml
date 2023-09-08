@@ -29,7 +29,7 @@ jobs:
 
       - name: Check artifacts
         run: |
-          if [ ! -f client_artifact/client_success.txt ] && [ ! -f server_artifact/server_success.txt ]; then
+          if [ ! -f client_artifact/client_success.txt ] || [ ! -f server_artifact/server_success.txt ]; then
             echo "One or both workflows did not succeed. Skipping deployment."
             exit 1
           fi
