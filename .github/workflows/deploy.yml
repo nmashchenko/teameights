@@ -2,7 +2,9 @@ name: Deploy to Vercel
 
 on:
   workflow_run:
-    workflows: ["frontend CI", "Server CI"]
+    workflows:
+    - frontend CI
+    - Server CI
     types:
       - completed
 
