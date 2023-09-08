@@ -55,18 +55,20 @@ jobs:
     if: success()
     runs-on: ubuntu-latest
     steps:
-      - name: Check if deployed
-        id: cache-check
-        uses: actions/cache@v2.1.6
-        with:
-          path: ./DEPLOYED
-          key: deployed-frontend
-
-      - name: Deploy to Vercel
+      - name: Deploy Frontend
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-project-id: ${{ github.event_name == 'push' && secrets.PROJECT_ID || secrets.PROJECT_ID_STORYBOOK }}
+          vercel-project-id: ${{ github.event_name == 'push' && secrets.PROJECT_ID }}
+          vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
+
+      - name: Deploy Storybook
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-project-id: ${{ github.event_name == 'push' && secrets.PROJECT_ID_STORYBOOK }}
           vercel-args: ${{ github.event_name == 'push' && '--prod' || '' }}
