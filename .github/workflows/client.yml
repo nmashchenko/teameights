@@ -53,15 +53,15 @@ jobs:
         working-directory: ./client
         run: yarn build
 
-      - name: Signal success
-        if: success()
-        run: echo "CLIENT SUCCESS" > client_success.txt
-
-      - name: Upload success signal
-        uses: actions/upload-artifact@v2
-        with:
-          name: client-success-artifact
-          path: ./client/client_success.txt
+#      - name: Signal success
+#        if: success()
+#        run: echo "CLIENT SUCCESS" > client_success.txt
+#
+#      - name: Upload success signal
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: client-success-artifact
+#          path: ./client/client_success.txt
 
     # Uncomment below to run tests when they are available
     # - name: Run testsa

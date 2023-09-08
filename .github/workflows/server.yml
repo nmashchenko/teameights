@@ -65,12 +65,12 @@ jobs:
 
       - run: echo "😼 Finished! Good job."
 
-      - name: Signal success
-        if: success()
-        run: echo "SERVER SUCCESS" > server_success.txt
-
-      - name: Upload success signal
-        uses: actions/upload-artifact@v2
-        with:
-          name: server-success-artifact
-          path: server_success.txt
+#      - name: Signal success
+#        if: success()
+#        run: echo "SERVER SUCCESS" > server_success.txt
+#
+#      - name: Upload success signal
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: server-success-artifact
+#          path: server_success.txt
