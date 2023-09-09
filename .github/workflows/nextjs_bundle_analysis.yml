@@ -37,8 +37,19 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v3.2.2
+        with:
+          path: ./client/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('./client/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install yarn and dependencies
+        working-directory: ./client
+        run: |
+          npm install --global yarn
+          yarn install --frozen-lockfile
 
       # If pnpm is used, you need to switch the previous step with the following one. pnpm does not create a package-lock.json
       # so the step above will fail to pull dependencies
