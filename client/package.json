@@ -12,7 +12,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --write .",
+    "lint:ts:check": "npx eslint \"**/*.{ts,tsx}\"",
+    "lint:ts:fix": "npx eslint \"**/*.{ts,tsx}\" --fix",
+    "prettier:check": "prettier --check \"**/*.{ts,tsx,css,mdx}\"",
+    "prettier:fix": "prettier --write .",
     "prepare": "cd .. && husky install ./client/.husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -42,6 +45,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
+    "@next/bundle-analyzer": "^13.4.19",
     "@storybook/addon-essentials": "7.2.1",
     "@storybook/addon-interactions": "7.2.1",
     "@storybook/addon-links": "7.2.1",
@@ -61,5 +65,11 @@
   "resolutions": {
     "webpack": "^5"
   },
-  "packageManager": "yarn@3.6.3"
+  "packageManager": "yarn@3.6.3",
+  "nextBundleAnalysis": {
+    "budget": 358400,
+    "budgetPercentIncreaseRed": 20,
+    "minimumChangeThreshold": 0,
+    "showDetails": true
+  }
 }
