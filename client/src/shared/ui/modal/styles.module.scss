@@ -67,10 +67,11 @@
 
 .closeButton {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 0;
+  right: 0;
   width: 52px;
   height: 52px;
+  padding: 16px;
   cursor: pointer;
 
   &:hover path {

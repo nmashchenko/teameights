@@ -1,20 +1,7 @@
 export const Cross: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
-    <svg
-      width='20'
-      height='20'
-      viewBox='0 0 52 52'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-      {...props}
-    >
-      <path
-        d='M31.625 20.375L20.375 31.625M31.625 31.625L20.375 20.375'
-        stroke='white'
-        stroke-width='1.25'
-        stroke-linecap='round'
-        stroke-linejoin='round'
-      />
+    <svg width='20' height='20' fill='#ffffff' viewBox='0 0 256 256' {...props}>
+      <path d='M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z'></path>
     </svg>
   );
 };
