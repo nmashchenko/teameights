@@ -19,5 +19,5 @@
   },
   "includePaths": ["client/**"],
   "stabilityDays": 6,
-  "excludePaths": ["server/**"]
+  "ignorePaths": ["server/**"]
 }
