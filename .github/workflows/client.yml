@@ -12,9 +12,16 @@ on:
       - dev-nextjs
     paths:
       - "client/**"
+    types:
+      - opened
+      - synchronize
+      - reopened
+
 
 jobs:
   pipeline:
+    # Exclude renovate[bot] from triggering the workflow
+    if: github.actor != 'renovate[bot]'
     runs-on: ubuntu-latest
     strategy:
       matrix:

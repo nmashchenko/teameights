@@ -5,7 +5,8 @@ on: [pull_request, pull_request_review, issue_comment]
 
 jobs:
   automerge:
-    if: ${{ !contains(github.event.pull_request.labels.*.name, 'renovate') }}
+    # Exclude renovate[bot] from triggering the workflow
+    if: github.actor != 'renovate[bot]'
     permissions:
       contents: write
       issues: write
