@@ -16,5 +16,15 @@
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": ["before 5am on monday"]
-  }
+  },
+  "packageRules": [
+    {
+      "excludePaths": ["server/**"],
+      "updateTypes": ["minor", "patch", "pin", "digest"]
+    },
+    {
+      "includePaths": ["client/**"],
+      "stabilityDays": 6
+    }
+  ]
 }
