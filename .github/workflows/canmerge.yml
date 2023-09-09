@@ -5,6 +5,7 @@ on: [pull_request, pull_request_review, issue_comment]
 
 jobs:
   automerge:
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'renovate') }}
     permissions:
       contents: write
       issues: write
