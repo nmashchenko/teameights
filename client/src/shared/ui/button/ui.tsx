@@ -27,6 +27,7 @@ export const Button: FC<ButtonProps> = (props) => {
     typeBtn = 'primary',
     isDisabled = false,
     width,
+    color,
     ...otherProps
   } = props;
 
@@ -34,7 +35,8 @@ export const Button: FC<ButtonProps> = (props) => {
     <button
       disabled={isDisabled}
       style={{
-        width: width ? `${width}` : undefined
+        width: width ? `${width}` : undefined,
+        color: color ? `var(${color})` : undefined
       }}
       className={clsx(styles.container, {}, [
         className,

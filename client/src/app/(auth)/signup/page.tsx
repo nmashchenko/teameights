@@ -9,7 +9,7 @@ import { Colors } from 'shared/constant/colors';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
-import styles from '../Auth.module.scss';
+import styles from '../shared.module.scss';
 
 interface SignupProps {
   email: string;

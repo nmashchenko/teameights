@@ -56,7 +56,7 @@ export const withApollo = (component: Component) => () => (
 
 _Only one of the methods is shown here, if you use HOC for providers and logic initialization_
 
-```tsx title=app/providers/index.ts
+```tsx title=app/providers/index.tsx
 import compose from "compose-function";
 import { withRouter } from "./with-router";
 import { withAntd } from "./with-antd";

@@ -10,6 +10,10 @@
   justify-content: space-between;
 }
 
+.headerNormalizer {
+  width: 144px;
+}
+
 .container {
   height: 100dvh;
   width: 100%;
@@ -26,7 +30,7 @@
 
 .children {
   width: 100%;
-  min-height: 100%;
+  min-height: calc(100% - 48px);
   display: flex;
   justify-content: center;
   align-items: center;

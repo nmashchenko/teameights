@@ -52,7 +52,7 @@ import { Card } from 'shared/ui/card';
 
 _The implementation depends on the project and the team, here is just one of the options_
 
-```ts title=shared/config/index.ts
+```ts title=shared/config/index.tsx
 export const isDevEnv = NODE_ENV === 'development';
 export const OAUTH_TOKEN = getEnvVar('REACT_APP_OAUTH_TOKEN');
 ```

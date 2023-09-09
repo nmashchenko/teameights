@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  max-width: 705px;
+  margin-bottom: 56px;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.buttonWrapper {
+  margin-top: 16px;
+}

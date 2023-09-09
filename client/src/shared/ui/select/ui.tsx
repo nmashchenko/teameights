@@ -1,3 +1,4 @@
+'use client';
 import clsx from 'clsx';
 import ReactSelect, { GroupBase, Props } from 'react-select';
 

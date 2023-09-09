@@ -1,3 +1,4 @@
+'use client';
 import clsx from 'clsx';
 import { FC, TextareaHTMLAttributes, useRef } from 'react';
 import { useAutosize } from './lib';

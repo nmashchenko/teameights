@@ -11,7 +11,7 @@ import { Colors } from 'shared/constant/colors';
 import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
 
 import { useState } from 'react';
-import styles from '../Auth.module.scss';
+import styles from '../shared.module.scss';
 
 interface LoginProps {
   email: string;
@@ -61,7 +61,10 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div className={styles.forgot_link_wrapper}>
-                <div className={styles.forgot_link} onClick={() => router.push('/forgot-password')}>
+                <div
+                  className={styles.forgot_link}
+                  onClick={() => router.push('/password/recover')}
+                >
                   <Typography size={TypographySize.Body_M} color={Colors.GreenBright}>
                     Forgot Password?
                   </Typography>

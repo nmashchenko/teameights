@@ -22,7 +22,7 @@ There are usually placed:
           ├── lib/
           ├── model/
           ├── ui/
-          └── index.ts
+          └── index.tsx
 ```
 
 ## Examples
@@ -42,7 +42,7 @@ export const Wallet = () => {
 
 ### Using Entity components
 
-```ts title=entities/book/index.ts
+```ts title=entities/book/index.tsx
 export { BookCard, ... } from "./ui";
 export * as bookModel from "./model";
 ```

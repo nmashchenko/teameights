@@ -1,0 +1,1 @@
+export { AmongUs } from './amongUs';
