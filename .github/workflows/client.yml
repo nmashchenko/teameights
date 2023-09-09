@@ -1,5 +1,5 @@
-name: frontend CI
-run-name: ${{ github.actor }} is testing frontend code 🪲
+name: Frontend checker, will punish for bad code 🪓😵‍💫
+run-name: ${{ github.actor }} is starting sueta at the frontend code ☺️
 
 on:
   push:
@@ -22,12 +22,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.JS ${{matrix.node-version}}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node-version}}
 
       - name: Cache Yarn dependencies
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@v3.2.2
         with:
           path: ./client/node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('./client/yarn.lock') }}

@@ -1,5 +1,6 @@
-name: Server CI
-run-name: ${{ github.actor }} is making deploy 🚀 Let's pray he will pass tests 😉
+name: Backend checker, will punish for bad code 🥲🔫
+run-name: ${{ github.actor }} is starting sueta at the backend code 🤠
+
 on:
   push:
     branches:

@@ -1,4 +1,5 @@
-name: Check PR can be merged
+name: PR helper is working 👷⚒️
+run-name: PR helper is working ⚒️
 
 on: [pull_request, pull_request_review, issue_comment]
 
