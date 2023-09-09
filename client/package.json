@@ -59,7 +59,7 @@
     "@typescript-eslint/parser": "^6.3.0",
     "eslint-plugin-storybook": "^0.6.13",
     "husky": "^8.0.3",
-    "prettier": "latest",
+    "prettier": "^3.0.1",
     "storybook": "7.2.1"
   },
   "resolutions": {
