@@ -12,11 +12,6 @@ on:
       - dev-nextjs
     paths:
       - "client/**"
-    types:
-      - opened
-      - synchronize
-      - reopened
-
 
 jobs:
   pipeline:
