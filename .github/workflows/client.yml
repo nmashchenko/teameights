@@ -2,6 +2,7 @@ name: Frontend checker, will punish for bad code 🪓😵‍💫
 run-name: ${{ github.actor }} is starting sueta at the frontend code ☺️
 
 on:
+  workflow_dispatch: # Manually trigger a workflow_dispatch event
   push:
     branches:
       - dev-nextjs
