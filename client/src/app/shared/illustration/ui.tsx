@@ -6,15 +6,9 @@ import styles from './styles.module.scss';
 interface ConfirmProps {
   mainText: string;
   subText: string;
-  // buttonText: string;
-  // buttonHandler: () => void;
 }
 
-export const IllustrationStatus = ({
-  mainText,
-  subText // buttonText,
-} // buttonHandler
-: ConfirmProps) => {
+export const IllustrationStatus = ({ mainText, subText }: ConfirmProps) => {
   return (
     <div className={styles.container}>
       <Email />
@@ -23,11 +17,6 @@ export const IllustrationStatus = ({
         <Typography size={TypographySize.Body_L} color={Colors.GreyNormal}>
           {subText}
         </Typography>
-        {/* <div className={styles.buttonWrapper}>
-          <Button typeBtn='tertiary' color={Colors.GreenBright} onClick={buttonHandler}>
-            {buttonText}
-          </Button>
-        </div> */}
       </div>
     </div>
   );
