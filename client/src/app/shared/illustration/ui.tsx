@@ -13,8 +13,8 @@ interface ConfirmProps {
 export const IllustrationStatus = ({
   mainText,
   subText // buttonText,
-} // buttonHandler
-: ConfirmProps) => {
+  // buttonHandler
+}: ConfirmProps) => {
   return (
     <div className={styles.container}>
       <Email />

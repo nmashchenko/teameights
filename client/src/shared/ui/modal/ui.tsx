@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import classNames from 'clsx';
 import { FC, PropsWithChildren } from 'react';
