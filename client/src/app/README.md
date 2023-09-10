@@ -56,7 +56,7 @@ export const withApollo = (component: Component) => () => (
 
 _Only one of the methods is shown here, if you use HOC for providers and logic initialization_
 
-```tsx title=app/providers/index.tsx
+```tsx title=app/providers/index.ts
 import compose from "compose-function";
 import { withRouter } from "./with-router";
 import { withAntd } from "./with-antd";
@@ -69,7 +69,7 @@ import { withAntd } from "./with-antd";
 export const withProviders = compose(withRouter, withAntd,...);
 ```
 
-```tsx title=app/index.tsx
+```tsx title=app/index.ts
 import { withProviders } from "./providers";
 ...
 

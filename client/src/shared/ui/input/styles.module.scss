@@ -12,8 +12,8 @@
 
 .label {
   color: var(--grey-normal-color);
-  font: var(--font-body-weight-m) var(--font-body-size-m) /
-    var(--font-body-line-m) var(--font-rubik);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
 }
 
 .input_container {
@@ -32,8 +32,8 @@
   caret-color: var(--green-bright-color);
   color: var(--white-color);
   transition: all 0.1s ease 0s;
-  font: var(--font-body-weight-l) var(--font-body-size-l) /
-    var(--font-body-line-l) var(--font-rubik);
+  font: var(--font-body-weight-l) var(--font-body-size-l) / var(--font-body-line-l)
+    var(--font-rubik);
 
   &:focus {
     border-bottom: 1px solid var(--white-color);
@@ -85,6 +85,6 @@
 
 .error {
   color: var(--red-error-color);
-  font: var(--font-body-weight-m) var(--font-body-size-m) /
-    var(--font-body-line-m) var(--font-rubik);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
 }

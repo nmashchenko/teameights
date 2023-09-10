@@ -6,6 +6,7 @@ import { ArrowLeft } from 'shared/assets/Icons/Arrows/ArrowLeft';
 import { Colors } from 'shared/constant/colors';
 import { Button, Input, Typography, TypographySize } from 'shared/ui';
 import styles from './styles.module.scss';
+import {useRouter} from "next/navigation";
 
 interface RecoverProps {
   email: string;
@@ -13,6 +14,7 @@ interface RecoverProps {
 
 export default function Recover() {
   const [email, setEmail] = useState('');
+    const router = useRouter();
 
   const {
     register,
@@ -20,7 +22,10 @@ export default function Recover() {
     formState: { errors }
   } = useForm<RecoverProps>();
 
-  const onSubmit: SubmitHandler<RecoverProps> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<RecoverProps> = (data) => {
+      console.log(data)
+      router.push('confirmation')
+  }
 
   return (
     <form className={styles.info} onSubmit={handleSubmit(onSubmit)}>
@@ -41,7 +46,7 @@ export default function Recover() {
         onChange={(e) => setEmail(e.target.value)}
       />
       <div className={styles.gapContainer}>
-        <Button width='100%' disabled={email.length ? false : true}>
+        <Button width='100%' disabled={!email.length}>
           Reset password
         </Button>
         <Button width='100%' typeBtn='secondary'>

@@ -33,15 +33,15 @@ shared can't use any layer
 
 ### Using UIKit
 
-```tsx title=shared/ui/button/index.tsx
+```tsx title=shared/ui/button/index.ts
 export const Button = () => {...}
 ```
 
-```tsx title=shared/ui/card/index.tsx
+```tsx title=shared/ui/card/index.ts
 export const Card = () => {...}
 ```
 
-```tsx title=**/**/index.tsx
+```tsx title=**/**/index.ts
 import { Button } from 'shared/ui/button';
 import { Card } from 'shared/ui/card';
 // Or in extreme cases
@@ -52,12 +52,12 @@ import { Card } from 'shared/ui/card';
 
 _The implementation depends on the project and the team, here is just one of the options_
 
-```ts title=shared/config/index.tsx
+```ts title=shared/config/index.ts
 export const isDevEnv = NODE_ENV === 'development';
 export const OAUTH_TOKEN = getEnvVar('REACT_APP_OAUTH_TOKEN');
 ```
 
-```ts title=**/**/index.tsx
+```ts title=**/**/index.ts
 import { OAUTH_TOKEN, isDevEnv } from "shared/config";
 
 export const OAuthProvider = () => (

@@ -30,7 +30,7 @@ At the same time:
           ├── lib/
           ├── model/
           ├── ui/
-          └── index.tsx
+          └── index.ts
 ```
 
 Thus, the feature stores information about:
@@ -60,7 +60,7 @@ features/order/            Feature group
    ├── total-info          Full-fledged feature
 -  ├── model.ts            General logic for the group
 -  ├── hooks.ts            General hooks for the group
-   ├── index.tsx            Public API with re-export of features
+   ├── index.ts            Public API with re-export of features
 ```
 
 ### Features should not depend on each other

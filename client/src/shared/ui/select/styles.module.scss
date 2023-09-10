@@ -8,8 +8,8 @@
 }
 
 .label {
-  font: var(--font-body-weight-m) var(--font-body-size-m) /
-    var(--font-body-line-m) var(--font-rubik);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
   color: var(--grey-normal-color);
 
   &:not(--last-child) {
@@ -19,7 +19,7 @@
 
 .error {
   color: var(--red-error-color);
-  font: var(--font-body-weight-m) var(--font-body-size-m) /
-    var(--font-body-line-m) var(--font-rubik);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
   margin-top: 8px;
 }

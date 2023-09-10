@@ -1,12 +1,22 @@
-name: Teameights checker, will punish for bad code 🥵
-run-name: ${{ github.actor }} is making deploy 🚀 Let's pray he will pass tests 😉
+name: Backend checker, will punish for bad code 🥲🔫
+run-name: ${{ github.actor }} is starting sueta at the backend code 🤠
+
 on:
   push:
-    branches: [dev]
+    branches:
+      - dev-nextjs
+    paths:
+        - "server/**"
   pull_request:
-    branches: [dev]
+    branches:
+        - dev-nextjs
+    paths:
+        - "server/**"
+
 jobs:
   init:
+    # Exclude renovate[bot] from triggering the workflow
+    if: github.actor != 'renovate[bot]'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,11 +44,26 @@ jobs:
       - name: 🎧 Install modules
         working-directory: ./server
         run: npm install
+
+      - name: 🚀 Run linting
+        working-directory: ./server
+        run: npm run lint
+
+      - name: Run Prettier formatter
+        working-directory: ./server
+        run: npm run format
+
       - name: 🚀 Run unit tests
         working-directory: ./server
         run: npm run test
+
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: 🚀 Run coverage tests
         working-directory: ./server
         run: npm run test:cov
+
+      - name: Run build
+        working-directory: ./server
+        run: npm run build
+
       - run: echo "😼 Finished! Good job."
