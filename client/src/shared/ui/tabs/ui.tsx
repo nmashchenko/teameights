@@ -60,6 +60,7 @@ export const Tabs = ({ currentTab, onTabChange, options }: TabsProps) => {
           onClick={handleTabChange(option)}
         >
           <Image src={'/testPicture.png'} alt={'Picture'} width={500} height={500} />
+          <Image src={'/testPic2.png'} alt={'Picture'} width={500} height={500} />
           {option}
           <span></span>
         </button>
