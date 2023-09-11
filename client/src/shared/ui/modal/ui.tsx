@@ -1,12 +1,11 @@
 'use client';
 
-import classNames from 'clsx';
-import { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import ReactModal from 'react-modal';
+import classNames from 'clsx';
+import { Cross } from 'shared/assets';
 
 import styles from './styles.module.scss';
-
-import { Cross } from 'shared/assets';
 
 /**
  * Modal Component
@@ -42,14 +41,14 @@ import { Cross } from 'shared/assets';
  * To further customize the modal's appearance or transition effects, modify the associated styles in 'styles.module.scss'.
  */
 
-interface ModalProps {
+interface ModalProperties {
   isOpen: boolean;
   onClose?: () => void;
   size?: 's' | 'm' | 'l';
 }
 
-export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
-  const { isOpen, onClose, size = 's', children } = props;
+export const Modal: FC<PropsWithChildren<ModalProperties>> = properties => {
+  const { children, isOpen, onClose, size = 's' } = properties;
 
   return (
     <ReactModal
@@ -57,13 +56,13 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
       closeTimeoutMS={225}
       onRequestClose={onClose}
       overlayClassName={{
-        base: styles.modalOverlay,
         afterOpen: styles.modalOverlay__afterOpen,
+        base: styles.modalOverlay,
         beforeClose: styles.modalOverlay__beforeClose,
       }}
       className={{
-        base: classNames(styles.modalBody, {}, [styles[`size_${size}`]]),
         afterOpen: classNames(styles.modalBody__afterOpen, {}, [styles[`size_${size}`]]),
+        base: classNames(styles.modalBody, {}, [styles[`size_${size}`]]),
         beforeClose: classNames(styles.modalBody__beforeClose, {}, [styles[`size_${size}`]]),
       }}
     >

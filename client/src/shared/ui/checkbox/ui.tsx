@@ -1,6 +1,7 @@
+import type { FC, InputHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
-import { FC, InputHTMLAttributes } from 'react';
 import { Check } from 'shared/assets';
+
 import styles from './styles.module.scss';
 
 /**
@@ -31,37 +32,35 @@ import styles from './styles.module.scss';
  * - The `Check` component is used to render the checkmark icon when the checkbox is checked.
  *
  */
-interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+interface CheckboxProperties extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-export const Checkbox: FC<CheckboxProps> = ({
-  disabled = false,
-  label,
-  width,
-  height,
+export const Checkbox: FC<CheckboxProperties> = ({
   className,
+  disabled = false,
+  height,
+  label,
   onChange,
-  ...props
-}) => {
-  return (
-    <label
-      className={clsx(styles.container, { [styles.container__disabled]: disabled }, [className])}
-    >
-      <input
-        type='checkbox'
-        className={styles.checkbox}
-        disabled={disabled}
-        aria-label={label || 'Checkbox'}
-        onChange={onChange}
-        {...props}
-      />
-      <span className={styles.checkmark} style={{ width: width, height: height }}>
-        <Check />
-      </span>
-      {label && (
-        <span className={clsx(styles.label, { [styles.label__disabled]: disabled })}>{label}</span>
-      )}
-    </label>
-  );
-};
+  width,
+  ...properties
+}) => (
+  <label
+    className={clsx(styles.container, { [styles.container__disabled]: disabled }, [className])}
+  >
+    <input
+      type='checkbox'
+      className={styles.checkbox}
+      disabled={disabled}
+      aria-label={label || 'Checkbox'}
+      onChange={onChange}
+      {...properties}
+    />
+    <span className={styles.checkmark} style={{ height, width }}>
+      <Check />
+    </span>
+    {label && (
+      <span className={clsx(styles.label, { [styles.label__disabled]: disabled })}>{label}</span>
+    )}
+  </label>
+);

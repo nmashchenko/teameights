@@ -1,13 +1,27 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
   "extends": [
-    "next",
-    "next/core-web-vitals",
+//    "next",
+//    "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "plugin:codemuse/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["tsconfig.json"]
+  },
+  "plugins": ["@typescript-eslint"],
   "globals": {
     "React": "readonly"
   },
@@ -21,6 +35,30 @@
     }
   ],
   "rules": {
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "kebabCase": true
+        },
+        "ignore": [
+          "next-env.d.ts",
+          "vite(st)?.config.ts",
+          "vite-environment.d.ts",
+          "\\.spec.ts(x)?",
+          "\\.types.ts(x)?",
+          "\\.stories.ts(x)?",
+          "\\.styled.ts(x)?",
+          "\\.styles.ts(x)?",
+          "\\.module\\.css",
+          "\\.module\\.scss",
+          "\\.module\\.sass",
+          "\\.test\\.ts",
+          "\\.test\\.tsx",
+          "i18n-config.ts"
+        ]
+      }
+    ],
     // I suggest you add those two rules:
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",

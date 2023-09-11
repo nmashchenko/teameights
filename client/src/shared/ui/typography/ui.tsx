@@ -1,6 +1,7 @@
+import type { FC, ReactNode } from 'react';
 import { clsx } from 'clsx';
-import { FC, ReactNode } from 'react';
-import { Colors } from 'shared/constant';
+import type { Colors } from 'shared/constant';
+
 import styles from './styles.module.scss';
 
 /**
@@ -66,7 +67,7 @@ export enum TypographyVariants {
   p = 'p',
 }
 
-interface TypographyProps {
+interface TypographyProperties {
   children: ReactNode;
   className?: string;
   size?: TypographySize;
@@ -74,13 +75,13 @@ interface TypographyProps {
   color?: Colors;
 }
 
-export const Typography: FC<TypographyProps> = ({
+export const Typography: FC<TypographyProperties> = ({
   children,
   className,
+  color,
   size = TypographySize.Body_M,
   variant = TypographyVariants.p,
-  color,
-  ...props
+  ...properties
 }) => {
   const Component = variant;
 
@@ -93,7 +94,7 @@ export const Typography: FC<TypographyProps> = ({
         [className]
       )}
       style={color ? { color: `var(${color})` } : undefined}
-      {...props}
+      {...properties}
     >
       {children}
     </Component>

@@ -1,6 +1,8 @@
+import type { ForwardRefRenderFunction, InputHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import clsx from 'clsx';
-import { ForwardRefRenderFunction, InputHTMLAttributes, forwardRef } from 'react';
 import { WarningCircle } from 'shared/assets';
+
 import styles from './styles.module.scss';
 
 /**
@@ -38,7 +40,7 @@ import styles from './styles.module.scss';
 
 type IconPosition = 'start' | 'end';
 
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProperties extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   maxWidth?: string;
@@ -46,71 +48,69 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   subIcon?: JSX.Element;
 }
 
-const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
+const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProperties> = (
   {
     className,
-    name,
-    label,
-    error,
-    maxWidth,
-    placeholder,
     disabled,
-    subIconPosition = 'end',
+    error,
+    label,
+    maxWidth,
+    name,
+    placeholder,
     subIcon,
-    ...props
+    subIconPosition = 'end',
+    ...properties
   },
-  ref // Optional ref passed from outside the component
-) => {
+  reference // Optional ref passed from outside the component
+) => (
   // ... (rest of the component's code)
 
-  return (
-    <div
-      className={clsx(styles.container, { [styles.container__disabled]: disabled }, className)}
-      style={{ maxWidth }}
-    >
-      {label && (
-        <label htmlFor={name} className={styles.label}>
-          {label}
-        </label>
+  <div
+    className={clsx(styles.container, { [styles.container__disabled]: disabled }, className)}
+    style={{ maxWidth }}
+  >
+    {label && (
+      <label htmlFor={name} className={styles.label}>
+        {label}
+      </label>
+    )}
+    <div className={styles.input_container}>
+      <input
+        ref={reference}
+        name={name}
+        className={clsx(styles.input, {
+          [styles.input__icon_end]: (subIcon && subIconPosition === 'end') || error,
+          [styles.input__icon_start]: subIcon && subIconPosition === 'start',
+          [styles.input__two_icons_end]: subIcon && subIconPosition === 'end' && error,
+        })}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${name}-error` : undefined}
+        placeholder={placeholder}
+        {...properties}
+      />
+      {error && (
+        <div className={styles.error_icon}>
+          <WarningCircle />
+        </div>
       )}
-      <div className={styles.input_container}>
-        <input
-          ref={ref}
-          name={name}
-          className={clsx(styles.input, {
-            [styles.input__icon_start]: subIcon && subIconPosition === 'start',
-            [styles.input__icon_end]: (subIcon && subIconPosition === 'end') || error,
-            [styles.input__two_icons_end]: subIcon && subIconPosition === 'end' && error,
+      {subIcon && (
+        <div
+          className={clsx(styles.sub_icon, {
+            [styles.sub_icon__start]: subIconPosition === 'start',
+            [styles.sub_icon__two_icons_end]: subIcon && subIconPosition === 'end' && error,
           })}
-          aria-invalid={Boolean(error)}
-          aria-describedby={error ? `${name}-error` : undefined}
-          placeholder={placeholder}
-          {...props}
-        />
-        {error && (
-          <div className={styles.error_icon}>
-            <WarningCircle />
-          </div>
-        )}
-        {subIcon && (
-          <div
-            className={clsx(styles.sub_icon, {
-              [styles.sub_icon__start]: subIconPosition === 'start',
-              [styles.sub_icon__two_icons_end]: subIcon && subIconPosition === 'end' && error,
-            })}
-          >
-            {subIcon}
-          </div>
-        )}
-        {error && (
-          <span className={styles.error} id={`${name}-error`} role='alert'>
-            {error}
-          </span>
-        )}
-      </div>
+        >
+          {subIcon}
+        </div>
+      )}
+      {error && (
+        <span className={styles.error} id={`${name}-error`} role='alert'>
+          {error}
+        </span>
+      )}
     </div>
-  );
-};
+  </div>
+);
 
 InputComponent.displayName = 'Input';
 

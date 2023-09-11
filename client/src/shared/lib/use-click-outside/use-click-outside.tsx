@@ -1,14 +1,16 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+
+import type React from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useClickOutside = <T extends HTMLElement>(
   callback: () => void
 ): React.RefObject<T> => {
-  const ref = useRef<T>(null);
+  const reference = useRef<T>(null);
 
   useEffect(() => {
     const click = ({ target }: Event): void => {
-      if (target && ref.current && !ref.current.contains(target as Node)) {
+      if (target && reference.current && !reference.current.contains(target as Node)) {
         callback();
       }
     };
@@ -20,5 +22,5 @@ export const useClickOutside = <T extends HTMLElement>(
     };
   }, [callback]);
 
-  return ref;
+  return reference;
 };

@@ -1,6 +1,7 @@
+import type { FC } from 'react';
 import { clsx } from 'clsx';
-import { FC } from 'react';
 import { frameworkColors, frameworkTextColors } from 'shared/constant';
+
 import styles from './styles.module.scss';
 
 /**
@@ -30,19 +31,19 @@ import styles from './styles.module.scss';
  * - Colors are fetched from 'frameworkColors' and 'frameworkTextColors'. If a framework is not listed in these objects, the badge will default to a general color.
  */
 
-interface BadgeFrameworkProps {
+interface BadgeFrameworkProperties {
   data: string;
   key: number;
   className?: string;
   maxWidth?: string;
 }
 
-export const BadgeFramework: FC<BadgeFrameworkProps> = ({
+export const BadgeFramework: FC<BadgeFrameworkProperties> = ({
   className,
-  maxWidth,
   data,
   key,
-  ...props
+  maxWidth,
+  ...properties
 }) => (
   <div
     key={key}
@@ -50,9 +51,9 @@ export const BadgeFramework: FC<BadgeFrameworkProps> = ({
     style={{
       backgroundColor: `${frameworkColors[data] ? frameworkColors[data] : '#2F3239'}`,
       color: frameworkTextColors[data],
-      maxWidth: `${maxWidth ? maxWidth : '100%'}`,
+      maxWidth: `${maxWidth || '100%'}`,
     }}
-    {...props}
+    {...properties}
   >
     {data}
   </div>

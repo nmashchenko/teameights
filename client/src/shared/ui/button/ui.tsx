@@ -1,5 +1,6 @@
+import type { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import { clsx } from 'clsx';
-import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
+
 import styles from './styles.module.scss';
 
 /**
@@ -37,7 +38,7 @@ type ButtonContent = 'icon_button' | 'text_button';
 
 type ButtonSize = 'l' | 'm' | 's';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProperties extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   size?: ButtonSize;
   content?: ButtonContent;
@@ -47,33 +48,33 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width?: string;
 }
 
-export const Button: FC<ButtonProps> = props => {
+export const Button: FC<ButtonProperties> = properties => {
   const {
-    className,
     children,
-    content = 'text_button',
-    size = 'l',
-    typeBtn = 'primary',
-    isDisabled = false,
-    width,
+    className,
     color,
-    ...otherProps
-  } = props;
+    content = 'text_button',
+    isDisabled = false,
+    size = 'l',
+    typeBtn: typeButton = 'primary',
+    width,
+    ...otherProperties
+  } = properties;
 
   return (
     <button
       disabled={isDisabled}
       style={{
-        width: width ? `${width}` : undefined,
         color: color ? `var(${color})` : undefined,
+        width: width ? `${width}` : undefined,
       }}
       className={clsx(styles.container, {}, [
         className,
         styles[`size_${size}`],
-        styles[typeBtn],
+        styles[typeButton],
         styles[content],
       ])}
-      {...otherProps}
+      {...otherProperties}
     >
       {children}
     </button>

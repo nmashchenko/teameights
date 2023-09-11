@@ -1,8 +1,11 @@
 'use client';
 
-import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
-import { EyeClosed, Eye } from 'shared/assets';
-import { Input, InputProps } from '../ui';
+import type { ForwardRefRenderFunction } from 'react';
+import { forwardRef, useState } from 'react';
+import { Eye, EyeClosed } from 'shared/assets';
+
+import type { InputProps as InputProperties } from '../ui';
+import { Input } from '../ui';
 
 /**
  * Accepts all props of @InputProps but is used for password fields
@@ -18,25 +21,25 @@ import { Input, InputProps } from '../ui';
  *  />
  */
 
-const InputPasswordComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { ...props },
-  ref // Optional ref passed from outside the component
+const InputPasswordComponent: ForwardRefRenderFunction<HTMLInputElement, InputProperties> = (
+  { ...properties },
+  reference // Optional ref passed from outside the component
 ) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const SubIcon = () => (
-    <div onClick={() => setShowPassword(prev => !prev)}>
+    <div onClick={() => setShowPassword(previous => !previous)}>
       {showPassword ? <Eye /> : <EyeClosed />}
     </div>
   );
 
   return (
     <Input
-      ref={ref} // Pass the ref to the Input component
+      ref={reference} // Pass the ref to the Input component
       subIcon={<SubIcon />}
       subIconPosition='end'
       type={showPassword ? 'text' : 'password'}
-      {...props}
+      {...properties}
     />
   );
 };

@@ -1,7 +1,10 @@
 'use client';
 
-import { ChangeEvent, ForwardRefRenderFunction, forwardRef, useState } from 'react';
-import { Input, InputProps } from '../ui';
+import type { ChangeEvent, ForwardRefRenderFunction } from 'react';
+import { forwardRef, useState } from 'react';
+
+import type { InputProps as InputProperties } from '../ui';
+import { Input } from '../ui';
 
 /**
  * Accepts @InputDateProps which doesn't allow you to pass @value and @onChange
@@ -17,27 +20,29 @@ import { Input, InputProps } from '../ui';
  *  />
  */
 
-export interface InputDateProps extends Omit<InputProps, 'value' | 'onChange' | 'placeholder'> {}
+export type InputDateProps = Omit<InputProperties, 'value' | 'onChange' | 'placeholder'>;
 
 const InputDateComponent: ForwardRefRenderFunction<HTMLInputElement, InputDateProps> = (
-  { ...props },
-  ref // Optional ref passed from outside the component
+  { ...properties },
+  reference // Optional ref passed from outside the component
 ) => {
   const [date, setDate] = useState<string>('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
-    const numbersOnly = input.replace(/\D/g, '');
+    const numbersOnly = input.replaceAll(/\D/g, '');
 
     let formattedDate = '';
 
     if (numbersOnly.length <= 2) {
       formattedDate = numbersOnly;
     } else if (numbersOnly.length <= 4) {
-      formattedDate = numbersOnly.slice(0, 2) + '/' + numbersOnly.slice(2);
+      formattedDate = `${numbersOnly.slice(0, 2)}/${numbersOnly.slice(2)}`;
     } else if (numbersOnly.length > 4) {
-      formattedDate =
-        numbersOnly.slice(0, 2) + '/' + numbersOnly.slice(2, 4) + '/' + numbersOnly.slice(4, 8);
+      formattedDate = `${numbersOnly.slice(0, 2)}/${numbersOnly.slice(2, 4)}/${numbersOnly.slice(
+        4,
+        8
+      )}`;
     }
 
     // Restrict the date to a maximum of 8 digits
@@ -48,12 +53,12 @@ const InputDateComponent: ForwardRefRenderFunction<HTMLInputElement, InputDatePr
 
   return (
     <Input
-      ref={ref} // Pass the ref to the Input component
+      ref={reference} // Pass the ref to the Input component
       value={date}
       onChange={handleChange}
       placeholder='DD/MM/YYYY'
       maxLength={10}
-      {...props}
+      {...properties}
     />
   );
 };

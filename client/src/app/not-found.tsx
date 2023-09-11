@@ -1,10 +1,13 @@
 'use client';
-import Link from 'next/link';
-import { RefObject, useState } from 'react';
+
+import type { RefObject } from 'react';
+import { useState } from 'react';
 import { Tooltip } from 'react-tooltip';
-import { ArrowLeft, Planet, LogoBig, Question } from 'shared/assets';
+import Link from 'next/link';
+import { ArrowLeft, LogoBig, Planet, Question } from 'shared/assets';
 import { AmongUs, useClickOutside } from 'shared/lib';
 import { Button, Typography, TypographySize } from 'shared/ui';
+
 import styles from './styles/not-found.module.scss';
 
 /** Used to open email */
@@ -12,7 +15,8 @@ const mailTo = 'mailto:help@teameights.com';
 
 export default function NotFound() {
   const [isOpen, setIsOpen] = useState(false);
-  const ref: RefObject<HTMLDivElement> = useClickOutside(() => setIsOpen(false));
+  const reference: RefObject<HTMLDivElement> = useClickOutside(() => setIsOpen(false));
+
   return (
     <>
       <div className={styles.container}>
@@ -20,7 +24,7 @@ export default function NotFound() {
           <Link href='/'>
             <LogoBig />
           </Link>
-          <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={ref}>
+          <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={reference}>
             <Typography size={TypographySize.Body_L}>Need Help</Typography>
             <Question data-tooltip-id='my-tooltip-inline' />
             <Tooltip

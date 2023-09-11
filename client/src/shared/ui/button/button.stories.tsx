@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Plus } from 'shared/assets';
+
 import { Button } from './ui';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Button> = {
-  title: 'shared/Button',
+  argTypes: {},
   component: Button,
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'shared/Button',
 };
 
 export default meta;

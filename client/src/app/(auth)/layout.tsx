@@ -1,10 +1,12 @@
 'use client';
 
+import type { ReactNode } from 'react';
+import { useState } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
-import { ReactNode, useState } from 'react';
 import { ArrowLeft, LogoBig } from 'shared/assets';
 import { Button, Tabs } from 'shared/ui';
+
 import styles from './styles.module.scss';
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -14,7 +16,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   const handleChange = (option: string) => {
     setTab(option);
-    router.push(`/${option.toLowerCase().replace(/\s/g, '')}`);
+    router.push(`/${option.toLowerCase().replaceAll(/\s/g, '')}`);
   };
 
   const handleBack = () => {

@@ -1,12 +1,15 @@
 'use client';
-import styles from '../../../shared.module.scss';
-import { Button, InputPassword, Typography, TypographySize } from 'shared/ui';
-import { Colors } from 'shared/constant';
-import clsx from 'clsx';
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
 
-interface UpdateProps {
+import { useState } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import clsx from 'clsx';
+import { Colors } from 'shared/constant';
+import { Button, InputPassword, Typography, TypographySize } from 'shared/ui';
+
+import styles from '../../../shared.module.scss';
+
+interface UpdateProperties {
   password: string;
   repeatPassword: string;
 }
@@ -16,12 +19,12 @@ export default function Update({ params }: { params: { id: string; token: string
   const [repeatPassword, setRepeatPassword] = useState('');
 
   const {
-    register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<UpdateProps>();
+    handleSubmit,
+    register,
+  } = useForm<UpdateProperties>();
 
-  const onSubmit: SubmitHandler<UpdateProps> = data => {
+  const onSubmit: SubmitHandler<UpdateProperties> = data => {
     console.log(data, id, token);
   };
 
@@ -34,8 +37,8 @@ export default function Update({ params }: { params: { id: string; token: string
     >
       <div
         className={clsx(styles.gapContainer, {
-          [styles.gap8px]: true,
           [styles.alignText]: true,
+          [styles.gap8px]: true,
         })}
       >
         <Typography color={Colors.GreenBright} size={TypographySize.Heading_M}>
@@ -53,8 +56,8 @@ export default function Update({ params }: { params: { id: string; token: string
         <InputPassword
           placeholder='Password'
           {...register('password', {
+            minLength: { message: 'Password must have at least 8 characters', value: 8 },
             required: 'You must specify a password',
-            minLength: { value: 8, message: 'Password must have at least 8 characters' },
           })}
           error={errors?.password ? errors.password.message : undefined}
           value={password}

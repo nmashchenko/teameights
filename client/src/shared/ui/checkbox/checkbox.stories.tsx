@@ -1,13 +1,14 @@
-import type { Meta } from '@storybook/react';
 import { useState } from 'react';
+import type { Meta } from '@storybook/react';
+
 import { Checkbox } from './ui';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Checkbox> = {
-  title: 'shared/Fields/Checkbox',
+  argTypes: {},
   component: Checkbox,
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'shared/Fields/Checkbox',
 };
 
 export default meta;
@@ -25,9 +26,9 @@ export const Checkbox_default = () => {
         width: '500px',
       }}
     >
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Default checkbox</p>
-        <Checkbox name='123' checked={checked} onChange={() => setChecked(prev => !prev)} />
+        <Checkbox name='123' checked={checked} onChange={() => setChecked(previous => !previous)} />
       </div>
     </div>
   );
@@ -45,12 +46,12 @@ export const Checkbox_default_disabled = () => {
         width: '500px',
       }}
     >
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Disabled checkbox</p>
         <Checkbox
           name='123'
           checked={checked}
-          onChange={() => setChecked(prev => !prev)}
+          onChange={() => setChecked(previous => !previous)}
           disabled
         />
       </div>
@@ -70,13 +71,13 @@ export const Checkbox_default_label = () => {
         width: '500px',
       }}
     >
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Labeled checkbox</p>
         <Checkbox
           name='123'
           checked={checked}
-          onChange={() => setChecked(prev => !prev)}
-          label={'Checkbox label'}
+          onChange={() => setChecked(previous => !previous)}
+          label='Checkbox label'
         />
       </div>
     </div>
@@ -95,13 +96,13 @@ export const Checkbox_default_label_disabled_checked = () => {
         width: '500px',
       }}
     >
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Labeled checkbox disabled and checked</p>
         <Checkbox
           name='123'
           checked={checked}
-          onChange={() => setChecked(prev => !prev)}
-          label={'Checkbox label'}
+          onChange={() => setChecked(previous => !previous)}
+          label='Checkbox label'
           disabled
         />
       </div>

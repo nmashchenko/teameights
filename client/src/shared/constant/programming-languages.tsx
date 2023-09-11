@@ -52,30 +52,28 @@ export const programmingLanguageOptions: LanguageOption[] = [
   { label: 'Lua', value: 'lua' },
 ];
 
-interface LanguageOptions {
-  [lang: string]: JSX.Element;
-}
+type LanguageOptions = Record<string, JSX.Element>;
 
 export const languageOptions: LanguageOptions = {
-  JS: <JS />,
-  'C++': <CPlusPlus />,
   C: <C />,
-  Python: <Python />,
-  Swift: <Swift />,
-  Ruby: <Ruby />,
-  Scala: <Scala />,
-  PHP: <Php />,
-  Go: <Go />,
   'C#': <CSharp />,
-  Java: <Java />,
-  HTML: <HTML />,
+  'C++': <CPlusPlus />,
   CSS: <CSS />,
   Dart: <Dart />,
-  Perl: <Perl />,
-  SQL: <SQL />,
-  TS: <TS />,
+  Go: <Go />,
+  HTML: <HTML />,
+  JS: <JS />,
+  Java: <Java />,
   Kotlin: <Kotlin />,
-  Rust: <Rust />,
-  R: <R />,
   Lua: <Lua />,
+  PHP: <Php />,
+  Perl: <Perl />,
+  Python: <Python />,
+  R: <R />,
+  Ruby: <Ruby />,
+  Rust: <Rust />,
+  SQL: <SQL />,
+  Scala: <Scala />,
+  Swift: <Swift />,
+  TS: <TS />,
 };

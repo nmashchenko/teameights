@@ -1,14 +1,16 @@
-import type { Meta } from '@storybook/react';
 import { useState } from 'react';
+import type { Meta } from '@storybook/react';
+
 import { Button } from '../button';
+
 import { Modal } from './ui';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Modal> = {
-  title: 'shared/Modal',
+  argTypes: {},
   component: Modal,
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'shared/Modal',
 };
 
 export default meta;

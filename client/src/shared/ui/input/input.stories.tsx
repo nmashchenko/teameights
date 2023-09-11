@@ -1,5 +1,6 @@
-import type { Meta } from '@storybook/react';
 import { useState } from 'react';
+import type { Meta } from '@storybook/react';
+
 import { InputDate } from './input-date';
 import { InputLink } from './input-link';
 import { InputPassword } from './input-password';
@@ -7,10 +8,10 @@ import { Input } from './ui';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Input> = {
-  title: 'shared/Fields/Input',
+  argTypes: {},
   component: Input,
   tags: ['autodocs'],
-  argTypes: {},
+  title: 'shared/Fields/Input',
 };
 
 export default meta;
@@ -22,11 +23,11 @@ export const Input__default = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Default</p>
         <Input name='1' value={state} onChange={e => setState(e.target.value)} />
       </div>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Disabled</p>
         <Input name='2' value={state} onChange={e => setState(e.target.value)} disabled />
       </div>
@@ -46,11 +47,11 @@ export const Input_Password = () => {
         width: 400,
       }}
     >
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Password</p>
         <InputPassword name='password' value={state} onChange={e => setState(e.target.value)} />
       </div>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Disabled</p>
         <InputPassword
           name='password2'
@@ -68,7 +69,7 @@ export const Input__error = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Error</p>
         <Input
           name='5'
@@ -77,7 +78,7 @@ export const Input__error = () => {
           onChange={e => setState(e.target.value)}
         />
       </div>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Disabled</p>
         <Input
           name='6'
@@ -96,7 +97,7 @@ export const Input__password_error = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Error + Password</p>
         <InputPassword
           name='7'
@@ -105,7 +106,7 @@ export const Input__password_error = () => {
           onChange={e => setState(e.target.value)}
         />
       </div>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Disabled</p>
         <InputPassword
           name='8'
@@ -124,11 +125,11 @@ export const Input__with_label = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Default with label</p>
         <Input name='7' label='Label' value={state} onChange={e => setState(e.target.value)} />
       </div>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Disabled</p>
         <Input
           name='8'
@@ -144,9 +145,10 @@ export const Input__with_label = () => {
 
 export const Input_link_label = () => {
   const [state, setState] = useState('');
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Default with label and link</p>
         <InputLink
           name='link'
@@ -155,7 +157,7 @@ export const Input_link_label = () => {
           onChange={e => setState(e.target.value)}
         />
       </div>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         <p>Disabled</p>
         <InputLink
           name='link-disabled'
@@ -169,32 +171,28 @@ export const Input_link_label = () => {
   );
 };
 
-export const Input_date = () => {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
-        <p>Default with label and link</p>
-        <InputDate name='link' />
-      </div>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
-        <p>Disabled</p>
-        <InputDate name='link-disabled' disabled />
-      </div>
+export const Input_date = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+      <p>Default with label and link</p>
+      <InputDate name='link' />
     </div>
-  );
-};
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+      <p>Disabled</p>
+      <InputDate name='link-disabled' disabled />
+    </div>
+  </div>
+);
 
-export const Input_date_error = () => {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
-        <p>Default with label and link</p>
-        <InputDate name='link' error='Required' label='Label' />
-      </div>
-      <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
-        <p>Disabled</p>
-        <InputDate name='link-disabled' disabled error='Required' label='Label' />
-      </div>
+export const Input_date_error = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+      <p>Default with label and link</p>
+      <InputDate name='link' error='Required' label='Label' />
     </div>
-  );
-};
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+      <p>Disabled</p>
+      <InputDate name='link-disabled' disabled error='Required' label='Label' />
+    </div>
+  </div>
+);

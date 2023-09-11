@@ -1,6 +1,7 @@
+import type { FC } from 'react';
 import clsx from 'clsx';
-import { FC } from 'react';
 import { languageOptions } from 'shared/constant';
+
 import styles from './styles.module.scss';
 
 /**
@@ -29,28 +30,26 @@ import styles from './styles.module.scss';
  * - External styles are imported from 'styles.module.scss'. Ensure the styles are appropriately set in the SCSS file.
  * - 'languageOptions' is used to fetch the display name of the programming language. If a language key is not listed in this object, the badge will not display the corresponding name.
  */
-interface BadgeLanguageProps {
+interface BadgeLanguageProperties {
   data: string;
   key: number;
   className?: string;
   maxWidth?: string;
 }
 
-export const BadgeLanguage: FC<BadgeLanguageProps> = ({
-  data,
+export const BadgeLanguage: FC<BadgeLanguageProperties> = ({
   className,
-  maxWidth,
+  data,
   key,
-  ...props
-}) => {
-  return (
-    <div
-      key={key}
-      className={clsx([className], styles.badge_language)}
-      style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
-      {...props}
-    >
-      {languageOptions[data]}
-    </div>
-  );
-};
+  maxWidth,
+  ...properties
+}) => (
+  <div
+    key={key}
+    className={clsx([className], styles.badge_language)}
+    style={{ maxWidth: `${maxWidth || '100%'}` }}
+    {...properties}
+  >
+    {languageOptions[data]}
+  </div>
+);

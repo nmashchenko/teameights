@@ -1,15 +1,18 @@
 'use client';
-import Link from 'next/link';
+
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'shared/assets';
 import { Colors } from 'shared/constant';
 import { Button, Input, Typography, TypographySize } from 'shared/ui';
-import styles from '../shared.module.scss';
-import { useRouter } from 'next/navigation';
-import clsx from 'clsx';
 
-interface RecoverProps {
+import styles from '../shared.module.scss';
+
+interface RecoverProperties {
   email: string;
 }
 
@@ -18,12 +21,12 @@ export default function Recover() {
   const router = useRouter();
 
   const {
-    register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<RecoverProps>();
+    handleSubmit,
+    register,
+  } = useForm<RecoverProperties>();
 
-  const onSubmit: SubmitHandler<RecoverProps> = data => {
+  const onSubmit: SubmitHandler<RecoverProperties> = data => {
     console.log(data);
     router.push('confirmation');
   };
@@ -37,8 +40,8 @@ export default function Recover() {
     >
       <div
         className={clsx(styles.gapContainer, {
-          [styles.gap8px]: true,
           [styles.alignText]: true,
+          [styles.gap8px]: true,
         })}
       >
         <Typography color={Colors.GreenBright} size={TypographySize.Heading_M}>
@@ -61,7 +64,7 @@ export default function Recover() {
           [styles.gap8px]: true,
         })}
       >
-        <Button width='100%' disabled={!email.length}>
+        <Button width='100%' disabled={email.length === 0}>
           Reset password
         </Button>
         <Button width='100%' typeBtn='secondary'>

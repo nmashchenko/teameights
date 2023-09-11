@@ -1,4 +1,5 @@
 import classNames from 'clsx';
+
 import styles from './styles.module.scss';
 
 /**
@@ -37,13 +38,13 @@ import styles from './styles.module.scss';
  * The component uses native `<button>` elements for tabs, ensuring good accessibility. Ensure the `onTabChange` callback and `currentTab` property are managed properly in parent components to keep the tabs in sync with displayed content.
  */
 
-interface TabsProps {
+interface TabsProperties {
   currentTab: string;
   onTabChange: (option: string) => void;
   options: string[];
 }
 
-export const Tabs = ({ currentTab, onTabChange, options }: TabsProps) => {
+export const Tabs = ({ currentTab, onTabChange, options }: TabsProperties) => {
   const handleTabChange = (option: string) => () => {
     onTabChange(option);
   };
@@ -59,7 +60,7 @@ export const Tabs = ({ currentTab, onTabChange, options }: TabsProps) => {
           onClick={handleTabChange(option)}
         >
           {option}
-          <span></span>
+          <span />
         </button>
       ))}
     </div>

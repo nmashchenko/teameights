@@ -1,17 +1,17 @@
 'use client';
 
+import { useState } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Github, Google, Login } from 'shared/assets';
 import { Colors } from 'shared/constant';
-
 import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
 
-import { useState } from 'react';
 import styles from '../shared.module.scss';
-import { Login, Github, Google } from 'shared/assets';
 
-interface LoginProps {
+interface LoginProperties {
   email: string;
   password: string;
 }
@@ -22,17 +22,17 @@ export default function LoginPage() {
   const router = useRouter();
 
   const {
-    register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<LoginProps>();
+    handleSubmit,
+    register,
+  } = useForm<LoginProperties>();
 
   const login = useGoogleLogin({
-    onSuccess: codeResponse => console.log(codeResponse),
     flow: 'auth-code',
+    onSuccess: codeResponse => console.log(codeResponse),
   });
 
-  const onSubmit: SubmitHandler<LoginProps> = data => console.log(data);
+  const onSubmit: SubmitHandler<LoginProperties> = data => console.log(data);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -51,8 +51,8 @@ export default function LoginPage() {
               <InputPassword
                 placeholder='Password'
                 {...register('password', {
+                  minLength: { message: 'Minimum length is 8!', value: 8 },
                   required: 'Password is required!',
-                  minLength: { value: 8, message: 'Minimum length is 8!' },
                 })}
                 error={errors?.password ? errors.password.message : undefined}
                 value={password}

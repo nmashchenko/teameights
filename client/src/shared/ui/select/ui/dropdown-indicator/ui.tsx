@@ -1,4 +1,5 @@
-import { DropdownIndicatorProps, GroupBase, components } from 'react-select';
+import type { DropdownIndicatorProps, GroupBase } from 'react-select';
+import { components } from 'react-select';
 import { CaretDown, CaretUp } from 'shared/assets';
 
 export const DropdownIndicator = <
@@ -6,13 +7,10 @@ export const DropdownIndicator = <
   IsMultiType extends boolean = false,
   GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
 >(
-  props: DropdownIndicatorProps<OptionType, IsMultiType, GroupType>
-) => {
-  return (
-    components.DropdownIndicator && (
-      <components.DropdownIndicator {...props}>
-        {props.selectProps.menuIsOpen ? <CaretUp /> : <CaretDown />}
-      </components.DropdownIndicator>
-    )
+  properties: DropdownIndicatorProps<OptionType, IsMultiType, GroupType>
+) =>
+  components.DropdownIndicator && (
+    <components.DropdownIndicator {...properties}>
+      {properties.selectProps.menuIsOpen ? <CaretUp /> : <CaretDown />}
+    </components.DropdownIndicator>
   );
-};

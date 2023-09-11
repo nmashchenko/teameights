@@ -1,15 +1,16 @@
 'use client';
 
-import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { useGoogleLogin } from '@react-oauth/google';
 import { Github, Google, Login } from 'shared/assets';
 import { Colors } from 'shared/constant';
-
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
+
 import styles from '../shared.module.scss';
 
-interface SignupProps {
+interface SignupProperties {
   email: string;
   password: string;
   repeatPassword: string;
@@ -21,17 +22,17 @@ export default function SignupPage() {
   const [repeatPassword, setRepeatPassword] = useState('');
 
   const login = useGoogleLogin({
-    onSuccess: codeResponse => console.log(codeResponse),
     flow: 'auth-code',
+    onSuccess: codeResponse => console.log(codeResponse),
   });
 
   const {
-    register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<SignupProps>();
+    handleSubmit,
+    register,
+  } = useForm<SignupProperties>();
 
-  const onSubmit: SubmitHandler<SignupProps> = data => console.log(data);
+  const onSubmit: SubmitHandler<SignupProperties> = data => console.log(data);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -49,8 +50,8 @@ export default function SignupPage() {
             <InputPassword
               placeholder='Password'
               {...register('password', {
+                minLength: { message: 'Password must have at least 8 characters', value: 8 },
                 required: 'You must specify a password',
-                minLength: { value: 8, message: 'Password must have at least 8 characters' },
               })}
               error={errors?.password ? errors.password.message : undefined}
               value={password}

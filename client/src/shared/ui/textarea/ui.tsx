@@ -1,7 +1,11 @@
 'use client';
+
+import type { FC, TextareaHTMLAttributes } from 'react';
+import { useRef } from 'react';
 import clsx from 'clsx';
-import { FC, TextareaHTMLAttributes, useRef } from 'react';
+
 import { useAutosize } from './lib';
+
 import styles from './styles.module.scss';
 
 /**
@@ -52,30 +56,32 @@ import styles from './styles.module.scss';
 
 type CounterPosition = 'top' | 'bottom';
 
-interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextAreaProperties extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   counterPosition?: CounterPosition;
   maxWidth?: string;
   value?: string;
 }
 
-export const TextArea: FC<TextAreaProps> = ({
+export const TextArea: FC<TextAreaProperties> = ({
   className,
+  counterPosition = 'bottom',
   label,
   maxLength = 230,
-  placeholder,
-  name,
-  counterPosition = 'bottom',
-  value,
   maxWidth,
-  ...props
+  name,
+  placeholder,
+  value,
+  ...properties
 }) => {
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const textAreaReference = useRef<HTMLTextAreaElement>(null);
 
-  useAutosize(textAreaRef.current, value);
+  useAutosize(textAreaReference.current, value);
 
   const LetterCounter = () => {
-    if (!value) return null;
+    if (!value) {
+      return null;
+    }
 
     return (
       <span className={styles.counter}>
@@ -85,7 +91,7 @@ export const TextArea: FC<TextAreaProps> = ({
   };
 
   return (
-    <div className={clsx(styles.container, {}, [className])} style={{ maxWidth: maxWidth }}>
+    <div className={clsx(styles.container, {}, [className])} style={{ maxWidth }}>
       <div className={styles.label__wrapper}>
         <label className={styles.label}>{label}</label>
         {counterPosition === 'top' && <LetterCounter />}
@@ -95,9 +101,9 @@ export const TextArea: FC<TextAreaProps> = ({
         maxLength={maxLength}
         className={styles.textarea}
         placeholder={placeholder}
-        ref={textAreaRef}
+        ref={textAreaReference}
         value={value}
-        {...props}
+        {...properties}
       />
       {counterPosition === 'bottom' && <LetterCounter />}
     </div>
