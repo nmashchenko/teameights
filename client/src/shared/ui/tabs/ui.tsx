@@ -1,5 +1,6 @@
 import classNames from 'clsx';
 import styles from './styles.module.scss';
+import Image from 'next/image';
 
 /**
  * Tabs Component
@@ -58,6 +59,7 @@ export const Tabs = ({ currentTab, onTabChange, options }: TabsProps) => {
           })}
           onClick={handleTabChange(option)}
         >
+          <Image src={'/testPicture.png'} alt={'Picture'} width={500} height={500} />
           {option}
           <span></span>
         </button>

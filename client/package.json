@@ -16,9 +16,15 @@
     "lint:ts:fix": "npx eslint \"**/*.{ts,tsx}\" --fix",
     "prettier:check": "prettier --check \"**/*.{js,ts,tsx,css,mdx}\"",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,css,mdx}\"",
-    "prepare": "cd .. && husky install ./client/.husky",
+    "test:ui": "npx loki test",
+    "test:ui:ok": "npx loki approve",
+    "test:ui:ci": "concurrently -s first -k \"npm run storybook\" \"npm run test:ui\" \"deelay\"",
+    "test:ui:report": "yarn test:ui:json || yarn test:ui:html",
+    "test:ui:json": "npx reg-cli ./.loki/current ./.loki/reference ./.loki/difference -J ./.loki/report.json",
+    "test:ui:html": "npx reg-cli -F ./.loki/report.json -R ./.loki/report.html",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "cd .. && husky install ./client/.husky"
   },
   "dependencies": {
     "@react-oauth/google": "^0.11.1",
@@ -59,10 +65,13 @@
     "@types/react-modal": "^3.16.0",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
+    "concurrently": "^8.2.1",
+    "deelay": "^2.0.0",
     "eslint-plugin-storybook": "^0.6.13",
     "husky": "^8.0.3",
-    "loki": "^0.32.0",
+    "loki": "latest",
     "prettier": "^3.0.1",
+    "reg-cli": "^0.17.7",
     "storybook": "7.2.1"
   },
   "resolutions": {
@@ -70,6 +79,9 @@
   },
   "packageManager": "yarn@3.6.3",
   "loki": {
+    "diffingEngine": "looks-same",
+    "chromeTolerance": 20,
+    "chromeLoadTimeout": 6000,
     "configurations": {
       "chrome.laptop": {
         "target": "chrome.docker",

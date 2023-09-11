@@ -48,6 +48,11 @@ jobs:
           yarn lint:ts:check
           yarn prettier:check
 
+      - name: Screenshot testing
+        working-directory: ./client
+        run: |
+          yarn test:ui:ci
+
       - name: Build project
         working-directory: ./client
         run: yarn build
