@@ -1,14 +1,21 @@
 import { Email } from 'shared/assets/Illustrations/Email';
 import { Colors } from 'shared/constant/colors';
-import { Typography, TypographySize } from 'shared/ui';
+import { Button, Typography, TypographySize } from 'shared/ui';
 import styles from './styles.module.scss';
 
 interface ConfirmProps {
   mainText: string;
   subText: string;
+  buttonText?: string;
+  buttonHandler?: () => void;
 }
 
-export const IllustrationStatus = ({ mainText, subText }: ConfirmProps) => {
+export const IllustrationStatus = ({
+  mainText,
+  subText,
+  buttonText,
+  buttonHandler
+}: ConfirmProps) => {
   return (
     <div className={styles.container}>
       <Email />
@@ -18,6 +25,13 @@ export const IllustrationStatus = ({ mainText, subText }: ConfirmProps) => {
           {subText}
         </Typography>
       </div>
+      {buttonText && (
+        <div className={styles.buttonWrapper}>
+          <Button onClick={buttonHandler} width='136px'>
+            {buttonText}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

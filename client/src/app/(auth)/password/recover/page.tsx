@@ -5,8 +5,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ArrowLeft } from 'shared/assets/Icons/Arrows/ArrowLeft';
 import { Colors } from 'shared/constant/colors';
 import { Button, Input, Typography, TypographySize } from 'shared/ui';
-import styles from './styles.module.scss';
+import styles from '../shared.module.scss';
 import { useRouter } from 'next/navigation';
+import clsx from 'clsx';
 
 interface RecoverProps {
   email: string;
@@ -28,8 +29,18 @@ export default function Recover() {
   };
 
   return (
-    <form className={styles.info} onSubmit={handleSubmit(onSubmit)}>
-      <div className={styles.gapContainer}>
+    <form
+      className={clsx(styles.info, {
+        [styles.width470px]: true
+      })}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div
+        className={clsx(styles.gapContainer, {
+          [styles.gap8px]: true,
+          [styles.alignText]: true
+        })}
+      >
         <Typography color={Colors.GreenBright} size={TypographySize.Heading_M}>
           Recover Password
         </Typography>
@@ -45,7 +56,11 @@ export default function Recover() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <div className={styles.gapContainer}>
+      <div
+        className={clsx(styles.gapContainer, {
+          [styles.gap8px]: true
+        })}
+      >
         <Button width='100%' disabled={!email.length}>
           Reset password
         </Button>

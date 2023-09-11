@@ -1,11 +1,18 @@
 .info {
   width: 100%;
-  max-width: 470px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 48px;
+
+  &.width370px {
+    max-width: 370px;
+  }
+
+  &.width470px {
+    max-width: 470px;
+  }
 }
 
 .gapContainer {
@@ -13,7 +20,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
   width: 100%;
-  text-align: center;
+
+  &.gap8px {
+    gap: 8px;
+  }
+
+  &.gap36px {
+    gap: 36px;
+  }
+
+  &.alignText {
+    text-align: center;
+  }
 }
