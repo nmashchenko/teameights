@@ -2,14 +2,12 @@
 
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
-import { Github } from 'shared/assets/Icons/Socials/Github';
-import { Google } from 'shared/assets/Icons/Socials/Google';
-import { Login } from 'shared/assets/Illustrations/Login';
-import { Colors } from 'shared/constant/colors';
+import { Github, Google, Login } from 'shared/assets';
+import { Colors } from 'shared/constant';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
-import styles from '../Auth.module.scss';
+import styles from '../shared.module.scss';
 
 interface SignupProps {
   email: string;

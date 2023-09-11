@@ -3,15 +3,13 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Github } from 'shared/assets/Icons/Socials/Github';
-import { Google } from 'shared/assets/Icons/Socials/Google';
-import { Login } from 'shared/assets/Illustrations/Login';
-import { Colors } from 'shared/constant/colors';
+import { Colors } from 'shared/constant';
 
 import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
 
 import { useState } from 'react';
-import styles from '../Auth.module.scss';
+import styles from '../shared.module.scss';
+import { Login, Github, Google } from 'shared/assets';
 
 interface LoginProps {
   email: string;
@@ -61,7 +59,10 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div className={styles.forgot_link_wrapper}>
-                <div className={styles.forgot_link} onClick={() => router.push('/forgot-password')}>
+                <div
+                  className={styles.forgot_link}
+                  onClick={() => router.push('/password/recover')}
+                >
                   <Typography size={TypographySize.Body_M} color={Colors.GreenBright}>
                     Forgot Password?
                   </Typography>

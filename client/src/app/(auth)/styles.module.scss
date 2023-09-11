@@ -1,0 +1,38 @@
+.logo {
+  @media (width <= 740px) {
+    display: none;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerNormalizer {
+  width: 144px;
+}
+
+.container {
+  height: 100dvh;
+  width: 100%;
+  padding: 48px 55px;
+
+  @media (width <= 1120px) {
+    padding: 48px 24px;
+  }
+
+  @media (width <= 580px) {
+    padding: 24px;
+  }
+}
+
+.children {
+  width: 100%;
+  min-height: calc(100% - 48px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

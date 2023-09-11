@@ -37,8 +37,11 @@
     "react-hook-form": "^7.45.4",
     "react-hot-toast": "^2.4.1",
     "react-modal": "^3.16.1",
+    "react-particles": "^2.12.2",
     "react-select": "^5.7.4",
+    "react-tooltip": "^5.21.3",
     "sass": "^1.64.2",
+    "tsparticles": "^2.12.0",
     "typescript": "5.1.6",
     "yarn": "^1.22.19"
   },
