@@ -1,5 +1,5 @@
 import { FC, SVGProps } from 'react';
-export const SQL: FC<SVGProps<SVGSVGElement>> = (props) => {
+export const SQL: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       width='18'

@@ -50,11 +50,11 @@ export const Tabs = ({ currentTab, onTabChange, options }: TabsProps) => {
 
   return (
     <div className={styles.container}>
-      {options.map((option) => (
+      {options.map(option => (
         <button
           key={option}
           className={classNames(styles.tab, {
-            [styles.tab__active]: currentTab === option
+            [styles.tab__active]: currentTab === option,
           })}
           onClick={handleTabChange(option)}
         >

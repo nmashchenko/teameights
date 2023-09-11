@@ -7,7 +7,7 @@ const meta: Meta<typeof BadgeLanguage> = {
   title: 'shared/BadgeLanguage',
   component: BadgeLanguage,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;

@@ -1,5 +1,5 @@
 import { FC, SVGProps } from 'react';
-export const Planet: FC<SVGProps<SVGSVGElement>> = (props) => {
+export const Planet: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg viewBox='0 0 270 220' fill='none' xmlns='http://www.w3.org/2000/svg' {...props}>
       <path

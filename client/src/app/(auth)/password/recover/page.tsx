@@ -20,10 +20,10 @@ export default function Recover() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<RecoverProps>();
 
-  const onSubmit: SubmitHandler<RecoverProps> = (data) => {
+  const onSubmit: SubmitHandler<RecoverProps> = data => {
     console.log(data);
     router.push('confirmation');
   };
@@ -31,14 +31,14 @@ export default function Recover() {
   return (
     <form
       className={clsx(styles.info, {
-        [styles.width470px]: true
+        [styles.width470px]: true,
       })}
       onSubmit={handleSubmit(onSubmit)}
     >
       <div
         className={clsx(styles.gapContainer, {
           [styles.gap8px]: true,
-          [styles.alignText]: true
+          [styles.alignText]: true,
         })}
       >
         <Typography color={Colors.GreenBright} size={TypographySize.Heading_M}>
@@ -54,11 +54,11 @@ export default function Recover() {
         type='email'
         error={errors?.email ? errors.email.message : undefined}
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value)}
       />
       <div
         className={clsx(styles.gapContainer, {
-          [styles.gap8px]: true
+          [styles.gap8px]: true,
         })}
       >
         <Button width='100%' disabled={!email.length}>

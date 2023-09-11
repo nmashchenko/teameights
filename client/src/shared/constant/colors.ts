@@ -44,5 +44,5 @@ export enum Colors {
   AdditionalLightPink = '--additional-light-pink-color',
   AdditionalWhite = '--additional-white-color',
   LoadingBase = '--loading-base-color',
-  LoadingHighlight = '--loading-highlight-color'
+  LoadingHighlight = '--loading-highlight-color',
 }

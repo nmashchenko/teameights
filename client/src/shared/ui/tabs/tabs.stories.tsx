@@ -7,7 +7,7 @@ const meta: Meta<typeof Tabs> = {
   title: 'shared/Tabs',
   component: Tabs,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;
@@ -23,7 +23,7 @@ export const TextArea_default = () => {
         display: 'flex',
         flexDirection: 'column',
         gap: 30,
-        width: '400px'
+        width: '400px',
       }}
     >
       <div>

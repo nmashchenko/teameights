@@ -8,7 +8,7 @@ const meta: Meta<typeof Modal> = {
   title: 'shared/Modal',
   component: Modal,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;

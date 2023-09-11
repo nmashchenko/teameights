@@ -47,7 +47,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width?: string;
 }
 
-export const Button: FC<ButtonProps> = (props) => {
+export const Button: FC<ButtonProps> = props => {
   const {
     className,
     children,
@@ -65,13 +65,13 @@ export const Button: FC<ButtonProps> = (props) => {
       disabled={isDisabled}
       style={{
         width: width ? `${width}` : undefined,
-        color: color ? `var(${color})` : undefined
+        color: color ? `var(${color})` : undefined,
       }}
       className={clsx(styles.container, {}, [
         className,
         styles[`size_${size}`],
         styles[typeBtn],
-        styles[content]
+        styles[content],
       ])}
       {...otherProps}
     >

@@ -50,7 +50,7 @@ export const BadgeFramework: FC<BadgeFrameworkProps> = ({
     style={{
       backgroundColor: `${frameworkColors[data] ? frameworkColors[data] : '#2F3239'}`,
       color: frameworkTextColors[data],
-      maxWidth: `${maxWidth ? maxWidth : '100%'}`
+      maxWidth: `${maxWidth ? maxWidth : '100%'}`,
     }}
     {...props}
   >

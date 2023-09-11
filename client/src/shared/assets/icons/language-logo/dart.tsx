@@ -1,5 +1,5 @@
 import { FC, SVGProps } from 'react';
-export const Dart: FC<SVGProps<SVGSVGElement>> = (props) => {
+export const Dart: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       width='22'

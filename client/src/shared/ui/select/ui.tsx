@@ -59,7 +59,7 @@ interface CustomSelectProps {
 export const Select = <
   Option,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   error,
   label,
@@ -72,7 +72,7 @@ export const Select = <
   return (
     <div
       className={clsx(styles.container, {
-        [styles.container__disabled]: disabled
+        [styles.container__disabled]: disabled,
       })}
     >
       {label && (
@@ -90,7 +90,7 @@ export const Select = <
           DropdownIndicator: error ? ErrorIndicator : DropdownIndicator,
           IndicatorSeparator: () => null,
           MultiValueRemove,
-          ...(isCheckbox ? { Option } : {}) // Conditionally include custom Option component
+          ...(isCheckbox ? { Option } : {}), // Conditionally include custom Option component
         }}
         isDisabled={disabled}
         captureMenuScroll={false}

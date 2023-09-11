@@ -14,7 +14,7 @@ export const IllustrationStatus = ({
   mainText,
   subText,
   buttonText,
-  buttonHandler
+  buttonHandler,
 }: ConfirmProps) => {
   return (
     <div className={styles.container}>

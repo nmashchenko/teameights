@@ -18,24 +18,24 @@ export default function Update({ params }: { params: { id: string; token: string
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<UpdateProps>();
 
-  const onSubmit: SubmitHandler<UpdateProps> = (data) => {
+  const onSubmit: SubmitHandler<UpdateProps> = data => {
     console.log(data, id, token);
   };
 
   return (
     <form
       className={clsx(styles.info, {
-        [styles.width370px]: true
+        [styles.width370px]: true,
       })}
       onSubmit={handleSubmit(onSubmit)}
     >
       <div
         className={clsx(styles.gapContainer, {
           [styles.gap8px]: true,
-          [styles.alignText]: true
+          [styles.alignText]: true,
         })}
       >
         <Typography color={Colors.GreenBright} size={TypographySize.Heading_M}>
@@ -47,27 +47,27 @@ export default function Update({ params }: { params: { id: string; token: string
       </div>
       <div
         className={clsx(styles.gapContainer, {
-          [styles.gap36px]: true
+          [styles.gap36px]: true,
         })}
       >
         <InputPassword
           placeholder='Password'
           {...register('password', {
             required: 'You must specify a password',
-            minLength: { value: 8, message: 'Password must have at least 8 characters' }
+            minLength: { value: 8, message: 'Password must have at least 8 characters' },
           })}
           error={errors?.password ? errors.password.message : undefined}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
         <InputPassword
           placeholder='Confirm Password'
           {...register('repeatPassword', {
-            validate: (value) => value === password || 'The passwords do not match'
+            validate: value => value === password || 'The passwords do not match',
           })}
           error={errors?.repeatPassword ? errors.repeatPassword.message : undefined}
           value={repeatPassword}
-          onChange={(e) => setRepeatPassword(e.target.value)}
+          onChange={e => setRepeatPassword(e.target.value)}
         />
       </div>
       <Button width='100%'>Reset password</Button>

@@ -20,7 +20,7 @@ import {
   Scala,
   SQL,
   Swift,
-  TS
+  TS,
 } from 'shared/assets';
 
 interface LanguageOption {
@@ -49,7 +49,7 @@ export const programmingLanguageOptions: LanguageOption[] = [
   { label: 'Kotlin', value: 'kotlin' },
   { label: 'Rust', value: 'rust' },
   { label: 'R', value: 'r' },
-  { label: 'Lua', value: 'lua' }
+  { label: 'Lua', value: 'lua' },
 ];
 
 interface LanguageOptions {
@@ -77,5 +77,5 @@ export const languageOptions: LanguageOptions = {
   Kotlin: <Kotlin />,
   Rust: <Rust />,
   R: <R />,
-  Lua: <Lua />
+  Lua: <Lua />,
 };

@@ -48,7 +48,7 @@ interface ModalProps {
   size?: 's' | 'm' | 'l';
 }
 
-export const Modal: FC<PropsWithChildren<ModalProps>> = (props) => {
+export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
   const { isOpen, onClose, size = 's', children } = props;
 
   return (
@@ -59,12 +59,12 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = (props) => {
       overlayClassName={{
         base: styles.modalOverlay,
         afterOpen: styles.modalOverlay__afterOpen,
-        beforeClose: styles.modalOverlay__beforeClose
+        beforeClose: styles.modalOverlay__beforeClose,
       }}
       className={{
         base: classNames(styles.modalBody, {}, [styles[`size_${size}`]]),
         afterOpen: classNames(styles.modalBody__afterOpen, {}, [styles[`size_${size}`]]),
-        beforeClose: classNames(styles.modalBody__beforeClose, {}, [styles[`size_${size}`]])
+        beforeClose: classNames(styles.modalBody__beforeClose, {}, [styles[`size_${size}`]]),
       }}
     >
       <Cross className={styles.closeButton} onClick={onClose} />
