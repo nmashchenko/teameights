@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { FC, InputHTMLAttributes } from 'react';
-import { Check } from 'shared/assets/Icons/Check';
+import { Check } from 'shared/assets';
 import styles from './styles.module.scss';
 
 /**
@@ -11,8 +11,8 @@ import styles from './styles.module.scss';
  * Props:
  *
  * @prop {string} [label] - Text that appears next to the checkbox. If not provided, the checkbox will have an aria-label 'Checkbox'.
- * @prop {string} [width] - Custom width for the checkmark icon. Must be passed with a valid CSS unit (e.g. '20px').
- * @prop {string} [height] - Custom height for the checkmark icon. Must be passed with a valid CSS unit (e.g. '20px').
+ * @prop {string} [width] - Custom width for the checkmark icon. Must be passed with a valid Css unit (e.g. '20px').
+ * @prop {string} [height] - Custom height for the checkmark icon. Must be passed with a valid Css unit (e.g. '20px').
  * @prop {boolean} [disabled=false] - Whether the checkbox is disabled. Default is false.
  * @prop {function} [onChange] - Event handler to be called when the checkbox value changes.
  * ... and all other props that an <input type="checkbox"> would accept.

@@ -2,10 +2,7 @@
 import Link from 'next/link';
 import { RefObject, useState } from 'react';
 import { Tooltip } from 'react-tooltip';
-import { ArrowLeft } from 'shared/assets/Icons/Arrows/ArrowLeft';
-import { LogoBig } from 'shared/assets/Icons/Logo/LogoBig';
-import { Question } from 'shared/assets/Icons/Question';
-import { Planet } from 'shared/assets/Illustrations/Planet';
+import { ArrowLeft, Planet, LogoBig, Question } from 'shared/assets';
 import { AmongUs, useClickOutside } from 'shared/lib';
 import { Button, Typography, TypographySize } from 'shared/ui';
 import styles from './styles/not-found.module.scss';

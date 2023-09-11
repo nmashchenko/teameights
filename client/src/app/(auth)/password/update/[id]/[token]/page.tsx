@@ -1,7 +1,7 @@
 'use client';
 import styles from '../../../shared.module.scss';
 import { Button, InputPassword, Typography, TypographySize } from 'shared/ui';
-import { Colors } from 'shared/constant/colors';
+import { Colors } from 'shared/constant';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';

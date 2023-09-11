@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { FC, ReactNode } from 'react';
-import { Colors } from 'shared/constant/colors';
+import { Colors } from 'shared/constant';
 import styles from './styles.module.scss';
 
 /**
@@ -15,7 +15,7 @@ import styles from './styles.module.scss';
  * @prop {string} className - Optional additional class for custom styling.
  * @prop {TypographySize} size - The font size based on the predefined typographical scale. Default is 'Body_M'.
  * @prop {TypographyVariants} variant - The semantic HTML tag to render (e.g., h1, h2, p, etc.). Default is 'p'.
- * @prop {Colors} color - The text color. Uses CSS variables if provided.
+ * @prop {Colors} color - The text color. Uses Css variables if provided.
  *
  * Enumerations:
  *

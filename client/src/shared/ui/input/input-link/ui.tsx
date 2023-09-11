@@ -2,7 +2,7 @@ import { Input, InputProps } from '../ui';
 
 import { FC } from 'react';
 
-import { Link } from 'shared/assets/Icons/Link';
+import { Link } from 'shared/assets';
 import styles from './styles.module.scss';
 
 export const InputLink: FC<InputProps> = ({ ...props }) => {

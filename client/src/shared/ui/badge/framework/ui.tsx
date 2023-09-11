@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { FC } from 'react';
-import { frameworkColors, frameworkTextColors } from 'shared/constant/frameworkColors';
+import { frameworkColors, frameworkTextColors } from 'shared/constant';
 import styles from './styles.module.scss';
 
 /**
@@ -13,8 +13,8 @@ import styles from './styles.module.scss';
  *
  * @prop {string} data - The name of the framework to display and style the badge. Make sure the name is available in 'frameworkColors' and 'frameworkTextColors'.
  * @prop {number} key - The unique key for the badge, especially useful if rendering multiple badges in a list.
- * @prop {string} [className] - Additional CSS classes to apply to the badge for custom styling.
- * @prop {string} [maxWidth='100%'] - Custom maximum width for the badge. Must be passed with a valid CSS unit (e.g. '50px', '100%'). Default is '100%'.
+ * @prop {string} [className] - Additional Css classes to apply to the badge for custom styling.
+ * @prop {string} [maxWidth='100%'] - Custom maximum width for the badge. Must be passed with a valid Css unit (e.g. '50px', '100%'). Default is '100%'.
  *
  * Usage:
  *

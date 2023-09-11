@@ -1,5 +1,5 @@
 import { DropdownIndicatorProps, GroupBase, components } from 'react-select';
-import { WarningCircle } from 'shared/assets/Icons/WarningCircle';
+import { WarningCircle } from 'shared/assets';
 
 export const ErrorIndicator = <
   OptionType,

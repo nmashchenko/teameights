@@ -1,1 +1,1 @@
-export { AmongUs } from './amongUs';
+export { AmongUs } from './among-us';

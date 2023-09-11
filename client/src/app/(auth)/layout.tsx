@@ -3,8 +3,7 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
-import { ArrowLeft } from 'shared/assets/Icons/Arrows/ArrowLeft';
-import { LogoBig } from 'shared/assets/Icons/Logo/LogoBig';
+import { ArrowLeft, LogoBig } from 'shared/assets';
 import { Button, Tabs } from 'shared/ui';
 import styles from './styles.module.scss';
 

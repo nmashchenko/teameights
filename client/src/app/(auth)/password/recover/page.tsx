@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ArrowLeft } from 'shared/assets/Icons/Arrows/ArrowLeft';
-import { Colors } from 'shared/constant/colors';
+import { ArrowLeft } from 'shared/assets';
+import { Colors } from 'shared/constant';
 import { Button, Input, Typography, TypographySize } from 'shared/ui';
 import styles from '../shared.module.scss';
 import { useRouter } from 'next/navigation';
