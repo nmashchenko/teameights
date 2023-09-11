@@ -1,0 +1,69 @@
+name: Backend checker, will punish for bad code 🥲🔫
+run-name: ${{ github.actor }} is starting sueta at the backend code 🤠
+
+on:
+  push:
+    branches:
+      - dev-nextjs
+    paths:
+        - "server/**"
+  pull_request:
+    branches:
+        - dev-nextjs
+    paths:
+        - "server/**"
+
+jobs:
+  init:
+    # Exclude renovate[bot] from triggering the workflow
+    if: github.actor != 'renovate[bot]'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [17.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: 🚧 Starting Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: 🪖 Creating .dev.env for nodemailer/aws
+        working-directory: ./server
+        run: |
+          touch .dev.env
+          echo API_URL=${{ secrets.API_URL }} >> .dev.env
+          echo SMTP_HOST=${{ secrets.SMTP_HOST }} >> .dev.env
+          echo SMTP_USER=${{ secrets.SMTP_USER }} >> .dev.env
+          echo SMTP_PASS=${{ secrets.SMTP_PASS }} >> .dev.env
+          echo SMTP_PORT=${{ secrets.SMTP_PORT }} >> .dev.env
+          echo AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} >> .dev.env
+          echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .dev.env
+          echo AWS_S3_REGION=${{ secrets.AWS_S3_REGION }} >> .dev.env
+          echo AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }} >> .dev.env
+          cat .dev.env
+      - name: 🎧 Install modules
+        working-directory: ./server
+        run: npm install
+
+      - name: 🚀 Run linting
+        working-directory: ./server
+        run: npm run lint
+
+      - name: Run Prettier formatter
+        working-directory: ./server
+        run: npm run format
+
+      - name: 🚀 Run unit tests
+        working-directory: ./server
+        run: npm run test
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: 🚀 Run coverage tests
+        working-directory: ./server
+        run: npm run test:cov
+
+      - name: Run build
+        working-directory: ./server
+        run: npm run build
+
+      - run: echo "😼 Finished! Good job."

@@ -30,7 +30,7 @@ const config: StorybookConfig = {
   core: {
     builder: '@storybook/builder-webpack5',
   },
-  webpackFinal: async (config) => {
+  webpackFinal: async config => {
     if (!config.resolve?.modules) return config;
 
     config.resolve.modules.push(path.resolve(__dirname, '../src'));

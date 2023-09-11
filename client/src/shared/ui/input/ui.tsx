@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { ForwardRefRenderFunction, InputHTMLAttributes, forwardRef } from 'react';
-import { WarningCircle } from 'shared/assets/Icons/WarningCircle';
+import { WarningCircle } from 'shared/assets';
 import styles from './styles.module.scss';
 
 /**
@@ -80,7 +80,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           className={clsx(styles.input, {
             [styles.input__icon_start]: subIcon && subIconPosition === 'start',
             [styles.input__icon_end]: (subIcon && subIconPosition === 'end') || error,
-            [styles.input__two_icons_end]: subIcon && subIconPosition === 'end' && error
+            [styles.input__two_icons_end]: subIcon && subIconPosition === 'end' && error,
           })}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${name}-error` : undefined}
@@ -96,7 +96,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           <div
             className={clsx(styles.sub_icon, {
               [styles.sub_icon__start]: subIconPosition === 'start',
-              [styles.sub_icon__two_icons_end]: subIcon && subIconPosition === 'end' && error
+              [styles.sub_icon__two_icons_end]: subIcon && subIconPosition === 'end' && error,
             })}
           >
             {subIcon}

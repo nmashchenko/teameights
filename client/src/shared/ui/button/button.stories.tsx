@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Plus } from 'shared/assets/Icons/Plus';
+import { Plus } from 'shared/assets';
 import { Button } from './ui';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
@@ -7,7 +7,7 @@ const meta: Meta<typeof Button> = {
   title: 'shared/Button',
   component: Button,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;
@@ -60,7 +60,7 @@ export const Button_Primary: Story = {
         </Button>
       </div>
     </div>
-  )
+  ),
 };
 
 export const Button_Secondary: Story = {
@@ -109,7 +109,7 @@ export const Button_Secondary: Story = {
         </Button>
       </div>
     </div>
-  )
+  ),
 };
 
 export const Button_Danger: Story = {
@@ -158,7 +158,7 @@ export const Button_Danger: Story = {
         </Button>
       </div>
     </div>
-  )
+  ),
 };
 
 export const Button_Tertiary: Story = {
@@ -207,5 +207,5 @@ export const Button_Tertiary: Story = {
         </Button>
       </div>
     </div>
-  )
+  ),
 };

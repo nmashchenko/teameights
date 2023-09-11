@@ -10,7 +10,7 @@ const meta: Meta<typeof Input> = {
   title: 'shared/Fields/Input',
   component: Input,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;
@@ -24,11 +24,11 @@ export const Input__default = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Default</p>
-        <Input name='1' value={state} onChange={(e) => setState(e.target.value)} />
+        <Input name='1' value={state} onChange={e => setState(e.target.value)} />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Disabled</p>
-        <Input name='2' value={state} onChange={(e) => setState(e.target.value)} disabled />
+        <Input name='2' value={state} onChange={e => setState(e.target.value)} disabled />
       </div>
     </div>
   );
@@ -43,12 +43,12 @@ export const Input_Password = () => {
         display: 'flex',
         flexDirection: 'column',
         gap: 30,
-        width: 400
+        width: 400,
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Password</p>
-        <InputPassword name='password' value={state} onChange={(e) => setState(e.target.value)} />
+        <InputPassword name='password' value={state} onChange={e => setState(e.target.value)} />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Disabled</p>
@@ -56,7 +56,7 @@ export const Input_Password = () => {
           name='password2'
           disabled
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
       </div>
     </div>
@@ -74,7 +74,7 @@ export const Input__error = () => {
           name='5'
           error='error example'
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -84,7 +84,7 @@ export const Input__error = () => {
           disabled
           error='error example'
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
       </div>
     </div>
@@ -102,7 +102,7 @@ export const Input__password_error = () => {
           name='7'
           error='error example'
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -112,7 +112,7 @@ export const Input__password_error = () => {
           disabled
           error='error example'
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
       </div>
     </div>
@@ -126,7 +126,7 @@ export const Input__with_label = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Default with label</p>
-        <Input name='7' label='Label' value={state} onChange={(e) => setState(e.target.value)} />
+        <Input name='7' label='Label' value={state} onChange={e => setState(e.target.value)} />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Disabled</p>
@@ -135,7 +135,7 @@ export const Input__with_label = () => {
           label='Label'
           disabled
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
       </div>
     </div>
@@ -152,7 +152,7 @@ export const Input_link_label = () => {
           name='link'
           placeholder='add link'
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -162,7 +162,7 @@ export const Input_link_label = () => {
           placeholder='add link'
           disabled
           value={state}
-          onChange={(e) => setState(e.target.value)}
+          onChange={e => setState(e.target.value)}
         />
       </div>
     </div>

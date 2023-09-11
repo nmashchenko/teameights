@@ -8,7 +8,7 @@ const inter = Rubik({ subsets: ['latin'], variable: '--font-rubik' });
 
 export const metadata: Metadata = {
   title: 'Teameights',
-  description: 'Welcome to Teameights!'
+  description: 'Welcome to Teameights!',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gutter={8}
             toastOptions={{
               style: { ...inter.style, background: '#2F3239', color: 'white' },
-              duration: 2000
+              duration: 2000,
             }}
           />
           {children}

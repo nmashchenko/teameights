@@ -1,1 +1,1 @@
-export * from './queryClientProvider';
+export * from './query-client-provider';

@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { frameworkColors } from 'shared/constant/frameworkColors';
+import { frameworkColors } from 'shared/constant';
 import { BadgeFramework } from './ui';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
@@ -7,7 +7,7 @@ const meta: Meta<typeof BadgeFramework> = {
   title: 'shared/BadgeFramework',
   component: BadgeFramework,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;

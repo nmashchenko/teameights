@@ -91,10 +91,6 @@
 .text_button {
   padding: 0 16px;
 
-  &.size_w100 {
-    width: 100%;
-  }
-
   &.size_l {
     height: 48px;
   }
@@ -109,10 +105,6 @@
 }
 
 .icon_button {
-  &.size_w100 {
-    width: 100%;
-  }
-
   &.size_l {
     width: 48px;
     height: 48px;

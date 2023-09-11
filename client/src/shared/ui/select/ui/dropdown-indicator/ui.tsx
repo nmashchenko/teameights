@@ -1,11 +1,10 @@
 import { DropdownIndicatorProps, GroupBase, components } from 'react-select';
-import { CaretDown } from 'shared/assets/Icons/Caret/CaretDown';
-import { CaretUp } from 'shared/assets/Icons/Caret/CaretUp';
+import { CaretDown, CaretUp } from 'shared/assets';
 
 export const DropdownIndicator = <
   OptionType,
   IsMultiType extends boolean = false,
-  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>
+  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
 >(
   props: DropdownIndicatorProps<OptionType, IsMultiType, GroupType>
 ) => {

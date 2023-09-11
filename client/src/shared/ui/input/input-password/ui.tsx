@@ -1,8 +1,7 @@
 'use client';
 
 import { ForwardRefRenderFunction, forwardRef, useState } from 'react';
-import { Eye } from 'shared/assets/Icons/Eye';
-import { EyeClosed } from 'shared/assets/Icons/EyeClosed';
+import { EyeClosed, Eye } from 'shared/assets';
 import { Input, InputProps } from '../ui';
 
 /**
@@ -26,7 +25,7 @@ const InputPasswordComponent: ForwardRefRenderFunction<HTMLInputElement, InputPr
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const SubIcon = () => (
-    <div onClick={() => setShowPassword((prev) => !prev)}>
+    <div onClick={() => setShowPassword(prev => !prev)}>
       {showPassword ? <Eye /> : <EyeClosed />}
     </div>
   );

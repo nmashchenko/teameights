@@ -1,10 +1,10 @@
 import { DropdownIndicatorProps, GroupBase, components } from 'react-select';
-import { WarningCircle } from 'shared/assets/Icons/WarningCircle';
+import { WarningCircle } from 'shared/assets';
 
 export const ErrorIndicator = <
   OptionType,
   IsMultiType extends boolean = false,
-  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>
+  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
 >(
   props: DropdownIndicatorProps<OptionType, IsMultiType, GroupType>
 ) => {

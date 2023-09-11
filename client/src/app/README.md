@@ -69,7 +69,7 @@ import { withAntd } from "./with-antd";
 export const withProviders = compose(withRouter, withAntd,...);
 ```
 
-```tsx title=app/index.tsx
+```tsx title=app/index.ts
 import { withProviders } from "./providers";
 ...
 
