@@ -1,4 +1,4 @@
-import { IllustrationStatus } from 'app/shared/illustration';
+import { IllustrationStatus } from '../../ui';
 
 export default function Confirmation() {
   return (
