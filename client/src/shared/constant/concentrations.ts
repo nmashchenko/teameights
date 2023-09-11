@@ -1,74 +1,74 @@
 export const concentrations = [
   {
     label: 'Mobile Developer',
-    value: 'mobile'
+    value: 'mobile',
   },
   {
     label: 'Frontend/UI Developer',
-    value: 'frontend'
+    value: 'frontend',
   },
   {
     label: 'Backend Developer',
-    value: 'backend'
+    value: 'backend',
   },
   {
     label: 'Full-Stack Developer',
-    value: 'fullstack'
+    value: 'fullstack',
   },
   {
     label: 'Desktop Applications Developer',
-    value: 'desktop'
+    value: 'desktop',
   },
   {
     label: 'Embedded Systems Developer',
-    value: 'embedded'
+    value: 'embedded',
   },
   {
     label: 'Machine Learning Engineer',
-    value: 'ml'
+    value: 'ml',
   },
   {
     label: 'Data Scientist',
-    value: 'datascience'
+    value: 'datascience',
   },
   {
     label: 'DevOps Engineer',
-    value: 'devops'
+    value: 'devops',
   },
   {
     label: 'Data Engineer',
-    value: 'dataengineer'
+    value: 'dataengineer',
   },
   {
     label: 'QA/Test Engineer',
-    value: 'qa'
+    value: 'qa',
   },
   {
     label: 'Designer',
-    value: 'designer'
+    value: 'designer',
   },
   {
     label: 'Project Manager',
-    value: 'projectmanager'
+    value: 'projectmanager',
   },
   {
     label: 'Cyber Security',
-    value: 'cybersecurity'
+    value: 'cybersecurity',
   },
   {
     label: 'Web Developer',
-    value: 'webdeveloper'
+    value: 'webdeveloper',
   },
   {
     label: 'Database Developer',
-    value: 'databasedeveloper'
+    value: 'databasedeveloper',
   },
   {
     label: 'No-code Developer',
-    value: 'nocodedeveloper'
+    value: 'nocodedeveloper',
   },
   {
     label: 'Other',
-    value: 'other'
-  }
+    value: 'other',
+  },
 ];

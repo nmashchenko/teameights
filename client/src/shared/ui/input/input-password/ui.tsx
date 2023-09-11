@@ -25,7 +25,7 @@ const InputPasswordComponent: ForwardRefRenderFunction<HTMLInputElement, InputPr
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const SubIcon = () => (
-    <div onClick={() => setShowPassword((prev) => !prev)}>
+    <div onClick={() => setShowPassword(prev => !prev)}>
       {showPassword ? <Eye /> : <EyeClosed />}
     </div>
   );

@@ -7,7 +7,7 @@ const meta: Meta<typeof BadgeFramework> = {
   title: 'shared/BadgeFramework',
   component: BadgeFramework,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;

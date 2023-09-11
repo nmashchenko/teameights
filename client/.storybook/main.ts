@@ -13,28 +13,28 @@ const config: StorybookConfig = {
       options: {
         sass: {
           // Require your Sass preprocessor here
-          implementation: require('sass')
-        }
-      }
-    }
+          implementation: require('sass'),
+        },
+      },
+    },
   ],
   framework: {
     name: '@storybook/nextjs',
     options: {
-      nextConfigPath: path.resolve(__dirname, '../next.config.js')
-    }
+      nextConfigPath: path.resolve(__dirname, '../next.config.js'),
+    },
   },
   docs: {
-    autodocs: 'tag'
+    autodocs: 'tag',
   },
   core: {
-    builder: '@storybook/builder-webpack5'
+    builder: '@storybook/builder-webpack5',
   },
-  webpackFinal: async (config) => {
+  webpackFinal: async config => {
     if (!config.resolve?.modules) return config;
 
     config.resolve.modules.push(path.resolve(__dirname, '../src'));
     return config;
-  }
+  },
 };
 export default config;

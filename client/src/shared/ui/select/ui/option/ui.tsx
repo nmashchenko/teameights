@@ -5,7 +5,7 @@ import styles from 'shared/ui/checkbox/styles.module.scss';
 export const Option = <
   OptionType,
   IsMultiType extends boolean = false,
-  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>
+  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
 >(
   props: OptionProps<OptionType, IsMultiType, GroupType>
 ) => {

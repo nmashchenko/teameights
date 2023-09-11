@@ -21,17 +21,17 @@ export default function SignupPage() {
   const [repeatPassword, setRepeatPassword] = useState('');
 
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => console.log(codeResponse),
-    flow: 'auth-code'
+    onSuccess: codeResponse => console.log(codeResponse),
+    flow: 'auth-code',
   });
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<SignupProps>();
 
-  const onSubmit: SubmitHandler<SignupProps> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<SignupProps> = data => console.log(data);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -44,26 +44,26 @@ export default function SignupPage() {
               type='email'
               error={errors?.email ? errors.email.message : undefined}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             />
             <InputPassword
               placeholder='Password'
               {...register('password', {
                 required: 'You must specify a password',
-                minLength: { value: 8, message: 'Password must have at least 8 characters' }
+                minLength: { value: 8, message: 'Password must have at least 8 characters' },
               })}
               error={errors?.password ? errors.password.message : undefined}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
             />
             <InputPassword
               placeholder='Confirm Password'
               {...register('repeatPassword', {
-                validate: (value) => value === password || 'The passwords do not match'
+                validate: value => value === password || 'The passwords do not match',
               })}
               error={errors?.repeatPassword ? errors.repeatPassword.message : undefined}
               value={repeatPassword}
-              onChange={(e) => setRepeatPassword(e.target.value)}
+              onChange={e => setRepeatPassword(e.target.value)}
             />
           </div>
           <div className={styles.flex_wrapper__s}>

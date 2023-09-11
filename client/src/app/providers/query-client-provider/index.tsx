@@ -7,7 +7,7 @@ type QueryClientProviderProps = {
 };
 
 export const ReactQueryProvider: FC<QueryClientProviderProps> = ({
-  children
+  children,
 }: {
   children: ReactNode;
 }) => {

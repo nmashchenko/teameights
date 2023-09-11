@@ -1,5 +1,5 @@
 import { FC, SVGProps } from 'react';
-export const Ruby: FC<SVGProps<SVGSVGElement>> = (props) => {
+export const Ruby: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       width='22'

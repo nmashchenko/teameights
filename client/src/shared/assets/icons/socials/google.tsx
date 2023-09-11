@@ -1,5 +1,5 @@
 import { FC, SVGProps } from 'react';
-export const Google: FC<SVGProps<SVGSVGElement>> = (props) => {
+export const Google: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       width='28'

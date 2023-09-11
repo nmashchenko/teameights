@@ -32,5 +32,5 @@ export {
   Scala,
   SQL,
   Swift,
-  TS
+  TS,
 } from './language-logo';

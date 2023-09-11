@@ -1,5 +1,5 @@
 import { FC, SVGProps } from 'react';
-export const Kotlin: FC<SVGProps<SVGSVGElement>> = (props) => {
+export const Kotlin: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       width='20'

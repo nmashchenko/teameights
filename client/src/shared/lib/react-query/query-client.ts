@@ -6,12 +6,12 @@ import { toast } from 'react-hot-toast';
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 20
-    }
+      staleTime: 1000 * 20,
+    },
   },
   queryCache: new QueryCache({
-    onError: (error) => {
+    onError: error => {
       toast.error(error.message);
-    }
-  })
+    },
+  }),
 });

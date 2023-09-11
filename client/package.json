@@ -14,8 +14,8 @@
     "lint": "next lint",
     "lint:ts:check": "npx eslint \"**/*.{ts,tsx}\"",
     "lint:ts:fix": "npx eslint \"**/*.{ts,tsx}\" --fix",
-    "prettier:check": "prettier --check \"**/*.{ts,tsx,css,mdx}\"",
-    "prettier:fix": "prettier --write .",
+    "prettier:check": "prettier --check \"**/*.{js,ts,tsx,css,mdx}\"",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,css,mdx}\"",
     "prepare": "cd .. && husky install ./client/.husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

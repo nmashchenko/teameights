@@ -8,7 +8,7 @@ const meta: Meta<typeof Select> = {
   title: 'shared/Fields/Select',
   component: Select,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;
@@ -23,7 +23,7 @@ export const Select_default = () => {
         flexDirection: 'column',
         gap: 30,
         width: '300px',
-        minHeight: '400px'
+        minHeight: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -48,7 +48,7 @@ export const Select_default_multiple = () => {
         flexDirection: 'column',
         gap: 30,
         width: '300px',
-        minHeight: '400px'
+        minHeight: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -73,7 +73,7 @@ export const Select_error = () => {
         flexDirection: 'column',
         gap: 30,
         width: '300px',
-        minHeight: '400px'
+        minHeight: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -97,7 +97,7 @@ export const Select_error_multiple = () => {
         flexDirection: 'column',
         gap: 30,
         width: '300px',
-        minHeight: '400px'
+        minHeight: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -122,7 +122,7 @@ export const Select_disabled = () => {
         flexDirection: 'column',
         gap: 30,
         width: '300px',
-        minHeight: '400px'
+        minHeight: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -141,7 +141,7 @@ export const Select_checkbox = () => {
         flexDirection: 'column',
         gap: 30,
         width: '300px',
-        minHeight: '400px'
+        minHeight: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -160,7 +160,7 @@ export const Select_checkbox_multiple = () => {
         flexDirection: 'column',
         gap: 30,
         width: '300px',
-        minHeight: '400px'
+        minHeight: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>

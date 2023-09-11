@@ -35,7 +35,7 @@ export const frameworkColors: IframeworkColors = Object.freeze({
   PyTorch: '#D9790B',
   'Tensor F.': '#D9790B',
   Express: '#FAFAFA',
-  Illustrator: '#D9790B'
+  Illustrator: '#D9790B',
 });
 
 export const frameworkTextColors: IframeworkTextColors = Object.freeze({
@@ -67,5 +67,5 @@ export const frameworkTextColors: IframeworkTextColors = Object.freeze({
   PyTorch: 'white',
   'Tensor F.': 'white',
   Express: '#1E1E1E',
-  Illustrator: 'white'
+  Illustrator: 'white',
 });

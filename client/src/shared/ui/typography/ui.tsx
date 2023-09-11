@@ -53,7 +53,7 @@ export enum TypographySize {
   Body_M = 'body_m',
   Body_L = 'body_l',
   Body_XL = 'body_xl',
-  Caption = 'caption'
+  Caption = 'caption',
 }
 
 export enum TypographyVariants {
@@ -63,7 +63,7 @@ export enum TypographyVariants {
   h4 = 'h4',
   h5 = 'h5',
   h6 = 'h6',
-  p = 'p'
+  p = 'p',
 }
 
 interface TypographyProps {
@@ -88,7 +88,7 @@ export const Typography: FC<TypographyProps> = ({
     <Component
       className={clsx(
         {
-          [styles[size]]: size
+          [styles[size]]: size,
         },
         [className]
       )}

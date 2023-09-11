@@ -1,5 +1,5 @@
 import { FC, SVGProps } from 'react';
-export const ArrowLeft: FC<SVGProps<SVGSVGElement>> = (props) => {
+export const ArrowLeft: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
