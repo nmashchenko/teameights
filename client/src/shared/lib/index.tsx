@@ -1,1 +1,1 @@
-export * from './react-query/index';
+export * from './react-query';
