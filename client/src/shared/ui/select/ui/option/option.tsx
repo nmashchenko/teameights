@@ -1,6 +1,6 @@
-import { GroupBase, OptionProps, components } from 'react-select';
+import { components, GroupBase, OptionProps } from 'react-select';
 import { Check } from 'shared/assets';
-import styles from 'shared/ui/checkbox/styles.module.scss';
+import styles from 'shared/ui/checkbox/checkbox.module.scss';
 
 export const Option = <
   OptionType,
