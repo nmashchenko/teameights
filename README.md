@@ -6,7 +6,7 @@
 # Detailed docs about app:
 
 You can find all required information on how to start app, etc: <br>
-https://nice-spectrum-c3b.notion.site/Engineering-docs-cc12492090084962ba37b535e2767fbd
+[Click here to open notion link](https://teameights.notion.site/ad80d7c691ba47a09be954dc992752ec?v=cffe6ca69a8d4c4b91675b35cfd733ad)
 
 # Diagram
 
