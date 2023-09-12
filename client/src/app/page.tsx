@@ -1,6 +1,7 @@
 'use client';
 
 import { Typography, TypographySize, TypographyVariants } from 'shared/ui';
+import Cookie from 'shared/ui/cookie/ui';
 
 export default function Home() {
   return (
@@ -12,6 +13,10 @@ export default function Home() {
       <a href='/login' style={{ color: 'green' }}>
         Get to login
       </a>
+
+      <div>
+        <Cookie />
+      </div>
     </>
   );
 }
