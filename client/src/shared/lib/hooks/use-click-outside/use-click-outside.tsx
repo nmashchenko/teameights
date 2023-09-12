@@ -1,13 +1,9 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 
-interface UseClickProps {
-  callback: () => void;
-}
 export const useClickOutside = <T extends HTMLElement>(
-  props: UseClickProps
+  callback: () => void
 ): React.RefObject<T> => {
-  const { callback } = props;
   const ref = useRef<T>(null);
 
   useEffect(() => {

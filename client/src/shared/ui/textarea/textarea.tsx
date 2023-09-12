@@ -60,7 +60,7 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 export const TextArea: FC<TextAreaProps> = props => {
-  let {
+  const {
     className,
     label,
     maxLength = 230,

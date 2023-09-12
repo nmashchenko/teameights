@@ -75,7 +75,7 @@ interface TypographyProps {
 }
 
 export const Typography: FC<TypographyProps> = props => {
-  let {
+  const {
     children,
     className,
     size = TypographySize.Body_M,

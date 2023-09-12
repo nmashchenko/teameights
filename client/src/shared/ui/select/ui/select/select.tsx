@@ -8,7 +8,6 @@ import { DropdownIndicator } from '../dropdown-indicator/dropdown-indicator';
 import { ErrorIndicator } from '../error-indicator/error-indicator';
 import { MultiValueRemove } from '../multi-value-remove/multi-value-remove';
 import { Option } from '../option/option';
-import { FC } from 'react';
 
 /**
  * Select Component
@@ -65,7 +64,7 @@ export const Select = <
 >(
   props: Props<Option, IsMulti, Group> & CustomSelectProps
 ) => {
-  let { error, label, disabled, isMulti, isCheckbox = false, name, ...rest } = props;
+  const { error, label, disabled, isMulti, isCheckbox = false, name, ...rest } = props;
   return (
     <div
       className={clsx(styles.container, {

@@ -45,7 +45,7 @@ interface TabsProps {
 }
 
 export const Tabs: FC<TabsProps> = props => {
-  let { currentTab, onTabChange, options } = props;
+  const { currentTab, onTabChange, options } = props;
   const handleTabChange = (option: string) => () => {
     onTabChange(option);
   };

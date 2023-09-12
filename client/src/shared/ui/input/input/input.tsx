@@ -50,7 +50,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   props,
   ref // Optional ref passed from outside the component
 ) => {
-  let {
+  const {
     className,
     name,
     label,
