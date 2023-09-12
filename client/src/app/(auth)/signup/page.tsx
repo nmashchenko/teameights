@@ -67,7 +67,7 @@ export default function SignupPage() {
             />
           </div>
           <div className={styles.flex_wrapper__s}>
-            <Button>Sign Up</Button>
+            <Button type='submit'>Sign Up</Button>
             <div className={styles.lines_container}>
               <div className={styles.line} />
               <Typography size={TypographySize.Body_L} color={Colors.GreyNormal}>
@@ -77,10 +77,10 @@ export default function SignupPage() {
             </div>
 
             <div className={styles.buttons_container}>
-              <button className={styles.button} onClick={() => login()}>
+              <button className={styles.button} onClick={() => login()} type='button'>
                 <Google />
               </button>
-              <button className={styles.button}>
+              <button className={styles.button} type='button'>
                 <Github />
               </button>
             </div>

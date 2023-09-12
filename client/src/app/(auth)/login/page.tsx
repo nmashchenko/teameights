@@ -81,10 +81,10 @@ export default function LoginPage() {
             </div>
 
             <div className={styles.buttons_container}>
-              <button className={styles.button} onClick={() => login()}>
+              <button className={styles.button} onClick={() => login()} type='button'>
                 <Google />
               </button>
-              <button className={styles.button}>
+              <button className={styles.button} type='button'>
                 <Github />
               </button>
             </div>
