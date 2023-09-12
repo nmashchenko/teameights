@@ -74,14 +74,15 @@ interface TypographyProps {
   color?: Colors;
 }
 
-export const Typography: FC<TypographyProps> = ({
-  children,
-  className,
-  size = TypographySize.Body_M,
-  variant = TypographyVariants.p,
-  color,
-  ...props
-}) => {
+export const Typography: FC<TypographyProps> = props => {
+  let {
+    children,
+    className,
+    size = TypographySize.Body_M,
+    variant = TypographyVariants.p,
+    color,
+    ...rest
+  } = props;
   const Component = variant;
 
   return (
@@ -93,7 +94,7 @@ export const Typography: FC<TypographyProps> = ({
         [className]
       )}
       style={color ? { color: `var(${color})` } : undefined}
-      {...props}
+      {...rest}
     >
       {children}
     </Component>

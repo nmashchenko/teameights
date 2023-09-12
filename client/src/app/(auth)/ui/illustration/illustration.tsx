@@ -2,6 +2,7 @@ import { Email } from 'shared/assets';
 import { Colors } from 'shared/constant';
 import { Button, Typography, TypographySize } from 'shared/ui';
 import styles from './illustration.module.scss';
+import { FC } from 'react';
 
 interface ConfirmProps {
   mainText: string;
@@ -10,12 +11,8 @@ interface ConfirmProps {
   buttonHandler?: () => void;
 }
 
-export const IllustrationStatus = ({
-  mainText,
-  subText,
-  buttonText,
-  buttonHandler,
-}: ConfirmProps) => {
+export const IllustrationStatus: FC<ConfirmProps> = props => {
+  const { mainText, subText, buttonText, buttonHandler } = props;
   return (
     <div className={styles.container}>
       <Email />

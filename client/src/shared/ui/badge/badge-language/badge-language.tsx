@@ -36,19 +36,13 @@ interface BadgeLanguageProps {
   maxWidth?: string;
 }
 
-export const BadgeLanguage: FC<BadgeLanguageProps> = ({
-  data,
-  className,
-  maxWidth,
-  key,
-  ...props
-}) => {
+export const BadgeLanguage: FC<BadgeLanguageProps> = props => {
+  const { data, className, maxWidth, key } = props;
   return (
     <div
       key={key}
       className={clsx([className], styles.badge_language)}
       style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
-      {...props}
     >
       {languageOptions[data]}
     </div>

@@ -47,7 +47,10 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  {
+  props,
+  ref // Optional ref passed from outside the component
+) => {
+  let {
     className,
     name,
     label,
@@ -57,11 +60,8 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
     disabled,
     subIconPosition = 'end',
     subIcon,
-    ...props
-  },
-  ref // Optional ref passed from outside the component
-) => {
-  // ... (rest of the component's code)
+    ...rest
+  } = props;
 
   return (
     <div
@@ -85,7 +85,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${name}-error` : undefined}
           placeholder={placeholder}
-          {...props}
+          {...rest}
         />
         {error && (
           <div className={styles.error_icon}>

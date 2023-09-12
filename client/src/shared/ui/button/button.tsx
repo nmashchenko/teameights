@@ -57,7 +57,7 @@ export const Button: FC<ButtonProps> = props => {
     isDisabled = false,
     width,
     color,
-    ...otherProps
+    ...rest
   } = props;
 
   return (
@@ -73,7 +73,7 @@ export const Button: FC<ButtonProps> = props => {
         styles[typeBtn],
         styles[content],
       ])}
-      {...otherProps}
+      {...rest}
     >
       {children}
     </button>

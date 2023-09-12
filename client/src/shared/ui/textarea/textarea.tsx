@@ -1,7 +1,7 @@
 'use client';
 import clsx from 'clsx';
 import { FC, TextareaHTMLAttributes, useRef } from 'react';
-import { useAutosize } from '../../lib/use-autosize';
+import { useAutosize } from './lib/use-autosize';
 import styles from './textarea.module.scss';
 
 /**
@@ -59,17 +59,18 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   value?: string;
 }
 
-export const TextArea: FC<TextAreaProps> = ({
-  className,
-  label,
-  maxLength = 230,
-  placeholder,
-  name,
-  counterPosition = 'bottom',
-  value,
-  maxWidth,
-  ...props
-}) => {
+export const TextArea: FC<TextAreaProps> = props => {
+  let {
+    className,
+    label,
+    maxLength = 230,
+    placeholder,
+    name,
+    counterPosition = 'bottom',
+    value,
+    maxWidth,
+    ...rest
+  } = props;
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useAutosize(textAreaRef.current, value);
@@ -97,7 +98,7 @@ export const TextArea: FC<TextAreaProps> = ({
         placeholder={placeholder}
         ref={textAreaRef}
         value={value}
-        {...props}
+        {...rest}
       />
       {counterPosition === 'bottom' && <LetterCounter />}
     </div>

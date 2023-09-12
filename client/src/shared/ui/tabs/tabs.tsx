@@ -1,5 +1,6 @@
 import classNames from 'clsx';
 import styles from './tabs.module.scss';
+import { FC } from 'react';
 
 /**
  * Tabs Component
@@ -43,7 +44,8 @@ interface TabsProps {
   options: string[];
 }
 
-export const Tabs = ({ currentTab, onTabChange, options }: TabsProps) => {
+export const Tabs: FC<TabsProps> = props => {
+  let { currentTab, onTabChange, options } = props;
   const handleTabChange = (option: string) => () => {
     onTabChange(option);
   };

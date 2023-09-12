@@ -37,23 +37,19 @@ interface BadgeFrameworkProps {
   maxWidth?: string;
 }
 
-export const BadgeFramework: FC<BadgeFrameworkProps> = ({
-  className,
-  maxWidth,
-  data,
-  key,
-  ...props
-}) => (
-  <div
-    key={key}
-    className={clsx([className], styles.badge_framework)}
-    style={{
-      backgroundColor: `${frameworkColors[data] ? frameworkColors[data] : '#2F3239'}`,
-      color: frameworkTextColors[data],
-      maxWidth: `${maxWidth ? maxWidth : '100%'}`,
-    }}
-    {...props}
-  >
-    {data}
-  </div>
-);
+export const BadgeFramework: FC<BadgeFrameworkProps> = props => {
+  const { className, maxWidth, data, key } = props;
+  return (
+    <div
+      key={key}
+      className={clsx([className], styles.badge_framework)}
+      style={{
+        backgroundColor: `${frameworkColors[data] ? frameworkColors[data] : '#2F3239'}`,
+        color: frameworkTextColors[data],
+        maxWidth: `${maxWidth ? maxWidth : '100%'}`,
+      }}
+    >
+      {data}
+    </div>
+  );
+};
