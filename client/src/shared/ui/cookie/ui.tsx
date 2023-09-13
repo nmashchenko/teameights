@@ -6,10 +6,10 @@ import Image from 'next/image';
 
 const Cookie = () => {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.container}>
       <div className={styles.inline}>
         <div>
-          <Image src='/images/Frame39750.png' width='50' height='50' alt='cookies' />
+          <Image src='/images/cookie.png' width='50' height='50' alt='cookies' />
         </div>
         <div>
           <Typography
@@ -25,7 +25,7 @@ const Cookie = () => {
           </Typography>
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '8px' }}>
+      <div className={styles.button}>
         <Button
           size='m'
           typeBtn='primary'
@@ -34,12 +34,7 @@ const Cookie = () => {
         >
           Accept
         </Button>
-        <Button
-          size='m'
-          typeBtn='secondary'
-          width='88px'
-          onClick={() => console.log('Кнопка n2 нажата')}
-        >
+        <Button size='m' typeBtn='secondary' onClick={() => console.log('Кнопка n2 нажата')}>
           Decline
         </Button>
       </div>
