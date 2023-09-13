@@ -11,7 +11,7 @@ export const queryClient = new QueryClient({
   },
   queryCache: new QueryCache({
     onError: (error, query) => {
-      if (query?.meta?.errorMessage) {
+      if (query?.meta?.errorMessage && error instanceof Error) {
         toast.error(error.message);
       }
     },

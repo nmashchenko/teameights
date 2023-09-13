@@ -1,10 +1,10 @@
-export interface AuthRequestBody {
+export interface IRegisterInput {
   email: string;
   password: string;
   repeatPassword: string;
 }
 
-export interface AuthResponseDTO {
+export interface IUserResponse {
   user: {
     email: string;
     password: string;
@@ -23,7 +23,7 @@ export interface AuthResponseDTO {
         major: string;
         addmissionDate: string;
         graduationDate: string;
-      }
+      },
     ];
     jobData: [
       {
@@ -31,13 +31,13 @@ export interface AuthResponseDTO {
         company: string;
         startDate: string;
         endDate: string;
-      }
+      },
     ];
     projectData: [
       {
         title: string;
         link: string;
-      }
+      },
     ];
     concentration: string;
     description: string;
