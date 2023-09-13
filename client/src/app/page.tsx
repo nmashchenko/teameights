@@ -1,11 +1,11 @@
 'use client';
 
-import { Typography, TypographySize, TypographyVariants } from 'shared/ui';
+import { Typography } from 'shared/ui';
 
 export default function Home() {
   return (
     <>
-      <Typography size={TypographySize.Body_XL} variant={TypographyVariants.h6}>
+      <Typography size='heading_xl' variant='h6'>
         We are working hard to deliver teameights on NextJS/TS soon!
       </Typography>
 

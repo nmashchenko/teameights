@@ -3,7 +3,7 @@
   flex-direction: column;
   row-gap: 8px;
   color: var(--grey-normal-color);
-  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+  font: var(--font-body-weight-s) var(--font-body-size-s) / var(--font-body-line-s)
     var(--font-rubik);
 }
 
@@ -11,7 +11,7 @@
   min-height: 76px;
   width: 100%;
   background: transparent;
-  font: var(--font-body-weight-l) var(--font-body-size-l) / var(--font-body-line-l)
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
     var(--font-rubik);
   color: var(--white-color);
   caret-color: var(--green-bright-color);

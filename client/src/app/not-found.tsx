@@ -4,7 +4,7 @@ import { RefObject, useState } from 'react';
 import { Tooltip } from 'react-tooltip';
 import { ArrowLeft, Planet, LogoBig, Question } from 'shared/assets';
 import { AmongUs, useClickOutside } from 'shared/lib';
-import { Button, Typography, TypographySize } from 'shared/ui';
+import { Button, Typography } from 'shared/ui';
 import styles from './styles/not-found.module.scss';
 
 /** Used to open email */
@@ -21,7 +21,7 @@ export default function NotFound() {
             <LogoBig />
           </Link>
           <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={ref}>
-            <Typography size={TypographySize.Body_L}>Need Help</Typography>
+            <Typography size='body_m'>Need Help</Typography>
             <Question data-tooltip-id='my-tooltip-inline' />
             <Tooltip
               id='my-tooltip-inline'
@@ -30,7 +30,7 @@ export default function NotFound() {
               clickable
               place='bottom-end'
             >
-              <Typography size={TypographySize.Body_M}>
+              <Typography size='body_s'>
                 If you have any issues, please email <br /> us at{' '}
                 <Link href={mailTo}>
                   <span className={styles.span}>helpteameights@gmail.com</span>
@@ -44,12 +44,8 @@ export default function NotFound() {
             <Planet />
           </div>
           <div className={styles.info}>
-            <Typography size={TypographySize.Heading_L}>
-              Oops... it looks like you are lost.
-            </Typography>
-            <Typography size={TypographySize.Body_L}>
-              Please check the URL or contact us for assistance
-            </Typography>
+            <Typography size='heading_m'>Oops... it looks like you are lost.</Typography>
+            <Typography size='body_m'>Please check the URL or contact us for assistance</Typography>
             <div className={styles.button}>
               <Button>
                 <ArrowLeft />

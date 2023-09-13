@@ -21,18 +21,18 @@
 }
 
 .body {
+  &_s {
+    font: var(--font-body-weight-s) var(--font-body-size-s) / var(--font-body-line-s)
+      var(--font-rubik);
+  }
+
   &_m {
     font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
-      var(--font-rubik);
+    var(--font-rubik);
   }
 
   &_l {
     font: var(--font-body-weight-l) var(--font-body-size-l) / var(--font-body-line-l)
-      var(--font-rubik);
-  }
-
-  &_xl {
-    font: var(--font-body-weight-xl) var(--font-body-size-xl) / var(--font-body-line-xl)
       var(--font-rubik);
   }
 }

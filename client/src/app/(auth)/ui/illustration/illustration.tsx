@@ -1,6 +1,6 @@
 import { Email } from 'shared/assets';
 import { Colors } from 'shared/constant';
-import { Button, Typography, TypographySize } from 'shared/ui';
+import { Button, Typography } from 'shared/ui';
 import styles from './illustration.module.scss';
 import { FC } from 'react';
 
@@ -17,8 +17,8 @@ export const IllustrationStatus: FC<ConfirmProps> = props => {
     <div className={styles.container}>
       <Email />
       <div className={styles.info}>
-        <Typography size={TypographySize.Heading_M}>{mainText}</Typography>
-        <Typography size={TypographySize.Body_L} color={Colors.GreyNormal}>
+        <Typography size='heading_m'>{mainText}</Typography>
+        <Typography size='body_m' color={Colors.GreyNormal}>
           {subText}
         </Typography>
       </div>

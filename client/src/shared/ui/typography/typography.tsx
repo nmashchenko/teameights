@@ -45,26 +45,17 @@ import styles from './typography.module.scss';
  * The component uses the `clsx` library for conditionally joining classNames together.
  */
 
-export enum TypographySize {
-  Heading_S = 'heading_s',
-  Heading_M = 'heading_m',
-  Heading_L = 'heading_l',
-  Heading_XL = 'heading_xl',
-  Body_M = 'body_m',
-  Body_L = 'body_l',
-  Body_XL = 'body_xl',
-  Caption = 'caption',
-}
+type TypographySize =
+  | 'heading_s'
+  | 'heading_m'
+  | 'heading_l'
+  | 'heading_xl'
+  | 'body_s'
+  | 'body_m'
+  | 'body_l'
+  | 'caption';
 
-export enum TypographyVariants {
-  h1 = 'h1',
-  h2 = 'h2',
-  h3 = 'h3',
-  h4 = 'h4',
-  h5 = 'h5',
-  h6 = 'h6',
-  p = 'p',
-}
+type TypographyVariants = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 
 interface TypographyProps {
   children: ReactNode;
@@ -75,14 +66,7 @@ interface TypographyProps {
 }
 
 export const Typography: FC<TypographyProps> = props => {
-  const {
-    children,
-    className,
-    size = TypographySize.Body_M,
-    variant = TypographyVariants.p,
-    color,
-    ...rest
-  } = props;
+  const { children, className, size = 'body_m', variant = 'p', color, ...rest } = props;
   const Component = variant;
 
   return (

@@ -6,7 +6,7 @@ import { Github, Google, Login } from 'shared/assets';
 import { Colors } from 'shared/constant';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
+import { Button, Input, InputPassword, Typography } from 'shared/ui';
 import styles from '../shared.module.scss';
 
 interface SignupProps {
@@ -70,7 +70,7 @@ export default function SignupPage() {
             <Button type='submit'>Sign Up</Button>
             <div className={styles.lines_container}>
               <div className={styles.line} />
-              <Typography size={TypographySize.Body_L} color={Colors.GreyNormal}>
+              <Typography size='body_m' color={Colors.GreyNormal}>
                 or continue with
               </Typography>
               <div className={styles.line} />

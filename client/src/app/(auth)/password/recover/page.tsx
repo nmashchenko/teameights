@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ArrowLeft } from 'shared/assets';
 import { Colors } from 'shared/constant';
-import { Button, Input, Typography, TypographySize } from 'shared/ui';
+import { Button, Input, Typography } from 'shared/ui';
 import styles from '../shared.module.scss';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
@@ -41,10 +41,10 @@ export default function Recover() {
           [styles.alignText]: true,
         })}
       >
-        <Typography color={Colors.GreenBright} size={TypographySize.Heading_M}>
+        <Typography color={Colors.GreenBright} size='heading_m'>
           Recover Password
         </Typography>
-        <Typography size={TypographySize.Body_L}>
+        <Typography size='body_m'>
           Enter the email you used to register and we will send you link to reset your password
         </Typography>
       </div>

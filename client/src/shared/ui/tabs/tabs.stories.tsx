@@ -13,7 +13,7 @@ const meta: Meta<typeof Tabs> = {
 export default meta;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const TextArea_default = () => {
+export const Tabs_default = () => {
   const tabs = ['General', 'Concentrations', 'Links'];
   const [tab, setTab] = useState<string>(tabs[0]);
 

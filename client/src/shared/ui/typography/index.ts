@@ -1,1 +1,1 @@
-export { Typography, TypographySize, TypographyVariants } from './typography';
+export { Typography } from './typography';
