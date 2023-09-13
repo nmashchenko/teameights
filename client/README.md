@@ -2,4 +2,4 @@
 
 Refer to following link to find all info you need!
 
-https://nice-spectrum-c3b.notion.site/Engineering-docs-cc12492090084962ba37b535e2767fbd
+https://teameights.notion.site/ad80d7c691ba47a09be954dc992752ec?v=cffe6ca69a8d4c4b91675b35cfd733ad
