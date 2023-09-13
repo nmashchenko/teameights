@@ -1,1 +1,1 @@
-/**index.tsx for lib */
+export * from './react-query/index';
