@@ -8,6 +8,7 @@ import { Colors } from 'shared/constant';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
 import styles from '../shared.module.scss';
+import { useRegister } from 'entities/session/model/queries/useRegisterMutation';
 
 interface SignupProps {
   email: string;
@@ -19,7 +20,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-
+  const { mutateAsync: registerUser } = useRegister();
   const login = useGoogleLogin({
     onSuccess: codeResponse => console.log(codeResponse),
     flow: 'auth-code',
@@ -31,7 +32,9 @@ export default function SignupPage() {
     formState: { errors },
   } = useForm<SignupProps>();
 
-  const onSubmit: SubmitHandler<SignupProps> = data => console.log(data);
+  const onSubmit: SubmitHandler<SignupProps> = data => {
+    registerUser(data);
+  };
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>

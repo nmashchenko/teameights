@@ -1,11 +1,9 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { useRouter } from 'next/router';
 import { http } from 'shared/api';
-
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-hot-toast';
 import { ROUTES } from 'shared/api/routes';
 import { IRegisterInput, IUserResponse } from '../types';
+import { useRouter } from 'next/navigation';
 
 const { api } = http;
 
@@ -23,16 +21,10 @@ export const useRegister = () => {
       // clear previous error before making new request
       // dispatch(userAuth.actions.authClearError());
     },
-
     onSuccess: (data: AxiosResponse<IUserResponse>) => {
-      console.log('hello');
       // set received token to localStorage
       localStorage.setItem('token', data.data.accessToken);
       router.push(ROUTES.confirmEmail);
-    },
-    onError: (error: Error) => {
-      // set error message
-      toast(error.message);
     },
   });
 };
