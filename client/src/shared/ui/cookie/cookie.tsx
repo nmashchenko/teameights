@@ -1,10 +1,10 @@
 import { Colors } from 'shared/constant';
 import { Button } from '../button';
 import { Typography, TypographySize, TypographyVariants } from '../typography';
-import styles from './styles.module.scss';
+import styles from './cookie.module.scss';
 import Image from 'next/image';
 
-const Cookie = () => {
+export const Cookie = () => {
   return (
     <div className={styles.container}>
       <div className={styles.inline}>
@@ -41,5 +41,3 @@ const Cookie = () => {
     </div>
   );
 };
-
-export default Cookie;
