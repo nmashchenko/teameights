@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import styles from './button.module.scss';
 import colors from '../../styles/colors.module.scss';
-import { Colors } from 'shared/constant';
+import type { Colors } from 'shared/types';
 
 /**
  * Button Component
