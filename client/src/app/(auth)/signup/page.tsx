@@ -3,8 +3,6 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
 import { Github, Google, Login } from 'shared/assets';
-import { Colors } from 'shared/constant';
-
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Input, InputPassword, Typography } from 'shared/ui';
 import styles from '../shared.module.scss';
@@ -70,7 +68,7 @@ export default function SignupPage() {
             <Button type='submit'>Sign Up</Button>
             <div className={styles.lines_container}>
               <div className={styles.line} />
-              <Typography size='body_m' color={Colors.GreyNormal}>
+              <Typography size='body_m' color='greyNormal'>
                 or continue with
               </Typography>
               <div className={styles.line} />

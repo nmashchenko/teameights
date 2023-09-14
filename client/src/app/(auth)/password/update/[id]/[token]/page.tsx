@@ -1,7 +1,6 @@
 'use client';
 import styles from '../../../shared.module.scss';
 import { Button, InputPassword, Typography } from 'shared/ui';
-import { Colors } from 'shared/constant';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -38,7 +37,7 @@ export default function Update({ params }: { params: { id: string; token: string
           [styles.alignText]: true,
         })}
       >
-        <Typography color={Colors.GreenBright} size='heading_m'>
+        <Typography color='greenBright' size='heading_m'>
           Recover Password
         </Typography>
         <Typography size='body_m'>

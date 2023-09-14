@@ -3,7 +3,6 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Colors } from 'shared/constant';
 
 import { Button, Input, InputPassword, Typography } from 'shared/ui';
 
@@ -63,7 +62,7 @@ export default function LoginPage() {
                   className={styles.forgot_link}
                   onClick={() => router.push('/password/recover')}
                 >
-                  <Typography size='body_s' color={Colors.GreenBright}>
+                  <Typography size='body_s' color='greenBright'>
                     Forgot Password?
                   </Typography>
                 </div>
@@ -74,7 +73,7 @@ export default function LoginPage() {
             <Button type='submit'>Log in</Button>
             <div className={styles.lines_container}>
               <div className={styles.line} />
-              <Typography size='body_m' color={Colors.GreyNormal}>
+              <Typography size='body_m' color='greyNormal'>
                 or log in with
               </Typography>
               <div className={styles.line} />

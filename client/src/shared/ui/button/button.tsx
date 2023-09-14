@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import styles from './button.module.scss';
+import { Colors } from 'shared/constant';
 
 /**
  * Button Component
@@ -45,6 +46,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   isDisabled?: boolean;
   width?: string;
+  color?: Colors;
 }
 
 export const Button: FC<ButtonProps> = props => {
@@ -56,7 +58,7 @@ export const Button: FC<ButtonProps> = props => {
     typeBtn = 'primary',
     isDisabled = false,
     width,
-    color,
+    color = 'white',
     ...rest
   } = props;
 
@@ -65,14 +67,16 @@ export const Button: FC<ButtonProps> = props => {
       disabled={isDisabled}
       style={{
         width: width ? `${width}` : undefined,
-        color: color ? `var(${color})` : undefined,
       }}
-      className={clsx(styles.container, {}, [
-        className,
-        styles[`size_${size}`],
-        styles[typeBtn],
-        styles[content],
-      ])}
+      className={clsx(
+        styles.container,
+        {
+          [styles[`size_${size}`]]: size,
+          [styles[typeBtn]]: typeBtn,
+          [styles[content]]: content,
+        },
+        [className]
+      )}
       {...rest}
     >
       {children}
