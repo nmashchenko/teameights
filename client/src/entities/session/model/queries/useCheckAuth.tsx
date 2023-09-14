@@ -12,13 +12,6 @@ export const useCheckAuth = () => {
   };
 
   return useQuery<AxiosResponse<IUserResponse>>(['checkAuth'], checkAuth, {
-    // onSuccess: data => {
-    //   // if (data && data.isRegistered) {
-    //   //   dispatch(userAuth.actions.authUserSuccess());
-    //   //   dispatch(userAuth.actions.setUserNotifications(data?.notifications));
-    //   //   dispatch(userAuth.actions.setUserId(data?._id));
-    //   // }
-    // },
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     enabled: !!localStorage.getItem('token'),
