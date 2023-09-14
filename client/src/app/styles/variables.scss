@@ -104,20 +104,20 @@
   --font-heading-weight-xl: 600;
 
   /* Body fonts */
-  /* Body 3 -> Body M */
-  --font-body-size-m: 14px;
-  --font-body-line-m: 120%;
+  /* Body 3 -> Body S */
+  --font-body-size-s: 14px;
+  --font-body-line-s: 120%;
+  --font-body-weight-s: 400;
+
+  /* Body 2 -> Body M */
+  --font-body-size-m: 16px;
+  --font-body-line-m: 140%;
   --font-body-weight-m: 400;
 
-  /* Body 2 -> Body L */
-  --font-body-size-l: 16px;
+  /* Body 1 -> Body XL */
+  --font-body-size-l: 20px;
   --font-body-line-l: 140%;
   --font-body-weight-l: 400;
-
-  /* Body 1 -> Body XL */
-  --font-body-size-xl: 24px;
-  --font-body-line-xl: 140%;
-  --font-body-weight-xl: 400;
 
   /* Caption font */
   --font-caption-size: 12px;

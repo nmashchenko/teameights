@@ -1,7 +1,6 @@
 'use client';
 import styles from '../../../shared.module.scss';
-import { Button, InputPassword, Typography, TypographySize } from 'shared/ui';
-import { Colors } from 'shared/constant';
+import { Button, InputPassword, Typography } from 'shared/ui';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -38,10 +37,10 @@ export default function Update({ params }: { params: { id: string; token: string
           [styles.alignText]: true,
         })}
       >
-        <Typography color={Colors.GreenBright} size={TypographySize.Heading_M}>
+        <Typography color='greenBright' size='heading_m'>
           Recover Password
         </Typography>
-        <Typography size={TypographySize.Body_L}>
+        <Typography size='body_m'>
           Enter a new password and confirm it by re-entering it in the appropriate fields
         </Typography>
       </div>

@@ -1,1 +1,0 @@
-export { BadgeLanguage } from './ui';

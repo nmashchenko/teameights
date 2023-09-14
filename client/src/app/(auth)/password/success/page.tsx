@@ -1,5 +1,5 @@
 'use client';
-import { IllustrationStatus } from 'app/shared/illustration';
+import { IllustrationStatus } from '../../ui';
 import { useRouter } from 'next/navigation';
 
 export default function Success() {

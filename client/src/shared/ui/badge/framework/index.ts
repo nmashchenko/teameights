@@ -1,1 +1,0 @@
-export { BadgeFramework } from './ui';
