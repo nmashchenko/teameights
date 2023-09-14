@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  width: 670px;
+  padding: 24px;
+  align-items: center;
+  gap: 24px;
+  border-radius: 20px;
+  background: var(--grey-dark-color);
+  box-shadow: 0px 4px 24px 0px rgba(17, 20, 27, 0.25);
+}
+
+.privacy {
+  color: var(--green-bright-color);
+}
+
+.inline {
+  display: flex;
+  width: 350px;
+  align-items: center;
+  gap: 16px;
+}
+
+.button {
+  display: flex;
+  gap: 8px;
+}
