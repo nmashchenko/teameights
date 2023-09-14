@@ -1,1 +1,1 @@
-export { Tabs } from './ui';
+export { Tabs } from './tabs';

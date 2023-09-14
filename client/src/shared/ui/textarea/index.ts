@@ -1,1 +1,1 @@
-export { TextArea } from './ui';
+export { TextArea } from './textarea';

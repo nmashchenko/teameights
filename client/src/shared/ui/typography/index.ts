@@ -1,1 +1,1 @@
-export { Typography, TypographySize, TypographyVariants } from './ui';
+export { Typography } from './typography';

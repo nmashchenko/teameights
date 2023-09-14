@@ -3,10 +3,8 @@
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
 import { Github, Google, Login } from 'shared/assets';
-import { Colors } from 'shared/constant';
-
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, Input, InputPassword, Typography, TypographySize } from 'shared/ui';
+import { Button, Input, InputPassword, Typography } from 'shared/ui';
 import styles from '../shared.module.scss';
 
 interface SignupProps {
@@ -67,20 +65,20 @@ export default function SignupPage() {
             />
           </div>
           <div className={styles.flex_wrapper__s}>
-            <Button>Sign Up</Button>
+            <Button type='submit'>Sign Up</Button>
             <div className={styles.lines_container}>
               <div className={styles.line} />
-              <Typography size={TypographySize.Body_L} color={Colors.GreyNormal}>
+              <Typography size='body_m' color='greyNormal'>
                 or continue with
               </Typography>
               <div className={styles.line} />
             </div>
 
             <div className={styles.buttons_container}>
-              <button className={styles.button} onClick={() => login()}>
+              <button className={styles.button} onClick={() => login()} type='button'>
                 <Google />
               </button>
-              <button className={styles.button}>
+              <button className={styles.button} type='button'>
                 <Github />
               </button>
             </div>

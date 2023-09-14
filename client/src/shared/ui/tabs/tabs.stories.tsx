@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { useState } from 'react';
-import { Tabs } from './ui';
+import { Tabs } from './tabs';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Tabs> = {
@@ -13,7 +13,7 @@ const meta: Meta<typeof Tabs> = {
 export default meta;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const TextArea_default = () => {
+export const Tabs_default = () => {
   const tabs = ['General', 'Concentrations', 'Links'];
   const [tab, setTab] = useState<string>(tabs[0]);
 
