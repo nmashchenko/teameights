@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 import { http } from 'shared/api';
 import { IUserResponse } from '../types';
 import { AxiosResponse } from 'axios';
