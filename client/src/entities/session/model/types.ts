@@ -4,6 +4,12 @@ export interface IRegisterInput {
   repeatPassword: string;
 }
 
+export interface ILoginInput {
+  email: string;
+  password: string;
+  token?: string;
+}
+
 export interface IUserResponse {
   user: {
     email: string;

@@ -1,6 +1,7 @@
 'use client';
 
 import { useGoogleLogin } from '@react-oauth/google';
+import { useLogin } from 'entities/session/model/queries';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Colors } from 'shared/constant';
@@ -20,6 +21,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const router = useRouter();
+  const { mutateAsync: loginUser } = useLogin('login');
 
   const {
     register,
@@ -32,7 +34,10 @@ export default function LoginPage() {
     flow: 'auth-code',
   });
 
-  const onSubmit: SubmitHandler<LoginProps> = data => console.log(data);
+  const onSubmit: SubmitHandler<LoginProps> = data => {
+    loginUser(data);
+    console.log(data);
+  };
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>

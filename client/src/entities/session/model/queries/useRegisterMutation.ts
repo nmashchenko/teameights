@@ -17,10 +17,6 @@ export const useRegister = () => {
 
   return useMutation<AxiosResponse<IUserResponse>, AxiosError, IRegisterInput>(registerUser, {
     mutationKey: ['token'],
-    onMutate: () => {
-      // clear previous error before making new request
-      // dispatch(userAuth.actions.authClearError());
-    },
     onSuccess: (data: AxiosResponse<IUserResponse>) => {
       // set received token to localStorage
       localStorage.setItem('token', data.data.accessToken);
