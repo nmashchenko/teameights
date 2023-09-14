@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { http } from 'shared/api';
 import { IUserResponse } from '../types';
@@ -14,6 +16,6 @@ export const useCheckAuth = () => {
   return useQuery<AxiosResponse<IUserResponse>>(['checkAuth'], checkAuth, {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-    enabled: localStorage.getItem('token') ? true : false,
+    enabled: !!localStorage.getItem('token'),
   });
 };
