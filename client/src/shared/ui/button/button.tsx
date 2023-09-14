@@ -1,6 +1,7 @@
 import { clsx } from 'clsx';
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import styles from './button.module.scss';
+import colors from '../../styles/colors.module.scss';
 import { Colors } from 'shared/constant';
 
 /**
@@ -74,6 +75,7 @@ export const Button: FC<ButtonProps> = props => {
           [styles[`size_${size}`]]: size,
           [styles[typeBtn]]: typeBtn,
           [styles[content]]: content,
+          [colors[color]]: color,
         },
         [className]
       )}
