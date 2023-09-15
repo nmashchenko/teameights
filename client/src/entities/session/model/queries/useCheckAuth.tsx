@@ -15,5 +15,6 @@ export const useCheckAuth = () => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     enabled: typeof window !== 'undefined' ?? !!localStorage.getItem('token'),
+    meta: { errorMessage: 'Failed to check  user auth' },
   });
 };

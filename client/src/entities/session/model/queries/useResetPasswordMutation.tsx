@@ -5,7 +5,7 @@ import { ROUTES } from 'shared/api/routes';
 
 const { api } = http;
 
-export const useResetPassword = (successHandler: () => void) => {
+export const useResetPassword = (successHandler?: () => void) => {
   const router = useRouter();
 
   const updateUserPassword = async (email: string) => {
@@ -13,12 +13,14 @@ export const useResetPassword = (successHandler: () => void) => {
   };
 
   return useMutation(updateUserPassword, {
-    mutationKey: ['updateUserPassword'],
+    mutationKey: ['resetUserPassword'],
     onSuccess: async () => {
+      console.log('SUCCESS');
       if (successHandler) {
         successHandler();
       }
       router.replace(ROUTES.confirmEmail);
     },
+    meta: { errorMessage: 'Failed to reset user password' },
   });
 };

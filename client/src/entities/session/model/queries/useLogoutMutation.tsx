@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { http, socket } from 'shared/api';
+import { http } from 'shared/api';
 import { infoToaster } from 'shared/ui';
 const { api } = http;
 
@@ -16,10 +16,9 @@ export const useLogout = () => {
     onSuccess: () => {
       // remove accessToken
       localStorage.removeItem('token');
-
-      socket.disconnect();
-      socket.offAnyOutgoing();
-      socket.offAny();
+      // socket.disconnect();
+      // socket.offAnyOutgoing();
+      // socket.offAny();
 
       // remove user data
       queryClient.setQueryData(['checkAuth'], () => {
@@ -32,5 +31,6 @@ export const useLogout = () => {
 
       infoToaster('Successful logout. See you soon!', 'top-center', 2500);
     },
+    meta: { errorMessage: 'Failed to user logout' },
   });
 };

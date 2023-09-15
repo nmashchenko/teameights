@@ -33,5 +33,6 @@ export const useLogin = (type: string) => {
       localStorage.setItem('token', data.data.accessToken);
       queryClient.invalidateQueries({ queryKey: ['checkAuth'], refetchType: 'inactive' });
     },
+    meta: { errorMessage: 'Failed to login user' },
   });
 };

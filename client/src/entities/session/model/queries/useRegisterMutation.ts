@@ -22,5 +22,6 @@ export const useRegister = () => {
       localStorage.setItem('token', data.data.accessToken);
       router.push(ROUTES.confirmEmail);
     },
+    meta: { errorMessage: 'Failed to register user' },
   });
 };

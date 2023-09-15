@@ -36,9 +36,7 @@ export default function LoginPage() {
 
   const onSubmit: SubmitHandler<LoginProps> = data => {
     loginUser(data);
-    console.log(data);
   };
-
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.left}>
