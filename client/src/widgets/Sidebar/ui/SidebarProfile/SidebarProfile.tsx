@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import styles from './Profile.module.scss';
+import styles from './SidebarProfile.module.scss';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
 const unregisteredImg = '/Images/user/unregistered.png';
@@ -22,9 +22,9 @@ const changeData = (data: any) => {
   };
 };
 
-type SidebarProfileProps = {
+interface SidebarProfileProps {
   active: boolean;
-};
+}
 
 // TODO: fix types
 

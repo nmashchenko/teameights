@@ -35,3 +35,4 @@ export {
   Swift,
   TS,
 } from './language-logo';
+export * from './sidebar';
