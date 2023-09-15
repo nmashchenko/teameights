@@ -42,6 +42,7 @@
     "react-select": "^5.7.4",
     "react-tooltip": "^5.21.3",
     "sass": "^1.64.2",
+    "socket.io-client": "^4.7.2",
     "tsparticles": "^2.12.0",
     "typescript": "5.1.6",
     "yarn": "^1.22.19"
