@@ -5,6 +5,7 @@ import { FlexWrapper, Loader } from 'shared/ui';
 import styles from './notification-item.module.scss';
 import { getPastTime } from 'shared/lib';
 import { SidebarLightning } from 'shared/assets';
+import Image from 'next/image';
 
 interface NotificationProps {
   notification: {
@@ -13,7 +14,7 @@ interface NotificationProps {
     _id: string;
     read: boolean;
     system_message?: string;
-    image?: string;
+    image: string;
     message?: string;
     createdAt: string;
   };
@@ -62,7 +63,7 @@ export const NotificationsItem: React.FC<NotificationProps> = ({
             <FlexWrapper gap='12px'>
               <div className={styles.messagePicture}>
                 {!notification.read && <div className={styles.messageCircle} />}
-                <img src={notification.image} alt='' />
+                <Image width={32} height={32} src={notification.image} alt='Team invation icon' />
               </div>
               <div className={styles.messageContentWrapper}>
                 <p className={styles.messageText}>{notification.message}</p>

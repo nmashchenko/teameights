@@ -47,6 +47,8 @@ export const Sidebar: React.FC = () => {
     },
     {
       title: 'Team',
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       path: user?.team ? `/team/${user.team._id}` : '/team',
       icon: (<SidebarTeam />) as React.ReactNode,
     },
@@ -69,7 +71,7 @@ export const Sidebar: React.FC = () => {
   const navigate = (path: string) => {
     router.push(path);
   };
-  const navMenuRef = useClickOutside(() => setSidebar(false));
+  const navMenuRef = useClickOutside(notificationModal ? () => '' : () => setSidebar(false));
 
   const handleUseLogout = () => {
     // logoutUser();
@@ -120,7 +122,6 @@ export const Sidebar: React.FC = () => {
                 active={sidebar}
                 key={index}
                 isActive={pathname === item.path}
-                path={item.path}
                 {...item}
               />
             ))}

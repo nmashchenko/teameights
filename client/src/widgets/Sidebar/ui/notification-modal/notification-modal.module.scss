@@ -69,15 +69,21 @@
 }
 
 .mobileNotificationsModal {
-  display: none;
+  display: block;
+  transform: translateY(100%); /* Start from the bottom */
+  transition: transform 0.3s ease-in-out;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
 
-  & .MuiDrawer-paper {
+  &.modalActive {
     background: #26292b;
     overflow: hidden;
-  }
-
-  @media screen and (min-width: 0px) and (max-width: 670px) {
-    display: block;
+    inset: 0px;
+    pointer-events: all;
+    transform: translateY(0);
   }
 }
 

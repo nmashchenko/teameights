@@ -14,7 +14,7 @@ interface NotificationsListProps {
   closeNotificationsModal: () => void;
 }
 
-const NotificationsList: FC<NotificationsListProps> = ({
+const SidebarNotificationsList: FC<NotificationsListProps> = ({
   userNotifications,
   setUnreadIds,
   closeNotificationsModal,
@@ -66,4 +66,4 @@ const NotificationsList: FC<NotificationsListProps> = ({
   );
 };
 
-export default NotificationsList;
+export default SidebarNotificationsList;

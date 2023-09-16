@@ -1,5 +1,3 @@
-// NotificationsContent.tsx
-
 import React from 'react';
 
 import styles from './notification-content.module.scss';
@@ -8,46 +6,16 @@ import { IconWrapper } from 'shared/ui';
 import { SidebarNotification } from 'shared/assets';
 import clsx from 'clsx';
 import NotificationsModal from 'widgets/Sidebar/ui/notification-modal/notification-modal';
+import { SidebarNotificationsCount } from 'widgets/Sidebar/ui/notification-content/notifications-count';
 
-interface NotificationsCountProps {
-  pointerEvents?: 'none' | 'all';
-  top?: string;
-  right?: string;
-  left?: string;
-  children: React.ReactNode;
-}
-
-const NotificationsCount: React.FC<NotificationsCountProps> = ({
-  pointerEvents = 'none',
-  top = 'auto',
-  right = 'auto',
-  left = 'auto',
-  children,
-}) => {
-  return (
-    <div
-      className={styles.notificationsCount}
-      style={
-        {
-          '--pointer-events': pointerEvents,
-          '--top': top,
-          '--right': right,
-          '--left': left,
-        } as React.CSSProperties
-      }
-    >
-      {children}
-    </div>
-  );
-};
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const NotificationsContent: React.FC<any> = ({
   userNotifications,
   sidebar,
   setNotificationModal,
   notificationModal,
 }) => {
-  console.log('@us', userNotifications);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const unreadMessages = userNotifications?.filter((item: any) => !item.read);
 
   return (
@@ -64,9 +32,9 @@ export const NotificationsContent: React.FC<any> = ({
         </IconWrapper>
         <p>Notifications</p>
         {!!unreadMessages?.length && !notificationModal && (
-          <NotificationsCount pointerEvents={sidebar.toString()} top='6px' left='28px'>
+          <SidebarNotificationsCount pointerEvents={sidebar.toString()} top='6px' left='28px'>
             {unreadMessages?.length}
-          </NotificationsCount>
+          </SidebarNotificationsCount>
         )}
       </div>
       <NotificationsModal
