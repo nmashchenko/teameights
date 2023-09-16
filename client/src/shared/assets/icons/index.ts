@@ -47,4 +47,4 @@ export {
   SidebarLightning,
   SidebarChecks,
   SidebarNotification,
-} from './sidebar/index';
+} from './sidebar-icons';

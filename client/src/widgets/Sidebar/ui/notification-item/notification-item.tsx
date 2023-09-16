@@ -1,4 +1,4 @@
-// import { useChangeMessageStatus } from '../../../api/hooks/sidebar/useChangeMessageStatus'
+// import { useChangeMessageStatus } from '../../../api/hooks/sidebar-icons/useChangeMessageStatus'
 // import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 import { FlexWrapper, Loader } from 'shared/ui';
 // import { LOCAL_PATH } from '../../../http'
