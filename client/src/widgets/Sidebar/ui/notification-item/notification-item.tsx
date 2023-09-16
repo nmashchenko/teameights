@@ -6,18 +6,10 @@ import styles from './notification-item.module.scss';
 import { getPastTime } from 'shared/lib';
 import { SidebarLightning } from 'shared/assets';
 import Image from 'next/image';
+import { Notifications } from 'entities/notification';
 
 interface NotificationProps {
-  notification: {
-    type: string;
-    teamid: string;
-    _id: string;
-    read: boolean;
-    system_message?: string;
-    image: string;
-    message?: string;
-    createdAt: string;
-  };
+  notification: Notifications;
   closeNotificationsModal: () => void;
 }
 

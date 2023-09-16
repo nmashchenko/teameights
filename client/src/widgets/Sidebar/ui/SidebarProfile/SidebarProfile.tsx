@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from './SidebarProfile.module.scss';
 import Image from 'next/image';
+import { User } from 'entities/user';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
-const unregisteredImg = '/Images/user/unregistered.png';
+const unregisteredImg = '/images/user/unregistered.png';
 
 const defaultData = {
   userRealName: 'Unknown',
@@ -25,11 +26,8 @@ const changeData = (data: any) => {
 
 interface SidebarProfileProps {
   active: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user: any;
+  user: User;
 }
-
-// TODO: fix types
 
 export const SidebarProfile: React.FC<SidebarProfileProps> = ({ active, user }) => {
   // const { data: user } = useCheckAuth();

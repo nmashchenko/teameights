@@ -18,7 +18,7 @@ import {
   SidebarUser,
 } from 'shared/assets';
 import { useClickOutside } from 'shared/lib';
-import userData from '../../mock.json';
+import { mockUser } from '../../mock';
 import { NotificationsContent } from 'widgets/Sidebar/ui/notification-content/notification-content';
 
 interface NavData {
@@ -36,8 +36,7 @@ export const Sidebar: React.FC = () => {
   // const { isAuth } = useSelector((state) => state.userReducer);
   const isAuth = true;
   // const { data: user } = useCheckAuth();
-  const user = userData;
-  console.log('@user', user.notifications);
+  const user = mockUser;
 
   const newNavData: NavData[] = [
     {

@@ -1,15 +1,10 @@
 import React, { FC, useEffect, useRef } from 'react';
 import styles from './notification-list.module.scss';
 import { NotificationsItem } from '../notification-item/notification-item';
-
-interface Notification {
-  _id: string;
-  createdAt: string;
-  // ... other properties of a notification
-}
+import { Notifications } from 'entities/notification';
 
 interface NotificationsListProps {
-  userNotifications: Notification[];
+  userNotifications: Notifications[];
   setUnreadIds: (callback: (prev: Set<string>) => Set<string>) => void;
   closeNotificationsModal: () => void;
 }

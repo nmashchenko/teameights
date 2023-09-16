@@ -35,4 +35,16 @@ export {
   Swift,
   TS,
 } from './language-logo';
-export * from './sidebar';
+export {
+  SidebarNotification,
+  SidebarChecks,
+  SidebarNotificationClose,
+  SidebarLightning,
+  SidebarClose,
+  SidebarExit,
+  SidebarTeam,
+  SidebarSearch,
+  SidebarShortLogo,
+  SidebarTrophy,
+  SidebarUser,
+} from './sidebar';

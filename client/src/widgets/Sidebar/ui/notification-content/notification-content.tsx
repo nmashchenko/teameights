@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 import styles from './notification-content.module.scss';
 import sidebarStyles from '../Sidebar/Sidebar.module.scss';
@@ -7,9 +7,16 @@ import { SidebarNotification } from 'shared/assets';
 import clsx from 'clsx';
 import NotificationsModal from 'widgets/Sidebar/ui/notification-modal/notification-modal';
 import { SidebarNotificationsCount } from 'widgets/Sidebar/ui/notification-content/notifications-count';
+import { Notifications } from 'entities/notification';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const NotificationsContent: React.FC<any> = ({
+interface NotificationContentProps {
+  userNotifications: Notifications[] | undefined;
+  sidebar: boolean;
+  setNotificationModal: Dispatch<SetStateAction<boolean>>;
+  notificationModal: boolean;
+}
+
+export const NotificationsContent: React.FC<NotificationContentProps> = ({
   userNotifications,
   sidebar,
   setNotificationModal,
@@ -32,7 +39,7 @@ export const NotificationsContent: React.FC<any> = ({
         </IconWrapper>
         <p>Notifications</p>
         {!!unreadMessages?.length && !notificationModal && (
-          <SidebarNotificationsCount pointerEvents={sidebar.toString()} top='6px' left='28px'>
+          <SidebarNotificationsCount pointerEvents={sidebar ? 'all' : 'none'} top='6px' left='28px'>
             {unreadMessages?.length}
           </SidebarNotificationsCount>
         )}
