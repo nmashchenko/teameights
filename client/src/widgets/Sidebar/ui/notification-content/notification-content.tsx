@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import styles from './notification-content.module.scss';
 import sidebarStyles from '../Sidebar/Sidebar.module.scss';
 import { IconWrapper } from 'shared/ui';
-import { SidebarNotification } from 'shared/assets';
+import { SidebarNotificationIcon } from 'shared/assets';
 import clsx from 'clsx';
 import NotificationsModal from 'widgets/Sidebar/ui/notification-modal/notification-modal';
 import { SidebarNotificationsCount } from 'widgets/Sidebar/ui/notification-content/notifications-count';
@@ -35,7 +35,7 @@ export const NotificationsContent: React.FC<NotificationContentProps> = ({
         onClick={() => setNotificationModal((prev: boolean) => !prev)}
       >
         <IconWrapper width='24px' height='24px' cursor='pointer'>
-          <SidebarNotification />
+          <SidebarNotificationIcon />
         </IconWrapper>
         <p>Notifications</p>
         {!!unreadMessages?.length && !notificationModal && (

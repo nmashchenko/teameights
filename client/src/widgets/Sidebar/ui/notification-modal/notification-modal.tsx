@@ -3,7 +3,7 @@ import styles from './notification-modal.module.scss';
 import { useClickOutside, useGetScreenWidth } from 'shared/lib';
 import { IconWrapper } from 'shared/ui';
 import SidebarNotificationsList from '../notification-list/notification-list';
-import { SidebarChecks, SidebarNotificationClose } from 'shared/assets';
+import { SidebarChecksIcon, SidebarNotificationClose } from 'shared/assets';
 import { Notifications } from 'entities/notification';
 
 interface NotificationsModalProps {
@@ -62,7 +62,7 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({
   //       </div>
   //       <button className={styles.markAllBtnMobile} onClick={markAllAsRead}>
   //         <IconWrapper width='20px' height='20px'>
-  //           <SidebarChecks />
+  //           <SidebarChecksIcon />
   //         </IconWrapper>
   //         <p>Mark all as read</p>
   //       </button>
@@ -81,7 +81,7 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({
           <div className={styles.notificationsHeader}>
             <div className={styles.markAllBtn} onClick={markAllAsRead}>
               <IconWrapper width='20px' height='20px'>
-                <SidebarChecks />
+                <SidebarChecksIcon />
               </IconWrapper>
               <p>Mark all as read</p>
             </div>

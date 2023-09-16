@@ -4,7 +4,7 @@ import { FlexWrapper, Loader } from 'shared/ui';
 // import { LOCAL_PATH } from '../../../http'
 import styles from './notification-item.module.scss';
 import { getPastTime } from 'shared/lib';
-import { SidebarLightning } from 'shared/assets';
+import { SidebarLightningIcon } from 'shared/assets';
 import Image from 'next/image';
 import { Notifications } from 'entities/notification';
 
@@ -42,7 +42,7 @@ export const NotificationsItem: React.FC<NotificationProps> = ({
             <FlexWrapper gap='12px'>
               <div className={`${styles.messagePicture} ${styles.small}`}>
                 {!notification.read && <div className={styles.messageCircle} />}
-                <SidebarLightning />
+                <SidebarLightningIcon />
               </div>
               <p className={styles.messageText}>{notification.system_message}</p>
             </FlexWrapper>

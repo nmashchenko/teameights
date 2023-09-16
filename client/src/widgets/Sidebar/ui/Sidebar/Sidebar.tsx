@@ -9,13 +9,13 @@ import { SidebarProfile } from 'widgets/Sidebar/ui/SidebarProfile/SidebarProfile
 import { SidebarItem } from 'widgets/Sidebar/ui/SidebarItem/SidebarItem';
 import { IconWrapper } from 'shared/ui';
 import {
-  SidebarClose,
-  SidebarExit,
-  SidebarSearch,
+  SidebarCloseIcon,
+  SidebarExitIcon,
+  SidebarSearchIcon,
   SidebarShortLogo,
-  SidebarTeam,
-  SidebarTrophy,
-  SidebarUser,
+  SidebarTeamIcon,
+  SidebarTrophyIcon,
+  SidebarUserIcon,
 } from 'shared/assets';
 import { useClickOutside } from 'shared/lib';
 import { mockUser } from '../../mock';
@@ -42,19 +42,19 @@ export const Sidebar: React.FC = () => {
     {
       title: 'Teammates',
       path: '/',
-      icon: <SidebarSearch />,
+      icon: <SidebarSearchIcon />,
     },
     {
       title: 'Team',
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       path: user?.team ? `/team/${user.team._id}` : '/team',
-      icon: (<SidebarTeam />) as React.ReactNode,
+      icon: (<SidebarTeamIcon />) as React.ReactNode,
     },
     {
       title: 'Tournaments',
       path: '/tournaments',
-      icon: <SidebarTrophy />,
+      icon: <SidebarTrophyIcon />,
     },
   ];
 
@@ -62,7 +62,7 @@ export const Sidebar: React.FC = () => {
     newNavData.push({
       title: 'Profile',
       path: `/profile/${user._id}`,
-      icon: (<SidebarUser />) as React.ReactNode,
+      icon: (<SidebarUserIcon />) as React.ReactNode,
     });
   }
 
@@ -92,7 +92,7 @@ export const Sidebar: React.FC = () => {
         className={clsx(styles.mobileNavBarIconWrapper, { [styles.active]: sidebar })}
       >
         <div className={clsx(styles.navBarClose, { [styles.active]: sidebar })}>
-          <SidebarClose />
+          <SidebarCloseIcon />
         </div>
       </div>
 
@@ -110,7 +110,7 @@ export const Sidebar: React.FC = () => {
               className={clsx(styles.navBarClose, { [styles.active]: sidebar })}
               onClick={showSidebar}
             >
-              <SidebarClose />
+              <SidebarCloseIcon />
             </div>
           </div>
           <SidebarProfile active={sidebar} user={user} />
@@ -140,7 +140,7 @@ export const Sidebar: React.FC = () => {
                 onClick={() => navigate('/auth/registration')}
               >
                 <IconWrapper width='24px' height='24px' cursor='pointer'>
-                  <SidebarExit />
+                  <SidebarExitIcon />
                 </IconWrapper>
                 <p>Login</p>
               </div>
@@ -150,7 +150,7 @@ export const Sidebar: React.FC = () => {
                 onClick={handleUseLogout}
               >
                 <IconWrapper width='24px' height='24px' cursor='pointer'>
-                  <SidebarExit />
+                  <SidebarExitIcon />
                 </IconWrapper>
                 <p>Logout</p>
               </div>
