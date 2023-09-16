@@ -3,7 +3,7 @@ import { Loader, LoaderProps } from './loader';
 import { Meta, Story } from '@storybook/react';
 
 export default {
-  title: 'shared/Loader',
+  title: 'shared/Loader/Loader',
   component: Loader,
   argTypes: {
     paddingLeft: {

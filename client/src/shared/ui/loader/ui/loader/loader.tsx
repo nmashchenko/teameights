@@ -1,5 +1,5 @@
 import React from 'react';
-import { InfinitySpin } from 'react-loader-spinner';
+import { InfinitySpin } from '../infinity-spinner/infinity-spinner';
 import styles from './loader.module.scss';
 
 export interface LoaderProps {
