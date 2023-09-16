@@ -10,7 +10,7 @@ const defaultData = {
   userRealName: 'Unknown',
   userUsername: 'unknown@email.com',
   notificationBell: false,
-  userImg: unregisteredImg
+  userImg: unregisteredImg,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,20 +19,20 @@ const changeData = (data: any) => {
     userRealName: data.fullName,
     userUsername: data.username,
     notificationBell: true,
-    userImg: data.image
+    userImg: data.image,
   };
 };
 
 interface SidebarProfileProps {
   active: boolean;
+  user: any;
 }
 
 // TODO: fix types
 
-export const SidebarProfile: React.FC<SidebarProfileProps> = ({ active }) => {
+export const SidebarProfile: React.FC<SidebarProfileProps> = ({ active, user }) => {
   // const { data: user } = useCheckAuth();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const user: any = {};
   const isUserRegistered = user?.isRegistered;
   const [data, setData] = useState(defaultData);
 

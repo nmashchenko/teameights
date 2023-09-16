@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './FlexWrapper.module.scss';
+import styles from './flex-wrapper.module.scss';
 
 interface FlexWrapperProps {
   align?: string;
@@ -16,7 +16,7 @@ interface FlexWrapperProps {
   children: React.ReactNode;
 }
 
-const FlexWrapper: React.FC<FlexWrapperProps> = props => {
+export const FlexWrapper: React.FC<FlexWrapperProps> = props => {
   const {
     align,
     justify,
@@ -52,5 +52,3 @@ const FlexWrapper: React.FC<FlexWrapperProps> = props => {
     </div>
   );
 };
-
-export default FlexWrapper;

@@ -134,9 +134,7 @@
     background-color: #2f3239;
   }
 
-  &:active {
-    background-color: #5d9d0b;
-  }
+
 
   &.modalActive {
     background-color: #5d9d0b;
@@ -149,7 +147,13 @@
     margin: 0;
     white-space: nowrap;
 
-    &.active {
+
+  }
+
+  &.active {
+    //background-color: #5d9d0b;
+
+    p {
       opacity: 1;
       pointer-events: all;
     }

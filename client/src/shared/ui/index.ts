@@ -9,3 +9,5 @@ export * from './textarea';
 export * from './typography';
 export * from './portal';
 export * from './icon-wrapper';
+export * from './flex-wrapper';
+export * from './loader';

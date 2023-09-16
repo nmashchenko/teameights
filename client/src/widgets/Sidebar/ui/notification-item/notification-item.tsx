@@ -1,12 +1,10 @@
 // import { useChangeMessageStatus } from '../../../api/hooks/sidebar/useChangeMessageStatus'
 // import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
-import LightningIcon from '../../../assets/Sidebar/LightningIcon';
+import { FlexWrapper, Loader } from 'shared/ui';
 // import { LOCAL_PATH } from '../../../http'
-import FlexWrapper from '../../../shared/components/FlexWrapper/FlexWrapper';
-import Loader from '../../../shared/components/Loader/Loader';
-import { getPastTime } from '../../../utils/getPastTime';
-
-import styles from './NotificationsItem.module.scss';
+import styles from './notification-item.module.scss';
+import { getPastTime } from 'shared/lib';
+import { SidebarLightning } from 'shared/assets';
 
 interface NotificationProps {
   notification: {
@@ -26,12 +24,6 @@ export const NotificationsItem: React.FC<NotificationProps> = ({
   notification,
   closeNotificationsModal,
 }) => {
-  // Mock data and states
-  const teamData = {
-    /* mock your team data here */
-  };
-  const isLoading = false;
-  const error = null;
   const isHandlingInvite = false;
   // const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
   // const { mutate: teamInviteMutation, isLoading: isHandlingInvite } = useChangeMessageStatus(
@@ -39,7 +31,7 @@ export const NotificationsItem: React.FC<NotificationProps> = ({
   // )
 
   const handleAccept = () => {
-    // Mock the mutation
+    // Mock the mutatios
     console.log('Accepted the invitation');
     closeNotificationsModal();
   };
@@ -57,7 +49,7 @@ export const NotificationsItem: React.FC<NotificationProps> = ({
             <FlexWrapper gap='12px'>
               <div className={`${styles.messagePicture} ${styles.small}`}>
                 {!notification.read && <div className={styles.messageCircle} />}
-                <LightningIcon />
+                <SidebarLightning />
               </div>
               <p className={styles.messageText}>{notification.system_message}</p>
             </FlexWrapper>

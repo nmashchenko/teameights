@@ -5,3 +5,7 @@ export { SidebarClose } from './sidebar-close';
 export { SidebarExit } from './sidebar-exit';
 export { SidebarUser } from './sidebar-user';
 export { SidebarShortLogo } from './sidebar-short-logo';
+export { SidebarLightning } from './sidebar-lightning';
+export { SidebarNotificationClose } from './sidebar-notification-close';
+export { SidebarChecks } from './sidebar-checks';
+export { SidebarNotification } from './sidebar-notification';

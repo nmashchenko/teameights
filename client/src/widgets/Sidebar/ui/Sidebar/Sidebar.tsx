@@ -18,6 +18,8 @@ import {
   SidebarUser,
 } from 'shared/assets';
 import { useClickOutside } from 'shared/lib';
+import userData from '../../mock.json';
+import { NotificationsContent } from 'widgets/Sidebar/ui/notification-content/notification-content';
 
 interface NavData {
   title: string;
@@ -32,9 +34,10 @@ export const Sidebar: React.FC = () => {
   const [notificationModal, setNotificationModal] = useState(false);
 
   // const { isAuth } = useSelector((state) => state.userReducer);
-  const isAuth = false;
+  const isAuth = true;
   // const { data: user } = useCheckAuth();
-  let user;
+  const user = userData;
+  console.log('@user', user.notifications);
 
   const newNavData: NavData[] = [
     {
@@ -109,7 +112,7 @@ export const Sidebar: React.FC = () => {
               <SidebarClose />
             </div>
           </div>
-          <SidebarProfile active={sidebar} />
+          <SidebarProfile active={sidebar} user={user} />
           <ul className={styles.navItems}>
             {newNavData.map((item, index) => (
               <SidebarItem
@@ -123,13 +126,14 @@ export const Sidebar: React.FC = () => {
             ))}
           </ul>
           <div className={styles.navInteractions}>
-            {/*{isAuth && user && (*/}
-            {/*  <NotificationsContent*/}
-            {/*    sidebar={sidebar}*/}
-            {/*    notificationModal={notificationModal}*/}
-            {/*    setNotificationModal={setNotificationModal}*/}
-            {/*  />*/}
-            {/*)}*/}
+            {isAuth && user && (
+              <NotificationsContent
+                userNotifications={user.notifications}
+                sidebar={sidebar}
+                notificationModal={notificationModal}
+                setNotificationModal={setNotificationModal}
+              />
+            )}
             {!isAuth ? (
               <div
                 className={clsx(styles.navInteractBtn, { [styles.active]: sidebar })}

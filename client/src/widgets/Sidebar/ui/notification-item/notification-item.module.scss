@@ -9,6 +9,9 @@
   border-top: 1px solid #2f3239;
   width: 100%;
 
+  &:last-child{
+    border-bottom: 1px solid rgb(47, 50, 57);
+  }
   &:hover {
     background-color: #2f3239;
   }
@@ -23,7 +26,6 @@
 
 .messageText {
   margin: 0;
-  font-family: 'NoirPro-Light';
   font-size: 14px;
   line-height: 120%;
   color: #fff;
@@ -50,7 +52,6 @@
 
 .sendingTime {
   margin: 0;
-  font-family: Inter;
   font-weight: 500;
   font-size: 11px;
   line-height: 100%;
