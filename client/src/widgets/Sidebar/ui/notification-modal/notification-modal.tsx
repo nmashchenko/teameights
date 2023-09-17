@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './notification-modal.module.scss';
 import { useClickOutside, useGetScreenWidth } from 'shared/lib';
 import { IconWrapper } from 'shared/ui';
 import SidebarNotificationsList from '../notification-list/notification-list';
 import { SidebarChecksIcon, SidebarNotificationClose } from 'shared/assets';
 import { Notifications } from 'entities/notification';
-import {createPortal} from "react-dom";
-import {clsx} from "clsx";
+import { createPortal } from 'react-dom';
+import { clsx } from 'clsx';
 
 interface NotificationsModalProps {
   userNotifications: Notifications[]; // Define a proper type for this
