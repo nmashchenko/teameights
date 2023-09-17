@@ -1,6 +1,4 @@
-'use client';
-
-import { RefObject, useEffect, useState } from 'react';
+import { useEffect, RefObject, useCallback } from 'react';
 import styles from '../../cookie-banner.module.scss';
 
 interface AnimationProps {
@@ -8,26 +6,31 @@ interface AnimationProps {
 }
 
 export const useAnimationEnd = ({ elemRef }: AnimationProps) => {
-  const [buttonClicked, setButtonClicked] = useState(false);
-
-  useEffect(() => {
-    const onAnimationEnd = () => {
-      if (elemRef.current) {
-        elemRef.current.removeEventListener('animationend', onAnimationEnd);
-        if (buttonClicked) {
-          elemRef.current.remove();
-        }
-      }
-    };
+  const handleAnimationEnd = useCallback(() => {
     if (elemRef.current) {
-      elemRef.current.addEventListener('animationend', onAnimationEnd);
+      elemRef.current.remove();
     }
-  }, [buttonClicked, elemRef]);
+  }, [elemRef]);
 
   const handleLogic = () => {
-    elemRef.current?.classList.add(styles.closeIt);
-    setButtonClicked(true);
+    if (elemRef.current) {
+      elemRef.current.addEventListener('animationend', handleAnimationEnd, { once: true });
+      elemRef.current.classList.add(styles.closeIt);
+    }
   };
+
+  useEffect(() => {
+    // Store the current ref value to use in the cleanup function
+    const currentElem = elemRef.current;
+
+    return () => {
+      if (currentElem) {
+        // Use stored ref value to remove event listener
+        currentElem.removeEventListener('animationend', handleAnimationEnd);
+      }
+    };
+    // Add handleAnimationEnd to the dependencies array
+  }, [elemRef, handleAnimationEnd]);
 
   return {
     handleLogic,

@@ -1,7 +1,6 @@
 'use client';
 
-import { Typography, Portal } from 'shared/ui';
-import { CookieBanner } from 'features/cookie-banner';
+import { Typography } from 'shared/ui';
 
 export default function Home() {
   return (
@@ -13,8 +12,6 @@ export default function Home() {
       <a href='/login' style={{ color: 'green' }}>
         Get to login
       </a>
-
-      <CookieBanner />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { ReactQueryProvider } from './providers';
 import './styles/globals.scss';
 import { ReactNode } from 'react';
+import { CookieBanner } from 'features/cookie-banner';
 
 const inter = Rubik({ subsets: ['latin'], variable: '--font-rubik' });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <ReactQueryProvider>
       <html lang='en'>
         <body className={inter.variable}>
+          <CookieBanner />
           <Toaster
             gutter={8}
             toastOptions={{
@@ -25,7 +27,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             }}
           />
           {children}
-          {/* <div id='portal' /> */}
         </body>
       </html>
     </ReactQueryProvider>

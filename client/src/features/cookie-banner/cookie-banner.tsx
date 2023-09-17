@@ -1,10 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
-import { Typography, Button } from '../../shared/ui';
+import { Typography, Button } from 'shared/ui';
 import styles from './cookie-banner.module.scss';
-import Image from 'next/image';
 import { useAnimationEnd } from './lib/hooks/useAnimationEnd';
+import { Cookie } from 'shared/assets';
 
 export const CookieBanner = () => {
   const elemRef = useRef<HTMLDivElement | null>(null);
@@ -13,12 +13,14 @@ export const CookieBanner = () => {
     elemRef,
   });
 
+  // network request to check if user agreed before
+
   return (
     <>
-      <div ref={elemRef} className={`${styles.container} ${styles.openIt}`}>
+      <div ref={elemRef} className={styles.container}>
         <div className={styles.inline}>
           <div>
-            <Image src='/images/cookie.png' width='50' height='50' alt='cookies' />
+            <Cookie />
           </div>
           <div>
             <Typography color='white' size='body_s'>
