@@ -16,7 +16,7 @@ import {
   SidebarTeamIcon,
   SidebarTrophyIcon,
   SidebarUserIcon,
-} from 'shared/assets/icons';
+} from 'shared/assets';
 import { useClickOutside } from 'shared/lib';
 import { mockUser } from '../../mock';
 import { NotificationsContent } from 'widgets/Sidebar/ui/notification-content/notification-content';
