@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef } from 'react';
 import { Typography, Button } from '../../shared/ui';
 import styles from './cookie-banner.module.scss';
@@ -9,16 +11,7 @@ export const CookieBanner = () => {
 
   const { handleLogic } = useAnimationEnd({
     elemRef,
-    buttonStyles: styles.closeIt,
   });
-
-  const handleAccept = () => {
-    handleLogic();
-  };
-
-  const handleDecline = () => {
-    handleLogic();
-  };
 
   return (
     <>
@@ -38,10 +31,10 @@ export const CookieBanner = () => {
           </div>
         </div>
         <div className={styles.button}>
-          <Button size='m' typeBtn='primary' width='152px' onClick={handleAccept}>
+          <Button size='m' typeBtn='primary' width='152px' onClick={handleLogic}>
             Accept
           </Button>
-          <Button size='m' typeBtn='secondary' onClick={handleDecline}>
+          <Button size='m' typeBtn='secondary' onClick={handleLogic}>
             Decline
           </Button>
         </div>

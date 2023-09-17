@@ -1,6 +1,6 @@
 'use client';
 
-import { Typography } from 'shared/ui';
+import { Typography, Portal } from 'shared/ui';
 import { CookieBanner } from 'features/cookie-banner';
 
 export default function Home() {
@@ -14,9 +14,7 @@ export default function Home() {
         Get to login
       </a>
 
-      <div>
-        <CookieBanner />
-      </div>
+      <CookieBanner />
     </>
   );
 }

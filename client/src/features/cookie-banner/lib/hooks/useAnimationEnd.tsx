@@ -1,11 +1,13 @@
+'use client';
+
 import { RefObject, useEffect, useState } from 'react';
+import styles from '../../cookie-banner.module.scss';
 
 interface AnimationProps {
   elemRef: RefObject<HTMLDivElement>;
-  buttonStyles: string;
 }
 
-export const useAnimationEnd = ({ elemRef, buttonStyles }: AnimationProps) => {
+export const useAnimationEnd = ({ elemRef }: AnimationProps) => {
   const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
@@ -20,10 +22,10 @@ export const useAnimationEnd = ({ elemRef, buttonStyles }: AnimationProps) => {
     if (elemRef.current) {
       elemRef.current.addEventListener('animationend', onAnimationEnd);
     }
-  }, [buttonClicked]);
+  }, [buttonClicked, elemRef]);
 
   const handleLogic = () => {
-    elemRef.current?.classList.add(buttonStyles);
+    elemRef.current?.classList.add(styles.closeIt);
     setButtonClicked(true);
   };
 

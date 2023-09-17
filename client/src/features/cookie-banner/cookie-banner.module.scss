@@ -1,11 +1,12 @@
 @keyframes slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
+  // from {
+  //   opacity: 0;
+  //   transform: translateY(100%);
+  // }
   to {
     opacity: 1;
-    transform: translateY(0);
+    // transform: translateY(0);
+    bottom: 20px;
   }
 }
 
@@ -24,29 +25,28 @@
   display: flex;
   width: 670px;
   padding: 24px;
+  position: fixed;
+  bottom: -100%;
   align-items: center;
   gap: 24px;
   border-radius: 20px;
   background: var(--grey-dark-color);
   box-shadow: var(--dropdown-shadow);
   opacity: 0;
-  transform: translateY(100%);
-  transition:
-    opacity 500ms,
-    transform 500ms;
-  animation: slide-in 0.5s ease-in;
+  // transform: translateY(100%);
+  animation: slide-in 1s ease forwards;
 }
 
-.openIt {
-  opacity: 1;
-  transform: translateY(0);
-}
+// .openIt {
+//   opacity: 1;
+//   transform: translateY(0);
+// }
 
-.closeIt {
-  opacity: 0;
-  transform: translateY(100%);
-  animation: slide-out 0.5s ease-out;
-}
+// .closeIt {
+//   opacity: 0;
+//   transform: translateY(100%);
+//   animation: slide-out 0.5s ease-out;
+// }
 
 .privacy {
   color: var(--green-bright-color);
