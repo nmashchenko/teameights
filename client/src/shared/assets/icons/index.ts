@@ -35,16 +35,14 @@ export {
   Swift,
   TS,
 } from './language-logo';
-export {
-  SidebarUserIcon,
-  SidebarTrophyIcon,
-  SidebarShortLogo,
-  SidebarSearchIcon,
-  SidebarTeamIcon,
-  SidebarExitIcon,
-  SidebarNotificationClose,
-  SidebarCloseIcon,
-  SidebarLightningIcon,
-  SidebarChecksIcon,
-  SidebarNotificationIcon,
-} from './123';
+export { SidebarChecksIcon } from './sidebar-checks-icon';
+export { SidebarCloseIcon } from './sidebar-close-icon';
+export { SidebarExitIcon } from './sidebar-exit-icon';
+export { SidebarLightningIcon } from './sidebar-lightning-icon';
+export { SidebarNotificationClose } from './sidebar-notification-close';
+export { SidebarNotificationIcon } from './sidebar-notification-icon';
+export { SidebarSearchIcon } from './sidebar-search-icon';
+export { SidebarShortLogo } from './sidebar-short-logo';
+export { SidebarTeamIcon } from './sidebar-team-icon';
+export { SidebarTrophyIcon } from './sidebar-trophy-icon';
+export { SidebarUserIcon } from './sidebar-user-icon';
