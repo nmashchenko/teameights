@@ -1,5 +1,5 @@
 /* Illustrations */
 export * from './illustrations';
 
-/* Icons */
+/* icons */
 export * from './icons';
