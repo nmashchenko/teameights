@@ -1,4 +1,4 @@
-export function SidebarCloseIcon() {
+export const SidebarCloseIcon = () => {
   return (
     <svg width='32' height='32' viewBox='0 0 32 32' fill='none'>
       <path
@@ -31,4 +31,4 @@ export function SidebarCloseIcon() {
       ></path>
     </svg>
   );
-}
+};
