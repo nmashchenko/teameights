@@ -47,4 +47,4 @@ export {
   SidebarLightningIcon,
   SidebarChecksIcon,
   SidebarNotificationIcon,
-} from './sidebar-icons';
+} from './123';
