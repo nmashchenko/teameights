@@ -17,6 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <ReactQueryProvider>
       <html lang='en'>
         <body className={inter.variable}>
+          {/* <CookieBanner /> */}
           <Toaster
             gutter={8}
             toastOptions={{

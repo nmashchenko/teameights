@@ -7,6 +7,7 @@ export { Plus } from './plus';
 export { Question } from './question';
 export { WarningCircle } from './warning-circle';
 export { X } from './x';
+export { Cookie } from './cookie';
 export { ArrowLeft } from './arrows';
 export { CaretUp, CaretDown } from './caret';
 export { LogoBig } from './logo';
