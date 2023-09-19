@@ -13,8 +13,8 @@ export const CookieBanner = () => {
     elemRef,
   });
 
-  // network request to check if user agreed before
-
+  //TODO: network request to check if user agreed before
+  // TODO: add logic to support reject/accept cookies when server will have accepted-cookies field
   return (
     <>
       <div ref={elemRef} className={styles.container}>
