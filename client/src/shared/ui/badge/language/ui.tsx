@@ -18,7 +18,7 @@ import styles from './styles.module.scss';
 
 interface BadgeLanguageProps {
   data: string;
-  key: number;
+  key?: number;
   className?: string;
   maxWidth?: string;
 }

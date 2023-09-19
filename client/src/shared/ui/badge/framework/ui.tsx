@@ -17,7 +17,7 @@ import styles from './styles.module.scss';
 
 interface BadgeFrameworkProps {
   data: string;
-  key: number;
+  key?: number;
   className?: string;
   maxWidth?: string;
 }

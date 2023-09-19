@@ -14,6 +14,10 @@ export default meta;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const UserCard_default = () => {
   return (
-        <UserCard />
+    <UserCard
+      image='https://via.placeholder.com/70x70'
+      programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+      frameworks={['NodeJS', 'React']}
+    />
   );
 };
