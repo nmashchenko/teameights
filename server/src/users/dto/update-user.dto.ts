@@ -1,170 +1,63 @@
+import { PartialType } from '@nestjs/swagger';
+import { CreateUserDto } from './create-user.dto';
+
+import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import {
-	IsArray,
-	IsBoolean,
-	IsDate,
-	IsDateString,
-	IsEmail,
-	IsNotEmpty,
-	IsObject,
-	IsOptional,
-	IsString,
-	Length,
-	ValidateNested,
-} from 'class-validator';
+import { Role } from '../../roles/entities/role.entity';
+import { IsEmail, IsOptional, MinLength, Validate } from 'class-validator';
+import { Status } from 'src/statuses/entities/status.entity';
+import { IsNotExist } from 'src/utils/validators/is-not-exists.validator';
+import { FileEntity } from 'src/files/entities/file.entity';
+import { IsExist } from 'src/utils/validators/is-exists.validator';
+import { lowerCaseTransformer } from 'src/utils/transformers/lower-case.transformer';
 
-import { JobDataDto } from './job-data.dto';
-import { LinksUserDto } from './links-user.dto';
-import { ProjectDataDto } from './project-data.dto';
-import { UniversityDataDto } from './university-data.dto';
+export class UpdateUserDto extends PartialType(CreateUserDto) {
+  @ApiProperty({ example: 'test1@example.com' })
+  @Transform(lowerCaseTransformer)
+  @IsOptional()
+  @Validate(IsNotExist, ['User'], {
+    message: 'emailAlreadyExists',
+  })
+  @IsEmail()
+  email?: string | null;
 
-export class UpdateUserDto {
-	@ApiProperty({ example: 'test@teameights.com', description: 'Email' })
-	@IsString({ message: 'Should be string' })
-	@IsEmail({}, { message: 'Email is not correct' })
-	@IsNotEmpty({ message: 'Should not be empty' })
-	readonly email: string;
+  @ApiProperty()
+  @IsOptional()
+  @MinLength(6)
+  password?: string;
 
-	@ApiProperty({ example: 'teameights', description: 'Username' })
-	@IsString({ message: 'Should be string' })
-	@Length(1, 20, {
-		message: 'Should be at least 8 and less than 20 characters',
-	})
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsOptional()
-	readonly username: string;
+  provider?: string;
 
-	@ApiProperty({ example: 'Nikita Mashchenko', description: 'Full Name' })
-	@IsString({ message: 'Should be string' })
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsOptional()
-	readonly fullName: string;
+  socialId?: string | null;
 
-	@ApiProperty({ example: new Date(), description: 'Date of birth' })
-	@IsDateString()
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsOptional()
-	readonly dateOfBirth: Date;
+  @ApiProperty({ example: 'John' })
+  @IsOptional()
+  firstName?: string | null;
 
-	@ApiProperty({
-		example: '20 y.o. developer from Ukraine',
-		description: 'Description of user',
-	})
-	@IsString({ message: 'Should be string' })
-	@IsOptional()
-	readonly description: string;
+  @ApiProperty({ example: 'Doe' })
+  @IsOptional()
+  lastName?: string | null;
 
-	@ApiProperty({
-		example: 'Frontend Developer',
-		description: 'Concentration of user',
-	})
-	@IsString({ message: 'Should be string' })
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsOptional()
-	readonly concentration: string;
+  @ApiProperty({ type: () => FileEntity })
+  @IsOptional()
+  @Validate(IsExist, ['FileEntity', 'id'], {
+    message: 'imageNotExists',
+  })
+  photo?: FileEntity | null;
 
-	@ApiProperty({ example: 'Ukraine', description: 'Country of user' })
-	@IsString({ message: 'Should be string' })
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsOptional()
-	readonly country: string;
+  @ApiProperty({ type: Role })
+  @IsOptional()
+  @Validate(IsExist, ['Role', 'id'], {
+    message: 'roleNotExists',
+  })
+  role?: Role | null;
 
-	@ApiProperty({
-		example: '0-1 years',
-		description: 'How many years of experience user has',
-	})
-	@IsString({ message: 'Should be string' })
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsOptional()
-	readonly experience: string;
+  @ApiProperty({ type: Status })
+  @IsOptional()
+  @Validate(IsExist, ['Status', 'id'], {
+    message: 'statusNotExists',
+  })
+  status?: Status;
 
-	@ApiProperty({
-		example: 'true',
-		description: 'Does user want to be leader of team?',
-	})
-	@IsBoolean({ message: 'Should be boolean' })
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsOptional()
-	readonly isLeader: boolean;
-
-	@ApiProperty({
-		example: {
-			github: 'https://github.com',
-			linkedin: 'https://linkedin.com',
-			behance: 'https://behance.com',
-			telegram: 'https://telegram.com',
-		},
-		description: 'Links of the user',
-	})
-	@IsObject({ message: 'Should be object' })
-	@ValidateNested()
-	@Type(() => LinksUserDto)
-	@IsOptional()
-	readonly links: LinksUserDto;
-
-	@ApiProperty({
-		example: ['JS', 'C++'],
-		description: 'Programming languages',
-	})
-	@IsArray({ message: 'Should be array' })
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsOptional()
-	readonly programmingLanguages: string[];
-
-	@ApiProperty({ example: ['NestJS', 'NodeJS'], description: 'Frameworks' })
-	@IsNotEmpty({ message: 'Should not be empty' })
-	@IsArray({ message: 'Should be array' })
-	@IsOptional()
-	readonly frameworks: string[];
-
-	@ApiProperty({
-		example: [
-			{
-				university: 'UIC',
-				degree: `Bachelor's degree`,
-				major: 'Computer Science',
-				addmissionDate: '2016-05-18T14:10:30Z',
-				graduationDate: '2020-05-18T14:10:30Z',
-			},
-		],
-		description: 'University data of the user',
-	})
-	@IsArray()
-	@IsOptional()
-	@ValidateNested({ each: true })
-	@Type(() => UniversityDataDto)
-	readonly universityData: UniversityDataDto[];
-
-	@ApiProperty({
-		example: [
-			{
-				title: 'SWE',
-				company: `Spotify`,
-				startDate: '2016-05-18T14:10:30Z',
-				endDate: '2020-05-18T14:10:30Z',
-			},
-		],
-		description: 'Job data of the user',
-	})
-	@IsArray()
-	@IsOptional()
-	@ValidateNested({ each: true })
-	@Type(() => JobDataDto)
-	readonly jobData: JobDataDto[];
-
-	@ApiProperty({
-		example: [
-			{
-				title: 'Teameights',
-				link: `https://teameights.com`,
-			},
-		],
-		description: 'Projects data of the user',
-	})
-	@IsArray()
-	@IsOptional()
-	@ValidateNested({ each: true })
-	@Type(() => ProjectDataDto)
-	readonly projectData: ProjectDataDto[];
+  hash?: string | null;
 }

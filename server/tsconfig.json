@@ -1,9 +1,5 @@
 {
   "compilerOptions": {
-    // "strict": true,
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "strictPropertyInitialization": false,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -16,13 +12,11 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "esModuleInterop": true
   }
 }

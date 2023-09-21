@@ -1,176 +1,95 @@
 import {
-	Body,
-	Controller,
-	Get,
-	Ip,
-	Param,
-	Post,
-	Put,
-	Query,
-	Req,
-	UseGuards,
-	UsePipes,
-	ValidationPipe as VP,
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Query,
+  DefaultValuePipe,
+  ParseIntPipe,
+  HttpStatus,
+  HttpCode,
+  SerializeOptions,
 } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { SkipThrottle } from '@nestjs/throttler';
-import { Request } from 'express';
-import mongoose from 'mongoose';
-import * as qs from 'qs';
-
-import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
-import { ValidationPipe } from '@/pipes/validation.pipe';
-
-import { BetaSignUpDto } from './dto/beta-sign-up.dto';
-import { Results } from './dto/results.dto';
-import { UpdateAvatarDto } from './dto/update-avatar.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './users.schema';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/roles/roles.decorator';
+import { RoleEnum } from 'src/roles/roles.enum';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/roles/roles.guard';
+import { infinityPagination } from 'src/utils/infinity-pagination';
+import { User } from './entities/user.entity';
+import { InfinityPaginationResultType } from '../utils/types/infinity-pagination-result.type';
+import { NullableType } from '../utils/types/nullable.type';
 
+@ApiBearerAuth()
+@Roles(RoleEnum.admin)
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('Users')
-@SkipThrottle()
-@Controller('/users')
+@Controller({
+  path: 'users',
+  version: '1',
+})
 export class UsersController {
-	constructor(private userService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
-	@ApiOperation({
-		summary:
-			'Get specific user by email, returns null in case nothing found',
-	})
-	@ApiResponse({ status: 200, type: User })
-	@Get('/get-by-email/:email')
-	getByEmail(@Param('email') email: string): Promise<User> {
-		return this.userService.getUserByEmail(email);
-	}
+  @SerializeOptions({
+    groups: ['admin'],
+  })
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  create(@Body() createProfileDto: CreateUserDto): Promise<User> {
+    return this.usersService.create(createProfileDto);
+  }
 
-	@ApiOperation({
-		summary:
-			'Get specific user by username, returns null in case nothing found',
-	})
-	@ApiResponse({ status: 200, type: User })
-	@Get('/get-by-username/:username')
-	getByUsername(@Param('username') username: string): Promise<User> {
-		return this.userService.getUserByUsername(username);
-	}
+  @SerializeOptions({
+    groups: ['admin'],
+  })
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ): Promise<InfinityPaginationResultType<User>> {
+    if (limit > 50) {
+      limit = 50;
+    }
 
-	@ApiOperation({
-		summary: 'Get partial best match usernames',
-	})
-	@ApiResponse({ status: 200, type: [User] })
-	@Get('/partial/:username')
-	getPartialUsernames(@Param('username') username: string): Promise<User[]> {
-		return this.userService.getPartialUsernames(username);
-	}
+    return infinityPagination(
+      await this.usersService.findManyWithPagination({
+        page,
+        limit,
+      }),
+      { page, limit },
+    );
+  }
 
-	@ApiOperation({
-		summary: 'Get specific user by id, returns null in case nothing found',
-	})
-	@ApiResponse({ status: 200, type: User })
-	@Get('/get-by-id/:id')
-	getById(@Param('id') id: mongoose.Types.ObjectId): Promise<User> {
-		return this.userService.getUserById(id);
-	}
+  @SerializeOptions({
+    groups: ['admin'],
+  })
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  findOne(@Param('id') id: string): Promise<NullableType<User>> {
+    return this.usersService.findOne({ id: +id });
+  }
 
-	@ApiOperation({
-		summary: 'Get specific user by token',
-	})
-	@ApiResponse({ status: 200, type: User })
-	@UseGuards(JwtAuthGuard)
-	@Get('/get-by-token')
-	getByToken(@Req() req: Request): Promise<User> {
-		return this.userService.getUserByToken(
-			req.headers.authorization.split(' ')[1],
-		);
-	}
+  @SerializeOptions({
+    groups: ['admin'],
+  })
+  @Patch(':id')
+  @HttpCode(HttpStatus.OK)
+  update(@Param('id') id: number, @Body() updateProfileDto: UpdateUserDto): Promise<User> {
+    return this.usersService.update(id, updateProfileDto);
+  }
 
-	@ApiOperation({ summary: 'Get users' })
-	@ApiResponse({ status: 200, type: [User] })
-	@Get('/get-all')
-	getAllUsers(): Promise<User[]> {
-		return this.userService.getAllUsers();
-	}
-
-	@ApiOperation({ summary: 'Get users by page' })
-	@ApiResponse({ status: 200, type: Results })
-	@ApiQuery({
-		name: 'page',
-		description: 'The page number to get',
-		required: false,
-		type: Number,
-	})
-	@Get('/get')
-	getUsersByPage(@Query('page') pageNumber?: number): Promise<Results> {
-		/* A way to check if the pageNumber is a number or not. If it is not a number, it will return 1. */
-		const page: number = parseInt(pageNumber as any) || 1;
-		const limit = 9;
-		return this.userService.getUsersByPage(page, limit);
-	}
-
-	@ApiOperation({ summary: 'Get filtered users by page' })
-	@ApiResponse({ status: 200, type: Results })
-	@ApiQuery({
-		name: 'page',
-		description: 'The page number to get',
-		required: false,
-		type: Number,
-	})
-	@ApiQuery({
-		name: 'filtersQuery',
-		description: `The filters that we get front end, don't forget to use let queryString = qs.stringify(filtersQuery) before sending to backend`,
-		required: true,
-		type: String,
-	})
-	@Get('/get-filtered')
-	getFilteredUsersByPage(
-		@Query('filtersQuery') filtersQuery: string,
-		@Query('page') pageNumber?: number,
-	): Promise<Results> {
-		const page: number = parseInt(pageNumber as any) || 1;
-		const limit = 9;
-		/* Parsing the query string into an object. */
-		const parsedQuery = qs.parse(filtersQuery);
-
-		return this.userService.getFilteredUsersByPage(
-			page,
-			limit,
-			parsedQuery,
-		);
-	}
-
-	@UsePipes(ValidationPipe)
-	@UseGuards(JwtAuthGuard)
-	@ApiOperation({
-		summary: 'Update user details',
-	})
-	@ApiResponse({ status: 200, type: User })
-	@Put('/update-user')
-	updateUser(@Body() dto: UpdateUserDto): Promise<User> {
-		return this.userService.updateUser(dto);
-	}
-
-	@UseGuards(JwtAuthGuard)
-	@UsePipes(ValidationPipe)
-	@ApiOperation({
-		summary: 'Update avatar of the user',
-	})
-	@ApiResponse({ status: 200, type: String })
-	@Put('/update-avatar')
-	updateAvatar(@Body() dto: UpdateAvatarDto): Promise<string> {
-		return this.userService.updateAvatar(dto);
-	}
-
-	@UsePipes(ValidationPipe)
-	@ApiOperation({
-		summary: 'Sign up user to beta test',
-	})
-	@ApiResponse({ status: 200, type: String })
-	@SkipThrottle(false)
-	@Post('/beta/sign-up')
-	addUserToBetaTestList(
-		@Body() dto: BetaSignUpDto,
-		@Ip() ip: any,
-	): Promise<string> {
-		return this.userService.addUserToBetaTestList(dto, ip);
-	}
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@Param('id') id: number): Promise<void> {
+    return this.usersService.softDelete(id);
+  }
 }

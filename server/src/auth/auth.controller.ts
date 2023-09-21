@@ -1,211 +1,129 @@
 import {
-	Body,
-	Controller,
-	Get,
-	Ip,
-	Param,
-	Post,
-	Req,
-	Res,
-	UsePipes,
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Request,
+  Post,
+  UseGuards,
+  Patch,
+  Delete,
+  SerializeOptions,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Request, Response } from 'express';
-
-import { ValidationPipe } from '@/pipes/validation.pipe';
-import { AuthUserDto } from '@/users/dto/auth-user.dto';
-import { RegisterUserDto } from '@/users/dto/register-user.dto';
-import { ResetUserDto } from '@/users/dto/reset-user.dto';
-
 import { AuthService } from './auth.service';
-import { AuthResponseDto } from './dto/auth-response.dto';
-import { StatusResponseDto } from './dto/status-response.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
+import { AuthForgotPasswordDto } from './dto/auth-forgot-password.dto';
+import { AuthConfirmEmailDto } from './dto/auth-confirm-email.dto';
+import { AuthResetPasswordDto } from './dto/auth-reset-password.dto';
+import { AuthUpdateDto } from './dto/auth-update.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
+import { LoginResponseType } from './types/login-response.type';
+import { User } from '../users/entities/user.entity';
+import { NullableType } from '../utils/types/nullable.type';
 
 @ApiTags('Auth')
-@Controller('auth')
+@Controller({
+  path: 'auth',
+  version: '1',
+})
 export class AuthController {
-	constructor(private authService: AuthService) {}
+  constructor(private readonly service: AuthService) {}
 
-	@ApiOperation({
-		summary:
-			'Registrer user in the system and returns access/refresh tokens pair & user object',
-	})
-	@ApiResponse({ status: 200, type: AuthResponseDto })
-	@Post('/registration')
-	@UsePipes(ValidationPipe)
-	async registration(
-		@Body() dto: RegisterUserDto,
-		@Res({ passthrough: true }) res: Response,
-	): Promise<AuthResponseDto> {
-		const data = await this.authService.registration(dto);
+  @SerializeOptions({
+    groups: ['me'],
+  })
+  @Post('email/login')
+  @HttpCode(HttpStatus.OK)
+  public login(@Body() loginDto: AuthEmailLoginDto): Promise<LoginResponseType> {
+    return this.service.validateLogin(loginDto, false);
+  }
 
-		res.cookie('refreshToken', data.refreshToken, {
-			maxAge: 30 * 24 * 60 * 60 * 1000,
-			httpOnly: true,
-			secure: true,
-			sameSite: 'none',
-		}); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
-		return data;
-	}
+  @SerializeOptions({
+    groups: ['me'],
+  })
+  @Post('admin/email/login')
+  @HttpCode(HttpStatus.OK)
+  public adminLogin(@Body() loginDTO: AuthEmailLoginDto): Promise<LoginResponseType> {
+    return this.service.validateLogin(loginDTO, true);
+  }
 
-	@ApiOperation({
-		summary:
-			'Login user in the system and return access/refresh tokens pair & user object',
-	})
-	@ApiResponse({ status: 200, type: AuthResponseDto })
-	@Post('/login')
-	@UsePipes(ValidationPipe)
-	async login(
-		@Body() dto: AuthUserDto,
-		@Res({ passthrough: true }) res: Response,
-	): Promise<AuthResponseDto> {
-		const data = await this.authService.login(dto);
-		res.cookie('refreshToken', data.refreshToken, {
-			maxAge: 30 * 24 * 60 * 60 * 1000,
-			httpOnly: true,
-			secure: true,
-			sameSite: 'none',
-		}); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
-		return data;
-	}
+  @Post('email/register')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async register(@Body() createUserDto: AuthRegisterLoginDto): Promise<void> {
+    return this.service.register(createUserDto);
+  }
 
-	@ApiOperation({
-		summary:
-			'Get token that we receieve from google on frontend (res.credential) and login / register user',
-	})
-	@ApiResponse({ status: 200, type: AuthResponseDto })
-	@Get('/google/:token')
-	async googleAuth(
-		@Param('token') token: string,
-		@Res({ passthrough: true }) res: Response,
-	): Promise<AuthResponseDto> {
-		const data = await this.authService.googleAuth(token);
-		res.cookie('refreshToken', data.refreshToken, {
-			maxAge: 30 * 24 * 60 * 60 * 1000,
-			httpOnly: true,
-			secure: true,
-			sameSite: 'none',
-		}); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
-		return data;
-	}
+  @Post('email/confirm')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async confirmEmail(@Body() confirmEmailDto: AuthConfirmEmailDto): Promise<void> {
+    return this.service.confirmEmail(confirmEmailDto.hash);
+  }
 
-	@ApiOperation({
-		summary: 'Activate account',
-	})
-	@ApiResponse({
-		status: 200,
-		description: 'Redirects to the last registration part',
-	})
-	@ApiResponse({ status: 400, description: 'Incorrect activation link' })
-	@Get('/activate/:token')
-	async activate(
-		@Param('token') token: string,
-		@Res({ passthrough: true }) res: Response,
-	): Promise<void> {
-		await this.authService.activate(token);
-		return res.redirect(process.env.COMPLETE_REGISTRATION_URL);
-	}
+  @Post('forgot/password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async forgotPassword(@Body() forgotPasswordDto: AuthForgotPasswordDto): Promise<void> {
+    return this.service.forgotPassword(forgotPasswordDto.email);
+  }
 
-	@ApiOperation({
-		summary: 'Logout user',
-	})
-	@ApiResponse({
-		status: 200,
-		description: 'Successfuly logged out user and cleared refresh cookie',
-	})
-	@Get('/logout')
-	async logout(
-		@Req() req: Request,
-		@Res({ passthrough: true }) res: Response,
-	): Promise<StatusResponseDto> {
-		const { refreshToken } = req.cookies;
-		const token = await this.authService.logout(refreshToken);
-		res.clearCookie('refreshToken');
-		return token;
-	}
+  @Post('reset/password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  resetPassword(@Body() resetPasswordDto: AuthResetPasswordDto): Promise<void> {
+    return this.service.resetPassword(resetPasswordDto.hash, resetPasswordDto.password);
+  }
 
-	@ApiOperation({
-		summary: 'Refresh token for user',
-	})
-	@ApiResponse({
-		status: 200,
-		description: 'Successfuly refreshed cookie for user',
-		type: AuthResponseDto,
-	})
-	@Get('/refresh')
-	async refresh(
-		@Req() req: Request,
-		@Res({ passthrough: true }) res: Response,
-	): Promise<AuthResponseDto> {
-		const { refreshToken } = req.cookies;
-		const data = await this.authService.refresh(refreshToken);
-		res.cookie('refreshToken', data.refreshToken, {
-			maxAge: 30 * 24 * 60 * 60 * 1000,
-			httpOnly: true,
-			secure: true,
-			sameSite: 'none',
-		}); // httpOnly to prevent changing the cookie from browser (JS), we will also need to add flag secure for https
-		return data;
-	}
+  @ApiBearerAuth()
+  @SerializeOptions({
+    groups: ['me'],
+  })
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.OK)
+  public me(@Request() request): Promise<NullableType<User>> {
+    return this.service.me(request.user);
+  }
 
-	@ApiOperation({
-		summary: 'Generate password reset link for user that he gets on email',
-	})
-	@ApiResponse({
-		status: 200,
-		description: 'Generated link',
-	})
-	@Get('/reset-password/:email')
-	async resetPassword(
-		@Ip() ip: ParameterDecorator,
-		@Param('email') email: string,
-	): Promise<StatusResponseDto> {
-		return await this.authService.resetPassword(email, ip);
-	}
+  @ApiBearerAuth()
+  @SerializeOptions({
+    groups: ['me'],
+  })
+  @Post('refresh')
+  @UseGuards(AuthGuard('jwt-refresh'))
+  @HttpCode(HttpStatus.OK)
+  public refresh(@Request() request): Promise<Omit<LoginResponseType, 'user'>> {
+    return this.service.refreshToken({
+      sessionId: request.user.sessionId,
+    });
+  }
 
-	@ApiOperation({
-		summary: 'Validates token and id to allow user reset password',
-	})
-	@ApiResponse({
-		status: 200,
-		description: 'Redirected user to reset form on frontend',
-	})
-	@Get('/verify-reset/:email/:token')
-	async verifyReset(
-		@Param('email') email: string,
-		@Param('token') token: string,
-		@Res() res: Response,
-	): Promise<void> {
-		try {
-			await this.authService.verifyReset(email, token);
+  @ApiBearerAuth()
+  @Post('logout')
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async logout(@Request() request): Promise<void> {
+    await this.service.logout({
+      sessionId: request.user.sessionId,
+    });
+  }
 
-			return res.redirect(
-				`${process.env.CLIENT_URL}/auth/password-recover/${email}/${token}`,
-			);
-		} catch (err) {
-			if (err.status === 403) {
-				res.redirect(`${process.env.CLIENT_URL}/auth/token-expired`);
-			} else {
-				throw err;
-			}
-		}
-	}
+  @ApiBearerAuth()
+  @SerializeOptions({
+    groups: ['me'],
+  })
+  @Patch('me')
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.OK)
+  public update(@Request() request, @Body() userDto: AuthUpdateDto): Promise<NullableType<User>> {
+    return this.service.update(request.user, userDto);
+  }
 
-	@ApiOperation({
-		summary:
-			'Resets password for user after token was verified in /verify-reset',
-	})
-	@ApiResponse({
-		status: 200,
-		description: 'Updates password for the user',
-	})
-	@UsePipes(ValidationPipe)
-	@Post('/update-password')
-	async updatePassword(
-		@Body() dto: ResetUserDto,
-		@Res() res: Response,
-	): Promise<Response> {
-		await this.authService.updatePassword(dto);
-		return res.send(`Password for ${dto.email} was updated`);
-	}
+  @ApiBearerAuth()
+  @Delete('me')
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.NO_CONTENT)
+  public async delete(@Request() request): Promise<void> {
+    return this.service.softDelete(request.user);
+  }
 }

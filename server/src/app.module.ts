@@ -1,68 +1,73 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { APP_FILTER } from '@nestjs/core';
-import { MongooseModule } from '@nestjs/mongoose';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { MailerModule } from '@nestjs-modules/mailer';
-import * as path from 'path';
-
-import { AuthModule } from './auth/auth.module';
-import { NotFoundExceptionFilter } from './exceptions/not-found-exception.filter';
-import { LeaderboardModule } from './leaderboard/leaderboard.module';
-import { MailsModule } from './mails/mails.module';
-import { MaintenanceModule } from './maintenance/maintenance.module';
-import { NotificationsModule } from './notifications/notifications.module';
-import { RolesModule } from './roles/roles.module';
-import { TeamsModule } from './teams/teams.module';
-import { TokensModule } from './tokens/tokens.module';
-import { TournamentsModule } from './tournaments/tournaments.module';
 import { UsersModule } from './users/users.module';
+import { FilesModule } from './files/files.module';
+import { AuthModule } from './auth/auth.module';
+import databaseConfig from './config/database.config';
+import authConfig from './config/auth.config';
+import appConfig from './config/app.config';
+import mailConfig from './config/mail.config';
+import fileConfig from './config/file.config';
+import googleConfig from './config/google.config';
+import path from 'path';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthGoogleModule } from './auth-google/auth-google.module';
+import { I18nModule } from 'nestjs-i18n/dist/i18n.module';
+import { HeaderResolver } from 'nestjs-i18n';
+import { TypeOrmConfigService } from './database/typeorm-config.service';
+import { ForgotModule } from './forgot/forgot.module';
+import { MailModule } from './mail/mail.module';
+import { HomeModule } from './home/home.module';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { AllConfigType } from './config/config.type';
+import { SessionModule } from './session/session.module';
+import { MailerModule } from './mailer/mailer.module';
 
 @Module({
-	imports: [
-		/* Loading the environment variables from the .env file. */
-		ConfigModule.forRoot({
-			envFilePath: `.${process.env.NODE_ENV}.env`,
-			isGlobal: true,
-		}),
-		/* Connecting to the database. */
-		MongooseModule.forRoot(process.env.DB_URL),
-		/* Serving the static files. */
-		ServeStaticModule.forRoot({
-			rootPath: path.resolve(__dirname, 'static'),
-			exclude: ['/api/(.*)'],
-		}),
-		/* Configuring the mailer module. */
-		MailerModule.forRoot({
-			transport: {
-				host: process.env.SMTP_HOST,
-				port: process.env.SMTP_PORT,
-				// requireTLS: true,
-				secure: false,
-				auth: {
-					user: process.env.SMTP_USER,
-					pass: process.env.SMTP_PASS,
-				},
-			},
-		}),
-		UsersModule,
-		AuthModule,
-		RolesModule,
-		TokensModule,
-		MailsModule,
-		NotificationsModule,
-		TeamsModule,
-		TournamentsModule,
-		LeaderboardModule,
-		MaintenanceModule,
-	],
-	controllers: [],
-	providers: [
-		// handle 404
-		{
-			provide: APP_FILTER,
-			useClass: NotFoundExceptionFilter,
-		},
-	],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [databaseConfig, authConfig, appConfig, mailConfig, fileConfig, googleConfig],
+      envFilePath: ['.env'],
+    }),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfigService,
+      dataSourceFactory: async (options: DataSourceOptions) => {
+        return new DataSource(options).initialize();
+      },
+    }),
+    I18nModule.forRootAsync({
+      useFactory: (configService: ConfigService<AllConfigType>) => ({
+        fallbackLanguage: configService.getOrThrow('app.fallbackLanguage', {
+          infer: true,
+        }),
+        loaderOptions: { path: path.join(__dirname, '/i18n/'), watch: true },
+      }),
+      resolvers: [
+        {
+          use: HeaderResolver,
+          useFactory: (configService: ConfigService<AllConfigType>) => {
+            return [
+              configService.get('app.headerLanguage', {
+                infer: true,
+              }),
+            ];
+          },
+          inject: [ConfigService],
+        },
+      ],
+      imports: [ConfigModule],
+      inject: [ConfigService],
+    }),
+    UsersModule,
+    FilesModule,
+    AuthModule,
+    AuthGoogleModule,
+    ForgotModule,
+    SessionModule,
+    MailModule,
+    MailerModule,
+    HomeModule,
+  ],
 })
 export class AppModule {}

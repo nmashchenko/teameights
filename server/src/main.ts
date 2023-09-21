@@ -1,87 +1,37 @@
-import {NestFactory} from '@nestjs/core';
-import {
-	DocumentBuilder,
-	SwaggerModule
-} from '@nestjs/swagger';
-import * as bodyParser from 'body-parser';
-// import { JwtAuthGuard } from "./auth/jwt-auth.guard";
-// import { ValidationPipe } from "./pipes/validation.pipe";
-import cookieParser from 'cookie-parser';
-import {
-	AsyncApiDocumentBuilder,
-	AsyncApiModule
-} from 'nestjs-asyncapi';
+import { ClassSerializerInterceptor, ValidationPipe, VersioningType } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory, Reflector } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { useContainer } from 'class-validator';
+import { AppModule } from './app.module';
+import validationOptions from './utils/validation-options';
+import { AllConfigType } from './config/config.type';
 
-import {AppModule} from './app.module';
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, { cors: true });
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
+  const configService = app.get(ConfigService<AllConfigType>);
 
-async function start(): Promise<void> {
-	try {
-		const PORT = process.env.PORT || 5001;
+  app.enableShutdownHooks();
+  app.setGlobalPrefix(configService.getOrThrow('app.apiPrefix', { infer: true }), {
+    exclude: ['/'],
+  });
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
+  app.useGlobalPipes(new ValidationPipe(validationOptions));
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
-		const app = await NestFactory.create(AppModule);
-		//
+  const options = new DocumentBuilder()
+    .setTitle('API')
+    .setDescription('API docs')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
 
-		// checking cors
-		app.enableCors({
-			credentials: true,
-			origin: [process.env.CLIENT_URL, process.env.LANDING_URL],
-		});
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('docs', app, document);
 
-		app.use(bodyParser.json({ limit: '10mb' }));
-		app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
-
-		app.setGlobalPrefix('/api');
-		app.use(cookieParser());
-		const config = new DocumentBuilder()
-			.setTitle('Teameights backend API')
-			.setDescription('REST API Documentation')
-			.setVersion('1.0.0')
-			.addTag('Teameights')
-			.build();
-
-		const document = SwaggerModule.createDocument(app, config);
-		SwaggerModule.setup('/api/docs', app, document);
-
-		const asyncApiOptions = new AsyncApiDocumentBuilder()
-			.setTitle('Teameights websockets description')
-			.setDescription(
-				'Here you will be able to find documentation for all websockets we use in our application',
-			)
-			.setVersion('1.0')
-			.setDefaultContentType('application/json')
-			// .addSecurity('user-password', { type: 'userPassword' })
-			.addServer('Main server', {
-				url: process.env.API_URL,
-				protocol: 'socket.io',
-			})
-			.build();
-
-		const asyncapiDocument = await AsyncApiModule.createDocument(
-			app,
-			asyncApiOptions,
-		);
-		await AsyncApiModule.setup('/async-api/docs', app, asyncapiDocument);
-
-		/*
-		For the future reference: if we need to globally close access to the application
-		(e.g. make it only for authorized users only):
-
-		app.useGlobalGuards(JwtAuthGuard)
-
-		Global pipes:
-		(e.g. validation on every endpoint)
-
-		app.useGlobalPipes(new ValidationPipe())
-		*/
-
-		await app.listen(PORT, () =>
-			console.log(
-				`Server started on port: ${PORT}, SWAGGER docs started at ${process.env.API_URL}/api/docs, ASYNC-API started at ${process.env.API_URL}/async-api/docs`,
-			),
-		);
-	} catch (err) {
-		console.log(err);
-	}
+  await app.listen(configService.getOrThrow('app.port', { infer: true }));
 }
-
-start();
+void bootstrap();

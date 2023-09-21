@@ -1,11 +1,5 @@
 {
   "singleQuote": true,
   "trailingComma": "all",
-  "semi": true,
-  "bracketSpacing": true,
-  "arrowParens": "avoid",
-  "endOfLine": "auto",
-  "tabWidth": 4,
-  "useTabs": true,
-  "parser": "typescript"
+  "endOfLine": "lf"
 }

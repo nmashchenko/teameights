@@ -1,350 +1,440 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectConnection } from '@nestjs/mongoose';
-import * as bcrypt from 'bcryptjs';
-import { OAuth2Client } from 'google-auth-library';
-import mongoose from 'mongoose';
-import * as uuid from 'uuid';
-
-import { MailsService } from '@/mails/mails.service';
-import { CreateTokenDto } from '@/tokens/dto/create-token.dto';
-import { TokensService } from '@/tokens/tokens.service';
-import { AuthUserDto } from '@/users/dto/auth-user.dto';
-import { RegisterUserDto } from '@/users/dto/register-user.dto';
-import { ResetUserDto } from '@/users/dto/reset-user.dto';
-import { UsersService } from '@/users/users.service';
-
-import { AuthResponseDto } from './dto/auth-response.dto';
-import { StatusResponseDto } from './dto/status-response.dto';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
+import ms from 'ms';
+import { JwtService } from '@nestjs/jwt';
+import { User } from '../users/entities/user.entity';
+import bcrypt from 'bcryptjs';
+import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
+import { AuthUpdateDto } from './dto/auth-update.dto';
+import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
+import { RoleEnum } from 'src/roles/roles.enum';
+import { StatusEnum } from 'src/statuses/statuses.enum';
+import crypto from 'crypto';
+import { plainToClass } from 'class-transformer';
+import { Status } from 'src/statuses/entities/status.entity';
+import { Role } from 'src/roles/entities/role.entity';
+import { AuthProvidersEnum } from './auth-providers.enum';
+import { SocialInterface } from 'src/social/interfaces/social.interface';
+import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
+import { UsersService } from 'src/users/users.service';
+import { ForgotService } from 'src/forgot/forgot.service';
+import { MailService } from 'src/mail/mail.service';
+import { NullableType } from '../utils/types/nullable.type';
+import { LoginResponseType } from './types/login-response.type';
+import { ConfigService } from '@nestjs/config';
+import { AllConfigType } from 'src/config/config.type';
+import { SessionService } from 'src/session/session.service';
+import { JwtRefreshPayloadType } from './strategies/types/jwt-refresh-payload.type';
+import { Session } from 'src/session/entities/session.entity';
+import { JwtPayloadType } from './strategies/types/jwt-payload.type';
 
 @Injectable()
 export class AuthService {
-	constructor(
-		private userService: UsersService,
-		private tokensService: TokensService,
-		private mailsService: MailsService,
-		@InjectConnection() private readonly connection: mongoose.Connection,
-	) {}
+  constructor(
+    private jwtService: JwtService,
+    private usersService: UsersService,
+    private forgotService: ForgotService,
+    private sessionService: SessionService,
+    private mailService: MailService,
+    private configService: ConfigService<AllConfigType>,
+  ) {}
 
-	/**
-	 * It creates a user, generates a token for it, sends an email with an activation link, and saves the
-	 * refresh token in the database
-	 * @param {CreateUserDto} dto - CreateUserDto - the data transfer object that contains the user's data.
-	 * @returns an object with the access token, refresh token and the user.
-	 */
-	async registration(
-		dto: RegisterUserDto,
-		oauth?: boolean,
-	): Promise<AuthResponseDto> {
-		const session = await this.connection.startSession();
-		session.startTransaction();
+  async validateLogin(loginDto: AuthEmailLoginDto, onlyAdmin: boolean): Promise<LoginResponseType> {
+    const user = await this.usersService.findOne({
+      email: loginDto.email,
+    });
 
-		try {
-			/* Checking if the user already exists. */
-			const candidate = await this.userService.getUserByEmail(
-				dto.email,
-				session,
-			);
-			if (candidate) {
-				throw new HttpException(
-					`User with this email: ${dto.email} already exists`,
-					HttpStatus.BAD_REQUEST,
-				);
-			}
+    if (
+      !user ||
+      (user?.role && !(onlyAdmin ? [RoleEnum.admin] : [RoleEnum.user]).includes(user.role.id))
+    ) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            email: 'notFound',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
 
-			/* Hashing the password. */
-			const hashPassword = await bcrypt.hash(dto.password, 5);
+    if (user.provider !== AuthProvidersEnum.email) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            email: `needLoginViaProvider:${user.provider}`,
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
 
-			/* Creating a user. */
-			const user = await this.userService.createUser(
-				{
-					...dto,
-					password: hashPassword,
-				},
-				session,
-				typeof oauth !== 'undefined' ? true : undefined,
-			);
+    const isValidPassword = await bcrypt.compare(loginDto.password, user.password);
 
-			/* Creating a new instance of the CreateTokenDto class. */
-			const userDto = new CreateTokenDto(user);
+    if (!isValidPassword) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            password: 'incorrectPassword',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
 
-			/* Generating a token for the user. */
-			const tokens = this.tokensService.generateToken({ ...userDto });
+    const session = await this.sessionService.create({
+      user,
+    });
 
-			/* Sending an email to the user with a link to activate the account. */
-			if (typeof oauth === 'undefined') {
-				await this.mailsService.sendActivationMail(
-					user,
-					`${process.env.API_URL}/api/auth/activate/${user.activationLink}`,
-				);
-			}
+    const { token, refreshToken, tokenExpires } = await this.getTokensData({
+      id: user.id,
+      role: user.role,
+      sessionId: session.id,
+    });
 
-			/* Saving the refresh token in the database. */
-			await this.tokensService.saveToken(user._id, tokens.refreshToken);
+    return {
+      refreshToken,
+      token,
+      tokenExpires,
+      user,
+    };
+  }
 
-			await session.commitTransaction();
-			return { ...tokens, user };
-		} catch (err) {
-			await session.abortTransaction();
-			throw err;
-		} finally {
-			session.endSession();
-		}
-	}
+  async validateSocialLogin(
+    authProvider: string,
+    socialData: SocialInterface,
+  ): Promise<LoginResponseType> {
+    let user: NullableType<User>;
+    const socialEmail = socialData.email?.toLowerCase();
 
-	/**
-	 * We're getting the user by the email, checking if the password is correct, generating a token for the
-	 * user, saving the refresh token in the database, and returning the access and refresh tokens, and the
-	 * user
-	 * @param {AuthUserDto} dto - AuthUserDto - the object that contains the user's email and password.
-	 * @returns { ...tokens, user }
-	 */
-	async login(dto: AuthUserDto): Promise<AuthResponseDto> {
-		const user = await this.userService.getUserByEmail(dto.email);
-		if (!user) {
-			throw new HttpException(
-				`User with this email: ${dto.email} doesn't exists`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
+    const userByEmail = await this.usersService.findOne({
+      email: socialEmail,
+    });
 
-		const isPassEquals = await bcrypt.compare(dto.password, user.password);
-		if (!isPassEquals) {
-			throw new HttpException(
-				`Password doesn't match. Try another one`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
+    user = await this.usersService.findOne({
+      socialId: socialData.id,
+      provider: authProvider,
+    });
 
-		/* Creating a new instance of the CreateTokenDto class. */
-		const userDto = new CreateTokenDto(user);
+    if (user) {
+      if (socialEmail && !userByEmail) {
+        user.email = socialEmail;
+      }
+      await this.usersService.update(user.id, user);
+    } else if (userByEmail) {
+      user = userByEmail;
+    } else {
+      const role = plainToClass(Role, {
+        id: RoleEnum.user,
+      });
+      const status = plainToClass(Status, {
+        id: StatusEnum.active,
+      });
 
-		/* Generating a token for the user. */
-		const tokens = this.tokensService.generateToken({ ...userDto });
+      user = await this.usersService.create({
+        email: socialEmail ?? null,
+        firstName: socialData.firstName ?? null,
+        lastName: socialData.lastName ?? null,
+        socialId: socialData.id,
+        provider: authProvider,
+        role,
+        status,
+      });
 
-		/* Saving the refresh token in the database. */
-		await this.tokensService.saveToken(user._id, tokens.refreshToken);
+      user = await this.usersService.findOne({
+        id: user.id,
+      });
+    }
 
-		return { ...tokens, user }; // return access&refresh tokens, and user
-	}
+    if (!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            user: 'userNotFound',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
 
-	/**
-	 * It verifies the token, gets the user by email, if the user doesn't exist, it creates a new user with
-	 * a random password, generates a token for the user, and saves the refresh token in the database
-	 * @param {string} token - The token that we get from the frontend.
-	 * @returns It returns the access and refresh tokens, and the user.
-	 */
-	async googleAuth(token: string): Promise<AuthResponseDto> {
-		try {
-			/* Creating a new instance of the OAuth2Client class. */
-			const client = new OAuth2Client(
-				process.env.GOOGLE_CLIENT_ID,
-				process.env.GOOGLE_CLIENT_SECRET,
-			);
+    const session = await this.sessionService.create({
+      user,
+    });
 
-			/* It verifies the token and returns the payload. */
-			const ticket = await client.verifyIdToken({
-				idToken: token,
-				audience: process.env.GOOGLE_CLIENT_ID,
-			});
+    const {
+      token: jwtToken,
+      refreshToken,
+      tokenExpires,
+    } = await this.getTokensData({
+      id: user.id,
+      role: user.role,
+      sessionId: session.id,
+    });
 
-			/* It returns the payload of the token. */
-			const payload = ticket.getPayload();
+    return {
+      refreshToken,
+      token: jwtToken,
+      tokenExpires,
+      user,
+    };
+  }
 
-			/* Getting the user by email. */
-			const user = await this.userService.getUserByEmail(payload.email);
+  async register(dto: AuthRegisterLoginDto): Promise<void> {
+    const hash = crypto.createHash('sha256').update(randomStringGenerator()).digest('hex');
 
-			/* If the user doesn't exist, it creates a new user with a random password. */
-			if (!user) {
-				const pass = uuid.v4();
+    await this.usersService.create({
+      ...dto,
+      email: dto.email,
+      role: {
+        id: RoleEnum.user,
+      } as Role,
+      status: {
+        id: StatusEnum.inactive,
+      } as Status,
+      hash,
+    });
 
-				const user = await this.registration(
-					{
-						email: payload.email,
-						password: pass,
-						repeatPassword: pass,
-					},
-					true,
-				);
-				return user;
-			}
+    await this.mailService.userSignUp({
+      to: dto.email,
+      data: {
+        hash,
+      },
+    });
+  }
 
-			/* Creating a new instance of the CreateTokenDto class. */
-			const userDto = new CreateTokenDto(user);
+  async confirmEmail(hash: string): Promise<void> {
+    const user = await this.usersService.findOne({
+      hash,
+    });
 
-			/* Generating a token for the user. */
-			const tokens = this.tokensService.generateToken({ ...userDto });
+    if (!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          error: `notFound`,
+        },
+        HttpStatus.NOT_FOUND,
+      );
+    }
 
-			/* Saving the refresh token in the database. */
-			await this.tokensService.saveToken(user._id, tokens.refreshToken);
+    user.hash = null;
+    user.status = plainToClass(Status, {
+      id: StatusEnum.active,
+    });
+    await user.save();
+  }
 
-			return { ...tokens, user }; // return access&refresh tokens, and user
-		} catch (err) {
-			throw new HttpException(
-				`Error during google sign in: ${err.message}`,
-				HttpStatus.INTERNAL_SERVER_ERROR,
-			);
-		}
-	}
+  async forgotPassword(email: string): Promise<void> {
+    const user = await this.usersService.findOne({
+      email,
+    });
 
-	/**
-	 * It's checking if the user & token exists, get new data about user if something changed since last
-	 * login, create userDto, get tokens, save refresh token into the database, and return access&refresh
-	 * tokens, and user
-	 * @param {string} refreshToken - string - the refresh token that was sent in the request
-	 * @returns { ...tokens, user }
-	 */
-	async refresh(refreshToken: string): Promise<AuthResponseDto> {
-		console.log(refreshToken);
-		if (!refreshToken) {
-			throw new HttpException(
-				`No refresh token was found in the request`,
-				HttpStatus.UNAUTHORIZED,
-			);
-		}
+    if (!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            email: 'emailNotExists',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
 
-		const userData = this.tokensService.validateToken(
-			refreshToken,
-			process.env.JWT_REFRESH_KEY,
-		);
-		const tokenFromDb = await this.tokensService.findToken(refreshToken);
+    const hash = crypto.createHash('sha256').update(randomStringGenerator()).digest('hex');
+    await this.forgotService.create({
+      hash,
+      user,
+    });
 
-		console.log(tokenFromDb);
+    await this.mailService.forgotPassword({
+      to: email,
+      data: {
+        hash,
+      },
+    });
+  }
 
-		/* It's checking if the user & token exists. */
-		if (!userData || !tokenFromDb) {
-			throw new HttpException(
-				`User or token was not found`,
-				HttpStatus.UNAUTHORIZED,
-			);
-		}
+  async resetPassword(hash: string, password: string): Promise<void> {
+    const forgot = await this.forgotService.findOne({
+      where: {
+        hash,
+      },
+    });
 
-		/* get new data about user if something changed since last login */
-		const user = await this.userService.getUserByEmail(userData.email);
+    if (!forgot) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            hash: `notFound`,
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
 
-		const userDto = new CreateTokenDto(user); // create userDto
-		const tokens = this.tokensService.generateToken({ ...userDto }); // get tokens
-		await this.tokensService.saveToken(userDto.id, tokens.refreshToken); // save refresh token into the database
-		return { ...tokens, user }; // return access&refresh tokens, and user
-	}
+    const user = forgot.user;
+    user.password = password;
 
-	/**
-	 * It's activating account of user when he clicks on email link
-	 * @param {string} activationLink - string - The activation link that was sent to the user's email.
-	 */
-	async activate(activationLink: string): Promise<void> {
-		const user = await this.userService.verifyActivationLink(
-			activationLink,
-		);
+    await this.sessionService.softDelete({
+      user: {
+        id: user.id,
+      },
+    });
+    await user.save();
+    await this.forgotService.softDelete(forgot.id);
+  }
 
-		/* It's checking if the user exists. */
-		if (!user) {
-			throw new HttpException(
-				`Incorrect activation link`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
-	}
+  async me(userJwtPayload: JwtPayloadType): Promise<NullableType<User>> {
+    return this.usersService.findOne({
+      id: userJwtPayload.id,
+    });
+  }
 
-	/**
-	 * It's checking if the refresh token was deleted from the database and logs out user
-	 * @param {string} refreshToken - string - the refresh token that was sent from the client.
-	 * @returns It's returning the status of the refresh token deletion.
-	 */
-	async logout(refreshToken: string): Promise<StatusResponseDto> {
-		const token = await this.tokensService.removeToken(refreshToken); // remove refresh token from DB if user logs out
+  async update(
+    userJwtPayload: JwtPayloadType,
+    userDto: AuthUpdateDto,
+  ): Promise<NullableType<User>> {
+    if (userDto.password) {
+      if (userDto.oldPassword) {
+        const currentUser = await this.usersService.findOne({
+          id: userJwtPayload.id,
+        });
 
-		/* It's checking if the refresh token was deleted from the database. */
-		if (token?.deletedCount > 0) {
-			return { status: 'Deleted refresh token!' };
-		} else {
-			throw new HttpException(
-				`Nothing was deleted, check if user has refresh token in cookies`,
-				HttpStatus.INTERNAL_SERVER_ERROR,
-			);
-		}
-	}
+        if (!currentUser) {
+          throw new HttpException(
+            {
+              status: HttpStatus.UNPROCESSABLE_ENTITY,
+              errors: {
+                user: 'userNotFound',
+              },
+            },
+            HttpStatus.UNPROCESSABLE_ENTITY,
+          );
+        }
 
-	/**
-	 * It takes an email as an argument, finds the user with that email, generates a reset token, and sends
-	 * an email with a link to reset the password
-	 * @param {string} email - The email of the user who wants to reset their password.
-	 * @returns return { status: 'reset email successfuly sent' };
-	 */
-	async resetPassword(
-		email: string,
-		ip: ParameterDecorator,
-	): Promise<StatusResponseDto> {
-		const user = await this.userService.getUserByEmail(email);
+        const isValidOldPassword = await bcrypt.compare(userDto.oldPassword, currentUser.password);
 
-		if (!user) {
-			throw new HttpException(
-				`User with this email: ${email} not found`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
-		const userDto = new CreateTokenDto(user);
+        if (!isValidOldPassword) {
+          throw new HttpException(
+            {
+              status: HttpStatus.UNPROCESSABLE_ENTITY,
+              errors: {
+                oldPassword: 'incorrectOldPassword',
+              },
+            },
+            HttpStatus.UNPROCESSABLE_ENTITY,
+          );
+        } else {
+          await this.sessionService.softDelete({
+            user: {
+              id: currentUser.id,
+            },
+            excludeId: userJwtPayload.sessionId,
+          });
+        }
+      } else {
+        throw new HttpException(
+          {
+            status: HttpStatus.UNPROCESSABLE_ENTITY,
+            errors: {
+              oldPassword: 'missingOldPassword',
+            },
+          },
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
+      }
+    }
 
-		const token = this.tokensService.generateResetToken({ ...userDto });
+    await this.usersService.update(userJwtPayload.id, userDto);
 
-		await this.mailsService.sendResetEmail(
-			user,
-			`${process.env.API_URL}/api/auth/verify-reset/${userDto.email}/${token}`,
-			ip,
-		); // send activation email
+    return this.usersService.findOne({
+      id: userJwtPayload.id,
+    });
+  }
 
-		return { status: 'Reset email successfuly sent' };
-	}
+  async refreshToken(
+    data: Pick<JwtRefreshPayloadType, 'sessionId'>,
+  ): Promise<Omit<LoginResponseType, 'user'>> {
+    const session = await this.sessionService.findOne({
+      where: {
+        id: data.sessionId,
+      },
+    });
 
-	/**
-	 * It verifies that the user exists and that the token is valid
-	 * @param {string} email - The email of the user who requested the password reset.
-	 * @param {string} token - The token that was sent to the user's email.
-	 */
-	async verifyReset(email: string, token: string): Promise<any> {
-		const user = await this.userService.getUserByEmail(email);
+    if (!session) {
+      throw new UnauthorizedException();
+    }
 
-		if (!user) {
-			throw new HttpException(
-				`User with this email: ${email} not found`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
+    const { token, refreshToken, tokenExpires } = await this.getTokensData({
+      id: session.user.id,
+      role: session.user.role,
+      sessionId: session.id,
+    });
 
-		/* It's checking if the token is valid and throws error if not */
-		const validation = this.tokensService.validateToken(
-			token,
-			process.env.JWT_SECURE_KEY,
-		);
-		if (!validation) {
-			throw new HttpException(`Jwt token expired`, HttpStatus.FORBIDDEN);
-		}
-	}
+    return {
+      token,
+      refreshToken,
+      tokenExpires,
+    };
+  }
 
-	/**
-	 * It takes a ResetUserDto object, finds the user by email, validates the token, hashes the password,
-	 * and updates the user's password
-	 * @param {ResetUserDto} dto - ResetUserDto - this is the data transfer object that we will use to send
-	 * the data to the server.
-	 */
-	async updatePassword(dto: ResetUserDto): Promise<void> {
-		const user = await this.userService.getUserByEmail(dto.email);
+  async softDelete(user: User): Promise<void> {
+    await this.usersService.softDelete(user.id);
+  }
 
-		if (!user) {
-			throw new HttpException(
-				`User with this email: ${dto.email} not found`,
-				HttpStatus.BAD_REQUEST,
-			);
-		}
+  async logout(data: Pick<JwtRefreshPayloadType, 'sessionId'>) {
+    return this.sessionService.softDelete({
+      id: data.sessionId,
+    });
+  }
 
-		const validation = this.tokensService.validateToken(
-			dto.token,
-			process.env.JWT_SECURE_KEY,
-		);
-		if (!validation) {
-			throw new HttpException(`Jwt token expired`, HttpStatus.FORBIDDEN);
-		}
+  private async getTokensData(data: {
+    id: User['id'];
+    role: User['role'];
+    sessionId: Session['id'];
+  }) {
+    const tokenExpiresIn = this.configService.getOrThrow('auth.expires', {
+      infer: true,
+    });
 
-		const hashPassword = await bcrypt.hash(dto.password, 3); // hash password
-		await this.userService.updateUserPassword(hashPassword, dto.email);
-	}
+    const tokenExpires = Date.now() + ms(tokenExpiresIn);
+
+    const [token, refreshToken] = await Promise.all([
+      await this.jwtService.signAsync(
+        {
+          id: data.id,
+          role: data.role,
+          sessionId: data.sessionId,
+        },
+        {
+          secret: this.configService.getOrThrow('auth.secret', { infer: true }),
+          expiresIn: tokenExpiresIn,
+        },
+      ),
+      await this.jwtService.signAsync(
+        {
+          sessionId: data.sessionId,
+        },
+        {
+          secret: this.configService.getOrThrow('auth.refreshSecret', {
+            infer: true,
+          }),
+          expiresIn: this.configService.getOrThrow('auth.refreshExpires', {
+            infer: true,
+          }),
+        },
+      ),
+    ]);
+
+    return {
+      token,
+      refreshToken,
+      tokenExpires,
+    };
+  }
 }
