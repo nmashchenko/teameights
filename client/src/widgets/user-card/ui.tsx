@@ -8,6 +8,8 @@ interface UserCardProps {
 }
 
 export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardProps) => {
+  const programmingLanguagesAmount = programmingLanguages.length;
+
   return (
     <div className={styles.container}>
       {/* <img
@@ -36,13 +38,11 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
           >
             <img style={{ width: 70, height: 70, borderRadius: 5 }} src={image} />
             <div className={styles.languagesContainer}>
-              {programmingLanguages.map((item, id) => {
-                return (
-                  <div className={styles.language} key={id}>
-                    <BadgeLanguage data={item} />
-                  </div>
-                );
-              })}
+              {programmingLanguages
+                .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 2)
+                .map((item, id) => {
+                  return <BadgeLanguage data={item} key={id} />;
+                })}
             </div>
           </div>
           <div
@@ -52,7 +52,6 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
               flexDirection: 'column',
               justifyContent: 'flex-start',
               alignItems: 'flex-start',
-              gap: 4,
               display: 'flex'
             }}
           >
@@ -92,10 +91,8 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
           </div>
         </div>
 
-        <div className={styles.frameworksContainer} style={{}}>
+        <div className={styles.frameworksContainer}>
           {frameworks.map((item, id) => {
-            console.log(item);
-
             return (
               <div className={styles.framework} key={id}>
                 <BadgeFramework data={item} />

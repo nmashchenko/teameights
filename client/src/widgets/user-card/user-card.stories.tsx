@@ -17,7 +17,7 @@ export const UserCard_default = () => {
     <UserCard
       image='https://via.placeholder.com/70x70'
       programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
-      frameworks={['NodeJS', 'React']}
+      frameworks={['NodeJS', 'React', 'MUI', 'Spring']}
     />
   );
 };
