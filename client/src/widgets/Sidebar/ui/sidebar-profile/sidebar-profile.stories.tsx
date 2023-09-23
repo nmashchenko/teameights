@@ -42,14 +42,30 @@ InactiveUserProfile.args = {
 export const UnregisteredUserProfile = { ...SidebarProfileTemplate };
 UnregisteredUserProfile.args = {
   ...sidebarProfileProps,
-  user: undefined,
+  user: {
+    _id: '650544eead52282dbf4397aa',
+    email: 'johnDoe@example.com',
+    password: '$2a$05$7AnHdyBKd7kh78kkSt4OIOaBAidnedL3Sr6ZfFOKG5xcVatrPT4kq',
+    isRegistered: false,
+    fullName: 'Unknown',
+    username: 'unknown@email.com',
+    image: '/images/user/unregistered.png',
+  },
 };
 
 // Active Unregistered User Profile
 export const ActiveUnregisteredUserProfile = { ...SidebarProfileTemplate };
 ActiveUnregisteredUserProfile.args = {
   ...sidebarProfileProps,
-  user: undefined,
+  user: {
+    _id: '650544eead52282dbf4397aa',
+    email: 'johnDoe@example.com',
+    password: '$2a$05$7AnHdyBKd7kh78kkSt4OIOaBAidnedL3Sr6ZfFOKG5xcVatrPT4kq',
+    isRegistered: false,
+    fullName: 'Unknown',
+    username: 'unknown@email.com',
+    image: '/images/user/unregistered.png',
+  },
   active: true,
 };
 
