@@ -23,11 +23,40 @@ interface UserData {
   userImg: string;
 }
 
-interface SidebarProfileProps {
+export interface SidebarProfileProps {
+  /**
+   * Determines the visual state of the user's real name and username. If true, they are highlighted.
+   */
   active: boolean;
+  /**
+   * The user object containing user information.
+   */
   user: User;
 }
 
+/**
+ * The SidebarProfile component displays the user's profile information in the sidebar.
+ * It shows the user's image, real name, and username. If the user is not registered, default data is shown.
+ *
+ * Example of usage:
+ *
+ * ```tsx
+ * import { SidebarProfile } from './SidebarProfile';
+ * import { User } from 'entities/user';
+ *
+ * const user = new User({
+ *   isRegistered: true,
+ *   fullName: 'John Doe',
+ *   username: 'john.doe',
+ *   image: '/images/user/john.png'
+ * });
+ *
+ * <SidebarProfile
+ *   active={true}
+ *   user={user}
+ * />
+ * ```
+ */
 export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
   const { user, active } = props;
   // const { data: user } = useCheckAuth();
