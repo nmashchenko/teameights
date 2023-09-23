@@ -39,6 +39,51 @@ export const mockUser: User = {
       updatedAt: '2023-09-16T06:03:54.737Z',
       __v: 0,
     },
+    {
+      _id: '650544eead52282dbf4397aa',
+      system_message: 'Welcome to teameights! We hope you will enjoy our platform. ',
+      // @ts-ignore
+      user: '650544eead52282dbf4397a8',
+      type: 'SystemNotification',
+      read: false,
+      // @ts-ignore
+      expiresAt: '2023-09-23T06:02:22.125Z',
+      // @ts-ignore
+      createdAt: '2023-09-16T06:02:22.126Z',
+      // @ts-ignore
+      updatedAt: '2023-09-16T06:03:54.737Z',
+      __v: 0,
+    },
+    {
+      _id: '650544eead52282dbf4397aa',
+      system_message: 'Welcome to teameights! We hope you will enjoy our platform. ',
+      // @ts-ignore
+      user: '650544eead52282dbf4397a8',
+      type: 'SystemNotification',
+      read: false,
+      // @ts-ignore
+      expiresAt: '2023-09-23T06:02:22.125Z',
+      // @ts-ignore
+      createdAt: '2023-09-16T06:02:22.126Z',
+      // @ts-ignore
+      updatedAt: '2023-09-16T06:03:54.737Z',
+      __v: 0,
+    },
+    {
+      _id: '650544eead52282dbf4397aa',
+      system_message: 'Welcome to teameights! We hope you will enjoy our platform. ',
+      // @ts-ignore
+      user: '650544eead52282dbf4397a8',
+      type: 'SystemNotification',
+      read: false,
+      // @ts-ignore
+      expiresAt: '2023-09-23T06:02:22.125Z',
+      // @ts-ignore
+      createdAt: '2023-09-16T06:02:22.126Z',
+      // @ts-ignore
+      updatedAt: '2023-09-16T06:03:54.737Z',
+      __v: 0,
+    },
   ],
   universityData: [
     {

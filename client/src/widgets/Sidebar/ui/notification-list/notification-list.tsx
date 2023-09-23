@@ -1,7 +1,10 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+
+import { Notifications } from 'entities/notification';
+
 import styles from './notification-list.module.scss';
 import { NotificationsItem } from '../notification-item/notification-item';
-import { Notifications } from 'entities/notification';
+import { sortNotifications } from './lib/sort-notifications';
 
 interface NotificationsListProps {
   userNotifications: Notifications[];
@@ -9,19 +12,18 @@ interface NotificationsListProps {
   closeNotificationsModal: () => void;
 }
 
-const SidebarNotificationsList: FC<NotificationsListProps> = ({
-  userNotifications,
-  setUnreadIds,
-  closeNotificationsModal,
-}) => {
+export const SidebarNotificationsList: React.FC<NotificationsListProps> = props => {
+  const { userNotifications, setUnreadIds, closeNotificationsModal } = props;
+
   const listRef = useRef<HTMLUListElement>(null);
 
-  const sortedNotifications = [...userNotifications].sort(
-    (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+  const sortedNotifications = React.useMemo(
+    () => sortNotifications(userNotifications),
+    [userNotifications]
   );
 
-  useEffect(() => {
-    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+  const handleIntersection = React.useCallback(
+    (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const itemId = entry.target.getAttribute('data-notification-id');
@@ -32,18 +34,19 @@ const SidebarNotificationsList: FC<NotificationsListProps> = ({
           }
         }
       });
-    };
+    },
+    [setUnreadIds]
+  );
 
+  React.useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection);
-
     const listItems = listRef.current?.querySelectorAll('[data-notification-read]');
-
     listItems?.forEach(item => observer.observe(item));
 
     return () => {
       observer.disconnect();
     };
-  }, [setUnreadIds, userNotifications]);
+  }, [handleIntersection]);
 
   return (
     <ul className={styles.notificationsList} ref={listRef}>
@@ -51,14 +54,9 @@ const SidebarNotificationsList: FC<NotificationsListProps> = ({
         <NotificationsItem
           key={notification._id}
           closeNotificationsModal={closeNotificationsModal}
-          /* TODO: FIX MEEEEEE!!!!!!!!! */
-          /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           notification={notification}
         />
       ))}
     </ul>
   );
 };
-
-export default SidebarNotificationsList;

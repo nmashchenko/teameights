@@ -1,10 +1,9 @@
-.styledNotificationsList {
+.notificationsList {
   margin: 0;
   padding: 0;
-  border-bottom: 1px solid #2f3239;
   list-style: none;
   max-height: calc(100% - 62px);
-  overflow-y: scroll;
+  overflow-y: auto;
   scrollbar-width: none; // Firefox
   -ms-overflow-style: none; // Internet Explorer 10+
 

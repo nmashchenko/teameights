@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { IconWrapper } from 'shared/ui';
 import { SidebarChecksIcon, SidebarNotificationClose } from 'shared/assets';
 
-import SidebarNotificationsList from '../notification-list/notification-list';
+import { SidebarNotificationsList } from '../notification-list/notification-list';
 import { NotificationsModalProps } from './notification-modal';
 
 import styles from './notification-modal.module.scss';
@@ -39,7 +39,7 @@ export const DesktopModalContent: React.FC<DesktopModalContentProps> = props => 
           <p>Mark all as read</p>
         </div>
         <div className={styles.crossBtn} onClick={closeNotificationsModal}>
-          <SidebarNotificationClose />
+          <SidebarNotificationClose width={20} height={20} />
         </div>
       </div>
       <SidebarNotificationsList
