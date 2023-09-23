@@ -5,7 +5,7 @@ import sidebarStyles from '../Sidebar/Sidebar.module.scss';
 import { IconWrapper } from 'shared/ui';
 import { SidebarNotificationIcon } from 'shared/assets';
 import clsx from 'clsx';
-import NotificationsModal from 'widgets/Sidebar/ui/notification-modal/notification-modal';
+import { NotificationsModal } from 'widgets/Sidebar/ui/notification-modal/notification-modal';
 import { SidebarNotificationsCount } from 'widgets/Sidebar/ui/notification-content/notifications-count';
 import { Notifications } from 'entities/notification';
 
