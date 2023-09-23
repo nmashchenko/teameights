@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/nextjs';
 import path from 'path';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
@@ -25,7 +25,7 @@ const config: StorybookConfig = {
     },
   },
   docs: {
-    autodocs: 'tag',
+    autodocs: true,
   },
   core: {
     builder: '@storybook/builder-webpack5',
