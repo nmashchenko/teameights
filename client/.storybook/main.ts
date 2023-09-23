@@ -31,10 +31,16 @@ const config: StorybookConfig = {
     builder: '@storybook/builder-webpack5',
   },
   webpackFinal: async config => {
-    if (!config.resolve?.modules) return config;
-
-    config.resolve.modules.push(path.resolve(__dirname, '../src'));
-    return config;
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve?.alias,
+          '@': path.resolve(__dirname, '../src'),
+        },
+      },
+    };
   },
 };
 export default config;

@@ -1,5 +1,5 @@
-import { Email } from 'shared/assets';
-import { Button, Typography } from 'shared/ui';
+import { Email } from '@/shared/assets';
+import { Button, Typography } from '@/shared/ui';
 import styles from './illustration.module.scss';
 import { FC } from 'react';
 

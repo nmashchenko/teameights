@@ -1,7 +1,7 @@
 'use client';
 
 import { forwardRef, ForwardRefRenderFunction, useState } from 'react';
-import { Eye, EyeClosed } from 'shared/assets';
+import { Eye, EyeClosed } from '@/shared/assets';
 import { Input, InputProps } from '../input/input';
 
 /**

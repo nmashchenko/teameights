@@ -1,5 +1,5 @@
-import { MultiValueRemoveProps, components } from 'react-select';
-import { X } from 'shared/assets';
+import { components, MultiValueRemoveProps } from 'react-select';
+import { X } from '@/shared/assets';
 
 export const MultiValueRemove = (props: MultiValueRemoveProps) => {
   return (

@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { languageOptions } from 'shared/constant';
+import { languageOptions } from '@/shared/constant';
 import { BadgeLanguage } from './badge-language';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction

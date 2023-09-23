@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { FC } from 'react';
-import { languageOptions } from 'shared/constant';
+import { languageOptions } from '@/shared/constant';
 import styles from './badge-language.module.scss';
 
 /**

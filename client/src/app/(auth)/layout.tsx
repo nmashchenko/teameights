@@ -3,8 +3,8 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
-import { ArrowLeft, LogoBig } from 'shared/assets';
-import { Button, Tabs } from 'shared/ui';
+import { ArrowLeft, LogoBig } from '@/shared/assets';
+import { Button, Tabs } from '@/shared/ui';
 import styles from './styles.module.scss';
 
 export default function AuthLayout({ children }: { children: ReactNode }) {

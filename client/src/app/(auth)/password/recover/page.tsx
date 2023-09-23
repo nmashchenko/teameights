@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ArrowLeft } from 'shared/assets';
-import { Button, Input, Typography } from 'shared/ui';
+import { ArrowLeft } from '@/shared/assets';
+import { Button, Input, Typography } from '@/shared/ui';
 import styles from '../shared.module.scss';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';

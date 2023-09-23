@@ -2,9 +2,9 @@
 import Link from 'next/link';
 import { RefObject, useState } from 'react';
 import { Tooltip } from 'react-tooltip';
-import { ArrowLeft, Planet, LogoBig, Question } from 'shared/assets';
-import { AmongUs, useClickOutside } from 'shared/lib';
-import { Button, Typography } from 'shared/ui';
+import { ArrowLeft, LogoBig, Planet, Question } from '@/shared/assets';
+import { AmongUs, useClickOutside } from '@/shared/lib';
+import { Button, Typography } from '@/shared/ui';
 import styles from './styles/not-found.module.scss';
 
 /** Used to open email */
