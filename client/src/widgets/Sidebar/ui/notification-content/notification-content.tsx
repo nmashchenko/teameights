@@ -8,7 +8,7 @@ import { Notification } from 'entities/notification';
 import { SidebarNotificationsModal } from '../notification-modal/notification-modal';
 import { SidebarNotificationsCount } from './notifications-count';
 
-import sidebarStyles from '../Sidebar/Sidebar.module.scss';
+import sidebarStyles from 'widgets/Sidebar/ui/sidebar/sidebar.module.scss';
 import styles from './notification-content.module.scss';
 
 interface NotificationContentProps {

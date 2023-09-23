@@ -15,7 +15,7 @@ import { SidebarItem } from '../sidebar-item/sidebar-item';
 import { SidebarProfile } from '../sidebar-profile/sidebar-profile';
 import { SidebarNotificationsContent } from '../notification-content/notification-content';
 
-import styles from './Sidebar.module.scss';
+import styles from './sidebar.module.scss';
 
 export const Sidebar: React.FC = () => {
   const router = useRouter();
