@@ -1,9 +1,11 @@
-import { FlexWrapper } from 'shared/ui';
-import styles from 'widgets/Sidebar/ui/notification-item/notification-item.module.scss';
-import Image from 'next/image';
-import { getPastTime } from 'shared/lib';
 import React from 'react';
+import Image from 'next/image';
+
+import { FlexWrapper } from 'shared/ui';
+import { getPastTime } from 'shared/lib';
 import { TeamInvitationNotification } from 'entities/notification';
+
+import styles from './notification-item.module.scss';
 
 interface TeamInvatitionNotificationProps {
   notification: TeamInvitationNotification;
@@ -11,7 +13,9 @@ interface TeamInvatitionNotificationProps {
   handleReject: () => void;
 }
 
-export const TeamInvatitionNotification: React.FC<TeamInvatitionNotificationProps> = props => {
+export const SidebarTeamInvatitionNotification: React.FC<
+  TeamInvatitionNotificationProps
+> = props => {
   const { notification, handleReject, handleAccept } = props;
   return (
     <>

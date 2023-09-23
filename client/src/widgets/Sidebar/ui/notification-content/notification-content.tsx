@@ -5,7 +5,7 @@ import { IconWrapper } from 'shared/ui';
 import { SidebarNotificationIcon } from 'shared/assets';
 import { Notification } from 'entities/notification';
 
-import { NotificationsModal } from '../notification-modal/notification-modal';
+import { SidebarNotificationsModal } from '../notification-modal/notification-modal';
 import { SidebarNotificationsCount } from './notifications-count';
 
 import sidebarStyles from '../Sidebar/Sidebar.module.scss';
@@ -53,7 +53,7 @@ export const SidebarNotificationsContent: React.FC<NotificationContentProps> = p
           </SidebarNotificationsCount>
         )}
       </div>
-      <NotificationsModal
+      <SidebarNotificationsModal
         userNotifications={userNotifications ? userNotifications : []}
         notificationModal={notificationModal}
         setNotificationModal={setNotificationModal}

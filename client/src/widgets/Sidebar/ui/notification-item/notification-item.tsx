@@ -7,17 +7,17 @@ import { Loader } from 'shared/ui';
 
 import { Notification } from 'entities/notification';
 
-import { TeamInvatitionNotification } from './team-invatition-notification';
+import { SidebarTeamInvatitionNotification } from './team-invatition-notification';
+import { SidebarSystemNotification } from './system-notification';
 
 import styles from './notification-item.module.scss';
-import { SystemNotification } from 'widgets/Sidebar/ui/notification-item/system-notification';
 
 interface NotificationProps {
   notification: Notification;
   closeNotificationsModal: () => void;
 }
 
-export const NotificationsItem: React.FC<NotificationProps> = props => {
+export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
   const { notification, closeNotificationsModal } = props;
 
   const isHandlingInvite = false;
@@ -40,10 +40,10 @@ export const NotificationsItem: React.FC<NotificationProps> = props => {
   const renderContent = () => {
     switch (notification.type) {
       case 'SystemNotification':
-        return <SystemNotification notification={notification} />;
+        return <SidebarSystemNotification notification={notification} />;
       case 'TeamInvitationNotification':
         return (
-          <TeamInvatitionNotification
+          <SidebarTeamInvatitionNotification
             notification={notification}
             handleAccept={handleAccept}
             handleReject={handleReject}

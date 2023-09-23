@@ -4,8 +4,8 @@ import { createPortal } from 'react-dom';
 import { useClickOutside, useGetScreenWidth } from 'shared/lib';
 import { Notification } from 'entities/notification';
 
-import { DesktopModalContent } from './desktop-modal-content';
-import { MobileModalContent } from './mobile-modal-content';
+import { SidebarDesktopModalContent } from './desktop-modal-content';
+import { SidebarMobileModalContent } from './mobile-modal-content';
 
 export interface NotificationsModalProps {
   userNotifications: Notification[];
@@ -13,7 +13,7 @@ export interface NotificationsModalProps {
   setNotificationModal: (value: boolean) => void;
 }
 
-export const NotificationsModal: React.FC<NotificationsModalProps> = props => {
+export const SidebarNotificationsModal: React.FC<NotificationsModalProps> = props => {
   const { userNotifications, notificationModal, setNotificationModal } = props;
 
   const [unreadIds, setUnreadIds] = useState(new Set<string>());
@@ -45,7 +45,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = props => {
   return (
     <>
       {width > 670 ? (
-        <DesktopModalContent
+        <SidebarDesktopModalContent
           userNotifications={userNotifications}
           notificationModal={notificationModal}
           notificationModalRef={notificationModalRef}
@@ -56,7 +56,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = props => {
       ) : (
         isClient &&
         createPortal(
-          <MobileModalContent
+          <SidebarMobileModalContent
             userNotifications={userNotifications}
             notificationModal={notificationModal}
             closeNotificationsModal={closeNotificationsModal}

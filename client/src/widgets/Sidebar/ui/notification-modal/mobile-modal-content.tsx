@@ -15,7 +15,7 @@ interface MobileModalContentProps extends Omit<NotificationsModalProps, 'setNoti
   setUnreadIds: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
-export const MobileModalContent: React.FC<MobileModalContentProps> = props => {
+export const SidebarMobileModalContent: React.FC<MobileModalContentProps> = props => {
   const {
     notificationModal,
     userNotifications,

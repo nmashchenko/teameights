@@ -1,15 +1,17 @@
+import React from 'react';
+
 import { FlexWrapper } from 'shared/ui';
-import styles from 'widgets/Sidebar/ui/notification-item/notification-item.module.scss';
 import { SidebarLightningIcon } from 'shared/assets';
 import { getPastTime } from 'shared/lib';
-import React from 'react';
-import { SystemNotification as SystemNotificationType } from 'entities/notification';
+import { SystemNotification } from 'entities/notification';
+
+import styles from './notification-item.module.scss';
 
 interface SystemNotificationProps {
-  notification: SystemNotificationType;
+  notification: SystemNotification;
 }
 
-export const SystemNotification: React.FC<SystemNotificationProps> = props => {
+export const SidebarSystemNotification: React.FC<SystemNotificationProps> = props => {
   const { notification } = props;
   return (
     <>

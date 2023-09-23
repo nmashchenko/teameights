@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { Notification } from 'entities/notification';
 
 import styles from './notification-list.module.scss';
-import { NotificationsItem } from '../notification-item/notification-item';
+import { SidebarNotificationsItem } from '../notification-item/notification-item';
 import { sortNotifications } from './lib/sort-notifications';
 
 interface NotificationsListProps {
@@ -51,7 +51,7 @@ export const SidebarNotificationsList: React.FC<NotificationsListProps> = props 
   return (
     <ul className={styles.notificationsList} ref={listRef}>
       {sortedNotifications.map(notification => (
-        <NotificationsItem
+        <SidebarNotificationsItem
           key={notification._id}
           closeNotificationsModal={closeNotificationsModal}
           notification={notification}

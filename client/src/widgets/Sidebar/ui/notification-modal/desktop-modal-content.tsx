@@ -16,7 +16,7 @@ interface DesktopModalContentProps extends Omit<NotificationsModalProps, 'setNot
   setUnreadIds: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
-export const DesktopModalContent: React.FC<DesktopModalContentProps> = props => {
+export const SidebarDesktopModalContent: React.FC<DesktopModalContentProps> = props => {
   const {
     notificationModal,
     notificationModalRef,
