@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import styles from './Sidebar.module.scss';
 import { usePathname, useRouter } from 'next/navigation';
 import { SidebarProfile } from 'widgets/Sidebar/ui/sidebar-profile/sidebar-profile';
-import { SidebarItem } from 'widgets/Sidebar/ui/SidebarItem/SidebarItem';
+import { SidebarItem } from 'widgets/Sidebar/ui/sidebar-item/sidebar-item';
 import { IconWrapper } from 'shared/ui';
 import {
   SidebarCloseIcon,

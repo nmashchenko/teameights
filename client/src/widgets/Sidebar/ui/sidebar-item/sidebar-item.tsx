@@ -2,7 +2,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import React from 'react';
 
-import styles from './SidebarItem.module.scss';
+import styles from './sidebar-item.module.scss';
 
 interface SidebarItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   active: boolean;
