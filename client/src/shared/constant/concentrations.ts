@@ -72,5 +72,3 @@ export const concentrations = [
     value: 'other',
   },
 ];
-
-export default concentrations;

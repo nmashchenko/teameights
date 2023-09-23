@@ -1,13 +1,13 @@
 import type { Meta } from '@storybook/react';
 import { useState } from 'react';
-import { TextArea } from './ui';
+import { TextArea } from './textarea';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof TextArea> = {
   title: 'shared/Fields/TextArea',
   component: TextArea,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;
@@ -21,7 +21,7 @@ export const TextArea_default = () => {
         display: 'flex',
         flexDirection: 'column',
         gap: 30,
-        width: '400px'
+        width: '400px',
       }}
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -31,7 +31,7 @@ export const TextArea_default = () => {
           label='Description'
           counterPosition='top'
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={e => setValue(e.target.value)}
         />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -42,7 +42,7 @@ export const TextArea_default = () => {
           label='Description'
           counterPosition='bottom'
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={e => setValue(e.target.value)}
         />
       </div>
     </div>

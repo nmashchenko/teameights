@@ -29,7 +29,7 @@ There are usually placed:
 
 ### Using the Entity Model
 
-```tsx title=**/**/index.tsx
+```tsx title=**/**/index.ts
 import { viewerModel } from "entities/viewer";
 
 export const Wallet = () => {
@@ -47,7 +47,7 @@ export { BookCard, ... } from "./ui";
 export * as bookModel from "./model";
 ```
 
-```tsx title=pages/**/index.tsx
+```tsx title=pages/**/index.ts
 import { BookCard } from "entities/book";
 
 export const CatalogPage = () => {

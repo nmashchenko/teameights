@@ -4,15 +4,15 @@ const _colors = {
   grey: {
     normal: '#8f9094',
     dark: '#2f3239',
-    medium: '#434752'
+    medium: '#434752',
   },
   green: {
     bright: '#5bd424',
     dark: '#064006',
-    active: '#1c8111'
+    active: '#1c8111',
   },
   white: '#fff',
-  red: '#d42422'
+  red: '#d42422',
 };
 
 const getFocusAndActiveStyles = (isBorderDisabled?: boolean) => ({
@@ -22,7 +22,7 @@ const getFocusAndActiveStyles = (isBorderDisabled?: boolean) => ({
 const _checkboxOption = <
   OptionType,
   IsMultiType extends boolean = false,
-  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>
+  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
 >(
   styles: CSSObjectWithLabel,
   { isFocused, isSelected }: OptionProps<OptionType, IsMultiType, GroupType>
@@ -36,14 +36,14 @@ const _checkboxOption = <
   gap: '10px',
 
   ':active': {
-    background: 'transparent'
-  }
+    background: 'transparent',
+  },
 });
 
 const _regularOption = <
   OptionType,
   IsMultiType extends boolean = false,
-  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>
+  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
 >(
   styles: CSSObjectWithLabel,
   { isFocused, isSelected }: OptionProps<OptionType, IsMultiType, GroupType>
@@ -54,20 +54,20 @@ const _regularOption = <
     isFocused && !isSelected ? _colors.green.dark : isSelected ? _colors.green.active : undefined,
 
   ':active': {
-    background: _colors.green.dark
-  }
+    background: _colors.green.dark,
+  },
 });
 
 export const selectStyles = <
   OptionType,
   IsMultiType extends boolean = false,
-  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>
+  GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
 >(
   isCheckbox = false,
   isBorderDisabled = false
 ): StylesConfig<OptionType, IsMultiType, GroupType> => {
   return {
-    control: (styles) => ({
+    control: styles => ({
       ...styles,
       outline: 'none',
       border: 'none',
@@ -86,47 +86,47 @@ export const selectStyles = <
       ':focus-within': { ...getFocusAndActiveStyles(isBorderDisabled) },
       caretColor: _colors.green.bright
     }),
-    dropdownIndicator: (styles) => ({
+    dropdownIndicator: styles => ({
       ...styles,
       padding: 0,
-      cursor: 'pointer'
+      cursor: 'pointer',
     }),
-    valueContainer: (styles) => ({
+    valueContainer: styles => ({
       ...styles,
       padding: 0,
-      margin: 0
+      margin: 0,
     }),
-    singleValue: (styles) => ({
+    singleValue: styles => ({
       ...styles,
       color: _colors.white,
       padding: 0,
-      margin: 0
+      margin: 0,
     }),
-    input: (styles) => ({
+    input: styles => ({
       ...styles,
       color: _colors.white,
       padding: 0,
-      margin: 0
+      margin: 0,
     }),
     menu: () => ({
       padding: 0,
       margin: 0,
       background: 'transparent',
       paddingTop: '8px',
-      maxHeight: '300px'
+      maxHeight: '300px',
     }),
-    menuList: (styles) => ({
+    menuList: styles => ({
       ...styles,
       padding: 0,
       margin: 0,
       borderRadius: '5px',
       overflowY: 'auto',
       boxShadow: '0 4px 24px 0 rgb(17 20 27 / 25%)',
-      background: _colors.grey.dark
+      background: _colors.grey.dark,
     }),
     option: (styles, props) =>
       isCheckbox ? _checkboxOption(styles, props) : _regularOption(styles, props),
-    multiValue: (styles) => ({
+    multiValue: styles => ({
       ...styles,
       cursor: 'pointer',
       borderRadius: '5px',
@@ -134,22 +134,22 @@ export const selectStyles = <
       display: 'flex',
       background: _colors.grey.dark,
       ':hover': {
-        background: _colors.grey.medium
-      }
+        background: _colors.grey.medium,
+      },
     }),
-    multiValueLabel: (styles) => ({
+    multiValueLabel: styles => ({
       ...styles,
       color: _colors.white,
-      fontSize: '100%'
+      fontSize: '100%',
     }),
-    multiValueRemove: (styles) => ({
+    multiValueRemove: styles => ({
       ...styles,
       background: 'none',
       ':hover': {
         svg: {
-          fill: _colors.red
-        }
-      }
-    })
+          fill: _colors.red,
+        },
+      },
+    }),
   };
 };

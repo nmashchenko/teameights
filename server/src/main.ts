@@ -1,12 +1,18 @@
-import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import {NestFactory} from '@nestjs/core';
+import {
+	DocumentBuilder,
+	SwaggerModule
+} from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
 // import { JwtAuthGuard } from "./auth/jwt-auth.guard";
 // import { ValidationPipe } from "./pipes/validation.pipe";
 import cookieParser from 'cookie-parser';
-import { AsyncApiDocumentBuilder, AsyncApiModule } from 'nestjs-asyncapi';
+import {
+	AsyncApiDocumentBuilder,
+	AsyncApiModule
+} from 'nestjs-asyncapi';
 
-import { AppModule } from './app.module';
+import {AppModule} from './app.module';
 
 async function start(): Promise<void> {
 	try {
