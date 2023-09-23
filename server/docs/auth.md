@@ -5,11 +5,7 @@
 - [General info](#general-info)
   - [Auth via email flow](#auth-via-email-flow)
   - [Auth via external services or social networks flow](#auth-via-external-services-or-social-networks-flow)
-- [Configure Auth](#configure-auth)
-- [Auth via Apple](#auth-via-apple)
-- [Auth via Facebook](#auth-via-facebook)
 - [Auth via Google](#auth-via-google)
-- [Auth via Twitter](#auth-via-twitter)
 - [Refresh token flow](#refresh-token-flow)
   - [Video example](#video-example)
 - [Logout](#logout)
@@ -58,57 +54,12 @@ For auth with external services or social networks you need:
 1. Call one of endpoints with access token received in frontend app on 1-st step and get JWT token from the backend app.
 
    ```text
-   POST /api/v1/auth/facebook/login
-
    POST /api/v1/auth/google/login
-
-   POST /api/v1/auth/twitter/login
-
-   POST /api/v1/auth/apple/login
    ```
 
 1. Make any requests using a JWT token
 
 ---
-
-## Configure Auth
-
-1. Generate secret keys for `access token` and `refresh token`:
-
-   ```bash
-   node -e "console.log('\nAUTH_JWT_SECRET=' + require('crypto').randomBytes(256).toString('base64') + '\nAUTH_REFRESH_SECRET=' + require('crypto').randomBytes(256).toString('base64'));"
-   ```
-
-1. Go to `/.env` and replace `AUTH_JWT_SECRET` and `AUTH_REFRESH_SECRET` with output from step 1.
-
-   ```text
-   AUTH_JWT_SECRET=HERE_SECRET_KEY_FROM_STEP_1
-   AUTH_REFRESH_SECRET=HERE_SECRET_KEY_FROM_STEP_1
-   ```
-
-## Auth via Apple
-
-1. [Set up your service on Apple](https://www.npmjs.com/package/apple-signin-auth)
-1. Change `APPLE_APP_AUDIENCE` in `.env`
-
-   ```text
-   APPLE_APP_AUDIENCE=["com.company", "com.company.web"]
-   ```
-
-## Auth via Facebook
-
-1. Go to https://developers.facebook.com/apps/creation/ and create a new app
-   <img alt="image" src="https://github.com/brocoders/nestjs-boilerplate/assets/6001723/05721db2-9d26-466a-ad7a-072680d0d49b">
-
-   <img alt="image" src="https://github.com/brocoders/nestjs-boilerplate/assets/6001723/9f4aae18-61da-4abc-9304-821a0995a306">
-2. Go to `Settings` -> `Basic` and get `App ID` and `App Secret` from your app
-   <img alt="image" src="https://github.com/brocoders/nestjs-boilerplate/assets/6001723/b0fc7d50-4bc6-45d0-8b20-fda0b6c01ac2">
-3. Change `FACEBOOK_APP_ID` and `FACEBOOK_APP_SECRET` in `.env`
-
-   ```text
-   FACEBOOK_APP_ID=123
-   FACEBOOK_APP_SECRET=abc
-   ```
 
 ## Auth via Google
 
@@ -118,16 +69,6 @@ For auth with external services or social networks you need:
    ```text
    GOOGLE_CLIENT_ID=abc
    GOOGLE_CLIENT_SECRET=abc
-   ```
-
-## Auth via Twitter
-
-1. Set up your service on Twitter
-1. Change `TWITTER_CONSUMER_KEY` and `TWITTER_CONSUMER_SECRET` in `.env`
-
-   ```text
-   TWITTER_CONSUMER_KEY=abc
-   TWITTER_CONSUMER_SECRET=abc
    ```
 
 ## Refresh token flow
