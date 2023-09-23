@@ -1,13 +1,15 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import clsx from 'clsx';
 
-import styles from './notification-content.module.scss';
-import sidebarStyles from '../Sidebar/Sidebar.module.scss';
 import { IconWrapper } from 'shared/ui';
 import { SidebarNotificationIcon } from 'shared/assets';
-import clsx from 'clsx';
-import { NotificationsModal } from 'widgets/Sidebar/ui/notification-modal/notification-modal';
-import { SidebarNotificationsCount } from 'widgets/Sidebar/ui/notification-content/notifications-count';
 import { Notifications } from 'entities/notification';
+
+import { NotificationsModal } from '../notification-modal/notification-modal';
+import { SidebarNotificationsCount } from './notifications-count';
+
+import sidebarStyles from '../Sidebar/Sidebar.module.scss';
+import styles from './notification-content.module.scss';
 
 interface NotificationContentProps {
   userNotifications: Notifications[] | undefined;
@@ -16,14 +18,16 @@ interface NotificationContentProps {
   notificationModal: boolean;
 }
 
-export const NotificationsContent: React.FC<NotificationContentProps> = ({
-  userNotifications,
-  sidebar,
-  setNotificationModal,
-  notificationModal,
-}) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const unreadMessages = userNotifications?.filter((item: any) => !item.read);
+export const SidebarNotificationsContent: React.FC<NotificationContentProps> = props => {
+  const { notificationModal, setNotificationModal, userNotifications, sidebar } = props;
+
+  const unreadMessages = React.useMemo(() => {
+    return userNotifications?.filter(item => !item.read);
+  }, [userNotifications]);
+
+  const toggleNotificationModal = () => {
+    setNotificationModal(prev => !prev);
+  };
 
   return (
     <div className={styles.notificationsContent}>
@@ -32,7 +36,7 @@ export const NotificationsContent: React.FC<NotificationContentProps> = ({
           [sidebarStyles.active]: sidebar,
           [sidebarStyles.modalActive]: notificationModal,
         })}
-        onClick={() => setNotificationModal((prev: boolean) => !prev)}
+        onClick={toggleNotificationModal}
       >
         <IconWrapper width='24px' height='24px' cursor='pointer'>
           <SidebarNotificationIcon />

@@ -19,7 +19,7 @@ import {
 } from 'shared/assets';
 import { useClickOutside } from 'shared/lib';
 import { mockUser } from '../../mock';
-import { NotificationsContent } from 'widgets/Sidebar/ui/notification-content/notification-content';
+import { SidebarNotificationsContent } from 'widgets/Sidebar/ui/notification-content/notification-content';
 
 interface NavData {
   title: string;
@@ -127,7 +127,7 @@ export const Sidebar: React.FC = () => {
           </ul>
           <div className={styles.navInteractions}>
             {isAuth && user && (
-              <NotificationsContent
+              <SidebarNotificationsContent
                 userNotifications={user.notifications}
                 sidebar={sidebar}
                 notificationModal={notificationModal}

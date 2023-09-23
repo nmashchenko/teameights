@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from 'widgets/Sidebar/ui/notification-content/notification-content.module.scss';
+
+import styles from './notification-content.module.scss';
 
 interface NotificationsCountProps {
   pointerEvents?: 'none' | 'all';
@@ -9,13 +10,9 @@ interface NotificationsCountProps {
   children: React.ReactNode;
 }
 
-export const SidebarNotificationsCount: React.FC<NotificationsCountProps> = ({
-  pointerEvents = 'none',
-  top = 'auto',
-  right = 'auto',
-  left = 'auto',
-  children,
-}) => {
+export const SidebarNotificationsCount: React.FC<NotificationsCountProps> = props => {
+  const { pointerEvents = 'none', top = 'auto', right = 'auto', left = 'auto', children } = props;
+
   return (
     <div
       className={styles.notificationsCount}
