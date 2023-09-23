@@ -15,10 +15,10 @@ const _colors = {
   red: '#d42422'
 };
 
-const _focusAndActiveStyles = {
+const getFocusAndActiveStyles = (isBorderDisabled?: boolean) => ({
   boxShadow: 'none',
-  borderBottom: `1px solid ${_colors.white}`
-};
+  borderBottom: isBorderDisabled ? 'none' : `1px solid ${_colors.white}`
+});
 const _checkboxOption = <
   OptionType,
   IsMultiType extends boolean = false,
@@ -63,7 +63,8 @@ export const selectStyles = <
   IsMultiType extends boolean = false,
   GroupType extends GroupBase<OptionType> = GroupBase<OptionType>
 >(
-  isCheckbox = false
+  isCheckbox = false,
+  isBorderDisabled = false
 ): StylesConfig<OptionType, IsMultiType, GroupType> => {
   return {
     control: (styles) => ({
@@ -77,12 +78,12 @@ export const selectStyles = <
       cursor: 'text',
       padding: '8px 4px',
       fontSize: '100%',
-      borderBottom: `1px solid ${_colors.grey.normal}`,
+      borderBottom: isBorderDisabled ? 'none' : `1px solid ${_colors.grey.normal}`,
       // This line disable the blue border
       boxShadow: 'none',
-      ':active': { ..._focusAndActiveStyles },
-      ':focus': { ..._focusAndActiveStyles },
-      ':focus-within': { ..._focusAndActiveStyles },
+      ':active': { ...getFocusAndActiveStyles(isBorderDisabled) },
+      ':focus': { ...getFocusAndActiveStyles(isBorderDisabled) },
+      ':focus-within': { ...getFocusAndActiveStyles(isBorderDisabled) },
       caretColor: _colors.green.bright
     }),
     dropdownIndicator: (styles) => ({

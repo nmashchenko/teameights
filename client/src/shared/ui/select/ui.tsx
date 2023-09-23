@@ -26,6 +26,7 @@ interface CustomSelectProps {
   error?: string;
   label?: string;
   disabled?: boolean;
+  isBorderDisabled?: boolean;
   isCheckbox?: boolean;
   options: Option[];
 }
@@ -38,6 +39,7 @@ export const Select = <
   error,
   label,
   disabled,
+  isBorderDisabled = false,
   isMulti,
   isCheckbox = false,
   name,
@@ -58,7 +60,7 @@ export const Select = <
         {...props}
         instanceId='t8s-select'
         closeMenuOnSelect={!isMulti}
-        styles={selectStyles<Option, IsMulti, Group>(isCheckbox)}
+        styles={selectStyles<Option, IsMulti, Group>(isCheckbox, isBorderDisabled)}
         name={name}
         components={{
           DropdownIndicator: error ? ErrorIndicator : DropdownIndicator,
