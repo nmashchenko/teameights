@@ -1,5 +1,5 @@
 import styles from './Layout.module.scss';
-import { Sidebar } from 'widgets/Sidebar';
+import { Sidebar } from '@/widgets/Sidebar';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (

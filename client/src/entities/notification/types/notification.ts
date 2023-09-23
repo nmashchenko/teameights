@@ -1,5 +1,5 @@
-import { User } from 'entities/user';
-import { Team } from 'entities/team';
+import { User } from '@/entities/user';
+import { Team } from '@/entities/team';
 
 export type NotificationType = 'SystemNotification' | 'TeamInvitationNotification';
 

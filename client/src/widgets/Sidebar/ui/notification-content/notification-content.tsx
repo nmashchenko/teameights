@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import clsx from 'clsx';
 
-import { IconWrapper } from 'shared/ui';
-import { SidebarNotificationIcon } from 'shared/assets';
-import { Notification } from 'entities/notification';
+import { IconWrapper } from '@/shared/ui';
+import { SidebarNotificationIcon } from '@/shared/assets';
+import { Notification } from '@/entities/notification';
 
 import { SidebarNotificationsModal } from '../notification-modal/notification-modal';
 import { SidebarNotificationsCount } from './notifications-count';

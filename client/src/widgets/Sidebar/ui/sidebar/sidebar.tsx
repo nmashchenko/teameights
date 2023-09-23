@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { IconWrapper } from 'shared/ui';
-import { SidebarCloseIcon, SidebarExitIcon, SidebarShortLogo } from 'shared/assets';
-import { useClickOutside } from 'shared/lib';
-import { REGISTRATION_PATH } from 'shared/constant';
+import { IconWrapper } from '@/shared/ui';
+import { SidebarCloseIcon, SidebarExitIcon, SidebarShortLogo } from '@/shared/assets';
+import { useClickOutside } from '@/shared/lib';
+import { REGISTRATION_PATH } from '@/shared/constant';
 
 import { mockUser } from '../../mock';
 import { getSidebarItems } from '../../config/getSidebarItems';

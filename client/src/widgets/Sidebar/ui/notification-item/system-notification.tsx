@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { FlexWrapper } from 'shared/ui';
-import { SidebarLightningIcon } from 'shared/assets';
-import { getPastTime } from 'shared/lib';
-import { SystemNotification } from 'entities/notification';
+import { FlexWrapper } from '@/shared/ui';
+import { SidebarLightningIcon } from '@/shared/assets';
+import { getPastTime } from '@/shared/lib';
+import { SystemNotification } from '@/entities/notification';
 
 import styles from './notification-item.module.scss';
 

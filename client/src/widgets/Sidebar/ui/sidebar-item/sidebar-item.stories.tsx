@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { SidebarItem, SidebarItemProps } from './sidebar-item';
-import { SidebarLightningIcon, SidebarSearchIcon } from 'shared/assets';
+import { SidebarLightningIcon, SidebarSearchIcon } from '@/shared/assets';
 
 const sidebarItemProps: SidebarItemProps = {
   active: false,

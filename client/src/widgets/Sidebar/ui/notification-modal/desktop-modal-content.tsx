@@ -1,8 +1,8 @@
 import React from 'react';
 import { clsx } from 'clsx';
 
-import { IconWrapper } from 'shared/ui';
-import { SidebarChecksIcon, SidebarNotificationClose } from 'shared/assets';
+import { IconWrapper } from '@/shared/ui';
+import { SidebarChecksIcon, SidebarNotificationClose } from '@/shared/assets';
 
 import { SidebarNotificationsList } from '../notification-list/notification-list';
 import { NotificationsModalProps } from './notification-modal';

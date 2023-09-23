@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 
-import { FlexWrapper } from 'shared/ui';
-import { getPastTime } from 'shared/lib';
-import { TeamInvitationNotification } from 'entities/notification';
+import { FlexWrapper } from '@/shared/ui';
+import { getPastTime } from '@/shared/lib';
+import { TeamInvitationNotification } from '@/entities/notification';
 
 import styles from './notification-item.module.scss';
 

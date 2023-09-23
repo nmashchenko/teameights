@@ -1,4 +1,4 @@
-import { Notification } from 'entities/notification';
+import { Notification } from '@/entities/notification';
 
 export const sortNotifications = (notifications: Notification[]) => {
   return [...notifications].sort(

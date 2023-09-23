@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { SidebarProfile, SidebarProfileProps } from './sidebar-profile';
-import { User } from 'entities/user';
+import { User } from '@/entities/user';
 
 const defaultUser: User = {
   _id: '123123312',

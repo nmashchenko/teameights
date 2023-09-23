@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 
-import { User } from 'entities/user';
+import { User } from '@/entities/user';
 
 import styles from './sidebar-profile.module.scss';
 

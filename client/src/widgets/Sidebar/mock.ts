@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { User } from 'entities/user';
+import { User } from '@/entities/user';
 
 // @ts-ignore
 export const mockUser: User = {

@@ -3,9 +3,8 @@
 // import { LOCAL_PATH } from '../../../http'
 import React from 'react';
 
-import { Loader } from 'shared/ui';
-
-import { Notification } from 'entities/notification';
+import { Loader } from '@/shared/ui';
+import { Notification } from '@/entities/notification';
 
 import { SidebarTeamInvatitionNotification } from './team-invatition-notification';
 import { SidebarSystemNotification } from './system-notification';

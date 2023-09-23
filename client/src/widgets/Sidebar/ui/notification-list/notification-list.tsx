@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import { Notification } from 'entities/notification';
+import { Notification } from '@/entities/notification';
 
 import styles from './notification-list.module.scss';
 import { SidebarNotificationsItem } from '../notification-item/notification-item';

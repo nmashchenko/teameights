@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useClickOutside, useGetScreenWidth } from 'shared/lib';
-import { Notification } from 'entities/notification';
+import { useClickOutside, useGetScreenWidth } from '@/shared/lib';
+import { Notification } from '@/entities/notification';
 
 import { SidebarDesktopModalContent } from './desktop-modal-content';
 import { SidebarMobileModalContent } from './mobile-modal-content';

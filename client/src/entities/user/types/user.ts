@@ -1,6 +1,6 @@
-import { Notification } from 'entities/notification';
-import { Role } from 'entities/role';
-import { Team } from 'entities/team';
+import { Notification } from '@/entities/notification';
+import { Role } from '@/entities/role';
+import { Team } from '@/entities/team';
 
 export interface User {
   _id: string;
