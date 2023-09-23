@@ -61,7 +61,7 @@ export const NotificationsItem: React.FC<NotificationProps> = props => {
 
   return (
     <li
-      className={styles.styledNotificationsItem}
+      className={styles.notificationsItem}
       data-notification-read={notification.read}
       data-notification-id={notification._id}
     >
