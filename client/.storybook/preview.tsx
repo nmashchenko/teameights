@@ -15,6 +15,24 @@ export const parameters = {
       color: /(background|color)$/i,
     },
   },
+
+  backgrounds: {
+    default: 'main',
+    values: [
+      {
+        name: 'main',
+        value: '#26292b',
+      },
+      {
+        name: 'white',
+        value: '#fff',
+      },
+      {
+        name: 'additional white',
+        value: '#fafafa',
+      },
+    ],
+  },
   viewport: {
     viewports: {
       '360': {
