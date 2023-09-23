@@ -1,0 +1,18 @@
+import {IconGallery, IconItem, Meta} from '@storybook/blocks';
+
+import {ICON_OPTIONS} from './storybook';
+import styles from './icons.module.scss'
+
+<Meta title='global/iconography' />
+
+# Iconography
+
+<IconGallery>
+{Object.entries(ICON_OPTIONS).map(([iconName, iconComponent]) => (
+    <IconItem name={iconName} key={iconName}>
+      <div className={styles.iconItemStyle}>
+        {iconComponent}
+      </div>
+    </IconItem>
+  ))}
+</IconGallery>
