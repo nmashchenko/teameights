@@ -2,35 +2,26 @@
 
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import { usePathname, useRouter } from 'next/navigation';
+
+import { IconWrapper } from 'shared/ui';
+import { SidebarCloseIcon, SidebarExitIcon, SidebarShortLogo } from 'shared/assets';
+import { useClickOutside } from 'shared/lib';
+import { REGISTRATION_PATH } from 'shared/constant';
+
+import { mockUser } from '../../mock';
+import { getSidebarItems } from '../../config/getSidebarItems';
+import { SidebarItem } from '../sidebar-item/sidebar-item';
+import { SidebarProfile } from '../sidebar-profile/sidebar-profile';
+import { SidebarNotificationsContent } from '../notification-content/notification-content';
 
 import styles from './Sidebar.module.scss';
-import { usePathname, useRouter } from 'next/navigation';
-import { SidebarProfile } from 'widgets/Sidebar/ui/sidebar-profile/sidebar-profile';
-import { SidebarItem } from 'widgets/Sidebar/ui/sidebar-item/sidebar-item';
-import { IconWrapper } from 'shared/ui';
-import {
-  SidebarCloseIcon,
-  SidebarExitIcon,
-  SidebarSearchIcon,
-  SidebarShortLogo,
-  SidebarTeamIcon,
-  SidebarTrophyIcon,
-  SidebarUserIcon,
-} from 'shared/assets';
-import { useClickOutside } from 'shared/lib';
-import { mockUser } from '../../mock';
-import { SidebarNotificationsContent } from 'widgets/Sidebar/ui/notification-content/notification-content';
-
-interface NavData {
-  title: string;
-  icon: React.ReactNode;
-  path: string;
-}
 
 export const Sidebar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const [sidebar, setSidebar] = useState(false);
+
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false);
 
   // const { isAuth } = useSelector((state) => state.userReducer);
@@ -38,41 +29,20 @@ export const Sidebar: React.FC = () => {
   // const { data: user } = useCheckAuth();
   const user = mockUser;
 
-  const newNavData: NavData[] = [
-    {
-      title: 'Teammates',
-      path: '/',
-      icon: <SidebarSearchIcon />,
-    },
-    {
-      title: 'Team',
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      path: user?.team ? `/team/${user.team._id}` : '/team',
-      icon: (<SidebarTeamIcon />) as React.ReactNode,
-    },
-    {
-      title: 'Tournaments',
-      path: '/tournaments',
-      icon: <SidebarTrophyIcon />,
-    },
-  ];
-
-  if (user) {
-    newNavData.push({
-      title: 'Profile',
-      path: `/profile/${user._id}`,
-      icon: (<SidebarUserIcon />) as React.ReactNode,
-    });
-  }
+  const sidebarItemsData = React.useMemo(() => {
+    return getSidebarItems(user);
+  }, [user]);
 
   // const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser();
-  const navigate = (path: string) => {
+  const navigateToPath = (path: string) => {
     router.push(path);
   };
-  const navMenuRef = useClickOutside(notificationModal ? () => '' : () => setSidebar(false));
 
-  const handleUseLogout = () => {
+  const navMenuRef = useClickOutside(
+    notificationModal ? () => '' : () => setIsSidebarExpanded(false)
+  );
+
+  const handleLogout = () => {
     // logoutUser();
     console.log('123');
   };
@@ -81,86 +51,95 @@ export const Sidebar: React.FC = () => {
   //
   //   // return <Loader />;
   // }
-  const showSidebar = () => {
-    setSidebar(prev => !prev);
+  const handleShowSidebar = () => {
+    setIsSidebarExpanded(prev => !prev);
   };
 
   return (
     <>
-      <div
-        onClick={showSidebar}
-        className={clsx(styles.mobileNavBarIconWrapper, { [styles.active]: sidebar })}
+      <button
+        onClick={handleShowSidebar}
+        className={clsx(styles.mobileIcon, { [styles.active]: isSidebarExpanded })}
+        aria-label='Toggle Sidebar'
       >
-        <div className={clsx(styles.navBarClose, { [styles.active]: sidebar })}>
+        <div className={clsx(styles.close, { [styles.active]: isSidebarExpanded })}>
           <SidebarCloseIcon />
         </div>
-      </div>
+      </button>
 
-      <div className={clsx(styles.navWrapper, { [styles.active]: sidebar })}>
+      <aside
+        className={clsx(styles.sidebarWrapper, { [styles.active]: isSidebarExpanded })}
+        aria-expanded={isSidebarExpanded}
+      >
         <nav
           ref={navMenuRef}
           onClick={e => e.stopPropagation()}
-          className={clsx(styles.navMenu, { [styles.active]: sidebar })}
+          className={clsx(styles.menu, { [styles.active]: isSidebarExpanded })}
+          aria-label='Sidebar Navigation'
         >
-          <div className={styles.navBarToggle}>
-            <div className={clsx(styles.navBarLogo, { [styles.active]: sidebar })}>
+          <div className={styles.toggle}>
+            <div className={clsx(styles.logo, { [styles.active]: isSidebarExpanded })}>
               <SidebarShortLogo />
             </div>
-            <div
-              className={clsx(styles.navBarClose, { [styles.active]: sidebar })}
-              onClick={showSidebar}
+            <button
+              className={clsx(styles.close, { [styles.active]: isSidebarExpanded })}
+              onClick={handleShowSidebar}
+              aria-label='Toggle sidebar'
             >
-              <SidebarCloseIcon />
-            </div>
+              <SidebarCloseIcon aria-hidden='true' />
+            </button>
           </div>
-          <SidebarProfile active={sidebar} user={user} />
-          <ul className={styles.navItems}>
-            {newNavData.map((item, index) => (
+          <SidebarProfile active={isSidebarExpanded} user={user} />
+          <ul className={styles.list} role='menu'>
+            {sidebarItemsData.map(item => (
               <SidebarItem
-                onClick={() => setSidebar(false)}
-                active={sidebar}
-                key={index}
+                onClick={() => setIsSidebarExpanded(false)}
+                active={isSidebarExpanded}
+                key={item.path}
                 isActive={pathname === item.path}
                 {...item}
+                role='menuitem'
               />
             ))}
           </ul>
-          <div className={styles.navInteractions}>
+          <div className={styles.interactions}>
             {isAuth && user && (
               <SidebarNotificationsContent
                 userNotifications={user.notifications}
-                sidebar={sidebar}
+                isSidebarExpanded={isSidebarExpanded}
                 notificationModal={notificationModal}
                 setNotificationModal={setNotificationModal}
               />
             )}
             {!isAuth ? (
-              <div
-                className={clsx(styles.navInteractBtn, { [styles.active]: sidebar })}
-                onClick={() => navigate('/auth/registration')}
+              <button
+                className={clsx(styles.interactButton, { [styles.active]: isSidebarExpanded })}
+                onClick={() => navigateToPath(REGISTRATION_PATH)}
+                aria-label='Login'
               >
                 <IconWrapper width='24px' height='24px' cursor='pointer'>
                   <SidebarExitIcon />
                 </IconWrapper>
-                <p>Login</p>
-              </div>
+                <span>Login</span>
+              </button>
             ) : (
-              <div
-                className={clsx(styles.navInteractBtn, { [styles.active]: sidebar })}
-                onClick={handleUseLogout}
+              <button
+                className={clsx(styles.interactButton, { [styles.active]: isSidebarExpanded })}
+                onClick={handleLogout}
+                aria-label='Logout'
               >
                 <IconWrapper width='24px' height='24px' cursor='pointer'>
                   <SidebarExitIcon />
                 </IconWrapper>
-                <p>Logout</p>
-              </div>
+                <span>Logout</span>
+              </button>
             )}
           </div>
-          <h3 className={clsx(styles.navBarCopyright, { [styles.active]: sidebar })}>
+          <footer className={clsx(styles.copyright, { [styles.active]: isSidebarExpanded })}>
             copyright © {new Date().getFullYear()} Teameights.
-          </h3>
+          </footer>
         </nav>
-      </div>
+      </aside>
     </>
   );
 };

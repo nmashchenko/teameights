@@ -17,7 +17,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = props => {
   return (
     <li {...rest}>
       <Link href={path} className={clsx(styles.wrapper, { [styles.active]: isActive })}>
-        <div className={styles.icon}>{icon}</div>
+        <span className={styles.icon}>{icon}</span>
         <span className={clsx(styles.title, { [styles.active]: active })}>{title}</span>
       </Link>
     </li>
