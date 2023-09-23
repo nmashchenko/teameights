@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, ForwardRefRenderFunction, InputHTMLAttributes } from 'react';
-import { WarningCircle } from 'shared/assets';
+import { WarningCircle } from '@/shared/assets';
 import styles from './input.module.scss';
 
 /**

@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { frameworkColors } from 'shared/constant';
+import { frameworkColors } from '@/shared/constant';
 import { BadgeFramework } from './badge-framework';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction

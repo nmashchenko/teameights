@@ -4,11 +4,11 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { Button, Input, InputPassword, Typography } from 'shared/ui';
+import { Button, Input, InputPassword, Typography } from '@/shared/ui';
 
 import { useState } from 'react';
 import styles from '../shared.module.scss';
-import { Login, Github, Google } from 'shared/assets';
+import { Github, Google, Login } from '@/shared/assets';
 
 interface LoginProps {
   email: string;

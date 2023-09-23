@@ -1,10 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
-import { Typography, Button } from 'shared/ui';
+import { Button, Typography } from '@/shared/ui';
 import styles from './cookie-banner.module.scss';
 import { useAnimationEnd } from './lib/hooks/useAnimationEnd';
-import { Cookie } from 'shared/assets';
+import { Cookie } from '@/shared/assets';
 
 export const CookieBanner = () => {
   const elemRef = useRef<HTMLDivElement | null>(null);

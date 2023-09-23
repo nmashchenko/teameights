@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { FC } from 'react';
-import { frameworkColors, frameworkTextColors } from 'shared/constant';
+import { frameworkColors, frameworkTextColors } from '@/shared/constant';
 import styles from './badge-framework.module.scss';
 
 /**
