@@ -13,6 +13,11 @@ const FilterSelect: FC<IFilterSelectProps> = ({ filtersArr }) => {
   const [isMenuHovered, setIsMenuHovered] = useState<boolean>(false);
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
+  const menuCloseHandler = () => {
+    setIsMenuOpened(false);
+    setIsMenuHovered(false);
+  };
+
   return (
     <Controller
       defaultValue={filtersArr[0]}
@@ -28,12 +33,12 @@ const FilterSelect: FC<IFilterSelectProps> = ({ filtersArr }) => {
             isBorderDisabled={true}
             classNames={{
               container: () =>
-                isMenuHovered || isMenuOpened ? clsx(styles.select_active) : clsx(styles.select)
+                isMenuHovered || isMenuOpened ? clsx(styles.select_active) : clsx(styles.select),
             }}
             value={newValue}
-            onChange={(value) => onChange(value)}
+            onChange={value => onChange(value)}
             onMenuOpen={() => setIsMenuOpened(true)}
-            onMenuClose={() => setIsMenuOpened(false)}
+            onMenuClose={menuCloseHandler}
           />
         </div>
       )}

@@ -10,32 +10,32 @@ const mockFiltersArr: Filter[] = [
     label: 'Name',
     value: 'name',
     type: 'text',
-    filterValue: ''
+    filterValue: '',
   },
   {
     label: 'Countries',
     value: 'countries',
     type: 'checkbox',
-    filterValue: []
+    filterValue: [],
   },
   {
     label: 'Languages',
     value: 'languages',
     type: 'checkbox',
-    filterValue: []
+    filterValue: [],
   },
   {
     label: 'Frameworks',
     value: 'frameworks',
     type: 'checkbox',
-    filterValue: []
+    filterValue: [],
   },
   {
     label: 'Concentrations',
     value: 'concentrations',
     type: 'checkbox',
-    filterValue: []
-  }
+    filterValue: [],
+  },
 ];
 
 interface ISearchBarProps {
