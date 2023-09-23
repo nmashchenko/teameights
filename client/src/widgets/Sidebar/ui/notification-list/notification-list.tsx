@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 
-import { Notifications } from 'entities/notification';
+import { Notification } from 'entities/notification';
 
 import styles from './notification-list.module.scss';
 import { NotificationsItem } from '../notification-item/notification-item';
 import { sortNotifications } from './lib/sort-notifications';
 
 interface NotificationsListProps {
-  userNotifications: Notifications[];
+  userNotifications: Notification[];
   setUnreadIds: (callback: (prev: Set<string>) => Set<string>) => void;
   closeNotificationsModal: () => void;
 }

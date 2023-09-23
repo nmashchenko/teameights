@@ -1,4 +1,4 @@
-import { Notifications } from 'entities/notification';
+import { Notification } from 'entities/notification';
 import { Role } from 'entities/role';
 import { Team } from 'entities/team';
 
@@ -44,6 +44,6 @@ export interface User {
   programmingLanguages?: string[];
   frameworks?: string[];
   roles?: Role[]; // Assuming Role is represented by its ID on the frontend
-  notifications?: Notifications[]; // Assuming Notification is represented by its ID on the frontend
+  notifications?: Notification[]; // Assuming Notification is represented by its ID on the frontend
   team?: Team; // Assuming Team is represented by its ID on the frontend
 }

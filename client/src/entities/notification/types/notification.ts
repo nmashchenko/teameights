@@ -29,4 +29,4 @@ export interface TeamInvitationNotification extends BaseNotification {
   message: string;
 }
 
-export type Notifications = SystemNotification | TeamInvitationNotification;
+export type Notification = SystemNotification | TeamInvitationNotification;

@@ -1,22 +1,25 @@
 // import { useChangeMessageStatus } from '../../../api/hooks/123/useChangeMessageStatus'
 // import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
-import { FlexWrapper, Loader } from 'shared/ui';
 // import { LOCAL_PATH } from '../../../http'
+import React from 'react';
+
+import { Loader } from 'shared/ui';
+
+import { Notification } from 'entities/notification';
+
+import { TeamInvatitionNotification } from './team-invatition-notification';
+
 import styles from './notification-item.module.scss';
-import { getPastTime } from 'shared/lib';
-import { SidebarLightningIcon } from 'shared/assets';
-import Image from 'next/image';
-import { Notifications } from 'entities/notification';
+import { SystemNotification } from 'widgets/Sidebar/ui/notification-item/system-notification';
 
 interface NotificationProps {
-  notification: Notifications;
+  notification: Notification;
   closeNotificationsModal: () => void;
 }
 
-export const NotificationsItem: React.FC<NotificationProps> = ({
-  notification,
-  closeNotificationsModal,
-}) => {
+export const NotificationsItem: React.FC<NotificationProps> = props => {
+  const { notification, closeNotificationsModal } = props;
+
   const isHandlingInvite = false;
   // const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
   // const { mutate: teamInviteMutation, isLoading: isHandlingInvite } = useChangeMessageStatus(
@@ -34,47 +37,21 @@ export const NotificationsItem: React.FC<NotificationProps> = ({
     console.log('Rejected the invitation');
   };
 
-  const render = () => {
+  const renderContent = () => {
     switch (notification.type) {
       case 'SystemNotification':
-        return (
-          <>
-            <FlexWrapper gap='12px'>
-              <div className={`${styles.messagePicture} ${styles.small}`}>
-                {!notification.read && <div className={styles.messageCircle} />}
-                <SidebarLightningIcon />
-              </div>
-              <p className={styles.messageText}>{notification.system_message}</p>
-            </FlexWrapper>
-            <p className={styles.sendingTime}>{getPastTime(notification.createdAt)}</p>
-          </>
-        );
+        return <SystemNotification notification={notification} />;
       case 'TeamInvitationNotification':
         return (
-          <>
-            <FlexWrapper gap='12px'>
-              <div className={styles.messagePicture}>
-                {!notification.read && <div className={styles.messageCircle} />}
-                <Image width={32} height={32} src={notification.image} alt='Team invation icon' />
-              </div>
-              <div className={styles.messageContentWrapper}>
-                <p className={styles.messageText}>{notification.message}</p>
-                <FlexWrapper gap='8px'>
-                  <button
-                    onClick={handleAccept}
-                    className={`${styles.messageButton} ${styles.accept}`}
-                  >
-                    Accept
-                  </button>
-                  <button onClick={handleReject} className={styles.messageButton}>
-                    Reject
-                  </button>
-                </FlexWrapper>
-              </div>
-            </FlexWrapper>
-            <p className={styles.sendingTime}>{getPastTime(notification.createdAt)}</p>
-          </>
+          <TeamInvatitionNotification
+            notification={notification}
+            handleAccept={handleAccept}
+            handleReject={handleReject}
+          />
         );
+      default:
+        console.error(`Unknown notification type: ${notification}`);
+        return null;
     }
   };
 
@@ -88,7 +65,7 @@ export const NotificationsItem: React.FC<NotificationProps> = ({
       data-notification-read={notification.read}
       data-notification-id={notification._id}
     >
-      {render()}
+      {renderContent()}
     </li>
   );
 };

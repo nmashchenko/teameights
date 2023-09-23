@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { IconWrapper } from 'shared/ui';
 import { SidebarNotificationIcon } from 'shared/assets';
-import { Notifications } from 'entities/notification';
+import { Notification } from 'entities/notification';
 
 import { NotificationsModal } from '../notification-modal/notification-modal';
 import { SidebarNotificationsCount } from './notifications-count';
@@ -12,7 +12,7 @@ import sidebarStyles from '../Sidebar/Sidebar.module.scss';
 import styles from './notification-content.module.scss';
 
 interface NotificationContentProps {
-  userNotifications: Notifications[] | undefined;
+  userNotifications: Notification[] | undefined;
   sidebar: boolean;
   setNotificationModal: Dispatch<SetStateAction<boolean>>;
   notificationModal: boolean;

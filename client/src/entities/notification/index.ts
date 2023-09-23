@@ -1,1 +1,5 @@
-export { type Notifications } from './types/notification';
+export {
+  type Notification,
+  type TeamInvitationNotification,
+  type SystemNotification,
+} from './types/notification';
