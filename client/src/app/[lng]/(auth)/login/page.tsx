@@ -8,14 +8,21 @@ import { Button, Input, InputPassword, Typography } from 'shared/ui';
 
 import { useState } from 'react';
 import styles from '../shared.module.scss';
-import { Login, Github, Google } from 'shared/assets';
+import { Github, Google, Login } from 'shared/assets';
+import { useTranslation } from 'shared/i18n/client';
 
 interface LoginProps {
   email: string;
   password: string;
 }
 
-export default function LoginPage() {
+interface LoginPageProps {
+  params: { lng: string };
+}
+
+export default function LoginPage({ params: { lng } }: LoginPageProps) {
+  const { t } = useTranslation(lng, 'forms');
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const router = useRouter();
@@ -33,14 +40,17 @@ export default function LoginPage() {
 
   const onSubmit: SubmitHandler<LoginProps> = data => console.log(data);
 
+  const emailRequiredMessage = t('email-required');
+  const passwordRequiredMessage = t('password-required');
+
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.left}>
         <div className={styles.interactive_container}>
           <div className={styles.flex_wrapper}>
             <Input
-              placeholder='Email'
-              {...register('email', { required: 'Email is required!' })}
+              placeholder={t('email')}
+              {...register('email', { required: emailRequiredMessage })}
               type='email'
               error={errors?.email ? errors.email.message : undefined}
               value={email}
@@ -48,9 +58,9 @@ export default function LoginPage() {
             />
             <div>
               <InputPassword
-                placeholder='Password'
+                placeholder={t('password')}
                 {...register('password', {
-                  required: 'Password is required!',
+                  required: passwordRequiredMessage,
                   minLength: { value: 8, message: 'Minimum length is 8!' },
                 })}
                 error={errors?.password ? errors.password.message : undefined}
@@ -70,7 +80,7 @@ export default function LoginPage() {
             </div>
           </div>
           <div className={styles.flex_wrapper__s}>
-            <Button type='submit'>Log in</Button>
+            <Button type='submit'>{t('login')}</Button>
             <div className={styles.lines_container}>
               <div className={styles.line} />
               <Typography size='body_m' color='greyNormal'>
