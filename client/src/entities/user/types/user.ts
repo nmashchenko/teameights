@@ -6,8 +6,8 @@ export interface User {
   _id: string;
   email: string;
   password: string;
-  username?: string;
-  fullName?: string;
+  username: string;
+  fullName: string;
   isActivated?: boolean;
   isRegistered?: boolean;
   isLeader?: boolean;
@@ -34,7 +34,7 @@ export interface User {
   concentration?: string;
   description?: string;
   experience?: string;
-  image?: string;
+  image: string;
   links?: {
     github?: string;
     linkedIn?: string;

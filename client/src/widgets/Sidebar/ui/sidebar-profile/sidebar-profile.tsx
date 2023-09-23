@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import styles from './SidebarProfile.module.scss';
 import Image from 'next/image';
+
 import { User } from 'entities/user';
+
+import styles from './sidebar-profile.module.scss';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
 const unregisteredImg = '/images/user/unregistered.png';
@@ -14,30 +16,33 @@ const defaultData = {
   userImg: unregisteredImg,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const changeData = (data: any) => {
-  return {
-    userRealName: data.fullName,
-    userUsername: data.username,
-    notificationBell: true,
-    userImg: data.image,
-  };
-};
+interface UserData {
+  userRealName: string;
+  userUsername: string;
+  notificationBell: boolean;
+  userImg: string;
+}
 
 interface SidebarProfileProps {
   active: boolean;
   user: User;
 }
 
-export const SidebarProfile: React.FC<SidebarProfileProps> = ({ active, user }) => {
+export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
+  const { user, active } = props;
   // const { data: user } = useCheckAuth();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const isUserRegistered = user?.isRegistered;
-  const [data, setData] = useState(defaultData);
+  const [data, setData] = useState<UserData>(defaultData);
 
   useEffect(() => {
     if (isUserRegistered) {
-      setData(changeData(user));
+      setData({
+        userRealName: user.fullName,
+        userUsername: user.username,
+        notificationBell: true,
+        userImg: user.image || unregisteredImg,
+      });
     } else {
       setData(defaultData);
     }
@@ -49,7 +54,9 @@ export const SidebarProfile: React.FC<SidebarProfileProps> = ({ active, user }) 
         width={32}
         height={32}
         className={styles.profileIcon}
-        src={data.userImg || unregisteredImg}
+        src={data.userImg}
+        placeholder='blur'
+        blurDataURL='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2UwZTBlMCIvPjwvc3ZnPg=='
         alt='Profile icon'
       />
       <div className={styles.userContent}>
