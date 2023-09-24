@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { AllConfigType } from '../config/config.type';
 import { AuthGithubLoginDto } from './dto/auth-github-login.dto';
 import { SocialInterface } from '../social/interfaces/social.interface';
+
 @Injectable()
 export class AuthGithubService {
   private readonly clientId?: string;
@@ -64,10 +65,10 @@ export class AuthGithubService {
     }
 
     return {
-      id: user?.id,
-      email: '',
-      firstName: user?.name?.split(' ')[0],
-      lastName: user?.name?.split(' ')[1],
+      id: user?.id ?? null,
+      email: user?.email ?? null,
+      firstName: user?.name?.split(' ')[0] ?? null,
+      lastName: user?.name?.split(' ')[1] ?? null,
     };
   }
 }
