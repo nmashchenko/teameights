@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Plus } from 'shared/assets';
+import { Plus } from '@/shared/assets';
 import { Button } from './button';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction

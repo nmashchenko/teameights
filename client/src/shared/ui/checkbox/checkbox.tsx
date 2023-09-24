@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { FC, InputHTMLAttributes } from 'react';
-import { Check } from 'shared/assets';
+import { Check } from '@/shared/assets';
 import styles from './checkbox.module.scss';
 
 /**

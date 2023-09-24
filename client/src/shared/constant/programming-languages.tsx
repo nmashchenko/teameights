@@ -21,7 +21,7 @@ import {
   SQL,
   Swift,
   TS,
-} from 'shared/assets';
+} from '@/shared/assets';
 
 interface LanguageOption {
   label: string;

@@ -48,9 +48,11 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.7",
     "@commitlint/config-conventional": "^17.6.7",
+    "@storybook/addon-a11y": "^7.4.5",
     "@storybook/addon-essentials": "7.2.1",
     "@storybook/addon-interactions": "7.2.1",
     "@storybook/addon-links": "7.2.1",
+    "@storybook/addon-mdx-gfm": "^7.4.5",
     "@storybook/addon-onboarding": "1.0.8",
     "@storybook/blocks": "7.2.1",
     "@storybook/nextjs": "7.2.1",

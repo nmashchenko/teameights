@@ -6,7 +6,7 @@ import ReactModal from 'react-modal';
 
 import styles from './modal.module.scss';
 
-import { Cross } from 'shared/assets';
+import { Cross } from '@/shared/assets';
 
 /**
  * Modal Component

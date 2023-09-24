@@ -1,13 +1,17 @@
 import type { StorybookConfig } from '@storybook/nextjs';
-import path from 'path';
+import * as path from 'path';
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: [
+    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)',
+    '../docs/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)',
+  ],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
     {
       name: '@storybook/addon-styling',
       options: {
@@ -25,16 +29,22 @@ const config: StorybookConfig = {
     },
   },
   docs: {
-    autodocs: 'tag',
+    autodocs: true,
   },
   core: {
     builder: '@storybook/builder-webpack5',
   },
   webpackFinal: async config => {
-    if (!config.resolve?.modules) return config;
-
-    config.resolve.modules.push(path.resolve(__dirname, '../src'));
-    return config;
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve?.alias,
+          '@': path.resolve(__dirname, '../src'),
+        },
+      },
+    };
   },
 };
 export default config;

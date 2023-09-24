@@ -1,7 +1,7 @@
 'use client';
 
-import { Typography } from 'shared/ui';
-import { ActionModal } from 'widgets/modals/action-modal/action-modal';
+import { Typography } from '@/shared/ui';
+import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
 
 export default function Home() {
   return (
