@@ -1,0 +1,90 @@
+.container {
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+
+  &__disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+}
+
+.label {
+  color: var(--grey-normal-color);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
+}
+
+.input_container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.input {
+  width: 100%;
+  overflow: hidden;
+  background: inherit;
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--grey-normal-color);
+  caret-color: var(--green-bright-color);
+  color: var(--white-color);
+  transition: all 0.1s ease 0s;
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
+
+  &:focus {
+    border-bottom: 1px solid var(--white-color);
+  }
+
+  &:hover:not(:disabled) {
+    background-color: var(--grey-dark-color);
+  }
+
+  &__icon_start {
+    padding-left: 32px;
+  }
+
+  &__icon_end {
+    padding-right: 32px;
+  }
+
+  &__two_icons_end {
+    padding-right: 64px;
+  }
+}
+
+.input[type='password']:not(:placeholder-shown) {
+  letter-spacing: 4px;
+  font-family: pass, sans-serif;
+}
+
+.error_icon {
+  position: absolute;
+  right: 4px;
+  top: 8px;
+}
+
+.sub_icon {
+  position: absolute;
+  right: 4px;
+  top: 8px;
+  cursor: pointer;
+
+  &__start {
+    left: 4px;
+    right: auto; // This will cancel out the left property
+  }
+
+  &__two_icons_end {
+    right: 32px;
+  }
+}
+
+.error {
+  color: var(--red-error-color);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
+}

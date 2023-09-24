@@ -1,0 +1,31 @@
+@import 'reset';
+@import 'variables';
+
+body {
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
+  color: var(--white-color);
+  background-color: var(--bg-color);
+}
+
+* {
+  scrollbar-width: initial;
+  scrollbar-color: var(--green-normal-color) rgb(0 0 0 / 1%);
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  display: none;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--green-normal-color);
+  border-radius: 14px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--green-active-color);
+}
