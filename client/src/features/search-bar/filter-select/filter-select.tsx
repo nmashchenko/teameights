@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { FC, useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { Select } from 'shared/ui';
+import { Select } from '@/shared/ui';
 import { Filter } from '../interface/filters';
 import styles from './filter-select.module.scss';
 
