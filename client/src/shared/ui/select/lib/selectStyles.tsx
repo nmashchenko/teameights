@@ -17,7 +17,7 @@ const _colors = {
 
 const getFocusAndActiveStyles = (isBorderDisabled?: boolean) => ({
   boxShadow: 'none',
-  borderBottom: isBorderDisabled ? 'none' : `1px solid ${_colors.white}`
+  borderBottom: isBorderDisabled ? 'none' : `1px solid ${_colors.white}`,
 });
 const _checkboxOption = <
   OptionType,
@@ -84,7 +84,7 @@ export const selectStyles = <
       ':active': { ...getFocusAndActiveStyles(isBorderDisabled) },
       ':focus': { ...getFocusAndActiveStyles(isBorderDisabled) },
       ':focus-within': { ...getFocusAndActiveStyles(isBorderDisabled) },
-      caretColor: _colors.green.bright
+      caretColor: _colors.green.bright,
     }),
     dropdownIndicator: styles => ({
       ...styles,

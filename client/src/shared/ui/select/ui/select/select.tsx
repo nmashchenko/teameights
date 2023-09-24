@@ -65,7 +65,16 @@ export const Select = <
 >(
   props: Props<Option, IsMulti, Group> & CustomSelectProps
 ) => {
-  const { error, label, disabled, isMulti, isCheckbox = false, name, isBorderDisabled = false, ...rest } = props;
+  const {
+    error,
+    label,
+    disabled,
+    isMulti,
+    isCheckbox = false,
+    name,
+    isBorderDisabled = false,
+    ...rest
+  } = props;
   return (
     <div
       className={clsx(styles.container, {

@@ -2,9 +2,9 @@
 
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
-import { Github, Google, Login } from 'shared/assets';
+import { Github, Google, Login } from '@/shared/assets';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, Input, InputPassword, Typography } from 'shared/ui';
+import { Button, Input, InputPassword, Typography } from '@/shared/ui';
 import styles from '../shared.module.scss';
 
 interface SignupProps {
