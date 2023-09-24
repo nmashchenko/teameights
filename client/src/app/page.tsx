@@ -1,9 +1,11 @@
 'use client';
 
-import { Typography } from '@/shared/ui';
+import { Button, Typography } from "@/shared/ui";
 import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
+import { useState } from "react";
 
 export default function Home() {
+  const [active, setActive] = useState(false)
   return (
     <>
       <Typography size='heading_l' variant='h6'>
@@ -14,18 +16,23 @@ export default function Home() {
         Get to login
       </a>
 
+      <Button onClick={() => setActive(true)}>
+        OPEN
+      </Button>
+
       {/* For Testing Modal */}
       <div>
         <ActionModal
-          heading='Removing member'
-          sub='Are you sure you want to remove member from team?'
+          heading='Tolkik'
+          sub='Без текста'
           buttonOneText='Primary action'
           //Должна быть какая-то логика для кнопки номер 1
           buttonOneAction={() => {}}
-          buttonTwoText='Secondary action'
+          // buttonTwoText='Secondary action'
           //Должна быть какая-то логика для кнопки номер 2
-          buttonTwoAction={() => {}}
-          isOpenModal={true}
+          // buttonTwoAction={() => {}}
+          isOpenModal={active}
+          handleClose={() => setActive(false)}
         />
       </div>
     </>
