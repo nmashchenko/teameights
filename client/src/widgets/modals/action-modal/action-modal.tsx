@@ -11,6 +11,8 @@ interface ActionModalProps {
   buttonTwoAction?: () => void;
   isOpenModal: boolean;
   handleClose: () => void;
+  buttonOneType: 'tertiary' | 'danger' | 'secondary' | 'primary',
+  buttonTwoType?: 'tertiary' | 'danger' | 'secondary' | 'primary'
 }
 
 export const ActionModal: FC<ActionModalProps> = ({
@@ -21,7 +23,9 @@ export const ActionModal: FC<ActionModalProps> = ({
   buttonTwoText,
   buttonTwoAction,
   isOpenModal,
-  handleClose
+  handleClose,
+  buttonOneType = 'primary',
+  buttonTwoType = 'tertiary'
 }) => {
   return (
     <div>
@@ -36,11 +40,11 @@ export const ActionModal: FC<ActionModalProps> = ({
               </Typography>
             </div>
             <div className={styles.button}>
-              <Button typeBtn='primary' color='white' size='m' onClick={buttonOneAction}>
+              <Button typeBtn={buttonOneType} color='white' size='m' onClick={buttonOneAction}>
                 {buttonOneText}
               </Button>
               {buttonTwoText && (
-                <Button typeBtn='secondary' color='white' size='m' onClick={buttonTwoAction}>
+                <Button typeBtn={buttonTwoType} color='white' size='m' onClick={buttonTwoAction}>
                   {buttonTwoText}
                 </Button>
               )}

@@ -31,6 +31,7 @@ export default function Home() {
           // buttonTwoText='Secondary action'
           //Должна быть какая-то логика для кнопки номер 2
           // buttonTwoAction={() => {}}
+          buttonOneType='primary'
           isOpenModal={active}
           handleClose={() => setActive(false)}
         />
