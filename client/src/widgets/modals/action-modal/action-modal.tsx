@@ -11,8 +11,8 @@ interface ActionModalProps {
   buttonTwoAction?: () => void;
   isOpenModal: boolean;
   handleClose: () => void;
-  buttonOneType: 'tertiary' | 'danger' | 'secondary' | 'primary',
-  buttonTwoType?: 'tertiary' | 'danger' | 'secondary' | 'primary'
+  buttonOneType: 'tertiary' | 'danger' | 'secondary' | 'primary';
+  buttonTwoType?: 'tertiary' | 'danger' | 'secondary' | 'primary';
 }
 
 export const ActionModal: FC<ActionModalProps> = ({
@@ -25,32 +25,32 @@ export const ActionModal: FC<ActionModalProps> = ({
   isOpenModal,
   handleClose,
   buttonOneType = 'primary',
-  buttonTwoType = 'tertiary'
+  buttonTwoType = 'tertiary',
 }) => {
   return (
     <div>
-        <Modal isOpen={isOpenModal} onClose={handleClose} size='s'>
-          <div className={styles.container}>
-            <div className={styles.text}>
-              <Typography color='white' size='heading_m'>
-                {heading}
-              </Typography>
-              <Typography color='white' size='body_m'>
-                {sub}
-              </Typography>
-            </div>
-            <div className={styles.button}>
-              <Button typeBtn={buttonOneType} color='white' size='m' onClick={buttonOneAction}>
-                {buttonOneText}
-              </Button>
-              {buttonTwoText && (
-                <Button typeBtn={buttonTwoType} color='white' size='m' onClick={buttonTwoAction}>
-                  {buttonTwoText}
-                </Button>
-              )}
-            </div>
+      <Modal isOpen={isOpenModal} onClose={handleClose} size='s'>
+        <div className={styles.container}>
+          <div className={styles.text}>
+            <Typography color='white' size='heading_m'>
+              {heading}
+            </Typography>
+            <Typography color='white' size='body_m'>
+              {sub}
+            </Typography>
           </div>
-        </Modal>
+          <div className={styles.button}>
+            <Button typeBtn={buttonOneType} color='white' size='m' onClick={buttonOneAction}>
+              {buttonOneText}
+            </Button>
+            {buttonTwoText && (
+              <Button typeBtn={buttonTwoType} color='white' size='m' onClick={buttonTwoAction}>
+                {buttonTwoText}
+              </Button>
+            )}
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

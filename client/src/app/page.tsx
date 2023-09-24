@@ -1,11 +1,11 @@
 'use client';
 
-import { Button, Typography } from "@/shared/ui";
+import { Button, Typography } from '@/shared/ui';
 import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function Home() {
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
   return (
     <>
       <Typography size='heading_l' variant='h6'>
@@ -16,9 +16,7 @@ export default function Home() {
         Get to login
       </a>
 
-      <Button onClick={() => setActive(true)}>
-        OPEN
-      </Button>
+      <Button onClick={() => setActive(true)}>OPEN</Button>
 
       {/* For Testing Modal */}
       <div>
