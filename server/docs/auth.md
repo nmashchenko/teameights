@@ -51,20 +51,33 @@ sequenceDiagram
 For auth with external services or social networks you need:
 
 1. Sign in through an external service and get access token(s).
-1. Call one of endpoints with access token received in frontend app on 1-st step and get JWT token from the backend app.
+2. Call one of endpoints with access token received in frontend app on 1-st step and get JWT token from the backend app.
 
    ```text
    POST /api/v1/auth/google/login
+   POST /api/v1/auth/github/login
    ```
 
-1. Make any requests using a JWT token
+3. Make any requests using a JWT token
 
 ---
+
+## Configure Auth
+
+1. Get `AUTH_JWT_SECRET` and `AUTH_REFRESH_SECRET` values from discord
+
+2. Go to `/.env` and replace `AUTH_JWT_SECRET` and `AUTH_REFRESH_SECRET` with output from step 1.
+
+   ```text
+   AUTH_JWT_SECRET=HERE_SECRET_KEY_FROM_STEP_1
+   AUTH_REFRESH_SECRET=HERE_SECRET_KEY_FROM_STEP_1
+   ```
+
 
 ## Auth via Google
 
 1. You need a `CLIENT_ID`, `CLIENT_SECRET`. You can find these pieces of information by going to the [Developer Console](https://console.cloud.google.com/), clicking your project (if doesn't have create it here https://console.cloud.google.com/projectcreate) -> `APIs & services` -> `credentials`.
-1. Change `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `.env`
+2. Change `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `.env`
 
    ```text
    GOOGLE_CLIENT_ID=abc
@@ -74,8 +87,8 @@ For auth with external services or social networks you need:
 ## Refresh token flow
 
 1. On sign in (`POST /api/v1/auth/email/login`) you will receive `token`, `tokenExpires` and `refreshToken` in response.
-1. On each regular request you need to send `token` in `Authorization` header.
-1. If `token` is expired (check with `tokenExpires` property on client app) you need to send `refreshToken` to `POST /api/v1/auth/refresh` in `Authorization` header to refresh `token`. You will receive new `token`, `tokenExpires` and `refreshToken` in response.
+2. On each regular request you need to send `token` in `Authorization` header.
+3. If `token` is expired (check with `tokenExpires` property on client app) you need to send `refreshToken` to `POST /api/v1/auth/refresh` in `Authorization` header to refresh `token`. You will receive new `token`, `tokenExpires` and `refreshToken` in response.
 
 ### Video example
 
