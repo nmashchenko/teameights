@@ -21,27 +21,26 @@ NestJS REST API boilerplate for typical project
 - [Tests in Docker](#tests-in-docker)
 - [Test benchmarking](#test-benchmarking)
 
-## Features
+## Tech stack
 
-- [x] Database ([typeorm](https://www.npmjs.com/package/typeorm)).
-- [x] Seeding.
-- [x] Config Service ([@nestjs/config](https://www.npmjs.com/package/@nestjs/config)).
-- [x] Mailing ([nodemailer](https://www.npmjs.com/package/nodemailer)).
-- [x] Sign in and sign up via email.
-- [x] Social sign in (Apple, Facebook, Google, Twitter).
-- [x] Admin and User roles.
-- [x] I18N ([nestjs-i18n](https://www.npmjs.com/package/nestjs-i18n)).
-- [x] File uploads. Support local and Amazon S3 drivers.
-- [x] Swagger.
-- [x] E2E and units tests.
-- [x] Docker.
-- [x] CI (Github Actions).
+- Database ([typeorm](https://www.npmjs.com/package/typeorm)).
+- Seeding.
+- Config Service ([@nestjs/config](https://www.npmjs.com/package/@nestjs/config)).
+- Mailing ([nodemailer](https://www.npmjs.com/package/nodemailer)).
+- Sign in and sign up via email.
+- Social sign in (Google, GitHub).
+- Admin and User roles.
+- I18N ([nestjs-i18n](https://www.npmjs.com/package/nestjs-i18n)).
+- File uploads. Support local and Amazon S3 drivers.
+- Swagger.
+- E2E and units tests.
+- Docker.
+- CI (GitHub Actions).
 
 ## Quick run
 
 ```bash
-git clone --depth 1 https://github.com/brocoders/nestjs-boilerplate.git my-app
-cd my-app/
+cd server
 cp env-example .env
 docker compose up -d
 ```
@@ -55,8 +54,7 @@ docker compose logs
 ## Comfortable development
 
 ```bash
-git clone --depth 1 https://github.com/brocoders/nestjs-boilerplate.git my-app
-cd my-app/
+cd server
 cp env-example .env
 ```
 
@@ -67,7 +65,7 @@ Change `MAIL_HOST=maildev` to `MAIL_HOST=localhost`
 Run additional container:
 
 ```bash
-docker compose up -d postgres adminer maildev
+docker compose up -d postgres maildev
 ```
 
 ```bash
@@ -83,7 +81,6 @@ yarn start:dev
 ## Links
 
 - Swagger: <http://localhost:3000/docs>
-- Adminer (client for DB): <http://localhost:8080>
 - Maildev: <http://localhost:1080>
 
 ## Automatic update of dependencies

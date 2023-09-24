@@ -21,7 +21,7 @@
 
 ## Drivers support
 
-Out of box boilerplate support two drivers: `local` and `s3`. You can set it in `.env` file, variable `FILE_DRIVER`. If you want use other service for storing files, you can extend it.
+Out of box support two drivers: `local` and `s3`. You can set it in `.env` file, variable `FILE_DRIVER`. If you want use other service for storing files, you can extend it.
 
 ---
 

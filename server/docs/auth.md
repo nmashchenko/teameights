@@ -33,11 +33,11 @@ sequenceDiagram
 
 ### Auth via external services or social networks flow
 
-Also you can sign up via another external services or social networks like Apple, Facebook, Google, and Twitter.
+Also you can sign up via another external services or social networks like Google and Github.
 
 ```mermaid
 sequenceDiagram
-    participant B as External Auth Services (Apple, Google, etc)
+    participant B as External Auth Services (Google, etc)
     participant A as Fronted App (Web, Mobile, Desktop)
     participant C as Backend App
 

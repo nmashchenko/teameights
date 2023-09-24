@@ -18,12 +18,6 @@ services:
       - ${MAIL_CLIENT_PORT}:1080
       - ${MAIL_PORT}:1025
 
-#  adminer:
-#    image: adminer
-#    restart: always
-#    ports:
-#      - 8080:8080
-
   # Uncomment to use redis
   # redis:
   #   image: redis:7-alpine
