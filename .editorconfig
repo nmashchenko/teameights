@@ -1,0 +1,23 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset and indentation for TypeScript, JavaScript, CSS, HTML, and JSON files
+[*.{ts,tsx,js,jsx,css,scss,less,html,json}]
+charset = utf-8
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+max_line_length = 100
+
+# Max 100 character line length for markdown files (Airbnb's JavaScript style guide suggests a max line length of 100 characters)
+[*.md]
+max_line_length = 100
+trim_trailing_whitespace = false
