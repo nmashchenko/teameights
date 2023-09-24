@@ -13,10 +13,10 @@ const validationOptions: ValidationPipeOptions = {
             ...accumulator,
             [currentValue.property]: Object.values(currentValue.constraints ?? {}).join(', '),
           }),
-          {},
+          {}
         ),
       },
-      HttpStatus.UNPROCESSABLE_ENTITY,
+      HttpStatus.UNPROCESSABLE_ENTITY
     ),
 };
 

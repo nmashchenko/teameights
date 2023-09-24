@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 export class StatusSeedService {
   constructor(
     @InjectRepository(Status)
-    private repository: Repository<Status>,
+    private repository: Repository<Status>
   ) {}
 
   async run() {

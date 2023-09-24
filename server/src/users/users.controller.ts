@@ -54,7 +54,7 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   async findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number
   ): Promise<InfinityPaginationResultType<User>> {
     if (limit > 50) {
       limit = 50;
@@ -65,7 +65,7 @@ export class UsersController {
         page,
         limit,
       }),
-      { page, limit },
+      { page, limit }
     );
   }
 

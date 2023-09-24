@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 export class RoleSeedService {
   constructor(
     @InjectRepository(Role)
-    private repository: Repository<Role>,
+    private repository: Repository<Role>
   ) {}
 
   async run() {
@@ -23,7 +23,7 @@ export class RoleSeedService {
         this.repository.create({
           id: RoleEnum.user,
           name: 'User',
-        }),
+        })
       );
     }
 
@@ -38,7 +38,7 @@ export class RoleSeedService {
         this.repository.create({
           id: RoleEnum.admin,
           name: 'Admin',
-        }),
+        })
       );
     }
   }

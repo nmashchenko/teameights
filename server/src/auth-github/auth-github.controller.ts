@@ -13,7 +13,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class AuthGithubController {
   constructor(
     private readonly authService: AuthService,
-    private readonly authGithubService: AuthGithubService,
+    private readonly authGithubService: AuthGithubService
   ) {}
 
   @Post('login')

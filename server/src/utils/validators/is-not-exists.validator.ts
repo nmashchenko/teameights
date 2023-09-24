@@ -15,7 +15,7 @@ type ValidationEntity =
 export class IsNotExist implements ValidatorConstraintInterface {
   constructor(
     @InjectDataSource()
-    private dataSource: DataSource,
+    private dataSource: DataSource
   ) {}
 
   async validate(value: string, validationArguments: ValidationArguments) {

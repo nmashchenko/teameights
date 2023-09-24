@@ -10,7 +10,7 @@ import { User } from 'src/users/entities/user.entity';
 export class SessionService {
   constructor(
     @InjectRepository(Session)
-    private readonly sessionRepository: Repository<Session>,
+    private readonly sessionRepository: Repository<Session>
   ) {}
 
   async findOne(options: FindOptions<Session>): Promise<NullableType<Session>> {

@@ -11,7 +11,7 @@ import { NullableType } from '../utils/types/nullable.type';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private usersRepository: Repository<User>
   ) {}
 
   create(createProfileDto: CreateUserDto): Promise<User> {
@@ -36,7 +36,7 @@ export class UsersService {
       this.usersRepository.create({
         id,
         ...payload,
-      }),
+      })
     );
   }
 

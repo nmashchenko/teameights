@@ -9,7 +9,7 @@ import { NullableType } from '../utils/types/nullable.type';
 export class ForgotService {
   constructor(
     @InjectRepository(Forgot)
-    private readonly forgotRepository: Repository<Forgot>,
+    private readonly forgotRepository: Repository<Forgot>
   ) {}
 
   async findOne(options: FindOptions<Forgot>): Promise<NullableType<Forgot>> {

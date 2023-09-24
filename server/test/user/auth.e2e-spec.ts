@@ -83,11 +83,11 @@ describe('Auth user (e2e)', () => {
         ({ body }) =>
           body
             .find(
-              (letter) =>
+              letter =>
                 letter.to[0].address.toLowerCase() === newUserEmail.toLowerCase() &&
-                /.*confirm\-email\?hash\=(\w+).*/g.test(letter.text),
+                /.*confirm\-email\?hash\=(\w+).*/g.test(letter.text)
             )
-            ?.text.replace(/.*confirm\-email\?hash\=(\w+).*/g, '$1'),
+            ?.text.replace(/.*confirm\-email\?hash\=(\w+).*/g, '$1')
       );
 
     return request(app)
@@ -105,11 +105,11 @@ describe('Auth user (e2e)', () => {
         ({ body }) =>
           body
             .find(
-              (letter) =>
+              letter =>
                 letter.to[0].address.toLowerCase() === newUserEmail.toLowerCase() &&
-                /.*confirm\-email\?hash\=(\w+).*/g.test(letter.text),
+                /.*confirm\-email\?hash\=(\w+).*/g.test(letter.text)
             )
-            ?.text.replace(/.*confirm\-email\?hash\=(\w+).*/g, '$1'),
+            ?.text.replace(/.*confirm\-email\?hash\=(\w+).*/g, '$1')
       );
 
     return request(app)

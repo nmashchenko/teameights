@@ -9,7 +9,7 @@ import { Injectable } from '@nestjs/common';
 export class IsExist implements ValidatorConstraintInterface {
   constructor(
     @InjectDataSource()
-    private dataSource: DataSource,
+    private dataSource: DataSource
   ) {}
 
   async validate(value: string, validationArguments: ValidationArguments) {

@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 export class UserSeedService {
   constructor(
     @InjectRepository(User)
-    private repository: Repository<User>,
+    private repository: Repository<User>
   ) {}
 
   async run() {
@@ -36,7 +36,7 @@ export class UserSeedService {
             id: StatusEnum.active,
             name: 'Active',
           },
-        }),
+        })
       );
     }
 
@@ -63,7 +63,7 @@ export class UserSeedService {
             id: StatusEnum.active,
             name: 'Active',
           },
-        }),
+        })
       );
     }
   }

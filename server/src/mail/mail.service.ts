@@ -11,7 +11,7 @@ import path from 'path';
 export class MailService {
   constructor(
     private readonly mailerService: MailerService,
-    private readonly configService: ConfigService<AllConfigType>,
+    private readonly configService: ConfigService<AllConfigType>
   ) {}
 
   async userSignUp(mailData: MailData<{ hash: string }>): Promise<void> {
@@ -43,7 +43,7 @@ export class MailService {
         'src',
         'mail',
         'mail-templates',
-        'activation.hbs',
+        'activation.hbs'
       ),
       context: {
         title: emailConfirmTitle,
@@ -90,7 +90,7 @@ export class MailService {
         'src',
         'mail',
         'mail-templates',
-        'reset-password.hbs',
+        'reset-password.hbs'
       ),
       context: {
         title: resetPasswordTitle,

@@ -13,7 +13,7 @@ import { LoginResponseType } from '../auth/types/login-response.type';
 export class AuthGoogleController {
   constructor(
     private readonly authService: AuthService,
-    private readonly authGoogleService: AuthGoogleService,
+    private readonly authGoogleService: AuthGoogleService
   ) {}
 
   @Post('login')

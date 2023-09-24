@@ -12,7 +12,7 @@ export class AuthGoogleService {
   constructor(private configService: ConfigService<AllConfigType>) {
     this.google = new OAuth2Client(
       configService.get('google.clientId', { infer: true }),
-      configService.get('google.clientSecret', { infer: true }),
+      configService.get('google.clientSecret', { infer: true })
     );
   }
 
@@ -32,7 +32,7 @@ export class AuthGoogleService {
             user: 'wrongToken',
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 

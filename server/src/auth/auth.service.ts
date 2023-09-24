@@ -35,7 +35,7 @@ export class AuthService {
     private forgotService: ForgotService,
     private sessionService: SessionService,
     private mailService: MailService,
-    private configService: ConfigService<AllConfigType>,
+    private configService: ConfigService<AllConfigType>
   ) {}
 
   async validateLogin(loginDto: AuthEmailLoginDto, onlyAdmin: boolean): Promise<LoginResponseType> {
@@ -54,7 +54,7 @@ export class AuthService {
             email: 'notFound',
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 
@@ -66,7 +66,7 @@ export class AuthService {
             email: `needLoginViaProvider:${user.provider}`,
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 
@@ -80,7 +80,7 @@ export class AuthService {
             password: 'incorrectPassword',
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 
@@ -104,7 +104,7 @@ export class AuthService {
 
   async validateSocialLogin(
     authProvider: string,
-    socialData: SocialInterface,
+    socialData: SocialInterface
   ): Promise<LoginResponseType> {
     let user: NullableType<User>;
     const socialEmail = socialData.email?.toLowerCase();
@@ -156,7 +156,7 @@ export class AuthService {
             user: 'userNotFound',
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 
@@ -216,7 +216,7 @@ export class AuthService {
           status: HttpStatus.NOT_FOUND,
           error: `notFound`,
         },
-        HttpStatus.NOT_FOUND,
+        HttpStatus.NOT_FOUND
       );
     }
 
@@ -240,7 +240,7 @@ export class AuthService {
             email: 'emailNotExists',
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 
@@ -273,7 +273,7 @@ export class AuthService {
             hash: `notFound`,
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 
@@ -297,7 +297,7 @@ export class AuthService {
 
   async update(
     userJwtPayload: JwtPayloadType,
-    userDto: AuthUpdateDto,
+    userDto: AuthUpdateDto
   ): Promise<NullableType<User>> {
     if (userDto.password) {
       if (userDto.oldPassword) {
@@ -313,7 +313,7 @@ export class AuthService {
                 user: 'userNotFound',
               },
             },
-            HttpStatus.UNPROCESSABLE_ENTITY,
+            HttpStatus.UNPROCESSABLE_ENTITY
           );
         }
 
@@ -327,7 +327,7 @@ export class AuthService {
                 oldPassword: 'incorrectOldPassword',
               },
             },
-            HttpStatus.UNPROCESSABLE_ENTITY,
+            HttpStatus.UNPROCESSABLE_ENTITY
           );
         } else {
           await this.sessionService.softDelete({
@@ -345,7 +345,7 @@ export class AuthService {
               oldPassword: 'missingOldPassword',
             },
           },
-          HttpStatus.UNPROCESSABLE_ENTITY,
+          HttpStatus.UNPROCESSABLE_ENTITY
         );
       }
     }
@@ -358,7 +358,7 @@ export class AuthService {
   }
 
   async refreshToken(
-    data: Pick<JwtRefreshPayloadType, 'sessionId'>,
+    data: Pick<JwtRefreshPayloadType, 'sessionId'>
   ): Promise<Omit<LoginResponseType, 'user'>> {
     const session = await this.sessionService.findOne({
       where: {
@@ -414,7 +414,7 @@ export class AuthService {
         {
           secret: this.configService.getOrThrow('auth.secret', { infer: true }),
           expiresIn: tokenExpiresIn,
-        },
+        }
       ),
       await this.jwtService.signAsync(
         {
@@ -427,7 +427,7 @@ export class AuthService {
           expiresIn: this.configService.getOrThrow('auth.refreshExpires', {
             infer: true,
           }),
-        },
+        }
       ),
     ]);
 

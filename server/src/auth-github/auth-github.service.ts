@@ -41,7 +41,7 @@ export class AuthGithubService {
             user: tokenData.error,
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
 
@@ -60,7 +60,7 @@ export class AuthGithubService {
             user: 'githubError',
           },
         },
-        HttpStatus.INTERNAL_SERVER_ERROR,
+        HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
 

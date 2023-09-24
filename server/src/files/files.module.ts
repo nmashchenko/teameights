@@ -25,7 +25,7 @@ import { AllConfigType } from 'src/config/config.type';
               filename: (request, file, callback) => {
                 callback(
                   null,
-                  `${randomStringGenerator()}.${file.originalname.split('.').pop()?.toLowerCase()}`,
+                  `${randomStringGenerator()}.${file.originalname.split('.').pop()?.toLowerCase()}`
                 );
               },
             }),
@@ -50,7 +50,7 @@ import { AllConfigType } from 'src/config/config.type';
               key: (request, file, callback) => {
                 callback(
                   null,
-                  `${randomStringGenerator()}.${file.originalname.split('.').pop()?.toLowerCase()}`,
+                  `${randomStringGenerator()}.${file.originalname.split('.').pop()?.toLowerCase()}`
                 );
               },
             });
@@ -68,9 +68,9 @@ import { AllConfigType } from 'src/config/config.type';
                       file: `cantUploadFileType`,
                     },
                   },
-                  HttpStatus.UNPROCESSABLE_ENTITY,
+                  HttpStatus.UNPROCESSABLE_ENTITY
                 ),
-                false,
+                false
               );
             }
 
