@@ -1,0 +1,55 @@
+@keyframes slide-in {
+  to {
+    opacity: 1;
+    bottom: 20px;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    opacity: 1;
+    bottom: 20px;
+  }
+
+  to {
+    opacity: 0;
+    bottom: -100%;
+  }
+}
+
+.container {
+  display: flex;
+  width: 670px;
+  z-index: 999999;
+  padding: 24px;
+  position: fixed;
+  bottom: -100%;
+  right: 20px;
+  align-items: center;
+  gap: 24px;
+  border-radius: 20px;
+  background: var(--grey-dark-color);
+  box-shadow: var(--dropdown-shadow);
+  opacity: 0;
+  animation: slide-in 1.5s ease forwards;
+}
+
+ .closeIt {
+   animation: slide-out 2s ease forwards;
+ }
+
+.privacy {
+  color: var(--green-bright-color);
+}
+
+.inline {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
+}
+
+.button {
+  display: flex;
+  gap: 8px;
+}
