@@ -37,7 +37,6 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-hot-toast": "^2.4.1",
-    "react-loader-spinner": "^5.4.5",
     "react-modal": "^3.16.1",
     "react-particles": "^2.12.2",
     "react-select": "^5.7.4",
