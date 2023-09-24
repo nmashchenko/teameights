@@ -12797,15 +12797,15 @@ __metadata:
   linkType: hard
 
 "react-tooltip@npm:^5.21.3":
-  version: 5.21.3
-  resolution: "react-tooltip@npm:5.21.3"
+  version: 5.21.4
+  resolution: "react-tooltip@npm:5.21.4"
   dependencies:
     "@floating-ui/dom": ^1.0.0
     classnames: ^2.3.0
   peerDependencies:
     react: ">=16.14.0"
     react-dom: ">=16.14.0"
-  checksum: 4e16e2b9b3781c24c65bebf2c477d3ec33fc60a7d31243bd9ccd4289cf33f4877eb9dc0b0c54d9fa3eff2dc880c102e2dc38971686ff5a6e1d205aec57a423af
+  checksum: 9b663c5d9a1472b96d3ed708ecce01052aed267dc739520c9b55389a5e42c195a6bcd0717219f260bf0dadee2452d80a7c5fa14c5c3f8b5cdc6a9174d7f42d4a
   languageName: node
   linkType: hard
 
