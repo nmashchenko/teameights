@@ -1,5 +1,6 @@
 # Widgets
 
+
 ![widgets-themed-bordered](https://feature-sliced.design/assets/images/decompose-twitter-7b9a50f879d763c49305b3bf0751ee35.png)
 
 ## Description
