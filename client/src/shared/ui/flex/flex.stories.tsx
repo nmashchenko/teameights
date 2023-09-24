@@ -129,7 +129,7 @@ const flexArgTypes: ArgTypes = {
   },
   width: {
     control: 'text',
-    defaultValue: { summary: 'auto' },
+    defaultValue: { summary: '100%' },
     description: 'Defines the width of the component.',
   },
   maxWidth: {
