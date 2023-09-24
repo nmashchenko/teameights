@@ -8,3 +8,5 @@ export * from './tabs';
 export * from './textarea';
 export * from './typography';
 export * from './portal';
+export * from './flex';
+export * from './icon-wrapper';
