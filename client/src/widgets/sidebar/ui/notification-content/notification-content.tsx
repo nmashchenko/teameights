@@ -12,12 +12,45 @@ import sidebarStyles from '../sidebar/sidebar.module.scss';
 import styles from './notification-content.module.scss';
 
 export interface NotificationContentProps {
+  /**
+   * An array of user notifications. Could be undefined.
+   */
   userNotifications: Notification[] | undefined;
+  /**
+   * Flag indicating whether the sidebar is expanded.
+   */
   isSidebarExpanded: boolean;
+  /**
+   * Function to toggle the notification modal.
+   */
   setNotificationModal: Dispatch<SetStateAction<boolean>>;
+  /**
+   * Flag indicating whether the notification modal is displayed.
+   */
   notificationModal: boolean;
 }
 
+/**
+ * The `SidebarNotificationsContent` component is responsible for rendering the notification content
+ * in the sidebar. It displays a notification icon, the number of unread notifications,
+ * and toggles a modal containing the user's notifications.
+ *
+ * Example:
+ *
+ * ```tsx
+ * // Example usage of SidebarNotificationsContent
+ * const notifications = [
+ *    { read: false, / ...other properties / },
+ *    { read: true, / ...other properties / },
+ * ];
+ * <SidebarNotificationsContent
+ *    userNotifications={notifications}
+ *    isSidebarExpanded={true}
+ *    setNotificationModal={() => {}}
+ *    notificationModal={false}
+ * />
+ * ```
+ */
 export const SidebarNotificationsContent: React.FC<NotificationContentProps> = props => {
   const { notificationModal, setNotificationModal, userNotifications, isSidebarExpanded } = props;
 

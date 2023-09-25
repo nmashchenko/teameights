@@ -10,6 +10,24 @@ interface NotificationsCountProps {
   children: React.ReactNode;
 }
 
+/**
+ * The `SidebarNotificationsCount` component displays a counter badge showing the number of unread notifications.
+ * It allows customization of pointer events and positioning through props.
+ *
+ * @component
+ *
+ * @example
+ * // Example usage of SidebarNotificationsCount
+ * <SidebarNotificationsCount pointerEvents="all" top="6px" left="28px">
+ *   {5}
+ * </SidebarNotificationsCount>
+ *
+ * @param {string} pointerEvents - Controls the CSS `pointer-events` property. Either 'none' or 'all'.
+ * @param {string} [top] - The top CSS position.
+ * @param {string} [right] - The right CSS position.
+ * @param {string} [left] - The left CSS position.
+ * @param {React.ReactNode} children - Content to display within the notification count badge.
+ */
 export const SidebarNotificationsCount: React.FC<NotificationsCountProps> = props => {
   const { pointerEvents = 'none', top = 'auto', right = 'auto', left = 'auto', children } = props;
 
