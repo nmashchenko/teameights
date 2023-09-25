@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 import { IconWrapper } from '@/shared/ui';
 import { ReadYesIcon, X } from '@/shared/assets';
 
-import { SidebarNotificationsList } from '../notification-list/notification-list';
+import { SidebarNotificationsList } from '../../notification-list/notification-list';
 import { NotificationsModalProps } from './notification-modal';
 
 import styles from './notification-modal.module.scss';

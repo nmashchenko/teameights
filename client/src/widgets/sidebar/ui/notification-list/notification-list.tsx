@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { Notification } from '@/entities/notification';
 
 import styles from './notification-list.module.scss';
-import { SidebarNotificationsItem } from '../notification-item/notification-item';
+import { SidebarNotificationsItem } from '@/widgets/sidebar/ui/notification-item/notification-item';
 import { sortNotifications } from './lib/sort-notifications';
 
 interface NotificationsListProps {
