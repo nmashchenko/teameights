@@ -11,6 +11,18 @@ interface SystemNotificationProps {
   notification: SystemNotification;
 }
 
+/**
+ * SidebarSystemNotification component renders system notification content.
+ *
+ * @component
+ * @param {Object} props - The properties object.
+ * @param {SystemNotification} props.notification - The system notification object.
+ *
+ * @example
+ * <SidebarSystemNotification
+ *    notification={systemNotificationObj}
+ * />
+ */
 export const SidebarSystemNotification: React.FC<SystemNotificationProps> = props => {
   const { notification } = props;
   return (

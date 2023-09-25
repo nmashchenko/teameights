@@ -13,6 +13,22 @@ interface TeamInvatitionNotificationProps {
   handleReject: () => void;
 }
 
+/**
+ * SidebarTeamInvatitionNotification component renders team invitation notification content.
+ *
+ * @component
+ * @param {Object} props - The properties object.
+ * @param {TeamInvitationNotification} props.notification - The team invitation notification object.
+ * @param {Function} props.handleAccept - The handler function for accept action.
+ * @param {Function} props.handleReject - The handler function for reject action.
+ *
+ * @example
+ * <SidebarTeamInvatitionNotification
+ *    notification={teamInvitationNotificationObj}
+ *    handleAccept={handleAcceptInvitation}
+ *    handleReject={handleRejectInvitation}
+ * />
+ */
 export const SidebarTeamInvatitionNotification: React.FC<
   TeamInvatitionNotificationProps
 > = props => {

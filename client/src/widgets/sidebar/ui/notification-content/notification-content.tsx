@@ -11,7 +11,7 @@ import { SidebarNotificationsCount } from './notifications-count';
 import sidebarStyles from '../sidebar/sidebar.module.scss';
 import styles from './notification-content.module.scss';
 
-interface NotificationContentProps {
+export interface NotificationContentProps {
   userNotifications: Notification[] | undefined;
   isSidebarExpanded: boolean;
   setNotificationModal: Dispatch<SetStateAction<boolean>>;

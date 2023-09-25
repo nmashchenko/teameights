@@ -9,11 +9,29 @@ import { SidebarSystemNotification } from './system-notification';
 
 import styles from './notification-item.module.scss';
 
-interface NotificationProps {
+export interface NotificationProps {
+  /**
+   * The notification object.
+   */
   notification: Notification;
+  /**
+   * A function to close the notifications modal.
+   */
   closeNotificationsModal: () => void;
 }
 
+/**
+ * SidebarNotificationsItem component renders a list item for the notification.
+ *
+ * Example:
+ *
+ * ```tsx
+ * <SidebarNotificationsItem
+ *    notification={notificationObj}
+ *    closeNotificationsModal={handleCloseModal}
+ * />
+ * ```
+ */
 export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
   const { notification, closeNotificationsModal } = props;
 
