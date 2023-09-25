@@ -25,11 +25,29 @@ describe('getElapsedTime', () => {
       expect(getElapsedTime(pastTime)).toBe('2h ago');
     });
 
-    // Returns "1s ago" for a time that is 1 millisecond ago
-    it('should return "1s ago" for a time that is 1 millisecond ago', () => {
+    // Returns "0s ago" for a time that is 1 millisecond ago
+    it('should return "1s ago" for a time that is 0 millisecond ago', () => {
       const currentTime = new Date();
       const pastTime = new Date(currentTime.getTime() - 1); // 1 millisecond ago
+      expect(getElapsedTime(pastTime)).toBe('0s ago');
+    });
+
+    // Returns "1s ago" for a time that is 1 secons ago
+    it('should return ""1s ago" for a time that is 1 secons ago', () => {
+      const currentTime = new Date();
+      const pastTime = new Date(currentTime.getTime() - 1000); // 1 second ago
       expect(getElapsedTime(pastTime)).toBe('1s ago');
+    });
+
+    // Returns "0s ago" in all cases in milliseconds
+    it('should return "0s ago" in all cases in milliseconds', () => {
+      const currentTime = new Date();
+      const pastTime = new Date(currentTime.getTime() - 10); // 10 millisecond ago
+      expect(getElapsedTime(pastTime)).toBe('0s ago');
+      const pastTime2 = new Date(currentTime.getTime() - 100); // 100 millisecond ago
+      expect(getElapsedTime(pastTime2)).toBe('0s ago');
+      const pastTime3 = new Date(currentTime.getTime() - 999); // 999 millisecond ago
+      expect(getElapsedTime(pastTime3)).toBe('0s ago');
     });
 
     // Returns "1m ago" for a time that is 1 minute and 30 seconds ago
