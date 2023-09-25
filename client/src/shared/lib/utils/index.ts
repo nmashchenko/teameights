@@ -1,1 +1,1 @@
-export { getPastTime } from './get-past-time/get-past-time';
+export { getElapsedTime } from './get-elapsed-time/get-elapsed-time';
