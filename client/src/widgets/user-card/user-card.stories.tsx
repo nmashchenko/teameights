@@ -11,31 +11,32 @@ const meta: Meta<typeof UserCard> = {
 
 export default meta;
 
-export const UserCard_1framework = () => (
+
+export const UserCard_1variant = () => (
   <UserCard
     image='https://via.placeholder.com/70x70'
-    programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+    programmingLanguages={['JS']}
     frameworks={['NodeJS']}
   />
 );
 
-export const UserCard_2frameworks = () => (
+export const UserCard_2variant = () => (
   <UserCard
     image='https://via.placeholder.com/70x70'
-    programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+    programmingLanguages={['JS', 'TS']}
     frameworks={['NodeJS', 'React']}
   />
 );
 
-export const UserCard_3frameworks = () => (
+export const UserCard_3variant = () => (
   <UserCard
     image='https://via.placeholder.com/70x70'
-    programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+    programmingLanguages={['JS', 'TS', 'Rust']}
     frameworks={['NodeJS', 'React', 'MUI']}
   />
 );
 
-export const UserCard_4frameworks = () => (
+export const UserCard_4variant = () => (
   <UserCard
     image='https://via.placeholder.com/70x70'
     programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
@@ -43,10 +44,51 @@ export const UserCard_4frameworks = () => (
   />
 );
 
-export const UserCard_5frameworks = () => (
+export const UserCard_5variant = () => (
   <UserCard
     image='https://via.placeholder.com/70x70'
-    programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+    programmingLanguages={['JS', 'TS', 'Rust', 'Java', 'Haskell']}
     frameworks={['NodeJS', 'React', 'MUI', 'VueJS', 'Angular']}
   />
 );
+
+/*
+* export const UserCard_1framework = () => (
+*   <UserCard
+*     image='https://via.placeholder.com/70x70'
+*     programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+*     frameworks={['NodeJS']}
+*   />
+* );
+* 
+* export const UserCard_2frameworks = () => (
+*   <UserCard
+*     image='https://via.placeholder.com/70x70'
+*     programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+*     frameworks={['NodeJS', 'React']}
+*   />
+* );
+* 
+* export const UserCard_3frameworks = () => (
+*   <UserCard
+*     image='https://via.placeholder.com/70x70'
+*     programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+*     frameworks={['NodeJS', 'React', 'MUI']}
+*   />
+* );
+* 
+* export const UserCard_4frameworks = () => (
+*   <UserCard
+*     image='https://via.placeholder.com/70x70'
+*     programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+*     frameworks={['NodeJS', 'React', 'MUI', 'VueJS']}
+*   />
+* );
+* 
+* export const UserCard_5frameworks = () => (
+*   <UserCard
+*     image='https://via.placeholder.com/70x70'
+*     programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
+*     frameworks={['NodeJS', 'React', 'MUI', 'VueJS', 'Angular']}
+*   />
+* ); */

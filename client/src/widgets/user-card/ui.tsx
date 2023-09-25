@@ -26,7 +26,7 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
             gap: 16,
-            display: 'flex'
+            display: 'flex',
           }}
         >
           <div
@@ -34,7 +34,7 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
               width: 190,
               justifyContent: 'space-between',
               alignItems: 'center',
-              display: 'inline-flex'
+              display: 'inline-flex',
             }}
           >
             <img style={{ width: 70, height: 70, borderRadius: 5 }} src={image} />
@@ -42,10 +42,21 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
               {programmingLanguages
                 .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 1)
                 .map((item, id) => {
+                  // Das ist gut?
+                  // If languages-count < 2: display 2 badges
+                  // If languages > 2: display 1 language + and-more button
                   return (
-                    <div style={{display: "flex"}}>
-                      <BadgeLanguage data={item} key={id} />
-                      <AndMore makeWhite={false}>{programmingLanguagesAmount - 2}</AndMore>
+                    <div>
+                      {programmingLanguagesAmount <= 2 ? (
+                        <BadgeLanguage data={item} key={id} />
+                      ) : programmingLanguagesAmount > 2 ? (
+                        <div>
+                          <BadgeLanguage data={item} key={id} />
+                          <AndMore makeWhite={false}>{programmingLanguagesAmount - 1}</AndMore>
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
                     </div>
                   );
                 })}
@@ -58,7 +69,7 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
               flexDirection: 'column',
               justifyContent: 'flex-start',
               alignItems: 'flex-start',
-              display: 'flex'
+              display: 'flex',
             }}
           >
             <div
@@ -67,7 +78,7 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
                 justifyContent: 'flex-start',
                 alignItems: 'center',
                 gap: 8,
-                display: 'inline-flex'
+                display: 'inline-flex',
               }}
             >
               <div
@@ -76,7 +87,7 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
                   fontSize: 16,
                   fontFamily: 'Rubik',
                   fontWeight: '400',
-                  wordWrap: 'break-word'
+                  wordWrap: 'break-word',
                 }}
               >
                 Brooklyn, 21{' '}
@@ -89,7 +100,7 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
                 color: '#8F9094',
                 fontSize: 14,
                 fontWeight: '400',
-                wordWrap: 'break-word'
+                wordWrap: 'break-word',
               }}
             >
               Developer

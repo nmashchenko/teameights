@@ -17,8 +17,8 @@
     align-items: flex-start;
 
     .languagesContainer {
-      display: grid;
-      grid-template-columns: auto auto;
+      display: flex;
+      // grid-template-columns: auto auto;
       gap: 10px;
       align-self: stretch;
     }
