@@ -39,3 +39,15 @@ export {
   Swift,
   TS,
 } from './language-logo';
+
+export { ReadYesIcon } from './16px';
+export { LightningIcon } from './20px';
+export {
+  UserIcon,
+  UsersIcon,
+  TrophyIcon,
+  BellIcon,
+  BugerCloseIcon,
+  SearchIcon,
+  SignOutIcon,
+} from './24px';
