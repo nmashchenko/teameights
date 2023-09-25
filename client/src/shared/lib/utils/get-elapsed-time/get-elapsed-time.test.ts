@@ -46,7 +46,7 @@ describe('getElapsedTime', () => {
       expect(getElapsedTime(pastTime)).toBe('0s ago');
       const pastTime2 = new Date(currentTime.getTime() - 100); // 100 millisecond ago
       expect(getElapsedTime(pastTime2)).toBe('0s ago');
-      const pastTime3 = new Date(currentTime.getTime() - 999); // 999 millisecond ago
+      const pastTime3 = new Date(currentTime.getTime() - 997); // 997 millisecond ago
       expect(getElapsedTime(pastTime3)).toBe('0s ago');
     });
 

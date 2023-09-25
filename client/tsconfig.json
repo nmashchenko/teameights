@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -26,8 +27,8 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "*/**/*.ts",
+    "*/**/*.tsx",
     ".next/types/**/*.ts",
     "config/storybook/preview.tsx"
   ],
