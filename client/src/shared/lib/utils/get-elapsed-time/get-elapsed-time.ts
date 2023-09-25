@@ -11,8 +11,13 @@
  */
 export const getElapsedTime = (time: string | number | Date) => {
   const datePast = new Date(time);
+  if (isNaN(datePast.getTime())) {
+    throw new Error('Invalid date input');
+  }
   const dateNow = new Date();
   const timeDiff = dateNow.getTime() - datePast.getTime();
+
+  if (timeDiff < 1000) return '1s ago';
 
   const seconds = Math.floor(timeDiff / 1000);
   const minutes = Math.floor(seconds / 60);

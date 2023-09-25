@@ -50,6 +50,11 @@ jobs:
           yarn lint:ts:check
           yarn prettier:check
 
+      - name: Lint and Format
+        working-directory: ./client
+        run: |
+          yarn test:unit
+
       - name: Build project
         working-directory: ./client
         run: yarn build
