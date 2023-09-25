@@ -50,7 +50,7 @@ jobs:
           yarn lint:ts:check
           yarn prettier:check
 
-      - name: Lint and Format
+      - name: Unit testing 💀💀
         working-directory: ./client
         run: |
           yarn test:unit
