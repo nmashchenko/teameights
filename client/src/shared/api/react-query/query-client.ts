@@ -10,8 +10,10 @@ export const queryClient = new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: error => {
-      toast.error(error.message);
+    onError: (error) => {
+      if (error && error instanceof Error) {
+        toast.error(error.message);
+      }
     },
   }),
 });
