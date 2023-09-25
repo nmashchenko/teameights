@@ -1,5 +1,5 @@
-import { BadgeFramework, BadgeLanguage } from 'shared/ui';
-import { AndMore } from 'shared/ui/and-more';
+import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
+import { AndMore } from '@/shared/ui/and-more';
 import styles from './styles.module.scss';
 
 interface UserCardProps {
