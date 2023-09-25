@@ -24,15 +24,15 @@ import { useEffect, useState } from 'react';
  * };
  */
 export const useGetScreenWidth = (): number => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState<number>(0);
 
   useEffect(() => {
+    // Set the screen width on the client-side after the component has mounted
+    setScreenWidth(window.innerWidth);
+
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
-
-    // Initial setting of screen width
-    handleResize();
 
     // Event listener for window resize
     window.addEventListener('resize', handleResize);
