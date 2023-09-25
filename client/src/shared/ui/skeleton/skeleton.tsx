@@ -1,23 +1,85 @@
 import type { CSSProperties, PropsWithChildren } from 'react';
 import React, { memo } from 'react';
+
+import cls from './skeleton.module.scss';
 import { clsx } from 'clsx';
 
-import cls from './Skeleton.module.css';
-
 export interface SkeletonProps {
+  /**
+   * The number of skeleton elements to render
+   */
   count?: number;
+  /**
+   * [props.inline=false] - Whether the skeleton elements should be rendered inline
+   */
   inline?: boolean;
+  /**
+   * [props.wrapper] - An optional wrapper component for the skeleton elements
+   */
   wrapper?: React.FunctionComponent<PropsWithChildren<unknown>>;
+  /**
+   * [props.className] - A custom class name for the skeleton elements
+   */
   className?: string;
+  /**
+   * [props.height] - The height of the skeleton elements
+   */
   height?: string | number;
+  /**
+   * [props.width] - The width of the skeleton elements
+   */
   width?: string | number;
+  /**
+   * [props.borderRadius] - The border radius of the skeleton elements
+   */
   borderRadius?: string;
+  /**
+   * [props.containerTestId] - The data-testid attribute for the container element
+   */
   containerTestId?: string;
+  /**
+   * [props.skeletonTestId] - The data-testid attribute for the skeleton elements
+   */
   skeletonTestId?: string;
+  /**
+   * [props.containerClassName] - A custom class name for the container element
+   */
   containerClassName?: string;
+  /**
+   * [props.style] - Custom styles for the skeleton elements
+   */
   style?: CSSProperties;
 }
 
+/**
+ * `Skeleton` is a presentational component that renders a skeleton screen placeholder UI.
+ * This is typically used to indicate that content is being loaded and provides a better user experience by reducing the perceived loading time.
+ *
+ * The skeleton elements are customizable in terms of dimensions, appearance, and behavior.
+ *
+ * Example:
+ *
+ * ```tsx
+ * // Basic usage
+ * <Skeleton count={5} />
+ * ```
+ *
+ * ```tsx
+ * // Inline skeleton elements with custom dimensions
+ * <Skeleton count={3} inline width={200} height={20} />
+ * ```
+ *
+ * ```tsx
+ * // Skeleton elements with custom wrapper component
+ * const Wrapper = ({ children }) => <div style={{ padding: '10px' }}>{children}</div>;
+ * <Skeleton count={3} wrapper={Wrapper} />
+ * ```
+ *
+ * ```tsx
+ * // Skeleton elements with custom styles and class names
+ * <Skeleton count={3} className="my-skeleton" style={{ backgroundColor: 'gray' }} />
+ * ```
+ */
 export const Skeleton = memo((props: SkeletonProps) => {
   const {
     skeletonTestId,
