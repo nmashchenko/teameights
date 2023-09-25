@@ -40,20 +40,12 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
             <img style={{ width: 70, height: 70, borderRadius: 5 }} src={image} />
             <div className={styles.languagesContainer}>
               {programmingLanguages
-                .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 2)
+                .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 1)
                 .map((item, id) => {
-                  let andMore = <></>;
-
-                  if (id === 1 && programmingLanguagesAmount > 2) {
-                    andMore = (
-                      <AndMore makeWhite={false}>{programmingLanguagesAmount - 2}+ more</AndMore>
-                    );
-                  }
-
                   return (
-                    <div>
-                      {andMore}
+                    <div style={{display: "flex"}}>
                       <BadgeLanguage data={item} key={id} />
+                      <AndMore makeWhite={false}>{programmingLanguagesAmount - 2}</AndMore>
                     </div>
                   );
                 })}

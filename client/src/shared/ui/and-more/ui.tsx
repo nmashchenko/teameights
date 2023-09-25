@@ -6,7 +6,7 @@ interface AndMoreProps {
 }
 
 export const AndMore = ({ makeWhite, children, ...props }: AndMoreProps) => (
-  <div className={styles.container} {...props}>
-    <div className={styles.button}>{children}</div>
+    <div className={styles.container} {...props}>
+    <div className={styles.button}>{children}+</div>
   </div>
 );

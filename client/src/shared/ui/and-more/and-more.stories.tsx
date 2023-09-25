@@ -13,7 +13,7 @@ export default meta;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const AndMore_Button = () => (
-  <div>
-    <AndMore makeWhite={true}>2+ elements</AndMore>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flexWrap: 'wrap' }}>
+    <AndMore makeWhite={true}>2</AndMore>
   </div>
 );
