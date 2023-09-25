@@ -1,0 +1,33 @@
+$len: 242.776657104492;
+$time: 1.6s;
+
+@keyframes anim {
+  12.5% {
+    stroke-dasharray: #{$len * 0.14}px, #{$len}px;
+    stroke-dashoffset: -#{$len * 0.11}px;
+  }
+  43.75% {
+    stroke-dasharray: #{$len * 0.35}px, #{$len}px;
+    stroke-dashoffset: -#{$len * 0.35}px;
+  }
+  100% {
+    stroke-dasharray: #{$len * 0.01}px, #{$len}px;
+    stroke-dashoffset: -#{$len * 0.99}px;
+  }
+}
+
+.path {
+  stroke-dasharray: #{$len * 0.01}px, #{$len};
+  stroke-dashoffset: 0;
+  animation: anim $time linear infinite;
+  fill: none;
+  strokeWidth: 4;
+  strokeLinecap: round;
+  strokeLinejoin: round;
+  strokeMiterlimit: 10;
+}
+
+.opacityPath {
+  @extend .path;
+  opacity: 0.07;
+}
