@@ -3,15 +3,57 @@ import React, { useRef } from 'react';
 import { Notification } from '@/entities/notification';
 
 import styles from './notification-list.module.scss';
-import { SidebarNotificationsItem } from '@/widgets/sidebar/ui/notification-item/notification-item';
+import { SidebarNotificationsItem } from '../notification-item/notification-item';
 import { sortNotifications } from './lib/sort-notifications';
 
-interface NotificationsListProps {
+export interface NotificationsListProps {
+  /**
+   * Array of user notifications
+   */
   userNotifications: Notification[];
+  /**
+   * Function to set unread IDs based on intersection
+   */
   setUnreadIds: (callback: (prev: Set<string>) => Set<string>) => void;
+  /**
+   * Function to close notifications modal
+   */
   closeNotificationsModal: () => void;
 }
 
+/**
+ * This component is used to display a list of notifications in a sidebar.
+ * It takes a list of user notifications, sorts them based on a specific logic, and
+ * provides an intersection observer to track which notifications are visible in the viewport.
+ *
+ * Here is a basic usage example:
+ *
+ * ```tsx
+ * const userNotifications = [
+ *  {
+ *    _id: '1',
+ *    type: 'SystemNotification',
+ *    system_message: 'Your password will expire soon',
+ *    read: false
+ *  },
+ *  // ... more notifications
+ * ];
+ *
+ * const setUnreadIds = (callback) => {
+ *   // logic to set unread IDs
+ * };
+ *
+ * const closeNotificationsModal = () => {
+ *  // logic to close modal
+ * };
+ *
+ * <SidebarNotificationsList
+ *   userNotifications={userNotifications}
+ *   setUnreadIds={setUnreadIds}
+ *   closeNotificationsModal={closeNotificationsModal}
+ * />
+ * ```
+ */
 export const SidebarNotificationsList: React.FC<NotificationsListProps> = props => {
   const { userNotifications, setUnreadIds, closeNotificationsModal } = props;
 
