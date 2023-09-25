@@ -11,6 +11,9 @@
  */
 export const getElapsedTime = (time: string | number | Date) => {
   const datePast = new Date(time);
+  if (isNaN(datePast.getTime())) {
+    throw new Error('Invalid date input');
+  }
   const dateNow = new Date();
   const timeDiff = dateNow.getTime() - datePast.getTime();
 
