@@ -2,8 +2,6 @@
 // import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 // import { LOCAL_PATH } from '../../../http'
 import React from 'react';
-
-import { Loader } from '@/shared/ui';
 import { Notification } from '@/entities/notification';
 
 import { SidebarTeamInvatitionNotification } from './team-invatition-notification';
@@ -19,7 +17,7 @@ interface NotificationProps {
 export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
   const { notification, closeNotificationsModal } = props;
 
-  const isHandlingInvite = false;
+  // const isHandlingInvite = false;
   // const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
   // const { mutate: teamInviteMutation, isLoading: isHandlingInvite } = useChangeMessageStatus(
   //   notification.teamid,
@@ -53,10 +51,6 @@ export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
         return null;
     }
   };
-
-  if (isHandlingInvite) {
-    return <Loader />;
-  }
 
   return (
     <li
