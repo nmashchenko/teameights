@@ -1,0 +1,38 @@
+.container {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 230px;
+  height: 280px;
+  padding: 20px;
+  background-color: #1a1c22;
+  border-radius: 15px;
+
+  .wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+    flex: 1 1 0;
+    align-items: flex-start;
+
+    .languagesContainer {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 10px;
+      align-self: stretch;
+    }
+
+    .frameworksContainer {
+      display: flex;
+      flex-wrap: wrap;
+      align-self: stretch;
+      height: 74px;
+      gap: 10px;
+
+      .framework {
+        flex: 1 1 0;
+      }
+    }
+  }
+}
