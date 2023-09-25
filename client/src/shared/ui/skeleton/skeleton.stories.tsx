@@ -69,6 +69,57 @@ CustomWrapper.args = {
   ),
 };
 
+// Skeleton representing a loading text line
+export const TextLine = { ...SkeletonTemplate };
+TextLine.args = {
+  ...skeletonProps,
+  width: '80%',
+  height: '16px',
+};
+
+// Skeleton representing a loading avatar
+export const Avatar = { ...SkeletonTemplate };
+Avatar.args = {
+  ...skeletonProps,
+  width: '48px',
+  height: '48px',
+  borderRadius: '50%',
+};
+
+// Skeleton representing a loading card
+export const Card = { ...SkeletonTemplate };
+Card.args = {
+  ...skeletonProps,
+  width: '300px',
+  height: '400px',
+  borderRadius: '8px',
+};
+
+// Skeleton representing a loading button
+export const Button = { ...SkeletonTemplate };
+Button.args = {
+  ...skeletonProps,
+  width: '120px',
+  height: '36px',
+  borderRadius: '4px',
+};
+
+// Skeleton representing a loading image
+export const Image = { ...SkeletonTemplate };
+Image.args = {
+  ...skeletonProps,
+  width: '200px',
+  height: '200px',
+  borderRadius: '8px',
+};
+
+// Skeleton representing loading list items
+export const ListItems = { ...SkeletonTemplate };
+ListItems.args = {
+  ...skeletonProps,
+  count: 5,
+};
+
 const skeletonArgTypes = {
   count: {
     control: 'number',
