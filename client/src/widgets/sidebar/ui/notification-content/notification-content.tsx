@@ -5,10 +5,10 @@ import { IconWrapper } from '@/shared/ui';
 import { BellIcon } from '@/shared/assets';
 import { Notification } from '@/entities/notification';
 
-import { SidebarNotificationsModal } from '@/widgets/sidebar/ui/notification-modal/notification-modal';
+import { SidebarNotificationsModal } from '../notification-modal/notification-modal';
 import { SidebarNotificationsCount } from './notifications-count';
 
-import sidebarStyles from 'widgets/Sidebar/ui/sidebar/sidebar.module.scss';
+import sidebarStyles from '../sidebar/sidebar.module.scss';
 import styles from './notification-content.module.scss';
 
 interface NotificationContentProps {

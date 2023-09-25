@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = {
   images: {
+    domains: ['teameights-production.s3.amazonaws.com', 'localhost'],
     remotePatterns: [
       {
         protocol: 'https',
