@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { AndMore } from './ui';
+import { AndMore } from './and-more';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof AndMore> = {

@@ -1,4 +1,4 @@
-import styles from './styles.module.scss';
+import styles from './and-more.module.scss';
 
 interface AndMoreProps {
   makeWhite?: boolean;

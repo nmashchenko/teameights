@@ -1,6 +1,6 @@
 import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
-import { AndMore } from '@/shared/ui/and-more';
-import styles from './styles.module.scss';
+import { AndMore } from '@/shared/ui/and-more/and-more';
+import styles from './user-card.module.scss';
 
 interface UserCardProps {
   image: string;
@@ -10,6 +10,7 @@ interface UserCardProps {
 
 export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardProps) => {
   const programmingLanguagesAmount = programmingLanguages.length;
+  const frameworksAmount = frameworks.length;
 
   return (
     <div className={styles.container}>
@@ -109,13 +110,22 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
         </div>
 
         <div className={styles.frameworksContainer}>
-          {frameworks.map((item, id) => {
-            return (
-              <div className={styles.framework} key={id}>
-                <BadgeFramework data={item} />
-              </div>
-            );
-          })}
+            {
+
+                  // Das ist gut?
+                  // If languages-count < 2: display 2 badges
+                  // If languages > 2: display 1 language + and-more button
+		frameworks >= 4 {
+		return (
+                        <div>
+			<div className={styles.framework} key={id}>
+			    <BadgeFramework data={item} />
+			</div>
+                          <AndMore makeWhite={false}>{frameworksAmount - 1}</AndMore>
+                        </div>
+		)
+		}
+	    }
         </div>
       </div>
     </div>
