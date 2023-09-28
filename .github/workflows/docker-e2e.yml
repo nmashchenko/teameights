@@ -3,11 +3,11 @@ run-name: ${{ github.actor }} is starting sueta at the backend code ☺️
 
 on:
   push:
-    branches: [dev-nextjs]
+    branches: [develop, master]
     paths:
       - "server/**"
   pull_request:
-    branches: [dev-nextjs]
+    branches: [develop, master]
     paths:
       - "server/**"
 
