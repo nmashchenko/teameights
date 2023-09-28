@@ -1,6 +1,7 @@
 import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
 import { AndMore } from '@/shared/ui/and-more/and-more';
 import styles from './user-card.module.scss';
+import { FC } from 'react';
 
 interface UserCardProps {
   image: string;
@@ -8,7 +9,9 @@ interface UserCardProps {
   frameworks: Array<string>;
 }
 
-export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardProps) => {
+export const UserCard: FC<UserCardProps> = props => {
+  const { image, programmingLanguages, frameworks } = props;
+
   const programmingLanguagesAmount = programmingLanguages.length;
   const frameworksAmount = frameworks.length;
 
@@ -25,29 +28,24 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
             <div className={styles.languagesContainer}>
               {programmingLanguages
                 .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 2)
-                .map((item, id) => {
-                  // Das ist gut?
-                  // If languages-count < 2: display 2 badges
-                  // If languages > 2: display 1 language + and-more button
-                  return (
-                    <div>
-                      {programmingLanguagesAmount <= 2 ? (
+                .map((item, id) => (
+                  <div>
+                    {programmingLanguagesAmount <= 2 ? (
+                      <BadgeLanguage data={item} key={id} />
+                    ) : programmingLanguagesAmount > 2 ? (
+                      <div>
                         <BadgeLanguage data={item} key={id} />
-                      ) : programmingLanguagesAmount > 2 ? (
-                        <div>
-                          <BadgeLanguage data={item} key={id} />
-                        </div>
-                      ) : (
-                        <div></div>
-                      )}
-                      {programmingLanguagesAmount > 2 ? (
-                        <AndMore makeWhite={false}>{programmingLanguagesAmount - 1}</AndMore>
-                      ) : (
-                        ''
-                      )}
-                    </div>
-                  );
-                })}
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                    {programmingLanguagesAmount > 2 ? (
+                      <AndMore makeWhite={false}>{programmingLanguagesAmount - 1}</AndMore>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                ))}
             </div>
           </div>
           <div className={styles.user_info_container}>
@@ -55,40 +53,30 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
               <div className={styles.user_city}>Brooklyn, 21 </div>
               <img style={{ width: 16, height: 12 }} src='https://via.placeholder.com/16x12' />
             </div>
-            <div
-		className={styles.user_job}
-            >
-              Developer
-            </div>
+            <div className={styles.user_job}>Developer</div>
           </div>
         </div>
 
         <div className={styles.frameworksContainer}>
           {frameworks
             .slice(0, programmingLanguagesAmount < 5 ? programmingLanguagesAmount : 3)
-            .map((item, id) => {
-              // Das ist gut?
-              // If languages-count < 2: display 2 badges
-              // If languages > 2: display 1 language + and-more button
-
-              return (
-                <>
-                  {frameworksAmount < 5 ? (
-                    <>
-                      <div className={styles.framework}>
-                        <BadgeFramework data={item} key={id} />
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className={styles.framework}>
-                        <BadgeFramework data={item} key={id} />
-                      </div>
-                    </>
-                  )}
-                </>
-              );
-            })}
+            .map((item, id) => (
+              <>
+                {frameworksAmount < 5 ? (
+                  <>
+                    <div className={styles.framework}>
+                      <BadgeFramework data={item} key={id} />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.framework}>
+                      <BadgeFramework data={item} key={id} />
+                    </div>
+                  </>
+                )}
+              </>
+            ))}
           {frameworksAmount > 4 ? <AndMore makeWhite={false}>{frameworksAmount - 1}</AndMore> : ''}
         </div>
       </div>
