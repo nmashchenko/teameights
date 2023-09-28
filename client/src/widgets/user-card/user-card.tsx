@@ -77,7 +77,7 @@ export const UserCard: FC<UserCardProps> = props => {
                 )}
               </>
             ))}
-          {frameworksAmount > 4 ? <AndMore makeWhite={false}>{frameworksAmount - 1}</AndMore> : ''}
+          {frameworksAmount > 4 ? <BadgeFramework isAndMore={true} andMoreAmount={frameworksAmount - 1} /> : ''}
         </div>
       </div>
     </div>
