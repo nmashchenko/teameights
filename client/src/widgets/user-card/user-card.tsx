@@ -26,29 +26,23 @@ export const UserCard: FC<UserCardProps> = props => {
           <div className={styles.language_badges}>
             <img style={{ width: 70, height: 70, borderRadius: 5 }} src={image} />
             <div className={styles.languagesContainer}>
-              {programmingLanguages
-                .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 1)
-                .map((item, id) => (
-                  <>
-                    {programmingLanguagesAmount <= 2 ? (
-                      <BadgeLanguage data={item} key={id} />
-                    ) : programmingLanguagesAmount > 2 ? (
-                      <div>
-                        <BadgeLanguage data={item} key={id} />
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
-                    {programmingLanguagesAmount > 2 ? (
-                      <BadgeLanguage
-                        isAndMore={true}
-                        andMoreAmount={programmingLanguagesAmount - 1}
-                      />
-                    ) : (
-                      ''
-                    )}
-                  </>
-                ))}
+              {programmingLanguagesAmount <= 2 ? (
+                programmingLanguages
+                  .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 2)
+                  .map((item, id) => <BadgeLanguage data={item} key={id} />)
+              ) : programmingLanguagesAmount > 2 ? (
+                programmingLanguages
+                  .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 1)
+                  .map((item, id) => <BadgeLanguage data={item} key={id} />)
+              ) : (
+                <div></div>
+              )}
+
+              {programmingLanguagesAmount > 2 ? (
+                <BadgeLanguage isAndMore={true} andMoreAmount={programmingLanguagesAmount - 1} />
+              ) : (
+                ''
+              )}
             </div>
           </div>
           <div className={styles.user_info_container}>
