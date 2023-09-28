@@ -4,8 +4,6 @@ import { APP_URL, TESTER_EMAIL, TESTER_PASSWORD, MAIL_HOST, MAIL_PORT } from '..
 describe('Auth user (e2e)', () => {
   const app = APP_URL;
   const mail = `http://${MAIL_HOST}:${MAIL_PORT}`;
-  const newUserFirstName = `Tester${Date.now()}`;
-  const newUserLastName = `E2E`;
   const newUserEmail = `User.${Date.now()}@example.com`;
   const newUserPassword = `secret`;
 
@@ -45,8 +43,6 @@ describe('Auth user (e2e)', () => {
       .send({
         email: TESTER_EMAIL,
         password: TESTER_PASSWORD,
-        firstName: 'Tester',
-        lastName: 'E2E',
       })
       .expect(422)
       .expect(({ body }) => {
@@ -60,8 +56,6 @@ describe('Auth user (e2e)', () => {
       .send({
         email: newUserEmail,
         password: newUserPassword,
-        firstName: newUserFirstName,
-        lastName: newUserLastName,
       })
       .expect(204);
   });
@@ -172,7 +166,7 @@ describe('Auth user (e2e)', () => {
   });
 
   it('New user update profile: /api/v1/auth/me (PATCH)', async () => {
-    const newUserNewName = Date.now();
+    // const newUserNewName = Date.now();
     const newUserNewPassword = 'new-secret';
     const newUserApiToken = await request(app)
       .post('/api/v1/auth/email/login')
@@ -185,7 +179,6 @@ describe('Auth user (e2e)', () => {
         type: 'bearer',
       })
       .send({
-        firstName: newUserNewName,
         password: newUserNewPassword,
       })
       .expect(422);
@@ -196,7 +189,6 @@ describe('Auth user (e2e)', () => {
         type: 'bearer',
       })
       .send({
-        firstName: newUserNewName,
         password: newUserNewPassword,
         oldPassword: newUserPassword,
       })

@@ -1,7 +1,15 @@
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../../roles/entities/role.entity';
-import { IsEmail, IsNotEmpty, IsOptional, MinLength, Validate } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  IsEmail,
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  MinLength,
+  Validate,
+} from 'class-validator';
 import { Status } from 'src/statuses/entities/status.entity';
 import { IsNotExist } from 'src/utils/validators/is-not-exists.validator';
 import { FileEntity } from 'src/files/entities/file.entity';
@@ -19,20 +27,17 @@ export class CreateUserDto {
   email: string | null;
 
   @ApiProperty()
+  @IsOptional()
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  fullName?: string | null;
+
+  @ApiProperty()
   @MinLength(6)
   password?: string;
 
   provider?: string;
 
   socialId?: string | null;
-
-  @ApiProperty({ example: 'John' })
-  @IsNotEmpty()
-  firstName: string | null;
-
-  @ApiProperty({ example: 'Doe' })
-  @IsNotEmpty()
-  lastName: string | null;
 
   @ApiProperty({ type: () => FileEntity })
   @IsOptional()
@@ -54,4 +59,45 @@ export class CreateUserDto {
   status?: Status;
 
   hash?: string | null;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  isLeader?: boolean;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  country?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  dateOfBirth?: Date;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  concentration?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  description?: string;
+
+  @ApiProperty({ enum: ['0-1 years', '1-3 years', '3-5 years', '5+ years'] })
+  @IsOptional()
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  @IsIn(['beginner', 'intermediate', 'advanced'], { message: 'mustBeValidExperience' })
+  experience?: '0-1 years' | '1-3 years' | '3-5 years' | '5+ years';
+
+  @ApiProperty()
+  @IsOptional()
+  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
+  programmingLanguages?: string[];
+
+  @ApiProperty()
+  @IsOptional()
+  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
+  frameworks?: string[];
 }

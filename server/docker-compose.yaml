@@ -24,12 +24,12 @@ services:
   #   ports:
   #     - 6379:6379
 
-#  api:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
-#      - ${APP_PORT}:${APP_PORT}
+  #  api:
+  #    build:
+  #      context: .
+  #      dockerfile: Dockerfile
+  #    ports:
+  #      - ${APP_PORT}:${APP_PORT}
 
 volumes:
   boilerplate-db:

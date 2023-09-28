@@ -24,8 +24,7 @@ export class UserSeedService {
     if (!countAdmin) {
       await this.repository.save(
         this.repository.create({
-          firstName: 'Super',
-          lastName: 'Admin',
+          fullName: 'Super Admin',
           email: 'admin@example.com',
           password: 'secret',
           role: {
@@ -36,6 +35,14 @@ export class UserSeedService {
             id: StatusEnum.active,
             name: 'Active',
           },
+          isLeader: true,
+          country: 'Ukraine',
+          dateOfBirth: '2023-09-25',
+          concentration: 'Frontend/UI Developer',
+          description: 'Cool developer!',
+          experience: '5+ years',
+          programmingLanguages: ['C++', 'C', 'Go'],
+          frameworks: ['Ruby', 'NodeJS'],
         })
       );
     }
@@ -51,8 +58,7 @@ export class UserSeedService {
     if (!countUser) {
       await this.repository.save(
         this.repository.create({
-          firstName: 'John',
-          lastName: 'Doe',
+          fullName: 'John Deer',
           email: 'john.doe@example.com',
           password: 'secret',
           role: {

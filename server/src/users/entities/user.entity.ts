@@ -34,6 +34,9 @@ export class User extends EntityHelper {
   @Exclude({ toPlainOnly: true })
   password: string;
 
+  @Column({ type: String, unique: true, nullable: true })
+  username?: string | null;
+
   @Exclude({ toPlainOnly: true })
   public previousPassword: string;
 
@@ -62,11 +65,7 @@ export class User extends EntityHelper {
 
   @Index()
   @Column({ type: String, nullable: true })
-  firstName: string | null;
-
-  @Index()
-  @Column({ type: String, nullable: true })
-  lastName: string | null;
+  fullName: string | null;
 
   @ManyToOne(() => FileEntity, {
     eager: true,
@@ -87,6 +86,32 @@ export class User extends EntityHelper {
   @Index()
   @Exclude({ toPlainOnly: true })
   hash: string | null;
+
+  @Index()
+  @Column({ type: Boolean, nullable: true })
+  isLeader?: boolean | null;
+
+  @Column({ type: String, nullable: true })
+  @Index()
+  country?: string | null;
+
+  @Column({ type: 'date', nullable: true })
+  dateOfBirth?: Date | null;
+
+  @Column({ type: String, nullable: true })
+  concentration?: string | null;
+
+  @Column({ type: String, nullable: true })
+  description?: string | null;
+
+  @Column({ type: String, nullable: true })
+  experience?: string | null;
+
+  @Column('text', { array: true, nullable: true })
+  programmingLanguages?: string[] | null;
+
+  @Column('text', { array: true, nullable: true })
+  frameworks?: string[] | null;
 
   @CreateDateColumn()
   createdAt: Date;

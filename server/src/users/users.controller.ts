@@ -27,9 +27,6 @@ import { User } from './entities/user.entity';
 import { InfinityPaginationResultType } from '../utils/types/infinity-pagination-result.type';
 import { NullableType } from '../utils/types/nullable.type';
 
-@ApiBearerAuth()
-@Roles(RoleEnum.admin)
-@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('Users')
 @Controller({
   path: 'users',
@@ -38,17 +35,20 @@ import { NullableType } from '../utils/types/nullable.type';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiBearerAuth()
+  @Roles(RoleEnum.admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @SerializeOptions({
     groups: ['admin'],
   })
-  @Post()
+  @Post('admin')
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createProfileDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createProfileDto);
   }
 
   @SerializeOptions({
-    groups: ['admin'],
+    groups: ['user'],
   })
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -70,7 +70,7 @@ export class UsersController {
   }
 
   @SerializeOptions({
-    groups: ['admin'],
+    groups: ['user'],
   })
   @Get(':id')
   @HttpCode(HttpStatus.OK)
@@ -78,16 +78,25 @@ export class UsersController {
     return this.usersService.findOne({ id: +id });
   }
 
+  @ApiBearerAuth()
+  @Roles(RoleEnum.admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @SerializeOptions({
     groups: ['admin'],
   })
-  @Patch(':id')
+  @Patch('admin/:id')
   @HttpCode(HttpStatus.OK)
   update(@Param('id') id: number, @Body() updateProfileDto: UpdateUserDto): Promise<User> {
     return this.usersService.update(id, updateProfileDto);
   }
 
-  @Delete(':id')
+  @ApiBearerAuth()
+  @Roles(RoleEnum.admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @SerializeOptions({
+    groups: ['admin'],
+  })
+  @Delete('admin/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: number): Promise<void> {
     return this.usersService.softDelete(id);

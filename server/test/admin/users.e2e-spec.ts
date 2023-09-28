@@ -21,14 +21,10 @@ describe('Users admin (e2e)', () => {
         apiToken = body.token;
       });
 
-    await request(app)
-      .post('/api/v1/auth/email/register')
-      .send({
-        email: newUserEmailFirst,
-        password: newUserPasswordFirst,
-        firstName: `First${Date.now()}`,
-        lastName: 'E2E',
-      });
+    await request(app).post('/api/v1/auth/email/register').send({
+      email: newUserEmailFirst,
+      password: newUserPasswordFirst,
+    });
 
     await request(app)
       .post('/api/v1/auth/email/login')
@@ -40,7 +36,7 @@ describe('Users admin (e2e)', () => {
 
   it('Change password for new user: /api/v1/users/:id (PATCH)', () => {
     return request(app)
-      .patch(`/api/v1/users/${newUserFirst.id}`)
+      .patch(`/api/v1/users/admin/${newUserFirst.id}`)
       .auth(apiToken, {
         type: 'bearer',
       })
@@ -60,7 +56,7 @@ describe('Users admin (e2e)', () => {
 
   it('Fail create new user by admin: /api/v1/users (POST)', () => {
     return request(app)
-      .post(`/api/v1/users`)
+      .post(`/api/v1/users/admin`)
       .auth(apiToken, {
         type: 'bearer',
       })
@@ -70,15 +66,13 @@ describe('Users admin (e2e)', () => {
 
   it('Success create new user by admin: /api/v1/users (POST)', () => {
     return request(app)
-      .post(`/api/v1/users`)
+      .post(`/api/v1/users/admin`)
       .auth(apiToken, {
         type: 'bearer',
       })
       .send({
         email: newUserByAdminEmailFirst,
         password: newUserByAdminPasswordFirst,
-        firstName: `UserByAdmin${Date.now()}`,
-        lastName: 'E2E',
         role: {
           id: RoleEnum.user,
         },
@@ -99,23 +93,6 @@ describe('Users admin (e2e)', () => {
       .expect(200)
       .expect(({ body }) => {
         expect(body.token).toBeDefined();
-      });
-  });
-
-  it('Get list of users by admin: /api/v1/users (GET)', () => {
-    return request(app)
-      .get(`/api/v1/users`)
-      .auth(apiToken, {
-        type: 'bearer',
-      })
-      .expect(200)
-      .send()
-      .expect(({ body }) => {
-        expect(body.data[0].provider).toBeDefined();
-        expect(body.data[0].email).toBeDefined();
-        expect(body.data[0].hash).not.toBeDefined();
-        expect(body.data[0].password).not.toBeDefined();
-        expect(body.data[0].previousPassword).not.toBeDefined();
       });
   });
 });

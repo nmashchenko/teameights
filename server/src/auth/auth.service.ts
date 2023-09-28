@@ -133,10 +133,14 @@ export class AuthService {
         id: StatusEnum.active,
       });
 
+      const fullName =
+        socialData.firstName || socialData.lastName
+          ? (socialData.firstName ?? '') + ' ' + (socialData.lastName ?? '')
+          : null;
+
       user = await this.usersService.create({
         email: socialEmail ?? null,
-        firstName: socialData.firstName ?? null,
-        lastName: socialData.lastName ?? null,
+        fullName: fullName,
         socialId: socialData.id,
         provider: authProvider,
         role,
