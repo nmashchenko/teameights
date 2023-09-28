@@ -11,7 +11,6 @@ const meta: Meta<typeof UserCard> = {
 
 export default meta;
 
-
 export const UserCard_1variant = () => (
   <UserCard
     image='https://via.placeholder.com/70x70'

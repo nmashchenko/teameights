@@ -19,29 +19,12 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
         src='https://via.placeholder.com/42x42'
       /> */}
       <div className={styles.wrapper}>
-        <div
-          style={{
-            alignSelf: 'stretch',
-            height: 146,
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
-            gap: 16,
-            display: 'flex',
-          }}
-        >
-          <div
-            style={{
-              width: 190,
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              display: 'inline-flex',
-            }}
-          >
+        <div className={styles.top_part}>
+          <div className={styles.language_badges}>
             <img style={{ width: 70, height: 70, borderRadius: 5 }} src={image} />
             <div className={styles.languagesContainer}>
               {programmingLanguages
-                .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 1)
+                .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 2)
                 .map((item, id) => {
                   // Das ist gut?
                   // If languages-count < 2: display 2 badges
@@ -53,56 +36,27 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
                       ) : programmingLanguagesAmount > 2 ? (
                         <div>
                           <BadgeLanguage data={item} key={id} />
-                          <AndMore makeWhite={false}>{programmingLanguagesAmount - 1}</AndMore>
                         </div>
                       ) : (
                         <div></div>
+                      )}
+                      {programmingLanguagesAmount > 2 ? (
+                        <AndMore makeWhite={false}>{programmingLanguagesAmount - 1}</AndMore>
+                      ) : (
+                        ''
                       )}
                     </div>
                   );
                 })}
             </div>
           </div>
-          <div
-            style={{
-              alignSelf: 'stretch',
-              height: 60,
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              alignItems: 'flex-start',
-              display: 'flex',
-            }}
-          >
-            <div
-              style={{
-                alignSelf: 'stretch',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-                gap: 8,
-                display: 'inline-flex',
-              }}
-            >
-              <div
-                style={{
-                  color: 'white',
-                  fontSize: 16,
-                  fontFamily: 'Rubik',
-                  fontWeight: '400',
-                  wordWrap: 'break-word',
-                }}
-              >
-                Brooklyn, 21{' '}
-              </div>
+          <div className={styles.user_info_container}>
+            <div className={styles.user_personal_info}>
+              <div className={styles.user_city}>Brooklyn, 21 </div>
               <img style={{ width: 16, height: 12 }} src='https://via.placeholder.com/16x12' />
             </div>
             <div
-              style={{
-                alignSelf: 'stretch',
-                color: '#8F9094',
-                fontSize: 14,
-                fontWeight: '400',
-                wordWrap: 'break-word',
-              }}
+		className={styles.user_job}
             >
               Developer
             </div>
@@ -110,22 +64,32 @@ export const UserCard = ({ image, programmingLanguages, frameworks }: UserCardPr
         </div>
 
         <div className={styles.frameworksContainer}>
-            {
+          {frameworks
+            .slice(0, programmingLanguagesAmount < 5 ? programmingLanguagesAmount : 3)
+            .map((item, id) => {
+              // Das ist gut?
+              // If languages-count < 2: display 2 badges
+              // If languages > 2: display 1 language + and-more button
 
-                  // Das ist gut?
-                  // If languages-count < 2: display 2 badges
-                  // If languages > 2: display 1 language + and-more button
-		frameworks >= 4 {
-		return (
-                        <div>
-			<div className={styles.framework} key={id}>
-			    <BadgeFramework data={item} />
-			</div>
-                          <AndMore makeWhite={false}>{frameworksAmount - 1}</AndMore>
-                        </div>
-		)
-		}
-	    }
+              return (
+                <>
+                  {frameworksAmount < 5 ? (
+                    <>
+                      <div className={styles.framework}>
+                        <BadgeFramework data={item} key={id} />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={styles.framework}>
+                        <BadgeFramework data={item} key={id} />
+                      </div>
+                    </>
+                  )}
+                </>
+              );
+            })}
+          {frameworksAmount > 4 ? <AndMore makeWhite={false}>{frameworksAmount - 1}</AndMore> : ''}
         </div>
       </div>
     </div>
