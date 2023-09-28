@@ -27,9 +27,9 @@ export const UserCard: FC<UserCardProps> = props => {
             <img style={{ width: 70, height: 70, borderRadius: 5 }} src={image} />
             <div className={styles.languagesContainer}>
               {programmingLanguages
-                .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 2)
+                .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 1)
                 .map((item, id) => (
-                  <div>
+                  <>
                     {programmingLanguagesAmount <= 2 ? (
                       <BadgeLanguage data={item} key={id} />
                     ) : programmingLanguagesAmount > 2 ? (
@@ -47,7 +47,7 @@ export const UserCard: FC<UserCardProps> = props => {
                     ) : (
                       ''
                     )}
-                  </div>
+                  </>
                 ))}
             </div>
           </div>
