@@ -40,7 +40,10 @@ export const UserCard: FC<UserCardProps> = props => {
                       <div></div>
                     )}
                     {programmingLanguagesAmount > 2 ? (
-                      <AndMore makeWhite={false}>{programmingLanguagesAmount - 1}</AndMore>
+                      <BadgeLanguage
+                        isAndMore={true}
+                        andMoreAmount={programmingLanguagesAmount - 1}
+                      />
                     ) : (
                       ''
                     )}
@@ -77,7 +80,11 @@ export const UserCard: FC<UserCardProps> = props => {
                 )}
               </>
             ))}
-          {frameworksAmount > 4 ? <BadgeFramework isAndMore={true} andMoreAmount={frameworksAmount - 1} /> : ''}
+          {frameworksAmount > 4 ? (
+            <BadgeFramework isAndMore={true} andMoreAmount={frameworksAmount - 1} />
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>
