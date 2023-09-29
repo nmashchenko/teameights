@@ -30,7 +30,7 @@ const FilterSelect: FC<IFilterSelectProps> = ({ filtersArr }) => {
         >
           <Select
             options={filtersArr}
-            isBorderDisabled={true}
+            isWithBorder={false}
             classNames={{
               container: () =>
                 isMenuHovered || isMenuOpened ? clsx(styles.select_active) : clsx(styles.select),
