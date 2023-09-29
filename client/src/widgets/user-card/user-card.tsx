@@ -24,7 +24,7 @@ export const UserCard: FC<UserCardProps> = props => {
       <div className={styles.wrapper}>
         <div className={styles.top_part}>
           <div className={styles.language_badges}>
-            <img style={{ width: 70, height: 70, borderRadius: 5 }} src={image} />
+            <img className={styles.user_logo} src={image} />
             <div className={styles.languagesContainer}>
               {programmingLanguagesAmount <= 2 ? (
                 programmingLanguages
@@ -48,7 +48,7 @@ export const UserCard: FC<UserCardProps> = props => {
           <div className={styles.user_info_container}>
             <div className={styles.user_personal_info}>
               <div className={styles.user_city}>Brooklyn, 21 </div>
-              <img style={{ width: 16, height: 12 }} src='https://via.placeholder.com/16x12' />
+              <img className={styles.flag_icon} src='https://via.placeholder.com/16x12' />
             </div>
             <div className={styles.user_job}>Developer</div>
           </div>

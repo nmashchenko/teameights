@@ -31,6 +31,12 @@
         align-items: center;
         width: 190px;
 
+        .user_logo {
+          width: 70px;
+          height: 70px;
+          border-radius: 5px;
+        }
+
         .languagesContainer {
           display: flex;
           gap: 10px;
@@ -59,6 +65,11 @@
             font-family: Rubik;
             font-weight: 400;
             word-wrap: break-word;
+
+            .flag_icon {
+              width: 16px;
+              height: 12px;
+            }
           }
         }
 
