@@ -8,18 +8,20 @@ interface ITextFilter extends IFilter {
   filterValue: string;
 }
 
-interface ICheckboxFilterItem {
+interface IOptionItem {
   label: string;
   value: string;
 }
 
 interface ICheckboxFilter extends IFilter {
   type: 'checkbox';
-  filterValue: ICheckboxFilterItem[];
+  optionsArr: IOptionItem[];
+  filterValue: IOptionItem[];
 }
 
 interface IMultipleFilter extends IFilter {
   type: 'text';
+  options: IOptionItem[];
   filterValue: string;
 }
 
