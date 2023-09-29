@@ -1,0 +1,208 @@
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+$display-value: 'none';
+$team-card-body-point-gap: 36px;
+$team-card-body-point-max-height: 88px;
+$team-card-body-point-padding-right: 8px;
+// $team-card-body-point-background-color: #ffffff;
+$rotate-degree: 25deg;
+$translate-x: 65%;
+$translate-y: -90%;
+
+.modal_container {
+  height: 438px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hiable_wrapper {
+  display: $display-value;
+}
+
+.team_card_top {
+  display: flex;
+  gap: 32px;
+  max-height: 75px;
+}
+
+.team_card_top_icon {
+  width: 75px; // Значение по умолчанию для ширины
+  height: 75px; // Значение по умолчанию для высоты
+  border-radius: 50%; // Значение по умолчанию для радиуса
+  object-fit: cover;
+  user-select: none;
+}
+
+.team_card_top_info {
+  display: flex;
+  align-items: center;
+}
+
+.column_container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: start;
+  align-items: start;
+}
+
+.type_country_flag_container {
+  display: flex;
+  gap: 5px;
+}
+
+.team_card_body_point {
+  // background-color: $team-card-body-point-background-color;
+
+  > div:not(> div) {
+    display: flex;
+    gap: $team-card-body-point-gap;
+  }
+
+  p {
+    max-height: $team-card-body-point-max-height;
+    padding-right: $team-card-body-point-padding-right;
+  }
+}
+
+.statistics_flex {
+  display: flex;
+  gap: 48px;
+}
+
+.statistic {
+  p {
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
+    display: inline !important;
+    font-weight: 400;
+  }
+  p span {
+    margin: 0;
+    color: #5bd424;
+    display: inline !important;
+  }
+}
+
+.team_card_desc {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.images_container {
+  display: flex;
+  gap: 36px;
+  max-height: 50px;
+}
+
+.team_card_person {
+  display: flex;
+  flex-direction: column;
+}
+
+.crown_container {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  transform: rotate(#{$rotate-degree}) translateX(#{$translate-x}) translateY(#{$translate-y});
+  z-index: 1000;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.team_card_picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.team_card_members {
+  display: flex;
+  gap: 8px;
+}
+
+.buttons_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.join_team {
+  background-color: #46a11b;
+  padding: 10px 16px 8px;
+  border-radius: 10px;
+  width: 109px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  opacity: 1;
+  pointer-events: auto;
+  user-select: auto;
+
+  &:hover {
+    transform: translateY(-1.25px);
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// .profile_button {
+//   background: none;
+//   outline: none;
+//   border: none;
+//   font-size: 16px;
+//   font-weight: 400;
+//   display: flex;
+//   justify-content: center;
+//   align-items: baseline;
+//   gap: 9px;
+//   color: white;
+//   cursor: pointer;
+//   transition: 0.2s ease;
+//   &:hover {
+//     transform: translateX(1.25px);
+//   }
+// }
+
+// .team_text {
+//   font-weight: 400; // Значение по умолчанию для font-weight
+//   font-size: 16px; // Значение по умолчанию для font-size
+//   margin: 0; // Значение по умолчанию для margin
+//   color: #ffffff; // Значение по умолчанию для цвета
+//   text-align: center; // Значение по умолчанию для text-align
+// }
