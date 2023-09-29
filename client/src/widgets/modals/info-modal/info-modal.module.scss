@@ -7,7 +7,6 @@
   }
 }
 
-$display-value: 'none';
 $team-card-body-point-gap: 36px;
 $team-card-body-point-max-height: 88px;
 $team-card-body-point-padding-right: 8px;
@@ -17,26 +16,29 @@ $translate-x: 65%;
 $translate-y: -90%;
 
 .modal_container {
-  height: 438px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  gap: 24px;
 }
 
-.hiable_wrapper {
-  display: $display-value;
+.hidden_container {
+  display: none;
+}
+
+.visible_container {
+  display: block;
 }
 
 .team_card_top {
   display: flex;
   gap: 32px;
-  max-height: 75px;
+  max-height: 70px;
+  align-items: center;
 }
 
 .team_card_top_icon {
-  width: 75px; // Значение по умолчанию для ширины
-  height: 75px; // Значение по умолчанию для высоты
+  width: 70px; // Значение по умолчанию для ширины
+  height: 70px; // Значение по умолчанию для высоты
   border-radius: 50%; // Значение по умолчанию для радиуса
   object-fit: cover;
   user-select: none;
@@ -51,8 +53,6 @@ $translate-y: -90%;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  justify-content: start;
-  align-items: start;
 }
 
 .type_country_flag_container {
@@ -60,38 +60,13 @@ $translate-y: -90%;
   gap: 5px;
 }
 
-.team_card_body_point {
-  // background-color: $team-card-body-point-background-color;
-
-  > div:not(> div) {
-    display: flex;
-    gap: $team-card-body-point-gap;
-  }
-
-  p {
-    max-height: $team-card-body-point-max-height;
-    padding-right: $team-card-body-point-padding-right;
-  }
-}
-
 .statistics_flex {
   display: flex;
   gap: 48px;
 }
 
-.statistic {
-  p {
-    font-size: 16px;
-    color: #fff;
-    margin: 0;
-    display: inline !important;
-    font-weight: 400;
-  }
-  p span {
-    margin: 0;
-    color: #5bd424;
-    display: inline !important;
-  }
+.spanText {
+  color: var(--green-bright-color)
 }
 
 .team_card_desc {
@@ -145,33 +120,6 @@ $translate-y: -90%;
   margin-top: 24px;
 }
 
-.join_team {
-  background-color: #46a11b;
-  padding: 10px 16px 8px;
-  border-radius: 10px;
-  width: 109px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
-  opacity: 1;
-  pointer-events: auto;
-  user-select: auto;
-
-  &:hover {
-    transform: translateY(-1.25px);
-  }
-
-  &[disabled] {
-    opacity: 0.5;
-    pointer-events: none;
-    user-select: none;
-  }
-}
 
 .spinner {
   width: 24px;
@@ -180,29 +128,3 @@ $translate-y: -90%;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
-// .profile_button {
-//   background: none;
-//   outline: none;
-//   border: none;
-//   font-size: 16px;
-//   font-weight: 400;
-//   display: flex;
-//   justify-content: center;
-//   align-items: baseline;
-//   gap: 9px;
-//   color: white;
-//   cursor: pointer;
-//   transition: 0.2s ease;
-//   &:hover {
-//     transform: translateX(1.25px);
-//   }
-// }
-
-// .team_text {
-//   font-weight: 400; // Значение по умолчанию для font-weight
-//   font-size: 16px; // Значение по умолчанию для font-size
-//   margin: 0; // Значение по умолчанию для margin
-//   color: #ffffff; // Значение по умолчанию для цвета
-//   text-align: center; // Значение по умолчанию для text-align
-// }

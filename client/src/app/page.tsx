@@ -58,7 +58,7 @@ export default function Home() {
       </a>
 
       <div>
-        <TeamPreviewModal user={user} team={team} handleJoin={handleJoin} isLoading />
+        <TeamPreviewModal user={user} team={team} handleJoin={handleJoin} />
       </div>
     </>
   );

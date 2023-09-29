@@ -3,6 +3,7 @@ import { Skeleton } from '@/shared/ui/skeleton/skeleton';
 import styles from './info-modal.module.scss';
 import { Typography, Button, Modal } from '@/shared/ui';
 import TeamPersonBox from './team-person';
+import { ArrowRight } from '@/shared/assets';
 
 interface TeamMember {
   image: string;
@@ -30,9 +31,9 @@ export interface User {
   };
 }
 
-function getCountryFlag(country: string): string {
-  return `https://example.com/mock_country_flags/${country}.png`;
-}
+// function getCountryFlag(country: string): string {
+//   return `https://example.com/mock_country_flags/${country}.png`;
+// }
 
 const mockNavigate = (path: string) => {
   console.log(`navigate to ${path}`);
@@ -50,7 +51,7 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handle
 
   const members = team?.members;
   const teammates = members?.slice(1, members.length);
-  const countryFlag = getCountryFlag(team.country);
+  // const countryFlag = getCountryFlag(team.country);
   const navigate = mockNavigate;
 
   useEffect(() => {
@@ -69,10 +70,10 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handle
       <Modal isOpen={true} size='l'>
         <div className={styles.modal_container}>
           <div className={styles.team_card_top}>
-            <div className={`${styles.hidable_wrapper} ${imgLoading ? 'block' : 'none'}`}>
-              <Skeleton width='75px' height='75px' borderRadius='50%' />
+            <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
+              <Skeleton width='70px' height='70px' borderRadius='50%' />
             </div>
-            <div className={`${styles.hidable_wrapper} ${imgLoading ? 'none' : 'block'}`}>
+            <div className={imgLoading ? styles.hidden_container : styles.visible_container}>
               <div className={styles.team_card_top_icon}>
                 <img src={team?.image} alt="Team's image" onLoad={() => setImgLoading(false)} />
               </div>
@@ -89,46 +90,35 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handle
                       team?.type.charAt(0).toUpperCase() + team?.type.slice(1)
                     } Type, ${team?.country}`}
                   </Typography>
-                  {countryFlag && (
-                    <div className={styles.team_card_top_icon}>
-                      <img
-                        src={countryFlag}
-                        width='25px'
-                        height='25px'
-                        style={{ borderRadius: '0%' }}
-                      />
-                    </div>
-                  )}
+                  {/*{countryFlag && (*/}
+                  {/*  <div className={styles.team_card_top_icon}>*/}
+                  {/*    <img*/}
+                  {/*      src={countryFlag}*/}
+                  {/*      width='25px'*/}
+                  {/*      height='25px'*/}
+                  {/*      style={{ borderRadius: '0%' }}*/}
+                  {/*    />*/}
+                  {/*  </div>*/}
+                  {/*)}*/}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Продолжить, там идет TeamCardTop */}
-          <div className={styles.team_card_body_point}>
-            <div className={styles.statistics_flex}>
-              <div className={styles.statistic}>
-                <p>
-                  Tournaments: <span>0</span>
-                </p>
-              </div>
-              <div className={styles.statistic}>
-                <p>
-                  Wins: <span>{team?.wins}</span>
-                </p>
-              </div>
-              <div className={styles.statistic}>
-                <p>
-                  Points: <span>{team.points}</span>
-                </p>
-              </div>
-            </div>
+
+          <div className={styles.statistics_flex}>
+            <Typography size='body_m'>
+              Tournaments: <span className={styles.spanText}>0</span>
+            </Typography>
+            <Typography size='body_m'>
+              Wins: <span className={styles.spanText}>{team?.wins}</span>
+            </Typography>
+            <Typography size='body_m'>
+              Points: <span className={styles.spanText}>{team.points}</span>
+            </Typography>
           </div>
-          {team?.description && (
-            <div className={styles.team_card_body_point}>
-              <div className={styles.team_card_desc}>{team?.description}</div>
-            </div>
-          )}
+          {team?.description && <div className={styles.team_card_desc}>{team?.description}</div>}
           <div className={styles.images_container}>
             <div>
               <TeamPersonBox
@@ -179,11 +169,11 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handle
             <Button
               color='white'
               size='m'
-              width='73px'
               typeBtn='tertiary'
               onClick={() => navigate('/team/' + team?._id)}
             >
               Profile
+              <ArrowRight />
             </Button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { Crown } from '../../../shared/assets/icons/crown';
+import { Crown } from '@/shared/assets';
 import { useState, FC, memo } from 'react';
 import styles from './info-modal.module.scss';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
@@ -16,10 +16,7 @@ const TeamPersonBox: FC<TeamPersonBoxProps> = ({ src, shouldLoadImage, shouldHav
     <div className={styles.team_card_person}>
       {shouldLoadImage ? (
         <>
-          <div
-            className={styles.hidable_wrapper}
-            style={{ display: imgLoading ? 'block' : 'none' }}
-          >
+          <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
             {shouldHaveCrown && (
               <div className={styles.crown_container}>
                 <Crown />
@@ -27,10 +24,7 @@ const TeamPersonBox: FC<TeamPersonBoxProps> = ({ src, shouldLoadImage, shouldHav
             )}
             <Skeleton width='50px' height='50px' borderRadius='50%' />
           </div>
-          <div
-            className={styles.hidable_wrapper}
-            style={{ display: imgLoading ? 'none' : 'block' }}
-          >
+          <div className={imgLoading ? styles.hidden_container : styles.visible_container}>
             {shouldHaveCrown && (
               <div className={styles.crown_container}>
                 <Crown />
