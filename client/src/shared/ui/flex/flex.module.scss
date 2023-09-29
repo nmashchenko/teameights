@@ -1,4 +1,4 @@
-.flexWrapper {
+.flex_wrapper {
   display: flex;
   /* align-items: var(--align, normal);
   justify-content: var(--justify, normal);
@@ -6,10 +6,10 @@
   margin: var(--margin, 0);
   padding: var(--padding, 0);
   flex-direction: var(--direction, row);
-  max-height: var(--maxHeight, none);
+  max-height: var(--max-height, none);
   position: var(--position, static);
   width: var(--width, 100%);
-  max-width: var(--maxWidth, none);
+  max-width: var(--max-width, none);
   height: var(--height, auto);
   flex-wrap: nowrap;
   flex-shrink: unset; */

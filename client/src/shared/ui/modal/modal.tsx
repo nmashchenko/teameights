@@ -57,18 +57,18 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
       closeTimeoutMS={225}
       onRequestClose={onClose}
       overlayClassName={{
-        base: styles.modalOverlay,
-        afterOpen: styles.modalOverlay__afterOpen,
-        beforeClose: styles.modalOverlay__beforeClose,
+        base: styles.modal_overlay,
+        afterOpen: styles.modal_overlay__after_open,
+        beforeClose: styles.modal_overlay__before_close,
       }}
       className={{
-        base: classNames(styles.modalBody, {}, [styles[`size_${size}`]]),
-        afterOpen: classNames(styles.modalBody__afterOpen, {}, [styles[`size_${size}`]]),
-        beforeClose: classNames(styles.modalBody__beforeClose, {}, [styles[`size_${size}`]]),
+        base: classNames(styles.modal_body, {}, [styles[`size_${size}`]]),
+        afterOpen: classNames(styles.modalBody__after_open, {}, [styles[`size_${size}`]]),
+        beforeClose: classNames(styles.modalBody__before_close, {}, [styles[`size_${size}`]]),
       }}
     >
-      <Cross className={styles.closeButton} onClick={onClose} />
-      <div className={styles.modalContent}>{children}</div>
+      <Cross className={styles.close_button} onClick={onClose} />
+      <div className={styles.modal_content}>{children}</div>
     </ReactModal>
   );
 };

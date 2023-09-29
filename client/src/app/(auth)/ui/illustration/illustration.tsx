@@ -22,7 +22,7 @@ export const IllustrationStatus: FC<ConfirmProps> = props => {
         </Typography>
       </div>
       {buttonText && (
-        <div className={styles.buttonWrapper}>
+        <div className={styles.button_wrapper}>
           <Button onClick={buttonHandler} width='136px'>
             {buttonText}
           </Button>

@@ -63,7 +63,7 @@ export const IconWrapper: React.FC<IconWrapperProps> = props => {
   } as React.CSSProperties;
 
   return (
-    <div className={styles.iconWrapper} style={style}>
+    <div className={styles.icon_wrapper} style={style}>
       {children}
     </div>
   );

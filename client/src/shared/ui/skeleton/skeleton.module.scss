@@ -4,7 +4,7 @@
   }
 }
 
-.reactLoadingSkeleton {
+.react_loading_skeleton {
   --base-color: #313131;
   --highlight-color: #525252;
   --animation-duration: 1.5s;
@@ -22,7 +22,7 @@
   z-index: 1; /* Necessary for overflow: hidden to work correctly in Safari */
 }
 
-.reactLoadingSkeleton::after {
+.react_loading_skeleton::after {
   content: ' ';
   display: var(--pseudo-element-display);
   position: absolute;
@@ -32,10 +32,10 @@
   height: 100%;
   background-repeat: no-repeat;
   background-image: linear-gradient(
-      90deg,
-      var(--base-color),
-      var(--highlight-color),
-      var(--base-color)
+    90deg,
+    var(--base-color),
+    var(--highlight-color),
+    var(--base-color)
   );
   transform: translateX(-100%);
   animation-name: react-loading-skeleton;

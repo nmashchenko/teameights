@@ -114,7 +114,7 @@ export const Skeleton = memo((props: SkeletonProps) => {
     const skeletonSpan = (
       <span
         key={i}
-        className={clsx(cls.reactLoadingSkeleton, {}, [className])}
+        className={clsx(cls.react_loading_skeleton, {}, [className])}
         data-testid={skeletonTestId}
         style={thisStyle}
       >

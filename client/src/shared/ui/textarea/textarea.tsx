@@ -87,7 +87,7 @@ export const TextArea: FC<TextAreaProps> = props => {
 
   return (
     <div className={clsx(styles.container, {}, [className])} style={{ maxWidth: maxWidth }}>
-      <div className={styles.label__wrapper}>
+      <div className={styles.label_wrapper}>
         <label className={styles.label}>{label}</label>
         {counterPosition === 'top' && <LetterCounter />}
       </div>

@@ -32,9 +32,9 @@ export default function Update({ params }: { params: { id: string; token: string
       onSubmit={handleSubmit(onSubmit)}
     >
       <div
-        className={clsx(styles.gapContainer, {
+        className={clsx(styles.gap_container, {
           [styles.gap8px]: true,
-          [styles.alignText]: true,
+          [styles.align_text]: true,
         })}
       >
         <Typography color='greenBright' size='heading_m'>
@@ -45,7 +45,7 @@ export default function Update({ params }: { params: { id: string; token: string
         </Typography>
       </div>
       <div
-        className={clsx(styles.gapContainer, {
+        className={clsx(styles.gap_container, {
           [styles.gap36px]: true,
         })}
       >

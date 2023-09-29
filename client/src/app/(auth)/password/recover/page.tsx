@@ -35,9 +35,9 @@ export default function Recover() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div
-        className={clsx(styles.gapContainer, {
+        className={clsx(styles.gap_container, {
           [styles.gap8px]: true,
-          [styles.alignText]: true,
+          [styles.align_text]: true,
         })}
       >
         <Typography color='greenBright' size='heading_m'>
@@ -56,7 +56,7 @@ export default function Recover() {
         onChange={e => setEmail(e.target.value)}
       />
       <div
-        className={clsx(styles.gapContainer, {
+        className={clsx(styles.gap_container, {
           [styles.gap8px]: true,
         })}
       >

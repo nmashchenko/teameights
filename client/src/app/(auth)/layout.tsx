@@ -25,7 +25,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_OAUTH_TOKEN}`}>
       <div className={styles.container}>
         <header className={styles.header}>
-          <div className={styles.headerNormalizer}>
+          <div className={styles.header_normalizer}>
             <Button onClick={handleBack} typeBtn='tertiary' content='text_button'>
               <ArrowLeft />
               <span>Back</span>
@@ -34,7 +34,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           <div className={styles.logo}>
             <LogoBig />
           </div>
-          <div className={styles.headerNormalizer}>
+          <div className={styles.header_normalizer}>
             <Tabs options={options} currentTab={tab} onTabChange={handleChange} />
           </div>
         </header>

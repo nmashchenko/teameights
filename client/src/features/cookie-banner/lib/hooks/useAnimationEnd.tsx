@@ -1,4 +1,4 @@
-import { useEffect, RefObject, useCallback } from 'react';
+import { RefObject, useCallback, useEffect } from 'react';
 import styles from '../../cookie-banner.module.scss';
 
 interface AnimationProps {
@@ -15,7 +15,7 @@ export const useAnimationEnd = ({ elemRef }: AnimationProps) => {
   const handleLogic = () => {
     if (elemRef.current) {
       elemRef.current.addEventListener('animationend', handleAnimationEnd, { once: true });
-      elemRef.current.classList.add(styles.closeIt);
+      elemRef.current.classList.add(styles.close_it);
     }
   };
 

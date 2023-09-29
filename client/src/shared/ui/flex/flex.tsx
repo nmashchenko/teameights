@@ -128,7 +128,7 @@ export const Flex: React.FC<FlexProps> = props => {
   } as React.CSSProperties;
 
   return (
-    <div className={styles.flexWrapper} style={style}>
+    <div className={styles.flex_wrapper} style={style}>
       {children}
     </div>
   );

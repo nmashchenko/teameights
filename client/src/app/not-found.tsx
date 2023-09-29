@@ -20,7 +20,7 @@ export default function NotFound() {
           <Link href='/'>
             <LogoBig />
           </Link>
-          <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={ref}>
+          <div className={styles.need_help} onClick={() => setIsOpen(true)} ref={ref}>
             <Typography size='body_m'>Need Help</Typography>
             <Question data-tooltip-id='my-tooltip-inline' />
             <Tooltip
@@ -54,7 +54,7 @@ export default function NotFound() {
             </div>
           </div>
         </div>
-        <div className={styles.mobileButtons}>
+        <div className={styles.mobile_buttons}>
           <Link href='/'>
             <Button width='100%'>
               <ArrowLeft />
