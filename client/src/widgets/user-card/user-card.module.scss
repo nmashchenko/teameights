@@ -5,7 +5,7 @@
   width: 230px;
   height: 280px;
   padding: 20px;
-  background-color: #1a1c22;
+  background-color: var(--cards-color);
   border-radius: 15px;
 
   .wrapper {
@@ -54,7 +54,7 @@
           gap: 8px;
 
           .user_city {
-            color: white;
+            color: var(--white-color);
             font-size: 16;
             font-family: Rubik;
             font-weight: 400;
@@ -64,7 +64,7 @@
 
         .user_job {
           align-self: stretch;
-          color: #8f9094;
+          color: var(--grey-normal-color);
           font-size: 14;
           font-weight: 400;
           word-wrap: break-word;
