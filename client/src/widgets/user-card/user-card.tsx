@@ -1,7 +1,7 @@
 import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
-import { AndMore } from '@/shared/ui/and-more/and-more';
 import styles from './user-card.module.scss';
 import { FC } from 'react';
+import Image from 'next/image';
 
 interface UserCardProps {
   image: string;
@@ -24,7 +24,7 @@ export const UserCard: FC<UserCardProps> = props => {
       <div className={styles.wrapper}>
         <div className={styles.top_part}>
           <div className={styles.language_badges}>
-            <img className={styles.user_logo} src={image} />
+            <Image className={styles.user_logo} src={image} alt="" width={70} height={70} />
             <div className={styles.languagesContainer}>
               {programmingLanguagesAmount <= 2 ? (
                 programmingLanguages
@@ -48,7 +48,7 @@ export const UserCard: FC<UserCardProps> = props => {
           <div className={styles.user_info_container}>
             <div className={styles.user_personal_info}>
               <div className={styles.user_city}>Brooklyn, 21 </div>
-              <img className={styles.flag_icon} src='https://via.placeholder.com/16x12' />
+              <Image src='https://via.placeholder.com/16x12' alt="" width={16} height={12} />
             </div>
             <div className={styles.user_job}>Developer</div>
           </div>
