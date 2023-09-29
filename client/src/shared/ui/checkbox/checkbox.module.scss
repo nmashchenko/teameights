@@ -52,15 +52,16 @@
     }
   }
 
-  &:checked:hover + .checkmark {
-    background: var(--green-bright-color);
-    border: 1px solid var(--green-bright-color);
-  }
-
   &:disabled + .checkmark,
   &:disabled:not(:checked) ~ .label {
     color: var(--white-color);
     pointer-events: none;
     opacity: 0.4;
   }
+
+  &:checked:hover + .checkmark {
+    background: var(--green-bright-color);
+    border: 1px solid var(--green-bright-color);
+  }
+
 }

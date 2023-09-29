@@ -1,24 +1,20 @@
 .iconItemStyle {
   border-radius: 4px;
-  background: rgba(38, 41, 43, 0.67);
-  box-shadow: rgba(0, 0, 0, 0.10) 0 1px 3px 0;
-  border: 1px solid hsla(203, 50%, 30%, 0.15);
+  background: rgb(38 41 43 / 67%);
+  box-shadow: rgb(0 0 0 / 10%) 0 1px 3px 0;
+  border: 1px solid hsl(203deg 50% 30% / 15%);
   overflow: hidden;
   height: 40px;
   width: 40px;
   display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
+  display: flexbox;
+  display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  -webkit-justify-content: center;
   justify-content: center;
-  -webkit-flex: none;
-  -ms-flex: none;
   flex: none;
 }
