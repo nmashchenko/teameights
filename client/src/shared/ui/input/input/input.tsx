@@ -44,6 +44,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   maxWidth?: string;
   subIconPosition?: IconPosition;
   subIcon?: JSX.Element;
+  isWithBorder?: boolean;
 }
 
 const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
@@ -60,6 +61,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
     disabled,
     subIconPosition = 'end',
     subIcon,
+    isWithBorder = true,
     ...rest
   } = props;
 
@@ -81,6 +83,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
             [styles.input__icon_start]: subIcon && subIconPosition === 'start',
             [styles.input__icon_end]: (subIcon && subIconPosition === 'end') || error,
             [styles.input__two_icons_end]: subIcon && subIconPosition === 'end' && error,
+            [styles.input__withBorder]: isWithBorder,
           })}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${name}-error` : undefined}

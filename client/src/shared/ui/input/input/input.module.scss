@@ -28,16 +28,11 @@
   overflow: hidden;
   background: inherit;
   padding: 8px 4px;
-  border-bottom: 1px solid var(--grey-normal-color);
   caret-color: var(--green-bright-color);
   color: var(--white-color);
   transition: all 0.1s ease 0s;
   font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
     var(--font-rubik);
-
-  &:focus {
-    border-bottom: 1px solid var(--white-color);
-  }
 
   &:hover:not(:disabled) {
     background-color: var(--grey-dark-color);
@@ -53,6 +48,14 @@
 
   &__two_icons_end {
     padding-right: 64px;
+  }
+
+  &_withBorder {
+    border-bottom: 1px solid var(--grey-normal-color);
+
+    &:focus {
+      border-bottom: 1px solid var(--white-color);
+    }
   }
 }
 

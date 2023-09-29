@@ -54,7 +54,7 @@ interface CustomSelectProps {
   label?: string;
   disabled?: boolean;
   isCheckbox?: boolean;
-  isBorderDisabled?: boolean;
+  isWithBorder?: boolean;
   options: Option[];
 }
 
@@ -65,7 +65,7 @@ export const Select = <
 >(
   props: Props<Option, IsMulti, Group> & CustomSelectProps
 ) => {
-  const { error, label, disabled, isMulti, isCheckbox = false, name, isBorderDisabled = false, ...rest } = props;
+  const { error, label, disabled, isMulti, isCheckbox = false, name, isWithBorder = true, ...rest } = props;
   return (
     <div
       className={clsx(styles.container, {
@@ -81,7 +81,7 @@ export const Select = <
         {...rest}
         instanceId='t8s-select'
         closeMenuOnSelect={!isMulti}
-        styles={selectStyles<Option, IsMulti, Group>(isCheckbox, isBorderDisabled)}
+        styles={selectStyles<Option, IsMulti, Group>(isCheckbox, isWithBorder)}
         name={name}
         components={{
           DropdownIndicator: error ? ErrorIndicator : DropdownIndicator,
