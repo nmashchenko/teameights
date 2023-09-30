@@ -24,8 +24,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/libs/database/metadata/roles/roles.guard';
 import { infinityPagination } from 'src/utils/infinity-pagination';
 import { User } from './entities/user.entity';
-import { InfinityPaginationResultType } from '../../utils/types/infinity-pagination-result.type';
-import { NullableType } from '../../utils/types/nullable.type';
+import { InfinityPaginationResultType } from 'src/utils/types/infinity-pagination-result.type';
+import { NullableType } from 'src/utils/types/nullable.type';
 
 @ApiTags('Users')
 @Controller({

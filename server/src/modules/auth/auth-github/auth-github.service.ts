@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AllConfigType } from '../../../config/config.type';
+import { AllConfigType } from 'src/config/config.type';
 import { AuthGithubLoginDto } from './dto/auth-github-login.dto';
-import { SocialInterface } from '../../../libs/database/metadata/social/interfaces/social.interface';
+import { SocialInterface } from 'src/libs/database/metadata/social/interfaces/social.interface';
 
 @Injectable()
 export class AuthGithubService {

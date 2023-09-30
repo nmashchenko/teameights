@@ -11,9 +11,9 @@ import {
   BeforeInsert,
   BeforeUpdate,
 } from 'typeorm';
-import { Role } from '../../../libs/database/metadata/roles/entities/role.entity';
-import { Status } from '../../../libs/database/metadata/statuses/entities/status.entity';
-import { FileEntity } from '../../files/entities/file.entity';
+import { Role } from 'src/libs/database/metadata/roles/entities/role.entity';
+import { Status } from 'src/libs/database/metadata/statuses/entities/status.entity';
+import { FileEntity } from 'src/modules/files/entities/file.entity';
 import bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
 import { AuthProvidersEnum } from 'src/modules/auth/auth-providers.enum';

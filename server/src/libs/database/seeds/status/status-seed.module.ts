@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Status } from 'src/libs/database/metadata/statuses/entities/status.entity';

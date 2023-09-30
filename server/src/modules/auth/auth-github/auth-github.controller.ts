@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { AuthService } from '../base/auth.service';
-import { LoginResponseType } from '../base/types/login-response.type';
+import { AuthService } from 'src/modules/auth/base/auth.service';
+import { LoginResponseType } from 'src/modules/auth/base/types/login-response.type';
 import { AuthGithubService } from './auth-github.service';
 import { AuthGithubLoginDto } from './dto/auth-github-login.dto';
 import { ApiTags } from '@nestjs/swagger';

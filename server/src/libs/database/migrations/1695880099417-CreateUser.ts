@@ -11,6 +11,9 @@ export class CreateUser1695880099417 implements MigrationInterface {
       `CREATE TABLE "status" ("id" integer NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_e12743a7086ec826733f54e1d95" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
+      `CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+    );
+    await queryRunner.query(
       `CREATE TABLE "file" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "path" character varying NOT NULL, CONSTRAINT "PK_36b46d232307066b3a2c9ea3a1d" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(

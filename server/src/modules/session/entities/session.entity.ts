@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   DeleteDateColumn,
 } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 import { EntityHelper } from 'src/utils/entity-helper';
 
 @Entity()

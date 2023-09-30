@@ -1,9 +1,19 @@
 import 'reflect-metadata';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
+// console.log(`
+//   ${process.env.DATABASE_TYPE}\n
+//   ${process.env.DATABASE_HOST}\n
+//   ${process.env.DATABASE_PORT}\n
+//   ${process.env.DATABASE_USERNAME}\n
+//   ${process.env.DATABASE_PASSWORD}\n
+//   ${process.env.DATABASE_NAME}\n
+//
+// `)
+
 export const AppDataSource = new DataSource({
   type: process.env.DATABASE_TYPE,
-  url: process.env.DATABASE_URL,
+  //url: process.env.DATABASE_URL,
   host: process.env.DATABASE_HOST,
   port: process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT, 10) : 5432,
   username: process.env.DATABASE_USERNAME,
@@ -17,7 +27,7 @@ export const AppDataSource = new DataSource({
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   cli: {
     entitiesDir: 'src',
-    migrationsDir: 'src/database/migrations',
+    migrationsDir: 'src/libs/database/migrations',
     subscribersDir: 'subscriber',
   },
   extra: {

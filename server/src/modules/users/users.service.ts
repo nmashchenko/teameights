@@ -5,7 +5,7 @@ import { IPaginationOptions } from 'src/utils/types/pagination-options';
 import { DeepPartial, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
-import { NullableType } from '../../utils/types/nullable.type';
+import { NullableType } from 'src/utils/types/nullable.type';
 
 @Injectable()
 export class UsersService {

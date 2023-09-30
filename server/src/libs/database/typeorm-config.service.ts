@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
@@ -26,7 +27,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
       cli: {
         entitiesDir: 'src',
-        migrationsDir: 'src/database/migrations',
+        migrationsDir: 'src/libs/database/migrations',
         subscribersDir: 'subscriber',
       },
       extra: {

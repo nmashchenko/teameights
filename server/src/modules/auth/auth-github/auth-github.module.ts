@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthGithubController } from './auth-github.controller';
 import { AuthGithubService } from './auth-github.service';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from '../base/auth.module';
+import { AuthModule } from 'src/modules/auth/base/auth.module';
 
 @Module({
   imports: [ConfigModule, AuthModule],

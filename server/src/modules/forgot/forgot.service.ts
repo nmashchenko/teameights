@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptions } from 'src/utils/types/find-options.type';
 import { DeepPartial, Repository } from 'typeorm';
 import { Forgot } from './entities/forgot.entity';
-import { NullableType } from '../../utils/types/nullable.type';
+import { NullableType } from 'src/utils/types/nullable.type';
 
 @Injectable()
 export class ForgotService {

@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn, AfterLoad, AfterInsert } from '
 import { ApiProperty } from '@nestjs/swagger';
 import { Allow } from 'class-validator';
 import { EntityHelper } from 'src/utils/entity-helper';
-import appConfig from '../../../config/app.config';
+import appConfig from 'src/config/app.config';
 import { AppConfig } from 'src/config/config.type';
 
 @Entity({ name: 'file' })

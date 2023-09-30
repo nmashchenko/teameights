@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { I18nContext } from 'nestjs-i18n';
 import { MailData } from './interfaces/mail-data.interface';
 import { AllConfigType } from 'src/config/config.type';
-import { MaybeType } from '../../utils/types/maybe.type';
+import { MaybeType } from 'src/utils/types/maybe.type';
 import { MailerService } from 'src/libs/mailer/mailer.service';
 import path from 'path';
 
