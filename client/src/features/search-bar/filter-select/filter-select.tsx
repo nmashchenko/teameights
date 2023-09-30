@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Select } from 'shared/ui';
 import styles from './filter-select.module.scss';
+import { Filter } from '../interface/filters';
 
 interface IFilterSelectProps {}
 
@@ -17,8 +18,8 @@ const FilterSelect: FC<IFilterSelectProps> = () => {
     setIsMenuHovered(false);
   };
 
-  const handleChange = newValue => {
-    const filterIndex = getValues('filtersArr').findIndex(item => item.value === newValue.value);
+  const handleChange = (newValue: Filter) => {
+    const filterIndex = getValues('filtersArr').findIndex((item: Filter) => item.value === newValue.value);
     setValue('currentFilterIndex', filterIndex);
   };
 
