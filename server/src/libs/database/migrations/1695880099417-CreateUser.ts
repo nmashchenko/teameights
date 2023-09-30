@@ -4,13 +4,13 @@ export class CreateUser1695880099417 implements MigrationInterface {
   name = 'CreateUser1695880099417';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    //await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await queryRunner.query(
       `CREATE TABLE "role" ("id" integer NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_b36bcfe02fc8de3c57a8b2391c2" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
       `CREATE TABLE "status" ("id" integer NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_e12743a7086ec826733f54e1d95" PRIMARY KEY ("id"))`
     );
-    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await queryRunner.query(
       `CREATE TABLE "file" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "path" character varying NOT NULL, CONSTRAINT "PK_36b46d232307066b3a2c9ea3a1d" PRIMARY KEY ("id"))`
     );
@@ -64,7 +64,9 @@ export class CreateUser1695880099417 implements MigrationInterface {
     );
     await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_dc18daa696860586ba4667a9d31"`);
     await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_c28e52f758e7bbc53828db92194"`);
-    await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FKALTER TABLE "user" DROP CONSTRAINT "FK_75e2be4ce11d447ef43be0e374f"_75e2be4ce11d447ef43be0e374f"`);
+    await queryRunner.query(
+      `ALTER TABLE "user" DROP CONSTRAINT "FKALTER TABLE "user" DROP CONSTRAINT "FK_75e2be4ce11d447ef43be0e374f"_75e2be4ce11d447ef43be0e374f"`
+    );
     await queryRunner.query(`DROP INDEX "public"."IDX_3d2f174ef04fb312fdebd0ddc5"`);
     await queryRunner.query(`DROP TABLE "session"`);
     await queryRunner.query(`DROP INDEX "public"."IDX_df507d27b0fb20cd5f7bef9b9a"`);

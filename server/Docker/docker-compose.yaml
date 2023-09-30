@@ -4,7 +4,7 @@ services:
     restart: on-failure
     build:
       context: ../
-      dockerfile: ./Docker/e2e.Dockerfile
+      dockerfile: app.e2e.Dockerfile
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:

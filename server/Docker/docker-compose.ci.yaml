@@ -1,42 +1,27 @@
-name: teameights
 services:
   app:
-    container_name: teameights-api
+    container_name: ${DOCKER_PROJECT_NAME}-app
     restart: on-failure
     build:
       context: ../
-      dockerfile: ./Docker/e2e.Dockerfile
+      dockerfile: app.e2e.Dockerfile
     ports:
       - ${APP_PORT}:${APP_PORT}
-    links:
-      - db
     env_file:
       - ../.env
     depends_on:
-      db:
+      postgres:
         condition: service_healthy
-    volumes:
-      #  - ../..:/workspaces:cached
-      - ../:/app
-      - ignore:/app/node_modules/
-  db:
-    container_name: teameights-db
-    build:
-      context: ../
-      dockerfile: ./Docker/db.Dockerfile
+
+  postgres:
+    container_name: ${DOCKER_PROJECT_NAME}-db
+    image: postgres:16.0-alpine
+    ports:
+      - ${DATABASE_PORT}:5432
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
-      PGDATA: ${DATABASE_PATH_CONTAINER}/pgdata
-      PORT: ${DATABASE_PORT}
-    ports:
-      - "${DATABASE_PORT}:${DATABASE_PORT}"
-    volumes:
-      - db-data:${DATABASE_PATH_CONTAINER}/data
-      - db-endpoint:/docker-entrypoint-initdb.d
-    env_file:
-      - ../.env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}"]
       interval: 10s
@@ -44,35 +29,18 @@ services:
       retries: 5
       start_period: 10s
     restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 4G
-  pgadmin:
-    container_name: teameights-pgadmin
-    image: dpage/pgadmin4:7.2
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${DATABASE_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${DATABASE_PASSWORD}
-      PGADMIN_CONFIG_SERVER_MODE: "False"
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
+  
+  maildev:
+    container_name: ${DOCKER_PROJECT_NAME}-maildev
+    build:
+      context: ../
+      dockerfile: ./Docker/maildev.Dockerfile
     ports:
-      - "5050:80"
-    restart: unless-stopped
-volumes:
-  ignore:
-  db-endpoint:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${DATABASE_PATH_LOCAL}/init
-  db-data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${DATABASE_PATH_LOCAL}/data
-  pgadmin-data:
+      - ${MAIL_CLIENT_PORT}:1080
+      - ${MAIL_PORT}:1025
+
+  # Uncomment to use redis
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - 6379:6379
