@@ -9,7 +9,7 @@ services:
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:
-      - ../.env.dev
+      - ../.env
     depends_on:
       postgres:
         condition: service_healthy

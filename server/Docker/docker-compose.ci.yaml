@@ -27,7 +27,7 @@ services:
         - APP_PORT=$APP_PORT
         - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
       context: ../
-      dockerfile: ./Docker/app.dev.Dockerfile
+      dockerfile: ./Docker/app.e2e.Dockerfile
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:
