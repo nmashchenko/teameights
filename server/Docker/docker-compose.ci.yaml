@@ -1,14 +1,17 @@
 services:
-  app:
-    container_name: ${DOCKER_PROJECT_NAME}-app
+  api:
+    container_name: ${DOCKER_PROJECT_NAME}-api
     restart: on-failure
     build:
       context: ../
-      dockerfile: app.e2e.Dockerfile
+      dockerfile: ./Docker/app.e2e.Dockerfile
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:
       - ../.env
+    environment:
+      - DATABASE_HOST=${DOCKER_PROJECT_NAME}-postgres
+      - MAIL_HOST=${DOCKER_PROJECT_NAME}-maildev
     depends_on:
       postgres:
         condition: service_healthy

@@ -1,3 +1,7 @@
+ARG DOCKER_PROJECT_NAME=teameights
+ARG SERVER_PATH_CONTAINER=/usr/src/app
+ARG APP_PORT=3000
+
 FROM node:18.18.0-alpine
 
 LABEL author="Pikj [Jreydman] Reyderman <pikj.reyderman@gmail.com>"

@@ -22,3 +22,6 @@
 *.css text
 *.scss text
 *.sass text
+
+/.yarn/releases/** binary
+/.yarn/plugins/** binary

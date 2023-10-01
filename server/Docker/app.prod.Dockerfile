@@ -1,29 +1,27 @@
-FROM node:18.18.0-alpine
+FROM teameights-cache as cache
 
-LABEL author="Pikj [Jreydman] Reyderman <pikj.reyderman@gmail.com>"
+FROM node:14 as build
+COPY --from=cache /node_modules /usr/src/app/node_modules
 
-RUN apk add --no-cache bash
-RUN npm i -g @nestjs/cli typescript ts-node
+COPY . ./usr/src/app
+RUN if [ ! -f .env ]; then cp /usr/src/app/env-example /usr/src/app/.env; fi
 
-# COPY package*.json /tmp/app/
+COPY ./package*.json /usr/src/app
+COPY ./tsconfig.build.json /usr/src/app
 
-# RUN cd /tmp/app && yarn install
+RUN cd /usr/src/app \
+    yarn run build \
+    ls dist
 
-COPY . /usr/src/app
-# RUN cp -a /tmp/app/node_modules /usr/src/app
-RUN cd /usr/src/app && yarn install
-COPY ./wait-for-it.sh /opt/wait-for-it.sh
-RUN chmod +x /opt/wait-for-it.sh
-COPY ./startup.ci.sh /opt/startup.ci.sh
-RUN chmod +x /opt/startup.ci.sh
-RUN sed -i 's/\r//g' /opt/wait-for-it.sh
-RUN sed -i 's/\r//g' /opt/startup.ci.sh
-
-EXPOSE ${APP_PORT}
-
+FROM node:18-alpine as release
 WORKDIR /usr/src/app
-RUN if [ ! -f .env ]; then cp env-example .env; fi
+COPY --from=build /usr/src/app/dist/ ./dist
+COPY --from=build /usr/src/app/package*.json .
+EXPOSE 3000
 
-RUN ls -l && yarn run build
-
-CMD ["/opt/startup.ci.sh"]
+COPY ./startup.prod.sh /opt/startup.prod.sh
+COPY ./wait-for-it.sh /opt/wait-for-it.sh
+RUN chmod +x /opt/wait-for-it.sh && chmod +x /opt/startup.prod.sh
+RUN sed -i 's/\r//g' /opt/wait-for-it.sh && sed -i 's/\r//g' /opt/startup.prod.sh
+RUN apk add --no-cache bash
+CMD ["/opt/startup.prod.sh"]
