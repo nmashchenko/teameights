@@ -1,16 +1,5 @@
 import 'reflect-metadata';
 import { DataSource, DataSourceOptions } from 'typeorm';
-
-// console.log(`
-//   ${process.env.DATABASE_TYPE}\n
-//   ${process.env.DATABASE_HOST}\n
-//   ${process.env.DATABASE_PORT}\n
-//   ${process.env.DATABASE_USERNAME}\n
-//   ${process.env.DATABASE_PASSWORD}\n
-//   ${process.env.DATABASE_NAME}\n
-//
-// `)
-
 export const AppDataSource = new DataSource({
   type: process.env.DATABASE_TYPE,
   //url: process.env.DATABASE_URL,

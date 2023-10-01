@@ -1,22 +1,27 @@
 services:
   api:
-    container_name: ${DOCKER_PROJECT_NAME}-api
+    container_name: ${COMPOSE_PROJECT_NAME}-api
+    image: node:18-alpine
     restart: on-failure
-    build:
-      context: ../
-      dockerfile: ./Docker/app.e2e.Dockerfile
+    working_dir: ${SERVER_PATH_CONTAINER}
+    expose:
+      - ${APP_PORT}
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:
-      - ../.env
+      - ../.env.dev
     depends_on:
       postgres:
         condition: service_healthy
+    environment:
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+    command: ["yarn", "start:dev"]
     volumes:
-      - ./:/app
+      - ../:${SERVER_PATH_CONTAINER}
 
   postgres:
-    container_name: ${DOCKER_PROJECT_NAME}-db
+    container_name: ${COMPOSE_PROJECT_NAME}-postgres
     image: postgres:16.0-alpine
     ports:
       - ${DATABASE_PORT}:5432
@@ -35,7 +40,7 @@ services:
     restart: unless-stopped
     
   maildev:
-    container_name: ${DOCKER_PROJECT_NAME}-maildev
+    container_name: ${COMPOSE_PROJECT_NAME}-maildev
     build:
       context: ../
       dockerfile: ./Docker/maildev.Dockerfile

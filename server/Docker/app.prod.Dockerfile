@@ -1,27 +1,39 @@
-FROM teameights-cache as cache
+ARG COMPOSE_PROJECT_NAME
+FROM ${COMPOSE_PROJECT_NAME}-cache as cache
 
-FROM node:14 as build
-COPY --from=cache /node_modules /usr/src/app/node_modules
+FROM node:18 as build
+ARG WORKDIR_FLOW
+WORKDIR ${WORKDIR_FLOW}
 
-COPY . ./usr/src/app
-RUN if [ ! -f .env ]; then cp /usr/src/app/env-example /usr/src/app/.env; fi
+COPY --from=cache /node_modules ./node_modules
+COPY . .
 
-COPY ./package*.json /usr/src/app
-COPY ./tsconfig.build.json /usr/src/app
+RUN if [ ! -f .env ]; then cp ./env-example .env; fi
+RUN sed -i 's/DATABASE_HOST=localhost//g' .env
+RUN sed -i 's/MAIL_HOST=localhost//g' .env
 
-RUN cd /usr/src/app \
-    yarn run build \
-    ls dist
+COPY ./package*.json .
+COPY ./tsconfig.build.json .
+
+RUN yarn run build && ls dist
 
 FROM node:18-alpine as release
-WORKDIR /usr/src/app
-COPY --from=build /usr/src/app/dist/ ./dist
-COPY --from=build /usr/src/app/package*.json .
-EXPOSE 3000
+MAINTAINER Pikj [Jreydman] Reyderman <pikj.reyderman@gmail.com>
 
-COPY ./startup.prod.sh /opt/startup.prod.sh
-COPY ./wait-for-it.sh /opt/wait-for-it.sh
-RUN chmod +x /opt/wait-for-it.sh && chmod +x /opt/startup.prod.sh
-RUN sed -i 's/\r//g' /opt/wait-for-it.sh && sed -i 's/\r//g' /opt/startup.prod.sh
+ARG WORKDIR_FLOW
+ARG APP_PORT
+WORKDIR ${WORKDIR_FLOW}
+
+COPY --from=build ${WORKDIR_FLOW}/node_modules ./node_modules
+COPY --from=build ${WORKDIR_FLOW}/.env .
+COPY --from=build ${WORKDIR_FLOW}/dist ./dist
+COPY --from=build ${WORKDIR_FLOW}/package*.json .
+
+EXPOSE ${APP_PORT}
+
 RUN apk add --no-cache bash
-CMD ["/opt/startup.prod.sh"]
+COPY ./startup.sh /opt/startup.sh
+COPY ./wait-for-it.sh /opt/wait-for-it.sh
+RUN chmod +x /opt/wait-for-it.sh && chmod +x /opt/startup.sh
+
+RUN sed -i 's/\r//g' /opt/wait-for-it.sh && sed -i 's/\r//g' /opt/startup.sh

@@ -1,10 +1,8 @@
 FROM node:18 as build
 
-LABEL author="Pikj [Jreydman] Reyderman <pikj.reyderman@gmail.com>"
+MAINTAINER Pikj [Jreydman] Reyderman <pikj.reyderman@gmail.com>
 
 COPY ./package*.json ./
-COPY ./yarn.lock ./
-
 
 RUN  yarn install
 

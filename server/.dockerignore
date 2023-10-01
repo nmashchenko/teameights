@@ -4,4 +4,3 @@
 docs
 /files
 /.yarn/unplugged
-!dist/

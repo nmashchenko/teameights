@@ -1,23 +1,48 @@
 services:
-  api:
-    container_name: ${DOCKER_PROJECT_NAME}-api
-    restart: on-failure
+  db-prepare:
+    container_name: ${COMPOSE_PROJECT_NAME}-db-prepare
+    command: [ "/opt/startup.sh", "db-prepare" ]
     build:
       context: ../
-      dockerfile: ./Docker/app.e2e.Dockerfile
+      dockerfile: ./Docker/db-prepare.Dockerfile
+      args:
+        - WORKDIR_FLOW=$SERVER_PATH_CONTAINER
+        - APP_PORT=$APP_PORT
+        - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
+    environment:
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+  
+  api:
+    container_name: ${COMPOSE_PROJECT_NAME}-api
+    restart: on-failure
+    command: ["/opt/startup.sh", "ci"]
+    build:
+      args:
+        - WORKDIR_FLOW=$SERVER_PATH_CONTAINER
+        - APP_PORT=$APP_PORT
+        - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
+      context: ../
+      dockerfile: ./Docker/app.dev.Dockerfile
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:
       - ../.env
     environment:
-      - DATABASE_HOST=${DOCKER_PROJECT_NAME}-postgres
-      - MAIL_HOST=${DOCKER_PROJECT_NAME}-maildev
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
     depends_on:
+      db-prepare:
+        condition: service_completed_successfully
       postgres:
         condition: service_healthy
 
   postgres:
-    container_name: ${DOCKER_PROJECT_NAME}-db
+    container_name: ${COMPOSE_PROJECT_NAME}-postgres
     image: postgres:16.0-alpine
     ports:
       - ${DATABASE_PORT}:5432
@@ -34,7 +59,7 @@ services:
     restart: unless-stopped
   
   maildev:
-    container_name: ${DOCKER_PROJECT_NAME}-maildev
+    container_name: ${COMPOSE_PROJECT_NAME}-maildev
     build:
       context: ../
       dockerfile: ./Docker/maildev.Dockerfile
