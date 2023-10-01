@@ -1,6 +1,6 @@
 services:
   db-prepare:
-    container_name: ${COMPOSE_PROJECT_NAME}-db-prepare
+    container_name: ${COMPOSE_PROJECT_NAME}-db-prepare-prod
     command: ["/opt/startup.sh", "db-prepare"]
     build:
       context: ../
@@ -18,7 +18,7 @@ services:
         condition: service_healthy
       
   api:
-    container_name: ${COMPOSE_PROJECT_NAME}-api
+    container_name: ${COMPOSE_PROJECT_NAME}-api-prod
     restart: on-failure
     command: ["/opt/startup.sh", "prod"]
     build:
@@ -40,6 +40,8 @@ services:
       db-prepare:
         condition: service_completed_successfully
       postgres:
+        condition: service_healthy
+      maildev:
         condition: service_healthy
 
   postgres:
@@ -66,6 +68,12 @@ services:
     build:
       context: ../
       dockerfile: ./Docker/maildev.Dockerfile
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -O - http://localhost:${MAIL_CLIENT_PORT}/healthz || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     ports:
       - ${MAIL_CLIENT_PORT}:1080
       - ${MAIL_PORT}:1025

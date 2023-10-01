@@ -1,6 +1,25 @@
 services:
+  db-prepare:
+    container_name: ${COMPOSE_PROJECT_NAME}-db-prepare-dev
+    command: [ "/opt/startup.sh", "db-prepare" ]
+    build:
+      context: ../
+      dockerfile: ./Docker/db-prepare.Dockerfile
+      args:
+        - WORKDIR_FLOW=$SERVER_PATH_CONTAINER
+        - APP_PORT=$APP_PORT
+        - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
+    environment:
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+        
   api:
-    container_name: ${COMPOSE_PROJECT_NAME}-api
+    container_name: ${COMPOSE_PROJECT_NAME}-api-dev
     image: node:18-alpine
     restart: on-failure
     working_dir: ${SERVER_PATH_CONTAINER}
@@ -11,7 +30,11 @@ services:
     env_file:
       - ../.env
     depends_on:
+      db-prepare:
+        condition: service_completed_successfully
       postgres:
+        condition: service_healthy
+      maildev:
         condition: service_healthy
     environment:
       - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
@@ -44,6 +67,12 @@ services:
     build:
       context: ../
       dockerfile: ./Docker/maildev.Dockerfile
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -O - http://localhost:${MAIL_CLIENT_PORT}/healthz || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     ports:
       - ${MAIL_CLIENT_PORT}:1080
       - ${MAIL_PORT}:1025
