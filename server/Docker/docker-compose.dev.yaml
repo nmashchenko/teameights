@@ -1,0 +1,92 @@
+services:
+  db-prepare:
+    container_name: ${COMPOSE_PROJECT_NAME}-db-prepare-dev
+    command: [ "/opt/startup.sh", "db-prepare" ]
+    build:
+      context: ../
+      dockerfile: ./Docker/db-prepare.Dockerfile
+      args:
+        - WORKDIR_FLOW=$SERVER_PATH_CONTAINER
+        - APP_PORT=$APP_PORT
+        - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
+    environment:
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+        
+  api:
+    container_name: ${COMPOSE_PROJECT_NAME}-api-dev
+    image: node:18-alpine
+    restart: on-failure
+    working_dir: ${SERVER_PATH_CONTAINER}
+    expose:
+      - ${APP_PORT}
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    env_file:
+      - ../.env
+    depends_on:
+      db-prepare:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+      maildev:
+        condition: service_healthy
+    environment:
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+    command: ["yarn", "start:dev"]
+    volumes:
+      - ../:${SERVER_PATH_CONTAINER}
+
+  postgres:
+    container_name: ${COMPOSE_PROJECT_NAME}-postgres
+    image: postgres:16.0-alpine
+    ports:
+      - ${DATABASE_PORT}:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    
+  maildev:
+    container_name: ${COMPOSE_PROJECT_NAME}-maildev
+    build:
+      context: ../
+      dockerfile: ./Docker/maildev.Dockerfile
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -O - http://localhost:${MAIL_CLIENT_PORT}/healthz || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    ports:
+      - ${MAIL_CLIENT_PORT}:1080
+      - ${MAIL_PORT}:1025
+
+  # Uncomment to use redis
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - 6379:6379
+
+volumes:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATABASE_PATH_LOCAL}/data

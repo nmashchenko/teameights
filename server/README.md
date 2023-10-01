@@ -37,46 +37,8 @@ NestJS REST API boilerplate for typical project
 - Docker.
 - CI (GitHub Actions).
 
-## Quick run
-
-```bash
-cd server
-cp env-example .env
-docker compose up -d
-```
-
-For check status run
-
-```bash
-docker compose logs
-```
-
 ## Comfortable development
-
-```bash
-cd server
-cp env-example .env
-```
-
-Change `DATABASE_HOST=postgres` to `DATABASE_HOST=localhost`
-
-Change `MAIL_HOST=maildev` to `MAIL_HOST=localhost`
-
-Run additional container:
-
-```bash
-docker compose up -d postgres maildev
-```
-
-```bash
-yarn install
-
-yarn migration:run
-
-yarn seed:run
-
-yarn start:dev
-```
+[Refer link for quick installation](./docs/installing-and-running.md)
 
 ## Links
 
@@ -132,7 +94,7 @@ yarn test:e2e
 ## Tests in Docker
 
 ```bash
-docker compose -f docker-compose.ci.yaml --env-file env-example -p ci up --build --exit-code-from api && docker compose -p ci rm -svf
+make docker-compose-up type=ci
 ```
 
 ## Test benchmarking

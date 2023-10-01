@@ -1,0 +1,83 @@
+services:
+  db-prepare:
+    container_name: ${COMPOSE_PROJECT_NAME}-db-prepare-ci
+    command: [ "/opt/startup.sh", "db-prepare" ]
+    build:
+      context: ../
+      dockerfile: ./Docker/db-prepare.Dockerfile
+      args:
+        - WORKDIR_FLOW=$SERVER_PATH_CONTAINER
+        - APP_PORT=$APP_PORT
+        - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
+    environment:
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+    env_file:
+      - ../.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+  
+  api:
+    container_name: ${COMPOSE_PROJECT_NAME}-api-ci
+    restart: on-failure
+    command: ["/opt/startup.sh", "ci"]
+    build:
+      args:
+        - WORKDIR_FLOW=$SERVER_PATH_CONTAINER
+        - APP_PORT=$APP_PORT
+        - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
+      context: ../
+      dockerfile: ./Docker/app.e2e.Dockerfile
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    env_file:
+      - ../.env
+    environment:
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+    depends_on:
+      maildev:
+        condition: service_healthy
+      db-prepare:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    container_name: ${COMPOSE_PROJECT_NAME}-postgres
+    image: postgres:16.0-alpine
+    ports:
+      - ${DATABASE_PORT}:5432
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+  
+  maildev:
+    container_name: ${COMPOSE_PROJECT_NAME}-maildev
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -O - http://localhost:${MAIL_CLIENT_PORT}/healthz || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    build:
+      context: ../
+      dockerfile: ./Docker/maildev.Dockerfile
+    ports:
+      - ${MAIL_CLIENT_PORT}:1080
+      - ${MAIL_PORT}:1025
+
+  # Uncomment to use redis
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - 6379:6379
