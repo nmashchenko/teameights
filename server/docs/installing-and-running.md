@@ -12,7 +12,7 @@
 ---
 
 ## Comfortable development
-
+### NATIVE
 1. Clone repository
 
    ```bash
@@ -29,11 +29,15 @@
 1. Change `DATABASE_HOST=postgres` to `DATABASE_HOST=localhost`
 
    Change `MAIL_HOST=maildev` to `MAIL_HOST=localhost`
+   [ Note! ]
+
+   Use `DATABASE/MAIL_HOST=<container-name>` if deploy virtual stage, docker
 
 1. Run additional container:
+ * (type: dev/prod/ci <-!-> service: postgres/maildev/api/db-prepare)
 
    ```bash
-   docker compose up -d postgres maildev
+   docker compose -f ./Docker/docker-compose.<type>.yaml up -d <service>
    ```
 
 1. Install dependency

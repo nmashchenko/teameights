@@ -11,6 +11,7 @@ services:
         - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
     environment:
       - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
     env_file:
       - ../.env
     depends_on:
