@@ -19,4 +19,4 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run e2e tests
         working-directory: ./server
-        run: docker compose -f docker-compose.ci.yaml --env-file env-example -p ci up --build --exit-code-from api
+        run: make docker-compose-up type=ci
