@@ -33,7 +33,7 @@ export class CreateUserDto {
   @Validate(IsNotExist, ['User'], {
     message: 'usernameAlreadyExists',
   })
-  username?: string | null
+  username?: string | null;
 
   @ApiProperty()
   @IsOptional()

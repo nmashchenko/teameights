@@ -26,7 +26,7 @@ export class AuthUpdateDto {
   @Validate(IsNotExist, ['User'], {
     message: 'usernameAlreadyExists',
   })
-  username?: string | null
+  username?: string | null;
 
   @ApiProperty()
   @IsOptional()

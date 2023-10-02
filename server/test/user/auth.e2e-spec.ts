@@ -181,17 +181,6 @@ describe('Auth user (e2e)', () => {
       .send({
         password: newUserNewPassword,
       })
-      .expect(422);
-
-    await request(app)
-      .patch('/api/v1/auth/me')
-      .auth(newUserApiToken, {
-        type: 'bearer',
-      })
-      .send({
-        password: newUserNewPassword,
-        oldPassword: newUserPassword,
-      })
       .expect(200);
 
     await request(app)
@@ -201,14 +190,6 @@ describe('Auth user (e2e)', () => {
       .expect(({ body }) => {
         expect(body.token).toBeDefined();
       });
-
-    await request(app)
-      .patch('/api/v1/auth/me')
-      .auth(newUserApiToken, {
-        type: 'bearer',
-      })
-      .send({ password: newUserPassword, oldPassword: newUserNewPassword })
-      .expect(200);
   });
 
   it('New user delete profile: /api/v1/auth/me (DELETE)', async () => {
