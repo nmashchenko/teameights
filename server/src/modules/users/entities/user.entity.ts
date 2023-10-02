@@ -42,6 +42,7 @@ export class User extends EntityHelper {
 
   @AfterLoad()
   public loadPreviousPassword(): void {
+    console.log('this one: ' + this.password);
     this.previousPassword = this.password;
   }
 
@@ -49,6 +50,7 @@ export class User extends EntityHelper {
   @BeforeUpdate()
   async setPassword() {
     if (this.previousPassword !== this.password && this.password) {
+      console.log('prev: ' + this.previousPassword);
       const salt = await bcrypt.genSalt();
       this.password = await bcrypt.hash(this.password, salt);
     }
@@ -112,6 +114,23 @@ export class User extends EntityHelper {
 
   @Column('text', { array: true, nullable: true })
   frameworks?: string[] | null;
+
+  // @OneToMany(() => UniversityData, universityData => universityData.user, { cascade: true })
+  // universityData: UniversityData[];
+  //
+  // @OneToMany(() => JobData, jobData => jobData.user, { cascade: true })
+  // jobData: JobData[];
+  //
+  // @OneToMany(() => ProjectData, projectData => projectData.user, { cascade: true })
+  // projectData: ProjectData[];
+  //
+  // @OneToOne(() => Links, links => links.user, { cascade: true })   links: Links;
+  //
+  // @OneToMany(() => Notifications, notifications => notifications.user)
+  // notifications: Notifications[];
+  //
+  // @ManyToOne(() => Team, team => team.users)
+  // team: Team;
 
   @CreateDateColumn()
   createdAt: Date;

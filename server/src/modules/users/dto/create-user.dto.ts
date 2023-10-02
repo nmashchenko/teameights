@@ -26,6 +26,15 @@ export class CreateUserDto {
   @IsEmail()
   email: string | null;
 
+  @ApiProperty({ example: 'nmashchenko' })
+  @Transform(lowerCaseTransformer)
+  @IsNotEmpty()
+  @IsOptional()
+  @Validate(IsNotExist, ['User'], {
+    message: 'usernameAlreadyExists',
+  })
+  username?: string | null
+
   @ApiProperty()
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })

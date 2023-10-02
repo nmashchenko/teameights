@@ -89,6 +89,7 @@ export class MailService {
           infer: true,
         }),
         'src',
+        'modules',
         'mail',
         'mail-templates',
         'reset-password.hbs'

@@ -38,7 +38,7 @@ NestJS REST API boilerplate for typical project
 - CI (GitHub Actions).
 
 ## Comfortable development
-[Refer link for quick installation](./docs/installing-and-running.md)
+[**Refer link for quick installation** 🚀](./docs/installing-and-running.md)
 
 ## Links
 
@@ -47,7 +47,7 @@ NestJS REST API boilerplate for typical project
 
 ## Automatic update of dependencies
 
-If you want to automatically update dependencies, you can connect [Renovate](https://github.com/marketplace/renovate) for your project.
+Renovate is automatically setup to control dependencies in this project
 
 ## Database utils
 
@@ -97,8 +97,11 @@ yarn test:e2e
 make docker-compose-up type=ci
 ```
 
-## Test benchmarking
+[//]: # (## Test benchmarking)
 
-```bash
-docker run --rm jordi/ab -n 100 -c 100 -T application/json -H "Authorization: Bearer USER_TOKEN" -v 2 http://<server_ip>:3000/api/v1/users
-```
+[//]: # ()
+[//]: # (```bash)
+
+[//]: # (docker run --rm jordi/ab -n 100 -c 100 -T application/json -H "Authorization: Bearer USER_TOKEN" -v 2 http://<server_ip>:3000/api/v1/users)
+
+[//]: # (```)

@@ -303,56 +303,28 @@ export class AuthService {
     userJwtPayload: JwtPayloadType,
     userDto: AuthUpdateDto
   ): Promise<NullableType<User>> {
-    if (userDto.password) {
-      if (userDto.oldPassword) {
-        const currentUser = await this.usersService.findOne({
-          id: userJwtPayload.id,
-        });
+    const currentUser = await this.usersService.findOne({
+      id: userJwtPayload.id,
+    });
 
-        if (!currentUser) {
-          throw new HttpException(
-            {
-              status: HttpStatus.UNPROCESSABLE_ENTITY,
-              errors: {
-                user: 'userNotFound',
-              },
-            },
-            HttpStatus.UNPROCESSABLE_ENTITY
-          );
-        }
-
-        const isValidOldPassword = await bcrypt.compare(userDto.oldPassword, currentUser.password);
-
-        if (!isValidOldPassword) {
-          throw new HttpException(
-            {
-              status: HttpStatus.UNPROCESSABLE_ENTITY,
-              errors: {
-                oldPassword: 'incorrectOldPassword',
-              },
-            },
-            HttpStatus.UNPROCESSABLE_ENTITY
-          );
-        } else {
-          await this.sessionService.softDelete({
-            user: {
-              id: currentUser.id,
-            },
-            excludeId: userJwtPayload.sessionId,
-          });
-        }
-      } else {
-        throw new HttpException(
-          {
-            status: HttpStatus.UNPROCESSABLE_ENTITY,
-            errors: {
-              oldPassword: 'missingOldPassword',
-            },
+    if (!currentUser) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            user: 'userNotFound',
           },
-          HttpStatus.UNPROCESSABLE_ENTITY
-        );
-      }
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
     }
+
+    await this.sessionService.softDelete({
+      user: {
+        id: currentUser.id,
+      },
+      excludeId: userJwtPayload.sessionId,
+    });
 
     await this.usersService.update(userJwtPayload.id, userDto);
 

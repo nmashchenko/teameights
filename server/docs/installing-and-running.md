@@ -12,94 +12,91 @@
 ---
 
 ## Comfortable development
-### LOCAL
+### Local/VELENYX style
 1. Clone repository
 
    ```bash
    git clone https://github.com/nmashchenko/teameights.git
    ```
 
-1. Go to folder, and copy `env-example` as `.env`.
+2. Go to folder, and copy `env-example` as `.env`.
 
    ```bash
    cd server/
    cp env-example .env
    ```
 
-1. Change `DATABASE_HOST=postgres` to `DATABASE_HOST=localhost`
+3. Change following values in `.env`:
+    ```
+    DATABASE_HOST to DATABASE_HOST=localhost
+    
+    MAIL_HOST to MAIL_HOST=localhost
+    ```
 
-   Change `MAIL_HOST=maildev` to `MAIL_HOST=localhost`
-   [ Note! ]
-
-   Use `DATABASE/MAIL_HOST=<container-name>` if deploy virtual stage, docker
-
-1. Run additional container:
- * (type: dev/prod/ci <-!-> service: postgres/maildev/api/db-prepare)
-
+4. Run required containers:
    ```bash
-   docker compose -f ./Docker/docker-compose.dev.yaml up -d postgres maildev
+   docker compose -f ./Docker/docker-compose.dev.yaml --env-file .env  up -d postgres
    ```
 
-1. Install dependency
+5. Install dependencies
 
    ```bash
    yarn install
    ```
 
-1. Run migrations
+6. Run migrations
 
    ```bash
    yarn run migration:run
    ```
 
-1. Run seeds
+7. Run seeds
 
    ```bash
    yarn run seed:run
    ```
 
-1. Run app in dev mode
+8. Run app in dev mode
 
    ```bash
    yarn run start:dev
    ```
 
-1. Open <http://localhost:3000>
+9. Open <http://localhost:3000>
 
-### DOCKER
+### Docker style
 1. Clone repository
 
    ```bash
    git clone https://github.com/nmashchenko/teameights.git
    ```
 
-1. Go to folder, and copy `env-example` as `.env`.
+2. Go to folder, and copy `env-example` as `.env`.
 
    ```bash
    cd server/
    cp env-example .env
    ```
-1. Install dependency
-
+3. Install dependency
    ```bash
    yarn install
    yarn prepare
    ```
    
-1. Make sure you correctly use next:
+4. Make sure you have the following variables in .env:
+    ```
+    DATABASE_HOST=teameights-postgres
+    MAIL_HOST=teameights-maildev
+    ```
 
-    `DATABASE/MAIL_HOST=<container-name>`
-    `DATABASE_HOST=teameights-postgres`
-    `MAIL_HOST=teameights-maildev`
+5. Run containers based on type: <br>
+    <br>
+    (**TYPE**: dev/prod/ci)
+    ```bash
+      make docker-compose-up type=dev
+      ```
 
-2.  Run additional container:
-* (type: dev/prod/ci)
-
-  ```bash
-  make docker-compose-up type=dev
-  ```
-
-1. Open <http://localhost:3000>
+6. Open <http://localhost:3000>
 
 ---
 
