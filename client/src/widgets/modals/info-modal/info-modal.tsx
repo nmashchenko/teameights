@@ -31,10 +31,6 @@ export interface User {
   };
 }
 
-// function getCountryFlag(country: string): string {
-//   return `https://example.com/mock_country_flags/${country}.png`;
-// }
-
 const mockNavigate = (path: string) => {
   console.log(`navigate to ${path}`);
 };
@@ -42,16 +38,23 @@ const mockNavigate = (path: string) => {
 interface TeamPreviewModalProps {
   team: Team;
   user: User;
+  isOpenModal: boolean;
+  handleClose: () => void;
   handleJoin: () => void;
 }
 
-export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handleJoin }) => {
+export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
+  user,
+  team,
+  handleJoin,
+  isOpenModal,
+  handleClose,
+}) => {
   const [imgLoading, setImgLoading] = useState(true);
   const [usersTeam, setUsersTeam] = useState('');
 
   const members = team?.members;
   const teammates = members?.slice(1, members.length);
-  // const countryFlag = getCountryFlag(team.country);
   const navigate = mockNavigate;
 
   useEffect(() => {
@@ -67,7 +70,7 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handle
 
   return (
     <>
-      <Modal isOpen={true} size='l'>
+      <Modal isOpen={isOpenModal} onClose={handleClose} size='l'>
         <div className={styles.modal_container}>
           <div className={styles.team_card_top}>
             <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
@@ -90,32 +93,20 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handle
                       team?.type.charAt(0).toUpperCase() + team?.type.slice(1)
                     } Type, ${team?.country}`}
                   </Typography>
-                  {/*{countryFlag && (*/}
-                  {/*  <div className={styles.team_card_top_icon}>*/}
-                  {/*    <img*/}
-                  {/*      src={countryFlag}*/}
-                  {/*      width='25px'*/}
-                  {/*      height='25px'*/}
-                  {/*      style={{ borderRadius: '0%' }}*/}
-                  {/*    />*/}
-                  {/*  </div>*/}
-                  {/*)}*/}
+                  {/* there must be logic to the country's flag */}
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Продолжить, там идет TeamCardTop */}
-
           <div className={styles.statistics_flex}>
             <Typography size='body_m'>
-              Tournaments: <span className={styles.spanText}>0</span>
+              Tournaments: <span className={styles.span_text}>0</span>
             </Typography>
             <Typography size='body_m'>
-              Wins: <span className={styles.spanText}>{team?.wins}</span>
+              Wins: <span className={styles.span_text}>{team?.wins}</span>
             </Typography>
             <Typography size='body_m'>
-              Points: <span className={styles.spanText}>{team.points}</span>
+              Points: <span className={styles.span_text}>{team.points}</span>
             </Typography>
           </div>
           {team?.description && <div className={styles.team_card_desc}>{team?.description}</div>}
@@ -140,7 +131,6 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handle
                       />
                     );
                   } else {
-                    // need to be added unregistered image
                     return (
                       <TeamPersonBox
                         key={index}
@@ -155,7 +145,6 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({ user, team, handle
             </div>
           </div>
           <div className={styles.buttons_container}>
-            {/* needs to be fixed */}
             <Button
               typeBtn='primary'
               size='m'

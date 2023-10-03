@@ -1,11 +1,31 @@
 'use client';
 
-import { Typography } from '@/shared/ui';
+import { Typography, Button } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
+import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
+import { useState } from 'react';
 import { TeamPreviewModal, Team, User } from '@/widgets/modals/info-modal/info-modal';
 
 export default function Home() {
   const width = useGetScreenWidth();
+  const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
+  const [isOpenSecontModal, setIsOpenSecontModal] = useState(false);
+
+  const openFirstModal = () => {
+    setIsOpenFirstModal(true);
+  };
+
+  const closeFirstModal = () => {
+    setIsOpenFirstModal(false);
+  };
+
+  const openSecondModal = () => {
+    setIsOpenSecontModal(true);
+  };
+
+  const closeSecondModal = () => {
+    setIsOpenSecontModal(false);
+  };
 
   // Здесь вы должны предоставить данные user, team и функцию handleJoin
   const user: User = {
@@ -58,7 +78,34 @@ export default function Home() {
       </a>
 
       <div>
-        <TeamPreviewModal user={user} team={team} handleJoin={handleJoin} />
+        <ActionModal
+          heading='Removing member'
+          sub='Are you sure you want to remove member from team?'
+          buttonOneText='Delete'
+          buttonOneAction={() => {}}
+          buttonTwoText='Cansel'
+          buttonTwoAction={() => {}}
+          isOpenModal={isOpenFirstModal}
+          handleClose={closeFirstModal}
+          buttonOneType='danger'
+          buttonTwoType='secondary'
+        />
+        <Button typeBtn='primary' size='m' color='white' onClick={openFirstModal}>
+          First Modal
+        </Button>
+      </div>
+
+      <div>
+        <TeamPreviewModal
+          user={user}
+          team={team}
+          isOpenModal={isOpenSecontModal}
+          handleClose={closeSecondModal}
+          handleJoin={handleJoin}
+        />
+        <Button typeBtn='primary' size='m' color='white' onClick={openSecondModal}>
+          Second Modal
+        </Button>
       </div>
     </>
   );
