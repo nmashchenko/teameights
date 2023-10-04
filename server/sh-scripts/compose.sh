@@ -68,7 +68,7 @@ reverse_stage_toggle() {
     sed -i -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
     echo "Info! Finish edit docker-compose"
   fi
-  sed -i '' -e 's/# <Virtual stage># <Virtual stage>/# <Virtual stage>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
+  sed -i -e 's/# <Virtual stage># <Virtual stage>/# <Virtual stage>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
 }
 
 case $stage in
