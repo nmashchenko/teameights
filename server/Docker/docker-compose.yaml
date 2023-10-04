@@ -106,9 +106,9 @@ services:
       - virtual-ci
       - local-ci
     container_name: ${COMPOSE_PROJECT_NAME}-db-prepare
+    restart: unless-stopped
     entrypoint: [ "/opt/startup.sh", "db-prepare" ]
     <<: *common-config
-    restart: no
     build:
       <<: [*common-context, *common-args]
       dockerfile: ${DOCKER_PATH_LOCAL}/db-prepare.Dockerfile
