@@ -47,7 +47,9 @@ if [ -z "$cache" ] && [ "$stage" = "localhost" ]; then echo "Warning! <Locale>  
 echo "Info! Type: $type  | Staging: $stage  | Caching: $cache"
 
 if [ -z "$(docker images -q "$COMPOSE_PROJECT_NAME"-cache)" ]; then
+  echo "Info! Creating cache by file" "$PARENT_DIR/$DOCKER_PATH_LOCAL"/cache.Dockerfile "with tag:  " "$COMPOSE_PROJECT_NAME"-cache
 	docker build . -f "$PARENT_DIR/$DOCKER_PATH_LOCAL"/cache.Dockerfile -t "$COMPOSE_PROJECT_NAME"-cache
+  echo "Info! Finish cache create"
 else
 	echo "Info! CACHE IMAGE IS ALREADY EXISTS. ITS SEEMS YOU MAY REBASE IT"
 fi
@@ -56,28 +58,36 @@ sleep 3
 
 reverse_stage_toggle() {
   if [ "$1" = "local" ]; then
-    sed -i -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    echo "Info! Setup docker-compose <Local>"
+    sed -i '' -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
+      echo "Info! Finish edit docker-compose"
+
   fi
   if [ "$1" = "virtual" ]; then
-    sed -i -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    echo "Info! Setup docker-compose <Virtual>"
+    sed -i '' -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    echo "Info! Finish edit docker-compose"
   fi
-  sed -i -e 's/# <Virtual stage># <Virtual stage>/# <Virtual stage>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
+  sed -i '' -e 's/# <Virtual stage># <Virtual stage>/# <Virtual stage>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
 }
 
 case $stage in
     local)
         echo "Step! Running local staging..."
         reverse_stage_toggle "local"
+        echo "Info! Running docker"
         (docker-compose -f "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml --env-file .env --profile $stage-$type up -d) &
         process=$!
         wait $process
         /bin/bash "$PARENT_DIR/$SHSCRIPT_PATH_LOCAL"/wait-for-it.sh localhost:5432
+        echo "Info! Running server in local"
         /bin/bash "$PARENT_DIR/$SHSCRIPT_PATH_LOCAL"/startup.sh $type
         ;;
     virtual)
         echo "Step! Running docker staging..."
         reverse_stage_toggle "virtual"
         if [ "$type" = 'development' ]; then type="virtual-development"; fi
+        echo "Info! Running docker"
         docker-compose -f "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml --env-file .env --profile $stage-$type up -d
         ;;
 esac
