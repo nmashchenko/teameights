@@ -59,13 +59,13 @@ sleep 3
 reverse_stage_toggle() {
   if [ "$1" = "local" ]; then
     echo "Info! Setup docker-compose <Local>"
-    sed -i '' -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    sed -i -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
       echo "Info! Finish edit docker-compose"
 
   fi
   if [ "$1" = "virtual" ]; then
     echo "Info! Setup docker-compose <Virtual>"
-    sed -i '' -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    sed -i -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
     echo "Info! Finish edit docker-compose"
   fi
   sed -i '' -e 's/# <Virtual stage># <Virtual stage>/# <Virtual stage>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
