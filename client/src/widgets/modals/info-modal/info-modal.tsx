@@ -72,7 +72,7 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
     <>
       <Modal isOpen={isOpenModal} onClose={handleClose} size='l'>
         <Flex direction='column' gap='24px'>
-          <Flex gap='16px' maxHeight='70px' align='center'>
+          <Flex gap='16px' maxHeight='70px'>
             <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
               <Skeleton width='70px' height='70px' borderRadius='50%' />
             </div>
