@@ -1,8 +1,8 @@
-.modal_container {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
+// .modal_container {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 24px;
+// }
 
 .hidden_container {
   display: none;
@@ -12,12 +12,12 @@
   display: block;
 }
 
-.team_card_top {
-  display: flex;
-  gap: 16px;
-  max-height: 70px;
-  align-items: center;
-}
+// .team_card_top {
+//   display: flex;
+//   gap: 16px;
+//   max-height: 70px;
+//   align-items: center;
+// }
 
 .team_card_top_icon {
   width: 70px;
@@ -32,21 +32,21 @@
   align-items: center;
 }
 
-.column_container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+// .column_container {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+// }
 
-.type_country_flag_container {
-  display: flex;
-  gap: 5px;
-}
+// .type_country_flag_container {
+//   display: flex;
+//   gap: 5px;
+// }
 
-.statistics_flex {
-  display: flex;
-  gap: 48px;
-}
+// .statistics_flex {
+//   display: flex;
+//   gap: 48px;
+// }
 
 .span_text {
   color: var(--green-bright-color);
@@ -59,16 +59,16 @@
   margin: 0;
 }
 
-.images_container {
-  display: flex;
-  gap: 36px;
-  max-height: 50px;
-}
+// .images_container {
+//   display: flex;
+//   gap: 36px;
+//   max-height: 50px;
+// }
 
-.team_card_person {
-  display: flex;
-  flex-direction: column;
-}
+// .team_card_person {
+//   display: flex;
+//   flex-direction: column;
+// }
 
 .crown_container {
   position: absolute;
@@ -90,10 +90,10 @@
   object-fit: cover;
 }
 
-.team_card_members {
-  display: flex;
-  gap: 8px;
-}
+// .team_card_members {
+//   display: flex;
+//   gap: 8px;
+// }
 
 .buttons_container {
   width: 100%;

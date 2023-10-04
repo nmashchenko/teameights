@@ -2,6 +2,7 @@ import { Crown } from '@/shared/assets';
 import { useState, FC, memo } from 'react';
 import styles from './info-modal.module.scss';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
+import { Flex } from '@/shared/ui';
 
 interface TeamPersonBoxProps {
   src: string;
@@ -13,7 +14,7 @@ const TeamPersonBox: FC<TeamPersonBoxProps> = ({ src, shouldLoadImage, shouldHav
   const [imgLoading, setImgLoading] = useState(true);
 
   return (
-    <div className={styles.team_card_person}>
+    <Flex direction='column'>
       {shouldLoadImage ? (
         <>
           <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
@@ -40,7 +41,7 @@ const TeamPersonBox: FC<TeamPersonBoxProps> = ({ src, shouldLoadImage, shouldHav
           <img src={src} alt="Team's member image" />
         </div>
       )}
-    </div>
+    </Flex>
   );
 };
 

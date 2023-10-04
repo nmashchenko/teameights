@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
 import styles from './info-modal.module.scss';
-import { Typography, Button, Modal } from '@/shared/ui';
+import { Typography, Button, Modal, Flex } from '@/shared/ui';
 import TeamPersonBox from './team-person';
 import { ArrowRight } from '@/shared/assets';
 
@@ -71,8 +71,8 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
   return (
     <>
       <Modal isOpen={isOpenModal} onClose={handleClose} size='l'>
-        <div className={styles.modal_container}>
-          <div className={styles.team_card_top}>
+        <Flex direction='column' gap='24px'>
+          <Flex gap='16px' maxHeight='70px' align='center'>
             <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
               <Skeleton width='70px' height='70px' borderRadius='50%' />
             </div>
@@ -83,22 +83,22 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
             </div>
 
             <div className={styles.team_card_top_info}>
-              <div className={styles.column_container}>
+              <Flex direction='column' gap='8px'>
                 <Typography size='heading_s' color='white'>
                   {team?.name}
                 </Typography>
-                <div className={styles.type_country_flag_container}>
+                <Flex gap='5px'>
                   <Typography size='body_s' color='greyNormal'>
                     {`${
                       team?.type.charAt(0).toUpperCase() + team?.type.slice(1)
                     } Type, ${team?.country}`}
                   </Typography>
                   {/* there must be logic to the country's flag */}
-                </div>
-              </div>
+                </Flex>
+              </Flex>
             </div>
-          </div>
-          <div className={styles.statistics_flex}>
+          </Flex>
+          <Flex gap='48px' direction='row'>
             <Typography size='body_m'>
               Tournaments: <span className={styles.span_text}>0</span>
             </Typography>
@@ -108,9 +108,9 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
             <Typography size='body_m'>
               Points: <span className={styles.span_text}>{team.points}</span>
             </Typography>
-          </div>
+          </Flex>
           {team?.description && <div className={styles.team_card_desc}>{team?.description}</div>}
-          <div className={styles.images_container}>
+          <Flex gap='36px' maxHeight='50px' direction='row'>
             <div>
               <TeamPersonBox
                 src={team?.leader.image}
@@ -119,7 +119,7 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
               />
             </div>
             <div>
-              <div className={styles.team_card_members}>
+              <Flex gap='8px'>
                 {[...Array(7)].map((_, index) => {
                   if (index < teammates.length) {
                     return (
@@ -141,9 +141,9 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
                     );
                   }
                 })}
-              </div>
+              </Flex>
             </div>
-          </div>
+          </Flex>
           <div className={styles.buttons_container}>
             <Button
               typeBtn='primary'
@@ -165,7 +165,7 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
               <ArrowRight />
             </Button>
           </div>
-        </div>
+        </Flex>
       </Modal>
     </>
   );
