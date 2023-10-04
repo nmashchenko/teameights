@@ -57,8 +57,6 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-postgres
     image: postgres:16.0-alpine
     <<: *common-config
-    build:
-      <<: *common-context
     expose:
       - ${DATABASE_PORT}
     restart: unless-stopped
