@@ -1,6 +1,5 @@
 #!/bin/bash
-
-echo $SHSCRIPT_PATH_LOCAL
+set -e
 
 if [ -f /.dockerenv ]; then
   PARENT_DIR=$SERVER_PATH_CONTAINER
@@ -48,7 +47,7 @@ if [ -z "$cache" ] && [ "$stage" = "localhost" ]; then echo "Warning! <Locale>  
 echo "Info! Type: $type  | Staging: $stage  | Caching: $cache"
 
 if [ -z "$(docker images -q "$COMPOSE_PROJECT_NAME"-cache)" ]; then
-	docker build . -f "$PARENT_DIR/$DOCKER_COMPOSE_DIR}"/cache.Dockerfile -t "$COMPOSE_PROJECT_NAME"-cache
+	docker build . -f "$PARENT_DIR/$DOCKER_COMPOSE_DIR"/cache.Dockerfile -t "$COMPOSE_PROJECT_NAME"-cache
 else
 	echo "Info! CACHE IMAGE IS ALREADY EXISTS. ITS SEEMS YOU MAY REBASE IT"
 fi
@@ -57,12 +56,12 @@ sleep 3
 
 reverse_stage_toggle() {
   if [ "$1" = "local" ]; then
-    sed -i '' -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    sed -i -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
   fi
   if [ "$1" = "virtual" ]; then
-    sed -i '' -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    sed -i -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
   fi
-  sed -i '' -e 's/# <Virtual stage># <Virtual stage>/# <Virtual stage>/' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
+  sed -i -e 's/# <Virtual stage># <Virtual stage>/# <Virtual stage>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
 }
 
 case $stage in

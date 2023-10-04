@@ -9,7 +9,7 @@ COPY --from=cache /node_modules ./node_modules
 COPY . .
 
 RUN if [ ! -f .env ]; then cp ./env-example .env; fi
-RUN sed '' -i -e 's/^DATABASE_HOST.*/DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres/' -e 's/^MAIL_HOST.*/MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev/' .env
+RUN sed -i -e 's/^DATABASE_HOST.*/DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres/' -e 's/^MAIL_HOST.*/MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev/' .env
 
 
 COPY ./package*.json .
