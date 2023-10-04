@@ -47,7 +47,7 @@ if [ -z "$cache" ] && [ "$stage" = "localhost" ]; then echo "Warning! <Locale>  
 echo "Info! Type: $type  | Staging: $stage  | Caching: $cache"
 
 if [ -z "$(docker images -q "$COMPOSE_PROJECT_NAME"-cache)" ]; then
-	docker build . -f "$PARENT_DIR/$DOCKER_COMPOSE_DIR"/cache.Dockerfile -t "$COMPOSE_PROJECT_NAME"-cache
+	docker build . -f "$PARENT_DIR/$DOCKER_PATH_LOCAL"/cache.Dockerfile -t "$COMPOSE_PROJECT_NAME"-cache
 else
 	echo "Info! CACHE IMAGE IS ALREADY EXISTS. ITS SEEMS YOU MAY REBASE IT"
 fi
