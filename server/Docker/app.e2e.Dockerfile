@@ -3,14 +3,15 @@ FROM ${COMPOSE_PROJECT_NAME}-cache as cache
 
 FROM node:18 as build
 ARG WORKDIR_FLOW
+ARG COMPOSE_PROJECT_NAME
 WORKDIR ${WORKDIR_FLOW}
 
 COPY --from=cache /node_modules ./node_modules
 COPY . .
 
 RUN if [ ! -f .env ]; then cp ./env-example .env; fi
-RUN sed -i 's/DATABASE_HOST=localhost//g' .env
-RUN sed -i 's/MAIL_HOST=localhost//g' .env
+RUN sed -i -e 's/^DATABASE_HOST.*/DATABASE_HOST='${COMPOSE_PROJECT_NAME}'-postgres/' \
+           -e 's/^MAIL_HOST.*/MAIL_HOST='${COMPOSE_PROJECT_NAME}'-maildev/' .env
 
 COPY ./package*.json .
 COPY ./tsconfig.build.json .
@@ -33,8 +34,8 @@ COPY --from=build ${WORKDIR_FLOW} .
 EXPOSE ${APP_PORT}
 
 RUN apk add --no-cache bash
-COPY ./startup.sh /opt/startup.sh
-COPY ./wait-for-it.sh /opt/wait-for-it.sh
+COPY ./sh-scripts/startup.sh /opt/startup.sh
+COPY ./sh-scripts/wait-for-it.sh /opt/wait-for-it.sh
 RUN chmod +x /opt/wait-for-it.sh && chmod +x /opt/startup.sh
 
 RUN sed -i 's/\r//g' /opt/wait-for-it.sh && sed -i 's/\r//g' /opt/startup.sh

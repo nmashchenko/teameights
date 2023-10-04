@@ -1,5 +1,6 @@
-include .env
-export $(shell sed 's/=.*//' .env)
+envtype?=dev
+include .env.$(envtype)
+export $(shell sed 's/=.*//' .env.$(envtype))
 
 DOCKER_COMPOSE_DIR:=./Docker
 COMPOSE_PROJECT_NAME?=project
@@ -23,12 +24,15 @@ else
 endif
 
 .phony: docker-compose-up
-docker-compose-up: docker-build-cache
-	docker compose -f ${DOCKER_COMPOSE_DIR}/docker-compose.$(or $(addsuffix ., $(type)),)yaml -p ${COMPOSE_PROJECT_NAME} up -d
+docker-compose-up:
+ifneq ($(type),dev)
+	$(MAKE) docker-build-cache
+endif
+	docker compose -f ${DOCKER_COMPOSE_DIR}/docker-compose.yaml --env-file .env  --profile $(or $(type),development) up -d
 
 .phony: docker-compose-down
 docker-compose-down:
-	docker compose -f ${DOCKER_COMPOSE_DIR}/docker-compose.$(or $(addsuffix ., $(type)),)yaml -p ${COMPOSE_PROJECT_NAME} down
+	docker compose -f ${DOCKER_COMPOSE_DIR}/docker-compose.yaml -p ${COMPOSE_PROJECT_NAME} down
 
 .phony: docker-compose-reboot
 docker-compose-reboot: docker-compose-down

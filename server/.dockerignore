@@ -1,6 +1,7 @@
 /node_modules
+/dist
 /.data
 /.husky
-docs
+/docs
 /files
 /.yarn/unplugged

@@ -1,0 +1,170 @@
+version: '3.9'
+
+# profiles:
+#  - virtual-development
+#  - local-development
+#  - virtual-production
+#  - local-production
+#  - virtual-ci
+#  - local-ci
+
+x-common-context: &common-context
+  context: ../
+
+x-common-args: &common-args
+  args:
+    - WORKDIR_FLOW=$SERVER_PATH_CONTAINER
+    - APP_PORT=$APP_PORT
+    - COMPOSE_PROJECT_NAME=$COMPOSE_PROJECT_NAME
+
+x-common-config: &common-config
+  env_file:
+    - ../.env
+
+x-common-healthcheck: &common-healthcheck
+  interval: 10s
+  timeout: 5s
+  retries: 5
+  start_period: 10s
+ 
+x-common-api: &common-api
+  container_name: ${COMPOSE_PROJECT_NAME}-api
+  <<: *common-config
+  restart: unless-stopped
+  expose:
+    - ${APP_PORT}
+  ports:
+    - ${APP_PORT}:${APP_PORT}
+  depends_on:
+    db-prepare:
+      condition: service_completed_successfully
+    postgres:
+      condition: service_healthy
+    maildev:
+      condition: service_healthy
+
+
+services:
+
+  postgres: #service
+    profiles:
+      - virtual-development
+      - local-development
+      - virtual-production
+      - local-production
+      - virtual-ci
+      - local-ci
+    container_name: ${COMPOSE_PROJECT_NAME}-postgres
+    image: postgres:16.0-alpine
+    <<: *common-config
+    build:
+      <<: *common-context
+    expose:
+      - ${DATABASE_PORT}
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    healthcheck:
+      <<: *common-healthcheck
+      test: [ "CMD-SHELL", "pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}" ]
+# <Virtual stage>    ports: #toggle
+# <Virtual stage>      - ${DATABASE_PORT}:${DATABASE_PORT} #toggle
+    #endservice
+
+  maildev: #service
+    container_name: ${COMPOSE_PROJECT_NAME}-maildev
+    profiles:
+      - virtual-development
+      - local-development
+      - virtual-production
+      - local-production
+      - virtual-ci
+      - local-ci
+    restart: unless-stopped
+    build:
+      <<: *common-context
+      dockerfile: ${DOCKER_PATH_LOCAL}/maildev.Dockerfile
+    healthcheck:
+      <<: *common-healthcheck
+      test: [ "CMD-SHELL", "wget -O - http://localhost:${MAIL_CLIENT_PORT}/healthz || exit 1" ]
+    expose:
+      - ${MAIL_CLIENT_PORT}
+      - ${MAIL_PORT}
+    ports:
+# <Virtual stage>      - ${MAIL_PORT}:${MAIL_PORT} #toggle
+      - ${MAIL_CLIENT_PORT}:${MAIL_CLIENT_PORT}
+    #endservice
+
+  db-prepare:
+    profiles:
+      - virtual-development
+      - local-development
+      - virtual-production
+      - local-production
+      - virtual-ci
+      - local-ci
+    container_name: ${COMPOSE_PROJECT_NAME}-db-prepare
+    entrypoint: [ "/opt/startup.sh", "db-prepare" ]
+    <<: *common-config
+    restart: no
+    build:
+      <<: [*common-context, *common-args]
+      dockerfile: ${DOCKER_PATH_LOCAL}/db-prepare.Dockerfile
+    environment:
+      - NODE_ENV=development
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  api-development:
+    profiles:
+      - virtual-development
+    <<: *common-api
+    image: node:18-alpine
+    working_dir: ${SERVER_PATH_CONTAINER}
+    command: [ "yarn", "start:development" ]
+    volumes:
+      - ../:${SERVER_PATH_CONTAINER}
+    environment:
+      - NODE_ENV=development
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+
+  api-production:
+    profiles:
+      - virtual-production
+    <<: [*common-api, *common-config]
+    restart: on-failure
+    command: ["/opt/startup.sh", "production"]
+    build:
+      <<: [*common-context, *common-args]
+      dockerfile: ${DOCKER_PATH_LOCAL}/app.prod.Dockerfile
+    environment:
+      - NODE_ENV=production
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+  
+  api-ci:
+    profiles:
+      - virtual-ci
+    <<: [ *common-api, *common-config ]
+    restart: on-failure
+    command: [ "/opt/startup.sh", "ci" ]
+    build:
+      <<: [ *common-context, *common-args ]
+      dockerfile: ${DOCKER_PATH_LOCAL}/app.e2e.Dockerfile
+    environment:
+      - NODE_ENV=production
+      - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
+      - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+  
+volumes:
+  db-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATABASE_PATH_LOCAL}/data
