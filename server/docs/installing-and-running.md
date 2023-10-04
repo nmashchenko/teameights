@@ -12,6 +12,15 @@
 ---
 
 ## Comfortable development
+
+### Fastrun
+   ```
+    cd server/
+    cp env-example .env
+    source ./sh-scripts type=[development*|production|ci] stage=[local*|virtual] cache[true|false*]
+   ```
+* is default options
+
 ### Local/VELENYX style
 1. Clone repository
 
@@ -35,7 +44,7 @@
 
 4. Run required containers:
    ```bash
-   docker compose -f ./Docker/docker-compose.dev.yaml --env-file .env  up -d postgres
+   docker compose -f ./Docker/docker-compose.yaml --env-file .env  up -d db-prepare postgres maildev
    ```
 
 5. Install dependencies

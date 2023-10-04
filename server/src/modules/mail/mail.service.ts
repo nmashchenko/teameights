@@ -40,7 +40,7 @@ export class MailService {
         this.configService.getOrThrow('app.workingDirectory', {
           infer: true,
         }),
-        this.configService.get('app.nodeEnv',{infer:true})=='production'?"dist":"src",
+        this.configService.get('app.nodeEnv', { infer: true }) == 'production' ? 'dist' : 'src',
         'modules',
         'mail',
         'mail-templates',
@@ -88,7 +88,7 @@ export class MailService {
         this.configService.getOrThrow('app.workingDirectory', {
           infer: true,
         }),
-        this.configService.get('app.nodeEnv',{infer:true})=='production'?"dist":"src",
+        this.configService.get('app.nodeEnv', { infer: true }) == 'production' ? 'dist' : 'src',
         'modules',
         'mail',
         'mail-templates',
