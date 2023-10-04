@@ -1,6 +1,6 @@
 {
   "name": "teameights-server",
-  "version": "3.6.3",
+  "version": "3.6.4",
   "description": "Built with typeorm, postgresql, passportjs, nestjs, swagger, docker, i18n",
   "author": "Nikita Maashchenko <mashchenko1@icloud.com> (https://mashchenko.tech)",
   "private": true,
@@ -117,5 +117,5 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
-  "packageManager": "yarn@3.6.3"
+  "packageManager": "yarn@3.6.4"
 }
