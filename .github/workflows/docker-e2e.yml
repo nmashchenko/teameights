@@ -19,4 +19,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run e2e tests
         working-directory: ./server
-        run: cp ./env-example .env && source ./sh-scripts/compose.sh type=ci stage=virtual
+        shell: bash
+        run: cp ./env-example .env && ./sh-scripts/compose.sh type=ci stage=virtual
