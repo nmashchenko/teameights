@@ -79,7 +79,7 @@ reverse_stage_toggle() {
 }
 
 reverse_production_toggle() {
-  if [ "$1" = "true" ]; then
+  if [ "$1" = "production" ]; then
     echo "Info! Setup docker-compose production-toggle <Active>"
     $sed_command -e '/postgres: #service/,/#endservice/ {;s/# <Production Activity>\(.*\)#production-toggle/\1#production-toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
       echo "Info! Finish edit docker-compose"
@@ -106,7 +106,7 @@ case $stage in
     virtual)
         echo "Step! Running docker staging..."
         reverse_stage_toggle "virtual"
-        if [ "$type" = 'production' ]; then reverse_production_toggle "true"; fi
+        reverse_production_toggle $type
         if [ "$type" = 'development' ]; then type="virtual-development"; fi
         echo "Info! Running docker"
         docker-compose -f "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml --env-file .env --profile $stage-$type up -d
