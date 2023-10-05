@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Select } from 'shared/ui';
+import { Input, Select } from '@/shared/ui';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 const SearchInput = () => {

@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { concentrations } from 'shared/constant';
+import { concentrations } from '@/shared/constant';
 import { Select } from './select';
 // import { useForm } from 'react-hook-form'
 
