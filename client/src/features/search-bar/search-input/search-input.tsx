@@ -22,6 +22,7 @@ const SearchInput = () => {
           name={`filtersArr.${filterIndex}.filterValue`}
           render={({ field: { onChange, value } }) => (
             <Select
+              controlShouldRenderValue={false}
               onChange={value => onChange(value)}
               value={value}
               options={getValues(`filtersArr.${filterIndex}.optionsArr`)}

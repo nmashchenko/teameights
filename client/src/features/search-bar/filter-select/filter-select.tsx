@@ -19,7 +19,9 @@ const FilterSelect: FC<IFilterSelectProps> = () => {
   };
 
   const handleChange = (newValue: Filter) => {
-    const filterIndex = getValues('filtersArr').findIndex((item: Filter) => item.value === newValue.value);
+    const filterIndex = getValues('filtersArr').findIndex(
+      (item: Filter) => item.value === newValue.value
+    );
     setValue('currentFilterIndex', filterIndex);
   };
 
@@ -30,6 +32,7 @@ const FilterSelect: FC<IFilterSelectProps> = () => {
       onMouseLeave={() => setIsMenuHovered(false)}
     >
       <Select
+        isSearchable={false}
         options={getValues('filtersArr')}
         isWithBorder={false}
         classNames={{
