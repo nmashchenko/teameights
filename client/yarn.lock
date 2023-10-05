@@ -7637,6 +7637,7 @@ __metadata:
     react-tooltip: ^5.21.3
     sass: ^1.64.2
     storybook: 7.2.1
+    teameights-types: ^1.0.1
     tsparticles: ^2.12.0
     typescript: 5.1.6
     yarn: ^1.22.19
@@ -16233,6 +16234,13 @@ __metadata:
     mkdirp: ^1.0.3
     yallist: ^4.0.0
   checksum: db4d9fe74a2082c3a5016630092c54c8375ff3b280186938cfd104f2e089c4fd9bad58688ef6be9cf186a889671bf355c7cda38f09bbf60604b281715ca57f5c
+  languageName: node
+  linkType: hard
+
+"teameights-types@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "teameights-types@npm:1.0.1"
+  checksum: 2d030fc9a94e406c958dd08fb81b06b5d8b4d46db5fe191c36e4a3c879ce8ab58b9a53380f692e76929c0dc133e872b3530ae52c0d30894a697323de256ed9f4
   languageName: node
   linkType: hard
 
