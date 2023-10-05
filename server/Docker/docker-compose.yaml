@@ -64,11 +64,13 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
+    volumes: #production-toggle
+      - db-data:${DATABASE_PATH_CONTAINER}/data #production-toggle
     healthcheck:
       <<: *common-healthcheck
       test: [ "CMD-SHELL", "pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}" ]
-# <Virtual stage>    ports: #toggle
-# <Virtual stage>      - ${DATABASE_PORT}:${DATABASE_PORT} #toggle
+# <Virtual stage>    ports: #stage-toggle
+# <Virtual stage>      - ${DATABASE_PORT}:${DATABASE_PORT} #stage-toggle
     #endservice
 
   maildev: #service
@@ -91,7 +93,7 @@ services:
       - ${MAIL_CLIENT_PORT}
       - ${MAIL_PORT}
     ports:
-# <Virtual stage>      - ${MAIL_PORT}:${MAIL_PORT} #toggle
+# <Virtual stage>      - ${MAIL_PORT}:${MAIL_PORT} #stage-toggle
       - ${MAIL_CLIENT_PORT}:${MAIL_CLIENT_PORT}
     #endservice
 
@@ -123,8 +125,6 @@ services:
     image: node:18-alpine
     working_dir: ${SERVER_PATH_CONTAINER}
     command: [ "yarn", "start:development" ]
-    volumes:
-      - ../:${SERVER_PATH_CONTAINER}
     environment:
       - NODE_ENV=development
       - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
@@ -158,10 +158,10 @@ services:
       - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
       - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
   
-#volumes:
-#  db-data:
-#    driver: local
-#    driver_opts:
-#      type: none
-#      o: bind
-#      device: ${DATABASE_PATH_LOCAL}/data
+volumes:
+  db-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ../../database/data

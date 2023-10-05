@@ -65,17 +65,30 @@ sleep 3
 
 reverse_stage_toggle() {
   if [ "$1" = "local" ]; then
-    echo "Info! Setup docker-compose <Local>"
-    $sed_command -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#toggle/\1#toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    echo "Info! Setup docker-compose stage-toggle <Local>"
+    $sed_command -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#stage-toggle/\1#stage-toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#stage-toggle/\1#stage-toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
       echo "Info! Finish edit docker-compose"
 
   fi
   if [ "$1" = "virtual" ]; then
-    echo "Info! Setup docker-compose <Virtual>"
-    $sed_command -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#toggle/# <Virtual stage>\1#toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    echo "Info! Setup docker-compose stage-toggle <Virtual>"
+    $sed_command -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#stage-toggle/# <Virtual stage>\1#stage-toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/\(.*\)#stage-toggle/# <Virtual stage>\1#stage-toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
     echo "Info! Finish edit docker-compose"
   fi
   $sed_command -e 's/# <Virtual stage># <Virtual stage>/# <Virtual stage>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
+}
+
+reverse_production_toggle() {
+  if [ "$1" = "true" ]; then
+    echo "Info! Setup docker-compose production-toggle <Active>"
+    $sed_command -e '/postgres: #service/,/#endservice/ {;s/# <Production Activity>\(.*\)#production-toggle/\1#production-toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
+      echo "Info! Finish edit docker-compose"
+  else
+    echo "Info! Setup docker-compose production-toggle <Inactive>"
+    $sed_command -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#production-toggle/# <Production Activity>\1#production-toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
+    echo "Info! Finish edit docker-compose"
+  fi
+  $sed_command -e 's/# <Production Activity># <Production Activity>/# <Production Activity>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
 }
 
 case $stage in
@@ -93,6 +106,7 @@ case $stage in
     virtual)
         echo "Step! Running docker staging..."
         reverse_stage_toggle "virtual"
+        if [ "$type" = 'production' ]; then reverse_production_toggle "true"; fi
         if [ "$type" = 'development' ]; then type="virtual-development"; fi
         echo "Info! Running docker"
         docker-compose -f "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml --env-file .env --profile $stage-$type up -d
