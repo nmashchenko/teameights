@@ -5,7 +5,7 @@ FROM node:18 as build
 ARG WORKDIR_FLOW
 WORKDIR ${WORKDIR_FLOW}
 
-COPY --from=cache /node_modules ./node_modules
+COPY --from=cache /tmp/node_modules ./node_modules
 COPY . .
 
 RUN if [ ! -f .env ]; then cp ./env-example .env; fi

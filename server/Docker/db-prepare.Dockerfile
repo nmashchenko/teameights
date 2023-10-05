@@ -8,7 +8,7 @@ ARG WORKDIR_FLOW
 WORKDIR ${WORKDIR_FLOW}
 ARG APP_PORT
 
-COPY --from=cache /node_modules ./node_modules
+COPY --from=cache /tmp/node_modules ./node_modules
 
 COPY ./package*.json .
 COPY ./tsconfig*.json .

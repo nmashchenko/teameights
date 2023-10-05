@@ -67,8 +67,8 @@ services:
     healthcheck:
       <<: *common-healthcheck
       test: [ "CMD-SHELL", "pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}" ]
-# <Virtual stage>    ports: #toggle
-# <Virtual stage>      - ${DATABASE_PORT}:${DATABASE_PORT} #toggle
+# <Virtual stage># <Virtual stage>    ports: #toggle
+# <Virtual stage># <Virtual stage>      - ${DATABASE_PORT}:${DATABASE_PORT} #toggle
     #endservice
 
   maildev: #service
@@ -91,7 +91,7 @@ services:
       - ${MAIL_CLIENT_PORT}
       - ${MAIL_PORT}
     ports:
-# <Virtual stage>      - ${MAIL_PORT}:${MAIL_PORT} #toggle
+# <Virtual stage># <Virtual stage>      - ${MAIL_PORT}:${MAIL_PORT} #toggle
       - ${MAIL_CLIENT_PORT}:${MAIL_CLIENT_PORT}
     #endservice
 

@@ -32,4 +32,4 @@ if [ "$1" == "db-prepare" ] ; then
   npx ts-node -r tsconfig-paths/register src/libs/database/seeds/run-seed.ts
 fi
 
-return 0
+echo false

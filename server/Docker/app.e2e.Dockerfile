@@ -6,7 +6,7 @@ ARG WORKDIR_FLOW
 ARG COMPOSE_PROJECT_NAME
 WORKDIR ${WORKDIR_FLOW}
 
-COPY --from=cache /node_modules ./node_modules
+COPY --from=cache /tmp/node_modules ./node_modules
 COPY . .
 
 RUN if [ ! -f .env ]; then cp ./env-example .env; fi
