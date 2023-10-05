@@ -15,6 +15,7 @@ import { IsNotExist } from 'src/utils/validators/is-not-exists.validator';
 import { FileEntity } from 'src/modules/files/entities/file.entity';
 import { IsExist } from 'src/utils/validators/is-exists.validator';
 import { lowerCaseTransformer } from 'src/utils/transformers/lower-case.transformer';
+import { UniversityData } from '../entities/university-data.entity';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'test1@example.com' })
@@ -108,5 +109,5 @@ export class CreateUserDto {
   @ApiProperty()
   @IsOptional()
   @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
-  frameworks?: string[];
+  universityData?: UniversityData[];
 }

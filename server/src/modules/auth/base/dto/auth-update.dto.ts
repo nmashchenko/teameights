@@ -5,6 +5,7 @@ import { FileEntity } from 'src/modules/files/entities/file.entity';
 import { Transform } from 'class-transformer';
 import { lowerCaseTransformer } from '../../../../utils/transformers/lower-case.transformer';
 import { IsNotExist } from '../../../../utils/validators/is-not-exists.validator';
+import { UniversityData } from '../../../users/entities/university-data.entity';
 
 export class AuthUpdateDto {
   @ApiProperty({ type: () => FileEntity })
@@ -74,4 +75,9 @@ export class AuthUpdateDto {
   @IsOptional()
   @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
   frameworks?: string[];
+
+  @ApiProperty()
+  @IsOptional()
+  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
+  universityData?: UniversityData[];
 }

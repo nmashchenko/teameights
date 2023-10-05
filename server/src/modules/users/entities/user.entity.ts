@@ -10,6 +10,7 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   BeforeUpdate,
+  OneToMany,
 } from 'typeorm';
 import { Role } from 'src/libs/database/metadata/roles/entities/role.entity';
 import { Status } from 'src/libs/database/metadata/statuses/entities/status.entity';
@@ -18,6 +19,7 @@ import bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
 import { AuthProvidersEnum } from 'src/modules/auth/auth-providers.enum';
 import { Exclude, Expose } from 'class-transformer';
+import { UniversityData } from './university-data.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -42,7 +44,6 @@ export class User extends EntityHelper {
 
   @AfterLoad()
   public loadPreviousPassword(): void {
-    console.log('this one: ' + this.password);
     this.previousPassword = this.password;
   }
 
@@ -50,7 +51,6 @@ export class User extends EntityHelper {
   @BeforeUpdate()
   async setPassword() {
     if (this.previousPassword !== this.password && this.password) {
-      console.log('prev: ' + this.previousPassword);
       const salt = await bcrypt.genSalt();
       this.password = await bcrypt.hash(this.password, salt);
     }
@@ -115,8 +115,11 @@ export class User extends EntityHelper {
   @Column('text', { array: true, nullable: true })
   frameworks?: string[] | null;
 
-  // @OneToMany(() => UniversityData, universityData => universityData.user, { cascade: true })
-  // universityData: UniversityData[];
+  @OneToMany(() => UniversityData, universityData => universityData.user, {
+    eager: true,
+    cascade: true,
+  })
+  universityData?: UniversityData[];
   //
   // @OneToMany(() => JobData, jobData => jobData.user, { cascade: true })
   // jobData: JobData[];

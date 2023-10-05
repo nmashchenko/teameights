@@ -43,6 +43,15 @@ export class UserSeedService {
           experience: '5+ years',
           programmingLanguages: ['C++', 'C', 'Go'],
           frameworks: ['Ruby', 'NodeJS'],
+          universityData: [
+            {
+              university: 'test',
+              degree: 'test',
+              major: 'test',
+              admissionDate: '2023-10-02',
+              graduationDate: '2023-10-03',
+            },
+          ],
         })
       );
     }

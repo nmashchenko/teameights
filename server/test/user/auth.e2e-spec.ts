@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { APP_URL, TESTER_EMAIL, TESTER_PASSWORD, MAIL_HOST, MAIL_PORT } from '../utils/constants';
+import e from 'express';
 
 describe('Auth user (e2e)', () => {
   const app = APP_URL;
@@ -190,6 +191,133 @@ describe('Auth user (e2e)', () => {
       .expect(({ body }) => {
         expect(body.token).toBeDefined();
       });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        password: newUserPassword,
+      })
+      .expect(200);
+
+    await request(app)
+      .post('/api/v1/auth/email/login')
+      .send({ email: newUserEmail, password: newUserPassword })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.token).toBeDefined();
+      });
+  });
+
+  it('New user update universityData field: /api/v1/auth/me (PATCH)', async () => {
+    const newUniversityData = [
+      {
+        university: 'UIC',
+        degree: 'BA',
+        major: 'CS',
+        admissionDate: '2019-10-05 04:26:58.635885',
+      },
+    ];
+
+    // admissionDate can't be same as graduationDate
+    const badUniversityData = [
+      {
+        university: 'UIC',
+        degree: 'BA',
+        major: 'CS',
+        admissionDate: '2019-10-05',
+        graduationDate: '2019-10-05',
+      },
+    ];
+
+    // empty fields
+    // const emptyUniversityData = [
+    //   {
+    //     university: '',
+    //     degree: '',
+    //     major: '',
+    //     admissionDate: '2019-10-05',
+    //     graduationDate: '2023-10-05',
+    //   },
+    // ];
+
+    // wrong type of date
+    const wrongDateTypeUniversityData = [
+      {
+        university: '',
+        degree: '',
+        major: '',
+        admissionDate: '',
+        graduationDate: '',
+      },
+    ];
+
+    const newUserApiToken = await request(app)
+      .post('/api/v1/auth/email/login')
+      .send({ email: newUserEmail, password: newUserPassword })
+      .then(({ body }) => body.token);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universityData: newUniversityData,
+      })
+      .expect(200);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universityData: [{}],
+      })
+      .expect(500);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universityData: [],
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universityData: badUniversityData,
+      })
+      .expect(500);
+
+    // await request(app)
+    //   .patch('/api/v1/auth/me')
+    //   .auth(newUserApiToken, {
+    //     type: 'bearer',
+    //   })
+    //   .send({
+    //     universityData: emptyUniversityData,
+    //   })
+    //   .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universityData: wrongDateTypeUniversityData,
+      })
+      .expect(500);
   });
 
   it('New user delete profile: /api/v1/auth/me (DELETE)', async () => {
