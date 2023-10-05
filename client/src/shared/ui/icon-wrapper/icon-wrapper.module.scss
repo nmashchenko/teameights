@@ -1,0 +1,15 @@
+.iconWrapper {
+  cursor: var(--cursor, default);
+  width: var(--width, auto);
+  height: var(--height, auto);
+  padding: var(--padding, 0);
+  margin: var(--margin, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: var(--svg-width, auto);
+    height: var(--svg-height, auto);
+  }
+}
