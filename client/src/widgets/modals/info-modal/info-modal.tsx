@@ -4,40 +4,15 @@ import styles from './info-modal.module.scss';
 import { Typography, Button, Modal, Flex } from '@/shared/ui';
 import TeamPersonBox from './team-person';
 import { ArrowRight } from '@/shared/assets';
-
-interface TeamMember {
-  image: string;
-}
-
-export interface Team {
-  _id: string;
-  name: string;
-  type: string;
-  country: string;
-  image: string;
-  members: TeamMember[];
-  description?: string;
-  wins: number;
-  points: number;
-  leader: {
-    image: string;
-    shouldHaveCrown: boolean;
-  };
-}
-
-export interface User {
-  team: {
-    _id: string;
-  };
-}
+import { ITeam, IUserResponse } from 'teameights-types';
 
 const mockNavigate = (path: string) => {
   console.log(`navigate to ${path}`);
 };
 
 interface TeamPreviewModalProps {
-  team: Team;
-  user: User;
+  team: ITeam;
+  user: IUserResponse;
   isOpenModal: boolean;
   handleClose: () => void;
   handleJoin: () => void;
@@ -58,12 +33,15 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
   const navigate = mockNavigate;
 
   useEffect(() => {
-    if (user?.team === undefined || user?.team._id !== team?._id) {
+    if (user?.team && user.team.length > 0 && user.team[0].id !== team?.id) {
       setUsersTeam('Join');
     }
-    const teamid = user?.team?._id;
-
-    if (team?._id === teamid) {
+    // if (user?.team === undefined || user?.team[0].id !== team?.id) {
+    //   setUsersTeam('Join');
+    // }
+    // const teamid = user?.team?[0].id;
+    const teamid = user?.team && user.team.length > 0 ? user.team[0].id : undefined;
+    if (team?.id === teamid) {
       setUsersTeam('Your');
     }
   }, [user, team]);
@@ -82,7 +60,7 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
               </div>
             </div>
 
-            <div className={styles.team_card_top_info}>
+            <Flex align='center'>
               <Flex direction='column' gap='8px'>
                 <Typography size='heading_s' color='white'>
                   {team?.name}
@@ -96,7 +74,7 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
                   {/* there must be logic to the country's flag */}
                 </Flex>
               </Flex>
-            </div>
+            </Flex>
           </Flex>
           <Flex gap='48px' direction='row'>
             <Typography size='body_m'>
@@ -113,38 +91,40 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
           <Flex gap='36px' maxHeight='50px' direction='row'>
             <div>
               <TeamPersonBox
-                src={team?.leader.image}
+                src={team?.leader.photo?.path || ''}
                 shouldLoadImage={true}
                 shouldHaveCrown={true}
               />
             </div>
             <div>
-              <Flex gap='8px'>
-                {[...Array(7)].map((_, index) => {
-                  if (index < teammates.length) {
-                    return (
-                      <TeamPersonBox
-                        key={index}
-                        src={teammates[index].image}
-                        shouldLoadImage={true}
-                        shouldHaveCrown={false}
-                      />
-                    );
-                  } else {
-                    return (
-                      <TeamPersonBox
-                        key={index}
-                        src='unregisteredImg'
-                        shouldHaveCrown={false}
-                        shouldLoadImage={false}
-                      />
-                    );
-                  }
-                })}
-              </Flex>
+              {teammates ? (
+                <Flex gap='8px'>
+                  {[...Array(7)].map((_, index) => {
+                    if (index < teammates.length) {
+                      return (
+                        <TeamPersonBox
+                          key={index}
+                          src={teammates[index].photo?.path || ''}
+                          shouldLoadImage={true}
+                          shouldHaveCrown={false}
+                        />
+                      );
+                    } else {
+                      return (
+                        <TeamPersonBox
+                          key={index}
+                          src='unregisteredImg'
+                          shouldHaveCrown={false}
+                          shouldLoadImage={false}
+                        />
+                      );
+                    }
+                  })}
+                </Flex>
+              ) : null}
             </div>
           </Flex>
-          <div className={styles.buttons_container}>
+          <Flex width='100%' justify='space-between' align='center' margin='24px 0 0 0'>
             <Button
               typeBtn='primary'
               size='m'
@@ -159,12 +139,12 @@ export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
               color='white'
               size='m'
               typeBtn='tertiary'
-              onClick={() => navigate('/team/' + team?._id)}
+              onClick={() => navigate('/team/' + team?.id)}
             >
               Profile
               <ArrowRight />
             </Button>
-          </div>
+          </Flex>
         </Flex>
       </Modal>
     </>
