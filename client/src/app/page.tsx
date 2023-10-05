@@ -1,5 +1,4 @@
 'use client';
-
 import { Typography, Button } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
 import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
