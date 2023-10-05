@@ -95,17 +95,17 @@ export const Flex: React.FC<FlexProps> = props => {
   } = props;
 
   const style = {
-    '--align': align,
-    '--justify': justify,
-    '--gap': gap,
-    '--margin': margin,
-    '--padding': padding,
-    '--direction': direction,
-    '--maxHeight': maxHeight,
-    '--position': position,
-    '--width': width,
-    '--maxWidth': maxWidth,
-    '--height': height,
+    'align-items': align,
+    'justify-content': justify,
+    gap: gap,
+    margin: margin,
+    padding: padding,
+    'flex-direction': direction,
+    'max-height': maxHeight,
+    position: position,
+    width: width,
+    'max-width': maxWidth,
+    height: height,
   } as React.CSSProperties;
 
   return (

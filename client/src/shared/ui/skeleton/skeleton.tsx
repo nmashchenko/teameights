@@ -131,7 +131,11 @@ export const Skeleton = memo((props: SkeletonProps) => {
   }
 
   return (
-    <span aria-live='polite' className={containerClassName} data-testid={containerTestId}>
+    <span
+      aria-live='polite'
+      className={clsx(cls.baseSpan, {}, [containerClassName])}
+      data-testid={containerTestId}
+    >
       {Wrapper
         ? elements.map((element, index) => <Wrapper key={index}>{element}</Wrapper>)
         : elements}
