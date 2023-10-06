@@ -233,15 +233,15 @@ describe('Auth user (e2e)', () => {
     ];
 
     // empty fields
-    // const emptyUniversityData = [
-    //   {
-    //     university: '',
-    //     degree: '',
-    //     major: '',
-    //     admissionDate: '2019-10-05',
-    //     graduationDate: '2023-10-05',
-    //   },
-    // ];
+    const emptyUniversityData = [
+      {
+        university: '',
+        degree: '',
+        major: '',
+        admissionDate: '2019-10-05',
+        graduationDate: '2023-10-05',
+      },
+    ];
 
     // wrong type of date
     const wrongDateTypeUniversityData = [
@@ -277,7 +277,7 @@ describe('Auth user (e2e)', () => {
       .send({
         universityData: [{}],
       })
-      .expect(500);
+      .expect(422);
 
     await request(app)
       .patch('/api/v1/auth/me')
@@ -287,8 +287,9 @@ describe('Auth user (e2e)', () => {
       .send({
         universityData: [],
       })
-      .expect(422);
+      .expect(200);
 
+    // checks entity restrictions
     await request(app)
       .patch('/api/v1/auth/me')
       .auth(newUserApiToken, {
@@ -299,15 +300,15 @@ describe('Auth user (e2e)', () => {
       })
       .expect(500);
 
-    // await request(app)
-    //   .patch('/api/v1/auth/me')
-    //   .auth(newUserApiToken, {
-    //     type: 'bearer',
-    //   })
-    //   .send({
-    //     universityData: emptyUniversityData,
-    //   })
-    //   .expect(422);
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universityData: emptyUniversityData,
+      })
+      .expect(422);
 
     await request(app)
       .patch('/api/v1/auth/me')
@@ -317,7 +318,7 @@ describe('Auth user (e2e)', () => {
       .send({
         universityData: wrongDateTypeUniversityData,
       })
-      .expect(500);
+      .expect(422);
   });
 
   it('New user delete profile: /api/v1/auth/me (DELETE)', async () => {
