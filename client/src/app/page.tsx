@@ -1,18 +1,19 @@
 'use client';
-import { Button, Flex, Typography } from '@/shared/ui';
+import { ITeam, IUserResponse } from 'teameights-types';
+import { Typography, Button, Flex } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
+import { UserPreviewModal } from '@/widgets/modals/info-modal/user-modal';
 import { Crown } from '@/shared/assets';
 import { NewtonsCradle, RaceBy } from '@uiball/loaders';
 
 import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
 import { useState } from 'react';
-import { TeamPreviewModal } from '@/widgets/modals/info-modal/info-modal';
-import { ITeam, IUserResponse } from 'teameights-types';
-
+import { TeamPreviewModal } from '@/widgets/modals/info-modal/team-modal';
 export default function Home() {
   const width = useGetScreenWidth();
   const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
   const [isOpenSecontModal, setIsOpenSecontModal] = useState(false);
+  const [isOpenThirdModal, setIsOpenThirdModal] = useState(false);
 
   const openFirstModal = () => {
     setIsOpenFirstModal(true);
@@ -30,6 +31,14 @@ export default function Home() {
     setIsOpenSecontModal(false);
   };
 
+  const openThirdModal = () => {
+    setIsOpenThirdModal(true);
+  };
+
+  const closeThirdModal = () => {
+    setIsOpenThirdModal(false);
+  };
+
   function createDummyResponse() {
     return {
       createdAt: new Date(),
@@ -40,7 +49,16 @@ export default function Home() {
 
   const user: IUserResponse = {
     id: 1,
+    username: 'Nikita',
+    concentration: 'Backend Developer',
+    experience: '3-5 years of experience',
+    frameworks: ['NodeJS', 'React', 'Angular', 'Redux', 'Hadoop', 'jQuery'],
+    programmingLanguages: ['Python', 'HTML', 'TS', 'JS', 'Swift', 'Dart', 'Scala', 'Ruby'],
+    dateOfBirth: new Date(2002, 9, 1),
+    country: 'Ukraine',
     team: [],
+    description:
+      'Front-end developer with 4 years of experience. Passionate about solving complex problems and building innovative solutions. I have a strong understanding of software development best practices. Collaborative team player with effective communication skills.',
     ...createDummyResponse(),
   };
 
@@ -117,8 +135,6 @@ export default function Home() {
 
       <div> The screen width is: {width} </div>
 
-      <Typography>Hello, {user.username}!</Typography>
-
       <a href='/login' style={{ color: 'green' }}>
         Get to login
       </a>
@@ -152,6 +168,17 @@ export default function Home() {
         />
         <Button typeBtn='primary' size='m' color='white' onClick={openSecondModal}>
           Second Modal
+        </Button>
+      </div>
+
+      <div>
+        <UserPreviewModal
+          user={user}
+          isOpenModal={isOpenThirdModal}
+          handleClose={closeThirdModal}
+        />
+        <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
+          Third Modal
         </Button>
       </div>
 

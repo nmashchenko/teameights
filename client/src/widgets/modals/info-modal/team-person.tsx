@@ -1,6 +1,6 @@
 import { Crown } from '@/shared/assets';
 import { useState, FC, memo } from 'react';
-import styles from './info-modal.module.scss';
+import styles from './team-modal.module.scss';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
 import { Flex } from '@/shared/ui';
 

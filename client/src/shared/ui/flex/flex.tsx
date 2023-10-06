@@ -46,6 +46,10 @@ export interface FlexProps {
   /**
    * [props.height] - The height property defines the height of the component. Default is 'auto'.
    */
+  wrap?: string;
+  /**
+   * [props.wrap] - The wrap property defines the wrap of the component. Default is 'none'.
+   */
   height?: string;
   /**
    * props.children - The content to be laid out.
@@ -90,6 +94,7 @@ export const Flex: React.FC<FlexProps> = props => {
     position,
     width,
     maxWidth,
+    wrap,
     height,
     children,
   } = props;
@@ -105,6 +110,7 @@ export const Flex: React.FC<FlexProps> = props => {
     position: position,
     width: width,
     maxWidth: maxWidth,
+    flexWrap: wrap,
     height: height,
   } as React.CSSProperties;
 

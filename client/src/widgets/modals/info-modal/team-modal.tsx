@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
-import styles from './info-modal.module.scss';
+import styles from './team-modal.module.scss';
 import { Typography, Button, Modal, Flex } from '@/shared/ui';
 import TeamPersonBox from './team-person';
 import { ArrowRight } from '@/shared/assets';

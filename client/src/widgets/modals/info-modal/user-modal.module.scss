@@ -1,0 +1,30 @@
+.visible_container {
+  display: block;
+}
+
+.hidden_container {
+  display: none;
+}
+
+.inline_text {
+  display: flex;
+  gap: 5px;
+}
+.user_card_top_icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  user-select: none;
+}
+
+.badge_wrapper {
+  width: 100%;
+}
+
+// .badge {
+//   width: 120px;
+//   display: inline-block;
+//   margin-right: 8px;
+//   margin-bottom: 10px;
+// }
