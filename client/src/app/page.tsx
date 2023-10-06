@@ -4,6 +4,7 @@ import { Flex, Typography, Skeleton } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
 import { Crown } from '@/shared/assets';
 import { IUserRequest } from 'teameights-types';
+import { NewtonsCradle, RaceBy } from '@uiball/loaders';
 
 export default function Home() {
   const width = useGetScreenWidth();
@@ -31,6 +32,12 @@ export default function Home() {
       </Flex>
 
       <Crown width={70} height={70} />
+
+      <Flex direction='column' gap='200px' width='100%' justify='center' align='center'>
+        <NewtonsCradle size={50} speed={1.4} color='white' />
+
+        <RaceBy size={80} lineWeight={5} speed={1.4} color='#46A11B' />
+      </Flex>
     </>
   );
 }
