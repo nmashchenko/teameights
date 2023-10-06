@@ -1,111 +1,113 @@
 'use client';
-import { Typography } from '@/shared/ui';
+import { Button, Flex, Typography } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
-// import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
-// import { useState } from 'react';
-// import { TeamPreviewModal } from '@/widgets/modals/info-modal/info-modal';
-// import { TeamType, IUserResponse, ITeam } from 'teameights-types';
+import { Crown } from '@/shared/assets';
+import { NewtonsCradle, RaceBy } from '@uiball/loaders';
+
+import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
+import { useState } from 'react';
+import { TeamPreviewModal } from '@/widgets/modals/info-modal/info-modal';
+import { ITeam, IUserResponse } from 'teameights-types';
 
 export default function Home() {
   const width = useGetScreenWidth();
-  // const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
-  // const [isOpenSecontModal, setIsOpenSecontModal] = useState(false);
+  const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
+  const [isOpenSecontModal, setIsOpenSecontModal] = useState(false);
 
-  // const openFirstModal = () => {
-  //   setIsOpenFirstModal(true);
-  // };
+  const openFirstModal = () => {
+    setIsOpenFirstModal(true);
+  };
 
-  // const closeFirstModal = () => {
-  //   setIsOpenFirstModal(false);
-  // };
+  const closeFirstModal = () => {
+    setIsOpenFirstModal(false);
+  };
 
-  // const openSecondModal = () => {
-  //   setIsOpenSecontModal(true);
-  // };
+  const openSecondModal = () => {
+    setIsOpenSecontModal(true);
+  };
 
-  // const closeSecondModal = () => {
-  //   setIsOpenSecontModal(false);
-  // };
+  const closeSecondModal = () => {
+    setIsOpenSecontModal(false);
+  };
 
-  // function createDummyResponse() {
-  //   return {
-  //     createdAt: new Date(),
-  //     updatedAt: new Date(),
-  //     deletedAt: new Date(),
-  //   };
-  // }
+  function createDummyResponse() {
+    return {
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: new Date(),
+    };
+  }
 
-  // const user: IUserResponse = {
-  //   id: 1,
-  //   team: [],
-  //   ...createDummyResponse(),
-  // };
+  const user: IUserResponse = {
+    id: 1,
+    team: [],
+    ...createDummyResponse(),
+  };
 
-  // const team: ITeam = {
-  //   id: 'team123',
-  //   name: 'Sample Team',
-  //   type: TeamType.OPEN,
-  //   country: 'Sample Country',
-  //   image: 'team-image-url',
-  //   members: [
-  //     {
-  //       id: 1,
-  //       photo: { id: '1', path: 'photo1.jpg' },
-  //       ...createDummyResponse(),
-  //     },
-  //     {
-  //       id: 2,
-  //       photo: { id: '2', path: 'photo2.jpg' },
-  //       ...createDummyResponse(),
-  //     },
-  //     {
-  //       id: 3,
-  //       photo: { id: '3', path: 'photo3.jpg' },
-  //       ...createDummyResponse(),
-  //     },
-  //     {
-  //       id: 4,
-  //       photo: { id: '4', path: 'photo4.jpg' },
-  //       ...createDummyResponse(),
-  //     },
-  //     {
-  //       id: 5,
-  //       photo: { id: '5', path: 'photo5.jpg' },
-  //       ...createDummyResponse(),
-  //     },
-  //     {
-  //       id: 6,
-  //       photo: { id: '6', path: 'photo6.jpg' },
-  //       ...createDummyResponse(),
-  //     },
-  //     {
-  //       id: 7,
-  //       photo: { id: '7', path: 'photo7.jpg' },
-  //       ...createDummyResponse(),
-  //     },
-  //     {
-  //       id: 8,
-  //       photo: { id: '8', path: 'photo8.jpg' },
-  //       ...createDummyResponse(),
-  //     },
-  //   ],
-  //   description:
-  //     'Our dev team consists of software engineers, frontend and backend developers, and designers who are dedicated to providing high-quality software solutions that meet customer needs and provide excellent customer service.',
-  //   wins: 2,
-  //   points: 380,
-  //   leader: {
-  //     id: 1,
-  //     ...createDummyResponse(),
-  //     // shouldHaveCrown: true,
-  //   },
-  //   tag: 'sampleTag',
-  //   ...createDummyResponse(),
-  // };
+  const team: ITeam = {
+    id: 'team123',
+    name: 'Sample Team',
+    type: 'open',
+    country: 'Sample Country',
+    image: 'team-image-url',
+    members: [
+      {
+        id: 1,
+        photo: { id: '1', path: 'photo1.jpg' },
+        ...createDummyResponse(),
+      },
+      {
+        id: 2,
+        photo: { id: '2', path: 'photo2.jpg' },
+        ...createDummyResponse(),
+      },
+      {
+        id: 3,
+        photo: { id: '3', path: 'photo3.jpg' },
+        ...createDummyResponse(),
+      },
+      {
+        id: 4,
+        photo: { id: '4', path: 'photo4.jpg' },
+        ...createDummyResponse(),
+      },
+      {
+        id: 5,
+        photo: { id: '5', path: 'photo5.jpg' },
+        ...createDummyResponse(),
+      },
+      {
+        id: 6,
+        photo: { id: '6', path: 'photo6.jpg' },
+        ...createDummyResponse(),
+      },
+      {
+        id: 7,
+        photo: { id: '7', path: 'photo7.jpg' },
+        ...createDummyResponse(),
+      },
+      {
+        id: 8,
+        photo: { id: '8', path: 'photo8.jpg' },
+        ...createDummyResponse(),
+      },
+    ],
+    description:
+      'Our dev team consists of software engineers, frontend and backend developers, and designers who are dedicated to providing high-quality software solutions that meet customer needs and provide excellent customer service.',
+    wins: 2,
+    points: 380,
+    leader: {
+      id: 1,
+      ...createDummyResponse(),
+    },
+    tag: 'sampleTag',
+    ...createDummyResponse(),
+  };
 
-  // const handleJoin = () => {
-  //   // Обработка нажатия кнопки Join
-  //   console.log('Join button clicked');
-  // };
+  const handleJoin = () => {
+    // Обработка нажатия кнопки Join
+    console.log('Join button clicked');
+  };
 
   return (
     <>
@@ -115,23 +117,26 @@ export default function Home() {
 
       <div> The screen width is: {width} </div>
 
+      <Typography>Hello, {user.username}!</Typography>
+
       <a href='/login' style={{ color: 'green' }}>
         Get to login
       </a>
 
-      {/* <div>
+      <div>
         <ActionModal
           heading='Removing member'
           sub='Are you sure you want to remove member from team?'
-          buttonOneText='Delete'
-          buttonOneAction={() => {}}
-          buttonTwoText='Cansel'
-          buttonTwoAction={() => {}}
           isOpenModal={isOpenFirstModal}
           handleClose={closeFirstModal}
-          buttonOneType='danger'
-          buttonTwoType='secondary'
-        />
+        >
+          <Button typeBtn='danger' color='white' size='m' onClick={openFirstModal}>
+            Delete
+          </Button>
+          <Button typeBtn='primary' color='white' size='m' onClick={openSecondModal}>
+            Cancel
+          </Button>
+        </ActionModal>
         <Button typeBtn='primary' size='m' color='white' onClick={openFirstModal}>
           First Modal
         </Button>
@@ -148,7 +153,15 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openSecondModal}>
           Second Modal
         </Button>
-      </div> */}
+      </div>
+
+      <Crown width={70} height={70} />
+
+      <Flex direction='column' gap='200px' width='100%' justify='center' align='center'>
+        <NewtonsCradle size={50} speed={1.4} color='white' />
+
+        <RaceBy size={80} lineWeight={5} speed={1.4} color='#46A11B' />
+      </Flex>
     </>
   );
 }

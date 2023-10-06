@@ -28,6 +28,7 @@
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
+    "@uiball/loaders": "^1.3.0",
     "add": "^2.0.6",
     "clsx": "^2.0.0",
     "eslint": "8.46.0",
@@ -42,6 +43,7 @@
     "react-select": "^5.7.4",
     "react-tooltip": "^5.21.3",
     "sass": "^1.64.2",
+    "teameights-types": "^1.0.2",
     "tsparticles": "^2.12.0",
     "typescript": "5.1.6",
     "yarn": "^1.22.19"

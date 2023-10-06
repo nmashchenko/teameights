@@ -1,31 +1,20 @@
-import { Button, Modal, Typography } from '@/shared/ui';
+import { Modal, Typography } from '@/shared/ui';
 import styles from './action-modal.module.scss';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 interface ActionModalProps {
   heading: string;
   sub: string;
-  buttonOneText: string;
-  buttonOneAction: () => void;
-  buttonTwoText?: string;
-  buttonTwoAction?: () => void;
   isOpenModal: boolean;
   handleClose: () => void;
-  buttonOneType: 'tertiary' | 'danger' | 'secondary' | 'primary';
-  buttonTwoType?: 'tertiary' | 'danger' | 'secondary' | 'primary';
 }
 
-export const ActionModal: FC<ActionModalProps> = ({
+export const ActionModal: FC<PropsWithChildren<ActionModalProps>> = ({
   heading,
   sub,
-  buttonOneText,
-  buttonOneAction,
-  buttonTwoText,
-  buttonTwoAction,
   isOpenModal,
   handleClose,
-  buttonOneType = 'primary',
-  buttonTwoType = 'tertiary',
+  children,
 }) => {
   return (
     <div>
@@ -39,16 +28,7 @@ export const ActionModal: FC<ActionModalProps> = ({
               {sub}
             </Typography>
           </div>
-          <div className={styles.button}>
-            <Button typeBtn={buttonOneType} color='white' size='m' onClick={buttonOneAction}>
-              {buttonOneText}
-            </Button>
-            {buttonTwoText && (
-              <Button typeBtn={buttonTwoType} color='white' size='m' onClick={buttonTwoAction}>
-                {buttonTwoText}
-              </Button>
-            )}
-          </div>
+          <div className={styles.button}>{children}</div>
         </div>
       </Modal>
     </div>
