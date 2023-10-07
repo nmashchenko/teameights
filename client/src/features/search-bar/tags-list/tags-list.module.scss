@@ -1,0 +1,11 @@
+.tagsList {
+  display: flex;
+
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tagWrapper {
+  border-radius: 5px;
+  overflow: hidden;
+}
