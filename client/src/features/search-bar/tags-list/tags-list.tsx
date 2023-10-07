@@ -4,6 +4,7 @@ import { Filter } from '../interface/filters';
 import clsx from 'clsx';
 import styles from './tags-list.module.scss';
 import Tag from './tag/tag';
+import { useClickOutside } from '@/shared/lib';
 
 const TagsList = () => {
   const { setValue } = useFormContext();
@@ -11,6 +12,7 @@ const TagsList = () => {
     name: 'filtersArr',
   });
   const [isListOpened, setIsListOpened] = useState(false);
+  const filterListRef = useClickOutside<HTMLLIElement>(() => setIsListOpened(false));
 
   if (!filtersArr.length) {
     return null;
@@ -54,7 +56,7 @@ const TagsList = () => {
                     <Tag isWithCross text={item.filterValue[0].label} />
                   </li>
                   {item.filterValue.length > 1 && (
-                    <li className={clsx(styles.tagWrapper)} onClick={() => setIsListOpened(true)}>
+                    <li ref={filterListRef} className={clsx(styles.tagWrapper)} onClick={() => setIsListOpened(true)}>
                       {isListOpened ? (
                         <ul>
                           {item.filterValue.slice(1).map((item, subIndex) => (
