@@ -40,7 +40,7 @@ const TagsList = () => {
                   isWithCross
                   key={item.value}
                   text={item.filterValue}
-                  onClick={() => handleClearTextFilter(i)}
+                  onClick={() => handleClearTextFilter(index)}
                 />
               </li>
             ) : null;
