@@ -1,13 +1,12 @@
 import clsx from 'clsx';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Select } from '@/shared/ui';
 import styles from './filter-select.module.scss';
 import { Filter } from '../interface/filters';
 
-interface IFilterSelectProps {}
 
-const FilterSelect: FC<IFilterSelectProps> = () => {
+const FilterSelect = () => {
   const { getValues, setValue } = useFormContext();
 
   const [isMenuHovered, setIsMenuHovered] = useState<boolean>(false);

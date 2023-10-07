@@ -14,7 +14,7 @@ const SearchInput = () => {
 
   switch (currentFilter.type) {
     case 'text':
-      return <Input {...register(`filtersArr.${filterIndex}.filterValue`)} isWithBorder={false} />;
+      return <Input {...register(`filtersArr.${filterIndex}.filterValue`)} placeholder={currentFilter.placeholder} isWithBorder={false} />;
 
     case 'checkbox':
       return (
@@ -25,6 +25,7 @@ const SearchInput = () => {
               controlShouldRenderValue={false}
               onChange={value => onChange(value)}
               value={value}
+              placeholder={currentFilter.placeholder}
               options={getValues(`filtersArr.${filterIndex}.optionsArr`)}
               isWithBorder={false}
               isCheckbox

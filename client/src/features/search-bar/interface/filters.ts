@@ -1,6 +1,7 @@
 interface IFilter {
   label: string;
   value: string;
+  placeholder: string;
 }
 
 interface ITextFilter extends IFilter {

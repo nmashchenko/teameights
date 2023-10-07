@@ -5,18 +5,21 @@ import FilterSelect from './filter-select/filter-select';
 import { Filter } from './interface/filters';
 import styles from './search-bar.module.scss';
 import SearchInput from './search-input/search-input';
+import TagsList from './tags-list/tags-list';
 
 const mockFiltersArr: Filter[] = [
   {
     label: 'Name',
     value: 'name',
     type: 'text',
+    placeholder: 'Search by name',
     filterValue: '',
   },
   {
     label: 'Countries',
     value: 'countries',
     type: 'checkbox',
+    placeholder: 'Search by countries',
     optionsArr: [
       { label: 'Japan', value: 'jp' },
       { label: 'Russia', value: 'ru' },
@@ -29,6 +32,7 @@ const mockFiltersArr: Filter[] = [
     label: 'Languages',
     value: 'languages',
     type: 'checkbox',
+    placeholder: 'Search by languages',
     optionsArr: [],
     filterValue: [],
   },
@@ -36,6 +40,7 @@ const mockFiltersArr: Filter[] = [
     label: 'Frameworks',
     value: 'frameworks',
     type: 'checkbox',
+    placeholder: 'Search by frameworks',
     optionsArr: [],
     filterValue: [],
   },
@@ -43,6 +48,7 @@ const mockFiltersArr: Filter[] = [
     label: 'Concentrations',
     value: 'concentrations',
     type: 'checkbox',
+    placeholder: 'Search by concentrations',
     optionsArr: [],
     filterValue: [],
   },
@@ -67,7 +73,7 @@ const SearchBar: FC<ISearchBarProps> = ({ filtersArr = mockFiltersArr }) => {
           <FilterSelect />
           <SearchInput />
         </div>
-        {/* TagsList */}
+        <TagsList />
       </div>
     </FormProvider>
   );
