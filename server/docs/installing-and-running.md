@@ -13,11 +13,11 @@
 
 ## Comfortable development
 
-### Fastrun
+### Fastrun (currently supported on MAC/LINUX only)
    ```
     cd server/
     cp env-example .env
-    source ./sh-scripts type=[development*|production|ci] stage=[local*|virtual] cache[true|false*]
+    /bin/bash ./sh-scripts/compose.sh type=[development*|production|ci] stage=[local*|virtual] cache[true|false*]
    ```
 * is default options
 
