@@ -10,14 +10,10 @@ ARG APP_PORT
 
 COPY --from=cache /tmp/node_modules ./node_modules
 
-COPY ./package*.json .
-COPY ./tsconfig*.json .
+COPY ["package*.json", "tsconfig*.json", ".env", "./"]
 
-#RUN sed -i 's/DATABASE_HOST=localhost//g' .env
-#RUN echo 'DATABASE_HOST='${COMPOSE_PROJECT_NAME}'-postgres' >> .env
+RUN sed -i -e 's/^DATABASE_HOST.*/DATABASE_HOST='${COMPOSE_PROJECT_NAME}'-postgres/' -e 's/^MAIL_HOST.*/MAIL_HOST='${COMPOSE_PROJECT_NAME}'-maildev/' .env
 
-#RUN sed -i 's/MAIL_HOST=localhost//g' .env
-#RUN echo 'MAIL_HOST='${COMPOSE_PROJECT_NAME}'-maildev' >> .env
 COPY ./src ./src
 
 EXPOSE ${APP_PORT}
