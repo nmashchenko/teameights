@@ -36,7 +36,7 @@ lerna-debug.log*
 
 .data
 /files
-.env
+.env*
 /ormconfig.json
 
 # Yarn
@@ -47,3 +47,6 @@ lerna-debug.log*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+/Docker/docker-compose.yaml*
+

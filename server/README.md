@@ -84,18 +84,21 @@ yarn seed:run
 ## Tests
 
 ```bash
-# unit tests
+# unit tests (not supported yet)
 yarn test
 
 # e2e tests
 yarn test:e2e
 ```
 
-## Tests in Docker
+[//]: # (## Tests in Docker)
 
-```bash
-make docker-compose-up type=ci
-```
+[//]: # ()
+[//]: # (```bash)
+
+[//]: # (make docker-compose-up type=ci)
+
+[//]: # (```)
 
 [//]: # (## Test benchmarking)
 

@@ -1,10 +1,10 @@
 import {
-  BeforeInsert,
-  BeforeUpdate,
   Column,
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 import { User } from './user.entity';
 import { EntityHelper } from '../../../utils/entity-helper';

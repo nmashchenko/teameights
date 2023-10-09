@@ -1,6 +1,14 @@
 /node_modules
+/dist
 /.data
 /.husky
-docs
+/docs
 /files
-/.yarn/unplugged
+
+!yarn-offline-mirror/
+!.yarn/plugins
+!.yarn/releases
+.yarn/cache
+!package.json
+!yarn.lock
+!.yarnrc.yml

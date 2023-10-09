@@ -1,6 +1,5 @@
 import request from 'supertest';
 import { APP_URL, TESTER_EMAIL, TESTER_PASSWORD, MAIL_HOST, MAIL_PORT } from '../utils/constants';
-// import e from 'express';
 
 describe('Auth user (e2e)', () => {
   const app = APP_URL;

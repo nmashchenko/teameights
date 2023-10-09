@@ -2,12 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   ArrayNotEmpty,
   IsArray,
-  IsDateString,
   IsIn,
   IsNotEmpty,
   IsObject,
   IsOptional,
-  Length,
   MinLength,
   Validate,
   ValidateNested,
@@ -30,16 +28,15 @@ export class AuthUpdateDto {
   })
   photo?: FileEntity;
 
-  @ApiProperty({ example: 'Nikita Mashchenko', description: 'Full Name' })
+  @ApiProperty({ example: 'John' })
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   fullName?: string;
 
-  @ApiProperty({ example: 'teameights', description: 'Username' })
+  @ApiProperty({ example: 'nmashchenko' })
   @Transform(lowerCaseTransformer)
   @IsNotEmpty()
   @IsOptional()
-  @Length(1, 20)
   @Validate(IsNotExist, ['User'], {
     message: 'usernameAlreadyExists',
   })
@@ -51,62 +48,45 @@ export class AuthUpdateDto {
   @MinLength(6)
   password?: string;
 
-  @ApiProperty({
-    example: 'true',
-    description: 'Does user want to be leader of team?',
-  })
+  @ApiProperty()
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   isLeader?: boolean;
 
-  @ApiProperty({ example: 'Ukraine', description: 'Country of user' })
+  @ApiProperty()
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   country?: string;
 
-  @ApiProperty({ example: new Date(), description: 'Date of birth' })
+  @ApiProperty()
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  @IsDateString()
   dateOfBirth?: Date;
 
-  @ApiProperty({
-    example: 'Frontend Developer',
-    description: 'Concentration of user',
-  })
+  @ApiProperty()
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   concentration?: string;
 
-  @ApiProperty({
-    example: '20 y.o. developer from Ukraine',
-    description: 'Description of user',
-  })
+  @ApiProperty()
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   description?: string;
 
-  @ApiProperty({
-    enum: ['0-1 years', '1-3 years', '3-5 years', '5+ years'],
-    example: '0-1 years',
-    description: 'How many years of experience user has',
-  })
+  @ApiProperty({ enum: ['0-1 years', '1-3 years', '3-5 years', '5+ years'] })
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   @IsIn(['beginner', 'intermediate', 'advanced'], { message: 'mustBeValidExperience' })
   experience?: '0-1 years' | '1-3 years' | '3-5 years' | '5+ years';
 
-  @ApiProperty({
-    example: ['JS', 'C++'],
-    description: 'Programming languages',
-  })
+  @ApiProperty()
   @IsOptional()
-  @ArrayNotEmpty()
+  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
   programmingLanguages?: string[];
 
-  @ApiProperty({ example: ['NestJS', 'NodeJS'], description: 'Frameworks' })
+  @ApiProperty()
   @IsOptional()
-  @ArrayNotEmpty()
+  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
   frameworks?: string[];
 
   @ApiProperty({
