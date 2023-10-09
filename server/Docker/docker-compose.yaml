@@ -1,10 +1,10 @@
 version: '3.9'
 
 # profiles:
-#  - virtual-development
-#  - local-development
-#  - virtual-production
-#  - local-production
+#  - virtual-dev
+#  - local-dev
+#  - virtual-prod
+#  - local-prod
 #  - virtual-ci
 #  - local-ci
 
@@ -48,10 +48,10 @@ services:
 
   postgres: #service
     profiles:
-      - virtual-development
-      - local-development
-      - virtual-production
-      - local-production
+      - virtual-dev
+      - local-dev
+      - virtual-prod
+      - local-prod
       - virtual-ci
       - local-ci
     container_name: ${COMPOSE_PROJECT_NAME}-postgres
@@ -69,17 +69,17 @@ services:
     healthcheck:
       <<: *common-healthcheck
       test: [ "CMD-SHELL", "pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}" ]
-# <Virtual stage>    ports: #stage-toggle
-# <Virtual stage>      - ${DATABASE_PORT}:${DATABASE_PORT} #stage-toggle
+    ports: #stage-toggle
+      - ${DATABASE_PORT}:${DATABASE_PORT} #stage-toggle
     #endservice
 
   maildev: #service
     container_name: ${COMPOSE_PROJECT_NAME}-maildev
     profiles:
-      - virtual-development
-      - local-development
-      - virtual-production
-      - local-production
+      - virtual-dev
+      - local-dev
+      - virtual-prod
+      - local-prod
       - virtual-ci
       - local-ci
     restart: unless-stopped
@@ -93,16 +93,16 @@ services:
       - ${MAIL_CLIENT_PORT}
       - ${MAIL_PORT}
     ports:
-# <Virtual stage>      - ${MAIL_PORT}:${MAIL_PORT} #stage-toggle
+      - ${MAIL_PORT}:${MAIL_PORT} #stage-toggle
       - ${MAIL_CLIENT_PORT}:${MAIL_CLIENT_PORT}
     #endservice
 
   db-prepare:
     profiles:
-      - virtual-development
-      - local-development
-      - virtual-production
-      - local-production
+      - virtual-dev
+      - local-dev
+      - virtual-prod
+      - local-prod
       - virtual-ci
       - local-ci
     container_name: ${COMPOSE_PROJECT_NAME}-db-prepare
@@ -120,11 +120,11 @@ services:
 
   api-development:
     profiles:
-      - virtual-development
+      - virtual-dev
     <<: *common-api
     image: node:18-alpine
     working_dir: ${SERVER_PATH_CONTAINER}
-    command: [ "yarn", "start:development" ]
+    command: [ "yarn", "start:dev" ]
     environment:
       - NODE_ENV=development
       - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
@@ -135,10 +135,10 @@ services:
 
   api-production:
     profiles:
-      - virtual-production
+      - virtual-prod
     <<: [*common-api, *common-config]
     restart: on-failure
-    command: ["/opt/startup.sh", "production"]
+    command: ["/opt/startup.sh", "prod"]
     build:
       <<: [*common-context, *common-args]
       dockerfile: ${DOCKER_PATH_LOCAL}/app.prod.Dockerfile

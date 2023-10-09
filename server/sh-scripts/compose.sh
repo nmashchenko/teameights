@@ -44,11 +44,11 @@ stage=$(get_arg_value "stage" "$@")
 if [ -z "$stage" ]; then echo "Warning!  [stage] wasn't found, set default: localhost"; stage="local"; fi
 
 type=$(get_arg_value "type" "$@")
-if [ -z "$type" ]; then echo "Warning!  [type] wasn't found, set default: development"; type="development"; fi
+if [ -z "$type" ]; then echo "Warning!  [type] wasn't found, set default: dev"; type="dev"; fi
 
 cache=$(get_arg_value "cache" "$@")
-if [ -z "$cache" ] && [ "$stage" = "docker" ] && [ "$type" != "development" ]; then echo "Warning!  <Virtual> [cache] wasn't found, set default: true (preferred for virtual override)"; cache=true; fi
-if [ -z "$cache" ] && [ "$stage" = "docker" ] && [ "$type" = "development" ]; then echo "Warning!  <Virtual> [cache] wasn't found, set default: false (mount volumes don't need it)"; cache=false; fi
+if [ -z "$cache" ] && [ "$stage" = "docker" ] && [ "$type" != "dev" ]; then echo "Warning!  <Virtual> [cache] wasn't found, set default: true (preferred for virtual override)"; cache=true; fi
+if [ -z "$cache" ] && [ "$stage" = "docker" ] && [ "$type" = "dev" ]; then echo "Warning!  <Virtual> [cache] wasn't found, set default: false (mount volumes don't need it)"; cache=false; fi
 if [ -z "$cache" ] && [ "$stage" = "local" ]; then echo "Warning! <Locale>  [type] wasn't found, set default: false"; cache=false; fi
 
 echo "Info! Type: $type  | Staging: $stage  | Caching: $cache"
@@ -78,7 +78,7 @@ reverse_stage_toggle() {
 }
 
 reverse_production_toggle() {
-  if [ "$1" = "production" ]; then
+  if [ "$1" = "prod" ]; then
     echo "Info! Setup docker-compose production-toggle <Active>"
     $sed_command -e '/postgres: #service/,/#endservice/ {;s/# <Production Activity>\(.*\)#production-toggle/\1#production-toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
     echo "Info! Upload database dir into [] catalog: ./database/data:init"
@@ -110,7 +110,6 @@ case $stage in
     virtual)
         echo "Step! Running docker staging..."
         reverse_stage_toggle "virtual"
-        if [ "$type" = 'development' ]; then type="virtual-development"; fi
         echo "Info! Running docker"
         docker-compose -f "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml --env-file .env --profile $stage-$type up -d
         ;;

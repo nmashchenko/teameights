@@ -19,17 +19,17 @@ if [ "$1" == "ci" ] ; then
   yarn run test:e2e --runInBand
 fi
  
-if [ "$1" == "production" ] ; then
-  yarn run start:production
+if [ "$1" == "prod" ] ; then
+  yarn run start:prod
 fi
 
-if [ "$1" == "development" ] ; then
-  yarn run start:development
+if [ "$1" == "dev" ] ; then
+  yarn run start:dev
 fi
 
 if [ "$1" == "db-prepare" ] ; then
-  npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource=src/libs/database/data-source.ts migration:run
-  npx ts-node -r tsconfig-paths/register src/libs/database/seeds/run-seed.ts
+  yarn migration:run
+  yarn seed:run
 fi
 
 echo false
