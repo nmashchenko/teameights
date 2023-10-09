@@ -64,13 +64,13 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
-    volumes: #production-toggle
-      - db-data:${DATABASE_PATH_CONTAINER}/data #production-toggle
+# <Production Activity>    volumes: #production-toggle
+# <Production Activity>      - db-data:${DATABASE_PATH_CONTAINER}/data #production-toggle
     healthcheck:
       <<: *common-healthcheck
       test: [ "CMD-SHELL", "pg_isready -d ${DATABASE_NAME} -U ${DATABASE_USERNAME}" ]
-# <Virtual stage>    ports: #stage-toggle
-# <Virtual stage>      - ${DATABASE_PORT}:${DATABASE_PORT} #stage-toggle
+    ports: #stage-toggle
+      - ${DATABASE_PORT}:${DATABASE_PORT} #stage-toggle
     #endservice
 
   maildev: #service
@@ -93,7 +93,7 @@ services:
       - ${MAIL_CLIENT_PORT}
       - ${MAIL_PORT}
     ports:
-# <Virtual stage>      - ${MAIL_PORT}:${MAIL_PORT} #stage-toggle
+      - ${MAIL_PORT}:${MAIL_PORT} #stage-toggle
       - ${MAIL_CLIENT_PORT}:${MAIL_CLIENT_PORT}
     #endservice
 

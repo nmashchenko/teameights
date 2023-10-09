@@ -19,7 +19,7 @@
     cp env-example .env
     /bin/bash ./sh-scripts/compose.sh type=[development*|production|ci] stage=[local*|virtual] cache[true|false*]
    ```
-* is default options
+[*] is default options
 
 ### Local/VELENYX style
 1. Clone repository
@@ -44,7 +44,7 @@
 
 4. Run required containers:
    ```bash
-   docker compose -f ./Docker/docker-compose.yaml --env-file .env  up -d db-prepare postgres maildev
+   docker compose -f ./Docker/docker-compose.yaml --env-file .env --profile local-development up -d
    ```
 
 5. Install dependencies
@@ -102,8 +102,8 @@
     <br>
     (**TYPE**: dev/prod/ci)
     ```bash
-      make docker-compose-up type=dev
-      ```
+    docker compose -f ./Docker/docker-compose.yaml --env-file .env --profile virtual-development up -d
+    ```
 
 6. Open <http://localhost:3000>
 

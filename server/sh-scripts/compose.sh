@@ -49,7 +49,7 @@ if [ -z "$type" ]; then echo "Warning!  [type] wasn't found, set default: develo
 cache=$(get_arg_value "cache" "$@")
 if [ -z "$cache" ] && [ "$stage" = "docker" ] && [ "$type" != "development" ]; then echo "Warning!  <Virtual> [cache] wasn't found, set default: true (preferred for virtual override)"; cache=true; fi
 if [ -z "$cache" ] && [ "$stage" = "docker" ] && [ "$type" = "development" ]; then echo "Warning!  <Virtual> [cache] wasn't found, set default: false (mount volumes don't need it)"; cache=false; fi
-if [ -z "$cache" ] && [ "$stage" = "localhost" ]; then echo "Warning! <Locale>  [type] wasn't found, set default: false"; cache=false; fi
+if [ -z "$cache" ] && [ "$stage" = "local" ]; then echo "Warning! <Locale>  [type] wasn't found, set default: false"; cache=false; fi
 
 echo "Info! Type: $type  | Staging: $stage  | Caching: $cache"
 
@@ -62,12 +62,11 @@ else
 fi
 
 sleep 3
-
 reverse_stage_toggle() {
   if [ "$1" = "local" ]; then
     echo "Info! Setup docker-compose stage-toggle <Local>"
     $sed_command -e '/postgres: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#stage-toggle/\1#stage-toggle/;}' -e '/maildev: #service/,/#endservice/ {;s/# <Virtual stage>\(.*\)#stage-toggle/\1#stage-toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
-      echo "Info! Finish edit docker-compose"
+    echo "Info! Finish edit docker-compose"
 
   fi
   if [ "$1" = "virtual" ]; then
@@ -82,7 +81,10 @@ reverse_production_toggle() {
   if [ "$1" = "production" ]; then
     echo "Info! Setup docker-compose production-toggle <Active>"
     $sed_command -e '/postgres: #service/,/#endservice/ {;s/# <Production Activity>\(.*\)#production-toggle/\1#production-toggle/;}' "$PARENT_DIR"/"$DOCKER_PATH_LOCAL"/docker-compose.yaml
-      echo "Info! Finish edit docker-compose"
+    echo "Info! Upload database dir into [] catalog: ./database/data:init"
+    mkdir -p ../database/data
+    mkdir -p ../database/init
+    echo "Info! Finish edit docker-compose"
   else
     echo "Info! Setup docker-compose production-toggle <Inactive>"
     $sed_command -e '/postgres: #service/,/#endservice/ {;s/\(.*\)#production-toggle/# <Production Activity>\1#production-toggle/;}' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
@@ -90,7 +92,7 @@ reverse_production_toggle() {
   fi
   $sed_command -e 's/# <Production Activity># <Production Activity>/# <Production Activity>/' "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml
 }
-
+reverse_production_toggle $type
 case $stage in
     local)
         echo "Step! Running local staging..."
@@ -100,13 +102,14 @@ case $stage in
         process=$!
         wait $process
         /bin/bash "$PARENT_DIR/$SHSCRIPT_PATH_LOCAL"/wait-for-it.sh localhost:5432
+        echo "Info! Prepare local values"
+        yarn install
         echo "Info! Running server in local"
         /bin/bash "$PARENT_DIR/$SHSCRIPT_PATH_LOCAL"/startup.sh $type
         ;;
     virtual)
         echo "Step! Running docker staging..."
         reverse_stage_toggle "virtual"
-        reverse_production_toggle $type
         if [ "$type" = 'development' ]; then type="virtual-development"; fi
         echo "Info! Running docker"
         docker-compose -f "$PARENT_DIR/$DOCKER_PATH_LOCAL"/docker-compose.yaml --env-file .env --profile $stage-$type up -d
