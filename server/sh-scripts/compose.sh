@@ -1,12 +1,13 @@
 #!/bin/bash
 set -e
 
-# Проверяем, является ли версия BSD
-if strings "$(which sed)" | grep -qi "BSD"; then
-    sed_command="sed -i ''"
-else
+if sed --version > /dev/null 2>&1; then
+    echo "Info! Setting [sed] command style: GNU"
     sed_command="sed -i"
-fi
+else
+    echo "Info! Setting [sed] command style: BSD"
+    sed_command="sed -i ''"
+fi 
 
 if [ -f /.dockerenv ]; then
   PARENT_DIR=$SERVER_PATH_CONTAINER
