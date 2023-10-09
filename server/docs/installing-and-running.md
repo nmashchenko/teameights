@@ -44,7 +44,7 @@
 
 4. Run required containers:
    ```bash
-   docker compose -f ./Docker/docker-compose.yaml --env-file .env --profile local-development up -d
+   docker compose -f ./Docker/docker-compose.yaml --env-file .env up -d postgres maildev
    ```
 
 5. Install dependencies
@@ -68,7 +68,7 @@
 8. Run app in dev mode
 
    ```bash
-   yarn run start:dev
+   yarn run start:development
    ```
 
 9. Open <http://localhost:3000>
