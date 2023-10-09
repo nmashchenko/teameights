@@ -5,6 +5,7 @@ import {
   IsDateString,
   IsIn,
   IsNotEmpty,
+  IsObject,
   IsOptional,
   Length,
   MinLength,
@@ -16,7 +17,10 @@ import { FileEntity } from 'src/modules/files/entities/file.entity';
 import { Transform, Type } from 'class-transformer';
 import { lowerCaseTransformer } from '../../../../utils/transformers/lower-case.transformer';
 import { IsNotExist } from '../../../../utils/validators/is-not-exists.validator';
-import { UniversityDataDto } from '../../../users/dto/university.dto';
+import { UniversitiesDto } from '../../../users/dto/universities.dto';
+import { JobsDto } from '../../../users/dto/jobs.dto';
+import { ProjectsDto } from '../../../users/dto/projects.dto';
+import { LinksDto } from '../../../users/dto/links.dto';
 
 export class AuthUpdateDto {
   @ApiProperty({ type: () => FileEntity })
@@ -111,8 +115,8 @@ export class AuthUpdateDto {
         university: 'UIC',
         degree: `Bachelor's degree`,
         major: 'Computer Science',
-        addmissionDate: '2016-05-18T14:10:30Z',
-        graduationDate: '2020-05-18T14:10:30Z',
+        addmissionDate: '2016-05-18T14:10:30',
+        graduationDate: '2020-05-18T14:10:30',
       },
     ],
     description: 'University data of the user',
@@ -120,6 +124,53 @@ export class AuthUpdateDto {
   @IsArray()
   @IsOptional()
   @ValidateNested({ each: true })
-  @Type(() => UniversityDataDto)
-  universityData?: UniversityDataDto[];
+  @Type(() => UniversitiesDto)
+  universities?: UniversitiesDto[];
+
+  @ApiProperty({
+    example: [
+      {
+        title: 'SWE',
+        company: `Spotify`,
+        startDate: '2016-05-18T14:10:30',
+        endDate: '2020-05-18T14:10:30',
+      },
+    ],
+    description: 'Job data of the user',
+  })
+  @IsArray()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => JobsDto)
+  jobs?: JobsDto[];
+
+  @ApiProperty({
+    example: [
+      {
+        title: `Teameights`,
+        link: 'https://teameights.com',
+      },
+    ],
+    description: 'Project data of the user',
+  })
+  @IsArray()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => ProjectsDto)
+  projects?: ProjectsDto[];
+
+  @ApiProperty({
+    example: {
+      github: 'https://github.com',
+      linkedin: 'https://linkedin.com',
+      behance: 'https://behance.com',
+      telegram: 'https://telegram.com',
+    },
+    description: 'Links of the user',
+  })
+  @IsObject({ message: 'Should be object' })
+  @ValidateNested()
+  @Type(() => LinksDto)
+  @IsOptional()
+  links?: LinksDto;
 }

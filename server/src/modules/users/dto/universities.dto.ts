@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsDefined, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class UniversityDataDto {
+export class UniversitiesDto {
   @ApiProperty({ example: 'UIC', description: 'User university name' })
   @IsString({ message: 'Should be string' })
   @IsNotEmpty({ message: 'Should not be empty' })
@@ -24,7 +24,7 @@ export class UniversityDataDto {
   major: string;
 
   @ApiProperty({
-    example: `2016-05-18T14:10:30Z`,
+    example: `2016-05-18`,
     description: 'Addmission in UTC',
   })
   @IsDateString()
@@ -33,7 +33,7 @@ export class UniversityDataDto {
   admissionDate: Date;
 
   @ApiProperty({
-    example: `2016-05-18T14:10:30Z`,
+    example: `2016-05-18`,
     description: 'Graduation in UTC',
   })
   @IsString({ message: 'Should be string' })

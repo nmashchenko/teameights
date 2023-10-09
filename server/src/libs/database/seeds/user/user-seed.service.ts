@@ -43,15 +43,32 @@ export class UserSeedService {
           experience: '5+ years',
           programmingLanguages: ['C++', 'C', 'Go'],
           frameworks: ['Ruby', 'NodeJS'],
-          universityData: [
+          universities: [
             {
-              university: 'test',
-              degree: 'test',
-              major: 'test',
-              admissionDate: '2023-10-02',
+              university: 'UIC',
+              degree: `Bachelor's degree`,
+              major: 'Computer Science',
+              admissionDate: '2019-10-02',
               graduationDate: '2023-10-03',
             },
           ],
+          jobs: [
+            {
+              title: 'SWE',
+              company: 'Spotify',
+              startDate: '2016-05-18T14:10:30',
+              endDate: '2020-05-18T14:10:30',
+            },
+          ],
+          projects: [
+            {
+              title: 'Teameights',
+              link: 'https://teameights.com',
+            },
+          ],
+          links: {
+            github: 'https://github.com',
+          },
         })
       );
     }

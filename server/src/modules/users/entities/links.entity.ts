@@ -1,22 +1,20 @@
-// FYI: This is draft for now to showcase the planned structure
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { EntityHelper } from '../../../utils/entity-helper';
 
-// @Entity()
-// export class Links {
-//   @PrimaryGeneratedColumn()
-//   id: number;
-//
-//   @Column({ nullable: true })
-//   github: string;
-//
-//   @Column({ nullable: true })
-//   linkedIn: string;
-//
-//   @Column({ nullable: true })
-//   behance: string;
-//
-//   @Column({ nullable: true })
-//   telegram: string;
-//
-//   @OneToOne(() => User, user => user.links)
-//   user: User;
-// }
+@Entity()
+export class Links extends EntityHelper {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: String, nullable: true })
+  github?: string | null;
+
+  @Column({ type: String, nullable: true })
+  linkedIn?: string | null;
+
+  @Column({ type: String, nullable: true })
+  behance?: string | null;
+
+  @Column({ type: String, nullable: true })
+  telegram?: string | null;
+}

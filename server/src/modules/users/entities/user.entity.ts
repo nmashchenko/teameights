@@ -11,6 +11,8 @@ import {
   BeforeInsert,
   BeforeUpdate,
   OneToMany,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Role } from 'src/libs/database/metadata/roles/entities/role.entity';
 import { Status } from 'src/libs/database/metadata/statuses/entities/status.entity';
@@ -19,7 +21,10 @@ import bcrypt from 'bcryptjs';
 import { EntityHelper } from 'src/utils/entity-helper';
 import { AuthProvidersEnum } from 'src/modules/auth/auth-providers.enum';
 import { Exclude, Expose } from 'class-transformer';
-import { UniversityData } from './university-data.entity';
+import { Universities } from './universities.entity';
+import { Jobs } from './jobs.entity';
+import { Projects } from './projects.entity';
+import { Links } from './links.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -115,20 +120,28 @@ export class User extends EntityHelper {
   @Column('text', { array: true, nullable: true })
   frameworks?: string[] | null;
 
-  @OneToMany(() => UniversityData, universityData => universityData.user, {
+  @OneToMany(() => Universities, universities => universities.user, {
     eager: true,
     cascade: true,
   })
-  universityData?: UniversityData[];
-  //
-  // @OneToMany(() => JobData, jobData => jobData.user, { cascade: true })
-  // jobData: JobData[];
-  //
-  // @OneToMany(() => ProjectData, projectData => projectData.user, { cascade: true })
-  // projectData: ProjectData[];
-  //
-  // @OneToOne(() => Links, links => links.user, { cascade: true })   links: Links;
-  //
+  universities?: Universities[];
+
+  @OneToMany(() => Jobs, jobs => jobs.user, {
+    eager: true,
+    cascade: true,
+  })
+  jobs?: Jobs[];
+
+  @OneToMany(() => Projects, projects => projects.user, {
+    eager: true,
+    cascade: true,
+  })
+  projects?: Projects[];
+
+  @OneToOne(() => Links, { eager: true, cascade: true })
+  @JoinColumn()
+  links?: Links;
+
   // @OneToMany(() => Notifications, notifications => notifications.user)
   // notifications: Notifications[];
   //
