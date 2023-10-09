@@ -49,7 +49,6 @@ export class User extends EntityHelper {
 
   @AfterLoad()
   public loadPreviousPassword(): void {
-    console.log('this one: ' + this.password);
     this.previousPassword = this.password;
   }
 
@@ -57,7 +56,6 @@ export class User extends EntityHelper {
   @BeforeUpdate()
   async setPassword() {
     if (this.previousPassword !== this.password && this.password) {
-      console.log('prev: ' + this.previousPassword);
       const salt = await bcrypt.genSalt();
       this.password = await bcrypt.hash(this.password, salt);
     }
