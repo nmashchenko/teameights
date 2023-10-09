@@ -129,6 +129,9 @@ services:
       - NODE_ENV=development
       - DATABASE_HOST=${COMPOSE_PROJECT_NAME}-postgres
       - MAIL_HOST=${COMPOSE_PROJECT_NAME}-maildev
+    volumes:
+      - ../:${SERVER_PATH_CONTAINER}
+
 
   api-production:
     profiles:
