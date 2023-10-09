@@ -190,6 +190,430 @@ describe('Auth user (e2e)', () => {
       .expect(({ body }) => {
         expect(body.token).toBeDefined();
       });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        password: newUserPassword,
+      })
+      .expect(200);
+
+    await request(app)
+      .post('/api/v1/auth/email/login')
+      .send({ email: newUserEmail, password: newUserPassword })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.token).toBeDefined();
+      });
+  });
+
+  it('New user update universities field: /api/v1/auth/me (PATCH)', async () => {
+    const newUniversityData = [
+      {
+        university: 'UIC',
+        degree: 'BA',
+        major: 'CS',
+        admissionDate: '2019-10-05',
+        graduationDate: '2023-10-05',
+      },
+    ];
+
+    // admissionDate can't be same as graduationDate
+    const badUniversityData = [
+      {
+        university: 'UIC',
+        degree: 'BA',
+        major: 'CS',
+        admissionDate: '2019-10-05',
+        graduationDate: '2019-10-05',
+      },
+    ];
+
+    // empty fields
+    const emptyUniversityData = [
+      {
+        university: '',
+        degree: '',
+        major: '',
+        admissionDate: '2019-10-05',
+        graduationDate: '2023-10-05',
+      },
+    ];
+
+    // wrong type of date
+    const wrongDateTypeUniversityData = [
+      {
+        university: '',
+        degree: '',
+        major: '',
+        admissionDate: '',
+        graduationDate: '',
+      },
+    ];
+
+    const newUserApiToken = await request(app)
+      .post('/api/v1/auth/email/login')
+      .send({ email: newUserEmail, password: newUserPassword })
+      .then(({ body }) => body.token);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universities: newUniversityData,
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.universities[0].university).toBe(newUniversityData[0].university);
+        expect(body.universities[0].degree).toBe(newUniversityData[0].degree);
+        expect(body.universities[0].major).toBe(newUniversityData[0].major);
+        expect(body.universities[0].admissionDate).toBe(newUniversityData[0].admissionDate);
+        expect(body.universities[0].graduationDate).toBe(newUniversityData[0].graduationDate);
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universities: [{}],
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universities: [],
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.universities).toStrictEqual([]);
+      });
+
+    // checks entity restrictions
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universities: badUniversityData,
+      })
+      .expect(500);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universities: emptyUniversityData,
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        universities: wrongDateTypeUniversityData,
+      })
+      .expect(422);
+  });
+
+  it('New user update jobs  field: /api/v1/auth/me (PATCH)', async () => {
+    const newJobData = [
+      {
+        company: 'Spotify',
+        title: 'SWE',
+        startDate: '2019-10-05 04:26:58.635885',
+        endDate: '2023-10-05 04:26:58.635885',
+      },
+    ];
+
+    // endDate can't be same as startDate
+    const badJobData = [
+      {
+        company: 'Spotify',
+        title: 'SWE',
+        startDate: '2023-10-05',
+        endDate: '2023-10-05',
+      },
+    ];
+
+    // empty fields
+    const emptyJobData = [
+      {
+        company: '',
+        title: '',
+        startDate: '2023-10-05',
+        endDate: '2023-10-05',
+      },
+    ];
+
+    // wrong type of date
+    const emptyDateJobData = [
+      {
+        company: 'asdadasd',
+        title: 'dasdasdasd',
+        startDate: '',
+        endDate: '',
+      },
+    ];
+
+    const newUserApiToken = await request(app)
+      .post('/api/v1/auth/email/login')
+      .send({ email: newUserEmail, password: newUserPassword })
+      .then(({ body }) => body.token);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        jobs: newJobData,
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.jobs[0].company).toBe(newJobData[0].company);
+        expect(body.jobs[0].title).toBe(newJobData[0].title);
+        expect(body.jobs[0].startDate).toBe('2019-10-05');
+        expect(body.jobs[0].endDate).toBe('2023-10-05');
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        jobs: [{}],
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        jobs: [],
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.jobs).toStrictEqual([]);
+      });
+
+    // checks entity restrictions
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        jobs: badJobData,
+      })
+      .expect(500);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        jobs: emptyJobData,
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        jobs: emptyDateJobData,
+      })
+      .expect(422);
+  });
+
+  it('New user update projects field: /api/v1/auth/me (PATCH)', async () => {
+    const newProjectData = [
+      {
+        title: 'Teameights',
+        link: 'https://teameights.com',
+      },
+    ];
+
+    // endDate can't be same as startDate
+    const badProjectData = [
+      {
+        title: 'Teameights',
+        link: 'teameights.123',
+      },
+    ];
+
+    // empty fields
+    const emptyProjectData = [
+      {
+        title: '',
+        link: '',
+      },
+    ];
+
+    const newUserApiToken = await request(app)
+      .post('/api/v1/auth/email/login')
+      .send({ email: newUserEmail, password: newUserPassword })
+      .then(({ body }) => body.token);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        projects: newProjectData,
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.projects[0].title).toBe(newProjectData[0].title);
+        expect(body.projects[0].link).toBe(newProjectData[0].link);
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        projects: [{}],
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        projects: [],
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.projects).toStrictEqual([]);
+      });
+
+    // checks entity restrictions
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        projects: badProjectData,
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        projects: emptyProjectData,
+      })
+      .expect(422);
+  });
+
+  it('New user update links field: /api/v1/auth/me (PATCH)', async () => {
+    const newLinks = {
+      github: 'https://github.com/nmashchenko',
+      behance: 'https://behance.com',
+      linkedIn: 'https://linkedin.com',
+      telegram: 'https://telegram.com',
+    };
+
+    // endDate can't be same as startDate
+    const badLinks = {
+      github: 'https://github.11',
+      behance: 'https://beance.1',
+    };
+
+    // empty fields
+    const emptyLinks = {
+      github: '',
+      behance: '',
+      linkedIn: '',
+      telegram: '',
+    };
+
+    const newUserApiToken = await request(app)
+      .post('/api/v1/auth/email/login')
+      .send({ email: newUserEmail, password: newUserPassword })
+      .then(({ body }) => body.token);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        links: newLinks,
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.links.github).toBe(newLinks.github);
+        expect(body.links.behance).toBe(newLinks.behance);
+        expect(body.links.telegram).toBe(newLinks.telegram);
+        expect(body.links.linkedIn).toBe(newLinks.linkedIn);
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        links: [],
+      })
+      .expect(422);
+
+    // checks entity restrictions
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        links: badLinks,
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        links: emptyLinks,
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.links.github).toBe('');
+        expect(body.links.behance).toBe('');
+        expect(body.links.telegram).toBe('');
+        expect(body.links.linkedIn).toBe('');
+      });
   });
 
   it('New user delete profile: /api/v1/auth/me (DELETE)', async () => {

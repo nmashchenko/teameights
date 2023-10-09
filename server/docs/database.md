@@ -109,6 +109,15 @@ DATABASE_MAX_CONNECTIONS=100
 You can think of this parameter as how many concurrent database connections your application can handle.
 
 ---
+## Schemas
+
+### General reference
+![reference.png](schemas/reference.png)
+
+### User
+![user.png](schemas/user.png)
+
+---
 
 Previous: [Installing and Running](installing-and-running.md)
 
