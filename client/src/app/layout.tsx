@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Rubik } from 'next/font/google';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'sonner';
 import { ReactQueryProvider } from './providers';
 import './styles/globals.scss';
 import { ReactNode } from 'react';
@@ -19,10 +19,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <body className={inter.variable}>
           {/* <CookieBanner /> */}
           <Toaster
-            gutter={8}
+            theme='dark'
             toastOptions={{
-              style: { ...inter.style, background: '#2F3239', color: 'white' },
-              duration: 2000,
+              style: { ...inter.style, background: '#2F3239', color: '#fff', border: 'none' },
             }}
           />
           {children}

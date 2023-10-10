@@ -7641,14 +7641,15 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-hook-form: ^7.45.4
-    react-hot-toast: ^2.4.1
     react-modal: ^3.16.1
+    react-modern-drawer: ^1.2.2
     react-particles: ^2.12.2
     react-select: ^5.7.4
     react-tooltip: ^5.21.3
     sass: ^1.64.2
+    sonner: ^1.0.3
     storybook: 7.2.1
-    teameights-types: ^1.0.2
+    teameights-types: ^1.0.1
     tsparticles: ^2.12.0
     typescript: 5.1.6
     yarn: ^1.22.19
@@ -10271,15 +10272,6 @@ __metadata:
     merge2: ^1.4.1
     slash: ^3.0.0
   checksum: b4be8885e0cfa018fc783792942d53926c35c50b3aefd3fdcfb9d22c627639dc26bd2327a40a0b74b074100ce95bb7187bfeae2f236856aa3de183af7a02aea6
-  languageName: node
-  linkType: hard
-
-"goober@npm:^2.1.10":
-  version: 2.1.13
-  resolution: "goober@npm:2.1.13"
-  peerDependencies:
-    csstype: ^3.0.10
-  checksum: 0c00b90d26d1a2fad432e311fd4f47bc9fef1eee2a733158d9e2c72a89cf76d414090d063a8d20fe378f2b2b8087df0a83b0f00a3244d1466b97a0d3b14344a7
   languageName: node
   linkType: hard
 
@@ -14674,18 +14666,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hot-toast@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "react-hot-toast@npm:2.4.1"
-  dependencies:
-    goober: ^2.1.10
-  peerDependencies:
-    react: ">=16"
-    react-dom: ">=16"
-  checksum: 3e337816db574782454bf09c63a8aca546bf9c5be3f83d0494d24bdcfd97ca2db64d4c151c4ab0184d2342d7a7226403e6812e70caf03c8b55a07787bb4ad0f2
-  languageName: node
-  linkType: hard
-
 "react-inspector@npm:^6.0.0":
   version: 6.0.2
   resolution: "react-inspector@npm:6.0.2"
@@ -14742,6 +14722,15 @@ __metadata:
     react: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18
     react-dom: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18
   checksum: 978936e9320fad839c039b9ee4de55d40888156cb40e093615d6fbc2ff07139d5db06f14782cb7767f780bd5fb57956778669426c535ebc0068a7a03882c7e75
+  languageName: node
+  linkType: hard
+
+"react-modern-drawer@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "react-modern-drawer@npm:1.2.2"
+  peerDependencies:
+    react: ">16.0.0"
+  checksum: 379ad55a02b6c6d647448e5670ae99fc3d7bff70c43a07a978ac0ac18dbd40b055c2ca8f764627f4252451fa3d2125b2d90271eaaaf6a0048baa2ec6e577b756
   languageName: node
   linkType: hard
 
@@ -15757,6 +15746,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sonner@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "sonner@npm:1.0.3"
+  peerDependencies:
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: e7233c9982c05413e24c7ee14af4439c734c713f5a4e4d5f2c4ca9425615f96e9c560d0053af3ff0555dc70aaff49079d05a0bdf90457e551bd2641925bd08fd
+  languageName: node
+  linkType: hard
+
 "source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.2":
   version: 1.0.2
   resolution: "source-map-js@npm:1.0.2"
@@ -16248,10 +16247,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"teameights-types@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "teameights-types@npm:1.0.2"
-  checksum: d1a00c20eeec2a0127ec871a67bda9426009d43cc825cc06c054eb00679dc1cb5ce7b143b2e42b415b4d18140adce71005019fc33f654bf46261e8d48128d726
+"teameights-types@npm:^1.0.1":
+  version: 1.0.4
+  resolution: "teameights-types@npm:1.0.4"
+  checksum: 12ab411130ec51576eb25ba24258a4ce95ed5f7599080a03fcb447b568184255ef8322a8f917e6d1837d1e644b8dc6aaf06a0e8616b1e1b9ff372165ee5bb18d
   languageName: node
   linkType: hard
 

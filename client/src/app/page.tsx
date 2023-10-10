@@ -146,6 +146,8 @@ export default function Home() {
 
       <div> The screen width is: {width} </div>
 
+      <Typography>Hello, {user.username}!</Typography>
+
       <a href='/login' style={{ color: 'green' }}>
         Get to login
       </a>
