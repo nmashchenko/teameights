@@ -11,4 +11,6 @@
   width: var(--width, 100%);
   max-width: var(--maxWidth, none);
   height: var(--height, auto);
+  flex-wrap: nowrap;
+  flex-shrink: unset;
 }
