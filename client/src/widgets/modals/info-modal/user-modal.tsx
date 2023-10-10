@@ -58,11 +58,11 @@ export const UserPreviewModal: FC<UserPreviewModalProps> = ({ user, isOpenModal,
             </Typography>
           )}
           {user?.frameworks && (
-            <Flex wrap='wrap' gap='8px'>
+            <div className={styles.grid_container}>
               {user?.frameworks.map((framework, index) => (
                 <BadgeFramework data={framework} key={index} maxWidth='120px' />
               ))}
-            </Flex>
+            </div>
           )}
           {user?.programmingLanguages && (
             <Flex wrap='wrap' gap='8px'>

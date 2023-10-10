@@ -5,11 +5,6 @@
 .hidden_container {
   display: none;
 }
-
-.inline_text {
-  display: flex;
-  gap: 5px;
-}
 .user_card_top_icon {
   width: 70px;
   height: 70px;
@@ -18,13 +13,9 @@
   user-select: none;
 }
 
-.badge_wrapper {
-  width: 100%;
+.grid_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 120px);
+  grid-row-gap: 10px;
+  grid-column-gap: 8px;
 }
-
-// .badge {
-//   width: 120px;
-//   display: inline-block;
-//   margin-right: 8px;
-//   margin-bottom: 10px;
-// }
