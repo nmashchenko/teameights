@@ -14,6 +14,8 @@ const flexProps: FlexProps = {
   width: '100%',
   maxWidth: '500px',
   height: 'auto',
+  wrap: 'nowrap',
+  shrink: 'unset',
   children: <div>Item 1</div>,
 };
 
