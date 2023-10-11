@@ -14,8 +14,8 @@ const flexProps: FlexProps = {
   width: '100%',
   maxWidth: '500px',
   height: 'auto',
-  flexWrap: 'wrap',
-  flexShrink: 'unset',
+  wrap: 'nowrap',
+  shrink: 'unset',
   children: <div>Item 1</div>,
 };
 
@@ -143,16 +143,6 @@ const flexArgTypes: ArgTypes = {
     control: 'text',
     defaultValue: { summary: 'auto' },
     description: 'Defines the height of the component.',
-  },
-  flexWrap: {
-    control: 'text',
-    defaultValue: { summary: 'nowrap' },
-    description: 'Defines the wrapping to several lines or not',
-  },
-  flexShrink: {
-    control: 'text',
-    defaultValue: { summary: 'unset' },
-    description: 'Defines is component shrinking.',
   },
 };
 

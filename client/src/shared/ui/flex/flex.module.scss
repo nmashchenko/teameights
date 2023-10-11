@@ -1,6 +1,6 @@
 .flexWrapper {
   display: flex;
-  align-items: var(--align, normal);
+  /* align-items: var(--align, normal);
   justify-content: var(--justify, normal);
   gap: var(--gap, 0);
   margin: var(--margin, 0);
@@ -12,5 +12,5 @@
   max-width: var(--maxWidth, none);
   height: var(--height, auto);
   flex-wrap: nowrap;
-  flex-shrink: unset;
+  flex-shrink: unset; */
 }
