@@ -79,6 +79,10 @@ export interface SkeletonProps {
  * // Skeleton elements with custom styles and class names
  * <Skeleton count={3} className="my-skeleton" style={{ backgroundColor: 'gray' }} />
  * ```
+ *
+ * ISSUES:
+ * If you have a problem where your outer span is not the same height as internal,
+ * wrap skeleton into any element with display: block, inline-block, flex, etc
  */
 export const Skeleton = memo((props: SkeletonProps) => {
   const {
@@ -131,7 +135,11 @@ export const Skeleton = memo((props: SkeletonProps) => {
   }
 
   return (
-    <span aria-live='polite' className={containerClassName} data-testid={containerTestId}>
+    <span
+      aria-live='polite'
+      className={clsx(cls.baseSpan, {}, [containerClassName])}
+      data-testid={containerTestId}
+    >
       {Wrapper
         ? elements.map((element, index) => <Wrapper key={index}>{element}</Wrapper>)
         : elements}

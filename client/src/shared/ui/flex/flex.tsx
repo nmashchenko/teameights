@@ -112,19 +112,19 @@ export const Flex: React.FC<FlexProps> = props => {
   } = props;
 
   const style = {
-    '--align': align,
-    '--justify': justify,
-    '--gap': gap,
-    '--margin': margin,
-    '--padding': padding,
-    '--direction': direction,
-    '--maxHeight': maxHeight,
-    '--position': position,
-    '--width': width,
-    '--maxWidth': maxWidth,
-    '--height': height,
-    '--flex-wrap': flexWrap,
-    '--flex-shrink': flexShrink,
+    alignItems: align,
+    justifyContent: justify,
+    gap: gap,
+    margin: margin,
+    padding: padding,
+    flexDirection: direction,
+    maxHeight: maxHeight,
+    position: position,
+    width: width,
+    maxWidth: maxWidth,
+    height: height,
+    flexWrap: flexWrap,
+    flexShrink: flexShrink,
   } as React.CSSProperties;
 
   return (
