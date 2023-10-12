@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './icon-wrapper.module.scss';
+import clsx from 'clsx';
 
 export interface IconWrapperProps {
   /**
@@ -22,6 +23,10 @@ export interface IconWrapperProps {
    * [margin=0] - The margin of the wrapper.
    */
   margin?: string | number;
+  /**
+   *  - Extra styles.
+   */
+  className?: string;
   /**
    * The content to be wrapped, typically an SVG icon.
    */
@@ -50,6 +55,7 @@ export const IconWrapper: React.FC<IconWrapperProps> = props => {
     padding = 0,
     margin = 0,
     children,
+    className,
   } = props;
 
   const style = {
@@ -63,7 +69,7 @@ export const IconWrapper: React.FC<IconWrapperProps> = props => {
   } as React.CSSProperties;
 
   return (
-    <div className={styles.iconWrapper} style={style}>
+    <div className={clsx(styles.iconWrapper, [className])} style={style}>
       {children}
     </div>
   );

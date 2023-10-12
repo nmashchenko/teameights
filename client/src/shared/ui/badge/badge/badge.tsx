@@ -1,10 +1,12 @@
 import clsx from 'clsx';
 import { FC } from 'react';
-import { languageOptions } from '@/shared/constant';
-import styles from './badge-language.module.scss';
+import styles from './badge.module.scss';
+import { IconWrapper } from '@/shared/ui/icon-wrapper';
+import { Typography } from '../../typography';
+import { Colors } from '@/shared/types';
 
 /**
- * BadgeLanguage Component
+ * Badge Component
  *
  * This is a customizable badge component tailored for displaying programming languages.
  * The badge's content is derived from the provided `data` prop using the 'languageOptions'.
@@ -19,9 +21,9 @@ import styles from './badge-language.module.scss';
  * Usage:
  *
  * ```tsx
- * import { BadgeLanguage } from 'shared/ui';
+ * import { BadgeTeam } from 'shared/ui';
  *
- * <BadgeLanguage data="javascript" key={1} />
+ * <BadgeTeam data="javascript" key={1} />
  * ```
  *
  * Note:
@@ -29,20 +31,25 @@ import styles from './badge-language.module.scss';
  * - External styles are imported from 'styles.module.scss'. Ensure the styles are appropriately set in the SCSS file.
  * - 'languageOptions' is used to fetch the display name of the programming language. If a language key is not listed in this object, the badge will not display the corresponding name.
  */
-interface BadgeLanguageProps {
-  data: string;
+interface BadgeProps {
   className?: string;
   maxWidth?: string;
+  fontColor?: Colors;
+  icon: React.ReactNode;
+  title: string;
 }
 
-export const BadgeLanguage: FC<BadgeLanguageProps> = props => {
-  const { data, className, maxWidth } = props;
+export const Badge: FC<BadgeProps> = props => {
+  const { className, maxWidth, icon, fontColor, title } = props;
   return (
     <div
-      className={clsx([className], styles.badge_language)}
+      className={clsx([className], styles.badge)}
       style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
     >
-      {languageOptions[data]}
+      <IconWrapper>{icon}</IconWrapper>
+      <Typography size='body_s' color={fontColor}>
+        {title}
+      </Typography>
     </div>
   );
 };
