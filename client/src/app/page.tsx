@@ -7,6 +7,7 @@ import { IUserRequest } from 'teameights-types';
 import { NewtonsCradle, RaceBy, Ring } from '@uiball/loaders';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { SelectAutocomplete } from '@/shared/ui/select/ui/select-autocomplete/select-autocomplete';
 
 export default function Home() {
   const width = useGetScreenWidth();
@@ -58,6 +59,8 @@ export default function Home() {
       <Drawer open={open} onClose={() => setOpen(false)}>
         <button onClick={() => setOpen(false)}>close</button>
       </Drawer>
+
+      <SelectAutocomplete />
     </>
   );
 }
