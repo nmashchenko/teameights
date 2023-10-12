@@ -5,7 +5,7 @@ import styles from './control.module.scss';
 
 export const Control = ({ children, ...props }: ControlProps<OptionType>) => (
   <components.Control {...props}>
-    <div className={styles.iconWrapper}>
+    <div className={styles.icon_wrapper}>
       <Search />
     </div>
     {children}
