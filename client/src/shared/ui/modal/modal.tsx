@@ -63,8 +63,8 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
       }}
       className={{
         base: classNames(styles.modal_body, {}, [styles[`size_${size}`]]),
-        afterOpen: classNames(styles.modalBody__after_open, {}, [styles[`size_${size}`]]),
-        beforeClose: classNames(styles.modalBody__before_close, {}, [styles[`size_${size}`]]),
+        afterOpen: classNames(styles.modal_body__after_open, {}, [styles[`size_${size}`]]),
+        beforeClose: classNames(styles.modal_body__before_close, {}, [styles[`size_${size}`]]),
       }}
     >
       <Cross className={styles.close_button} onClick={onClose} />
