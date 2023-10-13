@@ -4,6 +4,7 @@ import styles from './badge.module.scss';
 import { IconWrapper } from '@/shared/ui/icon-wrapper';
 import { Typography } from '../../typography';
 import { Colors } from '@/shared/types';
+import Link from 'next/link';
 
 /**
  * Badge Component
@@ -12,11 +13,13 @@ import { Colors } from '@/shared/types';
  * The badge's content is derived from the provided `data` prop using the 'languageOptions'.
  *
  * Props:
- *
- * @prop {string} data - The key corresponding to the language name in 'languageOptions'.
- * @prop {number} key - The unique key for the badge, especially useful if rendering multiple badges in a list or collection.
  * @prop {string} [className] - Additional Css classes to apply to the badge for custom styling.
  * @prop {string} [maxWidth='100%'] - Custom maximum width for the badge. Must be passed with a valid Css unit (e.g. '50px', '100%'). Default is '100%'.
+ * @prop {string} [fontColor] - Color prop for text styling is located inside a badge.
+ * @prop {ReactNode} [icon] - Icon prop.
+ * @prop {string} [type] - Type prop is setting Link or just simple Badge option of component.
+ * @prop {string} [to] - Link address.
+ * @prop {string} [title] - Text inside a Badge.
  *
  * Usage:
  *
@@ -36,20 +39,40 @@ interface BadgeProps {
   maxWidth?: string;
   fontColor?: Colors;
   icon: React.ReactNode;
+  type: 'block' | 'link';
+  to: string;
   title: string;
 }
 
 export const Badge: FC<BadgeProps> = props => {
-  const { className, maxWidth, icon, fontColor, title } = props;
+  const { className, maxWidth, icon, fontColor, title, type = 'block', to } = props;
+
   return (
-    <div
-      className={clsx([className], styles.badge)}
-      style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
-    >
-      <IconWrapper>{icon}</IconWrapper>
-      <Typography size='body_s' color={fontColor}>
-        {title}
-      </Typography>
-    </div>
+    <>
+      {type === 'block' && (
+        <div
+          className={clsx([className], styles.badge)}
+          style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
+        >
+          <IconWrapper>{icon}</IconWrapper>
+          <Typography size='body_s' color={fontColor}>
+            {title}
+          </Typography>
+        </div>
+      )}
+
+      {type === 'link' && (
+        <Link
+          href={to}
+          className={clsx([className], styles.badge_link)}
+          style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
+        >
+          <IconWrapper>{icon}</IconWrapper>
+          <Typography size='body_s' color={fontColor}>
+            {title}
+          </Typography>
+        </Link>
+      )}
+    </>
   );
 };
