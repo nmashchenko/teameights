@@ -12,7 +12,7 @@ interface ITagProps {
 const Tag: FC<ITagProps> = ({ text, onClick, isWithCross }) => {
   return (
     <div onClick={onClick} className={clsx(styles.tag)}>
-      <p className={clsx(styles.label)}>{text}</p>
+      <p className={clsx(styles.text)}>{text}</p>
       {isWithCross && (
         <span className={clsx(styles.remove)}>
           <X />

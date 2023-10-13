@@ -11,14 +11,17 @@
   padding: 4px 8px;
 
   background: #2f3239;
-  cursor: pointer;
 
   &:hover {
-    background: #434752;
+    .remove {
+      svg {
+        fill: #d42422;
+      }
+    }
   }
 }
 
-.label {
+.text {
   box-sizing: border-box;
 
   padding: 3px;
@@ -31,6 +34,7 @@
   overflow: hidden;
   border-radius: 2px;
   text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .remove {
@@ -50,10 +54,4 @@
 
   border-radius: 2px;
   background: none;
-
-  &:hover {
-    svg {
-      fill: #d42422;
-    }
-  }
 }
