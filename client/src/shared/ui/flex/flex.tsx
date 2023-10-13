@@ -51,6 +51,13 @@ export interface FlexProps {
    * [props.wrap] - The wrap property defines the wrap of the component. Default is 'none'.
    */
   height?: string;
+
+  /**
+   * [props.flexShrink] - Sets the flex shrink factor. Negative numbers are invalid. Default is 'nowrap'
+
+   */
+  shrink?: string | number;
+
   /**
    * props.children - The content to be laid out.
    */
@@ -75,6 +82,8 @@ export interface FlexProps {
  *   width="100%"
  *   maxWidth="500px"
  *   height="auto"
+ *   wrap="wrap"
+ *   shrink={1}
  * >
  *   <div>Item 1</div>
  *   <div>Item 2</div>
@@ -96,6 +105,7 @@ export const Flex: React.FC<FlexProps> = props => {
     maxWidth,
     wrap,
     height,
+    shrink,
     children,
   } = props;
 
@@ -112,6 +122,7 @@ export const Flex: React.FC<FlexProps> = props => {
     maxWidth: maxWidth,
     flexWrap: wrap,
     height: height,
+    flexShrink: shrink,
   } as React.CSSProperties;
 
   return (
