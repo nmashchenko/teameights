@@ -43,7 +43,7 @@ export const UserPreviewModal: FC<UserPreviewModalProps> = ({ user, isOpenModal,
                     user?.concentration
                       ? user.concentration.charAt(0).toUpperCase() + user.concentration.slice(1)
                       : ''
-                  }
+                  } 
                 `}
                 </Typography>
                 <Typography size='body_s' color='greyNormal'>

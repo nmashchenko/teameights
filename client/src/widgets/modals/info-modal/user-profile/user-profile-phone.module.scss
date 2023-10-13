@@ -1,0 +1,22 @@
+.grid_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 82.7px);
+  grid-row-gap: 10px;
+  grid-column-gap: 8px;
+}
+
+.hidden_container {
+  display: none;
+}
+
+.visible_container {
+  display: block;
+}
+
+.user_img {
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+  object-fit: cover;
+  user-select: none;
+}

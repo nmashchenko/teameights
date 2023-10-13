@@ -9,11 +9,20 @@ import { NewtonsCradle, RaceBy } from '@uiball/loaders';
 import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
 import { useState } from 'react';
 import { TeamPreviewModal } from '@/widgets/modals/info-modal/team-modal';
+import { TeamPreviewModalPhone } from '@/widgets/modals/info-modal/team-modal-phone';
+import { UserProfilePhone } from '@/widgets/modals/info-modal/user-profile/user-profile-phone';
 export default function Home() {
   const width = useGetScreenWidth();
   const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
-  const [isOpenSecontModal, setIsOpenSecontModal] = useState(false);
   const [isOpenThirdModal, setIsOpenThirdModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  const openModalNew = () => {
+    setOpenModal(true);
+  };
+  const closeModalNew = () => {
+    setOpenModal(false);
+  };
 
   const openFirstModal = () => {
     setIsOpenFirstModal(true);
@@ -21,14 +30,6 @@ export default function Home() {
 
   const closeFirstModal = () => {
     setIsOpenFirstModal(false);
-  };
-
-  const openSecondModal = () => {
-    setIsOpenSecontModal(true);
-  };
-
-  const closeSecondModal = () => {
-    setIsOpenSecontModal(false);
   };
 
   const openThirdModal = () => {
@@ -52,18 +53,7 @@ export default function Home() {
     username: 'Nikita',
     concentration: 'Backend Developer',
     experience: '3-5 years of experience',
-    frameworks: [
-      'NodeJS',
-      'React',
-      'Angular',
-      'Redux',
-      'Hadoop',
-      'jQuery',
-      'MUI',
-      'Bootstrap',
-      'Flask',
-      'Illustrator',
-    ],
+    frameworks: ['NodeJS', 'React', 'Angular', 'Redux', 'Hadoop', 'jQuery'],
     programmingLanguages: ['Python', 'HTML', 'TS', 'JS', 'Swift', 'Dart', 'Scala', 'Ruby'],
     dateOfBirth: new Date(2002, 9, 1),
     country: 'Ukraine',
@@ -162,7 +152,7 @@ export default function Home() {
           <Button typeBtn='danger' color='white' size='m' onClick={openFirstModal}>
             Delete
           </Button>
-          <Button typeBtn='primary' color='white' size='m' onClick={openSecondModal}>
+          <Button typeBtn='primary' color='white' size='m' onClick={closeFirstModal}>
             Cancel
           </Button>
         </ActionModal>
@@ -172,28 +162,55 @@ export default function Home() {
       </div>
 
       <div>
-        <TeamPreviewModal
-          user={user}
-          team={team}
-          isOpenModal={isOpenSecontModal}
-          handleClose={closeSecondModal}
-          handleJoin={handleJoin}
-        />
-        <Button typeBtn='primary' size='m' color='white' onClick={openSecondModal}>
-          Second Modal
+        <Button typeBtn='primary' size='m' color='white' onClick={openModalNew}>
+          Open Modal Team
         </Button>
+        {width > 520 ? (
+          <TeamPreviewModal
+            team={team}
+            user={user}
+            isOpenModal={openModal}
+            handleClose={closeModalNew}
+            handleJoin={handleJoin}
+          />
+        ) : (
+          <TeamPreviewModalPhone
+            team={team}
+            user={user}
+            isDrawerOpen={openModal}
+            handleClose={closeModalNew}
+            handleJoin={handleJoin}
+          />
+        )}
       </div>
 
       <div>
-        <UserPreviewModal
+        <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
+          Open Third Modal
+        </Button>
+        {width > 520 ? (
+          <UserPreviewModal
+            user={user}
+            isOpenModal={isOpenThirdModal}
+            handleClose={closeThirdModal}
+          />
+        ) : (
+          <UserProfilePhone
+            user={user}
+            isOpenModal={isOpenThirdModal}
+            handleClose={closeThirdModal}
+          />
+        )}
+      </div>
+
+      {/* <UserPreviewModal
           user={user}
           isOpenModal={isOpenThirdModal}
           handleClose={closeThirdModal}
         />
         <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
           Third Modal
-        </Button>
-      </div>
+        </Button> */}
 
       <Crown width={70} height={70} />
 
