@@ -2,12 +2,12 @@
 import clsx from 'clsx';
 import ReactSelect, { GroupBase, Props } from 'react-select';
 
-import { selectStyles } from '../../lib/selectStyles';
+import { selectStyles } from '../../lib/select-styles';
 import styles from './select.module.scss';
-import { DropdownIndicator } from '../dropdown-indicator/dropdown-indicator';
-import { ErrorIndicator } from '../error-indicator/error-indicator';
-import { MultiValueRemove } from '../multi-value-remove/multi-value-remove';
-import { Option } from '../option/option';
+import { DropdownIndicator } from './dropdown-indicator';
+import { ErrorIndicator } from './error-indicator';
+import { MultiValueRemove } from './multi-value-remove';
+import { Option } from './option';
 
 /**
  * Select Component

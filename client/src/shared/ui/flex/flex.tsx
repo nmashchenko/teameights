@@ -47,6 +47,19 @@ export interface FlexProps {
    * [props.height] - The height property defines the height of the component. Default is 'auto'.
    */
   height?: string;
+
+  /**
+   * [props.flexWrap] - The flex-wrap property controls whether the flex container is single-line or multi-line, and the direction of the cross-axis, which determines the direction new lines are stacked in. Default is 'nowrap'
+
+   */
+  wrap?: string;
+
+  /**
+   * [props.flexShrink] - Sets the flex shrink factor. Negative numbers are invalid. Default is 'nowrap'
+
+   */
+  shrink?: string | number;
+
   /**
    * props.children - The content to be laid out.
    */
@@ -71,6 +84,8 @@ export interface FlexProps {
  *   width="100%"
  *   maxWidth="500px"
  *   height="auto"
+ *   wrap="wrap"
+ *   shrink={1}
  * >
  *   <div>Item 1</div>
  *   <div>Item 2</div>
@@ -91,6 +106,8 @@ export const Flex: React.FC<FlexProps> = props => {
     width,
     maxWidth,
     height,
+    wrap,
+    shrink,
     children,
   } = props;
 
@@ -106,6 +123,8 @@ export const Flex: React.FC<FlexProps> = props => {
     width: width,
     maxWidth: maxWidth,
     height: height,
+    flexWrap: wrap,
+    flexShrink: shrink,
   } as React.CSSProperties;
 
   return (
