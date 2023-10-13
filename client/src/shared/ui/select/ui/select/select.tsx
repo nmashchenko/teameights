@@ -55,6 +55,7 @@ interface CustomSelectProps {
   disabled?: boolean;
   isCheckbox?: boolean;
   isWithBorder?: boolean;
+  isIndicatorAllowed?: boolean;
   options: Option[];
 }
 
@@ -65,7 +66,17 @@ export const Select = <
 >(
   props: Props<Option, IsMulti, Group> & CustomSelectProps
 ) => {
-  const { error, label, disabled, isMulti, isCheckbox = false, name, isWithBorder = true, ...rest } = props;
+  const {
+    error,
+    label,
+    disabled,
+    isMulti,
+    isCheckbox = false,
+    name,
+    isWithBorder = true,
+    isIndicatorAllowed = true,
+    ...rest
+  } = props;
   return (
     <div
       className={clsx(styles.container, {
@@ -84,7 +95,11 @@ export const Select = <
         styles={selectStyles<Option, IsMulti, Group>(isCheckbox, isWithBorder)}
         name={name}
         components={{
-          DropdownIndicator: error ? ErrorIndicator : DropdownIndicator,
+          DropdownIndicator: isIndicatorAllowed
+            ? error
+              ? ErrorIndicator
+              : DropdownIndicator
+            : () => null,
           IndicatorSeparator: () => null,
           MultiValueRemove,
           ...(isCheckbox ? { Option } : {}), // Conditionally include custom Option component

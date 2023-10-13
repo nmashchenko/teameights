@@ -28,6 +28,7 @@ export const SearchInput: FC = () => {
               placeholder={currentFilter.placeholder}
               options={getValues(`filtersArr.${filterIndex}.optionsArr`)}
               isWithBorder={false}
+              isIndicatorAllowed={false}
               isCheckbox
               isMulti
             />
