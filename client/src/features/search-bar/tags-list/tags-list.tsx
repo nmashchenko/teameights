@@ -29,6 +29,10 @@ const TagsList = () => {
     );
   };
 
+  const handleClearAllCheckboxOptions = (index: number) => {
+    setValue(`filtersArr.${index}.filterValue`, []);
+  };
+
   return (
     <ul className={clsx(styles.tagsList)}>
       {filtersArr.map((item, index) => {
@@ -56,18 +60,30 @@ const TagsList = () => {
                     <Tag isWithCross text={item.filterValue[0].label} />
                   </li>
                   {item.filterValue.length > 1 && (
-                    <li ref={filterListRef} className={clsx(styles.tagWrapper)} onClick={() => setIsListOpened(true)}>
+                    <li
+                      ref={filterListRef}
+                      className={clsx(styles.tagWrapper)}
+                      onClick={() => setIsListOpened(true)}
+                    >
                       {isListOpened ? (
                         <ul>
                           {item.filterValue.slice(1).map((item, subIndex) => (
-                            <li
-                              key={item.value}
-                              onClick={() => handleClearCheckboxOption(index, subIndex + 1)}
-                            >
-                              <Tag isWithCross text={item.label} />
+                            <li key={item.value}>
+                              <Tag
+                                onClick={() => handleClearCheckboxOption(index, subIndex + 1)}
+                                isWithCross
+                                text={item.label}
+                              />
                             </li>
                           ))}
-                          {/* Clear all button */}
+                          <li>
+                            <div
+                              onClick={() => handleClearAllCheckboxOptions(index)}
+                              className={styles.clearAllButton}
+                            >
+                              <p>Clear All</p>
+                            </div>
+                          </li>
                         </ul>
                       ) : (
                         <Tag text={`+${item.filterValue.length - 1} items`} />
