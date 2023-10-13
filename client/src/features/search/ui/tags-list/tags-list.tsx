@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { Filter } from '../interface/filters';
+import { useClickOutside } from '@/shared/lib';
+import { Filter } from '../../model';
 import clsx from 'clsx';
 import styles from './tags-list.module.scss';
-import Tag from './tag/tag';
-import { useClickOutside } from '@/shared/lib';
+import { Tag } from '@/shared/ui/tag';
 
-const TagsList = () => {
+export const TagsList: FC = () => {
   const { setValue } = useFormContext();
   const filtersArr: Filter[] = useWatch({
     name: 'filtersArr',
@@ -102,5 +102,3 @@ const TagsList = () => {
     </ul>
   );
 };
-
-export default TagsList;

@@ -1,11 +1,8 @@
-import clsx from 'clsx';
 import { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import FilterSelect from './filter-select/filter-select';
-import { Filter } from './interface/filters';
+import clsx from 'clsx';
 import styles from './search-bar.module.scss';
-import SearchInput from './search-input/search-input';
-import TagsList from './tags-list/tags-list';
+import { Filter, FilterSelect, SearchInput, TagsList } from '@/features/search';
 
 const mockFiltersArr: Filter[] = [
   {
@@ -58,7 +55,7 @@ interface ISearchBarProps {
   filtersArr: Filter[];
 }
 
-const SearchBar: FC<ISearchBarProps> = ({ filtersArr = mockFiltersArr }) => {
+export const SearchBar: FC<ISearchBarProps> = ({ filtersArr = mockFiltersArr }) => {
   const methods = useForm({
     defaultValues: {
       currentFilterIndex: 0,
@@ -78,5 +75,3 @@ const SearchBar: FC<ISearchBarProps> = ({ filtersArr = mockFiltersArr }) => {
     </FormProvider>
   );
 };
-
-export default SearchBar;

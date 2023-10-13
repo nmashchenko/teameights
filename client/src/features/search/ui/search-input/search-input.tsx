@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import { Input, Select } from '@/shared/ui';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
-const SearchInput = () => {
+export const SearchInput: FC = () => {
   const { register, getValues } = useFormContext();
   const filterIndex = useWatch({
     name: 'currentFilterIndex',
@@ -38,5 +38,3 @@ const SearchInput = () => {
     default:
   }
 };
-
-export default SearchInput;

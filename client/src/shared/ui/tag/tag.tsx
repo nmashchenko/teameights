@@ -9,7 +9,7 @@ interface ITagProps {
   onClick?: () => void;
 }
 
-const Tag: FC<ITagProps> = ({ text, onClick, isWithCross }) => {
+export const Tag: FC<ITagProps> = ({ text, onClick, isWithCross }) => {
   return (
     <div onClick={onClick} className={clsx(styles.tag)}>
       <p className={clsx(styles.text)}>{text}</p>
@@ -21,5 +21,3 @@ const Tag: FC<ITagProps> = ({ text, onClick, isWithCross }) => {
     </div>
   );
 };
-
-export default Tag;

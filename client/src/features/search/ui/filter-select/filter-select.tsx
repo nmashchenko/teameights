@@ -1,12 +1,11 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Select } from '@/shared/ui';
 import styles from './filter-select.module.scss';
-import { Filter } from '../interface/filters';
+import { Select } from '@/shared/ui';
+import { Filter } from '../../model';
 
-
-const FilterSelect = () => {
+export const FilterSelect: FC = () => {
   const { getValues, setValue } = useFormContext();
 
   const [isMenuHovered, setIsMenuHovered] = useState<boolean>(false);
@@ -46,5 +45,3 @@ const FilterSelect = () => {
     </div>
   );
 };
-
-export default FilterSelect;
