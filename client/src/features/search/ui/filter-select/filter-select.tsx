@@ -7,13 +7,10 @@ import { Filter } from '../../model';
 
 export const FilterSelect: FC = () => {
   const { getValues, setValue } = useFormContext();
-
-  const [isMenuHovered, setIsMenuHovered] = useState<boolean>(false);
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
-  const menuCloseHandler = () => {
+  const handleMenuClose = () => {
     setIsMenuOpened(false);
-    setIsMenuHovered(false);
   };
 
   const handleChange = (newValue: Filter) => {
@@ -24,23 +21,18 @@ export const FilterSelect: FC = () => {
   };
 
   return (
-    <div
-      className={clsx(styles.selectWrapper)}
-      onMouseEnter={() => setIsMenuHovered(true)}
-      onMouseLeave={() => setIsMenuHovered(false)}
-    >
+    <div className={clsx(styles.selectWrapper)}>
       <Select
         isSearchable={false}
         options={getValues('filtersArr')}
         isWithBorder={false}
         classNames={{
-          container: () =>
-            isMenuHovered || isMenuOpened ? clsx(styles.select_active) : clsx(styles.select),
+          container: () => (isMenuOpened ? clsx(styles.select_active) : clsx(styles.select)),
         }}
         defaultValue={getValues('filtersArr')[getValues('currentFilterIndex')]}
         onChange={handleChange}
         onMenuOpen={() => setIsMenuOpened(true)}
-        onMenuClose={menuCloseHandler}
+        onMenuClose={handleMenuClose}
       />
     </div>
   );
