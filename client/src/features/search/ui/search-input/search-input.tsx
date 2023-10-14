@@ -3,8 +3,14 @@ import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import styles from './search-input.module.scss';
 import { Input, Select } from '@/shared/ui';
 import { Search } from '@/shared/assets';
+import { Filter } from '../../model';
 
-export const SearchInput: FC = () => {
+interface ISearchInput {
+  callback: (data: Filter[]) => void;
+}
+
+export const SearchInput: FC<ISearchInput> = props => {
+  const { callback } = props;
   const { register, getValues } = useFormContext();
   const filterIndex = useWatch({
     name: 'currentFilterIndex',
@@ -12,7 +18,9 @@ export const SearchInput: FC = () => {
 
   const currentFilter = getValues(`filtersArr.${filterIndex}`);
 
-  console.log(currentFilter);
+  const handleSearch = () => {
+    callback(getValues().filtersArr);
+  };
 
   switch (currentFilter.type) {
     case 'text':
@@ -24,7 +32,7 @@ export const SearchInput: FC = () => {
             isWithBorder={false}
           />
           <div className={styles.searchIconWrapper}>
-            <Search />
+            <Search onClick={handleSearch} />
           </div>
         </div>
       );
@@ -49,7 +57,7 @@ export const SearchInput: FC = () => {
             )}
           />
           <div className={styles.searchIconWrapper}>
-            <Search />
+            <Search onClick={handleSearch} />
           </div>
         </div>
       );

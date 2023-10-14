@@ -4,58 +4,13 @@ import clsx from 'clsx';
 import styles from './search-bar.module.scss';
 import { Filter, FilterSelect, SearchInput, TagsList } from '@/features/search';
 
-const mockFiltersArr: Filter[] = [
-  {
-    label: 'Name',
-    value: 'name',
-    type: 'text',
-    placeholder: 'Search by name',
-    filterValue: '',
-  },
-  {
-    label: 'Countries',
-    value: 'countries',
-    type: 'checkbox',
-    placeholder: 'Search by countries',
-    optionsArr: [
-      { label: 'Japan', value: 'jp' },
-      { label: 'Russia', value: 'ru' },
-      { label: 'Ukraine', value: 'ua' },
-      { label: 'Korea', value: 'kr' },
-    ],
-    filterValue: [],
-  },
-  {
-    label: 'Languages',
-    value: 'languages',
-    type: 'checkbox',
-    placeholder: 'Search by languages',
-    optionsArr: [],
-    filterValue: [],
-  },
-  {
-    label: 'Frameworks',
-    value: 'frameworks',
-    type: 'checkbox',
-    placeholder: 'Search by frameworks',
-    optionsArr: [],
-    filterValue: [],
-  },
-  {
-    label: 'Concentrations',
-    value: 'concentrations',
-    type: 'checkbox',
-    placeholder: 'Search by concentrations',
-    optionsArr: [],
-    filterValue: [],
-  },
-];
-
 interface ISearchBarProps {
   filtersArr: Filter[];
+  callback: (data: Filter[]) => void;
 }
 
-export const SearchBar: FC<ISearchBarProps> = ({ filtersArr = mockFiltersArr }) => {
+export const SearchBar: FC<ISearchBarProps> = props => {
+  const { callback, filtersArr } = props;
   const methods = useForm({
     defaultValues: {
       currentFilterIndex: 0,
@@ -68,7 +23,7 @@ export const SearchBar: FC<ISearchBarProps> = ({ filtersArr = mockFiltersArr }) 
       <div className={clsx(styles.searchBar)}>
         <div className={clsx(styles.searchBarContent)}>
           <FilterSelect />
-          <SearchInput />
+          <SearchInput callback={callback} />
         </div>
         <TagsList />
       </div>

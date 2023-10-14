@@ -8,6 +8,31 @@ import { NewtonsCradle, RaceBy, Ring } from '@uiball/loaders';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { SelectAutocomplete } from '@/shared/ui/select/ui/select-autocomplete/select-autocomplete';
+import { SearchBar } from '@/widgets/search-bar';
+import { Filter } from '@/features/search';
+
+const mockFiltersArr: Filter[] = [
+  {
+    label: 'Name',
+    value: 'name',
+    type: 'text',
+    placeholder: 'Search by name',
+    filterValue: '',
+  },
+  {
+    label: 'Countries',
+    value: 'countries',
+    type: 'checkbox',
+    placeholder: 'Search by countries',
+    optionsArr: [
+      { label: 'Japan', value: 'jp' },
+      { label: 'Russia', value: 'ru' },
+      { label: 'Ukraine', value: 'ua' },
+      { label: 'Korea', value: 'kr' },
+    ],
+    filterValue: [],
+  },
+];
 
 export default function Home() {
   const width = useGetScreenWidth();
@@ -27,6 +52,8 @@ export default function Home() {
       <a href='/login' style={{ color: 'green' }}>
         Get to login
       </a>
+
+      <SearchBar filtersArr={mockFiltersArr} callback={data => console.log(data)} />
 
       <Flex direction='column' gap='200px' width='100%' justify='center' align='center'>
         <Flex gap='150px'>
