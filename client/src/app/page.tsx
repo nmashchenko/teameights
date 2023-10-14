@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { SelectAutocomplete } from '@/shared/ui/select/ui/select-autocomplete/select-autocomplete';
 import { SearchBar } from '@/widgets/search-bar';
 import { Filter } from '@/features/search';
+import { concentrations, programmingLanguageOptions } from '@/shared/constant';
 
 const mockFiltersArr: Filter[] = [
   {
@@ -17,6 +18,13 @@ const mockFiltersArr: Filter[] = [
     value: 'name',
     type: 'text',
     placeholder: 'Search by name',
+    filterValue: '',
+  },
+  {
+    label: 'Tag',
+    value: 'tag',
+    type: 'text',
+    placeholder: 'Search by tag',
     filterValue: '',
   },
   {
@@ -30,6 +38,22 @@ const mockFiltersArr: Filter[] = [
       { label: 'Ukraine', value: 'ua' },
       { label: 'Korea', value: 'kr' },
     ],
+    filterValue: [],
+  },
+  {
+    label: 'Concentrations',
+    value: 'concentrations',
+    type: 'checkbox',
+    placeholder: 'Search by concentrations',
+    optionsArr: concentrations,
+    filterValue: [],
+  },
+  {
+    label: 'Languages',
+    value: 'languages',
+    type: 'checkbox',
+    placeholder: 'Search by programming languages',
+    optionsArr: programmingLanguageOptions,
     filterValue: [],
   },
 ];
