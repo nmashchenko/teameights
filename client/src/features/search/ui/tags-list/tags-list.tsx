@@ -7,7 +7,7 @@ import styles from './tags-list.module.scss';
 import { Tag } from '../tag';
 
 export const TagsList: FC = () => {
-  const { setValue } = useFormContext();
+  const { setValue, getValues } = useFormContext();
   const filtersArr: Filter[] = useWatch({
     name: 'filtersArr',
   });
@@ -25,7 +25,7 @@ export const TagsList: FC = () => {
   const handleClearCheckboxOption = (index: number, subIndex: number) => {
     setValue(
       `filtersArr.${index}.filterValue`,
-      filtersArr[index].filterValue.filter((item, i) => i !== subIndex)
+      getValues(`filtersArr.${index}.filterValue`).filter((item: Filter, i: number) => i !== subIndex)
     );
   };
 
