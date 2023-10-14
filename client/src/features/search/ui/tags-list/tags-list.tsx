@@ -4,7 +4,7 @@ import { useClickOutside } from '@/shared/lib';
 import { Filter } from '../../model';
 import clsx from 'clsx';
 import styles from './tags-list.module.scss';
-import { Tag } from '@/shared/ui/tag';
+import { Tag } from '@/entities/tag';
 
 export const TagsList: FC = () => {
   const { setValue } = useFormContext();
