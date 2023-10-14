@@ -6,7 +6,7 @@ const meta: Meta<typeof UserCard> = {
   title: 'widgets/UserCard',
   component: UserCard,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 };
 
 export default meta;
