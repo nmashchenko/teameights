@@ -9,20 +9,6 @@ interface UserCardProps {
   frameworks: Array<string>;
 }
 
-/* type BadgeProps = {
- * 	data?: string;
- * 	key?: string | number;
- * 	className?: string;
- * 	maxWidth?: string;
- * 	isAndMore?: boolean;
- * 	andMoreAmount?: number;
- * };
- * type BadgeAndMoreProps = {
- * 	isAndMore: boolean;
- * 	andMoreAmount: number;
- * };
- * type BadgeType = FC<BadgeProps & Partial<BadgeAndMoreProps>>; */
-
 export const UserCard: FC<UserCardProps> = props => {
   const { image, programmingLanguages, frameworks } = props;
 
