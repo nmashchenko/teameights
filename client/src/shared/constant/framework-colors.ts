@@ -3,7 +3,7 @@ interface IframeworkColors {
 }
 
 interface IframeworkTextColors {
-  [tech: string]: string;
+    [tech: string]: string | undefined;
 }
 
 export const frameworkColors: IframeworkColors = Object.freeze({

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
-import styles from './user-card.module.scss';
+import styles from './card.module.scss';
 
 interface UserCardProps {
   image: string;
@@ -9,18 +9,21 @@ interface UserCardProps {
   frameworks: Array<string>;
 }
 
-type BadgeProps = {
-  data: string;
-};
+/* type BadgeProps = {
+ * 	data?: string;
+ * 	key?: string | number;
+ * 	className?: string;
+ * 	maxWidth?: string;
+ * 	isAndMore?: boolean;
+ * 	andMoreAmount?: number;
+ * };
+ * type BadgeAndMoreProps = {
+ * 	isAndMore: boolean;
+ * 	andMoreAmount: number;
+ * };
+ * type BadgeType = FC<BadgeProps & Partial<BadgeAndMoreProps>>; */
 
-type BadgeAndMoreProps = {
-  isAndMore: boolean;
-  andMoreAmount: number;
-};
-
-type BadgeType = FC<BadgeProps | BadgeAndMoreProps>;
-
-const UserCard: FC<UserCardProps> = props => {
+export const UserCard: FC<UserCardProps> = props => {
   const { image, programmingLanguages, frameworks } = props;
 
   const programmingLanguagesAmount = programmingLanguages.length;
@@ -28,7 +31,7 @@ const UserCard: FC<UserCardProps> = props => {
 
   const renderBadges = (
     data: string[],
-    BadgeComponent: BadgeType,
+    BadgeComponent: typeof BadgeLanguage | typeof BadgeFramework,
     andMore: boolean = false,
     andMoreAmount: number = 0
   ) => {
@@ -36,7 +39,7 @@ const UserCard: FC<UserCardProps> = props => {
     const mappedData = data.slice(0, sliceAmount);
 
     return mappedData.map((item, id) => {
-      const key = andMore ? 'andMore' : id;
+      const key = andMore ? 0 : id;
       const props = andMore ? { isAndMore: true, andMoreAmount } : { data: item };
       return <BadgeComponent key={key} {...props} />;
     });
@@ -88,5 +91,3 @@ const UserCard: FC<UserCardProps> = props => {
     </div>
   );
 };
-
-export default UserCard;
