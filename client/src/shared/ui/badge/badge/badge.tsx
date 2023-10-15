@@ -1,8 +1,7 @@
 import clsx from 'clsx';
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './badge.module.scss';
-import { IconWrapper } from '@/shared/ui/icon-wrapper';
-import { Typography } from '../../typography';
+import { Typography, IconWrapper } from '@/shared/ui';
 import { Colors } from '@/shared/types';
 import Link from 'next/link';
 
@@ -38,9 +37,9 @@ interface BadgeProps {
   className?: string;
   maxWidth?: string;
   fontColor?: Colors;
-  icon: React.ReactNode;
+  icon: ReactNode;
   type: 'block' | 'link';
-  to: string;
+  to?: string;
   title: string;
 }
 
@@ -51,7 +50,7 @@ export const Badge: FC<BadgeProps> = props => {
     <>
       {type === 'block' && (
         <div
-          className={clsx([className], styles.badge)}
+          className={clsx(styles.badge, [className])}
           style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
         >
           <IconWrapper>{icon}</IconWrapper>
@@ -63,8 +62,9 @@ export const Badge: FC<BadgeProps> = props => {
 
       {type === 'link' && (
         <Link
-          href={to}
-          className={clsx([className], styles.badge_link)}
+          href={to || ''}
+          target='_blank'
+          className={clsx(styles.badge, [className])}
           style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
         >
           <IconWrapper>{icon}</IconWrapper>
