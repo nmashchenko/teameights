@@ -9,6 +9,7 @@ export { Question } from './question';
 export { WarningCircle } from './warning-circle';
 export { X } from './x';
 export { Cookie } from './cookie';
+export { Search } from './search';
 export { ArrowLeft, ArrowRight } from './arrows';
 export { CaretUp, CaretDown } from './caret';
 export { LogoBig } from './logo';

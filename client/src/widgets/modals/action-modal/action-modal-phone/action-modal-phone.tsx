@@ -1,4 +1,4 @@
-import { Drawer, Flex, Typography } from '@/shared/ui';
+import { Drawer, Typography } from '@/shared/ui';
 import { FC, PropsWithChildren } from 'react';
 import styles from './action-modal-phone.module.scss';
 
