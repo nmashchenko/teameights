@@ -4,12 +4,14 @@ run-name: ${{ github.actor }} is starting sueta at the frontend code ☺️
 on:
   push:
     branches:
-      - dev-nextjs
+      - develop
+      - master
     paths:
       - "client/**"
   pull_request:
     branches:
-      - dev-nextjs
+      - develop
+      - master
     paths:
       - "client/**"
 
@@ -47,6 +49,11 @@ jobs:
         run: |
           yarn lint:ts:check
           yarn prettier:check
+
+      - name: Unit testing 💀💀
+        working-directory: ./client
+        run: |
+          yarn test:unit
 
       - name: Build project
         working-directory: ./client
