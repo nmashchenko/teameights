@@ -71,19 +71,19 @@
 6. Run migrations _(optional, #4 already doing this step)_
 
    ```bash
-   yarn run migration:run
+   yarn migration:run
    ```
 
 7. Run seeds _(optional, #4 already doing this step)_
 
    ```bash
-   yarn run seed:run
+   yarn seed:run
    ```
 
 8. Run app in dev mode
 
    ```bash
-   yarn run start:dev
+   yarn start:dev
    ```
 
 9. Open <http://localhost:3000>

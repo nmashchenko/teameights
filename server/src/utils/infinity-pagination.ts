@@ -3,7 +3,7 @@ import { InfinityPaginationResultType } from './types/infinity-pagination-result
 
 export const infinityPagination = <T>(
   data: T[],
-  options: IPaginationOptions
+  options: IPaginationOptions<T>
 ): InfinityPaginationResultType<T> => {
   return {
     data,

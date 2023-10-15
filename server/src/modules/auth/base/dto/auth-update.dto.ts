@@ -76,7 +76,7 @@ export class AuthUpdateDto {
   @ApiProperty({ enum: ['0-1 years', '1-3 years', '3-5 years', '5+ years'] })
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  @IsIn(['beginner', 'intermediate', 'advanced'], { message: 'mustBeValidExperience' })
+  @IsIn(['0-1 years', '1-3 years', '3-5 years', '5+ years'], { message: 'mustBeValidExperience' })
   experience?: '0-1 years' | '1-3 years' | '3-5 years' | '5+ years';
 
   @ApiProperty()

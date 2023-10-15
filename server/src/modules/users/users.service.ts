@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
-import { DeepPartial, Repository } from 'typeorm';
+import { ArrayOverlap, DeepPartial, Like, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { NullableType } from 'src/utils/types/nullable.type';
+import { FindUserDto } from './dto/find-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -18,10 +19,25 @@ export class UsersService {
     return this.usersRepository.save(this.usersRepository.create(createProfileDto));
   }
 
-  findManyWithPagination(paginationOptions: IPaginationOptions): Promise<User[]> {
+  async findManyWithPagination(
+    paginationOptions: IPaginationOptions<FindUserDto>
+  ): Promise<User[]> {
+    const filters = paginationOptions.filters;
+
     return this.usersRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
+      where: {
+        fullName: filters?.fullName && Like(`%${filters.fullName}%`),
+        username: filters?.username && Like(`%${filters.username}%`),
+        isLeader: filters?.isLeader && filters.isLeader,
+        country: filters?.country && Like(`%${filters.country}%`),
+        concentration: filters?.concentration && Like(`%${filters.concentration}%`),
+        experience: filters?.experience && Like(`%${filters.experience}%`),
+        programmingLanguages:
+          filters?.programmingLanguages && ArrayOverlap(filters.programmingLanguages),
+        frameworks: filters?.frameworks && ArrayOverlap(filters.frameworks),
+      },
     });
   }
 
