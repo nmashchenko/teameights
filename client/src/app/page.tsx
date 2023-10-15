@@ -2,20 +2,31 @@
 import { ITeam, IUserResponse } from 'teameights-types';
 import { Typography, Button, Flex } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
-import { UserPreviewModal } from '@/widgets/modals/info-modal/user-modal';
+import { UserPreviewModal } from '@/widgets/modals/info-modal/desktop-modal/desktop-modal-user/user-modal';
 import { Crown } from '@/shared/assets';
 import { NewtonsCradle, RaceBy } from '@uiball/loaders';
 
-import { ActionModal } from '@/widgets/modals/action-modal/action-modal';
 import { useState } from 'react';
-import { TeamPreviewModal } from '@/widgets/modals/info-modal/team-modal';
-import { TeamPreviewModalPhone } from '@/widgets/modals/info-modal/team-modal-phone';
-import { UserProfilePhone } from '@/widgets/modals/info-modal/user-profile/user-profile-phone';
+import { TeamPreviewModal } from '@/widgets/modals/info-modal/desktop-modal/desktop-modal-team/team-modal';
+import { TeamPreviewModalPhone } from '@/widgets/modals/info-modal/phone-modal/team-modal-phone/team-modal-phone';
+import { UserProfilePhone } from '@/widgets/modals/info-modal/phone-modal/user-modal-phone/user-profile-phone';
+import { ActionModalPhone } from '@/widgets/modals/action-modal/action-modal-phone/action-modal-phone';
+import { ActionModal } from '@/widgets/modals/action-modal/action-modal-desktop/action-modal-desktop';
+// import { InteractiveModal } from '@/widgets/modals/interactive-modal/interactive-modal';
 export default function Home() {
   const width = useGetScreenWidth();
   const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
   const [isOpenThirdModal, setIsOpenThirdModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openActionPhone, setOpenActionPhone] = useState(false);
+
+  const openPhoneModal = () => {
+    setOpenActionPhone(true);
+  };
+
+  const closePhoneModal = () => {
+    setOpenActionPhone(false);
+  };
 
   const openModalNew = () => {
     setOpenModal(true);
@@ -141,6 +152,29 @@ export default function Home() {
       <a href='/login' style={{ color: 'green' }}>
         Get to login
       </a>
+
+      <div>
+        <ActionModalPhone
+          heading='You can’t join team'
+          sub='Before joining a new team, you must leave the old one.'
+          isOpenModal={openActionPhone}
+          handleClose={handleJoin}
+        >
+          <Button typeBtn='danger' size='m'>
+            Leave my Team
+          </Button>
+          <Button typeBtn='secondary' size='m' onClick={closePhoneModal}>
+            Cancel
+          </Button>
+        </ActionModalPhone>
+        <Button typeBtn='primary' size='m' color='white' onClick={openPhoneModal}>
+          Open Modal Phone Modal
+        </Button>
+      </div>
+
+      {/* <div>
+        <InteractiveModal handleClose={handleJoin} />
+      </div> */}
 
       <div>
         <ActionModal

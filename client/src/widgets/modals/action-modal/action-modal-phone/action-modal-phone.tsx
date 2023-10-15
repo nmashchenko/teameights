@@ -1,36 +1,36 @@
-import { Modal, Typography } from '@/shared/ui';
-import styles from './action-modal.module.scss';
+import { Drawer, Flex, Typography } from '@/shared/ui';
 import { FC, PropsWithChildren } from 'react';
+import styles from './action-modal-phone.module.scss';
 
-interface ActionModalProps {
+interface ActionModalPhoneProps {
   heading: string;
   sub: string;
   isOpenModal: boolean;
   handleClose: () => void;
 }
 
-export const ActionModal: FC<PropsWithChildren<ActionModalProps>> = ({
-  heading,
-  sub,
+export const ActionModalPhone: FC<PropsWithChildren<ActionModalPhoneProps>> = ({
   isOpenModal,
   handleClose,
+  heading,
+  sub,
   children,
 }) => {
   return (
-    <div>
-      <Modal isOpen={isOpenModal} onClose={handleClose} size='s'>
+    <>
+      <Drawer open={isOpenModal} onClose={handleClose}>
         <div className={styles.container}>
           <div className={styles.text}>
-            <Typography color='white' size='heading_m'>
+            <Typography size='heading_s' color='white'>
               {heading}
             </Typography>
-            <Typography color='white' size='body_m'>
+            <Typography size='body_m' color='white'>
               {sub}
             </Typography>
           </div>
           <div className={styles.button}>{children}</div>
         </div>
-      </Modal>
-    </div>
+      </Drawer>
+    </>
   );
 };

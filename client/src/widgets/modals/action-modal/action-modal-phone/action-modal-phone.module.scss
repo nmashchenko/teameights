@@ -1,15 +1,16 @@
 .container {
-  height: 286px;
+  height: 350px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 0% 32px;
 }
 
 .button {
   display: flex;
   flex-direction: column;
-  width: 306px;
+  width: 100%;
   gap: 8px;
 }
 
@@ -19,8 +20,4 @@
   text-align: center;
   margin-bottom: 24px;
   gap: 8px;
-}
-
-.between {
-  gap: 24px;
 }
