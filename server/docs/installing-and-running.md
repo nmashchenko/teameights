@@ -85,8 +85,14 @@
    ```bash
    yarn start:dev
    ```
+   
+    OR
 
-9. Open <http://localhost:3000>
+   ```bash
+   yarn start:both #to run both server and client
+   ```
+
+9. Open <http://localhost:3001>
 
 ### Manual Docker style
 1. Clone repository
@@ -119,13 +125,13 @@
     docker compose -f ./Docker/docker-compose.yaml --env-file .env --profile virtual-dev up
     ```
 
-6. Open <http://localhost:3000>
+6. Open <http://localhost:3001>
 
 ---
 
 ## Links
 
-- Swagger (API docs): <http://localhost:3000/docs>
+- Swagger (API docs): <http://localhost:3001/docs>
 - Maildev: <http://localhost:1080>
 
 ---

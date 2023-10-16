@@ -14,7 +14,7 @@ echo "Info! startup: " "$PARENT_DIR" "$SHSCRIPTS_PATH_LOCAL"
 
 if [ "$1" == "ci" ] ; then
   yarn run start:production > /dev/null 2>&1 &
-  /bin/bash "$SHSCRIPTS_PATH_LOCAL"/wait-for-it.sh localhost:3000
+  /bin/bash "$SHSCRIPTS_PATH_LOCAL"/wait-for-it.sh localhost:3001
   yarn run lint
   yarn run test:e2e --runInBand
 fi

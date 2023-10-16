@@ -42,7 +42,7 @@ NestJS REST API boilerplate for typical project
 
 ## Links
 
-- Swagger: <http://localhost:3000/docs>
+- Swagger: <http://localhost:3001/docs>
 - Maildev: <http://localhost:1080>
 
 ## Automatic update of dependencies
