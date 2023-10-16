@@ -53,7 +53,13 @@ export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
   } as React.CSSProperties;
 
   return (
-    <DrawerComponent open={open} onClose={onClose} direction={'bottom'} style={style}>
+    <DrawerComponent
+      open={open}
+      onClose={onClose}
+      direction={'bottom'}
+      style={style}
+      customIdSuffix='t8s-drawer'
+    >
       {children}
     </DrawerComponent>
   );

@@ -1,25 +1,18 @@
+'use client';
+
 import { Drawer, Typography } from '@/shared/ui';
 import { FC, PropsWithChildren } from 'react';
 import styles from './action-modal-phone.module.scss';
+import { Cross } from '@/shared/assets';
+import { ActionModalProps } from '../interfaces';
 
-interface ActionModalPhoneProps {
-  heading: string;
-  sub: string;
-  isOpenModal: boolean;
-  handleClose: () => void;
-}
-
-export const ActionModalPhone: FC<PropsWithChildren<ActionModalPhoneProps>> = ({
-  isOpenModal,
-  handleClose,
-  heading,
-  sub,
-  children,
-}) => {
+export const ActionModalPhone: FC<PropsWithChildren<ActionModalProps>> = props => {
+  const { heading, sub, isOpen, handleClose, children } = props;
   return (
     <>
-      <Drawer open={isOpenModal} onClose={handleClose}>
+      <Drawer open={isOpen} onClose={handleClose}>
         <div className={styles.container}>
+          <Cross className={styles.close_button} onClick={handleClose} />
           <div className={styles.text}>
             <Typography size='heading_s' color='white'>
               {heading}

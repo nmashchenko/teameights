@@ -29,7 +29,13 @@ export const UserProfilePhone: FC<UserProfilePhoneProps> = ({ user, isOpenModal,
   return (
     <>
       <Drawer open={isOpenModal} onClose={handleClose} isFullHeight>
-        <Flex direction='column' gap='24px' margin='24px 24px 0 24px'>
+        <Flex
+          padding='24px'
+          className={styles.container}
+          height='100%'
+          direction='column'
+          gap='32px'
+        >
           <Flex justify='space-between'>
             <Button typeBtn='tertiary' size='m' color='white' onClick={handleClose}>
               <ArrowLeft />
@@ -40,7 +46,7 @@ export const UserProfilePhone: FC<UserProfilePhoneProps> = ({ user, isOpenModal,
               <ArrowRight />
             </Button>
           </Flex>
-          <Flex>
+          <Flex gap='24px' direction='column'>
             <Flex gap='32px' maxHeight='70px'>
               <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
                 <Skeleton width='70px' height='70px' borderRadius='50%' />
@@ -71,33 +77,35 @@ export const UserProfilePhone: FC<UserProfilePhoneProps> = ({ user, isOpenModal,
                 </Flex>
               </Flex>
             </Flex>
-          </Flex>
-          <Flex gap='8px' width='100%'>
-            {showInviteButton() && (
-              <Button typeBtn='primary' size='m' width='100%'>
-                Invite
+            <Flex gap='8px' width='100%'>
+              {showInviteButton() && (
+                <Button typeBtn='primary' size='m' width='100%'>
+                  Invite
+                </Button>
+              )}
+              <Button typeBtn='secondary' size='m' width='100%'>
+                Message
               </Button>
-            )}
-            <Button typeBtn='secondary' size='m' width='100%'>
-              Message
-            </Button>
+            </Flex>
           </Flex>
           <Typography size='body_m' color='white'>
             {user?.description}
           </Typography>
-          <div className={styles.grid_container}>
-            {user?.frameworks && (
-              <>
-                {user?.frameworks.map((framework, index) => (
-                  <BadgeFramework data={framework} key={index} />
-                ))}
-              </>
-            )}
-          </div>
-          <Flex wrap='wrap' gap='8px'>
-            {user?.programmingLanguages?.map((language, index) => (
-              <BadgeLanguage data={language} key={index} />
-            ))}
+          <Flex gap='24px' direction='column'>
+            <div className={styles.grid_container}>
+              {user?.frameworks && (
+                <>
+                  {user?.frameworks.map((framework, index) => (
+                    <BadgeFramework data={framework} key={index} />
+                  ))}
+                </>
+              )}
+            </div>
+            <Flex wrap='wrap' gap='8px'>
+              {user?.programmingLanguages?.map((language, index) => (
+                <BadgeLanguage data={language} key={index} />
+              ))}
+            </Flex>
           </Flex>
         </Flex>
       </Drawer>

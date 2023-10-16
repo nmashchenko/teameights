@@ -10,23 +10,13 @@ import { useState } from 'react';
 import { TeamPreviewModal } from '@/widgets/modals/info-modal/desktop-modal/desktop-modal-team/team-modal';
 import { TeamPreviewModalPhone } from '@/widgets/modals/info-modal/phone-modal/team-modal-phone/team-modal-phone';
 import { UserProfilePhone } from '@/widgets/modals/info-modal/phone-modal/user-modal-phone/user-profile-phone';
-import { ActionModalPhone } from '@/widgets/modals/action-modal/action-modal-phone/action-modal-phone';
-import { ActionModal } from '@/widgets/modals/action-modal/action-modal-desktop/action-modal-desktop';
+import { ActionModal } from '@/widgets/modals';
 // import { InteractiveModal } from '@/widgets/modals/interactive-modal/interactive-modal';
 export default function Home() {
   const width = useGetScreenWidth();
   const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
   const [isOpenThirdModal, setIsOpenThirdModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [openActionPhone, setOpenActionPhone] = useState(false);
-
-  const openPhoneModal = () => {
-    setOpenActionPhone(true);
-  };
-
-  const closePhoneModal = () => {
-    setOpenActionPhone(false);
-  };
 
   const openModalNew = () => {
     setOpenModal(true);
@@ -154,33 +144,10 @@ export default function Home() {
       </a>
 
       <div>
-        <ActionModalPhone
-          heading='You can’t join team'
-          sub='Before joining a new team, you must leave the old one.'
-          isOpenModal={openActionPhone}
-          handleClose={handleJoin}
-        >
-          <Button typeBtn='danger' size='m'>
-            Leave my Team
-          </Button>
-          <Button typeBtn='secondary' size='m' onClick={closePhoneModal}>
-            Cancel
-          </Button>
-        </ActionModalPhone>
-        <Button typeBtn='primary' size='m' color='white' onClick={openPhoneModal}>
-          Open Modal Phone Modal
-        </Button>
-      </div>
-
-      {/* <div>
-        <InteractiveModal handleClose={handleJoin} />
-      </div> */}
-
-      <div>
         <ActionModal
           heading='Removing member'
           sub='Are you sure you want to remove member from team?'
-          isOpenModal={isOpenFirstModal}
+          isOpen={isOpenFirstModal}
           handleClose={closeFirstModal}
         >
           <Button typeBtn='danger' color='white' size='m' onClick={openFirstModal}>
@@ -199,7 +166,7 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openModalNew}>
           Open Modal Team
         </Button>
-        {width > 520 ? (
+        {width > 600 ? (
           <TeamPreviewModal
             team={team}
             user={user}
@@ -222,7 +189,7 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
           Open Third Modal
         </Button>
-        {width > 520 ? (
+        {width > 600 ? (
           <UserPreviewModal
             user={user}
             isOpenModal={isOpenThirdModal}

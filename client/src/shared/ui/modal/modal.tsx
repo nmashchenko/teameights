@@ -66,6 +66,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
         afterOpen: classNames(styles.modalBody__afterOpen, {}, [styles[`size_${size}`]]),
         beforeClose: classNames(styles.modalBody__beforeClose, {}, [styles[`size_${size}`]]),
       }}
+      ariaHideApp={false}
     >
       <Cross className={styles.closeButton} onClick={onClose} />
       <div className={styles.modalContent}>{children}</div>

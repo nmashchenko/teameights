@@ -4,7 +4,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0% 32px;
+  padding: 32px;
+  position: relative;
 }
 
 .button {
@@ -20,4 +21,18 @@
   text-align: center;
   margin-bottom: 24px;
   gap: 8px;
+}
+
+.close_button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 52px;
+  height: 52px;
+  padding: 16px;
+  cursor: pointer;
+
+  &:hover {
+    fill: red;
+  }
 }

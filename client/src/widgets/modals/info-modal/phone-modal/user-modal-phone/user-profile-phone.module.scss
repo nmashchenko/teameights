@@ -1,6 +1,6 @@
 .grid_container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 82.7px);
+  grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 10px;
   grid-column-gap: 8px;
 }
@@ -19,4 +19,8 @@
   border-radius: 70px;
   object-fit: cover;
   user-select: none;
+}
+
+.container {
+  overflow: auto;
 }

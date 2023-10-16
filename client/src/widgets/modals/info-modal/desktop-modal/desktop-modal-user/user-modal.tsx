@@ -43,7 +43,7 @@ export const UserPreviewModal: FC<UserPreviewModalProps> = ({ user, isOpenModal,
                     user?.concentration
                       ? user.concentration.charAt(0).toUpperCase() + user.concentration.slice(1)
                       : ''
-                  } 
+                  }
                 `}
                 </Typography>
                 <Typography size='body_s' color='greyNormal'>
@@ -60,7 +60,7 @@ export const UserPreviewModal: FC<UserPreviewModalProps> = ({ user, isOpenModal,
           {user?.frameworks && (
             <div className={styles.grid_container}>
               {user?.frameworks.map((framework, index) => (
-                <BadgeFramework data={framework} key={index} maxWidth='120px' />
+                <BadgeFramework data={framework} key={index} />
               ))}
             </div>
           )}

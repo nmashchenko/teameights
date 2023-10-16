@@ -1,24 +1,12 @@
 import { Modal, Typography } from '@/shared/ui';
 import styles from './action-modal-desktop.module.scss';
 import { FC, PropsWithChildren } from 'react';
-
-interface ActionModalProps {
-  heading: string;
-  sub: string;
-  isOpenModal: boolean;
-  handleClose: () => void;
-}
-
-export const ActionModal: FC<PropsWithChildren<ActionModalProps>> = ({
-  heading,
-  sub,
-  isOpenModal,
-  handleClose,
-  children,
-}) => {
+import { ActionModalProps } from '../interfaces';
+export const ActionModalDesktop: FC<PropsWithChildren<ActionModalProps>> = props => {
+  const { heading, sub, isOpen, handleClose, children } = props;
   return (
     <div>
-      <Modal isOpen={isOpenModal} onClose={handleClose} size='s'>
+      <Modal isOpen={isOpen} onClose={handleClose} size='s'>
         <div className={styles.container}>
           <div className={styles.text}>
             <Typography color='white' size='heading_m'>

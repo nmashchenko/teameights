@@ -12,7 +12,7 @@ interface TeamMemberProps {
 const TeamMember: FC<TeamMemberProps> = ({ shouldHaveCrown = false, src }) => {
   const [imgLoading, setImgLoading] = useState(true);
   return (
-    <Flex>
+    <Flex className={styles.img_container}>
       <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
         {shouldHaveCrown && (
           <div className={styles.crown_container}>

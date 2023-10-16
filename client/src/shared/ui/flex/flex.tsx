@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './flex.module.scss';
+import clsx from 'clsx';
 
 export interface FlexProps {
   /**
@@ -62,6 +63,11 @@ export interface FlexProps {
    * props.children - The content to be laid out.
    */
   children: React.ReactNode;
+
+  /**
+   * props.className - Additional classnames you want to add to flex if needed
+   */
+  className?: string;
 }
 
 /**
@@ -107,6 +113,7 @@ export const Flex: React.FC<FlexProps> = props => {
     height,
     shrink,
     children,
+    className,
   } = props;
 
   const style = {
@@ -126,7 +133,7 @@ export const Flex: React.FC<FlexProps> = props => {
   } as React.CSSProperties;
 
   return (
-    <div className={styles.flexWrapper} style={style}>
+    <div className={clsx(styles.flexWrapper, [className])} style={style}>
       {children}
     </div>
   );
