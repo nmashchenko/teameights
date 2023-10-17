@@ -2,15 +2,13 @@
 import { ITeam, IUserResponse } from 'teameights-types';
 import { Typography, Button, Flex } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
-import { UserPreviewModal } from '@/widgets/modals/info-modal/desktop-modal/desktop-modal-user/user-modal';
 import { Crown } from '@/shared/assets';
 import { NewtonsCradle, RaceBy } from '@uiball/loaders';
 
 import { useState } from 'react';
-import { TeamPreviewModal } from '@/widgets/modals/info-modal/desktop-modal/desktop-modal-team/team-modal';
-import { TeamPreviewModalPhone } from '@/widgets/modals/info-modal/phone-modal/team-modal-phone/team-modal-phone';
-import { UserProfilePhone } from '@/widgets/modals/info-modal/phone-modal/user-modal-phone/user-profile-phone';
 import { ActionModal } from '@/widgets/modals';
+import { InfoModalUser } from '@/widgets/modals/info-modal/info-modal-user/info-modal-user';
+import { InfoModalTeam } from '@/widgets/modals/info-modal/info-modal-team/info-modal-team';
 // import { InteractiveModal } from '@/widgets/modals/interactive-modal/interactive-modal';
 export default function Home() {
   const width = useGetScreenWidth();
@@ -166,52 +164,21 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openModalNew}>
           Open Modal Team
         </Button>
-        {width > 600 ? (
-          <TeamPreviewModal
-            team={team}
-            user={user}
-            isOpenModal={openModal}
-            handleClose={closeModalNew}
-            handleJoin={handleJoin}
-          />
-        ) : (
-          <TeamPreviewModalPhone
-            team={team}
-            user={user}
-            isDrawerOpen={openModal}
-            handleClose={closeModalNew}
-            handleJoin={handleJoin}
-          />
-        )}
+        <InfoModalTeam
+          team={team}
+          user={user}
+          isOpenModal={openModal}
+          handleClose={closeModalNew}
+          handleJoin={handleJoin}
+        />
       </div>
 
       <div>
         <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
           Open Third Modal
         </Button>
-        {width > 600 ? (
-          <UserPreviewModal
-            user={user}
-            isOpenModal={isOpenThirdModal}
-            handleClose={closeThirdModal}
-          />
-        ) : (
-          <UserProfilePhone
-            user={user}
-            isOpenModal={isOpenThirdModal}
-            handleClose={closeThirdModal}
-          />
-        )}
+        <InfoModalUser user={user} isOpenModal={isOpenThirdModal} handleClose={closeThirdModal} />
       </div>
-
-      {/* <UserPreviewModal
-          user={user}
-          isOpenModal={isOpenThirdModal}
-          handleClose={closeThirdModal}
-        />
-        <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
-          Third Modal
-        </Button> */}
 
       <Crown width={70} height={70} />
 

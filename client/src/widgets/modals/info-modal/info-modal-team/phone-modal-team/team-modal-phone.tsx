@@ -2,22 +2,14 @@ import { ArrowLeft, ArrowRight } from '@/shared/assets';
 import { Button, Drawer, Flex, Typography } from '@/shared/ui';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
 import { FC, useEffect, useState } from 'react';
-import { ITeam, IUserResponse } from 'teameights-types';
 import styles from './team-modal-phone.module.scss';
 import TeamMember from './team-member';
+import { InfoModalTeamProps } from '../interfaces';
 
-interface TeamPreviewModalPhoneProps {
-  team: ITeam;
-  user: IUserResponse;
-  isDrawerOpen: boolean;
-  handleJoin: () => void;
-  handleClose: () => void;
-}
-
-export const TeamPreviewModalPhone: FC<TeamPreviewModalPhoneProps> = ({
+export const TeamPreviewModalPhone: FC<InfoModalTeamProps> = ({
   team,
   user,
-  isDrawerOpen,
+  isOpenModal,
   handleJoin,
   handleClose,
 }) => {
@@ -40,7 +32,7 @@ export const TeamPreviewModalPhone: FC<TeamPreviewModalPhoneProps> = ({
 
   return (
     <>
-      <Drawer open={isDrawerOpen} onClose={handleClose} isFullHeight>
+      <Drawer open={isOpenModal} onClose={handleClose} isFullHeight>
         <Flex
           padding='24px'
           className={styles.container}

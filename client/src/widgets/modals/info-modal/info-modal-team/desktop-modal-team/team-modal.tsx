@@ -4,21 +4,13 @@ import styles from './team-modal.module.scss';
 import { Typography, Button, Modal, Flex } from '@/shared/ui';
 import TeamPersonBox from './team-person';
 import { ArrowRight } from '@/shared/assets';
-import { ITeam, IUserResponse } from 'teameights-types';
+import { InfoModalTeamProps } from '../interfaces';
 
 const mockNavigate = (path: string) => {
   console.log(`navigate to ${path}`);
 };
 
-interface TeamPreviewModalProps {
-  team: ITeam;
-  user: IUserResponse;
-  isOpenModal: boolean;
-  handleClose: () => void;
-  handleJoin: () => void;
-}
-
-export const TeamPreviewModal: FC<TeamPreviewModalProps> = ({
+export const TeamPreviewModal: FC<InfoModalTeamProps> = ({
   user,
   team,
   handleJoin,

@@ -2,17 +2,11 @@ import { BadgeFramework, BadgeLanguage, Button, Modal, Typography, Flex } from '
 import styles from './user-modal.module.scss';
 import { useState, FC } from 'react';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
-import { IUserResponse } from 'teameights-types';
 import { ArrowRight } from '@/shared/assets';
 import { calculateAge } from '@/shared/lib/utils/get-age/get-age';
+import { InfoModalUserProps } from '../interfaces';
 
-interface UserPreviewModalProps {
-  user: IUserResponse;
-  isOpenModal: boolean;
-  handleClose: () => void;
-}
-
-export const UserPreviewModal: FC<UserPreviewModalProps> = ({ user, isOpenModal, handleClose }) => {
+export const UserPreviewModal: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
   const [imgLoading, setImgLoading] = useState(true);
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
 

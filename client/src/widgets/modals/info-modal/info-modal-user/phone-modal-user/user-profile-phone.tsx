@@ -3,16 +3,10 @@ import { BadgeFramework, BadgeLanguage, Button, Drawer, Flex, Typography } from 
 import { FC, useState } from 'react';
 import styles from './user-profile-phone.module.scss';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
-import { IUserResponse } from 'teameights-types';
 import { calculateAge } from '@/shared/lib/utils/get-age/get-age';
+import { InfoModalUserProps } from '../interfaces';
 
-interface UserProfilePhoneProps {
-  user: IUserResponse;
-  isOpenModal: boolean;
-  handleClose: () => void;
-}
-
-export const UserProfilePhone: FC<UserProfilePhoneProps> = ({ user, isOpenModal, handleClose }) => {
+export const UserPreviewPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
   const [imgLoading, setImgLoading] = useState(true);
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
 
