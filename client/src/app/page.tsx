@@ -1,15 +1,10 @@
 'use client';
 import { ITeam, IUserResponse } from 'teameights-types';
-import { Typography, Button, Flex } from '@/shared/ui';
+import { Typography, Button } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
-import { Crown } from '@/shared/assets';
-import { NewtonsCradle, RaceBy } from '@uiball/loaders';
 
 import { useState } from 'react';
-import { ActionModal } from '@/widgets/modals';
-import { InfoModalUser } from '@/widgets/modals/info-modal/info-modal-user/info-modal-user';
-import { InfoModalTeam } from '@/widgets/modals/info-modal/info-modal-team/info-modal-team';
-// import { InteractiveModal } from '@/widgets/modals/interactive-modal/interactive-modal';
+import { ActionModal, InfoModalTeam, InfoModalUser } from '@/widgets/modals';
 export default function Home() {
   const width = useGetScreenWidth();
   const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
@@ -179,14 +174,6 @@ export default function Home() {
         </Button>
         <InfoModalUser user={user} isOpenModal={isOpenThirdModal} handleClose={closeThirdModal} />
       </div>
-
-      <Crown width={70} height={70} />
-
-      <Flex direction='column' gap='200px' width='100%' justify='center' align='center'>
-        <NewtonsCradle size={50} speed={1.4} color='white' />
-
-        <RaceBy size={80} lineWeight={5} speed={1.4} color='#46A11B' />
-      </Flex>
     </>
   );
 }

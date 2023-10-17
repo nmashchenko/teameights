@@ -1,5 +1,5 @@
 .visible_container {
-  display: block;
+  display: flex;
 }
 
 .hidden_container {
@@ -15,7 +15,7 @@
 
 .grid_container {
   display: grid;
-  grid-template-columns: repeat(3, 120px);
+  grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 10px;
   grid-column-gap: 8px;
 }

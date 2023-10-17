@@ -132,6 +132,7 @@ export const TeamPreviewModal: FC<InfoModalTeamProps> = ({
               size='m'
               typeBtn='tertiary'
               onClick={() => navigate('/team/' + team?.id)}
+              padding='0'
             >
               Profile
               <ArrowRight />

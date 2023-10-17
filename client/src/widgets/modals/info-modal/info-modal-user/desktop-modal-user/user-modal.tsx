@@ -76,7 +76,7 @@ export const UserPreviewModal: FC<InfoModalUserProps> = ({ user, isOpenModal, ha
               </Button>
             </Flex>
 
-            <Button typeBtn='tertiary' size='m' color='white'>
+            <Button typeBtn='tertiary' size='m' color='white' padding='0'>
               Profile
               <ArrowRight />
             </Button>

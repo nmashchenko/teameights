@@ -41,11 +41,11 @@ export const TeamPreviewModalPhone: FC<InfoModalTeamProps> = ({
           gap='32px'
         >
           <Flex justify='space-between'>
-            <Button typeBtn='tertiary' size='m' color='white' onClick={handleClose}>
+            <Button typeBtn='tertiary' size='m' color='white' onClick={handleClose} padding='0'>
               <ArrowLeft />
               Back
             </Button>
-            <Button typeBtn='tertiary' size='m' color='white'>
+            <Button typeBtn='tertiary' size='m' color='white' padding='0'>
               Profile
               <ArrowRight />
             </Button>
