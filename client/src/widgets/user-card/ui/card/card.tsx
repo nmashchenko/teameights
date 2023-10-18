@@ -77,13 +77,17 @@ const ProgrammingLanguagesLayout: FC<ProgrammingLanguagesProps> = ({ languages }
 };
 
 interface UserCardProps {
+  // TODO: Delete all this props
   image: string;
   programmingLanguages: Array<string>;
   frameworks: Array<string>;
   isLeader: boolean;
+  //   user: UserType;
 }
 
 export const UserCard: FC<UserCardProps> = props => {
+  // const { user } = props
+  // TODO: Delete all this props
   const { image, programmingLanguages, frameworks, isLeader } = props;
 
   return (
@@ -91,7 +95,14 @@ export const UserCard: FC<UserCardProps> = props => {
       <div className={styles.wrapper}>
         <div className={styles.top_part}>
           <div className={styles.language_badges}>
-            <Image className={styles.user_logo} src={image} alt='' width={70} height={70} />
+            {/* User logo? */}
+            <Image
+              className={styles.user_logo}
+              src={image}
+              alt='User avatar'
+              width={70}
+              height={70}
+            />
             {isLeader && (
               <div className={styles.leader_icon}>
                 <Image priority src={LeaderIcon} alt='Leader icon' width={26} height={28} />
@@ -101,8 +112,15 @@ export const UserCard: FC<UserCardProps> = props => {
           </div>
           <div className={styles.user_info_container}>
             <div className={styles.user_personal_info}>
+              {/* Need to be semantic tag */}
               <div className={styles.user_city}>Brooklyn, 21 </div>
-              <Image src='https://via.placeholder.com/16x12' alt='' width={16} height={12} />
+              {/* What is this image?*/}
+              <Image
+                src='https://via.placeholder.com/16x12'
+                alt='User avatar'
+                width={16}
+                height={12}
+              />
             </div>
             <div className={styles.user_job}>Developer</div>
           </div>
