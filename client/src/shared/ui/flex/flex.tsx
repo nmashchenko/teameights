@@ -60,12 +60,6 @@ export interface FlexProps {
   shrink?: string | number;
 
   /**
-   * [props.className] - adds additional classes to base
-
-   */
-  className?: string;
-
-  /**
    * props.children - The content to be laid out.
    */
   children: React.ReactNode;
