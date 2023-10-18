@@ -1,81 +1,9 @@
 import Image from 'next/image';
 
-import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
-
 import LeaderIcon from '../../assets/Crown_28px.svg';
 import styles from './card.module.scss';
-
-type BadgeFrameworkType = 'full' | 'half' | 'empty' | 'extra';
-type BadgeFrameworkLayout = BadgeFrameworkType[];
-
-interface badgeFrameworkLayoutConfig {
-  default: BadgeFrameworkLayout;
-
-  [badgeCount: number]: BadgeFrameworkLayout;
-}
-
-const badgeFrameworkLayoutConfig: badgeFrameworkLayoutConfig = {
-  1: ['full', 'empty'],
-  2: ['full', 'full'],
-  3: ['half', 'half', 'full'],
-  4: ['half', 'half', 'half', 'half'],
-  default: ['half', 'half', 'half', 'extra'],
-};
-
-type BadgeFrameworksProps = {
-  badges: string[];
-};
-
-// TODO: Decompose to another file around parent
-const BadgeFrameworksLayout: React.FC<BadgeFrameworksProps> = ({ badges }) => {
-  const layout = badgeFrameworkLayoutConfig[badges.length] || badgeFrameworkLayoutConfig.default;
-
-  return (
-    <div className={styles.badgeContainer}>
-      {layout.map((size, index) => (
-        <div key={index} className={styles[size]}>
-          <BadgeFramework
-            data={size === 'extra' ? `+${badges.length - 3}` : badges[index]}
-            key={index}
-          />
-        </div>
-      ))}
-    </div>
-  );
-};
-
-interface LanguageLayoutConfig {
-  default: string[];
-
-  [languageCount: number]: string[];
-}
-
-const languageLayoutConfig: LanguageLayoutConfig = {
-  1: ['single', 'empty'],
-  2: ['single', 'single'],
-  3: ['single', 'more'],
-  default: ['single', 'more'],
-};
-
-interface ProgrammingLanguagesProps {
-  languages: string[];
-}
-
-// TODO: Decompose to another file around parent
-const ProgrammingLanguagesLayout: React.FC<ProgrammingLanguagesProps> = ({ languages }) => {
-  const layout = languageLayoutConfig[languages.length] || languageLayoutConfig.default;
-
-  return (
-    <div className={styles.languagesContainer}>
-      {layout.map((type, index) => {
-        if (type === 'more') {
-          return <BadgeLanguage key={index} data={`+${languages.length - 1}`} />;
-        }
-        return languages[index] && <BadgeLanguage key={languages[index]} data={languages[index]} />;
-      })}
-    </div>
-  );
-};
+import { ProgrammingLanguagesLayout } from '../language-layout/language-layout';
+import { BadgeFrameworksLayout } from '../frameworks-layout/frameworks-layout';
 
 interface UserCardProps {
   // TODO: Delete all this props
@@ -104,6 +32,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
               width={70}
               height={70}
             />
+
             {isLeader && (
               <div className={styles.leader_icon}>
                 <Image priority src={LeaderIcon} alt='Leader icon' width={26} height={28} />
@@ -111,6 +40,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
             )}
             <ProgrammingLanguagesLayout languages={programmingLanguages} />
           </div>
+
           <div className={styles.user_info_container}>
             <div className={styles.user_personal_info}>
               {/* Need to be semantic tag */}
