@@ -3,10 +3,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ArrowLeft } from '@/shared/assets';
-import { Button, Input, Typography } from '@/shared/ui';
-import styles from '../shared.module.scss';
+import { Button, Flex, Input, Typography } from '@/shared/ui';
+import styles from '../password.module.scss';
 import { useRouter } from 'next/navigation';
-import clsx from 'clsx';
 
 interface RecoverProps {
   email: string;
@@ -28,46 +27,40 @@ export default function Recover() {
   };
 
   return (
-    <form
-      className={clsx(styles.info, {
-        [styles.width470px]: true,
-      })}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div
-        className={clsx(styles.gapContainer, {
-          [styles.gap8px]: true,
-          [styles.alignText]: true,
-        })}
-      >
-        <Typography color='greenBright' size='heading_m'>
-          Recover Password
-        </Typography>
-        <Typography size='body_m'>
-          Enter the email you used to register and we will send you link to reset your password
-        </Typography>
-      </div>
-      <Input
-        placeholder='Email'
-        {...register('email', { required: 'Email is required!' })}
-        type='email'
-        error={errors?.email ? errors.email.message : undefined}
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <div
-        className={clsx(styles.gapContainer, {
-          [styles.gap8px]: true,
-        })}
-      >
-        <Button width='100%' disabled={!email.length}>
-          Reset password
-        </Button>
-        <Button width='100%' typeBtn='secondary'>
-          <ArrowLeft />
-          <Link href='/login'>Back to Log in</Link>
-        </Button>
-      </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Flex direction='column' justify='center' align='center' gap={48} maxWidth='370px'>
+        <Flex
+          direction='column'
+          justify='center'
+          align='center'
+          gap={8}
+          className={styles.text_align}
+        >
+          <Typography color='greenBright' size='heading_m'>
+            Recover Password
+          </Typography>
+          <Typography size='body_m'>
+            Enter the email you used to register and we will send you link to reset your password
+          </Typography>
+        </Flex>
+        <Input
+          placeholder='Email'
+          {...register('email', { required: 'Email is required!' })}
+          type='email'
+          error={errors?.email ? errors.email.message : undefined}
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+        <Flex direction='column' justify='center' align='center' gap={8} width='100%'>
+          <Button width='100%' disabled={!email.length}>
+            Reset password
+          </Button>
+          <Button width='100%' typeBtn='secondary' type='button'>
+            <ArrowLeft />
+            <Link href='/login'>Back to Log in</Link>
+          </Button>
+        </Flex>
+      </Flex>
     </form>
   );
 }
