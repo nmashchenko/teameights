@@ -1,5 +1,5 @@
 import { Email } from '@/shared/assets';
-import { Button, Typography } from '@/shared/ui';
+import { Button, Flex, Typography } from '@/shared/ui';
 import styles from './illustration.module.scss';
 import { FC } from 'react';
 
@@ -15,18 +15,18 @@ export const IllustrationStatus: FC<ConfirmProps> = props => {
   return (
     <div className={styles.container}>
       <Email />
-      <div className={styles.info}>
+      <Flex justify='center' align='center' direction='column' gap='8px'>
         <Typography size='heading_m'>{mainText}</Typography>
         <Typography size='body_m' color='greyNormal'>
           {subText}
         </Typography>
-      </div>
+      </Flex>
       {buttonText && (
-        <div className={styles.buttonWrapper}>
-          <Button onClick={buttonHandler} width='136px'>
+        <Flex align='center' justify='center'>
+          <Button onClick={buttonHandler} width='136px' typeBtn='tertiary' color='greenBright'>
             {buttonText}
           </Button>
-        </div>
+        </Flex>
       )}
     </div>
   );
