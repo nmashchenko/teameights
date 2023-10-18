@@ -11,7 +11,6 @@ interface UserCardProps {
 }
 
 export const UserCard: React.FC<UserCardProps> = props => {
-  // const { user } = props
   const {
     user: { frameworks, isLeader, programmingLanguages, photo },
   } = props;
