@@ -3,19 +3,19 @@ import clsx from 'clsx';
 
 import { IconWrapper } from '@/shared/ui';
 import { BellIcon } from '@/shared/assets';
-import { Notification } from '@/entities/notification';
 
 import { SidebarNotificationsModal } from '../notification-modal/notification-modal';
 import { SidebarNotificationsCount } from './notifications-count';
 
 import sidebarStyles from '../sidebar/sidebar.module.scss';
 import styles from './notification-content.module.scss';
+import { NotificationType } from '@teameights/types';
 
 export interface NotificationContentProps {
   /**
    * An array of user notifications. Could be undefined.
    */
-  userNotifications: Notification[] | undefined;
+  userNotifications: NotificationType[] | undefined;
   /**
    * Flag indicating whether the sidebar is expanded.
    */
