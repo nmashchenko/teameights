@@ -1,16 +1,20 @@
 import { FC } from 'react';
 import Image from 'next/image';
+
 import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
+
+import LeaderIcon from '../../assets/Crown_28px.svg';
 import styles from './card.module.scss';
 
 interface UserCardProps {
   image: string;
   programmingLanguages: Array<string>;
   frameworks: Array<string>;
+  isLeader: boolean;
 }
 
 export const UserCard: FC<UserCardProps> = props => {
-  const { image, programmingLanguages, frameworks } = props;
+  const { image, programmingLanguages, frameworks, isLeader } = props;
 
   const programmingLanguagesAmount = programmingLanguages.length;
   const frameworksAmount = frameworks.length;
@@ -21,6 +25,13 @@ export const UserCard: FC<UserCardProps> = props => {
         <div className={styles.top_part}>
           <div className={styles.language_badges}>
             <Image className={styles.user_logo} src={image} alt='' width={70} height={70} />
+            {isLeader ? (
+              <div className={styles.leader_icon}>
+                <Image priority src={LeaderIcon} alt='Leader icon' width={26} height={28} />
+              </div>
+            ) : (
+              ''
+            )}
             <div className={styles.languagesContainer}>
               {programmingLanguagesAmount <= 2 ? (
                 programmingLanguages

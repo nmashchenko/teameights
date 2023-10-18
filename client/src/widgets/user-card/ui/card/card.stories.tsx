@@ -16,6 +16,7 @@ export const UserCard_1variant = () => (
     image='https://via.placeholder.com/70x70'
     programmingLanguages={['JS']}
     frameworks={['NodeJS']}
+    isLeader={true}
   />
 );
 
@@ -24,6 +25,7 @@ export const UserCard_2variant = () => (
     image='https://via.placeholder.com/70x70'
     programmingLanguages={['JS', 'TS']}
     frameworks={['NodeJS', 'React']}
+    isLeader={true}
   />
 );
 
@@ -32,6 +34,7 @@ export const UserCard_3variant = () => (
     image='https://via.placeholder.com/70x70'
     programmingLanguages={['JS', 'TS', 'Rust']}
     frameworks={['NodeJS', 'React', 'MUI']}
+    isLeader={true}
   />
 );
 
@@ -40,6 +43,7 @@ export const UserCard_4variant = () => (
     image='https://via.placeholder.com/70x70'
     programmingLanguages={['JS', 'TS', 'Rust', 'Java']}
     frameworks={['NodeJS', 'React', 'MUI', 'VueJS']}
+    isLeader={true}
   />
 );
 
@@ -48,5 +52,6 @@ export const UserCard_5variant = () => (
     image='https://via.placeholder.com/70x70'
     programmingLanguages={['JS', 'TS', 'Rust', 'Java', 'Haskell']}
     frameworks={['NodeJS', 'React', 'MUI', 'VueJS', 'Angular']}
+    isLeader={true}
   />
 );

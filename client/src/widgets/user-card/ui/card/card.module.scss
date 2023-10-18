@@ -37,6 +37,13 @@
           border-radius: 5px;
         }
 
+        .leader_icon {
+          position: absolute;
+          transform: rotate(30deg);
+          margin-left: 54px;
+          margin-bottom: 62px;
+        }
+
         .languagesContainer {
           display: flex;
           gap: 10px;
