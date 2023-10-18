@@ -43,15 +43,8 @@ export const UserCard: React.FC<UserCardProps> = props => {
 
           <div className={styles.user_info_container}>
             <div className={styles.user_personal_info}>
-              {/* Need to be semantic tag */}
-              <div className={styles.user_city}>Brooklyn, 21 </div>
-              {/* What is this image?*/}
-              <Image
-                src='https://via.placeholder.com/16x12'
-                alt='User avatar'
-                width={16}
-                height={12}
-              />
+              <span className={styles.user_city}>Brooklyn, 21 </span>
+              <Image src='https://via.placeholder.com/16x12' alt='Flag' width={16} height={12} />
             </div>
             <div className={styles.user_job}>Developer</div>
           </div>
