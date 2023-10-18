@@ -65,7 +65,15 @@
   padding: 20px;
   background-color: var(--cards-color);
   border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add this line for smooth transition */
+  cursor: pointer; /* Indicates clickable areas */
+
+  &:hover {
+    transform: scale(1.02); /* Scale up slightly */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Add a subtle shadow */
+  }
 }
+
 .wrapper {
   display: inline-flex;
   flex-direction: column;
