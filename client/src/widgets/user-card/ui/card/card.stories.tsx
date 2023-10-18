@@ -2,17 +2,29 @@ import type { Meta } from '@storybook/react';
 import { UserCard } from './card';
 import { IUserResponse } from '@teameights/types';
 
+const defaultUser = {
+  photo: { path: 'https://via.placeholder.com/70x70' },
+  fullName: 'Brooklyn',
+};
+
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof UserCard> = {
   title: 'widgets/UserCard',
   component: UserCard,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    user: {
+      photo: { control: 'text' },
+      fullName: { control: 'text' },
+      programmingLanguages: { control: 'array' },
+      frameworks: { control: 'array' },
+      isLeader: { control: 'boolean' },
+    },
+  },
 };
 export default meta;
 const user1 = {
-  photo: { path: 'https://via.placeholder.com/70x70' },
-  fullName: 'Brooklyn',
+  ...defaultUser,
   programmingLanguages: ['JS'],
   frameworks: ['NodeJS'],
   isLeader: true,
@@ -21,8 +33,7 @@ const user1 = {
 export const UserCard_1variant = () => <UserCard user={user1} />;
 
 const user2 = {
-  photo: { path: 'https://via.placeholder.com/70x70' },
-  fullName: 'Brooklyn',
+  ...defaultUser,
   programmingLanguages: ['JS', 'TS'],
   frameworks: ['NodeJS', 'React'],
   isLeader: true,
@@ -30,8 +41,7 @@ const user2 = {
 export const UserCard_2variant = () => <UserCard user={user2} />;
 
 const user3 = {
-  photo: { path: 'https://via.placeholder.com/70x70' },
-  fullName: 'Brooklyn',
+  ...defaultUser,
   programmingLanguages: ['JS', 'TS', 'Rust'],
   frameworks: ['NodeJS', 'React', 'MUI'],
   isLeader: true,
@@ -39,8 +49,7 @@ const user3 = {
 export const UserCard_3variant = () => <UserCard user={user3} />;
 
 const user4 = {
-  photo: { path: 'https://via.placeholder.com/70x70' },
-  fullName: 'Brooklyn',
+  ...defaultUser,
   programmingLanguages: ['JS', 'TS', 'Rust', 'Java'],
   frameworks: ['NodeJS', 'React', 'MUI', 'VueJS'],
   isLeader: true,
@@ -48,8 +57,7 @@ const user4 = {
 export const UserCard_4variant = () => <UserCard user={user4} />;
 
 const user5 = {
-  photo: { path: 'https://via.placeholder.com/70x70' },
-  fullName: 'Brooklyn',
+  ...defaultUser,
   programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Haskell'],
   frameworks: ['NodeJS', 'React', 'MUI', 'VueJS', 'Angular'],
   isLeader: true,
