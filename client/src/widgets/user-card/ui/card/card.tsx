@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import Image from 'next/image';
 
 import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
@@ -61,7 +60,7 @@ interface ProgrammingLanguagesProps {
   languages: string[];
 }
 
-const ProgrammingLanguagesLayout: FC<ProgrammingLanguagesProps> = ({ languages }) => {
+const ProgrammingLanguagesLayout: React.FC<ProgrammingLanguagesProps> = ({ languages }) => {
   const layout = languageLayoutConfig[languages.length] || languageLayoutConfig.default;
 
   return (
@@ -85,7 +84,7 @@ interface UserCardProps {
   //   user: UserType;
 }
 
-export const UserCard: FC<UserCardProps> = props => {
+export const UserCard: React.FC<UserCardProps> = props => {
   // const { user } = props
   // TODO: Delete all this props
   const { image, programmingLanguages, frameworks, isLeader } = props;
