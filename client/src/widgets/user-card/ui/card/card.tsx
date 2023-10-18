@@ -6,6 +6,76 @@ import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
 import LeaderIcon from '../../assets/Crown_28px.svg';
 import styles from './card.module.scss';
 
+type BadgeType = 'full' | 'half' | 'empty' | 'extra';
+type BadgeLayout = BadgeType[];
+
+interface BadgeLayoutConfig {
+  default: BadgeLayout;
+
+  [badgeCount: number]: BadgeLayout;
+}
+
+const badgeLayoutConfig: BadgeLayoutConfig = {
+  1: ['full', 'empty'],
+  2: ['full', 'full'],
+  3: ['half', 'half', 'full'],
+  4: ['half', 'half', 'half', 'half'],
+  default: ['half', 'half', 'half', 'extra'],
+};
+
+type BadgeProps = {
+  badges: string[];
+};
+
+const BadgeLayout: React.FC<BadgeProps> = ({ badges }) => {
+  const layout = badgeLayoutConfig[badges.length] || badgeLayoutConfig.default;
+
+  return (
+    <div className={styles.badgeContainer}>
+      {layout.map((size, index) => (
+        <div key={index} className={styles[size]}>
+          <BadgeFramework
+            data={size === 'extra' ? `+${badges.length - 3}` : badges[index]}
+            key={index}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+interface LanguageLayoutConfig {
+  default: string[];
+
+  [languageCount: number]: string[];
+}
+
+const languageLayoutConfig: LanguageLayoutConfig = {
+  1: ['single', 'empty'],
+  2: ['single', 'single'],
+  3: ['single', 'more'],
+  default: ['single', 'more'],
+};
+
+interface ProgrammingLanguagesProps {
+  languages: string[];
+}
+
+const ProgrammingLanguagesLayout: FC<ProgrammingLanguagesProps> = ({ languages }) => {
+  const layout = languageLayoutConfig[languages.length] || languageLayoutConfig.default;
+
+  return (
+    <div className={styles.languagesContainer}>
+      {layout.map((type, index) => {
+        if (type === 'more') {
+          return <BadgeLanguage key={index} data={`+${languages.length - 1}`} />;
+        }
+        return languages[index] && <BadgeLanguage key={languages[index]} data={languages[index]} />;
+      })}
+    </div>
+  );
+};
+
 interface UserCardProps {
   image: string;
   programmingLanguages: Array<string>;
@@ -16,40 +86,18 @@ interface UserCardProps {
 export const UserCard: FC<UserCardProps> = props => {
   const { image, programmingLanguages, frameworks, isLeader } = props;
 
-  const programmingLanguagesAmount = programmingLanguages.length;
-  const frameworksAmount = frameworks.length;
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles.top_part}>
           <div className={styles.language_badges}>
             <Image className={styles.user_logo} src={image} alt='' width={70} height={70} />
-            {isLeader ? (
+            {isLeader && (
               <div className={styles.leader_icon}>
                 <Image priority src={LeaderIcon} alt='Leader icon' width={26} height={28} />
               </div>
-            ) : (
-              ''
             )}
-            <div className={styles.languagesContainer}>
-              {programmingLanguagesAmount <= 2 ? (
-                programmingLanguages
-                  .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 2)
-                  .map((item, id) => <BadgeLanguage data={item} key={id} />)
-              ) : programmingLanguagesAmount > 2 ? (
-                programmingLanguages
-                  .slice(0, programmingLanguagesAmount < 2 ? programmingLanguagesAmount : 1)
-                  .map((item, id) => <BadgeLanguage data={item} key={id} />)
-              ) : (
-                <div></div>
-              )}
-              {programmingLanguagesAmount > 2 ? (
-                <BadgeLanguage isAndMore={true} andMoreAmount={programmingLanguagesAmount - 1} />
-              ) : (
-                ''
-              )}
-            </div>
+            <ProgrammingLanguagesLayout languages={programmingLanguages} />
           </div>
           <div className={styles.user_info_container}>
             <div className={styles.user_personal_info}>
@@ -60,30 +108,7 @@ export const UserCard: FC<UserCardProps> = props => {
           </div>
         </div>
 
-        <div className={styles.frameworksContainer}>
-          {frameworks
-            .slice(0, programmingLanguagesAmount < 5 ? programmingLanguagesAmount : 3)
-            .map((item, id) => (
-              <>
-                {frameworksAmount < 5 ? (
-                  <>
-                    <div className={styles.framework}>
-                      <BadgeFramework data={item} key={id} />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className={styles.framework}>
-                      <BadgeFramework data={item} key={id} />
-                    </div>
-                  </>
-                )}
-              </>
-            ))}
-          {frameworksAmount > 4 && (
-            <BadgeFramework isAndMore={true} andMoreAmount={frameworksAmount - 1} />
-          )}
-        </div>
+        <BadgeLayout badges={frameworks} />
       </div>
     </div>
   );

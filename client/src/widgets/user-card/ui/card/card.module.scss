@@ -1,3 +1,33 @@
+.badgeContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: stretch;
+  height: 74px;
+  gap: 10px;
+}
+
+.empty {
+  visibility: hidden;
+}
+
+.full,
+.framework {
+  flex: 1 1 100%; // Take full width
+}
+
+.half {
+  flex: 1 1 calc(50% - 10px); // Take half width, deduct gap
+}
+
+.extra {
+  flex: 1 1 calc(50% - 10px); // Take half width, deduct gap
+  background: var(--grey-dark-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
 .container {
   display: inline-flex;
   justify-content: flex-start;
@@ -68,7 +98,7 @@
 
           .user_city {
             color: var(--white-color);
-            font-size: 16;
+            font-size: 16px;
             font-family: Rubik;
             font-weight: 400;
             word-wrap: break-word;
@@ -83,7 +113,7 @@
         .user_job {
           align-self: stretch;
           color: var(--grey-normal-color);
-          font-size: 14;
+          font-size: 14px;
           font-weight: 400;
           word-wrap: break-word;
         }
