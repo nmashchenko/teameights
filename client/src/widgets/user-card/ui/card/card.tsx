@@ -50,7 +50,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
           </div>
         </div>
 
-        <BadgeFrameworksLayout badges={frameworks} />
+        <BadgeFrameworksLayout frameworks={frameworks} />
       </div>
     </div>
   );

@@ -19,18 +19,19 @@ const badgeFrameworkLayoutConfig: badgeFrameworkLayoutConfig = {
 };
 
 type BadgeFrameworksProps = {
-  badges: string[];
+  frameworks: string[];
 };
 
-export const BadgeFrameworksLayout: React.FC<BadgeFrameworksProps> = ({ badges }) => {
-  const layout = badgeFrameworkLayoutConfig[badges.length] || badgeFrameworkLayoutConfig.default;
+export const BadgeFrameworksLayout: React.FC<BadgeFrameworksProps> = ({ frameworks }) => {
+  const layout =
+    badgeFrameworkLayoutConfig[frameworks.length] || badgeFrameworkLayoutConfig.default;
 
   return (
     <div className={styles.badgeContainer}>
       {layout.map((size, index) => (
         <div key={index} className={styles[size]}>
           <BadgeFramework
-            data={size === 'extra' ? `+${badges.length - 3}` : badges[index]}
+            data={size === 'extra' ? `+${frameworks.length - 3}` : frameworks[index]}
             key={index}
           />
         </div>
