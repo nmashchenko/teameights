@@ -1,0 +1,9 @@
+export interface ApiError {
+  errors: any[];
+  status: number;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  hasNextPage: boolean;
+}

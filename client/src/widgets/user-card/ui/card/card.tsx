@@ -4,30 +4,29 @@ import LeaderIcon from '../../assets/Crown_28px.svg';
 import styles from './card.module.scss';
 import { ProgrammingLanguagesLayout } from '../language-layout/language-layout';
 import { BadgeFrameworksLayout } from '../frameworks-layout/frameworks-layout';
+import { IUserResponse } from '@teameights/types';
 
 interface UserCardProps {
-  // TODO: Delete all this props
-  image: string;
-  programmingLanguages: Array<string>;
-  frameworks: Array<string>;
-  isLeader: boolean;
-  //   user: UserType;
+  user: IUserResponse;
 }
 
 export const UserCard: React.FC<UserCardProps> = props => {
   // const { user } = props
-  // TODO: Delete all this props
-  const { image, programmingLanguages, frameworks, isLeader } = props;
+  const {
+    user: { frameworks, isLeader, programmingLanguages, photo },
+  } = props;
+
+  // TODO: Удалить после того как никита сделает photo обязательным типом
+  const fallbackAvatarSrc = '/images/user-images/user-blue.png';
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles.top_part}>
           <div className={styles.language_badges}>
-            {/* User logo? */}
             <Image
               className={styles.user_logo}
-              src={image}
+              src={photo?.path || fallbackAvatarSrc}
               alt='User avatar'
               width={70}
               height={70}
@@ -38,7 +37,9 @@ export const UserCard: React.FC<UserCardProps> = props => {
                 <Image priority src={LeaderIcon} alt='Leader icon' width={26} height={28} />
               </div>
             )}
-            <ProgrammingLanguagesLayout languages={programmingLanguages} />
+            {programmingLanguages && (
+              <ProgrammingLanguagesLayout languages={programmingLanguages} />
+            )}
           </div>
 
           <div className={styles.user_info_container}>
@@ -50,7 +51,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
           </div>
         </div>
 
-        <BadgeFrameworksLayout frameworks={frameworks} />
+        {frameworks && <BadgeFrameworksLayout frameworks={frameworks} />}
       </div>
     </div>
   );
