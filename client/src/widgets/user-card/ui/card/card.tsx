@@ -34,7 +34,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
             />
 
             {isLeader && (
-              <div className={styles.leader_icon}>
+              <div className={styles.leader_icon_wrapper}>
                 <Image priority src={LeaderIcon} alt='Leader icon' width={26} height={28} />
               </div>
             )}
