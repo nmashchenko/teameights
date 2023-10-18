@@ -1,6 +1,6 @@
 'use client';
 
-import { Drawer, Typography } from '@/shared/ui';
+import { Drawer, Flex, Typography } from '@/shared/ui';
 import { FC, PropsWithChildren } from 'react';
 import styles from './action-modal-phone.module.scss';
 import { Cross } from '@/shared/assets';
@@ -11,7 +11,14 @@ export const ActionModalPhone: FC<PropsWithChildren<ActionModalProps>> = props =
   return (
     <>
       <Drawer open={isOpen} onClose={handleClose}>
-        <div className={styles.container}>
+        <Flex
+          height='350px'
+          direction='column'
+          justify='center'
+          align='center'
+          padding='32px'
+          position='relative'
+        >
           <Cross className={styles.close_button} onClick={handleClose} />
           <div className={styles.text}>
             <Typography size='heading_s' color='white'>
@@ -21,8 +28,10 @@ export const ActionModalPhone: FC<PropsWithChildren<ActionModalProps>> = props =
               {sub}
             </Typography>
           </div>
-          <div className={styles.button}>{children}</div>
-        </div>
+          <Flex direction='column' width='100%' gap='8px'>
+            {children}
+          </Flex>
+        </Flex>
       </Drawer>
     </>
   );

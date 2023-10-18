@@ -28,10 +28,7 @@ export const TeamPreviewModal: FC<InfoModalTeamProps> = ({
     if (user?.team && user.team.length > 0 && user.team[0].id !== team?.id) {
       setUsersTeam('Join');
     }
-    // if (user?.team === undefined || user?.team[0].id !== team?.id) {
-    //   setUsersTeam('Join');
-    // }
-    // const teamid = user?.team?[0].id;
+
     const teamid = user?.team && user.team.length > 0 ? user.team[0].id : undefined;
     if (team?.id === teamid) {
       setUsersTeam('Your');
@@ -79,7 +76,11 @@ export const TeamPreviewModal: FC<InfoModalTeamProps> = ({
               Points: <span className={styles.span_text}>{team.points}</span>
             </Typography>
           </Flex>
-          {team?.description && <div className={styles.team_card_desc}>{team?.description}</div>}
+          {team?.description && (
+            <Typography size='body_m' color='white'>
+              {team?.description}
+            </Typography>
+          )}
           <Flex gap='36px' maxHeight='50px' direction='row'>
             <div>
               <TeamPersonBox
