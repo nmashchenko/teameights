@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { ActionModal, InfoModalTeam, InfoModalUser } from '@/widgets/modals';
 import { user } from '../widgets/modals/mocks/user-mock';
 import { team } from '@/widgets/modals/mocks/team-mock';
-import { InteractiveModal } from '@/widgets/modals/interactive-modal/interactive-modal';
+// import { InteractiveModal } from '@/widgets/modals/interactive-modal/send-invite/send-invite-modal';
 
 export default function Home() {
   const width = useGetScreenWidth();
@@ -54,13 +54,13 @@ export default function Home() {
         Get to login
       </a>
 
-      <div>
+      {/* <div>
         <InteractiveModal heading='Send invite'>
           <Button typeBtn='primary' size='m' color='white' width='100%'>
             Invite
           </Button>
         </InteractiveModal>
-      </div>
+      </div> */}
 
       <div>
         <ActionModal
