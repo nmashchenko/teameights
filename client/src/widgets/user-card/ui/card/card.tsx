@@ -6,16 +6,16 @@ import { BadgeFramework, BadgeLanguage } from '@/shared/ui';
 import LeaderIcon from '../../assets/Crown_28px.svg';
 import styles from './card.module.scss';
 
-type BadgeType = 'full' | 'half' | 'empty' | 'extra';
-type BadgeLayout = BadgeType[];
+type BadgeFrameworkType = 'full' | 'half' | 'empty' | 'extra';
+type BadgeFrameworkLayout = BadgeFrameworkType[];
 
-interface BadgeLayoutConfig {
-  default: BadgeLayout;
+interface badgeFrameworkLayoutConfig {
+  default: BadgeFrameworkLayout;
 
-  [badgeCount: number]: BadgeLayout;
+  [badgeCount: number]: BadgeFrameworkLayout;
 }
 
-const badgeLayoutConfig: BadgeLayoutConfig = {
+const badgeFrameworkLayoutConfig: badgeFrameworkLayoutConfig = {
   1: ['full', 'empty'],
   2: ['full', 'full'],
   3: ['half', 'half', 'full'],
@@ -23,12 +23,12 @@ const badgeLayoutConfig: BadgeLayoutConfig = {
   default: ['half', 'half', 'half', 'extra'],
 };
 
-type BadgeProps = {
+type BadgeFrameworksProps = {
   badges: string[];
 };
 
-const BadgeLayout: React.FC<BadgeProps> = ({ badges }) => {
-  const layout = badgeLayoutConfig[badges.length] || badgeLayoutConfig.default;
+const BadgeFrameworksLayout: React.FC<BadgeFrameworksProps> = ({ badges }) => {
+  const layout = badgeFrameworkLayoutConfig[badges.length] || badgeFrameworkLayoutConfig.default;
 
   return (
     <div className={styles.badgeContainer}>
@@ -108,7 +108,7 @@ export const UserCard: FC<UserCardProps> = props => {
           </div>
         </div>
 
-        <BadgeLayout badges={frameworks} />
+        <BadgeFrameworksLayout badges={frameworks} />
       </div>
     </div>
   );
