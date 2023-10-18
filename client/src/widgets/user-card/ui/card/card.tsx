@@ -26,6 +26,7 @@ type BadgeFrameworksProps = {
   badges: string[];
 };
 
+// TODO: Decompose to another file around parent
 const BadgeFrameworksLayout: React.FC<BadgeFrameworksProps> = ({ badges }) => {
   const layout = badgeFrameworkLayoutConfig[badges.length] || badgeFrameworkLayoutConfig.default;
 
@@ -60,6 +61,7 @@ interface ProgrammingLanguagesProps {
   languages: string[];
 }
 
+// TODO: Decompose to another file around parent
 const ProgrammingLanguagesLayout: React.FC<ProgrammingLanguagesProps> = ({ languages }) => {
   const layout = languageLayoutConfig[languages.length] || languageLayoutConfig.default;
 
