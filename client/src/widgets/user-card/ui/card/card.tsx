@@ -12,7 +12,7 @@ interface UserCardProps {
 
 export const UserCard: React.FC<UserCardProps> = props => {
   const {
-    user: { frameworks, isLeader, programmingLanguages, photo },
+    user: { fullName, frameworks, isLeader, programmingLanguages, photo },
   } = props;
 
   // TODO: Удалить после того как никита сделает photo обязательным типом
@@ -43,7 +43,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
 
           <div className={styles.user_info_container}>
             <div className={styles.user_personal_info}>
-              <span className={styles.user_city}>Brooklyn, 21 </span>
+              <span className={styles.user_city}>{fullName}, 21 </span>
               <Image src='https://via.placeholder.com/16x12' alt='Flag' width={16} height={12} />
             </div>
             <div className={styles.user_job}>Developer</div>
