@@ -9,7 +9,7 @@ describe('Get users (e2e)', () => {
   const username = faker.internet.userName().toLowerCase();
   const country = 'Ukraine';
   const concentration = 'Backend';
-  const experience = '1-3 years';
+  const experience = '1 year';
   const programmingLanguages = ['C', 'C++', 'TS', 'JS'];
   const frameworks = ['NestJS', 'NextJS', 'Figma'];
 

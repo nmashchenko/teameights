@@ -616,6 +616,114 @@ describe('Auth user (e2e)', () => {
       });
   });
 
+  it('New user update experience field: /api/v1/auth/me (PATCH)', async () => {
+    const newUserApiToken = await request(app)
+      .post('/api/v1/auth/email/login')
+      .send({ email: newUserEmail, password: newUserPassword })
+      .then(({ body }) => body.token);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        experience: 'something bad',
+      })
+      .expect(422);
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        experience: 'No experience',
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.experience).toBe('No experience');
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        experience: 'Few months',
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.experience).toBe('Few months');
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        experience: '1 year',
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.experience).toBe('1 year');
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        experience: '2 years',
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.experience).toBe('2 years');
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        experience: '3 years',
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.experience).toBe('3 years');
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        experience: '4 years',
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.experience).toBe('4 years');
+      });
+
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        experience: '5+ years',
+      })
+      .expect(200)
+      .expect(({ body }) => {
+        expect(body.experience).toBe('5+ years');
+      });
+  });
+
   it('New user delete profile: /api/v1/auth/me (DELETE)', async () => {
     const newUserApiToken = await request(app)
       .post('/api/v1/auth/email/login')

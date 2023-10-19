@@ -101,11 +101,17 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   description?: string;
 
-  @ApiProperty({ enum: ['0-1 years', '1-3 years', '3-5 years', '5+ years'] })
+  @ApiProperty({ enum: ['No experience', 'Few months', '1 year', '2 years', '3 years', '4 years', '5+ years'] })
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  @IsIn(['0-1 years', '1-3 years', '3-5 years', '5+ years'], { message: 'mustBeValidExperience' })
-  experience?: '0-1 years' | '1-3 years' | '3-5 years' | '5+ years';
+  @IsIn(['No experience', 'Few months', '1 year', '2 years', '3 years', '4 years', '5+ years'], { message: 'mustBeValidExperience' })
+  experience?:   | 'No experience'
+    | 'Few months'
+    | '1 year'
+    | '2 years'
+    | '3 years'
+    | '4 years'
+    | '5+ years';
 
   @ApiProperty()
   @IsOptional()
