@@ -12,7 +12,7 @@ export { Cookie } from './cookie';
 export { Search } from './search';
 export { ArrowLeft, ArrowRight } from './arrows';
 export { CaretUp, CaretDown } from './caret';
-export { LogoBig } from './logo';
+export { LogoBig, LogoSmall } from './logo';
 export { Google, Github } from './socials';
 export {
   C,

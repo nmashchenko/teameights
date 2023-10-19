@@ -1,6 +1,10 @@
 'use client';
 import { Typography, Button } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
+import { Crown } from '@/shared/assets';
+// import { IUserRequest } from '@teameights/types';
+import { NewtonsCradle, RaceBy, Ring } from '@uiball/loaders';
+import { toast } from 'sonner';
 import { useState } from 'react';
 import { ActionModal, InfoModalTeam, InfoModalUser } from '@/widgets/modals';
 import { user } from '../widgets/modals/mocks/user-mock';

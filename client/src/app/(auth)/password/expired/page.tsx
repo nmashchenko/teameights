@@ -11,7 +11,7 @@ export default function Expired() {
     <IllustrationStatus
       mainText='Sorry, the link has expired'
       subText='This link expires after 15 minutes and can be used once.'
-      buttonText='Back to login'
+      buttonText='Back'
       buttonHandler={handleBack}
     />
   );

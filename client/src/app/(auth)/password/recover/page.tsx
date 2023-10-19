@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ArrowLeft } from '@/shared/assets';
 import { Button, Flex, Input, Typography } from '@/shared/ui';
-import styles from '../password.module.scss';
 import { useRouter } from 'next/navigation';
+import styles from '../password.module.scss';
 
 interface RecoverProps {
   email: string;
@@ -28,7 +28,13 @@ export default function Recover() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Flex direction='column' justify='center' align='center' gap={48} maxWidth='370px'>
+      <Flex
+        direction='column'
+        justify='center'
+        align='center'
+        gap={48}
+        className={styles.width_limiter}
+      >
         <Flex
           direction='column'
           justify='center'

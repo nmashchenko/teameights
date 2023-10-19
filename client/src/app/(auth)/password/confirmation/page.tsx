@@ -11,7 +11,7 @@ export default function Confirmation() {
     <IllustrationStatus
       mainText='Check your email'
       subText='If your email is on file, we will send a reset link'
-      buttonText='Back to login'
+      buttonText='Back'
       buttonHandler={handleBack}
     />
   );

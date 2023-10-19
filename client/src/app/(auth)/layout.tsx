@@ -3,12 +3,16 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
-import { LogoBig } from '@/shared/assets';
+import { LogoBig, LogoSmall } from '@/shared/assets';
 import { Flex, Tabs } from '@/shared/ui';
 import styles from './styles.module.scss';
+import { useGetScreenWidth } from '@/shared/lib';
+
+const baseLayouts = ['confirmation', 'expired', 'success'];
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const width = useGetScreenWidth();
   const pathname = usePathname();
   const options = ['Login', 'Sign Up'];
   const [tab, setTab] = useState(options[0]);
@@ -24,7 +28,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const header = (
     <header className={styles.header}>
       <div className={styles.logo} onClick={handleBack}>
-        <LogoBig />
+        {width > 420 ? <LogoBig /> : <LogoSmall />}
       </div>
       <div className={styles.headerNormalizer}>
         <Tabs options={options} currentTab={tab} onTabChange={handleChange} />
@@ -61,7 +65,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   return (
     <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_OAUTH_TOKEN}`}>
-      {pathname === '/login' || pathname === '/signup' ? alternative : basic}
+      {baseLayouts.includes(pathname.split('/').at(-1) || '') ? basic : alternative}
     </GoogleOAuthProvider>
   );
 }

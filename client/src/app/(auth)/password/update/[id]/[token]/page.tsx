@@ -28,7 +28,13 @@ export default function Update({ params }: { params: { id: string; token: string
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Flex direction='column' justify='center' align='center' gap={48} maxWidth='370px'>
+      <Flex
+        direction='column'
+        justify='center'
+        align='center'
+        gap={48}
+        className={styles.width_limiter}
+      >
         <Flex
           direction='column'
           justify='center'
