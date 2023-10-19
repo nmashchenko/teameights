@@ -1,18 +1,11 @@
 .logo {
   cursor: pointer;
-  @media (width <= 420px) {
-    display: none;
-  }
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  @media (width <= 420px) {
-    justify-content: center;
-  }
 }
 
 .container {

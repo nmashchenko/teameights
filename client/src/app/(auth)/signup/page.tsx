@@ -2,7 +2,7 @@
 
 import { useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
-import { Github, Google, LogoBig } from '@/shared/assets';
+import { Github, Google } from '@/shared/assets';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Flex, Input, InputPassword, Typography } from '@/shared/ui';
 import styles from '../shared.module.scss';
@@ -33,10 +33,7 @@ export default function SignupPage() {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      <Flex gap={48} direction='column' maxWidth='370px' width='100%'>
-        <Flex className={styles.additional_logo} width='100%' justify='center' align='center'>
-          <LogoBig />
-        </Flex>
+      <Flex gap={48} direction='column' width='100%' className={styles.width_limiter}>
         <Flex direction='column' gap={36}>
           <Input
             placeholder='Email'
