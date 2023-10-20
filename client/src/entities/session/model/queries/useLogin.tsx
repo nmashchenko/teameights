@@ -3,11 +3,11 @@ import { API } from '@/shared/api';
 import { ILoginResponse, IRegisterLogin } from '@teameights/types';
 import Cookies from 'js-cookie';
 import { toast } from 'sonner';
+import { EMAIL_LOGIN } from '@/shared/constant';
 
 export const useLogin = () => {
   return useMutation({
-    mutationFn: async (data: IRegisterLogin) =>
-      await API.post<ILoginResponse>('/auth/email/login', data),
+    mutationFn: async (data: IRegisterLogin) => await API.post<ILoginResponse>(EMAIL_LOGIN, data),
     onSuccess: data => {
       const user = data?.data.user;
 

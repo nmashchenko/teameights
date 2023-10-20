@@ -2,4 +2,4 @@ export { concentrations } from './concentrations';
 export { frameworkColors } from './framework-colors';
 export { frameworkTextColors } from './framework-colors';
 export { programmingLanguageOptions, languageOptions } from './programming-languages';
-export * from './server-routes'
+export * from './server-routes';
