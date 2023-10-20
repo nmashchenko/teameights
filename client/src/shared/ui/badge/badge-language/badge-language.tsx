@@ -31,16 +31,14 @@ import styles from './badge-language.module.scss';
  */
 interface BadgeLanguageProps {
   data: string;
-  key: number;
   className?: string;
   maxWidth?: string;
 }
 
 export const BadgeLanguage: FC<BadgeLanguageProps> = props => {
-  const { data, className, maxWidth, key } = props;
+  const { data, className, maxWidth } = props;
   return (
     <div
-      key={key}
       className={clsx([className], styles.badge_language)}
       style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
     >
