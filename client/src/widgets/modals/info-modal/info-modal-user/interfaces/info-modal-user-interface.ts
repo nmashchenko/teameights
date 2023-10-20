@@ -1,4 +1,4 @@
-import { IUserResponse } from 'teameights-types';
+import { IUserResponse } from '@teameights/types';
 
 export interface InfoModalUserProps {
   user: IUserResponse;

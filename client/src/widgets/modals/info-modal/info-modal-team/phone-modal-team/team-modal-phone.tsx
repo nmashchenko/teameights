@@ -21,11 +21,12 @@ export const TeamPreviewModalPhone: FC<InfoModalTeamProps> = ({
   const teammates = Array.isArray(members) && members.length > 1 ? members.slice(1) : [];
 
   useEffect(() => {
-    if (user?.team && user.team.length > 0 && user.team[0].id !== team?.id) {
+    if (Array.isArray(user?.team) && user.team.length > 0 && user.team[0].id !== team?.id) {
       setUsersTeam('Join');
     }
 
-    const teamid = user?.team && user.team.length > 0 ? user.team[0].id : undefined;
+    // const teamid = user?.team && user.team.length > 0 ? user.team[0].id : undefined;
+    const teamid = user?.team ? user.team.id : undefined;
     if (team?.id === teamid) {
       setUsersTeam('Your');
     }

@@ -26,11 +26,16 @@ export const TeamPreviewModal: FC<InfoModalTeamProps> = ({
   const navigate = mockNavigate;
 
   useEffect(() => {
-    if (user?.team && user.team.length > 0 && user.team[0].id !== team?.id) {
+    if (
+      user?.team &&
+      Array.isArray(user.team) &&
+      user.team.length > 0 &&
+      user.team[0].id !== team?.id
+    ) {
       setUsersTeam('Join');
     }
 
-    const teamid = user?.team && user.team.length > 0 ? user.team[0].id : undefined;
+    const teamid = Array.isArray(user?.team) && user?.team.length > 0 ? user.team[0].id : undefined;
     if (team?.id === teamid) {
       setUsersTeam('Your');
     }
