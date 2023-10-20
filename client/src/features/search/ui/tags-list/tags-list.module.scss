@@ -10,34 +10,8 @@
   overflow: hidden;
 }
 
-.clearAllButton {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+.checkboxFilterTag {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 0;
-  height: fit-content;
-  box-sizing: border-box;
 
-  padding: 4px 8px;
-
-  background: #2f3239;
-
-  p {
-    box-sizing: border-box;
-
-    padding: 3px;
-    padding-left: 6px;
-
-    font-size: 100%;
-    color: #d42422;
-    white-space: nowrap;
-
-    overflow: hidden;
-    border-radius: 2px;
-    text-overflow: ellipsis;
-    cursor: pointer;
-  }
+  gap: 8px;
 }

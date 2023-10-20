@@ -77,7 +77,7 @@ export default function Home() {
         Get to login
       </a>
 
-      <SearchBar filtersArr={mockFiltersArr} callback={data => console.log(data)} />
+      <SearchBar initialFiltersState={mockFiltersArr} callback={data => console.log(data)} />
 
       <Flex direction='column' gap='200px' width='100%' justify='center' align='center'>
         <Flex gap='150px'>

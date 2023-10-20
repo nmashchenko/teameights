@@ -1,32 +1,37 @@
-import { FC } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from './search-bar.module.scss';
 import { Filter, FilterSelect, SearchInput, TagsList } from '@/features/search';
 
 interface ISearchBarProps {
-  filtersArr: Filter[];
+  initialFiltersState: Filter[];
   callback: (data: Filter[]) => void;
 }
 
 export const SearchBar: FC<ISearchBarProps> = props => {
-  const { callback, filtersArr } = props;
-  const methods = useForm({
-    defaultValues: {
-      currentFilterIndex: 0,
-      filtersArr: filtersArr,
-    },
-  });
+  const { initialFiltersState, callback } = props;
+  const [filtersArr, setFilterArr] = useState(initialFiltersState);
+  const [filterIndex, setFilterIndex] = useState(0);
+
+  useEffect(() => {
+    callback(filtersArr);
+  }, [callback, filtersArr]);
 
   return (
-    <FormProvider {...methods}>
-      <div className={clsx(styles.searchBar)}>
-        <div className={clsx(styles.searchBarContent)}>
-          <FilterSelect />
-          <SearchInput callback={callback} />
-        </div>
-        <TagsList />
+    <div className={clsx(styles.searchBar)}>
+      <div className={clsx(styles.searchBarContent)}>
+        <FilterSelect
+          filtersArr={filtersArr}
+          filterIndex={filterIndex}
+          setFilterIndex={setFilterIndex}
+        />
+        <SearchInput
+          filtersArr={filtersArr}
+          setFilterArr={setFilterArr}
+          filterIndex={filterIndex}
+        />
       </div>
-    </FormProvider>
+      <TagsList filtersArr={filtersArr} setFilterArr={setFilterArr} />
+    </div>
   );
 };

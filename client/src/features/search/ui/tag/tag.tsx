@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import clsx from 'clsx';
 import styles from './tag.module.scss';
 import { X } from '@/shared/assets';

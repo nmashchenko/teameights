@@ -1,3 +1,5 @@
+import { MultiValue } from 'react-select';
+
 interface IFilter {
   label: string;
   value: string;
@@ -9,20 +11,20 @@ interface ITextFilter extends IFilter {
   filterValue: string;
 }
 
-interface IOptionItem {
+export interface IOptionItem {
   label: string;
   value: string;
 }
 
-interface ICheckboxFilter extends IFilter {
+export interface ICheckboxFilter extends IFilter {
   type: 'checkbox';
   optionsArr: IOptionItem[];
-  filterValue: IOptionItem[];
+  filterValue: MultiValue<IOptionItem>;
 }
 
 interface IMultipleFilter extends IFilter {
   type: 'text';
-  options: IOptionItem[];
+  optionsArr: MultiValue<IOptionItem>;
   filterValue: string;
 }
 

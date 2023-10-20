@@ -1,36 +1,58 @@
-import React, { FC, useState } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
-import { useClickOutside } from '@/shared/lib';
-import { Filter } from '../../model';
+import { FC, Dispatch, SetStateAction } from 'react';
+import { Filter } from '../../types';
 import clsx from 'clsx';
 import styles from './tags-list.module.scss';
 import { Tag } from '../tag';
+import { CheckboxTagMenu } from '../checkbox-tag-menu';
 
-export const TagsList: FC = () => {
-  const { setValue, getValues } = useFormContext();
-  const filtersArr: Filter[] = useWatch({
-    name: 'filtersArr',
-  });
-  const [isListOpened, setIsListOpened] = useState(false);
-  const filterListRef = useClickOutside<HTMLLIElement>(() => setIsListOpened(false));
+interface TagsList {
+  filtersArr: Filter[];
+  setFilterArr: Dispatch<SetStateAction<Filter[]>>;
+}
+
+export const TagsList: FC<TagsList> = props => {
+  const { filtersArr, setFilterArr } = props;
 
   if (!filtersArr.length) {
     return null;
   }
 
-  const handleClearTextFilter = (index: number) => {
-    setValue(`filtersArr.${index}.filterValue`, '');
-  };
+  const handleClearTextFilter = (filterIndex: number) => {
+    setFilterArr(prev =>
+      prev.map((item, index) => {
+        if (filterIndex === index) {
+          item.filterValue = '';
+        }
 
-  const handleClearCheckboxOption = (index: number, subIndex: number) => {
-    setValue(
-      `filtersArr.${index}.filterValue`,
-      getValues(`filtersArr.${index}.filterValue`).filter((item: Filter, i: number) => i !== subIndex)
+        return item;
+      })
     );
   };
 
-  const handleClearAllCheckboxOptions = (index: number) => {
-    setValue(`filtersArr.${index}.filterValue`, []);
+  const handleClearCheckboxOption = (filterIndex: number, index: number) => {
+    setFilterArr(prev => {
+      const newFilterValue = prev[filterIndex].filterValue.filter((item, i) => i !== index);
+
+      return prev.map((item, i) => {
+        if (filterIndex === i) {
+          item.filterValue = newFilterValue;
+        }
+
+        return item;
+      });
+    });
+  };
+
+  const handleClearAllCheckboxOptions = (filterIndex: number) => {
+    setFilterArr(prev =>
+      prev.map((item, index) => {
+        if (filterIndex === index) {
+          item.filterValue = [];
+        }
+
+        return item;
+      })
+    );
   };
 
   return (
@@ -52,45 +74,22 @@ export const TagsList: FC = () => {
           case 'checkbox':
             if (item.filterValue.length) {
               return (
-                <React.Fragment key={item.value}>
-                  <li
+                <li className={styles.checkboxFilterTag} key={item.value}>
+                  <div
                     className={clsx(styles.tagWrapper)}
                     onClick={() => handleClearCheckboxOption(index, 0)}
                   >
                     <Tag isWithCross text={item.filterValue[0].label} />
-                  </li>
+                  </div>
                   {item.filterValue.length > 1 && (
-                    <li
-                      ref={filterListRef}
-                      className={clsx(styles.tagWrapper)}
-                      onClick={() => setIsListOpened(true)}
-                    >
-                      {isListOpened ? (
-                        <ul>
-                          {item.filterValue.slice(1).map((item, subIndex) => (
-                            <li key={item.value}>
-                              <Tag
-                                onClick={() => handleClearCheckboxOption(index, subIndex + 1)}
-                                isWithCross
-                                text={item.label}
-                              />
-                            </li>
-                          ))}
-                          <li>
-                            <div
-                              onClick={() => handleClearAllCheckboxOptions(index)}
-                              className={styles.clearAllButton}
-                            >
-                              <p>Clear All</p>
-                            </div>
-                          </li>
-                        </ul>
-                      ) : (
-                        <Tag text={`+${item.filterValue.length - 1} items`} />
-                      )}
-                    </li>
+                    <CheckboxTagMenu
+                      filterItem={item}
+                      filterIndex={index}
+                      handleClearCheckboxOption={handleClearCheckboxOption}
+                      handleClearAllCheckboxOptions={handleClearAllCheckboxOptions}
+                    />
                   )}
-                </React.Fragment>
+                </li>
               );
             }
 

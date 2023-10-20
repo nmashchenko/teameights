@@ -1,36 +1,42 @@
-import clsx from 'clsx';
 import { FC, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import clsx from 'clsx';
 import styles from './filter-select.module.scss';
+import { SingleValue } from 'react-select';
 import { Select } from '@/shared/ui';
-import { Filter } from '../../model';
+import { Filter } from '../../types';
 
-export const FilterSelect: FC = () => {
-  const { getValues, setValue } = useFormContext();
+interface FilterSelectProps {
+  filtersArr: Filter[];
+  filterIndex: number;
+  setFilterIndex: (index: number) => void;
+}
+
+export const FilterSelect: FC<FilterSelectProps> = props => {
+  const { filtersArr, filterIndex, setFilterIndex } = props;
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
   const handleMenuClose = () => {
     setIsMenuOpened(false);
   };
 
-  const handleChange = (newValue: Filter) => {
-    const filterIndex = getValues('filtersArr').findIndex(
-      (item: Filter) => item.value === newValue.value
-    );
-    setValue('currentFilterIndex', filterIndex);
+  const handleChange = (newValue: SingleValue<Filter>) => {
+    if (newValue) {
+      const index = filtersArr.findIndex((item: Filter) => item.value === newValue.value);
+      setFilterIndex(index);
+    }
   };
 
   return (
     <div className={clsx(styles.selectWrapper)}>
       <Select
         isSearchable={false}
-        options={getValues('filtersArr')}
+        options={filtersArr}
         isWithBorder={false}
         classNames={{
           container: () => (isMenuOpened ? clsx(styles.select_active) : clsx(styles.select)),
         }}
-        defaultValue={getValues('filtersArr')[getValues('currentFilterIndex')]}
-        onChange={handleChange}
+        value={filtersArr[filterIndex]}
+        onChange={newValue => handleChange(newValue)}
         onMenuOpen={() => setIsMenuOpened(true)}
         onMenuClose={handleMenuClose}
       />
