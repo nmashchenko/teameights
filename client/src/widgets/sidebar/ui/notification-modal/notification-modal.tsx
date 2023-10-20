@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { useClickOutside, useGetScreenWidth } from '@/shared/lib';
-import { Notification } from '@/entities/notification';
 
 import { SidebarDesktopModalContent } from './desktop-modal-content';
 import { SidebarMobileModalContent } from './mobile-modal-content';
+import { NotificationType } from '@teameights/types';
 
 export interface NotificationsModalProps {
-  userNotifications: Notification[];
+  userNotifications: NotificationType[];
   notificationModal: boolean;
   setNotificationModal: (value: boolean) => void;
 }
