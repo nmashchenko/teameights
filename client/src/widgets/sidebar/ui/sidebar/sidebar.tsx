@@ -8,8 +8,6 @@ import { IconWrapper } from '@/shared/ui';
 import { BugerCloseIcon, LogoSmall, SignOutIcon } from '@/shared/assets';
 import { useClickOutside } from '@/shared/lib';
 import { CLIENT_ROUTES } from '@/shared/constant';
-
-import { mockUser } from '../../mock';
 import { getSidebarItems } from '../../config/getSidebarItems';
 import { SidebarItem } from '../sidebar-item/sidebar-item';
 import { SidebarProfile } from '../sidebar-profile/sidebar-profile';
@@ -17,6 +15,7 @@ import { SidebarNotificationsContent } from '../notification-content/notificatio
 
 import styles from './sidebar.module.scss';
 import { SignInIcon } from '@/shared/assets/icons/24px';
+import { userResponseFixture } from '@/shared/fixtures';
 
 export const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -28,7 +27,7 @@ export const Sidebar: React.FC = () => {
   // const { isAuth } = useSelector((state) => state.userReducer);
   const isAuth = true;
   // const { data: user } = useCheckAuth();
-  const user = mockUser;
+  const user = userResponseFixture;
 
   const sidebarItemsData = React.useMemo(() => {
     return getSidebarItems(user);
