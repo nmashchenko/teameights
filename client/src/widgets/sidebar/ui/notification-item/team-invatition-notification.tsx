@@ -3,12 +3,12 @@ import Image from 'next/image';
 
 import { Flex } from '@/shared/ui';
 import { getElapsedTime } from '@/shared/lib';
-import { TeamInvitationNotification } from '@/entities/notification';
 
 import styles from './notification-item.module.scss';
+import { ITeamInvitationNotification } from '@teameights/types';
 
 interface TeamInvatitionNotificationProps {
-  notification: TeamInvitationNotification;
+  notification: ITeamInvitationNotification;
   handleAccept: () => void;
   handleReject: () => void;
 }

@@ -3,12 +3,12 @@ import React from 'react';
 import { Flex } from '@/shared/ui';
 import { LightningIcon } from '@/shared/assets';
 import { getElapsedTime } from '@/shared/lib';
-import { SystemNotification } from '@/entities/notification';
 
 import styles from './notification-item.module.scss';
+import { ISystemNotification } from '@teameights/types';
 
 interface SystemNotificationProps {
-  notification: SystemNotification;
+  notification: ISystemNotification;
 }
 
 /**

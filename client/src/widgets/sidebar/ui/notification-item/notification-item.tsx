@@ -2,18 +2,18 @@
 // import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
 // import { LOCAL_PATH } from '../../../http'
 import React from 'react';
-import { Notification } from '@/entities/notification';
 
 import { SidebarTeamInvatitionNotification } from './team-invatition-notification';
 import { SidebarSystemNotification } from './system-notification';
 
 import styles from './notification-item.module.scss';
+import { NotificationType } from '@teameights/types';
 
 export interface NotificationProps {
   /**
    * The notification object.
    */
-  notification: Notification;
+  notification: NotificationType;
   /**
    * A function to close the notifications modal.
    */
@@ -54,9 +54,9 @@ export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
 
   const renderContent = () => {
     switch (notification.type) {
-      case 'SystemNotification':
+      case 'system':
         return <SidebarSystemNotification notification={notification} />;
-      case 'TeamInvitationNotification':
+      case 'team_invite':
         return (
           <SidebarTeamInvatitionNotification
             notification={notification}
@@ -74,7 +74,7 @@ export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
     <li
       className={styles.notificationsItem}
       data-notification-read={notification.read}
-      data-notification-id={notification._id}
+      data-notification-id={notification.id}
     >
       {renderContent()}
     </li>
