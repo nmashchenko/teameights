@@ -1,4 +1,4 @@
-import { ITeam, IUserResponse } from 'teameights-types';
+import { ITeam, IUserResponse } from '@teameights/types';
 
 export interface InfoModalTeamProps {
   team: ITeam;
