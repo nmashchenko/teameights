@@ -1,13 +1,13 @@
 import { BadgeFramework, BadgeLanguage, Button, Modal, Typography, Flex } from '@/shared/ui';
 import styles from './user-modal.module.scss';
-import { useState, FC } from 'react';
-import { Skeleton } from '@/shared/ui/skeleton/skeleton';
+import { FC } from 'react';
 import { ArrowRight } from '@/shared/assets';
 import { calculateAge } from '@/shared/lib/utils/get-age/get-age';
 import { InfoModalUserProps } from '../interfaces';
+import { ImageLoader } from '../../image-loader';
 
 export const UserPreviewModal: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
-  const [imgLoading, setImgLoading] = useState(true);
+  // const [imgLoading, setImgLoading] = useState(true);
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
 
   return (
@@ -15,18 +15,7 @@ export const UserPreviewModal: FC<InfoModalUserProps> = ({ user, isOpenModal, ha
       <Modal isOpen={isOpenModal} onClose={handleClose} size='m'>
         <Flex gap='24px' direction='column'>
           <Flex gap='32px' maxHeight='70px'>
-            <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
-              <Skeleton width='70px' height='70px' borderRadius='50%' />
-            </div>
-            <div className={imgLoading ? styles.hidden_container : styles.visible_container}>
-              <div className={styles.user_card_top_icon}>
-                <img
-                  src={user?.photo?.path || ''}
-                  alt="User's image"
-                  onLoad={() => setImgLoading(false)}
-                />
-              </div>
-            </div>
+            <ImageLoader imgLoading={true} shouldHaveCrown={false} imageSize='70px' />
             <Flex gap='8px' direction='column'>
               <Typography size='heading_s' color='white'>
                 {user?.username}, {age}
@@ -53,14 +42,14 @@ export const UserPreviewModal: FC<InfoModalUserProps> = ({ user, isOpenModal, ha
           )}
           {user?.frameworks && (
             <div className={styles.grid_container}>
-              {user?.frameworks.map((framework, index) => (
+              {user?.frameworks.map((framework: string, index: number) => (
                 <BadgeFramework data={framework} key={index} />
               ))}
             </div>
           )}
           {user?.programmingLanguages && (
             <Flex wrap='wrap' gap='8px'>
-              {user?.programmingLanguages.map((language, index) => (
+              {user?.programmingLanguages.map((language: string, index: number) => (
                 <BadgeLanguage data={language} key={index} />
               ))}
             </Flex>

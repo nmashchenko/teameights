@@ -6,10 +6,6 @@
   display: flex;
 }
 
-.span_text {
-  color: var(--green-bright-color);
-}
-
 .crown_container {
   position: absolute;
   width: 28px;
@@ -23,9 +19,10 @@
   }
 }
 
-.team_card_picture {
-  width: 50px;
-  height: 50px;
+.team_card_top_icon {
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   object-fit: cover;
+  user-select: none;
 }

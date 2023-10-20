@@ -1,10 +1,11 @@
 import { ArrowLeft, ArrowRight } from '@/shared/assets';
 import { Button, Drawer, Flex, Typography } from '@/shared/ui';
-import { Skeleton } from '@/shared/ui/skeleton/skeleton';
 import { FC, useEffect, useState } from 'react';
 import styles from './team-modal-phone.module.scss';
 import TeamMember from './team-member';
 import { InfoModalTeamProps } from '../interfaces';
+import { IUserResponse } from '@teameights/types';
+import { ImageLoader } from '../../image-loader';
 
 export const TeamPreviewModalPhone: FC<InfoModalTeamProps> = ({
   team,
@@ -14,10 +15,10 @@ export const TeamPreviewModalPhone: FC<InfoModalTeamProps> = ({
   handleClose,
 }) => {
   const [usersTeam, setUsersTeam] = useState('');
-  const [imgLoading, setImgLoading] = useState(true);
+  // const [imgLoading, setImgLoading] = useState(true);
 
   const members = team?.members;
-  const teammates = members?.slice(1, members.length);
+  const teammates = Array.isArray(members) && members.length > 1 ? members.slice(1) : [];
 
   useEffect(() => {
     if (user?.team && user.team.length > 0 && user.team[0].id !== team?.id) {
@@ -52,14 +53,7 @@ export const TeamPreviewModalPhone: FC<InfoModalTeamProps> = ({
           </Flex>
           <Flex gap='24px' direction='column'>
             <Flex gap='16px' align='center' maxHeight='70px'>
-              <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
-                <Skeleton width='70px' height='70px' borderRadius='50%' />
-              </div>
-              <div className={imgLoading ? styles.hidden_container : styles.visible_container}>
-                <div className={styles.team_card_top_icon}>
-                  <img src={team?.image} alt="Team's image" onLoad={() => setImgLoading(false)} />
-                </div>
-              </div>
+              <ImageLoader imgLoading={true} shouldHaveCrown={false} imageSize='70px' />
               <Flex direction='column' maxHeight='70px'>
                 <Flex gap='8px' align='center' maxHeight='30px'>
                   <Typography size='heading_s' color='white'>
@@ -106,7 +100,7 @@ export const TeamPreviewModalPhone: FC<InfoModalTeamProps> = ({
                 </Typography>
               </Flex>
             </Flex>
-            {teammates?.map((teammate, index) => (
+            {teammates?.map((teammate: IUserResponse, index: number) => (
               <Flex align='center' gap='12px' key={index}>
                 <TeamMember src={teammate?.photo?.path || ''} shouldHaveCrown={false} />
                 <Flex direction='column' gap='4px'>

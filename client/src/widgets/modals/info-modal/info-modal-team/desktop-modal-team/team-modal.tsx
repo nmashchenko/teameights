@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from 'react';
-import { Skeleton } from '@/shared/ui/skeleton/skeleton';
 import styles from './team-modal.module.scss';
 import { Typography, Button, Modal, Flex } from '@/shared/ui';
 import TeamPersonBox from './team-person';
 import { ArrowRight } from '@/shared/assets';
 import { InfoModalTeamProps } from '../interfaces';
+import { IUserResponse } from '@teameights/types';
+import { ImageLoader } from '../../image-loader';
 
 const mockNavigate = (path: string) => {
   console.log(`navigate to ${path}`);
@@ -17,7 +18,7 @@ export const TeamPreviewModal: FC<InfoModalTeamProps> = ({
   isOpenModal,
   handleClose,
 }) => {
-  const [imgLoading, setImgLoading] = useState(true);
+  // const [imgLoading, setImgLoading] = useState(true);
   const [usersTeam, setUsersTeam] = useState('');
 
   const members = team?.members;
@@ -40,14 +41,7 @@ export const TeamPreviewModal: FC<InfoModalTeamProps> = ({
       <Modal isOpen={isOpenModal} onClose={handleClose} size='l'>
         <Flex direction='column' gap='24px'>
           <Flex gap='16px' maxHeight='70px'>
-            <div className={imgLoading ? styles.visible_container : styles.hidden_container}>
-              <Skeleton width='70px' height='70px' borderRadius='50%' />
-            </div>
-            <div className={imgLoading ? styles.hidden_container : styles.visible_container}>
-              <div className={styles.team_card_top_icon}>
-                <img src={team?.image} alt="Team's image" onLoad={() => setImgLoading(false)} />
-              </div>
-            </div>
+            <ImageLoader imgLoading={true} shouldHaveCrown={false} imageSize='70px' />
 
             <Flex align='center'>
               <Flex direction='column' gap='8px'>
@@ -90,31 +84,19 @@ export const TeamPreviewModal: FC<InfoModalTeamProps> = ({
               />
             </div>
             <div>
-              {teammates ? (
+              {/* {console.log(teammates.length)} */}
+              {teammates && teammates.length > 0 && teammates.length <= 7 && (
                 <Flex gap='8px'>
-                  {[...Array(7)].map((_, index) => {
-                    if (index < teammates.length) {
-                      return (
-                        <TeamPersonBox
-                          key={index}
-                          src={teammates[index].photo?.path || ''}
-                          shouldLoadImage={true}
-                          shouldHaveCrown={false}
-                        />
-                      );
-                    } else {
-                      return (
-                        <TeamPersonBox
-                          key={index}
-                          src='unregisteredImg'
-                          shouldHaveCrown={false}
-                          shouldLoadImage={false}
-                        />
-                      );
-                    }
-                  })}
+                  {teammates.map((teammate: IUserResponse, index: number) => (
+                    <TeamPersonBox
+                      key={index}
+                      src={teammate.photo?.path || 'unregisteredImg'}
+                      shouldLoadImage={true}
+                      shouldHaveCrown={false}
+                    />
+                  ))}
                 </Flex>
-              ) : null}
+              )}
             </div>
           </Flex>
           <Flex width='100%' justify='space-between' align='center' margin='24px 0 0 0'>
