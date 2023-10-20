@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { IconWrapper } from '@/shared/ui';
-import { BugerCloseIcon, LogoShort, SignOutIcon } from '@/shared/assets';
+import { BugerCloseIcon, LogoSmall, SignOutIcon } from '@/shared/assets';
 import { useClickOutside } from '@/shared/lib';
 import { CLIENT_ROUTES } from '@/shared/constant';
 
@@ -80,7 +80,7 @@ export const Sidebar: React.FC = () => {
         >
           <div className={styles.toggle}>
             <div className={clsx(styles.logo, { [styles.active]: isSidebarExpanded })}>
-              <LogoShort />
+              <LogoSmall />
             </div>
             <button
               className={clsx(styles.close, { [styles.active]: isSidebarExpanded })}
