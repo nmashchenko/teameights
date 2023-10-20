@@ -8,9 +8,11 @@ export { Question } from './question';
 export { WarningCircle } from './warning-circle';
 export { X } from './x';
 export { Cookie } from './cookie';
+export { Crown } from './crown';
+export { Search } from './search';
 export { ArrowLeft } from './arrows';
 export { CaretUp, CaretDown } from './caret';
-export { LogoBig } from './logo';
+export { LogoBig, LogoSmall } from './logo';
 export { Google, Github } from './socials';
 export {
   C,

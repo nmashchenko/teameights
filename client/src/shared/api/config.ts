@@ -1,25 +1,27 @@
-// * Modules
 import axios from 'axios';
+import { IRefreshResponse } from '@teameights/types';
+import Cookies from 'js-cookie';
 
 // * API url is set based on current DEV_TYPE var
-export const LOCAL_PATH =
-  process.env.NEXT_PUBLIC_DEV_TYPE === 'development'
-    ? 'http://localhost:7001'
+const LOCAL_PATH =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3001'
     : 'https://teameights-server.herokuapp.com';
-const API_URL = LOCAL_PATH + '/api/v1';
 
-const api = axios.create({
-  withCredentials: true,
+export const API_URL = LOCAL_PATH + '/api/v1';
+
+export const API = axios.create({
+  // withCredentials: true,
   baseURL: API_URL,
 });
 
-api.interceptors.request.use(config => {
+API.interceptors.request.use(config => {
   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
 
   return config;
 });
 
-api.interceptors.response.use(
+API.interceptors.response.use(
   config => {
     return config;
   },
@@ -29,19 +31,25 @@ api.interceptors.response.use(
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
       originalRequest._isRetry = true;
       try {
-        const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
-        localStorage.setItem('token', response.data.accessToken);
-        return api.request(originalRequest);
+        const response = await axios.post<IRefreshResponse>(
+          `${API_URL}/auth/refresh`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${Cookies.get('refreshToken')}`,
+            },
+          }
+        );
+        localStorage.setItem('token', response.data.token);
+        Cookies.set('refreshToken', response.data.refreshToken);
+        originalRequest.headers.Authorization = `Bearer ${response.data.token}`;
+        return API.request(originalRequest);
       } catch (err) {
         console.log('Not authorized');
         localStorage.removeItem('token');
+        Cookies.remove('refreshToken');
       }
     }
     throw error;
   }
 );
-
-export const http = Object.freeze({
-  API_URL,
-  api,
-});

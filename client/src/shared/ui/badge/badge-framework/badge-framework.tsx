@@ -32,16 +32,14 @@ import styles from './badge-framework.module.scss';
 
 interface BadgeFrameworkProps {
   data: string;
-  key: number;
   className?: string;
   maxWidth?: string;
 }
 
 export const BadgeFramework: FC<BadgeFrameworkProps> = props => {
-  const { className, maxWidth, data, key } = props;
+  const { className, maxWidth, data } = props;
   return (
     <div
-      key={key}
       className={clsx([className], styles.badge_framework)}
       style={{
         backgroundColor: `${frameworkColors[data] ? frameworkColors[data] : '#2F3239'}`,
