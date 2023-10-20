@@ -1,63 +1,60 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { NotificationsListProps, SidebarNotificationsList } from './notification-list';
-import { SystemNotification, TeamInvitationNotification } from '@/entities/notification';
 import { mockUser } from '../../mock';
-import { User } from '@/entities/user';
-import { Role } from '@/entities/role';
-import { Team } from '@/entities/team';
+import {
+  IRole,
+  ISystemNotification,
+  ITeam,
+  ITeamInvitationNotification,
+  IUserResponse,
+} from '@teameights/types';
 
 // Mock Role
-const mockRole: Role = {
-  _id: 'role1',
-  value: 'admin',
-  description: 'Administrator',
-  createdAt: new Date(),
-  updatedAt: new Date(),
+const mockRole: IRole = {
+  id: 1,
+  name: 'admin',
 };
 
 // Mock User
-const mockUser2: User = {
-  _id: 'user1',
-  email: 'john@example.com',
-  password: 'hashed_password_here',
+const mockUser2: IUserResponse = {
+  id: 1,
   username: 'johnDoe',
   fullName: 'John Doe',
-  isActivated: true,
   country: 'USA',
-  image: '/path/to/image.png',
-  roles: [mockRole],
-};
+  photo: { id: 1, path: '/path/to/image.png' },
+  role: mockRole,
+} as IUserResponse;
 
 // Mock Team
-const mockTeam: Team = {
-  _id: 'team1',
+const mockTeam: ITeam = {
+  id: 'team1',
   name: 'Team Alpha',
   description: 'A description about Team Alpha',
   leader: mockUser,
   members: [mockUser],
   country: 'USA',
   tag: 'ALPHA',
-  type: 'invite-only',
+  type: 'invite_only',
   wins: 5,
   points: 50,
   image: '/path/to/team/image.png',
-};
+} as ITeam;
 
-const mockSystemNotification: SystemNotification = {
-  _id: 'sys1',
-  type: 'SystemNotification',
+const mockSystemNotification: ISystemNotification = {
+  id: 1,
+  type: 'system',
   system_message: 'Your password will expire in 7 days',
   read: false,
   user: mockUser,
   expiresAt: new Date(),
   createdAt: new Date(),
   updatedAt: new Date(),
-};
+} as ISystemNotification;
 
-const mockTeamInvitationNotification: TeamInvitationNotification = {
-  _id: 'team1',
-  type: 'TeamInvitationNotification',
+const mockTeamInvitationNotification: ITeamInvitationNotification = {
+  id: 2,
+  type: 'team_invite',
   teamid: mockTeam,
   user: mockUser2,
   from_user_id: mockUser,
@@ -69,7 +66,7 @@ const mockTeamInvitationNotification: TeamInvitationNotification = {
   expiresAt: new Date(),
   createdAt: new Date(),
   updatedAt: new Date(),
-};
+} as ITeamInvitationNotification;
 
 const notificationsListProps: NotificationsListProps = {
   userNotifications: [mockSystemNotification, mockTeamInvitationNotification],

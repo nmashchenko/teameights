@@ -1,4 +1,4 @@
-import { Notification } from '@/entities/notification';
+import { NotificationType } from '@teameights/types';
 
 /**
  * Sort Notifications Function
@@ -27,7 +27,7 @@ import { Notification } from '@/entities/notification';
  * @param {Notification[]} notifications - An array of Notification objects.
  * @returns {Notification[]} - A new array of Notification objects sorted in descending order by `createdAt`.
  */
-export const sortNotifications = (notifications: Notification[]) => {
+export const sortNotifications = (notifications: NotificationType[]) => {
   return [...notifications].sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
   );

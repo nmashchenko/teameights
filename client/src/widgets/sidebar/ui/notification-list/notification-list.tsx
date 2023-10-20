@@ -1,16 +1,15 @@
 import React, { useRef } from 'react';
 
-import { Notification } from '@/entities/notification';
-
 import styles from './notification-list.module.scss';
 import { SidebarNotificationsItem } from '../notification-item/notification-item';
 import { sortNotifications } from './lib/sort-notifications';
+import { NotificationType } from '@teameights/types';
 
 export interface NotificationsListProps {
   /**
    * Array of user notifications
    */
-  userNotifications: Notification[];
+  userNotifications: NotificationType[];
   /**
    * Function to set unread IDs based on intersection
    */
@@ -94,7 +93,7 @@ export const SidebarNotificationsList: React.FC<NotificationsListProps> = props 
     <ul className={styles.notificationsList} ref={listRef}>
       {sortedNotifications.map(notification => (
         <SidebarNotificationsItem
-          key={notification._id}
+          key={notification.id}
           closeNotificationsModal={closeNotificationsModal}
           notification={notification}
         />
