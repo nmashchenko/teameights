@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 
-import { User } from '@/entities/user';
-
 import styles from './sidebar-profile.module.scss';
+import { IUserResponse } from '@teameights/types';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
 const unregisteredImg = '/images/user/unregistered.png';
@@ -31,7 +30,7 @@ export interface SidebarProfileProps {
   /**
    * The user object containing user information.
    */
-  user: User;
+  user: IUserResponse;
 }
 
 /**
@@ -70,7 +69,7 @@ export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
         userRealName: user.fullName,
         userUsername: user.username,
         notificationBell: true,
-        userImg: user.image || unregisteredImg,
+        userImg: user?.photo?.path || unregisteredImg,
       });
     } else {
       setData(defaultData);

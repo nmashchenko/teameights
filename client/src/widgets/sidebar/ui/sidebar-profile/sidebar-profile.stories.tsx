@@ -1,17 +1,14 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { SidebarProfile, SidebarProfileProps } from './sidebar-profile';
-import { User } from '@/entities/user';
+import { IUserResponse } from '@teameights/types';
 
-const defaultUser: User = {
-  _id: '123123312',
-  email: 'johnDoe@example.com',
-  password: '$2a$05$7AnHdyBKd7kh78kkSt4OIOaBAidnedL3Sr6ZfFOKG5xcVatrPT4kq',
-  isRegistered: true,
+const defaultUser: IUserResponse = {
+  id: 123123312,
   fullName: 'John Doe',
   username: 'john.doe',
-  image: '/images/user-images/user-red.png',
-};
+  photo: { id: 1, path: '/images/user-images/user-red.png' },
+} as IUserResponse;
 
 const sidebarProfileProps: SidebarProfileProps = {
   active: false,
