@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { UserCard } from './card';
 import { IUserResponse } from '@teameights/types';
 
@@ -9,7 +9,7 @@ const defaultUser = {
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof UserCard> = {
-  title: 'widgets/UserCard',
+  title: 'entities/UserCard',
   component: UserCard,
   tags: ['autodocs'],
   argTypes: {
@@ -23,13 +23,26 @@ const meta: Meta<typeof UserCard> = {
   },
 };
 export default meta;
+type Story = StoryObj<typeof UserCard>;
+
+export const UserCardPreview: Story = {
+  args: {
+    user: {
+      photo: 'https://via.placeholder.com/70x70',
+      fullName: 'John Doe',
+      programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Haskell'],
+      frameworks: ['NodeJS', 'React', 'MUI', 'VueJS', 'Angular'],
+      isLeader: true,
+    } as unknown as IUserResponse,
+  },
+};
+
 const user1 = {
   ...defaultUser,
   programmingLanguages: ['JS'],
   frameworks: ['NodeJS'],
   isLeader: true,
 } as unknown as IUserResponse;
-
 export const UserCard_1variant = () => <UserCard user={user1} />;
 
 const user2 = {
