@@ -4,7 +4,7 @@ import { IUserResponse } from '@teameights/types';
 
 const defaultUser = {
   photo: { path: 'https://via.placeholder.com/70x70' },
-  fullName: 'Brooklyn',
+  fullName: 'John Doe',
 };
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
@@ -30,7 +30,7 @@ export const UserCardPreview: Story = {
     user: {
       photo: 'https://via.placeholder.com/70x70',
       fullName: 'John Doe',
-      programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Haskell'],
+      programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Php'],
       frameworks: ['NodeJS', 'React', 'MUI', 'VueJS', 'Angular'],
       isLeader: true,
     } as unknown as IUserResponse,
@@ -71,15 +71,15 @@ export const UserCard_4variant = () => <UserCard user={user4} />;
 
 const user5 = {
   ...defaultUser,
-  programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Haskell'],
+  programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Php'],
   frameworks: ['NodeJS', 'React', 'MUI', 'VueJS', 'Angular'],
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_5variant = () => <UserCard user={user5} />;
 
 const user6 = {
-  programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Haskell'],
-  fullName: 'Brooklyn',
+  programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Php'],
+  fullName: 'John Doe',
   frameworks: ['NodeJS', 'React', 'MUI', 'VueJS', 'Angular'],
   isLeader: true,
 } as unknown as IUserResponse;
