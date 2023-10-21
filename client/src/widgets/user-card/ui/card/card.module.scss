@@ -57,12 +57,27 @@
   padding: 20px;
   background-color: var(--cards-color);
   border-radius: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add this line for smooth transition */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease; /* Add this line for smooth transition */
   cursor: pointer; /* Indicates clickable areas */
 
   &:hover {
-    transform: scale(1.02); /* Scale up slightly */
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Add a subtle shadow */
+    border: 1px solid rgba(188, 202, 235, 0.4);
+    background: linear-gradient(
+      146deg,
+      rgba(184, 197, 229, 0.16) 0%,
+      rgba(188, 202, 235, 0.08) 100%,
+      rgba(188, 202, 235, 0.4) 100%
+    );
+    /* shadow 2 */
+    box-shadow: 0px 8px 24px 0px rgba(17, 20, 27, 0.2);
+    cursor: pointer;
+    padding: 19px;
+    transition:
+      background,
+      box-shadow,
+      border 0.5s;
   }
 }
 
