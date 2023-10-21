@@ -1,1 +1,1 @@
-export { Team } from './team';
+export { TeamInfoModal } from './team';
