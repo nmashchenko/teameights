@@ -3,7 +3,7 @@ import { InfoModalTeamProps } from './interfaces';
 import { useGetScreenWidth } from '@/shared/lib';
 import { TeamDesktop } from '../team/desktop/desktop';
 import { TeamPhone } from '../team/phone/phone';
-export const Team: FC<InfoModalTeamProps> = props => {
+export const TeamInfoModal: FC<InfoModalTeamProps> = props => {
   const { team, user, isOpenModal, handleClose, handleJoin } = props;
   const width = useGetScreenWidth();
 

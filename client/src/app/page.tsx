@@ -1,9 +1,11 @@
 'use client';
 import { Typography, Button } from '@/shared/ui';
 import { useState } from 'react';
-import { ActionModal, Team, User } from '@/widgets/modals';
+import { ActionModal } from '@/widgets/modals';
 import { userResponseFixture } from '@/shared/fixtures/user';
 import { teamFixture } from '@/shared/fixtures/team';
+import { UserInfoModal } from '@/widgets/modals/info-modal/user';
+import { TeamInfoModal } from '@/widgets/modals/info-modal/team/team';
 
 export default function Home() {
   const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
@@ -49,14 +51,6 @@ export default function Home() {
         Get to login
       </a>
 
-      {/* <div>
-        <InteractiveModal heading='Send invite'>
-          <Button typeBtn='primary' size='m' color='white' width='100%'>
-            Invite
-          </Button>
-        </InteractiveModal>
-      </div> */}
-
       <div>
         <ActionModal
           heading='Removing member'
@@ -80,7 +74,7 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openModalNew}>
           Open Modal Team
         </Button>
-        <Team
+        <TeamInfoModal
           team={teamFixture}
           user={userResponseFixture}
           isOpenModal={openModal}
@@ -93,7 +87,7 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
           Open Third Modal
         </Button>
-        <User
+        <UserInfoModal
           user={userResponseFixture}
           isOpenModal={isOpenThirdModal}
           handleClose={closeThirdModal}

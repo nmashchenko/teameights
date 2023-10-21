@@ -4,7 +4,7 @@ import { useGetScreenWidth } from '@/shared/lib';
 import { UserPhone } from './phone/phone';
 import { UserDesktop } from './desktop/desktop';
 
-export const User: FC<InfoModalUserProps> = props => {
+export const UserInfoModal: FC<InfoModalUserProps> = props => {
   const { user, isOpenModal, handleClose } = props;
   const width = useGetScreenWidth();
 
