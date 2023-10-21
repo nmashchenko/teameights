@@ -11,7 +11,9 @@ export const generateRandomUserResponseFixture = (amount: number): IUserResponse
       fullName: faker.person.fullName(),
       photo: {
         id: faker.number.int(),
-        path: 'https://picsum.photos/3000/3000',
+        path: `https://picsum.photos/${Math.floor(Math.random() * 1001) + 3000}/${
+          Math.floor(Math.random() * 1001) + 3000
+        }`,
       },
       role: { id: faker.number.int(), name: 'USER' },
       status: { id: faker.number.int(), name: 'Active' },
@@ -74,18 +76,18 @@ export const userResponseFixture: IUserResponse = {
   fullName: 'John Doe',
   photo: {
     id: 1,
-    path: 'https://picsum.photos/3000/3000',
+    path: 'https://picsum.photos/4000/4000',
   }, // Replace with actual photo data if available
   role: { id: 1, name: 'Sample Role' }, // Replace with actual role data
   status: { id: 1, name: 'Active' }, // Replace with actual status data
   isLeader: true,
   country: 'United States',
   dateOfBirth: new Date('1990-01-15'),
-  concentration: 'Computer Science',
+  concentration: 'Backend Developer',
   description: 'Sample user description',
   experience: '2 years',
-  programmingLanguages: ['JavaScript', 'Python'],
-  frameworks: ['React', 'Node.js'],
+  frameworks: ['NodeJS', 'React', 'jQuery'],
+  programmingLanguages: ['JS', 'Swift', 'Dart', 'Scala', 'Ruby'],
   universities: [
     {
       id: 1,
@@ -125,5 +127,3 @@ export const userResponseFixture: IUserResponse = {
   updatedAt: new Date('2022-02-15'), // Replace with actual update date
   deletedAt: null,
 };
-
-export default userResponseFixture;

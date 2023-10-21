@@ -43,7 +43,7 @@ interface DrawerProps {
   // direction: "left" | "right" | "top" | "bottom";
 }
 export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
-  const { open, onClose, children, isFullHeight } = props;
+  const { open, onClose, isFullHeight, children } = props;
 
   const style = {
     borderRadius: isFullHeight ? '0' : '15px 15px 0 0',

@@ -46,10 +46,11 @@ interface ModalProps {
   isOpen: boolean;
   onClose?: () => void;
   size?: 's' | 'm' | 'l';
+  className?: string;
 }
 
 export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
-  const { isOpen, onClose, size = 's', children } = props;
+  const { isOpen, onClose, size = 's', className, children } = props;
 
   return (
     <ReactModal
@@ -62,7 +63,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
         beforeClose: styles.modalOverlay__beforeClose,
       }}
       className={{
-        base: classNames(styles.modalBody, {}, [styles[`size_${size}`]]),
+        base: classNames(styles.modalBody, {}, [styles[`size_${size}`], className]),
         afterOpen: classNames(styles.modalBody__afterOpen, {}, [styles[`size_${size}`]]),
         beforeClose: classNames(styles.modalBody__beforeClose, {}, [styles[`size_${size}`]]),
       }}

@@ -1,0 +1,25 @@
+.hidden_container {
+  display: none;
+}
+
+.visible_container {
+  display: flex;
+}
+
+.crown_container {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  transform: rotate(25deg) translateX(65%) translateY(-90%);
+  z-index: 1000;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.image {
+  object-fit: cover;
+  user-select: none;
+}

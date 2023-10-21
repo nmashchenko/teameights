@@ -1,18 +1,11 @@
 'use client';
 import { Typography, Button } from '@/shared/ui';
-import { useGetScreenWidth } from '@/shared/lib';
-// import { Crown } from '@/shared/assets';
-// import { IUserRequest } from '@teameights/types';
-// import { NewtonsCradle, RaceBy, Ring } from '@uiball/loaders';
-// import { toast } from 'sonner';
 import { useState } from 'react';
-import { ActionModal, InfoModalTeam, InfoModalUser } from '@/widgets/modals';
-import { user } from '../widgets/modals/mocks/user-mock';
-import { team } from '@/widgets/modals/mocks/team-mock';
-// import { InteractiveModal } from '@/widgets/modals/interactive-modal/interactive-modal';
+import { ActionModal, Team, User } from '@/widgets/modals';
+import { userResponseFixture } from '@/shared/fixtures/user';
+import { teamFixture } from '@/shared/fixtures/team';
 
 export default function Home() {
-  const width = useGetScreenWidth();
   const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
   const [isOpenThirdModal, setIsOpenThirdModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -50,9 +43,7 @@ export default function Home() {
         We are working hard to deliver teameights on NextJS/TS soon!
       </Typography>
 
-      <div> The screen width is: {width} </div>
-
-      <Typography>Hello, {user.username}!</Typography>
+      <Typography>Hello, {userResponseFixture.username}!</Typography>
 
       <a href='/login' style={{ color: 'green' }}>
         Get to login
@@ -89,9 +80,9 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openModalNew}>
           Open Modal Team
         </Button>
-        <InfoModalTeam
-          team={team}
-          user={user}
+        <Team
+          team={teamFixture}
+          user={userResponseFixture}
           isOpenModal={openModal}
           handleClose={closeModalNew}
           handleJoin={handleJoin}
@@ -102,7 +93,11 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
           Open Third Modal
         </Button>
-        <InfoModalUser user={user} isOpenModal={isOpenThirdModal} handleClose={closeThirdModal} />
+        <User
+          user={userResponseFixture}
+          isOpenModal={isOpenThirdModal}
+          handleClose={closeThirdModal}
+        />
       </div>
     </>
   );
