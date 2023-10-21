@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import LeaderIcon from '../../assets/Crown_28px.svg';
+import { Crown } from '@/shared/assets/icons/crown';
 import styles from './card.module.scss';
 import { ProgrammingLanguagesLayout } from '../language-layout/language-layout';
 import { BadgeFrameworksLayout } from '../frameworks-layout/frameworks-layout';
@@ -15,7 +15,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
     user: { fullName, frameworks, isLeader, programmingLanguages, photo },
   } = props;
 
-  // TODO: Удалить после того как никита сделает photo обязательным типом
+  // TODO: Delete after Nikita makes the photo the appropriate type
   const fallbackAvatarSrc = '/images/user-images/user-blue.png';
 
   return (
@@ -33,7 +33,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
 
             {isLeader && (
               <div className={styles.leader_icon_wrapper}>
-                <Image priority src={LeaderIcon} alt='Leader icon' width={26} height={28} />
+                <Crown width="26px" height="28px" />
               </div>
             )}
             {programmingLanguages && (
@@ -43,6 +43,7 @@ export const UserCard: React.FC<UserCardProps> = props => {
 
           <div className={styles.user_info_container}>
             <div className={styles.user_personal_info}>
+              {/* TODO: Add dateOfBirth property for age counting */}
               <span className={styles.user_city}>{fullName}, 21 </span>
               <Image src='https://via.placeholder.com/16x12' alt='Flag' width={16} height={12} />
             </div>
