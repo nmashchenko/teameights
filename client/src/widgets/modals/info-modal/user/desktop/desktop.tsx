@@ -7,6 +7,7 @@ import { InfoModalUserProps } from '../interfaces';
 import { ImageLoader } from '@/shared/ui/image-loader/image-loader';
 import { UserPlus } from '@/shared/assets/icons/user-plus';
 import { ChatCircleDots } from '@/shared/assets/icons/chat-circle-dots';
+// import Image from 'next/image';
 
 export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
@@ -31,6 +32,13 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
               alt='User image'
               borderRadius='50%'
             />
+            {/*<Image*/}
+            {/*  src={user?.photo?.path || ''}*/}
+            {/*  alt={'User image'}*/}
+            {/*  width={70}*/}
+            {/*  height={70}*/}
+            {/*  style={{ borderRadius: '50%' }}*/}
+            {/*/>*/}
             <Flex gap='8px' direction='column'>
               <Typography size='heading_s' color='white'>
                 {user?.username}, {age}
