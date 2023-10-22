@@ -8,50 +8,47 @@ import { IUserResponse } from '@teameights/types';
 
 interface UserCardProps {
   user: IUserResponse;
+  onClick?: () => void;
 }
 
-export const UserCard: React.FC<UserCardProps> = props => {
+export const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
   const {
-    user: { fullName, frameworks, isLeader, programmingLanguages, photo },
-  } = props;
+    fullName,
+    frameworks,
+    isLeader,
+    programmingLanguages,
+    photo,
+  } = user;
 
   // TODO: Delete after Nikita makes the photo the appropriate type
   const fallbackAvatarSrc = '/images/user-images/user-blue.png';
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <div className={styles.top_part}>
-          <div className={styles.language_badges}>
-            <Image
-              className={styles.user_logo}
-              src={photo?.path || fallbackAvatarSrc}
-              alt='User avatar'
-              width={70}
-              height={70}
-            />
-
-            {isLeader && (
-              <div className={styles.leader_icon_wrapper}>
-                <Crown width="26px" height="28px" />
-              </div>
-            )}
-            {programmingLanguages && (
-              <ProgrammingLanguagesLayout languages={programmingLanguages} />
-            )}
-          </div>
-
-          <div className={styles.user_info_container}>
-            <div className={styles.user_personal_info}>
-              {/* TODO: Add dateOfBirth property for age counting */}
-              <span className={styles.user_city}>{fullName}, 21 </span>
-              <Image src='https://via.placeholder.com/16x12' alt='Flag' width={16} height={12} />
-            </div>
-            <div className={styles.user_job}>Developer</div>
-          </div>
+    <div onClick={onClick}>
+      <div className={styles.card}>
+        <div className={styles.avatar}>
+          {/* <img src={photo || fallbackAvatarSrc} alt={fullName} /> */}
+          <Image
+            src={photo || fallbackAvatarSrc}
+            alt={fullName}
+            width={100}
+            height={100}
+          />
+          {isLeader && <Crown className={styles.crown} />}
         </div>
-
-        {frameworks && <BadgeFrameworksLayout frameworks={frameworks} />}
+        <div className={styles.content}>
+          <div className={styles.name}>
+            {/* TODO: Add dateOfBirth property for age counting */}
+            {fullName}, 21
+          </div>
+          <div className={styles.role}>Developer</div>
+          {programmingLanguages && (
+            <ProgrammingLanguagesLayout languages={programmingLanguages} />
+          )}
+        </div>
+        {frameworks && (
+          <BadgeFrameworksLayout frameworks={frameworks} />
+        )}
       </div>
     </div>
   );
