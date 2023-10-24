@@ -75,9 +75,11 @@ export const userResponseFixture: IUserResponse = {
   username: 'sample_username',
   fullName: 'John Doe',
   photo: {
-    id: 1,
-    path: 'https://picsum.photos/4000/4000',
-  }, // Replace with actual photo data if available
+    id: faker.number.int(),
+    path: `https://picsum.photos/${Math.floor(Math.random() * 1001) + 3000}/${
+      Math.floor(Math.random() * 1001) + 3000
+    }`,
+  },
   role: { id: 1, name: 'Sample Role' }, // Replace with actual role data
   status: { id: 1, name: 'Active' }, // Replace with actual status data
   isLeader: true,

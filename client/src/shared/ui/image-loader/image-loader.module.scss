@@ -1,16 +1,6 @@
-.hidden_container {
-  display: none;
-}
-
-.visible_container {
-  display: flex;
-}
-
 .crown_container {
   position: absolute;
-  width: 28px;
-  height: 28px;
-  transform: rotate(25deg) translateX(65%) translateY(-90%);
+  transform: rotate(30deg) translateX(-30%) translateY(-250%);
   z-index: 1000;
 
   svg {
@@ -19,7 +9,6 @@
   }
 }
 
-.image {
-  object-fit: cover;
-  user-select: none;
+.relative {
+  position: relative;
 }

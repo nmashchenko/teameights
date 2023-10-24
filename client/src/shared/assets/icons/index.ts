@@ -2,7 +2,7 @@ export { Check } from './check';
 export { Cross } from './cross';
 export { Eye } from './eye';
 export { EyeClosed } from './eye-closed';
-export { Crown } from './crown';
+export { Crown20, Crown28, Crown40 } from './crowns';
 export { Link } from './link';
 export { Plus } from './plus';
 export { Question } from './question';

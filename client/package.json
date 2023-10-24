@@ -38,6 +38,7 @@
     "lodash.debounce": "^4.0.8",
     "next": "13.4.12",
     "react": "18.2.0",
+    "react-content-loader": "^6.2.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-modern-drawer": "^1.2.2",

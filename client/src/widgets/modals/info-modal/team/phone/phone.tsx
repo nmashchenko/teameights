@@ -36,12 +36,13 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
             <Flex gap='16px' align='center' maxHeight='70px'>
               <ImageLoader
                 shouldHaveCrown={false}
-                imageSize='70px'
+                width={70}
+                height={70}
                 src={team?.photo?.path || ''}
                 alt='Team image'
                 borderRadius='50%'
               />
-              <Flex direction='column' maxHeight='70px'>
+              <Flex direction='column' maxHeight='70px' gap='8px'>
                 <Flex gap='8px' align='center' maxHeight='30px'>
                   <Typography size='heading_s' color='white'>
                     {team.name}
@@ -84,8 +85,9 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
           <Flex direction='column' gap='16px'>
             <Flex align='center' gap='12px'>
               <ImageLoader
-                shouldHaveCrown={false}
-                imageSize='50px'
+                shouldHaveCrown
+                width={50}
+                height={50}
                 src={team.leader?.photo?.path || ''}
                 alt='Team image'
                 borderRadius='50%'
@@ -103,7 +105,8 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
               <Flex align='center' gap='12px' key={index}>
                 <ImageLoader
                   shouldHaveCrown={false}
-                  imageSize='50px'
+                  width={50}
+                  height={50}
                   src={teammate?.photo?.path || ''}
                   alt='Team image'
                   borderRadius='50%'

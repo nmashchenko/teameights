@@ -42,7 +42,8 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
             <Flex gap='32px' maxHeight='70px'>
               <ImageLoader
                 shouldHaveCrown={false}
-                imageSize='70px'
+                width={70}
+                height={70}
                 src={user?.photo?.path || ''}
                 alt='User image'
                 borderRadius='50%'

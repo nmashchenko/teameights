@@ -40,10 +40,10 @@ interface DrawerProps {
   open: boolean;
   onClose: () => void;
   isFullHeight?: boolean;
-  // direction: "left" | "right" | "top" | "bottom";
+  direction?: 'left' | 'right' | 'top' | 'bottom';
 }
 export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
-  const { open, onClose, isFullHeight, children } = props;
+  const { open, onClose, isFullHeight, direction = 'bottom', children } = props;
 
   const style = {
     borderRadius: isFullHeight ? '0' : '15px 15px 0 0',
@@ -56,9 +56,10 @@ export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
     <DrawerComponent
       open={open}
       onClose={onClose}
-      direction={'bottom'}
+      direction={direction}
       style={style}
       customIdSuffix='t8s-drawer'
+      lockBackgroundScroll
     >
       {children}
     </DrawerComponent>

@@ -1,51 +1,64 @@
-import { Crown } from '@/shared/assets';
-import { Skeleton } from '@/shared/ui/skeleton/skeleton';
-import { CSSProperties, FC, useState } from 'react';
+import { Crown20 } from '@/shared/assets';
+import { CSSProperties, FC, SyntheticEvent, useState } from 'react';
+import Image, { ImageProps } from 'next/image';
+import { SkeletonLoader } from './ui/skeleton-loader';
 import styles from './image-loader.module.scss';
 
-interface ImageLoaderProps {
-  src: string;
-  alt: string;
+interface ImageLoaderProps extends ImageProps {
+  fallback?: string;
   borderRadius: string;
-  shouldHaveCrown: boolean;
-  imageSize: string;
+  shouldHaveCrown?: boolean;
+  debug?: boolean;
 }
-
-export const ImageLoader: FC<ImageLoaderProps> = ({
-  shouldHaveCrown,
-  imageSize,
-  src,
-  borderRadius,
-  alt,
-}) => {
+export const ImageLoader: FC<ImageLoaderProps> = props => {
+  const {
+    shouldHaveCrown = false,
+    borderRadius,
+    width,
+    height,
+    src,
+    fallback = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg',
+    debug,
+    ...rest
+  } = props;
   const [loading, setLoading] = useState(true);
+  const [onErrorSrc, setOnErrorSrc] = useState<string | undefined>(undefined);
 
-  const onImageLoad = () => setLoading(false);
+  function handleOnError(e: SyntheticEvent<HTMLImageElement, Event>): void {
+    console.log('error occurred');
+    if (e?.currentTarget?.src !== fallback) {
+      setOnErrorSrc(fallback);
+    }
+  }
 
   const style = {
-    width: imageSize,
-    height: imageSize,
     borderRadius: borderRadius,
+    objectFit: 'cover',
+    userSelect: 'none',
   } as CSSProperties;
 
   return (
-    <>
-      <div className={loading ? styles.visible_container : styles.hidden_container}>
+    <div className={styles.relative}>
+      {loading && (
+        <SkeletonLoader borderRadius={borderRadius} debug={debug} width={width} height={height} />
+      )}
+      <div>
+        <Image
+          {...rest}
+          src={onErrorSrc || src}
+          onLoadingComplete={() => !debug && setLoading(false)}
+          onError={e => handleOnError(e)}
+          style={style}
+          width={width}
+          placeholder='empty'
+          height={height}
+        />
         {shouldHaveCrown && (
-          <div className='crown_container'>
-            <Crown />
+          <div className={styles.crown_container}>
+            <Crown20 />
           </div>
         )}
-        <Skeleton width={imageSize} height={imageSize} borderRadius='50%' />
       </div>
-      <div className={loading ? styles.hidden_container : styles.visible_container}>
-        {shouldHaveCrown && (
-          <div className='crown_container'>
-            <Crown />
-          </div>
-        )}
-        <img onLoad={onImageLoad} src={src} style={style} alt={alt} className={styles.image} />
-      </div>
-    </>
+    </div>
   );
 };

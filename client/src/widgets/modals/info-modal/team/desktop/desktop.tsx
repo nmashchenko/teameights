@@ -23,7 +23,8 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
           <Flex gap='16px' maxHeight='70px'>
             <ImageLoader
               shouldHaveCrown={false}
-              imageSize='70px'
+              width={70}
+              height={70}
               src={team?.photo?.path || ''}
               alt='Team image'
               borderRadius='50%'
@@ -61,8 +62,9 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
           )}
           <Flex gap='36px' maxHeight='50px' direction='row'>
             <ImageLoader
-              shouldHaveCrown={false}
-              imageSize='50px'
+              shouldHaveCrown
+              width={50}
+              height={50}
               src={team.leader?.photo?.path || ''}
               alt='Team image'
               borderRadius='50%'
@@ -72,8 +74,8 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
                 <Flex gap='8px'>
                   {team.members.map((teammate, index) => (
                     <ImageLoader
-                      shouldHaveCrown={false}
-                      imageSize='50px'
+                      width={50}
+                      height={50}
                       src={teammate?.photo?.path || ''}
                       alt='Team image'
                       borderRadius='50%'

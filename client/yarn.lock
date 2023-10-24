@@ -7702,6 +7702,7 @@ __metadata:
     next: 13.4.12
     prettier: ^3.0.1
     react: 18.2.0
+    react-content-loader: ^6.2.1
     react-dom: 18.2.0
     react-hook-form: ^7.45.4
     react-modern-drawer: ^1.2.2
@@ -14674,6 +14675,15 @@ __metadata:
   peerDependencies:
     react: ^16.3.0 || ^17.0.1 || ^18.0.0
   checksum: 24b6975df144d2bf09d8e1c95ddc49e547775f911efaa8d96b49e522659d931539e9d9e48cc0db3a01f3a671be7e3824e6e728db85096f5527db5d1c69ebb153
+  languageName: node
+  linkType: hard
+
+"react-content-loader@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "react-content-loader@npm:6.2.1"
+  peerDependencies:
+    react: ">=16.0.0"
+  checksum: f777d408256a4218677e47f4cf3988d9fd8e556450e9b85ee1eb3952a5d5802573cea0df5eaf4dbc936c9522f355657de6f8ab0ecdf035d7dccdef15b45c9dae
   languageName: node
   linkType: hard
 
