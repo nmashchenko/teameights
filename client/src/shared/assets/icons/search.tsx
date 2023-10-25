@@ -1,4 +1,5 @@
 import { FC, SVGProps } from 'react';
+
 export const Search: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg

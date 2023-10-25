@@ -1,6 +1,10 @@
 import { IUserResponse } from '@teameights/types';
 import { faker } from '@faker-js/faker';
 
+const getRandomNumberBetween = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 export const generateRandomUserResponseFixture = (amount: number): IUserResponse[] => {
   const users = [];
   faker.seed(123); // You can use a specific seed for consistent random data
@@ -11,7 +15,10 @@ export const generateRandomUserResponseFixture = (amount: number): IUserResponse
       fullName: faker.person.fullName(),
       photo: {
         id: faker.number.int(),
-        path: 'https://picsum.photos/3000/3000',
+        path: `https://picsum.photos/${getRandomNumberBetween(1000, 1500)}/${getRandomNumberBetween(
+          1000,
+          1500
+        )}`,
       },
       role: { id: faker.number.int(), name: 'USER' },
       status: { id: faker.number.int(), name: 'Active' },
@@ -73,19 +80,22 @@ export const userResponseFixture: IUserResponse = {
   username: 'sample_username',
   fullName: 'John Doe',
   photo: {
-    id: 1,
-    path: 'https://picsum.photos/3000/3000',
-  }, // Replace with actual photo data if available
+    id: faker.number.int(),
+    path: `https://picsum.photos/${getRandomNumberBetween(1000, 1500)}/${getRandomNumberBetween(
+      1000,
+      1500
+    )}`,
+  },
   role: { id: 1, name: 'Sample Role' }, // Replace with actual role data
   status: { id: 1, name: 'Active' }, // Replace with actual status data
   isLeader: true,
   country: 'United States',
   dateOfBirth: new Date('1990-01-15'),
-  concentration: 'Computer Science',
+  concentration: 'Backend Developer',
   description: 'Sample user description',
   experience: '2 years',
-  programmingLanguages: ['JavaScript', 'Python'],
-  frameworks: ['React', 'Node.js'],
+  frameworks: ['NodeJS', 'React', 'jQuery'],
+  programmingLanguages: ['JS', 'Swift', 'Dart', 'Scala', 'Ruby'],
   universities: [
     {
       id: 1,
@@ -125,5 +135,3 @@ export const userResponseFixture: IUserResponse = {
   updatedAt: new Date('2022-02-15'), // Replace with actual update date
   deletedAt: null,
 };
-
-export default userResponseFixture;
