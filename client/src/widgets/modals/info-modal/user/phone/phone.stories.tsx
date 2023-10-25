@@ -5,7 +5,7 @@ import { Button } from '@/shared/ui';
 import { userResponseFixture } from '@/shared/fixtures/user';
 
 const meta: Meta<typeof UserPhone> = {
-  title: 'widgets/Info-Modal-Phone-User',
+  title: 'widgets/modals/info/user/phone',
   component: UserPhone,
   tags: ['autodocs'],
   argTypes: {},

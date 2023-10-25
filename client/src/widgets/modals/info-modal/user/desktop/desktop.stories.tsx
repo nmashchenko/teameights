@@ -5,7 +5,7 @@ import { userResponseFixture } from '@/shared/fixtures/user';
 import { useState } from 'react';
 
 const meta: Meta<typeof UserDesktop> = {
-  title: 'widgets/Info-Modal-Desktop-User',
+  title: 'widgets/modals/info/user/desktop',
   component: UserDesktop,
   tags: ['autodocs'],
   argTypes: {},

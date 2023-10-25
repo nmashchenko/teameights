@@ -6,7 +6,7 @@ import { userResponseFixture } from '@/shared/fixtures/user';
 import { teamFixture } from '@/shared/fixtures/team';
 
 const meta: Meta<typeof TeamDesktop> = {
-  title: 'widgets/Info-Modal-Desktop-Team',
+  title: 'widgets/modals/info/team/desktop',
   component: TeamDesktop,
   tags: ['autodocs'],
   argTypes: {},

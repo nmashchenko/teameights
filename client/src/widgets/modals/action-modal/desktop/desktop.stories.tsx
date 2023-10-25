@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/shared/ui';
 
 const meta: Meta<typeof Desktop> = {
-  title: 'widgets/Action-Modal-Desktop',
+  title: 'widgets/modals/action/desktop',
   component: Desktop,
   tags: ['autodocs'],
   argTypes: {},

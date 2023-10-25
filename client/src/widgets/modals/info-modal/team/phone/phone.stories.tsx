@@ -6,7 +6,7 @@ import { userResponseFixture } from '@/shared/fixtures/user';
 import { teamFixture } from '@/shared/fixtures/team';
 
 const meta: Meta<typeof TeamPhone> = {
-  title: 'widgets/Info-Modal-Phone-Team',
+  title: 'widgets/modals/info/team/phone',
   component: TeamPhone,
   tags: ['autodocs'],
   argTypes: {},

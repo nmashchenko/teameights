@@ -1,6 +1,10 @@
 import { IUserResponse } from '@teameights/types';
 import { faker } from '@faker-js/faker';
 
+const getRandomNumberBetween = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 export const generateRandomUserResponseFixture = (amount: number): IUserResponse[] => {
   const users = [];
   faker.seed(123); // You can use a specific seed for consistent random data
@@ -11,9 +15,10 @@ export const generateRandomUserResponseFixture = (amount: number): IUserResponse
       fullName: faker.person.fullName(),
       photo: {
         id: faker.number.int(),
-        path: `https://picsum.photos/${Math.floor(Math.random() * 1001) + 3000}/${
-          Math.floor(Math.random() * 1001) + 3000
-        }`,
+        path: `https://picsum.photos/${getRandomNumberBetween(1000, 1500)}/${getRandomNumberBetween(
+          1000,
+          1500
+        )}`,
       },
       role: { id: faker.number.int(), name: 'USER' },
       status: { id: faker.number.int(), name: 'Active' },
@@ -76,9 +81,10 @@ export const userResponseFixture: IUserResponse = {
   fullName: 'John Doe',
   photo: {
     id: faker.number.int(),
-    path: `https://picsum.photos/${Math.floor(Math.random() * 1001) + 3000}/${
-      Math.floor(Math.random() * 1001) + 3000
-    }`,
+    path: `https://picsum.photos/${getRandomNumberBetween(1000, 1500)}/${getRandomNumberBetween(
+      1000,
+      1500
+    )}`,
   },
   role: { id: 1, name: 'Sample Role' }, // Replace with actual role data
   status: { id: 1, name: 'Active' }, // Replace with actual status data

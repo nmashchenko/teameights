@@ -4,7 +4,7 @@ import { Button } from '@/shared/ui';
 import { useState } from 'react';
 
 const meta: Meta<typeof Phone> = {
-  title: 'widgets/Action-Modal-Phone',
+  title: 'widgets/modals/action/phone',
   component: Phone,
   tags: ['autodocs'],
   argTypes: {},

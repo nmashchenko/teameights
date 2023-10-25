@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight } from '@/shared/assets';
 import { BadgeFramework, BadgeLanguage, Button, Drawer, Flex, Typography } from '@/shared/ui';
 import { FC } from 'react';
 import styles from './phone.module.scss';
-import { calculateAge } from '@/shared/lib/utils/get-age/get-age';
+import { calculateAge, getCountryFlag } from '@/shared/lib';
 import { InfoModalUserProps } from '../interfaces';
 import { ImageLoader } from '@/shared/ui/image-loader/image-loader';
 
@@ -41,7 +41,7 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
           <Flex gap='24px' direction='column'>
             <Flex gap='32px' maxHeight='70px'>
               <ImageLoader
-                shouldHaveCrown={false}
+                crownSize={28}
                 width={70}
                 height={70}
                 src={user?.photo?.path || ''}
@@ -50,10 +50,17 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
               />
               <Flex direction='column' maxHeight='70px'>
                 <Flex direction='column' gap='8px'>
-                  <Typography size='heading_s' color='white'>
-                    {user?.username?.split(' ')[0]}, {age}
-                  </Typography>
-                  {/* getCountryLogic */}
+                  <Flex gap='8px' align='center'>
+                    <Typography size='heading_s'>
+                      {user?.fullName.split(' ')[0]}, {age}
+                    </Typography>
+                    <ImageLoader
+                      width={24}
+                      height={16}
+                      src={getCountryFlag(user?.country)}
+                      alt='User flag image'
+                    />
+                  </Flex>
                   <Flex direction='column' gap='4px'>
                     <Typography size='body_s' color='greyNormal'>
                       {user?.concentration}

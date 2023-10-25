@@ -25,6 +25,7 @@ export const SkeletonLoader: FC<SkeletonLoaderProps> = props => {
       speed={1.8}
       style={style}
       className={styles.absolute}
+      uniqueKey='image-content-loader'
     >
       <rect x='0' y='0' width={width} height={height} />
     </ContentLoader>

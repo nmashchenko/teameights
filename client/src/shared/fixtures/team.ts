@@ -9,7 +9,7 @@ export const teamFixture: ITeam = {
   description: 'This is a sample team',
   leader: userResponseFixture,
   members: users,
-  country: 'United States',
+  country: 'Russia',
   tag: 'SampleTag',
   type: 'open',
   wins: 10,

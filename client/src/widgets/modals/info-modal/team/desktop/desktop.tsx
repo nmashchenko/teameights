@@ -4,9 +4,11 @@ import { Typography, Button, Modal, Flex } from '@/shared/ui';
 import { ArrowRight } from '@/shared/assets';
 import { InfoModalTeamProps } from '../interfaces';
 import { ImageLoader } from '@/shared/ui/image-loader/image-loader';
+import { capitalize, getCountryFlag } from '@/shared/lib';
 
 const mockNavigate = (path: string) => {
   console.log(`navigate to ${path}`);
+  // TODO: add real navigation here
 };
 
 export const TeamDesktop: FC<InfoModalTeamProps> = ({
@@ -22,7 +24,6 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
         <Flex direction='column' gap='24px'>
           <Flex gap='16px' maxHeight='70px'>
             <ImageLoader
-              shouldHaveCrown={false}
               width={70}
               height={70}
               src={team?.photo?.path || ''}
@@ -35,11 +36,16 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
                 <Typography size='heading_s' color='white'>
                   {team?.name}
                 </Typography>
-                <Flex gap='5px'>
+                <Flex gap='4px' align='center'>
                   <Typography size='body_s' color='greyNormal'>
-                    {team?.type.toUpperCase()}, {team?.country}
+                    {capitalize(team?.type)} Type, {team?.country}
                   </Typography>
-                  {/* there must be logic to the country's flag */}
+                  <ImageLoader
+                    width={16}
+                    height={10}
+                    src={getCountryFlag(team?.country)}
+                    alt='Team flag image'
+                  />
                 </Flex>
               </Flex>
             </Flex>
@@ -52,7 +58,7 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
               Wins: <span className={styles.span_text}>{team?.wins}</span>
             </Typography>
             <Typography size='body_m'>
-              Points: <span className={styles.span_text}>{team.points}</span>
+              Points: <span className={styles.span_text}>{team?.points}</span>
             </Typography>
           </Flex>
           {team?.description && (
@@ -62,22 +68,22 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
           )}
           <Flex gap='36px' maxHeight='50px' direction='row'>
             <ImageLoader
-              shouldHaveCrown
+              crownSize={20}
               width={50}
               height={50}
               src={team.leader?.photo?.path || ''}
-              alt='Team image'
+              alt='Team leader image'
               borderRadius='50%'
             />
             <div>
               {team.members.length && (
                 <Flex gap='8px'>
-                  {team.members.map((teammate, index) => (
+                  {team?.members?.map((teammate, index) => (
                     <ImageLoader
                       width={50}
                       height={50}
                       src={teammate?.photo?.path || ''}
-                      alt='Team image'
+                      alt='Team member image'
                       borderRadius='50%'
                       key={index}
                     />
@@ -91,7 +97,7 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
               typeBtn='primary'
               size='m'
               width='109px'
-              disabled={team.leader.id === user.id}
+              disabled={team?.leader.id === user?.id}
               onClick={handleJoin}
             >
               {team.leader.id === user.id ? 'Your team' : 'Join team'}

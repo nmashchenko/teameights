@@ -4,6 +4,7 @@ import { FC } from 'react';
 import styles from './phone.module.scss';
 import { InfoModalTeamProps } from '../interfaces';
 import { ImageLoader } from '@/shared/ui/image-loader/image-loader';
+import { capitalize, getCountryFlag } from '@/shared/lib';
 
 export const TeamPhone: FC<InfoModalTeamProps> = ({
   team,
@@ -35,7 +36,6 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
           <Flex gap='24px' direction='column'>
             <Flex gap='16px' align='center' maxHeight='70px'>
               <ImageLoader
-                shouldHaveCrown={false}
                 width={70}
                 height={70}
                 src={team?.photo?.path || ''}
@@ -46,12 +46,19 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
                 <Flex gap='8px' align='center' maxHeight='30px'>
                   <Typography size='heading_s' color='white'>
                     {team.name}
-                    {/* logic for country flag */}
                   </Typography>
                 </Flex>
-                <Typography size='body_s' color='greyNormal'>
-                  {team?.type.toUpperCase()}, {team?.country}
-                </Typography>
+                <Flex gap='4px' align='center'>
+                  <Typography size='body_s' color='greyNormal'>
+                    {capitalize(team?.type)} Type, {team?.country}
+                  </Typography>
+                  <ImageLoader
+                    width={16}
+                    height={10}
+                    src={getCountryFlag(team?.country)}
+                    alt='Team flag image'
+                  />
+                </Flex>
               </Flex>
             </Flex>
             <Flex justify='space-between' padding='0 8px' gap='24px'>
@@ -85,17 +92,25 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
           <Flex direction='column' gap='16px'>
             <Flex align='center' gap='12px'>
               <ImageLoader
-                shouldHaveCrown
+                crownSize={20}
                 width={50}
                 height={50}
                 src={team.leader?.photo?.path || ''}
-                alt='Team image'
+                alt='Team leader image'
                 borderRadius='50%'
               />
               <Flex direction='column' gap='4px'>
-                <Typography size='body_m' color='white'>
-                  {team?.leader?.username}
-                </Typography>
+                <Flex gap='4px' align='center'>
+                  <Typography size='body_m' color='white'>
+                    {team?.leader?.username}
+                  </Typography>
+                  <ImageLoader
+                    width={16}
+                    height={10}
+                    src={getCountryFlag(team?.country)}
+                    alt='Team leader country image'
+                  />
+                </Flex>
                 <Typography size='body_s' color='greyNormal'>
                   {team?.leader?.concentration}
                 </Typography>
@@ -104,20 +119,25 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
             {team.members?.map((teammate, index) => (
               <Flex align='center' gap='12px' key={index}>
                 <ImageLoader
-                  shouldHaveCrown={false}
                   width={50}
                   height={50}
                   src={teammate?.photo?.path || ''}
-                  alt='Team image'
+                  alt='Team member image'
                   borderRadius='50%'
                   key={index}
                 />
                 <Flex direction='column' gap='4px'>
-                  <Typography size='body_m' color='white'>
-                    {teammate?.username ?? 'undefined'}
-                  </Typography>
+                  <Flex gap='4px' align='center'>
+                    <Typography size='body_m'>{teammate?.username}</Typography>
+                    <ImageLoader
+                      width={16}
+                      height={10}
+                      src={getCountryFlag(teammate?.country)}
+                      alt='Team flag image'
+                    />
+                  </Flex>
                   <Typography size='body_s' color='greyNormal'>
-                    {teammate?.concentration ?? 'undefined'}
+                    {teammate?.concentration}
                   </Typography>
                 </Flex>
               </Flex>

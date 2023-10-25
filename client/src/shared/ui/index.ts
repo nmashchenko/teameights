@@ -11,3 +11,4 @@ export * from './portal';
 export * from './flex';
 export * from './icon-wrapper';
 export * from './drawer';
+export * from './image-loader';
