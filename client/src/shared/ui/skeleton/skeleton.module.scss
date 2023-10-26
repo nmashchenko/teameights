@@ -48,12 +48,12 @@
   animation-iteration-count: infinite;
 }
 
+/*@media (prefers-reduced-motion) {*/
+/*  .reactLoadingSkeleton {*/
+/*    --pseudo-element-display: none; !* Disable animation *!*/
+/*  }*/
+/*}*/
+
 .baseSpan {
   line-height: 1;
 }
-
-//@media (prefers-reduced-motion) {
-//  .reactLoadingSkeleton {
-//    --pseudo-element-display: none;
-//  }
-//}

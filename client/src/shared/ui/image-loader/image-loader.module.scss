@@ -1,0 +1,14 @@
+.crown_container {
+  position: absolute;
+  transform: rotate(30deg) translateX(-15%) translateY(-255%);
+  z-index: 1000;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.relative {
+  position: relative;
+}
