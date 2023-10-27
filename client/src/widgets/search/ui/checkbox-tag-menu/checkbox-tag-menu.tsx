@@ -4,6 +4,7 @@ import styles from './checkbox-tag-menu.module.scss';
 import { ICheckboxFilter, IOptionItem } from '../../types';
 import { useClickOutside } from '@/shared/lib';
 import { Tag } from '../tag';
+import { Flex } from '@/shared/ui';
 
 interface CheckboxTagMenuProps {
   filterItem: ICheckboxFilter;
@@ -36,12 +37,16 @@ export const CheckboxTagMenu: FC<CheckboxTagMenuProps> = props => {
             </li>
           ))}
           <li>
-            <div
+            <Flex
+              justify='center'
+              align='center'
+              height='fit-content'
+              padding='4px 8px'
               onClick={() => handleClearAllCheckboxOptions(filterIndex)}
               className={styles.clearAllButton}
             >
               <p>Clear All</p>
-            </div>
+            </Flex>
           </li>
         </ul>
       ) : (

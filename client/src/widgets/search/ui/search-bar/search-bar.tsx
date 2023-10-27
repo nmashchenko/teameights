@@ -6,6 +6,7 @@ import { FilterSelect } from '../filter-select';
 import { SearchInput } from '../search-input';
 import { TagList } from '../tag-list';
 import qs from 'qs';
+import { Flex } from '@/shared/ui';
 
 interface SearchBarProps {
   initialFiltersState: Filter[];
@@ -55,8 +56,12 @@ export const SearchBar: FC<SearchBarProps> = props => {
   }, [callback, filtersArr]);
 
   return (
-    <div className={clsx(styles.searchBar)}>
-      <div className={clsx(styles.searchBarContent)}>
+    <Flex
+      direction='column'
+      gap='24px'
+      className={clsx(styles.searchBar)}
+    >
+      <Flex className={clsx(styles.searchBarContent)}>
         <FilterSelect
           filtersArr={filtersArr}
           filterIndex={filterIndex}
@@ -67,8 +72,8 @@ export const SearchBar: FC<SearchBarProps> = props => {
           setFilterArr={setFilterArr}
           filterIndex={filterIndex}
         />
-      </div>
+      </Flex>
       <TagList filtersArr={filtersArr} setFilterArr={setFilterArr} />
-    </div>
+    </Flex>
   );
 };

@@ -4,16 +4,8 @@
 }
 
 .clearAllButton {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-width: 0;
-  height: fit-content;
   box-sizing: border-box;
-  padding: 4px 8px;
   background: var(--grey-dark-color);
 
   p {

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import clsx from 'clsx';
 import styles from './tag.module.scss';
 import { X } from '@/shared/assets';
+import { Flex } from '@/shared/ui';
 
 interface TagProps {
   text: string;
@@ -11,13 +12,13 @@ interface TagProps {
 
 export const Tag: FC<TagProps> = ({ text, onClick, isWithCross }) => {
   return (
-    <div onClick={onClick} className={clsx(styles.tag)}>
+    <Flex justify='space-between' onClick={onClick} className={clsx(styles.tag)}>
       <p className={clsx(styles.text)}>{text}</p>
       {isWithCross && (
-        <span className={clsx(styles.remove)}>
+        <Flex align='center' className={clsx(styles.remove)}>
           <X />
-        </span>
+        </Flex>
       )}
-    </div>
+    </Flex>
   );
 };

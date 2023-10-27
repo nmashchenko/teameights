@@ -62,7 +62,7 @@ export const TagList: FC<TagListProps> = props => {
   };
 
   return (
-    <ul className={clsx(styles.tagsList)}>
+    <ul className={clsx(styles.tagList)}>
       {filtersArr.map((item, index) => {
         switch (item.type) {
           case 'text':

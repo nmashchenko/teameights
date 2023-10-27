@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import styles from './text-input.module.scss';
 import { Search } from '@/shared/assets';
-import { Input } from '@/shared/ui';
+import { Flex, Input } from '@/shared/ui';
 
 interface TextInputProps {
   placeholder: string;
@@ -23,16 +23,16 @@ export const TextInput: FC<TextInputProps> = props => {
   }, [defaultValue]);
 
   return (
-    <div className={styles.inputWrapper}>
+    <Flex align='center' className={styles.inputWrapper}>
       <Input
         value={value}
         onChange={e => handleChange(e.target.value)}
         placeholder={placeholder}
         isWithBorder={false}
       />
-      <div className={styles.searchIconWrapper}>
+      <Flex align='center' justify='center' className={styles.searchIconWrapper}>
         <Search />
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 };

@@ -1,7 +1,4 @@
 .searchBar {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
   width: 100%;
   max-width: 1176px;
   min-height: 40px;
@@ -22,7 +19,6 @@
 }
 
 .searchBarContent {
-  display: flex;
   border: 1px solid var(--green-normal-color);
   border-radius: 10px;
   overflow: hidden;
