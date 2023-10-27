@@ -1,16 +1,16 @@
 import { FC, Dispatch, SetStateAction } from 'react';
 import clsx from 'clsx';
-import styles from './tags-list.module.scss';
+import styles from './tag-list.module.scss';
 import { Filter } from '../../types';
 import { Tag } from '../tag';
 import { CheckboxTagMenu } from '../checkbox-tag-menu';
 
-interface TagsList {
+interface TagListProps {
   filtersArr: Filter[];
   setFilterArr: Dispatch<SetStateAction<Filter[]>>;
 }
 
-export const TagsList: FC<TagsList> = props => {
+export const TagList: FC<TagListProps> = props => {
   const { filtersArr, setFilterArr } = props;
 
   if (!filtersArr.length) {

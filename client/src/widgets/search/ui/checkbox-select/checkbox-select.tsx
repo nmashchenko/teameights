@@ -2,17 +2,17 @@ import { FC, useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
 import styles from './checkbox-select.module.scss';
 import { Search } from '@/shared/assets';
-import { Select } from '@/shared/ui';
+import { Flex, Select } from '@/shared/ui';
 import { IOptionItem } from '../../types';
 
-interface TextInputProps {
+interface CheckboxSelectProps {
   defaultValue: MultiValue<IOptionItem>;
   optionsArr: IOptionItem[];
   onChange: (value: MultiValue<IOptionItem>) => void;
   placeholder: string;
 }
 
-export const CheckboxSelect: FC<TextInputProps> = props => {
+export const CheckboxSelect: FC<CheckboxSelectProps> = props => {
   const { optionsArr, defaultValue, placeholder, onChange } = props;
   const [value, setValue] = useState(defaultValue);
 
@@ -26,7 +26,7 @@ export const CheckboxSelect: FC<TextInputProps> = props => {
   };
 
   return (
-    <div className={styles.inputWrapper}>
+    <Flex align='center' className={styles.inputWrapper}>
       <Select
         value={value}
         controlShouldRenderValue={false}
@@ -38,9 +38,9 @@ export const CheckboxSelect: FC<TextInputProps> = props => {
         isCheckbox
         isMulti
       />
-      <div className={styles.searchIconWrapper}>
+      <Flex align='center' justify='center' className={styles.searchIconWrapper}>
         <Search />
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 };

@@ -4,14 +4,14 @@ import styles from './search-bar.module.scss';
 import { Filter } from '../../types';
 import { FilterSelect } from '../filter-select';
 import { SearchInput } from '../search-input';
-import { TagsList } from '../tags-list';
+import { TagList } from '../tag-list';
 
-interface ISearchBarProps {
+interface SearchBarProps {
   initialFiltersState: Filter[];
   callback: (data: Filter[]) => void;
 }
 
-export const SearchBar: FC<ISearchBarProps> = props => {
+export const SearchBar: FC<SearchBarProps> = props => {
   const { initialFiltersState, callback } = props;
   const [filtersArr, setFilterArr] = useState(initialFiltersState);
   const [filterIndex, setFilterIndex] = useState(0);
@@ -34,7 +34,7 @@ export const SearchBar: FC<ISearchBarProps> = props => {
           filterIndex={filterIndex}
         />
       </div>
-      <TagsList filtersArr={filtersArr} setFilterArr={setFilterArr} />
+      <TagList filtersArr={filtersArr} setFilterArr={setFilterArr} />
     </div>
   );
 };

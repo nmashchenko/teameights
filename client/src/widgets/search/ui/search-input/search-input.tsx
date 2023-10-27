@@ -4,13 +4,13 @@ import { Filter, IOptionItem } from '../../types';
 import { TextInput } from '../text-input';
 import { CheckboxSelect } from '../checkbox-select';
 
-interface ISearchInputProps {
+interface SearchInputProps {
   filtersArr: Filter[];
   setFilterArr: Dispatch<SetStateAction<Filter[]>>;
   filterIndex: number;
 }
 
-export const SearchInput: FC<ISearchInputProps> = props => {
+export const SearchInput: FC<SearchInputProps> = props => {
   const { filtersArr, setFilterArr, filterIndex } = props;
   const currentFilter = filtersArr[filterIndex];
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | string | number | undefined>();

@@ -1,8 +1,5 @@
 .inputWrapper {
-  display: flex;
-  align-items: center;
   width: 100%;
-
   transition: all 0.1s ease 0s;
 
   &:hover {
@@ -11,9 +8,5 @@
 }
 
 .searchIconWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   margin: auto 8px;
 }

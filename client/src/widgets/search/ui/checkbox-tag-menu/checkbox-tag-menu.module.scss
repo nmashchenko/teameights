@@ -13,21 +13,16 @@
   min-width: 0;
   height: fit-content;
   box-sizing: border-box;
-
   padding: 4px 8px;
-
-  background: #2f3239;
+  background: var(--grey-dark-color);
 
   p {
     box-sizing: border-box;
-
     padding: 3px;
     padding-left: 6px;
-
     font-size: 100%;
-    color: #d42422;
+    color: var(--red-error-color);
     white-space: nowrap;
-
     overflow: hidden;
     border-radius: 2px;
     text-overflow: ellipsis;
