@@ -1,0 +1,18 @@
+.text {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.close_button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 52px;
+  height: 52px;
+  padding: 16px;
+  cursor: pointer;
+
+  &:hover {
+    fill: red;
+  }
+}

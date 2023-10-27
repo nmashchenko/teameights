@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './flex.module.scss';
 import clsx from 'clsx';
 
-export interface FlexProps {
+export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * [props.align] - The align-items property defines the default behavior for how items are laid out along the cross axis (perpendicular to the main axis). Default is 'normal'.
    */
@@ -47,13 +47,11 @@ export interface FlexProps {
   /**
    * [props.height] - The height property defines the height of the component. Default is 'auto'.
    */
-  height?: string;
-
-  /**
-   * [props.flexWrap] - The flex-wrap property controls whether the flex container is single-line or multi-line, and the direction of the cross-axis, which determines the direction new lines are stacked in. Default is 'nowrap'
-
-   */
   wrap?: string;
+  /**
+   * [props.wrap] - The wrap property defines the wrap of the component. Default is 'none'.
+   */
+  height?: string;
 
   /**
    * [props.flexShrink] - Sets the flex shrink factor. Negative numbers are invalid. Default is 'nowrap'
@@ -62,15 +60,14 @@ export interface FlexProps {
   shrink?: string | number;
 
   /**
-   * [props.className] - adds additional classes to base
-
-   */
-  className?: string;
-
-  /**
    * props.children - The content to be laid out.
    */
   children: React.ReactNode;
+
+  /**
+   * props.className - Additional classnames you want to add to flex if needed
+   */
+  className?: string;
 }
 
 /**
@@ -112,8 +109,8 @@ export const Flex: React.FC<FlexProps> = props => {
     position,
     width,
     maxWidth,
-    height,
     wrap,
+    height,
     shrink,
     children,
     className,
@@ -130,8 +127,8 @@ export const Flex: React.FC<FlexProps> = props => {
     position: position,
     width: width,
     maxWidth: maxWidth,
-    height: height,
     flexWrap: wrap,
+    height: height,
     flexShrink: shrink,
   } as React.CSSProperties;
 

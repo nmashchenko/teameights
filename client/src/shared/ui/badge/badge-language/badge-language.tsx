@@ -12,7 +12,7 @@ import styles from './badge-language.module.scss';
  * Props:
  *
  * @prop {string} data - The key corresponding to the language name in 'languageOptions'.
- * @prop {number} key - The unique key for the badge, especially useful if rendering multiple badges in a list or collection.
+ * @prop {number} uniqueKey - The unique key for the badge, especially useful if rendering multiple badges in a list or collection.
  * @prop {string} [className] - Additional Css classes to apply to the badge for custom styling.
  * @prop {string} [maxWidth='100%'] - Custom maximum width for the badge. Must be passed with a valid Css unit (e.g. '50px', '100%'). Default is '100%'.
  *
