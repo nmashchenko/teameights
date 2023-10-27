@@ -114,6 +114,7 @@ export const Flex: React.FC<FlexProps> = props => {
     shrink,
     children,
     className,
+    ...rest
   } = props;
 
   const style = {
@@ -133,7 +134,7 @@ export const Flex: React.FC<FlexProps> = props => {
   } as React.CSSProperties;
 
   return (
-    <div className={clsx(styles.flexWrapper, [className])} style={style}>
+    <div className={clsx(styles.flexWrapper, [className])} style={style} {...rest}>
       {children}
     </div>
   );
