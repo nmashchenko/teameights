@@ -25,9 +25,9 @@ export const Sidebar: React.FC = () => {
   const [notificationModal, setNotificationModal] = useState(false);
 
   // const { isAuth } = useSelector((state) => state.userReducer);
-  const isAuth = true;
   // const { data: user } = useCheckAuth();
   const user = userResponseFixture;
+  const isAuth = !!user?.username;
 
   const sidebarItemsData = React.useMemo(() => {
     return getSidebarItems(user);
