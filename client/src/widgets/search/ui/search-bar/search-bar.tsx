@@ -5,10 +5,11 @@ import { Filter } from '../../types';
 import { FilterSelect } from '../filter-select';
 import { SearchInput } from '../search-input';
 import { TagList } from '../tag-list';
+import qs from 'qs';
 
 interface SearchBarProps {
   initialFiltersState: Filter[];
-  callback: (data: Filter[]) => void;
+  callback: (queryString: string) => void;
 }
 
 export const SearchBar: FC<SearchBarProps> = props => {
@@ -17,7 +18,40 @@ export const SearchBar: FC<SearchBarProps> = props => {
   const [filterIndex, setFilterIndex] = useState(0);
 
   useEffect(() => {
-    callback(filtersArr);
+    const filtersValues = {
+      filters: filtersArr.reduce<{ [key: string]: string | string[] | [number, number] }>(
+        (acc, curr) => {
+          switch (curr.type) {
+            case 'text':
+              if (curr.filterValue.length) {
+                acc[curr.value] = curr.filterValue;
+              }
+
+              return acc;
+
+            case 'multiple':
+            case 'checkbox':
+              if (curr.filterValue.length) {
+                acc[curr.value] = curr.filterValue.map(item => item.value);
+              }
+
+              return acc;
+
+            case 'range':
+              if (curr.filterValue?.length) {
+                acc[curr.value] = curr.filterValue;
+              }
+
+              return acc;
+          }
+        },
+        {}
+      ),
+    };
+
+    const queryString = qs.stringify(filtersValues);
+
+    callback(queryString);
   }, [callback, filtersArr]);
 
   return (

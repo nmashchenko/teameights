@@ -24,8 +24,8 @@ export interface ICheckboxFilter extends IFilter {
 
 export interface IMultipleFilter extends IFilter {
   type: 'multiple';
-  optionsArr: MultiValue<IOptionItem>;
-  filterValue: string;
+  optionsArr: IOptionItem[];
+  filterValue: MultiValue<IOptionItem>;
 }
 
 export interface IRangeFilter extends IFilter {
