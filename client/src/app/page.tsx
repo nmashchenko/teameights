@@ -41,7 +41,7 @@ const mockFiltersArr: Filter[] = [
   {
     label: 'Concentrations',
     value: 'concentrations',
-    type: 'checkbox',
+    type: 'multiple',
     placeholder: 'Search by concentrations',
     optionsArr: concentrations,
     filterValue: [],

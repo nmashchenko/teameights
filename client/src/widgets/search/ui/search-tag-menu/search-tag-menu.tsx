@@ -1,20 +1,20 @@
 import React, { FC, useState } from 'react';
 import clsx from 'clsx';
-import styles from './checkbox-tag-menu.module.scss';
-import { ICheckboxFilter, IOptionItem } from '../../types';
+import styles from './search-tag-menu.module.scss';
+import { ICheckboxFilter, IMultipleFilter, IOptionItem } from '../../types';
 import { useClickOutside } from '@/shared/lib';
 import { Tag } from '../tag';
 import { Flex } from '@/shared/ui';
 
-interface CheckboxTagMenuProps {
-  filterItem: ICheckboxFilter;
+interface SearchTagMenuProps {
+  filterItem: ICheckboxFilter | IMultipleFilter;
   filterIndex: number;
-  handleClearCheckboxOption: (filterIndex: number, index: number) => void;
-  handleClearAllCheckboxOptions: (filterIndex: number) => void;
+  handleClearOption: (filterIndex: number, index: number) => void;
+  handleClearAllOptions: (filterIndex: number) => void;
 }
 
-export const CheckboxTagMenu: FC<CheckboxTagMenuProps> = props => {
-  const { filterItem, filterIndex, handleClearCheckboxOption, handleClearAllCheckboxOptions } =
+export const SearchTagMenu: FC<SearchTagMenuProps> = props => {
+  const { filterItem, filterIndex, handleClearOption, handleClearAllOptions } =
     props;
   const [isListOpened, setIsListOpened] = useState(false);
   const filterListRef = useClickOutside<HTMLDivElement>(() => setIsListOpened(false));
@@ -30,7 +30,7 @@ export const CheckboxTagMenu: FC<CheckboxTagMenuProps> = props => {
           {filterItem.filterValue.slice(1).map((item: IOptionItem, index: number) => (
             <li key={item.value}>
               <Tag
-                onClick={() => handleClearCheckboxOption(filterIndex, index + 1)}
+                onClick={() => handleClearOption(filterIndex, index + 1)}
                 isWithCross
                 text={item.label}
               />
@@ -42,7 +42,7 @@ export const CheckboxTagMenu: FC<CheckboxTagMenuProps> = props => {
               align='center'
               height='fit-content'
               padding='4px 8px'
-              onClick={() => handleClearAllCheckboxOptions(filterIndex)}
+              onClick={() => handleClearAllOptions(filterIndex)}
               className={styles.clearAllButton}
             >
               <p>Clear All</p>

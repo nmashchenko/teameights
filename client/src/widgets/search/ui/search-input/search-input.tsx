@@ -2,7 +2,7 @@ import { FC, Dispatch, SetStateAction, useState } from 'react';
 import { MultiValue } from 'react-select';
 import { Filter, IOptionItem } from '../../types';
 import { TextInput } from '../text-input';
-import { CheckboxSelect } from '../checkbox-select';
+import { SearchSelect } from '../search-select';
 
 interface SearchInputProps {
   filtersArr: Filter[];
@@ -44,7 +44,18 @@ export const SearchInput: FC<SearchInputProps> = props => {
 
     case 'checkbox':
       return (
-        <CheckboxSelect
+        <SearchSelect
+          defaultValue={currentFilter.filterValue}
+          optionsArr={currentFilter.optionsArr}
+          onChange={onChange}
+          isCheckbox
+          placeholder={currentFilter.placeholder}
+        />
+      );
+
+    case 'multiple':
+      return (
+        <SearchSelect
           defaultValue={currentFilter.filterValue}
           optionsArr={currentFilter.optionsArr}
           onChange={onChange}

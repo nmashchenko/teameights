@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import styles from './tag-list.module.scss';
 import { Filter } from '../../types';
 import { Tag } from '../tag';
-import { CheckboxTagMenu } from '../checkbox-tag-menu';
+import { SearchTagMenu } from '../search-tag-menu';
 
 interface TagListProps {
   filtersArr: Filter[];
@@ -29,27 +29,27 @@ export const TagList: FC<TagListProps> = props => {
     );
   };
 
-  const handleClearCheckboxOption = (filterIndex: number, index: number) => {
+  const handleClearMultipleOption = (filterIndex: number, index: number) => {
     setFilterArr(prev => {
       const filter = prev[filterIndex];
 
-      if (filter.type !== 'checkbox') {
-        return prev;
+      if (filter.type === 'checkbox' || filter.type === 'multiple') {
+        const newFilterValue = filter.filterValue.filter((item, i) => i !== index);
+
+        return prev.map((item, i) => {
+          if (filterIndex === i) {
+            item.filterValue = newFilterValue;
+          }
+
+          return item;
+        });
       }
 
-      const newFilterValue = filter.filterValue.filter((item, i) => i !== index);
-
-      return prev.map((item, i) => {
-        if (filterIndex === i) {
-          item.filterValue = newFilterValue;
-        }
-
-        return item;
-      });
+      return prev;
     });
   };
 
-  const handleClearAllCheckboxOptions = (filterIndex: number) => {
+  const handleClearAllMultipleOptions = (filterIndex: number) => {
     setFilterArr(prev =>
       prev.map((item, index) => {
         if (filterIndex === index) {
@@ -77,22 +77,23 @@ export const TagList: FC<TagListProps> = props => {
               </li>
             ) : null;
 
+          case 'multiple':
           case 'checkbox':
             if (item.filterValue.length) {
               return (
                 <li className={styles.checkboxFilterTag} key={item.value}>
                   <div
                     className={clsx(styles.tagWrapper)}
-                    onClick={() => handleClearCheckboxOption(index, 0)}
+                    onClick={() => handleClearMultipleOption(index, 0)}
                   >
                     <Tag isWithCross text={item.filterValue[0].label} />
                   </div>
                   {item.filterValue.length > 1 && (
-                    <CheckboxTagMenu
+                    <SearchTagMenu
                       filterItem={item}
                       filterIndex={index}
-                      handleClearCheckboxOption={handleClearCheckboxOption}
-                      handleClearAllCheckboxOptions={handleClearAllCheckboxOptions}
+                      handleClearOption={handleClearMultipleOption}
+                      handleClearAllOptions={handleClearAllMultipleOptions}
                     />
                   )}
                 </li>

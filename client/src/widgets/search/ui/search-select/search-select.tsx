@@ -1,19 +1,20 @@
 import { FC, useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
-import styles from './checkbox-select.module.scss';
+import styles from './search-select.module.scss';
 import { Search } from '@/shared/assets';
 import { Flex, Select } from '@/shared/ui';
 import { IOptionItem } from '../../types';
 
-interface CheckboxSelectProps {
+interface SearchSelectProps {
   defaultValue: MultiValue<IOptionItem>;
   optionsArr: IOptionItem[];
   onChange: (value: MultiValue<IOptionItem>) => void;
   placeholder: string;
+  isCheckbox?: boolean;
 }
 
-export const CheckboxSelect: FC<CheckboxSelectProps> = props => {
-  const { optionsArr, defaultValue, placeholder, onChange } = props;
+export const SearchSelect: FC<SearchSelectProps> = props => {
+  const { optionsArr, defaultValue, placeholder, onChange, isCheckbox = false } = props;
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export const CheckboxSelect: FC<CheckboxSelectProps> = props => {
   };
 
   return (
-    <Flex align='center' className={styles.inputWrapper}>
+    <Flex align='center' className={styles.selectWrapper}>
       <Select
         value={value}
         controlShouldRenderValue={false}
@@ -35,7 +36,7 @@ export const CheckboxSelect: FC<CheckboxSelectProps> = props => {
         onChange={handleChange}
         isWithBorder={false}
         isIndicatorAllowed={false}
-        isCheckbox
+        isCheckbox={isCheckbox}
         isMulti
       />
       <Flex align='center' justify='center' className={styles.searchIconWrapper}>
