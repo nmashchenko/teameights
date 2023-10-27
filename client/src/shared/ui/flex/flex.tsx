@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './flex.module.scss';
 import clsx from 'clsx';
 
-export interface FlexProps {
+export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * [props.align] - The align-items property defines the default behavior for how items are laid out along the cross axis (perpendicular to the main axis). Default is 'normal'.
    */
