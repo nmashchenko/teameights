@@ -1,7 +1,7 @@
 import { FC, Dispatch, SetStateAction } from 'react';
-import { Filter } from '../../types';
 import clsx from 'clsx';
 import styles from './tags-list.module.scss';
+import { Filter } from '../../types';
 import { Tag } from '../tag';
 import { CheckboxTagMenu } from '../checkbox-tag-menu';
 
@@ -31,7 +31,13 @@ export const TagsList: FC<TagsList> = props => {
 
   const handleClearCheckboxOption = (filterIndex: number, index: number) => {
     setFilterArr(prev => {
-      const newFilterValue = prev[filterIndex].filterValue.filter((item, i) => i !== index);
+      const filter = prev[filterIndex];
+
+      if (filter.type !== 'checkbox') {
+        return prev;
+      }
+
+      const newFilterValue = filter.filterValue.filter((item, i) => i !== index);
 
       return prev.map((item, i) => {
         if (filterIndex === i) {

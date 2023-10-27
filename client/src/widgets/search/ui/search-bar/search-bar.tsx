@@ -1,7 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import styles from './search-bar.module.scss';
-import { Filter, FilterSelect, SearchInput, TagsList } from '@/features/search';
+import { Filter } from '../../types';
+import { FilterSelect } from '../filter-select';
+import { SearchInput } from '../search-input';
+import { TagsList } from '../tags-list';
 
 interface ISearchBarProps {
   initialFiltersState: Filter[];

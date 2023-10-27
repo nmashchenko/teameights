@@ -1,16 +1,16 @@
 import { FC, Dispatch, SetStateAction, useState } from 'react';
+import { MultiValue } from 'react-select';
 import { Filter, IOptionItem } from '../../types';
 import { TextInput } from '../text-input';
 import { CheckboxSelect } from '../checkbox-select';
-import { MultiValue } from 'react-select';
 
-interface ISearchInput {
+interface ISearchInputProps {
   filtersArr: Filter[];
   setFilterArr: Dispatch<SetStateAction<Filter[]>>;
   filterIndex: number;
 }
 
-export const SearchInput: FC<ISearchInput> = props => {
+export const SearchInput: FC<ISearchInputProps> = props => {
   const { filtersArr, setFilterArr, filterIndex } = props;
   const currentFilter = filtersArr[filterIndex];
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | string | number | undefined>();

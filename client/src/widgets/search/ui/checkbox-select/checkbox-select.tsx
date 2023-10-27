@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from 'react';
+import { MultiValue } from 'react-select';
 import styles from './checkbox-select.module.scss';
 import { Search } from '@/shared/assets';
 import { Select } from '@/shared/ui';
 import { IOptionItem } from '../../types';
-import { MultiValue } from 'react-select';
 
 interface TextInputProps {
   defaultValue: MultiValue<IOptionItem>;

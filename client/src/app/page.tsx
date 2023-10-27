@@ -8,8 +8,8 @@ import { NewtonsCradle, RaceBy, Ring } from '@uiball/loaders';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { SelectAutocomplete } from '@/shared/ui/select/ui/select-autocomplete/select-autocomplete';
-import { SearchBar } from '@/widgets/search-bar';
-import { Filter } from '@/features/search';
+import { SearchBar } from '@/widgets/search';
+import { Filter } from '@/widgets/search/types';
 import { concentrations, programmingLanguageOptions } from '@/shared/constant';
 
 const mockFiltersArr: Filter[] = [

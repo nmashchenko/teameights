@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react';
 import clsx from 'clsx';
 import styles from './checkbox-tag-menu.module.scss';
-import { Filter, IOptionItem } from '../../types';
+import { ICheckboxFilter, IOptionItem } from '../../types';
 import { useClickOutside } from '@/shared/lib';
 import { Tag } from '../tag';
 
 interface CheckboxTagMenuProps {
-  filterItem: Filter;
+  filterItem: ICheckboxFilter;
   filterIndex: number;
   handleClearCheckboxOption: (filterIndex: number, index: number) => void;
   handleClearAllCheckboxOptions: (filterIndex: number) => void;

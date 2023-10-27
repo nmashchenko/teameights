@@ -22,13 +22,13 @@ export interface ICheckboxFilter extends IFilter {
   filterValue: MultiValue<IOptionItem>;
 }
 
-interface IMultipleFilter extends IFilter {
-  type: 'text';
+export interface IMultipleFilter extends IFilter {
+  type: 'multiple';
   optionsArr: MultiValue<IOptionItem>;
   filterValue: string;
 }
 
-interface IRangeFilter extends IFilter {
+export interface IRangeFilter extends IFilter {
   type: 'range';
   min: number;
   max: number;
