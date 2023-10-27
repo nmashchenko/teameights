@@ -1,16 +1,18 @@
 'use client';
-import { Typography, Button } from '@/shared/ui';
+import { Button, Typography } from '@/shared/ui';
 import { useState } from 'react';
 import { ActionModal } from '@/widgets/modals';
 import { userResponseFixture } from '@/shared/fixtures/user';
 import { teamFixture } from '@/shared/fixtures/team';
 import { UserInfoModal } from '@/widgets/modals/info-modal/user';
 import { TeamInfoModal } from '@/widgets/modals/info-modal/team/team';
+import { generateUserMockData } from '@/shared/lib/mock';
 
 export default function Home() {
   const [isOpenFirstModal, setIsOpenFirstModal] = useState(false);
   const [isOpenThirdModal, setIsOpenThirdModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [user, _setUser] = useState(() => generateUserMockData(true));
 
   const openModalNew = () => {
     setOpenModal(true);
@@ -76,7 +78,7 @@ export default function Home() {
         </Button>
         <TeamInfoModal
           team={teamFixture}
-          user={userResponseFixture}
+          user={user}
           isOpenModal={openModal}
           handleClose={closeModalNew}
           handleJoin={handleJoin}
@@ -87,11 +89,7 @@ export default function Home() {
         <Button typeBtn='primary' size='m' color='white' onClick={openThirdModal}>
           Open Third Modal
         </Button>
-        <UserInfoModal
-          user={userResponseFixture}
-          isOpenModal={isOpenThirdModal}
-          handleClose={closeThirdModal}
-        />
+        <UserInfoModal user={user} isOpenModal={isOpenThirdModal} handleClose={closeThirdModal} />
       </div>
     </>
   );

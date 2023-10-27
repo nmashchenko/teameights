@@ -117,3 +117,10 @@ export const generateUserMockData = (includeNotifications?: boolean): IUserBase 
 
   return user;
 };
+
+export const generateMultipleUsers = (
+  count: number,
+  includeNotifications?: boolean
+): IUserBase[] => {
+  return Array.from({ length: count }).map(() => generateUserMockData(includeNotifications));
+};
