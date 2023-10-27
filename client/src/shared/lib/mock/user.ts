@@ -24,60 +24,48 @@ export const generateMockFileEntity = (): IFileEntity => {
   };
 };
 
-function generateMockStatus(): IStatus {
-  return {
-    id: faker.number.int(),
-    name: faker.lorem.word(),
-  };
-}
+export const generateMockStatus = (): IStatus => ({
+  id: faker.number.int(),
+  name: faker.lorem.word(),
+});
 
-function generateMockRole(): IRole {
-  return {
-    id: faker.number.int(),
-    name: faker.lorem.word(),
-  };
-}
+export const generateMockRole = (): IRole => ({
+  id: faker.number.int(),
+  name: faker.lorem.word(),
+});
 
-function generateMockProject(): IProject {
-  return {
-    id: faker.number.int(),
-    title: faker.lorem.sentence(),
-    link: faker.internet.url(),
-  };
-}
+export const generateMockProject = (): IProject => ({
+  id: faker.number.int(),
+  title: faker.lorem.sentence(),
+  link: faker.internet.url(),
+});
 
-function generateMockLinks(): ILinks {
-  return {
-    id: faker.number.int(),
-    github: faker.internet.url(),
-    linkedIn: faker.internet.url(),
-    behance: faker.internet.url(),
-    telegram: faker.internet.url(),
-  };
-}
+export const generateMockLinks = (): ILinks => ({
+  id: faker.number.int(),
+  github: faker.internet.url(),
+  linkedIn: faker.internet.url(),
+  behance: faker.internet.url(),
+  telegram: faker.internet.url(),
+});
 
-function generateMockJob(): IJob {
-  return {
-    id: faker.number.int(),
-    title: faker.person.jobTitle(),
-    company: faker.company.name(),
-    startDate: faker.date.past(),
-    endDate: faker.datatype.boolean() ? faker.date.past() : null,
-  };
-}
+export const generateMockJob = (): IJob => ({
+  id: faker.number.int(),
+  title: faker.person.jobTitle(),
+  company: faker.company.name(),
+  startDate: faker.date.past(),
+  endDate: faker.datatype.boolean() ? faker.date.past() : null,
+});
 
-function generateMockUniversity(): IUniversity {
-  return {
-    id: faker.number.int(),
-    name: faker.company.name(),
-    degree: faker.person.jobType(),
-    major: faker.person.jobArea(),
-    admissionDate: faker.date.past(),
-    graduationDate: faker.datatype.boolean() ? faker.date.past() : null,
-  };
-}
+export const generateMockUniversity = (): IUniversity => ({
+  id: faker.number.int(),
+  name: faker.company.name(),
+  degree: faker.person.jobType(),
+  major: faker.person.jobArea(),
+  admissionDate: faker.date.past(),
+  graduationDate: faker.datatype.boolean() ? faker.date.past() : null,
+});
 
-export function generateUserMockData(includeNotifications?: boolean): IUserBase {
+export const generateUserMockData = (includeNotifications?: boolean): IUserBase => {
   const user: IUserBase = {
     id: faker.number.int(),
     username: faker.internet.userName(),
@@ -128,4 +116,4 @@ export function generateUserMockData(includeNotifications?: boolean): IUserBase 
   }
 
   return user;
-}
+};
