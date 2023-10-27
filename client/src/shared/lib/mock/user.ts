@@ -10,9 +10,19 @@ import {
   IUniversity,
   IUserBase,
 } from '@teameights/types';
-import { getRandomItemFromArray, getRandomNumberBetween } from './common';
+import { getRandomItemFromArray, getRandomNumberBetween, shuffleArray } from './common';
 import { generateMockTeam } from './team';
 import { generateRandomNotification } from '@/shared/lib/mock/notification';
+import { languageOptions } from '@/shared/constant';
+
+export const getRandomLanguages = (min: number, max: number): string[] => {
+  const allLanguages = Object.keys(languageOptions);
+  const shuffledLanguages = shuffleArray([...allLanguages]);
+
+  const randomLength = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  return shuffledLanguages.slice(0, randomLength);
+};
 
 export const generateMockFileEntity = (): IFileEntity => {
   return {
@@ -87,9 +97,7 @@ export const generateUserMockData = (includeNotifications?: boolean): IUserBase 
       '4 years',
       '5+ years',
     ]) as ExperienceType,
-    programmingLanguages: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }).map(() =>
-      faker.lorem.word()
-    ),
+    programmingLanguages: getRandomLanguages(1, 5),
     frameworks: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }).map(() =>
       faker.lorem.word()
     ),
