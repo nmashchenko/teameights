@@ -60,7 +60,8 @@ export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
   const { user, active } = props;
   // const { data: user } = useCheckAuth();
 
-  const isUserRegistered = user?.isRegistered;
+  // Если юзер не прошёл мульти-степ регу(полностью), то у него не будет username
+  const isUserRegistered = !!user?.username;
   const [data, setData] = useState<UserData>(defaultData);
 
   useEffect(() => {

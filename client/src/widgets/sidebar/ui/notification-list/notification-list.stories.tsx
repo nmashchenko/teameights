@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { NotificationsListProps, SidebarNotificationsList } from './notification-list';
-import { mockUser } from '../../mock';
+
 import {
   IRole,
   ISystemNotification,
@@ -9,6 +9,7 @@ import {
   ITeamInvitationNotification,
   IUserResponse,
 } from '@teameights/types';
+import { userResponseFixture } from '@/shared/fixtures';
 
 // Mock Role
 const mockRole: IRole = {
@@ -28,17 +29,17 @@ const mockUser2: IUserResponse = {
 
 // Mock Team
 const mockTeam: ITeam = {
-  id: 'team1',
+  id: 1,
   name: 'Team Alpha',
   description: 'A description about Team Alpha',
-  leader: mockUser,
-  members: [mockUser],
+  leader: userResponseFixture,
+  members: [userResponseFixture],
   country: 'USA',
   tag: 'ALPHA',
   type: 'invite_only',
   wins: 5,
   points: 50,
-  image: '/path/to/team/image.png',
+  photo: { id: 2, path: '/path/to/team/image.png' },
 } as ITeam;
 
 const mockSystemNotification: ISystemNotification = {
@@ -46,7 +47,7 @@ const mockSystemNotification: ISystemNotification = {
   type: 'system',
   system_message: 'Your password will expire in 7 days',
   read: false,
-  user: mockUser,
+  user: userResponseFixture,
   expiresAt: new Date(),
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -55,17 +56,18 @@ const mockSystemNotification: ISystemNotification = {
 const mockTeamInvitationNotification: ITeamInvitationNotification = {
   id: 2,
   type: 'team_invite',
-  teamid: mockTeam,
+  team: mockTeam,
   user: mockUser2,
-  from_user_id: mockUser,
+  from_user: userResponseFixture,
   to_user_email: 'john@example.com',
   status: 'pending',
   message: 'You have been invited to join Team X',
-  image: '/images/team-images/team-red.png',
+  photo: { id: 3, path: '/images/team-images/team-red.png' },
   read: false,
   expiresAt: new Date(),
   createdAt: new Date(),
   updatedAt: new Date(),
+  deletedAt: null,
 } as ITeamInvitationNotification;
 
 const notificationsListProps: NotificationsListProps = {

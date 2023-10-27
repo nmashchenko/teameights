@@ -40,14 +40,11 @@ export const UnregisteredUserProfile = { ...SidebarProfileTemplate };
 UnregisteredUserProfile.args = {
   ...sidebarProfileProps,
   user: {
-    _id: '650544eead52282dbf4397aa',
-    email: 'johnDoe@example.com',
-    password: '$2a$05$7AnHdyBKd7kh78kkSt4OIOaBAidnedL3Sr6ZfFOKG5xcVatrPT4kq',
-    isRegistered: false,
+    id: 6,
     fullName: 'Unknown',
     username: 'unknown@email.com',
-    image: '/images/user/unregistered.png',
-  },
+    photo: { id: 3, path: '/images/user/unregistered.png' },
+  } as IUserResponse,
 };
 
 // Active Unregistered User Profile
@@ -55,14 +52,11 @@ export const ActiveUnregisteredUserProfile = { ...SidebarProfileTemplate };
 ActiveUnregisteredUserProfile.args = {
   ...sidebarProfileProps,
   user: {
-    _id: '650544eead52282dbf4397aa',
-    email: 'johnDoe@example.com',
-    password: '$2a$05$7AnHdyBKd7kh78kkSt4OIOaBAidnedL3Sr6ZfFOKG5xcVatrPT4kq',
-    isRegistered: false,
+    id: 7,
     fullName: 'Unknown',
     username: 'unknown@email.com',
-    image: '/images/user/unregistered.png',
-  },
+    photo: { id: 4, path: '/images/user/unregistered.png' },
+  } as IUserResponse,
   active: true,
 };
 
@@ -71,14 +65,11 @@ export const UserProfileWithLongName = { ...SidebarProfileTemplate };
 UserProfileWithLongName.args = {
   ...sidebarProfileProps,
   user: {
-    _id: '650544eead52282dbf4397aa',
-    email: 'johnDoe@example.com',
-    password: '$2a$05$7AnHdyBKd7kh78kkSt4OIOaBAidnedL3Sr6ZfFOKG5xcVatrPT4kq',
-    isRegistered: true,
-    fullName: 'Johnathan Doe the Third',
-    username: 'john.doe.third',
-    image: '/images/user-images/user-blue.png',
-  },
+    id: 8,
+    fullName: 'Unknown',
+    username: 'unknown@email.com',
+    photo: { id: 5, path: '/images/user-images/user-blue.png' },
+  } as IUserResponse,
 };
 
 // User Profile with No Image
@@ -86,14 +77,11 @@ export const UserProfileWithNoImage = { ...SidebarProfileTemplate };
 UserProfileWithNoImage.args = {
   ...sidebarProfileProps,
   user: {
-    _id: '650544eead52282dbf4397ab',
-    email: 'johnDoe@example.com',
-    password: '$2a$05$7AnHdyBKd7kh78kkSt4OIOaBAidnedL3Sr6ZfFOKG5xcVatrPT4kq',
-    isRegistered: true,
+    id: 9,
     fullName: 'Jane Doe',
     username: 'jane.doe',
-    image: '',
-  },
+    photo: null,
+  } as IUserResponse,
 };
 
 export default {

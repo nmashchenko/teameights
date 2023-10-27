@@ -7,17 +7,13 @@ import { SidebarTeamInvatitionNotification } from './team-invatition-notificatio
 import { SidebarSystemNotification } from './system-notification';
 
 import styles from './notification-item.module.scss';
-import {
-  INotificationBase,
-  ISystemNotification,
-  ITeamInvitationNotification,
-} from '@teameights/types';
+import { NotificationType } from '@teameights/types';
 
 export interface NotificationProps {
   /**
    * The notification object.
    */
-  notification: ITeamInvitationNotification | ISystemNotification | INotificationBase;
+  notification: NotificationType;
   /**
    * A function to close the notifications modal.
    */

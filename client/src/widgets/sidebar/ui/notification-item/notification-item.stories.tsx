@@ -1,16 +1,16 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { NotificationProps, SidebarNotificationsItem } from './notification-item';
-import { SystemNotification, TeamInvitationNotification } from '@/entities/notification';
+import { ISystemNotification, ITeamInvitationNotification } from '@teameights/types';
 
 const notificationProps: NotificationProps = {
   notification: {
-    _id: '1',
-    type: 'SystemNotification',
+    id: 1,
+    type: 'system',
     system_message: 'This is a system notification',
     read: false,
     createdAt: new Date(2023, 8, 25),
-  } as SystemNotification,
+  } as ISystemNotification,
   closeNotificationsModal: () => console.log('Modal Closed'),
 };
 
@@ -24,13 +24,13 @@ Playground.args = notificationProps;
 export const TeamInvitation = { ...NotificationItemTemplate };
 TeamInvitation.args = {
   notification: {
-    _id: '2',
-    type: 'TeamInvitationNotification',
+    id: 2,
+    type: 'team_invite',
     message: 'You have been invited to join Team A',
-    image: '/images/team-images/team-pink.png',
+    photo: { id: 1, path: '/images/team-images/team-pink.png' },
     read: false,
     createdAt: new Date(2023, 8, 25),
-  } as TeamInvitationNotification,
+  } as ITeamInvitationNotification,
   closeNotificationsModal: () => console.log('Modal Closed'),
 };
 
@@ -42,7 +42,7 @@ ReadNotification.args = {
     ...notificationProps.notification,
     read: true,
     system_message: 'This is a read notification',
-  } as SystemNotification,
+  } as ISystemNotification,
 };
 
 export default {

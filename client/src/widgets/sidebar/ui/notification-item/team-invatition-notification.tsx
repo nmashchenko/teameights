@@ -38,7 +38,7 @@ export const SidebarTeamInvatitionNotification: React.FC<
       <Flex gap='12px'>
         <div className={styles.messagePicture}>
           {!notification.read && <div className={styles.messageCircle} />}
-          <Image width={32} height={32} src={notification.image} alt='Team invation icon' />
+          <Image width={32} height={32} src={notification.photo.path} alt='Team invation icon' />
         </div>
         <div className={styles.messageContentWrapper}>
           <p className={styles.messageText}>{notification.message}</p>

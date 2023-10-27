@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { User } from '@/entities/user';
 import { CLIENT_ROUTES } from '@/shared/constant';
 import { SearchIcon, TrophyIcon, UserIcon, UsersIcon } from '@/shared/assets';
+import { IUserResponse } from '@teameights/types';
 
-export const getSidebarItems = (user: User) => {
+export const getSidebarItems = (user: IUserResponse) => {
   const data = [
     {
       title: 'Teammates',
@@ -13,7 +13,7 @@ export const getSidebarItems = (user: User) => {
     },
     {
       title: 'Team',
-      path: user?.team ? `${CLIENT_ROUTES.TEAM}/${user.team._id}` : CLIENT_ROUTES.TEAM,
+      path: user?.team ? `${CLIENT_ROUTES.TEAM}/${user.team.id}` : CLIENT_ROUTES.TEAM,
       icon: <UsersIcon />,
     },
     {
@@ -25,7 +25,7 @@ export const getSidebarItems = (user: User) => {
   if (user) {
     data.push({
       title: 'Profile',
-      path: `${CLIENT_ROUTES.PROFILE}/${user._id}`,
+      path: `${CLIENT_ROUTES.PROFILE}/${user.id}`,
       icon: <UserIcon />,
     });
   }

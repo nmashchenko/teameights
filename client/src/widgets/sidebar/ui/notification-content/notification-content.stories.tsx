@@ -2,23 +2,23 @@ import { useState } from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import { NotificationContentProps, SidebarNotificationsContent } from './notification-content';
 
-import { Notification, SystemNotification } from '@/entities/notification';
+import { ISystemNotification, NotificationType } from '@teameights/types';
 
-const defaultNotifications: Notification[] = [
+const defaultNotifications: NotificationType[] = [
   {
-    _id: '1',
-    type: 'SystemNotification',
+    id: 1,
+    type: 'system',
     system_message: 'System Message 1',
     read: false,
     createdAt: new Date(),
-  } as SystemNotification,
+  } as ISystemNotification,
   {
-    _id: '2',
-    type: 'SystemNotification',
+    id: 2,
+    type: 'system',
     system_message: 'System Message 2',
     read: true,
     createdAt: new Date(),
-  } as SystemNotification,
+  } as ISystemNotification,
 ];
 
 const defaultProps: NotificationContentProps = {
@@ -79,12 +79,12 @@ WithUnreadNotifications.args = {
   userNotifications: [
     ...defaultNotifications,
     {
-      _id: '3',
-      type: 'SystemNotification',
+      id: 3,
+      type: 'system',
       system_message: 'Unread System Message',
       read: false,
       createdAt: new Date(),
-    } as SystemNotification,
+    } as ISystemNotification,
   ],
 };
 
