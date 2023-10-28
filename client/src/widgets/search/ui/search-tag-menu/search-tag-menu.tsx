@@ -14,8 +14,7 @@ interface SearchTagMenuProps {
 }
 
 export const SearchTagMenu: FC<SearchTagMenuProps> = props => {
-  const { filterItem, filterIndex, handleClearOption, handleClearAllOptions } =
-    props;
+  const { filterItem, filterIndex, handleClearOption, handleClearAllOptions } = props;
   const [isListOpened, setIsListOpened] = useState(false);
   const filterListRef = useClickOutside<HTMLDivElement>(() => setIsListOpened(false));
 
