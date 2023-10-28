@@ -34,6 +34,31 @@ export const SearchBar_default = () => {
           ],
           filterValue: [],
         },
+        {
+          label: 'Concentrations',
+          value: 'concentrations',
+          type: 'multiple',
+          placeholder: 'Search by concentrations',
+          optionsArr: [
+            {
+              label: 'Mobile Developer',
+              value: 'mobile',
+            },
+            {
+              label: 'Frontend/UI Developer',
+              value: 'frontend',
+            },
+            {
+              label: 'Backend Developer',
+              value: 'backend',
+            },
+            {
+              label: 'Full-Stack Developer',
+              value: 'fullstack',
+            },
+          ],
+          filterValue: [],
+        },
       ]}
       callback={queryString => console.log(queryString)}
     />

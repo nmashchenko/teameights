@@ -28,7 +28,7 @@ export const SearchInput: FC<SearchInputProps> = props => {
             return item;
           });
         });
-      }, 2000)
+      }, 1300)
     );
   };
 
