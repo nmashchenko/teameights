@@ -7,8 +7,9 @@ import { LogoBig, LogoSmall } from '@/shared/assets';
 import { Flex, Tabs } from '@/shared/ui';
 import styles from './styles.module.scss';
 import { useGetScreenWidth } from '@/shared/lib';
+import Image from 'next/image';
 
-const baseLayouts = ['confirmation', 'expired', 'success'];
+const baseLayouts = ['confirmation', 'expired', 'success', 'processing'];
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -30,9 +31,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <div className={styles.logo} onClick={handleBack}>
         {width > 420 ? <LogoBig /> : <LogoSmall />}
       </div>
-      <div className={styles.headerNormalizer}>
-        <Tabs options={options} currentTab={tab} onTabChange={handleChange} />
-      </div>
+      <Tabs options={options} currentTab={tab} onTabChange={handleChange} />
     </header>
   );
 
@@ -59,7 +58,15 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           {children}
         </Flex>
       </div>
-      <img className={styles.right} src='https://dummyimage.com/4000x4000' alt='Main image' />
+      <Image
+        src='/images/team8s.png'
+        width={0}
+        height={0}
+        alt={'Teameights screen'}
+        sizes='100vw'
+        className={styles.right}
+        priority
+      />
     </Flex>
   );
 

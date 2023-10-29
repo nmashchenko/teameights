@@ -12,13 +12,16 @@ export class AuthGoogleService {
   constructor(private configService: ConfigService<AllConfigType>) {
     this.google = new OAuth2Client(
       configService.get('google.clientId', { infer: true }),
-      configService.get('google.clientSecret', { infer: true })
+      configService.get('google.clientSecret', { infer: true }),
+      'postmessage'
     );
   }
 
   async getProfileByToken(loginDto: AuthGoogleLoginDto): Promise<SocialInterface> {
+    // issue: https://github.com/MomenSherif/react-oauth/issues/12
+    const { tokens } = await this.google.getToken(loginDto.code);
     const ticket = await this.google.verifyIdToken({
-      idToken: loginDto.idToken,
+      idToken: tokens.id_token || '',
       audience: [this.configService.getOrThrow('google.clientId', { infer: true })],
     });
 

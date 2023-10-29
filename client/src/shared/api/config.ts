@@ -11,7 +11,6 @@ const LOCAL_PATH =
 export const API_URL = LOCAL_PATH + '/api/v1';
 
 export const API = axios.create({
-  // withCredentials: true,
   baseURL: API_URL,
 });
 

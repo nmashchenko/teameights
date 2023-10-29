@@ -29,11 +29,17 @@ export default function LoginPage() {
   } = useForm<LoginProps>();
 
   const login = useGoogleLogin({
-    onSuccess: codeResponse => console.log(codeResponse),
+    // issue: https://github.com/MomenSherif/react-oauth/issues/12
+    onSuccess: codeResponse => router.push(`/proxy/google?code=${codeResponse.code}`),
     flow: 'auth-code',
   });
 
-  const onSubmit: SubmitHandler<LoginProps> = () => loginUser({ email, password });
+  const loginWithGit = () =>
+    router.push(
+      `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_API_OAUTH_TOKEN}`
+    );
+
+  const onSubmit: SubmitHandler<LoginProps> = data => loginUser(data);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -85,7 +91,7 @@ export default function LoginPage() {
               <Google />
               <Typography>Google</Typography>
             </Button>
-            <Button typeBtn='secondary' size='l' width='100%' type='button'>
+            <Button typeBtn='secondary' size='l' width='100%' type='button' onClick={loginWithGit}>
               <Github />
               <Typography>Github</Typography>
             </Button>

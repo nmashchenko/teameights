@@ -50,27 +50,27 @@ We use [TypeORM](https://www.npmjs.com/package/typeorm) and [PostgreSQL](https:/
 1. Next, generate migration file:
 
    ```bash
-   npm run migration:generate -- src/database/migrations/CreatePostTable
+   yarn migration:generate -- src/database/migrations/CreatePostTable
    ```
 
-1. Apply this migration to database via [npm run migration:run](#run-migration).
+1. Apply this migration to database via [yarn migration:run](#run-migration).
 
 ### Run migration
 
 ```bash
-npm run migration:run
+yarn migration:run
 ```
 
 ### Revert migration
 
 ```bash
-npm run migration:revert
+yarn migration:revert
 ```
 
 ### Drop all tables in database
 
 ```bash
-npm run schema:drop
+yarn schema:drop
 ```
 
 ---
@@ -79,15 +79,15 @@ npm run schema:drop
 
 ### Creating seeds
 
-1. Create seed file with `npm run seed:create -- --name=Post`. Where `Post` is name of entity.
+1. Create seed file with `yarn seed:create -- --name=Post`. Where `Post` is name of entity.
 1. Go to `src/database/seeds/post/post-seed.service.ts`.
 1. In `run` method extend your logic.
-1. Run [npm run seed:run](#run-seed)
+1. Run [yarn seed:run](#run-seed)
 
 ### Run seed
 
 ```bash
-npm run seed:run
+yarn seed:run
 ```
 
 ---

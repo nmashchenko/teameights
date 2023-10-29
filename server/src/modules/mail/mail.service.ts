@@ -50,7 +50,7 @@ export class MailService {
         title: emailConfirmTitle,
         url: `${this.configService.get('app.frontendDomain', {
           infer: true,
-        })}/confirm-email?hash=${mailData.data.hash}`,
+        })}/proxy/email?hash=${mailData.data.hash}`,
         actionTitle: emailConfirmTitle,
         app_name: this.configService.get('app.name', { infer: true }),
         text1,

@@ -10,5 +10,8 @@ export const useGetMe = () => {
       const { data } = await API.get<IUserProtectedResponse>(ME);
       return data;
     },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    // enabled: typeof window !== 'undefined' ?? !!localStorage.getItem('token'),
   });
 };
