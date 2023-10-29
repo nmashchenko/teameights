@@ -7,17 +7,26 @@ import {
   IProject,
   IRole,
   IStatus,
+  ITeam,
   IUniversity,
   IUserBase,
+  NotificationType,
 } from '@teameights/types';
 import { getRandomItemFromArray, getRandomNumberBetween, shuffleArray } from './common';
-import { generateMockTeam } from './team';
-import { generateRandomNotification } from '@/shared/lib/mock/notification';
-import { languageOptions } from '@/shared/constant';
+import { frameworkColors, languageOptions } from '@/shared/constant';
 
 export const getRandomLanguages = (min: number, max: number): string[] => {
   const allLanguages = Object.keys(languageOptions);
   const shuffledLanguages = shuffleArray([...allLanguages]);
+
+  const randomLength = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  return shuffledLanguages.slice(0, randomLength);
+};
+
+export const getRandomFrameworks = (min: number, max: number): string[] => {
+  const allFrameworks = Object.keys(frameworkColors);
+  const shuffledLanguages = shuffleArray([...allFrameworks]);
 
   const randomLength = Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -75,8 +84,11 @@ export const generateMockUniversity = (): IUniversity => ({
   graduationDate: faker.datatype.boolean() ? faker.date.past() : null,
 });
 
-export const generateUserMockData = (includeNotifications?: boolean): IUserBase => {
-  const user: IUserBase = {
+export const generateMockUser = (
+  initialTeam?: ITeam,
+  initialNotifications?: NotificationType[]
+): IUserBase => {
+  return {
     id: faker.number.int(),
     username: faker.internet.userName(),
     fullName: faker.person.firstName(),
@@ -85,9 +97,9 @@ export const generateUserMockData = (includeNotifications?: boolean): IUserBase 
     status: generateMockStatus(),
     isLeader: faker.datatype.boolean(),
     country: faker.location.country(),
-    dateOfBirth: faker.date.past(30),
+    dateOfBirth: faker.date.past(),
     concentration: faker.lorem.word(),
-    description: faker.datatype.boolean() ? faker.lorem.sentence() : null,
+    description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 280 }) : null,
     experience: getRandomItemFromArray([
       'No experience',
       'Few months',
@@ -98,9 +110,7 @@ export const generateUserMockData = (includeNotifications?: boolean): IUserBase 
       '5+ years',
     ]) as ExperienceType,
     programmingLanguages: getRandomLanguages(1, 5),
-    frameworks: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }).map(() =>
-      faker.lorem.word()
-    ),
+    frameworks: getRandomFrameworks(1, 5),
     universities: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }).map(() =>
       generateMockUniversity()
     ),
@@ -109,26 +119,15 @@ export const generateUserMockData = (includeNotifications?: boolean): IUserBase 
       generateMockProject()
     ),
     links: faker.datatype.boolean() ? generateMockLinks() : null,
-    notifications: [],
-    team: faker.datatype.boolean() ? generateMockTeam() : null,
+    notifications: initialNotifications ? initialNotifications : [],
+    // to avoid dead lock we can't generate team here, we will need to add team
+    team: initialTeam ? initialTeam : null,
     createdAt: faker.date.recent(),
     updatedAt: faker.date.recent(),
     deletedAt: faker.datatype.boolean() ? faker.date.recent() : null,
   };
-
-  if (includeNotifications) {
-    const notificationsCount = faker.number.int({ min: 1, max: 5 });
-    user.notifications = Array.from({ length: notificationsCount }).map(() =>
-      generateRandomNotification()
-    );
-  }
-
-  return user;
 };
 
-export const generateMultipleUsers = (
-  count: number,
-  includeNotifications?: boolean
-): IUserBase[] => {
-  return Array.from({ length: count }).map(() => generateUserMockData(includeNotifications));
+export const generateMockUsers = (count: number): IUserBase[] => {
+  return Array.from({ length: count }).map(() => generateMockUser());
 };

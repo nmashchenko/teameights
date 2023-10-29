@@ -1,17 +1,18 @@
 import { faker } from '@faker-js/faker';
-import { ITeam, TeamType } from '@teameights/types';
-import { generateMockFileEntity, generateUserMockData } from './user';
+import { ITeam, IUserBase, TeamType } from '@teameights/types';
+import { generateMockFileEntity, generateMockUser, generateMockUsers } from './user';
 import { getRandomItemFromArray } from './common';
 
-export const generateMockTeam = (): ITeam => {
+export const generateMockTeam = (
+  initialLeader?: IUserBase,
+  initialMembers?: IUserBase[]
+): ITeam => {
   return {
     id: faker.number.int(),
     name: faker.word.words(),
     description: faker.datatype.boolean() ? faker.lorem.sentence() : null,
-    leader: generateUserMockData(),
-    members: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }).map(() =>
-      generateUserMockData()
-    ),
+    leader: initialLeader ? initialLeader : generateMockUser(),
+    members: initialMembers ? initialMembers : generateMockUsers(5),
     country: faker.location.country(),
     tag: faker.lorem.word(),
     type: getRandomItemFromArray(['invite_only', 'closed', 'open']) as TeamType,
