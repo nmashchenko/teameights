@@ -3,7 +3,7 @@ import { Flex, Typography } from '@/shared/ui';
 import { RaceBy } from '@uiball/loaders';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import { useGoogle } from '@/entities/session/model/queries/useGoogle';
+import { useGoogle } from '@/entities/session';
 
 export default function GooglePage() {
   const searchParams = useSearchParams();

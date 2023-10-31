@@ -3,12 +3,8 @@
 import { Button, Typography } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
 
-import { useGetMe } from '@/entities/session/model/queries/useGetMe';
-import { useLogout } from '@/entities/session/model/queries/useLogout';
-import { useLogin } from '@/entities/session/model/queries/useLogin';
-import { useUpdateMe } from '@/entities/session/model/queries/useUpdateMe';
+import { useGetMe, useLogout, useLogin, useUpdateMe, useRegister } from '@/entities/session';
 import { faker } from '@faker-js/faker';
-import { useRegister } from '@/entities/session/model/queries/useRegister';
 
 export default function Home() {
   const width = useGetScreenWidth();

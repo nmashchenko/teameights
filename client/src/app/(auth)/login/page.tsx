@@ -9,7 +9,7 @@ import { Button, Flex, Input, InputPassword, Typography } from '@/shared/ui';
 import { useState } from 'react';
 import styles from '../shared.module.scss';
 import { Github, Google } from '@/shared/assets';
-import { useLogin } from '@/entities/session/model/queries/useLogin';
+import { useLogin } from '@/entities/session';
 
 interface LoginProps {
   email: string;

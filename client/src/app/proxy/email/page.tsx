@@ -2,7 +2,7 @@
 import { Flex, Typography } from '@/shared/ui';
 import { RaceBy } from '@uiball/loaders';
 import { useSearchParams } from 'next/navigation';
-import { useConfirmEmail } from '@/entities/session/model/queries/useConfirmEmail';
+import { useConfirmEmail } from '@/entities/session';
 import { useEffect } from 'react';
 
 export default function EmailPage() {

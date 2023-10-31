@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Flex, Input, InputPassword, Typography } from '@/shared/ui';
 import styles from '../shared.module.scss';
 import { useRouter } from 'next/navigation';
-import { useRegister } from '@/entities/session/model/queries/useRegister';
+import { useRegister } from '@/entities/session';
 
 interface SignupProps {
   email: string;

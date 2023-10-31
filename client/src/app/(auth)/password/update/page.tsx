@@ -4,7 +4,7 @@ import { Button, Flex, InputPassword, Typography } from '@/shared/ui';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
-import { useResetPassword } from '@/entities/session/model/queries/useResetPassword';
+import { useResetPassword } from '@/entities/session';
 
 interface UpdateProps {
   password: string;

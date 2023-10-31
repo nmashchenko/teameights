@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ArrowLeft } from '@/shared/assets';
 import { Button, Flex, Input, Typography } from '@/shared/ui';
 import styles from '../password.module.scss';
-import { useForgotPassword } from '@/entities/session/model/queries/useForgotPassword';
+import { useForgotPassword } from '@/entities/session';
 
 interface RecoverProps {
   email: string;

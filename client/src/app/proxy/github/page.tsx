@@ -3,7 +3,7 @@ import { Flex, Typography } from '@/shared/ui';
 import { RaceBy } from '@uiball/loaders';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import { useGithub } from '@/entities/session/model/queries/useGithub';
+import { useGithub } from '@/entities/session';
 
 export default function GithubPage() {
   const searchParams = useSearchParams();
