@@ -1,19 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
 import { API } from '@/shared/api';
 import { IResetPassword } from '@teameights/types';
-import { RESET_PASSWORD } from '@/shared/constant';
+import { API_RESET_PASSWORD, PASSWORD_EXPIRED, PASSWORD_SUCCESS } from '@/shared/constant';
 import { useRouter } from 'next/navigation';
 
 export const useResetPassword = () => {
   const router = useRouter();
   return useMutation({
-    mutationFn: async (data: IResetPassword) => await API.post(RESET_PASSWORD, data),
+    mutationFn: async (data: IResetPassword) => await API.post(API_RESET_PASSWORD, data),
     onSuccess: () => {
-      router.push('/password/success');
+      router.push(PASSWORD_SUCCESS);
     },
-    onError: error => {
-      console.log(error);
-      router.push('/password/expired');
+    onError: () => {
+      router.push(PASSWORD_EXPIRED);
     },
   });
 };

@@ -1,9 +1,8 @@
 'use client';
-import { Flex, Typography } from '@/shared/ui';
-import { RaceBy } from '@uiball/loaders';
 import { useSearchParams } from 'next/navigation';
 import { useConfirmEmail } from '@/entities/session';
 import { useEffect } from 'react';
+import { Info } from '@/app/proxy/ui/info';
 
 export default function EmailPage() {
   const searchParams = useSearchParams();
@@ -14,11 +13,5 @@ export default function EmailPage() {
     if (hash) confirmEmail({ hash });
   }, [hash, confirmEmail]);
 
-  useConfirmEmail();
-  return (
-    <Flex direction='column' align='center' justify='center' gap={32}>
-      <RaceBy size={237} speed={1.9} color='var(--green-bright-color)' />
-      <Typography size='heading_m'>Email confirmation...</Typography>
-    </Flex>
-  );
+  return <Info text='Confirming email...' size={214} />;
 }

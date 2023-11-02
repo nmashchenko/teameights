@@ -2,16 +2,16 @@ import { useMutation } from '@tanstack/react-query';
 import { API } from '@/shared/api';
 import { IForgotPassword } from '@teameights/types';
 import { toast } from 'sonner';
-import { FORGOT_PASSWORD } from '@/shared/constant';
+import { API_FORGOT_PASSWORD, PASSWORD_CONFIRMATION } from '@/shared/constant';
 import { useRouter } from 'next/navigation';
 import { isAxiosError } from 'axios';
 
 export const useForgotPassword = () => {
   const router = useRouter();
   return useMutation({
-    mutationFn: async (data: IForgotPassword) => await API.post(FORGOT_PASSWORD, data),
+    mutationFn: async (data: IForgotPassword) => await API.post(API_FORGOT_PASSWORD, data),
     onSuccess: () => {
-      router.push('/password/confirmation');
+      router.push(PASSWORD_CONFIRMATION);
     },
     onError: error => {
       if (isAxiosError(error)) {

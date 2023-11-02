@@ -44,6 +44,7 @@ API.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${response.data.token}`;
         return API.request(originalRequest);
       } catch (err) {
+        // TODO: Rewrite to logger
         console.log('Not authorized');
         localStorage.removeItem('token');
         Cookies.remove('refreshToken');

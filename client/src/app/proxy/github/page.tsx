@@ -1,9 +1,8 @@
 'use client';
-import { Flex, Typography } from '@/shared/ui';
-import { RaceBy } from '@uiball/loaders';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useGithub } from '@/entities/session';
+import { Info } from '@/app/proxy/ui/info';
 
 export default function GithubPage() {
   const searchParams = useSearchParams();
@@ -14,10 +13,5 @@ export default function GithubPage() {
     if (code) confirmGithub({ code });
   }, [code, confirmGithub]);
 
-  return (
-    <Flex direction='column' align='center' justify='center' gap={32}>
-      <RaceBy size={237} speed={1.9} color='var(--green-bright-color)' lineWeight={8} />
-      <Typography size='heading_m'>Logging via github...</Typography>
-    </Flex>
-  );
+  return <Info text='Logging via github...' />;
 }

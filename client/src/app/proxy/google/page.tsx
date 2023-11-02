@@ -1,6 +1,5 @@
 'use client';
-import { Flex, Typography } from '@/shared/ui';
-import { RaceBy } from '@uiball/loaders';
+import { Info } from '../ui/info';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useGoogle } from '@/entities/session';
@@ -14,10 +13,5 @@ export default function GooglePage() {
     if (code) confirmGoogle({ code });
   }, [code, confirmGoogle]);
 
-  return (
-    <Flex direction='column' align='center' justify='center' gap={32}>
-      <RaceBy size={237} speed={1.9} color='var(--green-bright-color)' lineWeight={8} />
-      <Typography size='heading_m'>Logging via google...</Typography>
-    </Flex>
-  );
+  return <Info text='Logging via google...' />;
 }

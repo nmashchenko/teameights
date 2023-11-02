@@ -8,7 +8,7 @@ import { faker } from '@faker-js/faker';
 
 export default function Home() {
   const width = useGetScreenWidth();
-  const { data } = useGetMe();
+  const { data, isFetching } = useGetMe();
   const { mutate: logout } = useLogout();
   const { mutate: login } = useLogin();
   const { mutate: update } = useUpdateMe();
@@ -22,7 +22,9 @@ export default function Home() {
 
       <div> The screen width is: {width} </div>
 
-      <Typography>Hello, {data?.email || 'failed to fetch'}!</Typography>
+      <Typography>
+        Hello, {isFetching ? 'loading...' : data?.email ?? 'Failed to fetch'}!
+      </Typography>
 
       <Button onClick={() => logout()}>Logout</Button>
       <Button onClick={() => login({ email: 'john.doe@example.com', password: 'secret' })}>
