@@ -15,8 +15,5 @@ export const useUpdateMe = () => {
         .then(() => console.log('invalidated'));
       toast.success('Updated user!');
     },
-    onError: error => {
-      toast.error(`Failed to update: ${error.message}`);
-    },
   });
 };

@@ -59,7 +59,7 @@ export default function LoginPage() {
               placeholder='Password'
               {...register('password', {
                 required: 'Password is required!',
-                // minLength: { value: 8, message: 'Minimum length is 8!' },
+                minLength: { value: 8, message: 'Minimum length is 8!' },
               })}
               error={errors?.password ? errors.password.message : undefined}
               value={password}

@@ -15,8 +15,9 @@ export const useLogout = () => {
       toast.success('Successful logout. See you soon!');
       return queryClient.removeQueries();
     },
-    onError: () => {
-      toast.error('Failed to logout');
+    onError: error => {
+      console.log(error);
+      toast.error('Failed to logout, you are not logged in!');
     },
   });
 };

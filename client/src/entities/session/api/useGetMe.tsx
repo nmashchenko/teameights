@@ -1,3 +1,4 @@
+'use client';
 import { useQuery } from '@tanstack/react-query';
 import { IUserProtectedResponse } from '@teameights/types';
 import { API } from '@/shared/api';

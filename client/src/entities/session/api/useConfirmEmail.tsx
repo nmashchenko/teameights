@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { API } from '@/shared/api';
 import { IConfirmEmail, ILoginResponse } from '@teameights/types';
 import { toast } from 'sonner';
-import { API_EMAIL_CONFIRM, ONBOARDING } from '@/shared/constant';
+import { API_EMAIL_CONFIRM, DEFAULT, ONBOARDING } from '@/shared/constant';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
@@ -17,8 +17,9 @@ export const useConfirmEmail = () => {
 
       router.push(ONBOARDING);
     },
-    onError: error => {
-      toast.error(`Something went wrong: ${error?.message}`);
+    onError: () => {
+      router.push(DEFAULT);
+      toast.error('Invalid email confirmation');
     },
   });
 };

@@ -28,8 +28,5 @@ export const useLogin = () => {
         router.push(ONBOARDING);
       }
     },
-    onError: error => {
-      toast.error(`Something went wrong: ${error?.message}`);
-    },
   });
 };

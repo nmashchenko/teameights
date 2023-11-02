@@ -28,8 +28,9 @@ export const useGithub = () => {
         router.push(ONBOARDING);
       }
     },
-    onError: error => {
-      toast.error(`Something went wrong: ${error?.message}`);
+    onError: () => {
+      router.push(DEFAULT);
+      toast.error('Invalid github login');
     },
   });
 };
