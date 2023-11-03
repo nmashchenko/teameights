@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import clsx from 'clsx';
 import styles from './search-tag-menu.module.scss';
 import { ICheckboxFilter, IMultipleFilter, IOptionItem } from '../../types';
 import { useClickOutside } from '@/shared/lib';
@@ -23,11 +22,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
   const filterListRef = useClickOutside<HTMLDivElement>(() => setIsListOpened(false));
 
   return (
-    <div
-      className={clsx(styles.tagWrapper)}
-      onClick={() => setIsListOpened(true)}
-      ref={filterListRef}
-    >
+    <div className={styles.tagWrapper} onClick={() => setIsListOpened(true)} ref={filterListRef}>
       {isListOpened ? (
         <ul>
           {filterItem.filterValue.slice(1).map((item: IOptionItem, index: number) => (

@@ -1,5 +1,4 @@
 import { FC, Dispatch, SetStateAction } from 'react';
-import clsx from 'clsx';
 import styles from './tag-list.module.scss';
 import { Filter } from '../../types';
 import { Tag } from '../tag';
@@ -60,12 +59,12 @@ export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
   };
 
   return (
-    <ul className={clsx(styles.tagList)}>
+    <ul className={styles.tag__list}>
       {filtersArr.map((item, index) => {
         switch (item.type) {
           case 'text':
             return item.filterValue.length ? (
-              <li key={item.value} className={clsx(styles.tagWrapper)}>
+              <li key={item.value} className={styles.tag__wrapper}>
                 <Tag
                   isWithCross
                   key={item.value}
@@ -81,7 +80,7 @@ export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
               return (
                 <li className={styles.checkboxFilterTag} key={item.value}>
                   <div
-                    className={clsx(styles.tagWrapper)}
+                    className={styles.tag__wrapper}
                     onClick={() => handleClearMultipleOption(index, 0)}
                   >
                     <Tag isWithCross text={item.filterValue[0].label} />

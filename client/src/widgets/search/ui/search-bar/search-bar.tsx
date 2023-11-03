@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import clsx from 'clsx';
 import styles from './search-bar.module.scss';
 import { Filter } from '../../types';
 import { FilterSelect } from '../filter-select';
@@ -19,8 +18,8 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback })
   useTrackFiltersArr(filtersArr, callback);
 
   return (
-    <Flex direction='column' gap='24px' className={clsx(styles.searchBar)}>
-      <Flex className={clsx(styles.searchBarContent)}>
+    <Flex direction='column' gap='24px' className={styles.searchBar}>
+      <Flex className={styles.searchBar__content}>
         <FilterSelect
           filtersArr={filtersArr}
           filterIndex={filterIndex}

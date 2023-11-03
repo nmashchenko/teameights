@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import clsx from 'clsx';
 import styles from './filter-select.module.scss';
 import { SingleValue } from 'react-select';
 import { Select } from '@/shared/ui';
@@ -30,13 +29,18 @@ export const FilterSelect: FC<FilterSelectProps> = ({
   };
 
   return (
-    <div className={clsx(styles.selectWrapper)}>
+    <div className={styles.select__wrapper}>
       <Select
         isSearchable={false}
         options={filtersArr}
         isWithBorder={false}
         classNames={{
-          container: () => (isMenuOpened ? clsx(styles.select_active) : clsx(styles.select)),
+          container: () => (isMenuOpened ? styles.select_active : styles.select),
+        }}
+        styles={{
+          control: () => ({
+            padding: '0 12px',
+          }),
         }}
         value={filtersArr[filterIndex]}
         onChange={newValue => handleChange(newValue)}
