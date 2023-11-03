@@ -2,8 +2,7 @@ import type { Meta } from '@storybook/react';
 import { TeamPhone } from './phone';
 import { useState } from 'react';
 import { Button } from '@/shared/ui';
-import { userResponseFixture } from '@/shared/fixtures/user';
-import { teamFixture } from '@/shared/fixtures/team';
+import { generateMockTeam, generateMockUser } from '@/shared/lib/mock';
 
 const meta: Meta<typeof TeamPhone> = {
   title: 'widgets/modals/info/team/phone',
@@ -19,6 +18,8 @@ const handleJoin = () => {
 };
 
 export const InfoModalTeam_phone = () => {
+  const team = generateMockTeam();
+  const user = generateMockUser();
   const [openModal, setOpenModal] = useState(false);
   const openModalNew = () => {
     setOpenModal(true);
@@ -32,8 +33,8 @@ export const InfoModalTeam_phone = () => {
         Open Modal Team
       </Button>
       <TeamPhone
-        team={teamFixture}
-        user={userResponseFixture}
+        team={team}
+        user={user}
         isOpenModal={openModal}
         handleClose={closeModalNew}
         handleJoin={handleJoin}
