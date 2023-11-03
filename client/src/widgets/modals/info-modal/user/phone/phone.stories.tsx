@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import { UserPhone } from './phone';
 import { useState } from 'react';
 import { Button } from '@/shared/ui';
-import { userResponseFixture } from '@/shared/fixtures/user';
+import { generateMockUser } from '@/shared/lib/mock';
 
 const meta: Meta<typeof UserPhone> = {
   title: 'widgets/modals/info/user/phone',
@@ -15,6 +15,7 @@ export default meta;
 
 export const InfoModalUser_desktop = () => {
   const [openModal, setOpenModal] = useState(false);
+  const user = generateMockUser();
   const openModalNew = () => {
     setOpenModal(true);
   };
@@ -26,7 +27,7 @@ export const InfoModalUser_desktop = () => {
       <Button typeBtn='primary' size='m' color='white' onClick={openModalNew}>
         Open Third Modal
       </Button>
-      <UserPhone user={userResponseFixture} isOpenModal={openModal} handleClose={closeModalNew} />
+      <UserPhone user={user} isOpenModal={openModal} handleClose={closeModalNew} />
     </div>
   );
 };
