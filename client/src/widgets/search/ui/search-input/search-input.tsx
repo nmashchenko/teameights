@@ -1,4 +1,4 @@
-import { FC, Dispatch, SetStateAction, useState } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 import { MultiValue } from 'react-select';
 import { Filter, IOptionItem } from '../../types';
 import { TextInput } from '../text-input';
@@ -12,23 +12,17 @@ interface SearchInputProps {
 
 export const SearchInput: FC<SearchInputProps> = ({ filtersArr, setFilterArr, filterIndex }) => {
   const currentFilter = filtersArr[filterIndex];
-  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | string | number | undefined>();
 
   const onChange = (newValue: string | MultiValue<IOptionItem> | [number, number] | null) => {
-    clearTimeout(timer);
-    setTimer(
-      setTimeout(() => {
-        setFilterArr(prev => {
-          return prev.map((item, i) => {
-            if (filterIndex === i) {
-              item.filterValue = newValue;
-            }
+    setFilterArr(prev => {
+      return prev.map((item, i) => {
+        if (filterIndex === i) {
+          item.filterValue = newValue;
+        }
 
-            return item;
-          });
-        });
-      }, 1300)
-    );
+        return item;
+      });
+    });
   };
 
   switch (currentFilter.type) {
