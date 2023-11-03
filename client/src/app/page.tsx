@@ -15,6 +15,8 @@ export default function Home() {
   useEffect(() => {
     setUser(generateMockUser());
 
+    console.log(generateMockUser());
+
     console.log(generateTeamInvitationNotification());
     console.log(generateMockTeam());
     console.log(generateSystemNotification());

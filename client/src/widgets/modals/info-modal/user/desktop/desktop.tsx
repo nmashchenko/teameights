@@ -1,12 +1,4 @@
-import {
-  BadgeFramework,
-  BadgeLanguage,
-  Button,
-  Modal,
-  Typography,
-  Flex,
-  ImageLoader,
-} from '@/shared/ui';
+import { BadgeText, BadgeIcon, Button, Modal, Typography, Flex, ImageLoader } from '@/shared/ui';
 import styles from './desktop.module.scss';
 import { FC } from 'react';
 import { ArrowRight, UserPlus, ChatCircleDots } from '@/shared/assets';
@@ -68,14 +60,14 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
           {user?.frameworks && (
             <div className={styles.grid_container}>
               {user?.frameworks.map((framework, index) => (
-                <BadgeFramework data={framework} key={index} />
+                <BadgeText data={framework} key={index} />
               ))}
             </div>
           )}
           {user?.programmingLanguages && (
             <Flex wrap='wrap' gap='8px'>
               {user?.programmingLanguages.map((language, index) => (
-                <BadgeLanguage data={language} key={index} />
+                <BadgeIcon data={language} key={index} />
               ))}
             </Flex>
           )}

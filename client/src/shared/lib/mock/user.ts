@@ -13,10 +13,10 @@ import {
   NotificationType,
 } from '@teameights/types';
 import { getRandomItemFromArray, getRandomNumberBetween, shuffleArray } from './common';
-import { frameworkColors, languageOptions } from '@/shared/constant';
+import { badgeColors } from '@/shared/constant';
 
 export const getRandomLanguages = (min: number, max: number): string[] => {
-  const allLanguages = Object.keys(languageOptions);
+  const allLanguages = Object.keys(badgeColors);
   const shuffledLanguages = shuffleArray([...allLanguages]);
 
   const randomLength = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -25,7 +25,7 @@ export const getRandomLanguages = (min: number, max: number): string[] => {
 };
 
 export const getRandomFrameworks = (min: number, max: number): string[] => {
-  const allFrameworks = Object.keys(frameworkColors);
+  const allFrameworks = Object.keys(badgeColors);
   const shuffledLanguages = shuffleArray([...allFrameworks]);
 
   const randomLength = Math.floor(Math.random() * (max - min + 1)) + min;

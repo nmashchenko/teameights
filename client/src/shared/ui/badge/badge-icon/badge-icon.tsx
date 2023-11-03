@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import { FC } from 'react';
-import { languageOptions } from '@/shared/constant';
-import styles from './badge-language.module.scss';
+import { badgeIcons } from '@/shared/constant';
+import styles from './badge-icon.module.scss';
 
 /**
- * BadgeLanguage Component
+ * BadgeIcon Component
  *
- * This is a customizable badge component tailored for displaying programming languages.
- * The badge's content is derived from the provided `data` prop using the 'languageOptions'.
+ * This is a customizable badge component tailored for displaying programming languages, tools, etc.
+ * The badge's content is derived from the provided `data`
  *
  * Props:
  *
@@ -19,9 +19,9 @@ import styles from './badge-language.module.scss';
  * Usage:
  *
  * ```tsx
- * import { BadgeLanguage } from 'shared/ui';
+ * import { BadgeIcon } from 'shared/ui';
  *
- * <BadgeLanguage data="javascript" key={1} />
+ * <BadgeIcon data="javascript" />
  * ```
  *
  * Note:
@@ -29,20 +29,20 @@ import styles from './badge-language.module.scss';
  * - External styles are imported from 'styles.module.scss'. Ensure the styles are appropriately set in the SCSS file.
  * - 'languageOptions' is used to fetch the display name of the programming language. If a language key is not listed in this object, the badge will not display the corresponding name.
  */
-interface BadgeLanguageProps {
+interface BadgeIconProps {
   data: string;
   className?: string;
   maxWidth?: string;
 }
 
-export const BadgeLanguage: FC<BadgeLanguageProps> = props => {
+export const BadgeIcon: FC<BadgeIconProps> = props => {
   const { data, className, maxWidth } = props;
   return (
     <div
-      className={clsx([className], styles.badge_language)}
+      className={clsx([className], styles.badge_icon)}
       style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
     >
-      {languageOptions[data]}
+      {badgeIcons[data]}
     </div>
   );
 };

@@ -1,13 +1,13 @@
 import { clsx } from 'clsx';
 import { FC } from 'react';
-import { frameworkColors, frameworkTextColors } from '@/shared/constant';
-import styles from './badge-framework.module.scss';
+import { badgeColors, badgeTextColors } from '@/shared/constant';
+import styles from './badge-text.module.scss';
 
 /**
- * BadgeFramework Component
+ * BadgeText Component
  *
- * This is a customizable badge component specifically tailored for displaying framework names.
- * The badge automatically styles its background and text color based on the framework provided.
+ * This is a customizable badge component specifically tailored for displaying framework, field, methodology names.
+ * The badge automatically styles its background and text color based on the framework, field, methodology provided.
  *
  * Props:
  *
@@ -18,15 +18,15 @@ import styles from './badge-framework.module.scss';
  * Usage:
  *
  * ```tsx
- * import { BadgeFramework } from 'shared/ui';
+ * import { BadgeText } from 'shared/ui';
  *
- * <BadgeFramework data="React" key={1} />
+ * <BadgeText data="React" />
  * ```
  *
  * Note:
  * - This component uses `clsx` for conditional class joining.
  * - External styles are imported from 'styles.module.scss'. Ensure the styles are appropriately set in the SCSS file.
- * - Colors are fetched from 'frameworkColors' and 'frameworkTextColors'. If a framework is not listed in these objects, the badge will default to a general color.
+ * - Colors are fetched from 'badgeColors' and 'badgeTextColors'. If a framework is not listed in these objects, the badge will default to a general color.
  */
 
 interface BadgeFrameworkProps {
@@ -35,14 +35,14 @@ interface BadgeFrameworkProps {
   maxWidth?: string;
 }
 
-export const BadgeFramework: FC<BadgeFrameworkProps> = props => {
+export const BadgeText: FC<BadgeFrameworkProps> = props => {
   const { className, maxWidth, data } = props;
   return (
     <div
-      className={clsx([className], styles.badge_framework)}
+      className={clsx([className], styles.badge_text)}
       style={{
-        backgroundColor: `${frameworkColors[data] ? frameworkColors[data] : '#2F3239'}`,
-        color: frameworkTextColors[data],
+        backgroundColor: `${badgeColors[data] ? badgeColors[data] : '#2F3239'}`,
+        color: badgeTextColors[data],
         maxWidth: `${maxWidth ? maxWidth : '100%'}`,
       }}
     >

@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight } from '@/shared/assets';
-import { BadgeFramework, BadgeLanguage, Button, Drawer, Flex, Typography } from '@/shared/ui';
+import { BadgeText, BadgeIcon, Button, Drawer, Flex, Typography } from '@/shared/ui';
 import { FC } from 'react';
 import styles from './phone.module.scss';
 import { calculateAge, getCountryFlag } from '@/shared/lib';
@@ -91,14 +91,14 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
               {user?.frameworks && (
                 <>
                   {user?.frameworks.map((framework: string, index: number) => (
-                    <BadgeFramework data={framework} key={index} />
+                    <BadgeText data={framework} key={index} />
                   ))}
                 </>
               )}
             </div>
             <Flex wrap='wrap' gap='8px'>
               {user?.programmingLanguages?.map((language: string, index: number) => (
-                <BadgeLanguage data={language} key={index} />
+                <BadgeIcon data={language} key={index} />
               ))}
             </Flex>
           </Flex>
