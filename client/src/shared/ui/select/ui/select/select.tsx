@@ -70,11 +70,12 @@ export const Select = <
     error,
     label,
     disabled,
-    isMulti,
-    isCheckbox = false,
     name,
-    isWithBorder = true,
+    isMulti,
+    isCheckbox,
+    isWithBorder,
     isIndicatorAllowed = true,
+    styles: customStyles,
     ...rest
   } = props;
   return (
@@ -92,7 +93,7 @@ export const Select = <
         {...rest}
         instanceId='t8s-select'
         closeMenuOnSelect={!isMulti}
-        styles={selectStyles<Option, IsMulti, Group>(isCheckbox, isWithBorder)}
+        styles={selectStyles<Option, IsMulti, Group>(customStyles, isCheckbox, isWithBorder)}
         name={name}
         components={{
           DropdownIndicator: isIndicatorAllowed
