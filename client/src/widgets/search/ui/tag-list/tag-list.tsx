@@ -10,9 +10,7 @@ interface TagListProps {
   setFilterArr: Dispatch<SetStateAction<Filter[]>>;
 }
 
-export const TagList: FC<TagListProps> = props => {
-  const { filtersArr, setFilterArr } = props;
-
+export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
   if (!filtersArr.length) {
     return null;
   }

@@ -13,8 +13,12 @@ interface SearchTagMenuProps {
   handleClearAllOptions: (filterIndex: number) => void;
 }
 
-export const SearchTagMenu: FC<SearchTagMenuProps> = props => {
-  const { filterItem, filterIndex, handleClearOption, handleClearAllOptions } = props;
+export const SearchTagMenu: FC<SearchTagMenuProps> = ({
+  filterItem,
+  filterIndex,
+  handleClearOption,
+  handleClearAllOptions,
+}) => {
   const [isListOpened, setIsListOpened] = useState(false);
   const filterListRef = useClickOutside<HTMLDivElement>(() => setIsListOpened(false));
 

@@ -11,8 +11,11 @@ interface FilterSelectProps {
   setFilterIndex: (index: number) => void;
 }
 
-export const FilterSelect: FC<FilterSelectProps> = props => {
-  const { filtersArr, filterIndex, setFilterIndex } = props;
+export const FilterSelect: FC<FilterSelectProps> = ({
+  filtersArr,
+  filterIndex,
+  setFilterIndex,
+}) => {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
 
   const handleMenuClose = () => {

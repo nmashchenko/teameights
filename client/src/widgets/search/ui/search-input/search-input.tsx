@@ -10,8 +10,7 @@ interface SearchInputProps {
   filterIndex: number;
 }
 
-export const SearchInput: FC<SearchInputProps> = props => {
-  const { filtersArr, setFilterArr, filterIndex } = props;
+export const SearchInput: FC<SearchInputProps> = ({ filtersArr, setFilterArr, filterIndex }) => {
   const currentFilter = filtersArr[filterIndex];
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | string | number | undefined>();
 

@@ -13,8 +13,7 @@ interface SearchBarProps {
   callback: (queryString: string) => void;
 }
 
-export const SearchBar: FC<SearchBarProps> = props => {
-  const { initialFiltersState, callback } = props;
+export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback }) => {
   const [filtersArr, setFilterArr] = useState(initialFiltersState);
   const [filterIndex, setFilterIndex] = useState(0);
   useTrackFiltersArr(filtersArr, callback);

@@ -13,8 +13,13 @@ interface SearchSelectProps {
   isCheckbox?: boolean;
 }
 
-export const SearchSelect: FC<SearchSelectProps> = props => {
-  const { optionsArr, defaultValue, placeholder, onChange, isCheckbox = false } = props;
+export const SearchSelect: FC<SearchSelectProps> = ({
+  optionsArr,
+  defaultValue,
+  placeholder,
+  onChange,
+  isCheckbox = false,
+}) => {
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {

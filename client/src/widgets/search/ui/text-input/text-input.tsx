@@ -9,8 +9,7 @@ interface TextInputProps {
   onChange: (value: string) => void;
 }
 
-export const TextInput: FC<TextInputProps> = props => {
-  const { defaultValue, placeholder, onChange } = props;
+export const TextInput: FC<TextInputProps> = ({ defaultValue, placeholder, onChange }) => {
   const [value, setValue] = useState(defaultValue);
 
   const handleChange = (value: string) => {
