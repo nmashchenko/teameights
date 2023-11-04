@@ -29,7 +29,7 @@ export const FilterSelect: FC<FilterSelectProps> = ({
   };
 
   return (
-    <div className={styles.select__wrapper}>
+    <div className={styles.container}>
       <Select
         isSearchable={false}
         options={filtersArr}

@@ -22,14 +22,14 @@ export const TextInput: FC<TextInputProps> = ({ defaultValue, placeholder, onCha
   }, [defaultValue]);
 
   return (
-    <Flex align='center' className={styles.inputWrapper}>
+    <Flex align='center' className={styles.container}>
       <Input
         value={value}
         onChange={e => handleChange(e.target.value)}
         placeholder={placeholder}
         isWithBorder={false}
       />
-      <Flex align='center' justify='center' className={styles.searchIconWrapper}>
+      <Flex align='center' justify='center' className={styles['search-icon']}>
         <Search />
       </Flex>
     </Flex>

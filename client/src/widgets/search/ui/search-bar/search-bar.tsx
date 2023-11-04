@@ -18,8 +18,8 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback })
   useTrackFiltersArr(filtersArr, callback);
 
   return (
-    <Flex direction='column' gap='24px' className={styles.searchBar}>
-      <Flex className={styles.searchBar__content}>
+    <Flex direction='column' gap='24px' className={styles.searchbar}>
+      <Flex className={styles.searchbar__content}>
         <FilterSelect
           filtersArr={filtersArr}
           filterIndex={filterIndex}

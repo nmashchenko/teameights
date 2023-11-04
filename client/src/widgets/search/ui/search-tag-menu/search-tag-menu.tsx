@@ -22,7 +22,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
   const filterListRef = useClickOutside<HTMLDivElement>(() => setIsListOpened(false));
 
   return (
-    <div className={styles.tagWrapper} onClick={() => setIsListOpened(true)} ref={filterListRef}>
+    <div className={styles.container} onClick={() => setIsListOpened(true)} ref={filterListRef}>
       {isListOpened ? (
         <ul>
           {filterItem.filterValue.slice(1).map((item: IOptionItem, index: number) => (

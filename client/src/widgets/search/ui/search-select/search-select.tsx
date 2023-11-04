@@ -32,7 +32,7 @@ export const SearchSelect: FC<SearchSelectProps> = ({
   };
 
   return (
-    <Flex align='center' className={styles.selectWrapper}>
+    <Flex align='center' className={styles.container}>
       <Select
         value={value}
         controlShouldRenderValue={false}
