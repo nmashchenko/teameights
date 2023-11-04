@@ -25,6 +25,12 @@
   overflow: hidden;
   border-radius: 2px;
   text-overflow: ellipsis;
+
+  &_with-hover {
+    &:hover {
+      color: var(--green-bright-color);
+    }
+  }
 }
 
 .remove {

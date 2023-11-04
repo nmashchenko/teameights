@@ -35,10 +35,10 @@ export const SearchBar_default = () => {
           filterValue: [],
         },
         {
-          label: 'Concentrations',
-          value: 'concentrations',
+          label: 'Specialty',
+          value: 'specialty',
           type: 'multiple',
-          placeholder: 'Search by concentrations',
+          placeholder: 'Search by specialty',
           optionsArr: [
             {
               label: 'Mobile Developer',

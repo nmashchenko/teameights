@@ -47,15 +47,25 @@ export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
   };
 
   const handleClearAllMultipleOptions = (filterIndex: number) => {
-    setFilterArr(prev =>
-      prev.map((item, index) => {
-        if (filterIndex === index) {
-          item.filterValue = [];
-        }
+    setFilterArr(prev => {
+      const filter = prev[filterIndex];
 
-        return item;
-      })
-    );
+      if (filter.type === 'checkbox' || filter.type === 'multiple') {
+        const newFilterValue = [filter.filterValue[0]];
+
+        console.log(newFilterValue);
+
+        return prev.map((item, i) => {
+          if (filterIndex === i) {
+            item.filterValue = newFilterValue;
+          }
+
+          return item;
+        });
+      }
+
+      return prev;
+    });
   };
 
   return (

@@ -48,7 +48,12 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
           </li>
         </ul>
       ) : (
-        <Tag text={`+${filterItem.filterValue.length - 1} items`} />
+        <Tag
+          isFilledWhileHover
+          text={`+${filterItem.filterValue.length - 1} ${
+            filterItem.filterValue.length > 2 ? 'items' : 'item'
+          }`}
+        />
       )}
     </div>
   );
