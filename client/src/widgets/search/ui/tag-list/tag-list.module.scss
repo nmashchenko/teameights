@@ -1,11 +1,11 @@
 .tag {
-  &__list {
+  &_list {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
   }
 
-  &__wrapper {
+  &_wrapper {
     border-radius: 5px;
     overflow: hidden;
   }

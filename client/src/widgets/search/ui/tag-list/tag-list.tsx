@@ -69,12 +69,12 @@ export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
   };
 
   return (
-    <ul className={styles.tag__list}>
+    <ul className={styles.tag_list}>
       {filtersArr.map((item, index) => {
         switch (item.type) {
           case 'text':
             return item.filterValue.length ? (
-              <li key={item.value} className={styles.tag__wrapper}>
+              <li key={item.value} className={styles.tag_wrapper}>
                 <Tag
                   isWithCross
                   key={item.value}
@@ -90,7 +90,7 @@ export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
               return (
                 <li className={styles.checkboxFilterTag} key={item.value}>
                   <div
-                    className={styles.tag__wrapper}
+                    className={styles.tag_wrapper}
                     onClick={() => handleClearMultipleOption(index, 0)}
                   >
                     <Tag isWithCross text={item.filterValue[0].label} />

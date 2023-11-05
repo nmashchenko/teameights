@@ -29,7 +29,7 @@ export const TextInput: FC<TextInputProps> = ({ defaultValue, placeholder, onCha
         placeholder={placeholder}
         isWithBorder={false}
       />
-      <Flex align='center' justify='center' className={styles['search-icon']}>
+      <Flex align='center' justify='center' className={styles.search_icon}>
         <Search />
       </Flex>
     </Flex>

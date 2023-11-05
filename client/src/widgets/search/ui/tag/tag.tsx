@@ -21,7 +21,7 @@ export const Tag: FC<TagProps> = ({
     <Flex justify='space-between' onClick={onClick} className={styles.tag}>
       <p
         className={clsx(styles.text, {
-          [styles['text_with-hover']]: isFilledWhileHover,
+          [styles.text_with_hover]: isFilledWhileHover,
         })}
       >
         {text}

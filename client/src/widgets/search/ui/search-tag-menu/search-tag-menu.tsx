@@ -41,7 +41,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
               height='fit-content'
               padding='4px 8px'
               onClick={() => handleClearAllOptions(filterIndex)}
-              className={styles.clearAllButton}
+              className={styles.clear_all_button}
             >
               <p>Clear All</p>
             </Flex>

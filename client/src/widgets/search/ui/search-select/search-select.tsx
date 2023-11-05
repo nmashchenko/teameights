@@ -34,13 +34,14 @@ export const SearchSelect: FC<SearchSelectProps> = ({
   return (
     <Flex align='center' className={styles.container}>
       <Select
+        className={styles.select}
         styles={{
           menuList: () => ({
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            columnGap: '32px',
             padding: '8px 0',
           }),
+        }}
+        classNames={{
+          menuList: () => styles.menu_list,
         }}
         value={value}
         controlShouldRenderValue={false}
@@ -52,7 +53,7 @@ export const SearchSelect: FC<SearchSelectProps> = ({
         isCheckbox={isCheckbox}
         isMulti
       />
-      <Flex align='center' justify='center' className={styles.searchIconWrapper}>
+      <Flex align='center' justify='center' className={styles.search_icon_wrapper}>
         <Search />
       </Flex>
     </Flex>

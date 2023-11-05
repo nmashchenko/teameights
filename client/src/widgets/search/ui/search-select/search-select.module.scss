@@ -7,6 +7,13 @@
   }
 }
 
-.searchIconWrapper {
+.menu_list {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 32px;
+  width: calc(100% + 36px);
+}
+
+.search_icon_wrapper {
   margin: auto 12px auto 4px;
 }

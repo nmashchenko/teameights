@@ -19,7 +19,7 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback })
 
   return (
     <Flex direction='column' gap='24px' className={styles.searchbar}>
-      <Flex className={styles.searchbar__content}>
+      <Flex className={styles.searchbar_content}>
         <FilterSelect
           filtersArr={filtersArr}
           filterIndex={filterIndex}
