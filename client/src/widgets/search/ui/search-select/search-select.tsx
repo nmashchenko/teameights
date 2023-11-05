@@ -34,6 +34,14 @@ export const SearchSelect: FC<SearchSelectProps> = ({
   return (
     <Flex align='center' className={styles.container}>
       <Select
+        styles={{
+          menuList: () => ({
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            columnGap: '32px',
+            padding: '8px 0',
+          }),
+        }}
         value={value}
         controlShouldRenderValue={false}
         placeholder={placeholder}
