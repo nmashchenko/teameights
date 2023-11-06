@@ -32,7 +32,7 @@ export class UsersService {
         username: filters?.username && Like(`%${filters.username}%`),
         isLeader: filters?.isLeader && filters.isLeader,
         country: filters?.country && Like(`%${filters.country}%`),
-        concentration: filters?.concentration && Like(`%${filters.concentration}%`),
+        speciality: filters?.speciality && Like(`%${filters.speciality}%`),
         experience: filters?.experience && Like(`%${filters.experience}%`),
         programmingLanguages:
           filters?.programmingLanguages && ArrayOverlap(filters.programmingLanguages),

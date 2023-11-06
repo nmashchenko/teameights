@@ -1,4 +1,4 @@
-export { concentrations } from './concentrations';
+export { specialities } from './specialities';
 export { badgeColors, badgeTextColors } from './badge-colors';
 export { programmingLanguages } from './programming-languages';
 export { badgeIcons } from './badge-icons';

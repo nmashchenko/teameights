@@ -19,6 +19,8 @@ import { UniversitiesDto } from '../../../users/dto/universities.dto';
 import { JobsDto } from '../../../users/dto/jobs.dto';
 import { ProjectsDto } from '../../../users/dto/projects.dto';
 import { LinksDto } from '../../../users/dto/links.dto';
+import { Speciality, specialityValues } from '../../../../utils/types/specialities.type';
+import { Experience, experienceValues } from '../../../../utils/types/experiences.type';
 
 export class AuthUpdateDto {
   @ApiProperty({ type: () => FileEntity })
@@ -63,32 +65,22 @@ export class AuthUpdateDto {
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   dateOfBirth?: Date;
 
-  @ApiProperty()
+  @ApiProperty({ enum: specialityValues })
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  concentration?: string;
+  @IsIn(specialityValues, { message: 'Must be valid speciality type!' })
+  speciality?: Speciality;
+
+  @ApiProperty({ enum: experienceValues })
+  @IsOptional()
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  @IsIn(experienceValues, { message: 'Must be valid experience type!' })
+  experience?: Experience;
 
   @ApiProperty()
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   description?: string;
-
-  @ApiProperty({
-    enum: ['No experience', 'Few months', '1 year', '2 years', '3 years', '4 years', '5+ years'],
-  })
-  @IsOptional()
-  @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  @IsIn(['No experience', 'Few months', '1 year', '2 years', '3 years', '4 years', '5+ years'], {
-    message: 'mustBeValidExperience',
-  })
-  experience?:
-    | 'No experience'
-    | 'Few months'
-    | '1 year'
-    | '2 years'
-    | '3 years'
-    | '4 years'
-    | '5+ years';
 
   @ApiProperty()
   @IsOptional()

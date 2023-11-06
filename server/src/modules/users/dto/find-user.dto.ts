@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ArrayNotEmpty, IsIn, IsNotEmpty, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { lowerCaseTransformer } from '../../../utils/transformers/lower-case.transformer';
+import { Speciality, specialityValues } from '../../../utils/types/specialities.type';
+import { Experience, experienceValues } from '../../../utils/types/experiences.type';
 
 export class FindUserDto {
   @ApiProperty()
@@ -25,16 +27,17 @@ export class FindUserDto {
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   country?: string;
 
-  @ApiProperty()
+  @ApiProperty({ enum: specialityValues })
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  concentration?: string;
+  @IsIn(specialityValues, { message: 'Must be valid speciality type!' })
+  speciality?: Speciality;
 
-  @ApiProperty({ enum: ['0-1 years', '1-3 years', '3-5 years', '5+ years'] })
+  @ApiProperty({ enum: experienceValues })
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  @IsIn(['beginner', 'intermediate', 'advanced'], { message: 'mustBeValidExperience' })
-  experience?: '0-1 years' | '1-3 years' | '3-5 years' | '5+ years';
+  @IsIn(experienceValues, { message: 'Must be valid experience type!' })
+  experience?: Experience;
 
   @ApiProperty()
   @IsOptional()

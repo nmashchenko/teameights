@@ -1,10 +1,10 @@
-export const concentrations = [
+export const specialities = [
   {
     label: 'Mobile Developer',
     value: 'mobile',
   },
   {
-    label: 'Frontend/UI Developer',
+    label: 'Frontend Developer',
     value: 'frontend',
   },
   {
@@ -54,10 +54,6 @@ export const concentrations = [
   {
     label: 'Cyber Security',
     value: 'cybersecurity',
-  },
-  {
-    label: 'Web Developer',
-    value: 'webdeveloper',
   },
   {
     label: 'Database Developer',

@@ -1,6 +1,7 @@
 import request from 'supertest';
 import { APP_URL } from '../utils/constants';
 import { faker } from '@faker-js/faker';
+import qs from 'qs';
 
 describe('Get users (e2e)', () => {
   const app = APP_URL;
@@ -8,7 +9,7 @@ describe('Get users (e2e)', () => {
   const fullName = 'Slavik Ukraincev';
   const username = faker.internet.userName().toLowerCase();
   const country = 'Ukraine';
-  const concentration = 'Backend';
+  const speciality = 'Backend Developer';
   const experience = '1 year';
   const programmingLanguages = ['C', 'C++', 'TS', 'JS'];
   const frameworks = ['NestJS', 'NextJS', 'Figma'];
@@ -100,7 +101,7 @@ describe('Get users (e2e)', () => {
       });
   });
   //
-  it('Register new user with concentration for tests: /api/v1/auth/email/register (POST)', async () => {
+  it('Register new user with speciality for tests: /api/v1/auth/email/register (POST)', async () => {
     const email = faker.internet.email();
     await request(app)
       .post('/api/v1/auth/email/register')
@@ -121,11 +122,11 @@ describe('Get users (e2e)', () => {
         type: 'bearer',
       })
       .send({
-        concentration: concentration,
+        speciality: speciality,
       })
       .expect(200)
       .expect(({ body }) => {
-        expect(body.concentration).toBe(concentration);
+        expect(body.speciality).toBe(speciality);
       });
   });
 
@@ -262,14 +263,20 @@ describe('Get users (e2e)', () => {
       });
   });
 
-  it('Get users with concentration filter: /api/v1/users?filters= (GET)', () => {
+  it('Get users with speciality filter: /api/v1/users?filters= (GET)', () => {
+    const filters = {
+      filters: {
+        speciality: speciality,
+      },
+    };
+
     return request(app)
-      .get(`/api/v1/users?filters%5Bconcentration%5D=${concentration}`)
+      .get(`/api/v1/users?${qs.stringify(filters)}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
         for (let i = 0; i < body.data.length; i++) {
-          expect(body.data[0].concentration).toBe(concentration);
+          expect(body.data[0].speciality).toBe(speciality);
         }
       });
   });

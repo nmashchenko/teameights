@@ -38,7 +38,7 @@ export class UserSeedService {
           isLeader: true,
           country: 'Ukraine',
           dateOfBirth: '2023-09-25',
-          concentration: 'Frontend/UI Developer',
+          speciality: 'Frontend Developer',
           description: 'Cool developer!',
           experience: '5+ years',
           programmingLanguages: ['C++', 'C', 'Go'],

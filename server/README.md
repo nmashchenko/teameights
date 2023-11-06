@@ -54,7 +54,7 @@ Renovate is automatically setup to control dependencies in this project
 Generate migration
 
 ```bash
-yarn migration:generate -- src/database/migrations/CreateNameTable
+yarn migration:generate -- src/libs/database/migrations/CreateNameTable
 ```
 
 Run migration
