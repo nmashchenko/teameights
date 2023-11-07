@@ -1,34 +1,48 @@
 import React from 'react';
 
 export const BugerCloseIcon: React.FC<React.SVGProps<SVGSVGElement>> = props => (
-  <svg width='32' height='32' viewBox='0 0 32 32' fill='none' {...props}>
-    <path
-      d='M23 10.3334H16'
-      stroke='#72EB3A'
-      strokeWidth='1.5'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    ></path>
-    <path
-      d='M23 16H16'
-      stroke='#72EB3A'
-      strokeWidth='1.5'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    ></path>
-    <path
-      d='M23 21.6666H9'
-      stroke='#72EB3A'
-      strokeWidth='1.5'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    ></path>
-    <path
-      d='M11.6667 10.6666L9 13.3333L11.6667 16'
-      stroke='#72EB3A'
-      strokeWidth='1.5'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    ></path>
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='24'
+    height='24'
+    viewBox='0 0 24 24'
+    fill='none'
+    {...props}
+  >
+    <g clipPath='url(#clip0_827_18332)'>
+      <path
+        d='M10.5 12H20.25'
+        stroke='#5BD424'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+      <path
+        d='M10.5 6H20.25'
+        stroke='#5BD424'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+      <path
+        d='M3.75 18H20.25'
+        stroke='#5BD424'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+      <path
+        d='M6.75 5.25L3 9L6.75 12.75'
+        stroke='#5BD424'
+        strokeWidth='1.5'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+    </g>
+    <defs>
+      <clipPath id='clip0_827_18332'>
+        <rect width='24' height='24' fill='white' />
+      </clipPath>
+    </defs>
   </svg>
 );
