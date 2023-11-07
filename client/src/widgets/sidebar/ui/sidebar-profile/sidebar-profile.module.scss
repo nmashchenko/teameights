@@ -26,9 +26,7 @@
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  font-size: 16px;
-  line-height: 140%;
-  color: #fff;
+  color: var(--white-color);
 
   &.active {
     pointer-events: all;
@@ -42,10 +40,7 @@
   pointer-events: none;
   opacity: 0;
   margin: 0;
-  font-weight: 500;
-  font-size: 11px;
-  line-height: 100%;
-  color: #86878b;
+  color: var(--grey-normal-color);
 
   &.active {
     pointer-events: all;

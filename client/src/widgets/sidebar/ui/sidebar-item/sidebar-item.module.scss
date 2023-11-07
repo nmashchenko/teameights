@@ -11,11 +11,11 @@
   overflow: hidden;
 
   &:hover {
-    background-color: #2f3239;
+    background-color: var(--grey-dark-color);
   }
 
   &.active {
-    background-color: #5d9d0b;
+    background-color: var(--green-normal-color);
   }
 }
 
@@ -34,8 +34,6 @@
   transition: opacity 0.2s;
   opacity: 0;
   pointer-events: none;
-  font-size: 16px;
-  line-height: 140%;
   color: #fff;
 
   &.active {

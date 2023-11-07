@@ -130,12 +130,12 @@ export const Sidebar: React.FC = () => {
                 <IconWrapper width='24px' height='24px' cursor='pointer'>
                   <SignOutIcon />
                 </IconWrapper>
-                <span>Logout</span>
+                <span>Log out</span>
               </button>
             )}
           </div>
           <footer className={clsx(styles.copyright, { [styles.active]: isSidebarExpanded })}>
-            copyright © {new Date().getFullYear()} Teameights.
+            copyright © {new Date().getFullYear()} Teameights
           </footer>
         </nav>
       </aside>

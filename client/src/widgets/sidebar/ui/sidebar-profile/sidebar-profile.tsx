@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import styles from './sidebar-profile.module.scss';
 import { IUserResponse } from '@teameights/types';
+import { Typography } from '@/shared/ui';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
 const unregisteredImg = '/images/user-images/unregistered.png';
@@ -89,12 +90,18 @@ export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
         alt='Profile icon'
       />
       <div className={styles.userContent}>
-        <strong className={clsx(styles.userRealName, { [styles.active]: active })}>
+        <Typography
+          size={'body_m'}
+          className={clsx(styles.userRealName, { [styles.active]: active })}
+        >
           {data?.userRealName}
-        </strong>
-        <p className={clsx(styles.userUsername, { [styles.active]: active })}>
+        </Typography>
+        <Typography
+          size={'caption'}
+          className={clsx(styles.userUsername, { [styles.active]: active })}
+        >
           @{data?.userUsername}
-        </p>
+        </Typography>
       </div>
     </div>
   );

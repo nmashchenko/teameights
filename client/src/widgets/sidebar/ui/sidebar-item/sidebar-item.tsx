@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import React from 'react';
 
 import styles from './sidebar-item.module.scss';
+import { Typography } from '@/shared/ui';
 
 export interface SidebarItemProps extends React.LiHTMLAttributes<HTMLLIElement> {
   /**
@@ -52,7 +53,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = props => {
     <li {...rest}>
       <Link href={path} className={clsx(styles.wrapper, { [styles.active]: isActive })}>
         <span className={styles.icon}>{icon}</span>
-        <span className={clsx(styles.title, { [styles.active]: active })}>{title}</span>
+        <Typography size={'body_m'} className={clsx(styles.title, { [styles.active]: active })}>
+          {title}
+        </Typography>
       </Link>
     </li>
   );
