@@ -15,6 +15,7 @@ import { SidebarNotificationsContent } from '../notification-content/notificatio
 
 import styles from './sidebar.module.scss';
 import { SignInIcon } from '@/shared/assets/icons/24px';
+import { IUserBase } from '@teameights/types';
 
 export const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -22,10 +23,11 @@ export const Sidebar: React.FC = () => {
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false);
+  const [user, _setUser] = useState<IUserBase>(() => generateMockUser());
 
   // const { isAuth } = useSelector((state) => state.userReducer);
   // const { data: user } = useCheckAuth();
-  const user = generateMockUser();
+  // const user = generateMockUser();
   const isAuth = !!user?.username;
 
   const sidebarItemsData = React.useMemo(() => {

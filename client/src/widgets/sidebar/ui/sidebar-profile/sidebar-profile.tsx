@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from './sidebar-profile.module.scss';
 import { IUserResponse } from '@teameights/types';
 import { Typography } from '@/shared/ui';
+import { Skeleton } from '@/shared/ui/skeleton/skeleton';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
 const unregisteredImg = '/images/user-images/unregistered.png';
@@ -64,6 +65,7 @@ export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
   // Если юзер не прошёл мульти-степ регу(полностью), то у него не будет username
   const isUserRegistered = !!user?.username;
   const [data, setData] = useState<UserData>(defaultData);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     if (isUserRegistered) {
@@ -80,13 +82,13 @@ export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
 
   return (
     <div className={styles.userInfo}>
+      {!imageLoaded && <Skeleton width={32} height={32} borderRadius={'50%'} />}
       <Image
         width={32}
         height={32}
-        className={styles.profileIcon}
+        className={clsx(styles.profileIcon, { [styles.imageLoaded]: imageLoaded })}
         src={data.userImg}
-        placeholder='blur'
-        blurDataURL='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2UwZTBlMCIvPjwvc3ZnPg=='
+        onLoadingComplete={() => setImageLoaded(true)}
         alt='Profile icon'
       />
       <div className={styles.userContent}>
