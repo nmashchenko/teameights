@@ -6,7 +6,7 @@ import styles from './sidebar-profile.module.scss';
 import { IUserResponse } from '@teameights/types';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
-const unregisteredImg = '/images/user/unregistered.png';
+const unregisteredImg = '/images/user-images/unregistered.png';
 
 const defaultData = {
   userRealName: 'Unknown',

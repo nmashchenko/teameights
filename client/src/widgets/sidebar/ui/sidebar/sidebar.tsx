@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { IconWrapper } from '@/shared/ui';
 import { BugerCloseIcon, LogoSmall, SignOutIcon } from '@/shared/assets';
-import { useClickOutside } from '@/shared/lib';
+import { generateMockUser, useClickOutside } from '@/shared/lib';
 import { CLIENT_ROUTES } from '@/shared/constant';
 import { getSidebarItems } from '../../config/getSidebarItems';
 import { SidebarItem } from '../sidebar-item/sidebar-item';
@@ -15,7 +15,6 @@ import { SidebarNotificationsContent } from '../notification-content/notificatio
 
 import styles from './sidebar.module.scss';
 import { SignInIcon } from '@/shared/assets/icons/24px';
-import { userResponseFixture } from '@/shared/fixtures';
 
 export const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -26,7 +25,7 @@ export const Sidebar: React.FC = () => {
 
   // const { isAuth } = useSelector((state) => state.userReducer);
   // const { data: user } = useCheckAuth();
-  const user = userResponseFixture;
+  const user = generateMockUser();
   const isAuth = !!user?.username;
 
   const sidebarItemsData = React.useMemo(() => {

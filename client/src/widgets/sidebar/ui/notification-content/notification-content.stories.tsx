@@ -1,28 +1,16 @@
 import { useState } from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import { NotificationContentProps, SidebarNotificationsContent } from './notification-content';
+import { generateMockUser, generateSystemNotification } from '@/shared/lib';
 
-import { ISystemNotification, NotificationType } from '@teameights/types';
+// Generate mock notifications using the provided mocs feature
+const mockNotifications = Array.from({ length: 5 }).map(() => generateSystemNotification());
 
-const defaultNotifications: NotificationType[] = [
-  {
-    id: 1,
-    type: 'system',
-    system_message: 'System Message 1',
-    read: false,
-    createdAt: new Date(),
-  } as ISystemNotification,
-  {
-    id: 2,
-    type: 'system',
-    system_message: 'System Message 2',
-    read: true,
-    createdAt: new Date(),
-  } as ISystemNotification,
-];
+// Using the mock user function to generate a user with notifications
+const mockUser = generateMockUser(undefined, mockNotifications);
 
 const defaultProps: NotificationContentProps = {
-  userNotifications: defaultNotifications,
+  userNotifications: mockUser.notifications,
   isSidebarExpanded: false,
   notificationModal: false,
   setNotificationModal: () => {},
@@ -62,7 +50,7 @@ SidebarCollapsed.args = {
 export const WithNotifications = { ...NotificationContentTemplate };
 WithNotifications.args = {
   ...defaultProps,
-  userNotifications: defaultNotifications,
+  userNotifications: mockUser.notifications,
 };
 
 // Without Notifications
@@ -76,16 +64,7 @@ WithoutNotifications.args = {
 export const WithUnreadNotifications = { ...NotificationContentTemplate };
 WithUnreadNotifications.args = {
   ...defaultProps,
-  userNotifications: [
-    ...defaultNotifications,
-    {
-      id: 3,
-      type: 'system',
-      system_message: 'Unread System Message',
-      read: false,
-      createdAt: new Date(),
-    } as ISystemNotification,
-  ],
+  userNotifications: mockUser.notifications.filter(notification => !notification.read),
 };
 
 export default {
