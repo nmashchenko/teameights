@@ -37,7 +37,6 @@ export const ImageLoader: FC<ImageLoaderProps> = props => {
     borderRadius: borderRadius,
     objectFit: 'cover',
     userSelect: 'none',
-    imageRendering: 'pixelated',
   } as CSSProperties;
 
   const imageStyle = {
