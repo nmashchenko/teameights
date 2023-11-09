@@ -19,7 +19,7 @@ export const generateSystemNotification = (initialUser?: IUserBase): ISystemNoti
   createdAt: faker.date.recent(),
   updatedAt: faker.date.recent(),
   system_message: faker.lorem.sentence(),
-  deletedAt: null,
+  deletedAt: faker.date.recent(),
 });
 
 export const generateTeamInvitationNotification = (
@@ -40,5 +40,5 @@ export const generateTeamInvitationNotification = (
   status: getRandomItemFromArray(['pending', 'accepted', 'rejected']) as StatusType,
   photo: generateMockFileEntity(),
   message: faker.lorem.sentence(),
-  deletedAt: null,
+  deletedAt: faker.date.recent(),
 });
