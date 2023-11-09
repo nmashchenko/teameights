@@ -1,0 +1,24 @@
+.container {
+  flex-basis: 60.94%;
+  background: #1A1C22;
+  padding: 48px 55px;
+
+  @media (width <= 768px) {
+    padding: 36px 30px;
+    flex-basis: 100%;
+  }
+
+  @media (width <= 430px) {
+    padding: 24px 24px;
+  }
+
+  @media (width <= 360px) {
+    padding: 24px 21px;
+  }
+}
+
+.button {
+  padding: 0 16px;
+  width: 170px;
+}
+

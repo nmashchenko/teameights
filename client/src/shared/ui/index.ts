@@ -12,3 +12,5 @@ export * from './flex';
 export * from './icon-wrapper';
 export * from './drawer';
 export * from './image-loader';
+export * from './progress-bar';
+export * from './logo';
