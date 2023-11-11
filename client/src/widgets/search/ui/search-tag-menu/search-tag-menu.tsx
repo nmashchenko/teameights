@@ -8,15 +8,15 @@ import { Flex } from '@/shared/ui';
 interface SearchTagMenuProps {
   filterItem: ICheckboxFilter | IMultipleFilter;
   filterIndex: number;
-  handleClearOption: (filterIndex: number, index: number) => void;
-  handleClearAllOptions: (filterIndex: number) => void;
+  onClearOption: (filterIndex: number, index: number) => void;
+  onClearAllOptions: (filterIndex: number) => void;
 }
 
 export const SearchTagMenu: FC<SearchTagMenuProps> = ({
   filterItem,
   filterIndex,
-  handleClearOption,
-  handleClearAllOptions,
+  onClearOption,
+  onClearAllOptions,
 }) => {
   const [isListOpened, setIsListOpened] = useState(false);
   const filterListRef = useClickOutside<HTMLDivElement>(() => setIsListOpened(false));
@@ -28,7 +28,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
           {filterItem.filterValue.slice(1).map((item: IOptionItem, index: number) => (
             <li key={item.value}>
               <Tag
-                onClick={() => handleClearOption(filterIndex, index + 1)}
+                onClick={() => onClearOption(filterIndex, index + 1)}
                 isWithCross
                 text={item.label}
               />
@@ -40,7 +40,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
               align='center'
               height='fit-content'
               padding='4px 8px'
-              onClick={() => handleClearAllOptions(filterIndex)}
+              onClick={() => onClearAllOptions(filterIndex)}
               className={styles.clear_all_button}
             >
               <p>Clear All</p>

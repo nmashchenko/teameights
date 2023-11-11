@@ -53,8 +53,6 @@ export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
       if (filter.type === 'checkbox' || filter.type === 'multiple') {
         const newFilterValue = [filter.filterValue[0]];
 
-        console.log(newFilterValue);
-
         return prev.map((item, i) => {
           if (filterIndex === i) {
             item.filterValue = newFilterValue;
@@ -99,8 +97,8 @@ export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
                     <SearchTagMenu
                       filterItem={item}
                       filterIndex={index}
-                      handleClearOption={handleClearMultipleOption}
-                      handleClearAllOptions={handleClearAllMultipleOptions}
+                      onClearOption={handleClearMultipleOption}
+                      onClearAllOptions={handleClearAllMultipleOptions}
                     />
                   )}
                 </li>
