@@ -20,6 +20,8 @@ import { Option } from './option';
  * @prop {string} [label] - Label to display above the select component.
  * @prop {boolean} [disabled=false] - Specifies if the select should be disabled.
  * @prop {boolean} [isCheckbox=false] - If true, the options in the select will be presented as checkboxes.
+ * @prop {boolean} [isWithBorder=true] - If true, then a border will appear under the select.
+ * @prop {boolean} [isIndicatorAllowed=true] - If true, then there will be a dropdown indicator near the value.
  * @prop {Option[]} options - Array of options to be displayed in the select. Each option should have a `label` and `value`.
  * @prop ... and all other props supported by `ReactSelect`.
  *
@@ -73,7 +75,7 @@ export const Select = <
     name,
     isMulti,
     isCheckbox,
-    isWithBorder,
+    isWithBorder = true,
     isIndicatorAllowed = true,
     styles: customStyles,
     ...rest

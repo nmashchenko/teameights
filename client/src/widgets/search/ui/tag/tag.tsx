@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './tag.module.scss';
 import { X } from '@/shared/assets';
-import { Flex } from '@/shared/ui';
+import { Flex, Typography } from '@/shared/ui';
 import clsx from 'clsx';
 
 interface TagProps {
@@ -19,13 +19,15 @@ export const Tag: FC<TagProps> = ({
 }) => {
   return (
     <Flex justify='space-between' onClick={onClick} className={styles.tag}>
-      <p
+      <Typography
         className={clsx(styles.text, {
           [styles.text_with_hover]: isFilledWhileHover,
         })}
+        size='body_s'
+        variant='p'
       >
         {text}
-      </p>
+      </Typography>
       {isWithCross && (
         <Flex align='center' className={styles.remove}>
           <X />

@@ -7,6 +7,33 @@ import { TagList } from '../tag-list';
 import { Flex } from '@/shared/ui';
 import { useTrackFiltersArr } from '../../lib/hooks/useTrackFiltersArr';
 
+/**
+ * Search-bar Component
+ *
+ * Used to search by query parameters.
+ *
+ * Props:
+ *
+ * @prop {Filter[]} [initialFiltersState] - Initial state as an array with filters.
+ * @prop {(queryString: string) => void} [callback] - A callback that takes a string of query parameters as an argument. Must be used for requests to the server.
+ *
+ * Usage:
+ *
+ * ```tsx
+ * import { SearchBar } from '@/widgets/search';
+ *
+ * <SearchBar initialFiltersState={[{
+ *  type: 'text',
+ *  label: 'Name',
+ *  value: 'name',
+ *  placeholder: 'Search by name',
+ *  filterValue: '',
+ *  }]}
+ *  callback={string => console.log(string)}
+ * />
+ * ```
+ */
+
 interface SearchBarProps {
   initialFiltersState: Filter[];
   callback: (queryString: string) => void;
