@@ -1,0 +1,29 @@
+.searchbar {
+  width: 100%;
+  max-width: 1176px;
+  min-height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  &_content {
+    border: 1px solid var(--green-normal-color);
+    border-radius: 10px;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1440px) {
+    max-width: 826px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    max-width: 790px;
+  }
+
+  @media screen and (max-width: 900px) {
+    max-width: 546px;
+  }
+}

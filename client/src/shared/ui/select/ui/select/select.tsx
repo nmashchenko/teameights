@@ -20,6 +20,8 @@ import { Option } from './option';
  * @prop {string} [label] - Label to display above the select component.
  * @prop {boolean} [disabled=false] - Specifies if the select should be disabled.
  * @prop {boolean} [isCheckbox=false] - If true, the options in the select will be presented as checkboxes.
+ * @prop {boolean} [isWithBorder=true] - If true, then a border will appear under the select.
+ * @prop {boolean} [isIndicatorAllowed=true] - If true, then there will be a dropdown indicator near the value.
  * @prop {Option[]} options - Array of options to be displayed in the select. Each option should have a `label` and `value`.
  * @prop ... and all other props supported by `ReactSelect`.
  *
@@ -54,6 +56,8 @@ interface CustomSelectProps {
   label?: string;
   disabled?: boolean;
   isCheckbox?: boolean;
+  isWithBorder?: boolean;
+  isIndicatorAllowed?: boolean;
   options: Option[];
 }
 
@@ -64,7 +68,18 @@ export const Select = <
 >(
   props: Props<Option, IsMulti, Group> & CustomSelectProps
 ) => {
-  const { error, label, disabled, isMulti, isCheckbox = false, name, ...rest } = props;
+  const {
+    error,
+    label,
+    disabled,
+    name,
+    isMulti,
+    isCheckbox,
+    isWithBorder = true,
+    isIndicatorAllowed = true,
+    styles: customStyles,
+    ...rest
+  } = props;
   return (
     <div
       className={clsx(styles.container, {
@@ -80,10 +95,14 @@ export const Select = <
         {...rest}
         instanceId='t8s-select'
         closeMenuOnSelect={!isMulti}
-        styles={selectStyles<Option, IsMulti, Group>(isCheckbox)}
+        styles={selectStyles<Option, IsMulti, Group>(customStyles, isCheckbox, isWithBorder)}
         name={name}
         components={{
-          DropdownIndicator: error ? ErrorIndicator : DropdownIndicator,
+          DropdownIndicator: isIndicatorAllowed
+            ? error
+              ? ErrorIndicator
+              : DropdownIndicator
+            : () => null,
           IndicatorSeparator: () => null,
           MultiValueRemove,
           ...(isCheckbox ? { Option } : {}), // Conditionally include custom Option component
