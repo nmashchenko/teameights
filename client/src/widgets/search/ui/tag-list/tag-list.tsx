@@ -1,16 +1,11 @@
-import { FC, Dispatch, SetStateAction } from 'react';
 import styles from './tag-list.module.scss';
-import { Filter } from '../../types';
 import { Tag } from '../tag';
 import { SearchTagMenu } from '../search-tag-menu';
+import { useFilters } from '../../hooks';
 
-interface TagListProps {
-  filtersArr: Filter[];
-  setFilterArr: Dispatch<SetStateAction<Filter[]>>;
-}
-
-export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
-  if (!filtersArr.length) {
+export const TagList = () => {
+  const { filterArr, setFilterArr } = useFilters();
+  if (!filterArr.length) {
     return null;
   }
 
@@ -68,7 +63,7 @@ export const TagList: FC<TagListProps> = ({ filtersArr, setFilterArr }) => {
 
   return (
     <ul className={styles.tag_list}>
-      {filtersArr.map((item, index) => {
+      {filterArr.map((item, index) => {
         switch (item.type) {
           case 'text':
             return item.filterValue.length ? (

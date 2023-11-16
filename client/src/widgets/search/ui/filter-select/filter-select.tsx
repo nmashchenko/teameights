@@ -1,21 +1,13 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import styles from './filter-select.module.scss';
 import { SingleValue } from 'react-select';
 import { Select } from '@/shared/ui';
 import { Filter } from '../../types';
+import { useFilters } from '../../hooks';
 
-interface FilterSelectProps {
-  filtersArr: Filter[];
-  filterIndex: number;
-  setFilterIndex: (index: number) => void;
-}
-
-export const FilterSelect: FC<FilterSelectProps> = ({
-  filtersArr,
-  filterIndex,
-  setFilterIndex,
-}) => {
+export const FilterSelect = () => {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+  const { filterArr, filterIndex, setFilterIndex } = useFilters();
 
   const handleMenuClose = () => {
     setIsMenuOpened(false);
@@ -23,7 +15,7 @@ export const FilterSelect: FC<FilterSelectProps> = ({
 
   const handleChange = (newValue: SingleValue<Filter>) => {
     if (newValue) {
-      const index = filtersArr.findIndex((item: Filter) => item.value === newValue.value);
+      const index = filterArr.findIndex((item: Filter) => item.value === newValue.value);
       setFilterIndex(index);
     }
   };
@@ -32,7 +24,7 @@ export const FilterSelect: FC<FilterSelectProps> = ({
     <div className={styles.container}>
       <Select
         isSearchable={false}
-        options={filtersArr}
+        options={filterArr}
         isWithBorder={false}
         classNames={{
           container: () => (isMenuOpened ? styles.select_active : styles.select),
@@ -42,7 +34,7 @@ export const FilterSelect: FC<FilterSelectProps> = ({
             padding: '0 12px',
           }),
         }}
-        value={filtersArr[filterIndex]}
+        value={filterArr[filterIndex]}
         onChange={newValue => handleChange(newValue)}
         onMenuOpen={() => setIsMenuOpened(true)}
         onMenuClose={handleMenuClose}

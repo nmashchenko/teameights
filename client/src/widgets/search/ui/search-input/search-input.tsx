@@ -1,17 +1,12 @@
-import { FC, Dispatch, SetStateAction } from 'react';
 import { MultiValue } from 'react-select';
-import { Filter, IOptionItem } from '../../types';
+import { IOptionItem } from '../../types';
 import { TextInput } from '../text-input';
 import { SearchSelect } from '../search-select';
+import { useFilters } from '../../hooks';
 
-interface SearchInputProps {
-  filtersArr: Filter[];
-  setFilterArr: Dispatch<SetStateAction<Filter[]>>;
-  filterIndex: number;
-}
-
-export const SearchInput: FC<SearchInputProps> = ({ filtersArr, setFilterArr, filterIndex }) => {
-  const currentFilter = filtersArr[filterIndex];
+export const SearchInput = () => {
+  const { filterArr, setFilterArr, filterIndex } = useFilters();
+  const currentFilter = filterArr[filterIndex];
 
   const onChange = (newValue: string | MultiValue<IOptionItem> | [number, number] | null) => {
     setFilterArr(prev => {

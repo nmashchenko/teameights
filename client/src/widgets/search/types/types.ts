@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { MultiValue } from 'react-select';
 
 interface IFilter {
@@ -36,3 +37,10 @@ export interface IRangeFilter extends IFilter {
 }
 
 export type Filter = ITextFilter | ICheckboxFilter | IMultipleFilter | IRangeFilter;
+
+export interface SearchContextType {
+  filterArr: Filter[];
+  setFilterArr: Dispatch<SetStateAction<Filter[]>>;
+  filterIndex: number;
+  setFilterIndex: Dispatch<SetStateAction<number>>;
+}

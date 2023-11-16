@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import qs from 'qs';
-import { Filter } from '../../types';
+import { Filter } from '../types';
 
-export const useTrackFiltersArr = (
-  filtersArr: Filter[],
+export const useTrackFilterArr = (
+  filterArr: Filter[],
   callback: (queryString: string) => void
 ) => {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -14,7 +14,7 @@ export const useTrackFiltersArr = (
 
     timerRef.current = setTimeout(() => {
       const filtersValues = {
-        filters: filtersArr.reduce<{ [key: string]: string | string[] | [number, number] }>(
+        filters: filterArr.reduce<{ [key: string]: string | string[] | [number, number] }>(
           (acc, curr) => {
             switch (curr.type) {
               case 'text':
@@ -48,5 +48,5 @@ export const useTrackFiltersArr = (
 
       callback(queryString);
     }, 1300);
-  }, [filtersArr, callback]);
+  }, [filterArr, callback]);
 };

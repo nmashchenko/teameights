@@ -5,7 +5,8 @@ import { FilterSelect } from '../filter-select';
 import { SearchInput } from '../search-input';
 import { TagList } from '../tag-list';
 import { Flex } from '@/shared/ui';
-import { useTrackFiltersArr } from '../../lib/hooks/useTrackFiltersArr';
+import { useTrackFilterArr } from '../../hooks';
+import { SearchContext } from '../../contexts';
 
 /**
  * Search-bar Component
@@ -40,25 +41,26 @@ interface SearchBarProps {
 }
 
 export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback }) => {
-  const [filtersArr, setFilterArr] = useState(initialFiltersState);
+  const [filterArr, setFilterArr] = useState(initialFiltersState);
   const [filterIndex, setFilterIndex] = useState(0);
-  useTrackFiltersArr(filtersArr, callback);
+  useTrackFilterArr(filterArr, callback);
 
   return (
-    <Flex direction='column' gap='24px' className={styles.searchbar}>
-      <Flex className={styles.searchbar_content}>
-        <FilterSelect
-          filtersArr={filtersArr}
-          filterIndex={filterIndex}
-          setFilterIndex={setFilterIndex}
-        />
-        <SearchInput
-          filtersArr={filtersArr}
-          setFilterArr={setFilterArr}
-          filterIndex={filterIndex}
-        />
+    <SearchContext.Provider
+      value={{
+        filterArr,
+        setFilterArr,
+        filterIndex,
+        setFilterIndex,
+      }}
+    >
+      <Flex direction='column' gap='24px' className={styles.searchbar}>
+        <Flex className={styles.searchbar_content}>
+          <FilterSelect />
+          <SearchInput />
+        </Flex>
+        <TagList />
       </Flex>
-      <TagList filtersArr={filtersArr} setFilterArr={setFilterArr} />
-    </Flex>
+    </SearchContext.Provider>
   );
 };
