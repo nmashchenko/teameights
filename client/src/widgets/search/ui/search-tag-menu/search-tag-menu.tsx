@@ -28,10 +28,12 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
           {filterItem.filterValue.slice(1).map((item: IOptionItem, index: number) => (
             <li key={item.value}>
               <Tag
-                onClick={() => onClearOption(filterIndex, index + 1)}
                 isWithCross
-                text={item.label}
-              />
+                isRounded={false}
+                onClick={() => onClearOption(filterIndex, index + 1)}
+              >
+                {item.label}
+              </Tag>
             </li>
           ))}
           <li>
@@ -48,12 +50,10 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
           </li>
         </ul>
       ) : (
-        <Tag
-          isFilledWhileHover
-          text={`+${filterItem.filterValue.length - 1} ${
-            filterItem.filterValue.length > 2 ? 'items' : 'item'
-          }`}
-        />
+        <Tag isFilledWhileHover>
+          +{filterItem.filterValue.length - 1}{' '}
+          {filterItem.filterValue.length > 2 ? 'items' : 'item'}
+        </Tag>
       )}
     </div>
   );

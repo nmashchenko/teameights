@@ -6,6 +6,10 @@
   background: var(--grey-dark-color);
   cursor: pointer;
 
+  &_rounded {
+    border-radius: 5px;
+  }
+
   &:hover {
     .remove {
       svg {

@@ -1,24 +1,31 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import styles from './tag.module.scss';
 import { X } from '@/shared/assets';
 import { Flex, Typography } from '@/shared/ui';
 import clsx from 'clsx';
 
 interface TagProps {
-  text: string;
   isWithCross?: boolean;
   isFilledWhileHover?: boolean;
+  isRounded?: boolean;
   onClick?: () => void;
 }
 
-export const Tag: FC<TagProps> = ({
-  text,
+export const Tag: FC<PropsWithChildren<TagProps>> = ({
   onClick,
   isWithCross = false,
   isFilledWhileHover = false,
+  isRounded = true,
+  children,
 }) => {
   return (
-    <Flex justify='space-between' onClick={onClick} className={styles.tag}>
+    <Flex
+      justify='space-between'
+      onClick={onClick}
+      className={clsx(styles.tag, {
+        [styles.tag_rounded]: isRounded,
+      })}
+    >
       <Typography
         className={clsx(styles.text, {
           [styles.text_with_hover]: isFilledWhileHover,
@@ -26,7 +33,7 @@ export const Tag: FC<TagProps> = ({
         size='body_s'
         variant='p'
       >
-        {text}
+        {children}
       </Typography>
       {isWithCross && (
         <Flex align='center' className={styles.remove}>

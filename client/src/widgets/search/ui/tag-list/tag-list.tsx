@@ -68,12 +68,9 @@ export const TagList = () => {
           case 'text':
             return item.filterValue.length ? (
               <li key={item.value} className={styles.tag_wrapper}>
-                <Tag
-                  isWithCross
-                  key={item.value}
-                  text={item.filterValue}
-                  onClick={() => handleClearTextFilter(index)}
-                />
+                <Tag isWithCross key={item.value} onClick={() => handleClearTextFilter(index)}>
+                  {item.filterValue}
+                </Tag>
               </li>
             ) : null;
 
@@ -82,12 +79,9 @@ export const TagList = () => {
             if (item.filterValue.length) {
               return (
                 <li className={styles.checkboxFilterTag} key={item.value}>
-                  <div
-                    className={styles.tag_wrapper}
-                    onClick={() => handleClearMultipleOption(index, 0)}
-                  >
-                    <Tag isWithCross text={item.filterValue[0].label} />
-                  </div>
+                  <Tag isWithCross onClick={() => handleClearMultipleOption(index, 0)}>
+                    {item.filterValue[0].label}
+                  </Tag>
                   {item.filterValue.length > 1 && (
                     <SearchTagMenu
                       filterItem={item}

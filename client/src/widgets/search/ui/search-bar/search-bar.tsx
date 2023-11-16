@@ -7,6 +7,8 @@ import { TagList } from '../tag-list';
 import { Flex } from '@/shared/ui';
 import { useTrackFilterArr } from '../../hooks';
 import { SearchContext } from '../../contexts';
+import { Search } from '@/shared/assets';
+import { Modal } from '../modal';
 
 /**
  * Search-bar Component
@@ -43,6 +45,7 @@ interface SearchBarProps {
 export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback }) => {
   const [filterArr, setFilterArr] = useState(initialFiltersState);
   const [filterIndex, setFilterIndex] = useState(0);
+  const [isModalOpened, setIsModalOpened] = useState(false);
   useTrackFilterArr(filterArr, callback);
 
   return (
@@ -54,6 +57,15 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback })
         setFilterIndex,
       }}
     >
+      <Flex
+        align='center'
+        justify='center'
+        className={styles.modal_button}
+        onClick={() => setIsModalOpened(true)}
+      >
+        <Search className={styles.search_icon} />
+      </Flex>
+
       <Flex direction='column' gap='24px' className={styles.searchbar}>
         <Flex className={styles.searchbar_content}>
           <FilterSelect />
@@ -61,6 +73,8 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback })
         </Flex>
         <TagList />
       </Flex>
+
+      {isModalOpened && <Modal isOpened={isModalOpened} onClose={() => setIsModalOpened(false)} />}
     </SearchContext.Provider>
   );
 };

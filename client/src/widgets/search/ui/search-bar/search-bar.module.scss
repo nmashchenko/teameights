@@ -1,11 +1,11 @@
 .searchbar {
   width: 100%;
   max-width: 1176px;
-  min-height: 40px;
   padding-left: 24px;
   padding-right: 24px;
 
   &_content {
+    min-height: 40px;
     border: 1px solid var(--green-normal-color);
     border-radius: 10px;
     overflow: hidden;
@@ -26,4 +26,25 @@
   @media screen and (max-width: 900px) {
     max-width: 546px;
   }
+}
+
+.modal_button {
+  position: absolute;
+  z-index: 999;
+  top: 36px;
+  right: 30px;
+  display: none;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}
+
+.search_icon {
+  width: 100%;
+  height: 100%;
 }
