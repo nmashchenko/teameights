@@ -18,8 +18,20 @@
   max-width: 230px;
   height: 280px;
   background: var(--cards-color);
-
   cursor: pointer;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border: 1px solid rgba(188, 202, 235, 0.4);
+    background: linear-gradient(
+      126deg,
+      rgba(184, 197, 229, 0.16) 10.31%,
+      rgba(188, 202, 235, 0.08) 91.99%
+    );
+    box-shadow: var(--usercard-shadow);
+  }
 }
 
 .header {
@@ -88,15 +100,15 @@
 
 .full,
 .framework {
-  flex: 1 1 100%; // Take full width
+  flex: 1 1 100%;
 }
 
 .half {
-  flex: 1 1 calc(50% - 10px); // Take half width, deduct gap
+  flex: 1 1 calc(50% - 10px);
 }
 
 .extra {
-  flex: 1 1 calc(50% - 10px); // Take half width, deduct gap
+  flex: 1 1 calc(50% - 10px);
   background: var(--grey-dark-color);
   display: flex;
   justify-content: center;
