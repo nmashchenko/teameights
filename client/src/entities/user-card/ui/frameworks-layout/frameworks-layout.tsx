@@ -11,7 +11,7 @@ interface badgeFrameworkLayoutConfig {
 }
 
 const badgeFrameworkLayoutConfig: badgeFrameworkLayoutConfig = {
-  1: ['full', 'empty'],
+  1: ['empty', 'full'],
   2: ['full', 'full'],
   3: ['half', 'half', 'full'],
   4: ['half', 'half', 'half', 'half'],
@@ -26,12 +26,18 @@ export const BadgeFrameworksLayout: React.FC<BadgeFrameworksProps> = ({ framewor
   const layout =
     badgeFrameworkLayoutConfig[frameworks.length] || badgeFrameworkLayoutConfig.default;
 
+  const isOneFramework = frameworks.length === 1;
+
   return (
     <div className={styles.badgeContainer}>
       {layout.map((size, index) => (
         <div key={index} className={styles[size]}>
           <BadgeFramework
-            data={size === 'extra' ? `+${frameworks.length - 3}` : frameworks[index]}
+            data={
+              size === 'extra'
+                ? `+${frameworks.length - 3}`
+                : frameworks[isOneFramework ? 0 : index]
+            }
             key={index}
           />
         </div>

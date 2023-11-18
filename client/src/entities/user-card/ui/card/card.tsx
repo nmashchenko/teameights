@@ -21,7 +21,13 @@ export const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
     <div className={styles.card} onClick={onClick}>
       <div className={styles.header}>
         <div className={styles.avatar}>
-          <Image src={photo?.path || fallbackAvatarSrc} alt={fullName} width={70} height={70} />
+          <Image
+            src={photo?.path || fallbackAvatarSrc}
+            className={styles.image}
+            alt={fullName}
+            width={70}
+            height={70}
+          />
           {isLeader && <Crown28 className={styles.crown} />}
         </div>
         {programmingLanguages && <ProgrammingLanguagesLayout languages={programmingLanguages} />}
