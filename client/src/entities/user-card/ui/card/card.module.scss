@@ -21,7 +21,7 @@
   cursor: pointer;
   box-sizing: border-box;
   border: 1px solid transparent;
-  transition: all 0.25s ease-in;
+  transition: all 0.25s ease;
   transition-property: border, background, box-shadow;
 
   &:hover {

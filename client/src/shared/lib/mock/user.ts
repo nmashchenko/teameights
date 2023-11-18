@@ -95,7 +95,7 @@ export const generateMockUser = (
     status: generateMockStatus(),
     isLeader: faker.datatype.boolean(),
     country: faker.location.country(),
-    dateOfBirth: faker.date.past(),
+    dateOfBirth: faker.date.past({ years: 60 }),
     concentration: faker.lorem.word(),
     description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 280 }) : null,
     experience: getRandomItemFromArray([
