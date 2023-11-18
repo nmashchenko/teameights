@@ -16,25 +16,14 @@ export const UserCard: React.FC<UserCardProps> = ({
   user: { photo, programmingLanguages, frameworks, isLeader, fullName, role, dateOfBirth },
   onClick,
 }) => {
-  // TODO: Delete after Nikita makes the photo the appropriate type
-  const fallbackAvatarSrc = '/images/user-images/user-blue.png';
-
-  console.log('@DateOfBirth', dateOfBirth);
-  console.log('@Age', calculateAge(dateOfBirth));
-
   const years = calculateAge(dateOfBirth);
 
   return (
     <div className={styles.card} onClick={onClick}>
       <div className={styles.header}>
         <div className={styles.avatar}>
-          <Image
-            src={photo!.path || fallbackAvatarSrc}
-            className={styles.image}
-            alt={fullName}
-            width={70}
-            height={70}
-          />
+          {/* TODO: Починить это опсле фикса типов с фотками*/}
+          <Image src={photo!.path} className={styles.image} alt={fullName} width={70} height={70} />
           {isLeader && <Crown28 className={styles.crown} />}
         </div>
         {programmingLanguages && <ProgrammingLanguagesLayout languages={programmingLanguages} />}

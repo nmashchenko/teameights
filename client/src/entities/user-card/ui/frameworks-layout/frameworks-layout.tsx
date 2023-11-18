@@ -31,16 +31,13 @@ export const BadgeFrameworksLayout: React.FC<BadgeFrameworksProps> = ({ framewor
   return (
     <div className={styles.badgeContainer}>
       {layout.map((size, index) => (
-        <div key={index} className={styles[size]}>
-          <BadgeFramework
-            data={
-              size === 'extra'
-                ? `+${frameworks.length - 3}`
-                : frameworks[isOneFramework ? 0 : index]
-            }
-            key={index}
-          />
-        </div>
+        <BadgeFramework
+          className={styles[size]}
+          data={
+            size === 'extra' ? `+${frameworks.length - 3}` : frameworks[isOneFramework ? 0 : index]
+          }
+          key={frameworks[index]}
+        />
       ))}
     </div>
   );
