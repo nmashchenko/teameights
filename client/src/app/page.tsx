@@ -8,7 +8,7 @@ import {
 } from '@/shared/lib';
 import { useEffect, useState } from 'react';
 import { IUserBase } from '@teameights/types';
-import { UserCard } from '@/entities/user-card';
+import { UserCard } from '@/entities/user';
 
 export default function Home() {
   const [user, setUser] = useState<IUserBase>();
