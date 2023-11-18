@@ -37,7 +37,7 @@ export const getRandomFrameworks = (min: number, max: number): string[] => {
 export const generateMockFileEntity = (): IFileEntity => {
   return {
     id: faker.number.int(),
-    path: 'https://source.unsplash.com/random',
+    path: `https://source.unsplash.com/random?${faker.lorem.word()}`,
   };
 };
 
