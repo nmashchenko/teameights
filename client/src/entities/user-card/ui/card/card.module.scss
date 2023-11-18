@@ -21,7 +21,8 @@
   cursor: pointer;
   box-sizing: border-box;
   border: 1px solid transparent;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease-in;
+  transition-property: border, background, box-shadow;
 
   &:hover {
     border: 1px solid rgba(188, 202, 235, 0.4);
