@@ -10,6 +10,7 @@ import {
   ITeam,
   IUniversity,
   IUserBase,
+  IUserResponse,
   NotificationType,
 } from '@teameights/types';
 import { getRandomItemFromArray, getRandomNumberBetween, shuffleArray } from './common';
@@ -87,12 +88,12 @@ export const generateMockUniversity = (): IUniversity => ({
 export const generateMockUser = (
   initialTeam?: ITeam,
   initialNotifications?: NotificationType[]
-): IUserBase => {
+): IUserResponse => {
   return {
     id: faker.number.int(),
     username: faker.internet.userName(),
     fullName: faker.person.firstName(),
-    photo: faker.datatype.boolean() ? generateMockFileEntity() : null,
+    photo: generateMockFileEntity(),
     role: generateMockRole(),
     status: generateMockStatus(),
     isLeader: faker.datatype.boolean(),

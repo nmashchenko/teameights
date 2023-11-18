@@ -11,30 +11,27 @@ interface UserCardProps {
   onClick?: () => void;
 }
 
-export const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
-  const { fullName, frameworks, isLeader, programmingLanguages, photo } = user;
-
-  // TODO: Delete after Nikita makes the photo the appropriate type
-  const fallbackAvatarSrc = '/images/user-images/user-blue.png';
+export const UserCard: React.FC<UserCardProps> = ({
+  user: { photo, programmingLanguages, frameworks, isLeader, fullName, role, dateOfBirth },
+  onClick,
+}) => {
+  console.log('@date', dateOfBirth);
+  console.log('@user.photo', photo);
 
   return (
     <div className={styles.card} onClick={onClick}>
       <div className={styles.header}>
         <div className={styles.avatar}>
-          <Image
-            src={photo?.path || fallbackAvatarSrc}
-            className={styles.image}
-            alt={fullName}
-            width={70}
-            height={70}
-          />
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore */}
+          <Image src={photo.path} className={styles.image} alt={fullName} width={70} height={70} />
           {isLeader && <Crown28 className={styles.crown} />}
         </div>
         {programmingLanguages && <ProgrammingLanguagesLayout languages={programmingLanguages} />}
       </div>
       <div className={styles.content}>
         <div className={styles.name}>{fullName}, 21</div>
-        <div className={styles.role}>Developer</div>
+        <div className={styles.role}>{role.name}</div>
       </div>
       {frameworks && <BadgeFrameworksLayout frameworks={frameworks} />}
     </div>

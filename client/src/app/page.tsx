@@ -1,11 +1,6 @@
 'use client';
 import { Typography } from '@/shared/ui';
-import {
-  generateMockTeam,
-  generateMockUser,
-  generateSystemNotification,
-  generateTeamInvitationNotification,
-} from '@/shared/lib/mock';
+import { generateMockUser } from '@/shared/lib/mock';
 import { useEffect, useState } from 'react';
 import { IUserBase } from '@teameights/types';
 import { UserCard } from '@/entities/user-card';
@@ -16,9 +11,9 @@ export default function Home() {
   useEffect(() => {
     setUser(generateMockUser());
 
-    console.log(generateTeamInvitationNotification());
-    console.log(generateMockTeam());
-    console.log(generateSystemNotification());
+    // console.log(generateTeamInvitationNotification());
+    // console.log(generateMockTeam());
+    // console.log(generateSystemNotification());
   }, []);
 
   return (
