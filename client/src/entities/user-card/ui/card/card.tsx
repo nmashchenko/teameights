@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { Crown } from '@/shared/assets/icons/crown';
+import { Crown28 } from '@/shared/assets/icons/crowns/crown28';
 import styles from './card.module.scss';
 import { ProgrammingLanguagesLayout } from '../language-layout/language-layout';
 import { BadgeFrameworksLayout } from '../frameworks-layout/frameworks-layout';
@@ -12,44 +12,25 @@ interface UserCardProps {
 }
 
 export const UserCard: React.FC<UserCardProps> = ({ user, onClick }) => {
-  const {
-    fullName,
-    frameworks,
-    isLeader,
-    programmingLanguages,
-    photo,
-  } = user;
+  const { fullName, frameworks, isLeader, programmingLanguages, photo } = user;
 
   // TODO: Delete after Nikita makes the photo the appropriate type
   const fallbackAvatarSrc = '/images/user-images/user-blue.png';
 
   return (
-    <div onClick={onClick}>
-      <div className={styles.card}>
+    <div className={styles.card} onClick={onClick}>
+      <div className={styles.header}>
         <div className={styles.avatar}>
-          {/* <img src={photo || fallbackAvatarSrc} alt={fullName} /> */}
-          <Image
-            src={photo || fallbackAvatarSrc}
-            alt={fullName}
-            width={100}
-            height={100}
-          />
-          {isLeader && <Crown className={styles.crown} />}
+          <Image src={photo?.path || fallbackAvatarSrc} alt={fullName} width={70} height={70} />
+          {isLeader && <Crown28 className={styles.crown} />}
         </div>
-        <div className={styles.content}>
-          <div className={styles.name}>
-            {/* TODO: Add dateOfBirth property for age counting */}
-            {fullName}, 21
-          </div>
-          <div className={styles.role}>Developer</div>
-          {programmingLanguages && (
-            <ProgrammingLanguagesLayout languages={programmingLanguages} />
-          )}
-        </div>
-        {frameworks && (
-          <BadgeFrameworksLayout frameworks={frameworks} />
-        )}
+        {programmingLanguages && <ProgrammingLanguagesLayout languages={programmingLanguages} />}
       </div>
+      <div className={styles.content}>
+        <div className={styles.name}>{fullName}, 21</div>
+        <div className={styles.role}>Developer</div>
+      </div>
+      {frameworks && <BadgeFrameworksLayout frameworks={frameworks} />}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import {
 } from '@/shared/lib/mock';
 import { useEffect, useState } from 'react';
 import { IUserBase } from '@teameights/types';
+import { UserCard } from '@/entities/user-card';
 
 export default function Home() {
   const [user, setUser] = useState<IUserBase>();
@@ -27,6 +28,8 @@ export default function Home() {
       </Typography>
 
       <Typography>Hello, {user?.username}!</Typography>
+
+      {user && <UserCard user={user} />}
 
       <a href='/login' style={{ color: 'green' }}>
         Get to login

@@ -42,7 +42,7 @@ export const BadgeLanguage: FC<BadgeLanguageProps> = props => {
       className={clsx([className], styles.badge_language)}
       style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
     >
-      {languageOptions[data]}
+      {languageOptions[data] || data}
     </div>
   );
 };
