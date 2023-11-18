@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { UserCard } from './card';
+import { UserCard } from './user-card';
 import { IUserResponse } from '@teameights/types';
 import { generateMockUser } from '@/shared/lib/mock';
 

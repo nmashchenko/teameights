@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
-import { Crown28 } from '@/shared/assets/icons/crowns/crown28';
-import styles from './card.module.scss';
+import { Crown28 } from '@/shared/assets';
+import styles from './user-card.module.scss';
 import { ProgrammingLanguagesLayout } from '../language-layout/language-layout';
 import { BadgeFrameworksLayout } from '../frameworks-layout/frameworks-layout';
 import { IUserResponse } from '@teameights/types';

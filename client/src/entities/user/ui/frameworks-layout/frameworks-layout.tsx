@@ -1,22 +1,6 @@
-import styles from '../card/card.module.scss';
+import styles from '../user-card/user-card.module.scss';
 import { BadgeFramework } from '@/shared/ui';
-
-type BadgeFrameworkType = 'full' | 'half' | 'empty' | 'extra';
-type BadgeFrameworkLayout = BadgeFrameworkType[];
-
-interface badgeFrameworkLayoutConfig {
-  default: BadgeFrameworkLayout;
-
-  [badgeCount: number]: BadgeFrameworkLayout;
-}
-
-const badgeFrameworkLayoutConfig: badgeFrameworkLayoutConfig = {
-  1: ['empty', 'full'],
-  2: ['full', 'full'],
-  3: ['half', 'half', 'full'],
-  4: ['half', 'half', 'half', 'half'],
-  default: ['half', 'half', 'half', 'extra'],
-};
+import { badgeFrameworkLayoutConfig } from './frameworks-layout-config';
 
 type BadgeFrameworksProps = {
   frameworks: string[];
