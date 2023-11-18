@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { UserCard } from './card';
 import { IUserResponse } from '@teameights/types';
+import { generateMockUser } from '@/shared/lib/mock';
 
-const defaultUser = {
-  photo: { path: 'https://via.placeholder.com/70x70' },
-  fullName: 'John Doe',
-};
+const defaultUser = generateMockUser();
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof UserCard> = {
@@ -27,13 +25,7 @@ type Story = StoryObj<typeof UserCard>;
 
 export const UserCardPreview: Story = {
   args: {
-    user: {
-      photo: 'https://via.placeholder.com/70x70',
-      fullName: 'John Doe',
-      programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Php'],
-      frameworks: ['NodeJS', 'React', 'MUI', 'VueJS', 'Angular'],
-      isLeader: true,
-    } as unknown as IUserResponse,
+    user: defaultUser,
   },
 };
 

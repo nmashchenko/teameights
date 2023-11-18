@@ -13,7 +13,7 @@ import {
   IUserResponse,
   NotificationType,
 } from '@teameights/types';
-import { getRandomItemFromArray, getRandomNumberBetween, shuffleArray } from './common';
+import { getRandomItemFromArray, shuffleArray } from './common';
 import { frameworkColors, languageOptions } from '@/shared/constant';
 
 export const getRandomLanguages = (min: number, max: number): string[] => {
@@ -37,10 +37,7 @@ export const getRandomFrameworks = (min: number, max: number): string[] => {
 export const generateMockFileEntity = (): IFileEntity => {
   return {
     id: faker.number.int(),
-    path: `https://picsum.photos/${getRandomNumberBetween(1000, 1500)}/${getRandomNumberBetween(
-      1000,
-      1500
-    )}`,
+    path: 'https://source.unsplash.com/random',
   };
 };
 
