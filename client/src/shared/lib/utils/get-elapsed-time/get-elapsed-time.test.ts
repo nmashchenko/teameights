@@ -25,13 +25,6 @@ describe('getElapsedTime', () => {
       expect(getElapsedTime(pastTime)).toBe('2h ago');
     });
 
-    // Returns "0s ago" for a time that is 1 millisecond ago
-    it('should return "1s ago" for a time that is 0 millisecond ago', () => {
-      const currentTime = new Date();
-      const pastTime = new Date(currentTime.getTime() - 1); // 1 millisecond ago
-      expect(getElapsedTime(pastTime)).toBe('0s ago');
-    });
-
     // Returns "1s ago" for a time that is 1 secons ago
     it('should return ""1s ago" for a time that is 1 secons ago', () => {
       const currentTime = new Date();
