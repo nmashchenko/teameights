@@ -34,9 +34,7 @@ export class UsersService {
         country: filters?.country && Like(`%${filters.country}%`),
         speciality: filters?.speciality && Like(`%${filters.speciality}%`),
         experience: filters?.experience && Like(`%${filters.experience}%`),
-        programmingLanguages:
-          filters?.programmingLanguages && ArrayOverlap(filters.programmingLanguages),
-        frameworks: filters?.frameworks && ArrayOverlap(filters.frameworks),
+        // add support to find based on user type
       },
     });
   }

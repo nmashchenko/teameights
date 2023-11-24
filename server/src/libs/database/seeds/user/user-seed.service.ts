@@ -41,8 +41,6 @@ export class UserSeedService {
           speciality: 'Frontend Developer',
           description: 'Cool developer!',
           experience: '5+ years',
-          programmingLanguages: ['C++', 'C', 'Go'],
-          frameworks: ['Ruby', 'NodeJS'],
           universities: [
             {
               university: 'UIC',
@@ -69,6 +67,10 @@ export class UserSeedService {
           links: {
             github: 'https://github.com',
           },
+          skills: {
+            programmingLanguages: ['C++', 'TS'],
+            frameworks: ['NodeJS'],
+          },
         })
       );
     }
@@ -94,6 +96,10 @@ export class UserSeedService {
           status: {
             id: StatusEnum.active,
             name: 'Active',
+          },
+          skills: {
+            tools: ['Figma'],
+            frameworks: ['Framework'],
           },
         })
       );

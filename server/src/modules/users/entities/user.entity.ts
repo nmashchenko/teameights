@@ -25,7 +25,7 @@ import { Universities } from './universities.entity';
 import { Jobs } from './jobs.entity';
 import { Projects } from './projects.entity';
 import { Links } from './links.entity';
-import { Speciality } from '../../../utils/types/specialities.type';
+import { Skills } from './skills.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -115,12 +115,6 @@ export class User extends EntityHelper {
   @Column({ type: String, nullable: true })
   experience?: string | null;
 
-  @Column('text', { array: true, nullable: true })
-  programmingLanguages?: string[] | null;
-
-  @Column('text', { array: true, nullable: true })
-  frameworks?: string[] | null;
-
   @OneToMany(() => Universities, universities => universities.user, {
     eager: true,
     cascade: true,
@@ -138,6 +132,13 @@ export class User extends EntityHelper {
     cascade: true,
   })
   projects?: Projects[];
+
+  @OneToOne(() => Skills, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn()
+  skills?: Skills;
 
   @OneToOne(() => Links, { eager: true, cascade: true })
   @JoinColumn()
