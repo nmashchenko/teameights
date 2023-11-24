@@ -8,7 +8,6 @@ import {
 } from '@/shared/lib/mock';
 import { useEffect, useState } from 'react';
 import { IUserBase } from '@teameights/types';
-import { ChatCircleDots } from '@/shared/assets';
 
 export default function Home() {
   const [user, setUser] = useState<IUserBase>();
