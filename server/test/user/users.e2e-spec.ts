@@ -12,7 +12,7 @@ describe('Get users (e2e)', () => {
   const speciality = 'Backend Developer';
   const experience = '1 year';
   const programmingLanguages = ['C', 'C++', 'TS', 'JS'];
-  const frameworks = ['NestJS', 'NextJS', 'Figma'];
+  const frameworks = ['NestJS', 'NextJS'];
 
   it('Register new user with fullName for tests: /api/v1/auth/email/register (POST)', async () => {
     const email = faker.internet.email();
@@ -180,11 +180,31 @@ describe('Get users (e2e)', () => {
         type: 'bearer',
       })
       .send({
-        programmingLanguages: programmingLanguages,
+        skills: {
+          programmingLanguages: programmingLanguages,
+          type: "developer"
+        }
       })
       .expect(200)
       .expect(({ body }) => {
-        expect(body.programmingLanguages).toEqual(programmingLanguages);
+        expect(body.skills.programmingLanguages).toEqual(programmingLanguages);
+      });
+
+    // make sure different type won't work
+    await request(app)
+      .patch('/api/v1/auth/me')
+      .auth(newUserApiToken, {
+        type: 'bearer',
+      })
+      .send({
+        skills: {
+          programmingLanguages: programmingLanguages,
+          type: "designer"
+        }
+      })
+      .expect(422)
+      .expect(({ body }) => {
+        expect(body.error).toBeDefined();
       });
   });
   //
@@ -209,11 +229,14 @@ describe('Get users (e2e)', () => {
         type: 'bearer',
       })
       .send({
-        frameworks: frameworks,
+        "skills": {
+          "frameworks": frameworks,
+          "type": "developer"
+        }
       })
       .expect(200)
       .expect(({ body }) => {
-        expect(body.frameworks).toEqual(frameworks);
+        expect(body.skills.frameworks).toEqual(frameworks);
       });
   });
 
@@ -300,7 +323,7 @@ describe('Get users (e2e)', () => {
       .send()
       .expect(({ body }) => {
         for (let i = 0; i < body.data.length; i++) {
-          expect(body.data[i].programmingLanguages).toContain('JS');
+          expect(body.data[i].skills.programmingLanguages).toContain('JS');
         }
       });
   });
@@ -312,7 +335,7 @@ describe('Get users (e2e)', () => {
       .send()
       .expect(({ body }) => {
         for (let i = 0; i < body.data.length; i++) {
-          expect(body.data[i].frameworks).toContain('NestJS');
+          expect(body.data[i].skills.frameworks).toContain('NestJS');
         }
       });
   });

@@ -41,11 +41,21 @@ export class FindUserDto {
 
   @ApiProperty()
   @IsOptional()
-  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
+  @ArrayNotEmpty()
   programmingLanguages?: string[];
 
   @ApiProperty()
   @IsOptional()
-  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
+  @ArrayNotEmpty()
   frameworks?: string[];
+
+  @ApiProperty()
+  @IsOptional()
+  @ArrayNotEmpty()
+  tools?: string[];
+
+  @ApiProperty()
+  @IsOptional()
+  @ArrayNotEmpty()
+  fields?: string[];
 }

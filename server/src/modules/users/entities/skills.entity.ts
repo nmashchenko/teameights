@@ -1,8 +1,8 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './user.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {EntityHelper} from "../../../utils/entity-helper";
 
 @Entity()
-export class Skills {
+export class Skills extends EntityHelper {
   @PrimaryGeneratedColumn()
   id: number;
 

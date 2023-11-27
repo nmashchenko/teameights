@@ -24,19 +24,33 @@ export class UsersService {
   ): Promise<User[]> {
     const filters = paginationOptions.filters;
 
-    return this.usersRepository.find({
+    const users = await this.usersRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
       where: {
         fullName: filters?.fullName && Like(`%${filters.fullName}%`),
         username: filters?.username && Like(`%${filters.username}%`),
         isLeader: filters?.isLeader && filters.isLeader,
+
+        // change for arrays
         country: filters?.country && Like(`%${filters.country}%`),
         speciality: filters?.speciality && Like(`%${filters.speciality}%`),
         experience: filters?.experience && Like(`%${filters.experience}%`),
-        // add support to find based on user type
+
+        skills: {
+          programmingLanguages:
+            filters?.programmingLanguages && ArrayOverlap(filters.programmingLanguages),
+          frameworks: filters?.frameworks && ArrayOverlap(filters.frameworks),
+          tools:
+            filters?.tools && ArrayOverlap(filters.tools),
+          fields: filters?.fields && ArrayOverlap(filters.fields),
+        }
       },
     });
+
+    console.log(users)
+    return users
+
   }
 
   findOne(fields: EntityCondition<User>): Promise<NullableType<User>> {

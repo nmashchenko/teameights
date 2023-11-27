@@ -6,7 +6,7 @@ import {
   IsArray,
   IsEmail,
   IsIn,
-  IsNotEmpty,
+  IsNotEmpty, IsNotEmptyObject,
   IsObject,
   IsOptional,
   MinLength,
@@ -24,6 +24,9 @@ import { ProjectsDto } from './projects.dto';
 import { LinksDto } from './links.dto';
 import { Speciality, specialityValues } from '../../../utils/types/specialities.type';
 import { Experience, experienceValues } from '../../../utils/types/experiences.type';
+import {DeveloperDto} from "./developer.dto";
+import {DesignerDto} from "./designer.dto";
+import {ProjectManagerDto} from "./project-manager.dto";
 
 export class CreateUserDto {
   @ApiProperty({ example: 'test1@example.com' })
@@ -110,16 +113,6 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   description?: string;
 
-  @ApiProperty()
-  @IsOptional()
-  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
-  programmingLanguages?: string[];
-
-  @ApiProperty()
-  @IsOptional()
-  @ArrayNotEmpty({ message: 'mustBeNotEmpty' })
-  frameworks?: string[];
-
   @ApiProperty({
     example: [
       {
@@ -184,4 +177,29 @@ export class CreateUserDto {
   @Type(() => LinksDto)
   @IsOptional()
   links?: LinksDto;
+
+
+  @ApiProperty({
+    example:
+      {
+        tools: ["Figma"],
+        fields: ["UI", "Web"],
+        type: "designer"
+      },
+    description: 'Skills based on specific group (developerm designer, pm)',
+  })
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => Object, {
+    discriminator: {
+      property: 'type',
+      subTypes: [
+        { value: DeveloperDto, name: 'developer' },
+        { value: DesignerDto, name: 'designer' },
+        { value: ProjectManagerDto, name: 'pm' },
+      ],
+    },
+  })
+  @IsOptional()
+  skills?: DeveloperDto | DesignerDto | ProjectManagerDto
 }
