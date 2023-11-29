@@ -24,12 +24,14 @@ export default function Home() {
 
   return (
     <>
-      <BadgeIcon data='Assembly' />
       <Typography size='heading_l' variant='h6'>
         We are working hard to deliver teameights on NextJS/TS soon!
       </Typography>
 
       <Typography>Hello, {user?.username}!</Typography>
+
+      <BadgeIcon data='Assembly' />
+      <BadgeIcon data='C++' isActive />
 
       <a href='/login' style={{ color: 'green' }}>
         Get to login

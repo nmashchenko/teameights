@@ -98,7 +98,7 @@ export const generateMockUser = (
     isLeader: faker.datatype.boolean(),
     country: faker.location.country(),
     dateOfBirth: faker.date.past(),
-    concentration: faker.lorem.word(),
+    speciality: faker.lorem.word(),
     description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 280 }) : null,
     experience: getRandomItemFromArray([
       'No experience',
@@ -109,8 +109,6 @@ export const generateMockUser = (
       '4 years',
       '5+ years',
     ]) as ExperienceType,
-    programmingLanguages: getRandomLanguages(1, 5),
-    frameworks: getRandomFrameworks(1, 5),
     universities: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }).map(() =>
       generateMockUniversity()
     ),
@@ -122,6 +120,11 @@ export const generateMockUser = (
     notifications: initialNotifications ? initialNotifications : [],
     // to avoid dead lock we can't generate team here, we will need to add team
     team: initialTeam ? initialTeam : null,
+    skills: {
+      id: faker.number.int(),
+      programmingLanguages: getRandomLanguages(1, 5),
+      frameworks: getRandomFrameworks(1, 5),
+    },
     createdAt: faker.date.recent(),
     updatedAt: faker.date.recent(),
     deletedAt: faker.datatype.boolean() ? faker.date.recent() : null,
