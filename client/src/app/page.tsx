@@ -1,5 +1,5 @@
 'use client';
-import {BadgeIcon, Typography} from '@/shared/ui';
+import { BadgeIcon, Typography } from '@/shared/ui';
 import {
   generateMockTeam,
   generateMockUser,
