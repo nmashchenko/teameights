@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { FC } from 'react';
-import { badgeIcons } from '@/shared/constant';
+import { badgeColors, badgeIcons } from '@/shared/constant';
 import styles from './badge-icon.module.scss';
 
 /**
@@ -33,14 +33,18 @@ interface BadgeIconProps {
   data: string;
   className?: string;
   maxWidth?: string;
+  isActive?: boolean;
 }
 
 export const BadgeIcon: FC<BadgeIconProps> = props => {
-  const { data, className, maxWidth } = props;
+  const { data, className, maxWidth, isActive } = props;
   return (
     <div
       className={clsx([className], styles.badge_icon)}
-      style={{ maxWidth: `${maxWidth ? maxWidth : '100%'}` }}
+      style={{
+        maxWidth: `${maxWidth ? maxWidth : '100%'}`,
+        background: `${isActive ? badgeColors[data] : 'var(--grey-dark-color)'}`,
+      }}
     >
       {badgeIcons[data]}
     </div>

@@ -25,6 +25,17 @@ export const BadgeProgrammingLanguages_default = () => {
   );
 };
 
+export const BadgeProgrammingLanguages_active = () => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flexWrap: 'wrap' }}>
+      <Typography>Programming languages active</Typography>
+      {programmingLanguages.map((key, id) => (
+        <BadgeIcon data={key.label} isActive key={id} />
+      ))}
+    </div>
+  );
+};
+
 export const BadgeDesignerTools_default = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flexWrap: 'wrap' }}>
@@ -36,12 +47,34 @@ export const BadgeDesignerTools_default = () => {
   );
 };
 
+export const BadgeDesignerTools_active = () => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flexWrap: 'wrap' }}>
+      <Typography>Designer tools active</Typography>
+      {designerTools.map((key, id) => (
+        <BadgeIcon data={key.label} isActive key={id} />
+      ))}
+    </div>
+  );
+};
+
 export const ProjectManagerTools_default = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flexWrap: 'wrap' }}>
       <Typography>Project manager tools</Typography>
       {managerTools.map((key, id) => (
         <BadgeIcon data={key.label} key={id} />
+      ))}
+    </div>
+  );
+};
+
+export const ProjectManagerTools_active = () => {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flexWrap: 'wrap' }}>
+      <Typography>Project manager tools active</Typography>
+      {managerTools.map((key, id) => (
+        <BadgeIcon data={key.label} isActive key={id} />
       ))}
     </div>
   );

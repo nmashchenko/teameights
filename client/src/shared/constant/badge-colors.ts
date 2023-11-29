@@ -14,13 +14,26 @@ export const badgeColors: IBadgeColors = Object.freeze({
   Kubernetes: '#2450B2',
   TestCafe: '#2450B2',
   Docker: '#2450B2',
+  C: '#2450B2',
+  Lua: '#2450B2',
+  CSS: '#2450B2',
+  Dart: '#2450B2',
+  PHP: '#2450B2',
+  Python: '#2450B2',
+  R: '#2450B2',
+  TypeScript: '#2450B2',
 
   // Designer
   '3D': '#2450B2',
   Web: '#2450B2',
+  'Cinema 4D': '#2450B2',
+  Photoshop: '#2450B2',
+  Midjourney: '#2450B2',
+  Webflow: '#2450B2',
 
   // Project manager
   Kanban: '#2450B2',
+  Trello: '#2450B2',
 
   /* Additional/dark/green color */
   // Developer
@@ -34,6 +47,7 @@ export const badgeColors: IBadgeColors = Object.freeze({
 
   // Project manager
   Lean: '#0D8038',
+  'Microsoft Project': '#0D8038',
 
   /* Additional/dark/lime color */
   // Developer
@@ -42,9 +56,14 @@ export const badgeColors: IBadgeColors = Object.freeze({
   Scrapy: '#498505',
   Selenium: '#498505',
   Qt: '#498505',
+  Bash: '#498505',
+  SQL: '#498505',
 
   // Designer
   Game: '#498505',
+  Lottie: '#498505',
+  Shopify: '#498505',
+  'Substance 3D Designer': '#498505',
 
   // Project manager
   PMBOK: '#498505',
@@ -53,13 +72,22 @@ export const badgeColors: IBadgeColors = Object.freeze({
   // Developer
   GraphQL: '#B21BAB',
   'Kotlin M.': '#B21BAB',
+  'C#': '#B21BAB',
+  Julia: '#B21BAB',
 
   // Designer
   Illustration: '#B21BAB',
   UI: '#B21BAB',
+  InDesign: '#B21BAB',
+  InVision: '#B21BAB',
+  Procreate: '#B21BAB',
+  Spline: '#B21BAB',
+  XD: '#B21BAB',
 
   // Project manager
   PRINCE2: '#B21BAB',
+  ClickUp: '#B21BAB',
+  Slack: '#B21BAB',
 
   /* Additional/dark/red color */
   // Developer
@@ -68,13 +96,20 @@ export const badgeColors: IBadgeColors = Object.freeze({
   Angular: '#A62929',
   Ruby: '#A62929',
   Keras: '#A62929',
+  Java: '#A62929',
+  Rust: '#A62929',
 
   // Designer
   SMM: '#A62929',
   Product: '#A62929',
+  Firefly: '#A62929',
+  'Proto Pie': '#A62929',
+  Readymag: '#A62929',
+  ZBrush: '#A62929',
 
   // Project manager
   Agile: '#A62929',
+  Asana: '#A62929',
 
   /* Additional/dark/orange color */
   // Developer
@@ -84,12 +119,23 @@ export const badgeColors: IBadgeColors = Object.freeze({
   AWS: '#B26409',
   Svelte: '#B26409',
   Hive: '#B26409',
+  HTML: '#B26409',
+  MATLAB: '#B26409',
+  JavaScript: '#B26409',
+  Scala: '#B26409',
+  Swift: '#B26409',
 
   // Designer
   Graphic: '#B26409',
+  'Blender 3D': '#B26409',
+  Houdini: '#B26409',
+  Illustrator: '#B26409',
+  Modo: '#B26409',
+  Sketch: '#B26409',
 
   // Project manager
   Scrum: '#B26409',
+  Miro: '#B26409',
 
   /* Additional/dark/cyan color */
   // Developer
@@ -105,9 +151,19 @@ export const badgeColors: IBadgeColors = Object.freeze({
   Snowflake: '#0F8298',
   Xamarin: '#0F8298',
   Wordpress: '#0F8298',
+  'C++': '#0F8298',
+  Go: '#0F8298',
+  Perl: '#0F8298',
+
+  // Designer:
+  '3ds Max': '#0F8298',
+  Aseprite: '#0F8298',
+  Maya: '#0F8298',
+  Weblium: '#0F8298',
 
   // Project manager:
   Waterfall: '#0F8298',
+  JIRA: '#0F8298',
 
   /* Additional/white color */
   // Developer
@@ -126,12 +182,21 @@ export const badgeColors: IBadgeColors = Object.freeze({
   Redux: '#6239BF',
   Bootstrap: '#6239BF',
   Terraform: '#6239BF',
+  Assembly: '#6239BF',
+  Kotlin: '#6239BF',
 
   // Designer
   Motion: '#6239BF',
+  'After Effects': '#6239BF',
+  Animate: '#6239BF',
+  Figma: '#6239BF',
+  Framer: '#6239BF',
+  'Premier Pro': '#6239BF',
+  Vectary: '#6239BF',
 
   // Project manager
   'Six Sigma': '#6239BF',
+  Notion: '#6239BF',
 });
 
 export const badgeTextColors: IBadgeColors = Object.freeze({
