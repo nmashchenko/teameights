@@ -2,7 +2,6 @@ import { Transform, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from 'src/libs/database/metadata/roles/entities/role.entity';
 import {
-  ArrayNotEmpty,
   IsArray,
   IsEmail,
   IsIn,
