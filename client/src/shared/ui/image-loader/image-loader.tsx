@@ -17,7 +17,7 @@ export const ImageLoader: FC<ImageLoaderProps> = props => {
     width,
     height,
     src,
-    fallback = '/placeholder.png',
+    fallback = '/images/placeholder.png',
     debug,
     sizes = '100%',
     alt,
@@ -37,7 +37,6 @@ export const ImageLoader: FC<ImageLoaderProps> = props => {
     borderRadius: borderRadius,
     objectFit: 'cover',
     userSelect: 'none',
-    imageRendering: 'pixelated',
   } as CSSProperties;
 
   const imageStyle = {
