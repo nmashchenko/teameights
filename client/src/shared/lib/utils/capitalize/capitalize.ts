@@ -1,4 +1,4 @@
-export const capitalize = (input: string): string => {
+export const capitalize = (input: string = ''): string => {
   const trimmedInput = input.trim();
 
   if (!trimmedInput.length) {

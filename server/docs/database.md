@@ -50,7 +50,7 @@ We use [TypeORM](https://www.npmjs.com/package/typeorm) and [PostgreSQL](https:/
 1. Next, generate migration file:
 
    ```bash
-   npm run migration:generate -- src/database/migrations/CreatePostTable
+   yarn migration:generate -- src/libs/database/migrations/CreatePostTable
    ```
 
 1. Apply this migration to database via [npm run migration:run](#run-migration).
@@ -58,19 +58,19 @@ We use [TypeORM](https://www.npmjs.com/package/typeorm) and [PostgreSQL](https:/
 ### Run migration
 
 ```bash
-npm run migration:run
+yarn migration:run
 ```
 
 ### Revert migration
 
 ```bash
-npm run migration:revert
+yarn migration:revert
 ```
 
 ### Drop all tables in database
 
 ```bash
-npm run schema:drop
+yarn schema:drop
 ```
 
 ---

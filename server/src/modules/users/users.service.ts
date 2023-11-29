@@ -31,12 +31,22 @@ export class UsersService {
         fullName: filters?.fullName && Like(`%${filters.fullName}%`),
         username: filters?.username && Like(`%${filters.username}%`),
         isLeader: filters?.isLeader && filters.isLeader,
+
+        // TODO: change for arrays (countries / specialities / experiences)
         country: filters?.country && Like(`%${filters.country}%`),
-        concentration: filters?.concentration && Like(`%${filters.concentration}%`),
+        speciality: filters?.speciality && Like(`%${filters.speciality}%`),
         experience: filters?.experience && Like(`%${filters.experience}%`),
-        programmingLanguages:
-          filters?.programmingLanguages && ArrayOverlap(filters.programmingLanguages),
-        frameworks: filters?.frameworks && ArrayOverlap(filters.frameworks),
+
+        skills: {
+          programmingLanguages:
+            filters?.programmingLanguages && ArrayOverlap(filters.programmingLanguages),
+          frameworks: filters?.frameworks && ArrayOverlap(filters.frameworks),
+          designerTools: filters?.designerTools && ArrayOverlap(filters.designerTools),
+          projectManagerTools:
+            filters?.projectManagerTools && ArrayOverlap(filters.projectManagerTools),
+          fields: filters?.fields && ArrayOverlap(filters.fields),
+          methodologies: filters?.methodologies && ArrayOverlap(filters.methodologies),
+        },
       },
     });
   }

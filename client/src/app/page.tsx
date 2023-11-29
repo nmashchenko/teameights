@@ -1,5 +1,5 @@
 'use client';
-import { Typography } from '@/shared/ui';
+import { BadgeIcon, Typography } from '@/shared/ui';
 import {
   generateMockTeam,
   generateMockUser,
@@ -15,6 +15,8 @@ export default function Home() {
   useEffect(() => {
     setUser(generateMockUser());
 
+    console.log(generateMockUser());
+
     console.log(generateTeamInvitationNotification());
     console.log(generateMockTeam());
     console.log(generateSystemNotification());
@@ -27,6 +29,9 @@ export default function Home() {
       </Typography>
 
       <Typography>Hello, {user?.username}!</Typography>
+
+      <BadgeIcon data='Assembly' />
+      <BadgeIcon data='C++' isActive />
 
       <a href='/login' style={{ color: 'green' }}>
         Get to login
