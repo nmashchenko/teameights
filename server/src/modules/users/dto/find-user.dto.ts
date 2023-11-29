@@ -52,10 +52,20 @@ export class FindUserDto {
   @ApiProperty()
   @IsOptional()
   @ArrayNotEmpty()
-  tools?: string[];
+  projectManagerTools?: string[];
+
+  @ApiProperty()
+  @IsOptional()
+  @ArrayNotEmpty()
+  designerTools?: string[];
 
   @ApiProperty()
   @IsOptional()
   @ArrayNotEmpty()
   fields?: string[];
+
+  @ApiProperty()
+  @IsOptional()
+  @ArrayNotEmpty()
+  methodologies?: string[];
 }

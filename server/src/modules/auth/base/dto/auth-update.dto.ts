@@ -2,7 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsIn,
-  IsNotEmpty, IsNotEmptyObject,
+  IsNotEmpty,
+  IsNotEmptyObject,
   IsObject,
   IsOptional,
   MinLength,
@@ -20,9 +21,9 @@ import { ProjectsDto } from '../../../users/dto/projects.dto';
 import { LinksDto } from '../../../users/dto/links.dto';
 import { Speciality, specialityValues } from '../../../../utils/types/specialities.type';
 import { Experience, experienceValues } from '../../../../utils/types/experiences.type';
-import {DeveloperDto} from "../../../users/dto/developer.dto";
-import {DesignerDto} from "../../../users/dto/designer.dto";
-import {ProjectManagerDto} from "../../../users/dto/project-manager.dto";
+import { DeveloperDto } from '../../../users/dto/developer.dto';
+import { DesignerDto } from '../../../users/dto/designer.dto';
+import { ProjectManagerDto } from '../../../users/dto/project-manager.dto';
 
 export class AuthUpdateDto {
   @ApiProperty({ type: () => FileEntity })
@@ -150,13 +151,12 @@ export class AuthUpdateDto {
   links?: LinksDto;
 
   @ApiProperty({
-    example:
-      {
-        tools: ["Figma"],
-        fields: ["UI", "Web"],
-        type: "designer"
-      },
-    description: 'Skills based on specific group (developerm designer, pm)',
+    example: {
+      designerTools: ['Figma'],
+      fields: ['UI', 'Web'],
+      type: 'designer',
+    },
+    description: 'Skills based on specific group (developer, designer, pm)',
   })
   @IsNotEmptyObject()
   @ValidateNested()
@@ -171,5 +171,5 @@ export class AuthUpdateDto {
     },
   })
   @IsOptional()
-  skills?: DeveloperDto | DesignerDto | ProjectManagerDto
+  skills?: DeveloperDto | DesignerDto | ProjectManagerDto;
 }

@@ -63,7 +63,7 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
                   </Flex>
                   <Flex direction='column' gap='4px'>
                     <Typography size='body_s' color='greyNormal'>
-                      {user?.concentration}
+                      {user?.speciality}
                     </Typography>
                     <Typography size='body_s' color='greyNormal'>
                       {user?.experience}
@@ -87,20 +87,56 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
             {user?.description}
           </Typography>
           <Flex gap='24px' direction='column'>
-            <div className={styles.grid_container}>
-              {user?.frameworks && (
-                <>
-                  {user?.frameworks.map((framework: string, index: number) => (
-                    <BadgeText data={framework} key={index} />
-                  ))}
-                </>
-              )}
-            </div>
-            <Flex wrap='wrap' gap='8px'>
-              {user?.programmingLanguages?.map((language: string, index: number) => (
-                <BadgeIcon data={language} key={index} />
-              ))}
-            </Flex>
+            {/*User is developer:*/}
+            {user?.skills?.frameworks && (
+              <div className={styles.grid_container}>
+                {user?.skills?.frameworks.map((framework: string, index: number) => (
+                  <BadgeText data={framework} key={index} />
+                ))}
+              </div>
+            )}
+            {/*User is designer:*/}
+            {user?.skills?.fields && (
+              <div className={styles.grid_container}>
+                {user?.skills?.fields.map((field: string, index: number) => (
+                  <BadgeText data={field} key={index} />
+                ))}
+              </div>
+            )}
+            {/*User is project manager:*/}
+            {user?.skills?.methodologies && (
+              <div className={styles.grid_container}>
+                {user?.skills?.methodologies.map((methodology: string, index: number) => (
+                  <BadgeText data={methodology} key={index} />
+                ))}
+              </div>
+            )}
+
+            {/*User is developer:*/}
+            {user?.skills?.programmingLanguages && (
+              <Flex wrap='wrap' gap='8px'>
+                {user?.skills.programmingLanguages.map((language: string, index: number) => (
+                  <BadgeIcon data={language} key={index} />
+                ))}
+              </Flex>
+            )}
+            {/*User is designer:*/}
+            {user?.skills?.designerTools && (
+              <Flex wrap='wrap' gap='8px'>
+                {user?.skills.designerTools.map((tool: string, index: number) => (
+                  <BadgeIcon data={tool} key={index} />
+                ))}
+              </Flex>
+            )}
+
+            {/*User is project manager:*/}
+            {user?.skills?.projectManagerTools && (
+              <Flex wrap='wrap' gap='8px'>
+                {user?.skills.projectManagerTools.map((tool: string, index: number) => (
+                  <BadgeIcon data={tool} key={index} />
+                ))}
+              </Flex>
+            )}
           </Flex>
         </Flex>
       </Drawer>

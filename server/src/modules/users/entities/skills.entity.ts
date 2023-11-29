@@ -1,14 +1,16 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import {EntityHelper} from "../../../utils/entity-helper";
+import { EntityHelper } from '../../../utils/entity-helper';
 
 @Entity()
 export class Skills extends EntityHelper {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // Designer, Project Manager
   @Column('text', { array: true, nullable: true })
-  tools?: string[] | null;
+  designerTools?: string[] | null;
+
+  @Column('text', { array: true, nullable: true })
+  projectManagerTools?: string[] | null;
 
   // Designer
   @Column('text', { array: true, nullable: true })
@@ -18,7 +20,11 @@ export class Skills extends EntityHelper {
   @Column('text', { array: true, nullable: true })
   programmingLanguages?: string[] | null;
 
-  // Developer, Project Manager
+  // Developer
   @Column('text', { array: true, nullable: true })
   frameworks?: string[] | null;
+
+  // Project Manager
+  @Column('text', { array: true, nullable: true })
+  methodologies?: string[] | null;
 }

@@ -97,9 +97,10 @@ export class UserSeedService {
             id: StatusEnum.active,
             name: 'Active',
           },
+          speciality: 'Project Manager',
           skills: {
-            tools: ['Figma'],
-            frameworks: ['Framework'],
+            projectManagerTools: ['Notion'],
+            methodologies: ['Agile'],
           },
         })
       );

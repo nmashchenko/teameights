@@ -13,24 +13,58 @@ import {
   NotificationType,
 } from '@teameights/types';
 import { getRandomItemFromArray, getRandomNumberBetween, shuffleArray } from './common';
-import { badgeColors } from '@/shared/constant';
+import {
+  designerTools,
+  fields,
+  frameworks,
+  managerTools,
+  methodologies,
+  programmingLanguages,
+} from '@/shared/constant';
 
-export const getRandomLanguages = (min: number, max: number): string[] => {
-  const allLanguages = Object.keys(badgeColors);
-  const shuffledLanguages = shuffleArray([...allLanguages]);
+type Speciality = 'designer' | 'developer' | 'pm';
+export const getRandomBadgeText = (
+  min: number,
+  max: number,
+  type: Speciality = 'developer'
+): string[] => {
+  let data;
+
+  if (type === 'pm') {
+    data = methodologies;
+  } else if (type === 'designer') {
+    data = fields;
+  } else {
+    data = frameworks;
+  }
+  const allIcons = data.map(el => el.label);
+  const shuffledIcons = shuffleArray(allIcons);
 
   const randomLength = Math.floor(Math.random() * (max - min + 1)) + min;
 
-  return shuffledLanguages.slice(0, randomLength);
+  return shuffledIcons.slice(0, randomLength);
 };
 
-export const getRandomFrameworks = (min: number, max: number): string[] => {
-  const allFrameworks = Object.keys(badgeColors);
-  const shuffledLanguages = shuffleArray([...allFrameworks]);
+export const getRandomBadgeIcon = (
+  min: number,
+  max: number,
+  type: Speciality = 'developer'
+): string[] => {
+  let data;
+
+  if (type === 'pm') {
+    data = managerTools;
+  } else if (type === 'designer') {
+    data = designerTools;
+  } else {
+    data = programmingLanguages;
+  }
+  const allIcons = data.map(el => el.label);
+  const shuffledIcons = shuffleArray(allIcons);
 
   const randomLength = Math.floor(Math.random() * (max - min + 1)) + min;
 
-  return shuffledLanguages.slice(0, randomLength);
+  return shuffledIcons.slice(0, randomLength);
 };
 
 export const generateMockFileEntity = (): IFileEntity => {
@@ -85,21 +119,22 @@ export const generateMockUniversity = (): IUniversity => ({
 });
 
 export const generateMockUser = (
+  type: Speciality = 'developer',
   initialTeam?: ITeam,
   initialNotifications?: NotificationType[]
 ): IUserBase => {
-  return {
+  const user: IUserBase = {
     id: faker.number.int(),
     username: faker.internet.userName(),
     fullName: faker.person.firstName(),
-    photo: faker.datatype.boolean() ? generateMockFileEntity() : null,
+    photo: generateMockFileEntity(),
     role: generateMockRole(),
     status: generateMockStatus(),
     isLeader: faker.datatype.boolean(),
     country: faker.location.country(),
     dateOfBirth: faker.date.past(),
     speciality: faker.lorem.word(),
-    description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 280 }) : null,
+    description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 50 }) : null,
     experience: getRandomItemFromArray([
       'No experience',
       'Few months',
@@ -117,18 +152,36 @@ export const generateMockUser = (
       generateMockProject()
     ),
     links: faker.datatype.boolean() ? generateMockLinks() : null,
+    skills: null,
     notifications: initialNotifications ? initialNotifications : [],
     // to avoid dead lock we can't generate team here, we will need to add team
     team: initialTeam ? initialTeam : null,
-    skills: {
-      id: faker.number.int(),
-      programmingLanguages: getRandomLanguages(1, 5),
-      frameworks: getRandomFrameworks(1, 5),
-    },
     createdAt: faker.date.recent(),
     updatedAt: faker.date.recent(),
     deletedAt: faker.datatype.boolean() ? faker.date.recent() : null,
   };
+
+  if (type === 'developer') {
+    user.skills = {
+      id: faker.number.int(),
+      programmingLanguages: getRandomBadgeIcon(1, 5),
+      frameworks: getRandomBadgeText(1, 5),
+    };
+  } else if (type === 'designer') {
+    user.skills = {
+      id: faker.number.int(),
+      designerTools: getRandomBadgeIcon(1, 5, 'designer'),
+      fields: getRandomBadgeText(1, 5, 'designer'),
+    };
+  } else {
+    user.skills = {
+      id: faker.number.int(),
+      methodologies: getRandomBadgeText(1, 5, 'pm'),
+      projectManagerTools: getRandomBadgeIcon(1, 5, 'pm'),
+    };
+  }
+
+  return user;
 };
 
 export const generateMockUsers = (count: number): IUserBase[] => {

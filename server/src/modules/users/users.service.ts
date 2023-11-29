@@ -41,8 +41,11 @@ export class UsersService {
           programmingLanguages:
             filters?.programmingLanguages && ArrayOverlap(filters.programmingLanguages),
           frameworks: filters?.frameworks && ArrayOverlap(filters.frameworks),
-          tools: filters?.tools && ArrayOverlap(filters.tools),
+          designerTools: filters?.designerTools && ArrayOverlap(filters.designerTools),
+          projectManagerTools:
+            filters?.projectManagerTools && ArrayOverlap(filters.projectManagerTools),
           fields: filters?.fields && ArrayOverlap(filters.fields),
+          methodologies: filters?.methodologies && ArrayOverlap(filters.methodologies),
         },
       },
     });
