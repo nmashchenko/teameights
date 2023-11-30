@@ -20,7 +20,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const router = useRouter();
-  const { mutate: loginUser } = useLogin();
+  const { mutate: loginUser, isPending } = useLogin();
 
   const {
     register,
@@ -76,7 +76,9 @@ export default function LoginPage() {
         </Flex>
 
         <Flex direction='column' gap={24}>
-          <Button type='submit'>Log in</Button>
+          <Button type='submit' loading={isPending}>
+            Log in
+          </Button>
 
           <Flex justify='center' align='center' gap={13} className={styles.lines_container}>
             <div className={styles.line} />
