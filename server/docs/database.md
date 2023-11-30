@@ -53,7 +53,7 @@ We use [TypeORM](https://www.npmjs.com/package/typeorm) and [PostgreSQL](https:/
    yarn migration:generate -- src/libs/database/migrations/CreatePostTable
    ```
 
-1. Apply this migration to database via [npm run migration:run](#run-migration).
+1. Apply this migration to database via [yarn migration:run](#run-migration).
 
 ### Run migration
 
@@ -79,15 +79,15 @@ yarn schema:drop
 
 ### Creating seeds
 
-1. Create seed file with `npm run seed:create -- --name=Post`. Where `Post` is name of entity.
+1. Create seed file with `yarn seed:create -- --name=Post`. Where `Post` is name of entity.
 1. Go to `src/database/seeds/post/post-seed.service.ts`.
 1. In `run` method extend your logic.
-1. Run [npm run seed:run](#run-seed)
+1. Run [yarn seed:run](#run-seed)
 
 ### Run seed
 
 ```bash
-npm run seed:run
+yarn seed:run
 ```
 
 ---
@@ -109,12 +109,15 @@ DATABASE_MAX_CONNECTIONS=100
 You can think of this parameter as how many concurrent database connections your application can handle.
 
 ---
+
 ## Schemas
 
 ### General reference
+
 ![reference.png](schemas/reference.png)
 
 ### User
+
 ![user.png](schemas/user.png)
 
 ---

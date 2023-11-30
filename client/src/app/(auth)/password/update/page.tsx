@@ -1,19 +1,21 @@
 'use client';
-import styles from '../../../password.module.scss';
+import styles from '../password.module.scss';
 import { Button, Flex, InputPassword, Typography } from '@/shared/ui';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useResetPassword } from '@/entities/session';
 
 interface UpdateProps {
   password: string;
   repeatPassword: string;
 }
-export default function Update({ params }: { params: { id: string; token: string } }) {
-  const { id, token } = params;
+export default function Update() {
+  const searchParams = useSearchParams();
+  const hash = searchParams.get('hash') ?? ''; // default value is ""
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const router = useRouter();
+  const { mutate: resetPassword, isPending } = useResetPassword();
 
   const {
     register,
@@ -21,10 +23,8 @@ export default function Update({ params }: { params: { id: string; token: string
     formState: { errors },
   } = useForm<UpdateProps>();
 
-  const onSubmit: SubmitHandler<UpdateProps> = data => {
-    console.log(data, id, token);
-    router.push('/password/success');
-  };
+  const onSubmit: SubmitHandler<UpdateProps> = data =>
+    resetPassword({ password: data.password, hash });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,7 +54,7 @@ export default function Update({ params }: { params: { id: string; token: string
             placeholder='Password'
             {...register('password', {
               required: 'You must specify a password',
-              minLength: { value: 8, message: 'Password must have at least 8 characters' },
+              // minLength: { value: 8, message: 'Password must have at least 8 characters' },
             })}
             error={errors?.password ? errors.password.message : undefined}
             value={password}
@@ -70,7 +70,9 @@ export default function Update({ params }: { params: { id: string; token: string
             onChange={e => setRepeatPassword(e.target.value)}
           />
         </Flex>
-        <Button width='100%'>Reset password</Button>
+        <Button width='100%' loading={isPending}>
+          Reset password
+        </Button>
       </Flex>
     </form>
   );

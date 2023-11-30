@@ -5131,19 +5131,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.0.0-beta.23":
-  version: 5.0.0-beta.23
-  resolution: "@tanstack/query-core@npm:5.0.0-beta.23"
-  checksum: c7053a828ae7755bc65a569d034f5c580786a8b9aecb91d56623c233546a544fd4c7063c5efb59db86f56fb9475322cde1c05ec4a5dac9a955d15ea8b4e811a3
+"@tanstack/eslint-plugin-query@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@tanstack/eslint-plugin-query@npm:5.0.0"
+  dependencies:
+    "@typescript-eslint/utils": ^5.54.0
+  peerDependencies:
+    eslint: ^8.0.0
+  checksum: b5f7757afa3caedc32729b457a9f9f8dea312cfeb8de9e81a22206abb9b9aa37bbc3d713f063e3bebfbdaf3a75f42629c7de62a90e68268cb51b7fe236db8127
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:beta":
-  version: 5.0.0-beta.23
-  resolution: "@tanstack/react-query@npm:5.0.0-beta.23"
+"@tanstack/query-core@npm:5.0.0":
+  version: 5.0.0
+  resolution: "@tanstack/query-core@npm:5.0.0"
+  checksum: 19ef7a26d114b03f5899d209ec88c815fc4887c3b3682aca2ec7765b3430bcd085ddccd8434a702affe9ce22c2f3fd5575b823d01ea1f6497c16bb05ec83d668
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-devtools@npm:5.0.0":
+  version: 5.0.0
+  resolution: "@tanstack/query-devtools@npm:5.0.0"
+  checksum: 1b7918401c3cacaaf24bae0153613976932d2e5c1bd3eaf42ae5941c52fa366531975a4343ea3c900897ab8b2182dbf70bfc8856904bed2374834b31147ef575
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@tanstack/react-query-devtools@npm:5.0.1"
   dependencies:
-    "@tanstack/query-core": 5.0.0-beta.23
-    client-only: 0.0.1
+    "@tanstack/query-devtools": 5.0.0
+  peerDependencies:
+    "@tanstack/react-query": ^5.0.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: c7592deb5d780a52d55e6849d3448bd745c20a653f55e9bce90e9768941410d525d357fc108d9c89cd12115f035f6b66db9c6d9d9f79b0c80971824ed7298eeb
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@tanstack/react-query@npm:5.0.0"
+  dependencies:
+    "@tanstack/query-core": 5.0.0
   peerDependencies:
     react: ^18.0.0
     react-dom: ^18.0.0
@@ -5153,7 +5183,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: 688fc49ca337225523621deabf01e45a7565a3e9fd6ab596582fa9964a5690ac9c98eb47ab8c9e70e8680fe43d9ae4633921481870ba11ec178e2e42722f65e3
+  checksum: 266cdf25aa7a35f44f0f00628b42f815f945e5cbbe2ff0e7d1d40f3800aca430ef1e43c7718bb8cd8ae039f1a483517275f4aaa41932c2d7cf6da374dda4c8b7
   languageName: node
   linkType: hard
 
@@ -5532,6 +5562,13 @@ __metadata:
     expect: ^29.0.0
     pretty-format: ^29.0.0
   checksum: 56e55cde9949bcc0ee2fa34ce5b7c32c2bfb20e53424aa4ff3a210859eeaaa3fdf6f42f81a3f655238039cdaaaf108b054b7a8602f394e6c52b903659338d8c6
+  languageName: node
+  linkType: hard
+
+"@types/js-cookie@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@types/js-cookie@npm:3.0.5"
+  checksum: 4d91ae26445499fdde283928aac9ad149be3561ef9b4d959f77e44694608accd5939c8c68ba42c50c2cfc007ccd442cc566a41077d7f2766390088fa91b612ce
   languageName: node
   linkType: hard
 
@@ -6019,7 +6056,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:^5.45.0":
+"@typescript-eslint/utils@npm:^5.45.0, @typescript-eslint/utils@npm:^5.54.0":
   version: 5.62.0
   resolution: "@typescript-eslint/utils@npm:5.62.0"
   dependencies:
@@ -6859,6 +6896,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "axios@npm:1.5.1"
+  dependencies:
+    follow-redirects: ^1.15.0
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 4444f06601f4ede154183767863d2b8e472b4a6bfc5253597ed6d21899887e1fd0ee2b3de792ac4f8459fe2e359d2aa07c216e45fd8b9e4e0688a6ebf48a5a8d
+  languageName: node
+  linkType: hard
+
 "axobject-query@npm:^3.1.1":
   version: 3.2.1
   resolution: "axobject-query@npm:3.2.1"
@@ -7677,11 +7725,14 @@ __metadata:
     "@storybook/nextjs": 7.2.1
     "@storybook/react": 7.2.1
     "@storybook/testing-library": 0.2.0
-    "@tanstack/react-query": beta
+    "@tanstack/eslint-plugin-query": ^5.0.0
+    "@tanstack/react-query": ^5.0.0
+    "@tanstack/react-query-devtools": ^5.0.1
     "@teameights/types": ^1.1.24
     "@testing-library/jest-dom": ^6.1.3
     "@testing-library/react": ^14.0.0
     "@types/jest": ^29.5.5
+    "@types/js-cookie": ^3.0.5
     "@types/lodash.debounce": ^4.0.7
     "@types/node": 20.4.8
     "@types/react": 18.2.18
@@ -7691,6 +7742,7 @@ __metadata:
     "@typescript-eslint/parser": ^6.3.0
     "@uiball/loaders": ^1.3.0
     add: ^2.0.6
+    axios: ^1.5.1
     clsx: ^2.0.0
     eslint: 8.46.0
     eslint-config-next: 13.4.12
@@ -7698,6 +7750,7 @@ __metadata:
     husky: ^8.0.3
     jest: ^29.7.0
     jest-environment-jsdom: ^29.7.0
+    js-cookie: ^3.0.5
     lodash.debounce: ^4.0.8
     next: 13.4.12
     prettier: ^3.0.1
@@ -9898,6 +9951,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.15.0":
+  version: 1.15.3
+  resolution: "follow-redirects@npm:1.15.3"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 584da22ec5420c837bd096559ebfb8fe69d82512d5585004e36a3b4a6ef6d5905780e0c74508c7b72f907d1fa2b7bd339e613859e9c304d0dc96af2027fd0231
+  languageName: node
+  linkType: hard
+
 "for-each@npm:^0.3.3":
   version: 0.3.3
   resolution: "for-each@npm:0.3.3"
@@ -11927,6 +11990,13 @@ __metadata:
   bin:
     jiti: bin/jiti.js
   checksum: 7924062b5675142e3e272a27735be84b7bfc0a0eb73217fc2dcafa034f37c4f7b4b9ffc07dd98bcff0f739a8811ce1544db205ae7e97b1c86f0df92c65ce3c72
+  languageName: node
+  linkType: hard
+
+"js-cookie@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "js-cookie@npm:3.0.5"
+  checksum: 2dbd2809c6180fbcf060c6957cb82dbb47edae0ead6bd71cbeedf448aa6b6923115003b995f7d3e3077bfe2cb76295ea6b584eb7196cca8ba0a09f389f64967a
   languageName: node
   linkType: hard
 
@@ -14460,7 +14530,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proxy-from-env@npm:^1.0.0":
+"proxy-from-env@npm:^1.0.0, proxy-from-env@npm:^1.1.0":
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
   checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4

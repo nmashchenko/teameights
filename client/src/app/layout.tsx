@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <ReactQueryProvider>
-      <html lang='en'>
-        <body className={inter.variable}>
+    <html lang='en'>
+      <body className={inter.variable}>
+        <ReactQueryProvider>
           {/* <CookieBanner /> */}
           <Toaster
             theme='dark'
@@ -25,8 +25,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             }}
           />
           {children}
-        </body>
-      </html>
-    </ReactQueryProvider>
+        </ReactQueryProvider>
+      </body>
+    </html>
   );
 }

@@ -1,5 +1,6 @@
 import { FC, SVGProps } from 'react';
 export const ArrowLeft: FC<SVGProps<SVGSVGElement>> = props => {
+  // props: size: '20' | '28' | '40'
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

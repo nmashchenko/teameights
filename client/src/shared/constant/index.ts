@@ -9,3 +9,5 @@ export { methodologies } from './methodologies';
 export { fields } from './fields';
 export { designerTools } from './designer-tools';
 export { managerTools } from './manager-tools';
+export * from './server-routes';
+export * from './client-routes';

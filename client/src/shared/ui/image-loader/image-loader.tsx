@@ -1,3 +1,5 @@
+'use client';
+
 import { Crown20, Crown28, Crown40 } from '@/shared/assets';
 import { CSSProperties, FC, SyntheticEvent, useState } from 'react';
 import Image, { ImageProps } from 'next/image';
