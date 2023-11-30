@@ -1,6 +1,6 @@
 import { countryFlags } from '@/shared/constant';
 
-export const getCountryFlag = (countryName: string): string => {
+export const getCountryFlag = (countryName: string = ''): string => {
   const normalizedCountryName = countryName.trim();
 
   if (normalizedCountryName in countryFlags) {

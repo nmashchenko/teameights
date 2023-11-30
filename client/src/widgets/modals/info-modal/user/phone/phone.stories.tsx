@@ -1,8 +1,9 @@
 import type { Meta } from '@storybook/react';
 import { UserPhone } from './phone';
-import { useState } from 'react';
-import { Button } from '@/shared/ui';
-import { userResponseFixture } from '@/shared/fixtures/user';
+import { useEffect, useState } from 'react';
+import { Button, Flex } from '@/shared/ui';
+import { generateMockUser } from '@/shared/lib/mock';
+import { IUserBase } from '@teameights/types';
 
 const meta: Meta<typeof UserPhone> = {
   title: 'widgets/modals/info/user/phone',
@@ -14,19 +15,40 @@ const meta: Meta<typeof UserPhone> = {
 export default meta;
 
 export const InfoModalUser_desktop = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const openModalNew = () => {
-    setOpenModal(true);
-  };
-  const closeModalNew = () => {
-    setOpenModal(false);
-  };
+  const [openDesigner, setOpenDesigner] = useState(false);
+  const [openDev, setOpenDev] = useState(false);
+  const [openPM, setOpenPM] = useState(false);
+
+  const [designer, setDesigner] = useState<IUserBase>();
+  const [developer, setDeveloper] = useState<IUserBase>();
+  const [pm, setPM] = useState<IUserBase>();
+
+  useEffect(() => {
+    setDesigner(generateMockUser('designer'));
+    setDeveloper(generateMockUser());
+    setPM(generateMockUser('pm'));
+  }, []);
+
   return (
     <div style={{ height: '100vh' }}>
-      <Button typeBtn='primary' size='m' color='white' onClick={openModalNew}>
-        Open Third Modal
-      </Button>
-      <UserPhone user={userResponseFixture} isOpenModal={openModal} handleClose={closeModalNew} />
+      <Flex gap={8}>
+        <Button typeBtn='primary' size='m' color='white' onClick={() => setOpenDev(true)}>
+          Open Developer Modal
+        </Button>
+        <Button typeBtn='primary' size='m' color='white' onClick={() => setOpenDesigner(true)}>
+          Open Designer Modal
+        </Button>
+        <Button typeBtn='primary' size='m' color='white' onClick={() => setOpenPM(true)}>
+          Open PM Modal
+        </Button>
+      </Flex>
+      <UserPhone user={developer} isOpenModal={openDev} handleClose={() => setOpenDev(false)} />
+      <UserPhone
+        user={designer}
+        isOpenModal={openDesigner}
+        handleClose={() => setOpenDesigner(false)}
+      />
+      <UserPhone user={pm} isOpenModal={openPM} handleClose={() => setOpenPM(false)} />
     </div>
   );
 };

@@ -1,0 +1,21 @@
+.container {
+  min-width: 170px;
+  border-right: 1px solid var(--green-normal-color);
+  height: 100%;
+  transition: all 0.1s ease 0s;
+
+  &:hover {
+    background-color: var(--grey-dark-color);
+  }
+}
+
+.select {
+  &_active {
+    background-color: var(--grey-dark-color);
+  }
+}
+
+.control,
+.menu {
+  padding: 0px 8px;
+}

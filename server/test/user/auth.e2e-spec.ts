@@ -46,7 +46,7 @@ describe('Auth user (e2e)', () => {
       })
       .expect(422)
       .expect(({ body }) => {
-        expect(body.errors.email).toBeDefined();
+        expect(body.error).toBeDefined();
       });
   });
 

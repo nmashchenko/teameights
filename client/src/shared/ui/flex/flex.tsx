@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './flex.module.scss';
 import clsx from 'clsx';
 
-export interface FlexProps {
+export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * [props.align] - The align-items property defines the default behavior for how items are laid out along the cross axis (perpendicular to the main axis). Default is 'normal'.
    */
@@ -114,6 +114,7 @@ export const Flex: React.FC<FlexProps> = props => {
     shrink,
     children,
     className,
+    ...rest
   } = props;
 
   const style = {
@@ -133,7 +134,7 @@ export const Flex: React.FC<FlexProps> = props => {
   } as React.CSSProperties;
 
   return (
-    <div className={clsx(styles.flexWrapper, [className])} style={style}>
+    <div className={clsx(styles.flexWrapper, [className])} style={style} {...rest}>
       {children}
     </div>
   );

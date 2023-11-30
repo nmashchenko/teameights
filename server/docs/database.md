@@ -50,7 +50,7 @@ We use [TypeORM](https://www.npmjs.com/package/typeorm) and [PostgreSQL](https:/
 1. Next, generate migration file:
 
    ```bash
-   yarn migration:generate -- src/database/migrations/CreatePostTable
+   yarn migration:generate -- src/libs/database/migrations/CreatePostTable
    ```
 
 1. Apply this migration to database via [yarn migration:run](#run-migration).
@@ -109,12 +109,15 @@ DATABASE_MAX_CONNECTIONS=100
 You can think of this parameter as how many concurrent database connections your application can handle.
 
 ---
+
 ## Schemas
 
 ### General reference
+
 ![reference.png](schemas/reference.png)
 
 ### User
+
 ![user.png](schemas/user.png)
 
 ---
