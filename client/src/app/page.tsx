@@ -1,24 +1,18 @@
 'use client';
-import { Typography } from '@/shared/ui';
-import {
-  generateMockTeam,
-  generateMockUser,
-  generateSystemNotification,
-  generateTeamInvitationNotification,
-} from '@/shared/lib/mock';
-import { useEffect, useState } from 'react';
-import { IUserBase } from '@teameights/types';
+
+import { Button, Typography } from '@/shared/ui';
+import { useGetScreenWidth } from '@/shared/lib';
+
+import { useGetMe, useLogout, useLogin, useUpdateMe, useRegister } from '@/entities/session';
+import { faker } from '@faker-js/faker';
 
 export default function Home() {
-  const [user, setUser] = useState<IUserBase>();
-
-  useEffect(() => {
-    setUser(generateMockUser());
-
-    console.log(generateTeamInvitationNotification());
-    console.log(generateMockTeam());
-    console.log(generateSystemNotification());
-  }, []);
+  const width = useGetScreenWidth();
+  const { data, isFetching } = useGetMe();
+  const { mutate: logout } = useLogout();
+  const { mutate: login } = useLogin();
+  const { mutate: update } = useUpdateMe();
+  const { mutate: register, isPending } = useRegister();
 
   return (
     <>
@@ -26,7 +20,23 @@ export default function Home() {
         We are working hard to deliver teameights on NextJS/TS soon!
       </Typography>
 
-      <Typography>Hello, {user?.username}!</Typography>
+      <div> The screen width is: {width} </div>
+
+      <Typography>
+        Hello, {isFetching ? 'loading...' : data?.email ?? 'Failed to fetch'}!
+      </Typography>
+
+      <Button onClick={() => logout()}>Logout</Button>
+      <Button onClick={() => login({ email: 'john.doe@example.com', password: 'secret' })}>
+        Login
+      </Button>
+      <Button onClick={() => update({ fullName: faker.internet.userName() })}>Update</Button>
+      <Button
+        onClick={() => register({ email: faker.internet.email(), password: 'secret' })}
+        loading={isPending}
+      >
+        Register
+      </Button>
 
       <a href='/login' style={{ color: 'green' }}>
         Get to login

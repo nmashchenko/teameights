@@ -1,3 +1,5 @@
+export { Assembly } from './assembly';
+export { Bash } from './bash';
 export { C } from './c';
 export { CPlusPlus } from './c-plus-plus';
 export { CSharp } from './c-sharp';
@@ -7,8 +9,10 @@ export { Go } from './go';
 export { HTML } from './html';
 export { Java } from './java';
 export { JS } from './js';
+export { Julia } from './julia';
 export { Kotlin } from './kotlin';
 export { Lua } from './lua';
+export { Matlab } from './matlab';
 export { Perl } from './perl';
 export { Php } from './php';
 export { Python } from './python';

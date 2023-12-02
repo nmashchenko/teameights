@@ -1,8 +1,8 @@
 {
   "name": "teameights-server",
-  "version": "3.6.4",
+  "version": "0.0.1",
   "description": "Built with typeorm, postgresql, passportjs, nestjs, swagger, docker, i18n",
-  "author": "Nikita Maashchenko <mashchenko1@icloud.com> (https://mashchenko.tech)",
+  "author": "Nikita Mashchenko <mashchenko1@icloud.com> (https://mashchenko.tech)",
   "private": true,
   "engines": {
     "node": ">=16.0.0",
@@ -13,7 +13,7 @@
   "license": "MIT",
   "scripts": {
     "typeorm": "env-cmd ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "migration:generate": "npm run typeorm -- --dataSource=src/database/data-source.ts migration:generate",
+    "migration:generate": "npm run typeorm -- --dataSource=src/libs/database/data-source.ts migration:generate",
     "migration:create": "npm run typeorm migration:create",
     "migration:run": "npm run typeorm -- --dataSource=src/libs/database/data-source.ts migration:run",
     "migration:revert": "npm run typeorm -- --dataSource=src/libs/database/data-source.ts migration:revert",

@@ -1,12 +1,4 @@
-import {
-  BadgeFramework,
-  BadgeLanguage,
-  Button,
-  Modal,
-  Typography,
-  Flex,
-  ImageLoader,
-} from '@/shared/ui';
+import { BadgeText, BadgeIcon, Button, Modal, Typography, Flex, ImageLoader } from '@/shared/ui';
 import styles from './desktop.module.scss';
 import { FC } from 'react';
 import { ArrowRight, UserPlus, ChatCircleDots } from '@/shared/assets';
@@ -52,7 +44,7 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
 
               <Flex gap='4px' direction='column'>
                 <Typography size='body_s' color='greyNormal'>
-                  {user?.concentration}
+                  {user?.speciality}
                 </Typography>
                 <Typography size='body_s' color='greyNormal'>
                   {user?.experience} of experience
@@ -65,17 +57,45 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
               {user?.description}
             </Typography>
           )}
-          {user?.frameworks && (
+          {/* Grid with frameworks || fields || methodologies */}
+          {user?.skills?.frameworks && (
             <div className={styles.grid_container}>
-              {user?.frameworks.map((framework, index) => (
-                <BadgeFramework data={framework} key={index} />
+              {user?.skills?.frameworks.map((framework, index) => (
+                <BadgeText data={framework} key={index} />
               ))}
             </div>
           )}
-          {user?.programmingLanguages && (
+          {user?.skills?.fields && (
+            <div className={styles.grid_container}>
+              {user?.skills?.fields.map((field, index) => <BadgeText data={field} key={index} />)}
+            </div>
+          )}
+          {user?.skills?.methodologies && (
+            <div className={styles.grid_container}>
+              {user?.skills?.methodologies.map((methodology, index) => (
+                <BadgeText data={methodology} key={index} />
+              ))}
+            </div>
+          )}
+          {/*Flexbox with designerTools || languages || projectManagerTools*/}
+          {user?.skills?.programmingLanguages && (
             <Flex wrap='wrap' gap='8px'>
-              {user?.programmingLanguages.map((language, index) => (
-                <BadgeLanguage data={language} key={index} />
+              {user?.skills?.programmingLanguages.map((language, index) => (
+                <BadgeIcon data={language} key={index} />
+              ))}
+            </Flex>
+          )}
+          {user?.skills?.designerTools && (
+            <Flex wrap='wrap' gap='8px'>
+              {user?.skills?.designerTools.map((tool, index) => (
+                <BadgeIcon data={tool} key={index} />
+              ))}
+            </Flex>
+          )}
+          {user?.skills?.projectManagerTools && (
+            <Flex wrap='wrap' gap='8px'>
+              {user?.skills?.projectManagerTools.map((tool, index) => (
+                <BadgeIcon data={tool} key={index} />
               ))}
             </Flex>
           )}

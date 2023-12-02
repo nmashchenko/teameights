@@ -6,6 +6,8 @@ import { Github, Google } from '@/shared/assets';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button, Flex, Input, InputPassword, Typography } from '@/shared/ui';
 import styles from '../shared.module.scss';
+import { useRouter } from 'next/navigation';
+import { useRegister } from '@/entities/session';
 
 interface SignupProps {
   email: string;
@@ -17,9 +19,11 @@ export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const router = useRouter();
+  const { mutate: registerUser } = useRegister();
 
   const login = useGoogleLogin({
-    onSuccess: codeResponse => console.log(codeResponse),
+    onSuccess: codeResponse => router.push(`/proxy/google?code=${codeResponse.code}`),
     flow: 'auth-code',
   });
 
@@ -29,7 +33,13 @@ export default function SignupPage() {
     formState: { errors },
   } = useForm<SignupProps>();
 
-  const onSubmit: SubmitHandler<SignupProps> = data => console.log(data);
+  const loginWithGit = () =>
+    router.push(
+      `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_API_OAUTH_TOKEN}`
+    );
+
+  const onSubmit: SubmitHandler<SignupProps> = data =>
+    registerUser({ email: data.email, password: data.password });
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -66,7 +76,7 @@ export default function SignupPage() {
         </Flex>
 
         <Flex direction='column' gap={24}>
-          <Button type='submit'>Log in</Button>
+          <Button type='submit'>Sign up</Button>
 
           <Flex justify='center' align='center' gap={13} className={styles.lines_container}>
             <div className={styles.line} />
@@ -81,7 +91,7 @@ export default function SignupPage() {
               <Google />
               <Typography>Google</Typography>
             </Button>
-            <Button typeBtn='secondary' size='l' width='100%' type='button'>
+            <Button typeBtn='secondary' size='l' width='100%' type='button' onClick={loginWithGit}>
               <Github />
               <Typography>Github</Typography>
             </Button>

@@ -71,12 +71,12 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
               crownSize={20}
               width={50}
               height={50}
-              src={team.leader?.photo?.path || ''}
+              src={team?.leader?.photo?.path || ''}
               alt='Team leader image'
               borderRadius='50%'
             />
             <div>
-              {team.members.length && (
+              {team?.members.length && (
                 <Flex gap='8px'>
                   {team?.members?.map((teammate, index) => (
                     <ImageLoader
@@ -100,7 +100,7 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
               disabled={team?.leader.id === user?.id}
               onClick={handleJoin}
             >
-              {team.leader.id === user.id ? 'Your team' : 'Join team'}
+              {team?.leader.id === user?.id ? 'Your team' : 'Join team'}
             </Button>
 
             <Button
