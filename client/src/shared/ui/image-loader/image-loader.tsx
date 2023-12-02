@@ -1,3 +1,5 @@
+'use client';
+
 import { Crown20, Crown28, Crown40 } from '@/shared/assets';
 import { CSSProperties, FC, SyntheticEvent, useState } from 'react';
 import Image, { ImageProps } from 'next/image';
@@ -17,7 +19,7 @@ export const ImageLoader: FC<ImageLoaderProps> = props => {
     width,
     height,
     src,
-    fallback = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg',
+    fallback = '/images/placeholder.png',
     debug,
     sizes = '100%',
     alt,
@@ -37,7 +39,6 @@ export const ImageLoader: FC<ImageLoaderProps> = props => {
     borderRadius: borderRadius,
     objectFit: 'cover',
     userSelect: 'none',
-    imageRendering: 'pixelated',
   } as CSSProperties;
 
   const imageStyle = {

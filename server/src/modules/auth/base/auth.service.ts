@@ -109,9 +109,12 @@ export class AuthService {
     let user: NullableType<User>;
     const socialEmail = socialData.email?.toLowerCase();
 
-    const userByEmail = await this.usersService.findOne({
-      email: socialEmail,
-    });
+    // issue: https://github.com/typeorm/typeorm/issues/9316
+    const userByEmail = socialEmail
+      ? await this.usersService.findOne({
+          email: socialEmail,
+        })
+      : null;
 
     user = await this.usersService.findOne({
       socialId: socialData.id,
@@ -209,7 +212,7 @@ export class AuthService {
     });
   }
 
-  async confirmEmail(hash: string): Promise<void> {
+  async confirmEmail(hash: string): Promise<LoginResponseType> {
     const user = await this.usersService.findOne({
       hash,
     });
@@ -229,6 +232,27 @@ export class AuthService {
       id: StatusEnum.active,
     });
     await user.save();
+
+    const session = await this.sessionService.create({
+      user,
+    });
+
+    const {
+      token: jwtToken,
+      refreshToken,
+      tokenExpires,
+    } = await this.getTokensData({
+      id: user.id,
+      role: user.role,
+      sessionId: session.id,
+    });
+
+    return {
+      refreshToken,
+      token: jwtToken,
+      tokenExpires,
+      user,
+    };
   }
 
   async forgotPassword(email: string): Promise<void> {
@@ -318,6 +342,9 @@ export class AuthService {
         HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
+
+    // TODO: add support for checking if user speciality is designer
+    // and updating fields are designer fields
 
     await this.sessionService.softDelete({
       user: {

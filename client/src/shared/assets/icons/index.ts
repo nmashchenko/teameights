@@ -12,30 +12,6 @@ export { Cookie } from './cookie';
 export { Search } from './search';
 export { UserPlus } from './user-plus';
 export { ChatCircleDots } from './chat-circle-dots';
-export { ArrowLeft, ArrowRight } from './arrows';
-export { CaretUp, CaretDown } from './caret';
-export { LogoBig, LogoSmall } from './logo';
-export { Google, Github } from './socials';
-export {
-  C,
-  CPlusPlus,
-  CSharp,
-  CSS,
-  Dart,
-  Go,
-  HTML,
-  Java,
-  JS,
-  Kotlin,
-  Lua,
-  Perl,
-  Php,
-  Python,
-  R,
-  Ruby,
-  Rust,
-  Scala,
-  SQL,
-  Swift,
-  TS,
-} from './language-logo';
+export * from './arrows';
+export * from './caret';
+export * from '../icons/illustrations';

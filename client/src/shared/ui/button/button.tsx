@@ -3,6 +3,7 @@ import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import styles from './button.module.scss';
 import colors from '../../styles/colors.module.scss';
 import type { Colors } from '@/shared/types';
+import { DotPulse } from '@uiball/loaders';
 
 /**
  * Button Component
@@ -49,6 +50,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   width?: string;
   color?: Colors;
   padding?: string;
+  loading?: boolean;
 }
 
 export const Button: FC<ButtonProps> = props => {
@@ -62,6 +64,7 @@ export const Button: FC<ButtonProps> = props => {
     width,
     color = 'white',
     padding,
+    loading = false,
     ...rest
   } = props;
 
@@ -84,7 +87,7 @@ export const Button: FC<ButtonProps> = props => {
       )}
       {...rest}
     >
-      {children}
+      {loading ? <DotPulse size={24} speed={1.3} color='white' /> : children}
     </button>
   );
 };
