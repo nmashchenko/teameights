@@ -2,12 +2,10 @@ import { FC, useState } from 'react';
 import { useFilters } from '../../hooks';
 import clsx from 'clsx';
 import { Modal as ResponsiveModal } from 'react-responsive-modal';
-import { ArrowRight, Cross } from '@/shared/assets';
+import { Cross } from '@/shared/assets';
 import { Flex, Typography } from '@/shared/ui';
-import { Tag } from '../tag';
-import { Filter } from '../../types';
-import { TagList } from '../tag-list';
-import { SearchInput } from '../search-input';
+import { FilterMenu } from '../filter-menu';
+import { ModalMenu } from '../modal-menu';
 import styles from './modal.module.scss';
 
 interface ModalProps {
@@ -23,34 +21,6 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
   const handleOpenFilter = (index: number) => {
     setIsFilterOpened(true);
     setFilterIndex(index);
-  };
-
-  const renderTag = (filter: Filter) => {
-    switch (filter.type) {
-      case 'text':
-        if (filter.filterValue.length) {
-          return <Tag>@{filter.filterValue}</Tag>;
-        }
-
-        break;
-      case 'multiple':
-      case 'checkbox':
-        if (filter.filterValue.length) {
-          return <Tag>{filter.filterValue.length}</Tag>;
-        }
-
-        break;
-      case 'range':
-        if (filter.filterValue) {
-          return (
-            <Tag>
-              {filter.filterValue[0]}-{filter.filterValue[1]}
-            </Tag>
-          );
-        }
-
-        break;
-    }
   };
 
   const leftButtonHandler = () => {
@@ -135,32 +105,9 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
 
       <Flex height='100%' direction='column' gap='8'>
         {!isFilterOpened ? (
-          <ul className={styles.option_list}>
-            {filterArr.map((item, index) => (
-              <li
-                key={item.value}
-                className={styles.option_item}
-                onClick={() => handleOpenFilter(index)}
-              >
-                <Flex width='100%' align='center' justify='space-between'>
-                  <Flex align='center' gap='8px'>
-                    <Typography variant='p' size='body_m'>
-                      {item.label}
-                    </Typography>
-                    {renderTag(item)}
-                  </Flex>
-                  <ArrowRight />
-                </Flex>
-              </li>
-            ))}
-          </ul>
+          <ModalMenu filterArr={filterArr} onOpenFilter={handleOpenFilter} />
         ) : (
-          <Flex direction='column' gap='16px'>
-            <Flex className={styles.searchinput_wrapper}>
-              <SearchInput />
-            </Flex>
-            <TagList />
-          </Flex>
+          <FilterMenu />
         )}
 
         <Flex margin='auto 0 0 0' gap='8px'>

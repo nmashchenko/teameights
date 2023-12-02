@@ -1,10 +1,18 @@
+import { FC } from 'react';
 import styles from './tag-list.module.scss';
 import { Tag } from '../tag';
 import { SearchTagMenu } from '../search-tag-menu';
 import { useFilters } from '../../hooks';
+import { Filter } from '../../types';
 
-export const TagList = () => {
-  const { filterArr, setFilterArr } = useFilters();
+interface TagListProps {
+  isOnlyCurrentFilterTags?: boolean;
+}
+
+export const TagList: FC<TagListProps> = ({ isOnlyCurrentFilterTags = false }) => {
+  const { filterArr, setFilterArr, filterIndex } = useFilters();
+  const currentFilter = filterArr[filterIndex];
+
   if (!filterArr.length) {
     return null;
   }
@@ -61,44 +69,56 @@ export const TagList = () => {
     });
   };
 
-  return (
-    <ul className={styles.tag_list}>
-      {filterArr.map((item, index) => {
-        switch (item.type) {
-          case 'text':
-            return item.filterValue.length ? (
-              <li key={item.value} className={styles.tag_wrapper}>
-                <Tag isWithCross key={item.value} onClick={() => handleClearTextFilter(index)}>
-                  {item.filterValue}
-                </Tag>
-              </li>
-            ) : null;
+  const renderTag = (filterItem: Filter, index: number) => {
+    switch (filterItem.type) {
+      case 'text':
+        return filterItem.filterValue.length ? (
+          <li key={filterItem.value} className={styles.tag_wrapper}>
+            <Tag isWithCross key={filterItem.value} onClick={() => handleClearTextFilter(index)}>
+              {filterItem.filterValue}
+            </Tag>
+          </li>
+        ) : null;
 
-          case 'multiple':
-          case 'checkbox':
-            if (item.filterValue.length) {
-              return (
-                <li className={styles.checkboxFilterTag} key={item.value}>
-                  <Tag isWithCross onClick={() => handleClearMultipleOption(index, 0)}>
-                    {item.filterValue[0].label}
-                  </Tag>
-                  {item.filterValue.length > 1 && (
-                    <SearchTagMenu
-                      filterItem={item}
-                      filterIndex={index}
-                      onClearOption={handleClearMultipleOption}
-                      onClearAllOptions={handleClearAllMultipleOptions}
-                    />
-                  )}
-                </li>
-              );
-            }
-
-            return null;
-
-          default:
+      case 'multiple':
+      case 'checkbox':
+        if (filterItem.filterValue.length) {
+          return (
+            <li className={styles.checkboxFilterTag} key={filterItem.value}>
+              <Tag isWithCross onClick={() => handleClearMultipleOption(index, 0)}>
+                {filterItem.filterValue[0].label}
+              </Tag>
+              {filterItem.filterValue.length > 1 && (
+                <SearchTagMenu
+                  filterItem={filterItem}
+                  filterIndex={index}
+                  onClearOption={handleClearMultipleOption}
+                  onClearAllOptions={handleClearAllMultipleOptions}
+                />
+              )}
+            </li>
+          );
         }
-      })}
-    </ul>
-  );
+
+        return null;
+
+      default:
+    }
+  };
+
+  const tagElements = isOnlyCurrentFilterTags
+    ? renderTag(currentFilter, filterIndex)
+    : filterArr.map((item, index) => renderTag(item, index));
+
+  const tagList = tagElements ? (
+    Array.isArray(tagElements) ? (
+      tagElements.length && tagElements.some(item => item) ? (
+        <ul className={styles.tag_list}>{tagElements}</ul>
+      ) : null
+    ) : (
+      <ul className={styles.tag_list}>{tagElements}</ul>
+    )
+  ) : null;
+
+  return tagList;
 };
