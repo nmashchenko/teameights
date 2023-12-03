@@ -57,8 +57,8 @@ export class AuthController {
   }
 
   @Post('email/confirm')
-  @HttpCode(HttpStatus.OK)
-  async confirmEmail(@Body() confirmEmailDto: AuthConfirmEmailDto): Promise<LoginResponseType> {
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async confirmEmail(@Body() confirmEmailDto: AuthConfirmEmailDto): Promise<void> {
     return this.service.confirmEmail(confirmEmailDto.hash);
   }
 

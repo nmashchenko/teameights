@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
-import { ArrayOverlap, DeepPartial, Like, Repository } from 'typeorm';
+import { ArrayOverlap, DeepPartial, FindOptionsWhere, In, Like, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { NullableType } from 'src/utils/types/nullable.type';
-import { FindUserDto } from './dto/find-user.dto';
+import { FilterUserDto, SortUserDto } from './dto/query-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -19,35 +19,49 @@ export class UsersService {
     return this.usersRepository.save(this.usersRepository.create(createProfileDto));
   }
 
-  async findManyWithPagination(
-    paginationOptions: IPaginationOptions<FindUserDto>
-  ): Promise<User[]> {
-    const filters = paginationOptions.filters;
+  async findManyWithPagination({
+    filterOptions,
+    sortOptions,
+    paginationOptions,
+  }: {
+    filterOptions?: FilterUserDto | null;
+    sortOptions?: SortUserDto[] | null;
+    paginationOptions: IPaginationOptions;
+  }): Promise<User[]> {
+    const where: FindOptionsWhere<User> = {};
+
+    if (filterOptions) {
+      where.fullName = filterOptions?.fullName && Like(`%${filterOptions.fullName}%`);
+      where.username = filterOptions?.username && Like(`%${filterOptions.username}%`);
+      where.isLeader = filterOptions?.isLeader && filterOptions.isLeader;
+
+      where.country = filterOptions?.countries && In(filterOptions.countries);
+      where.speciality = filterOptions?.specialities && In(filterOptions.specialities);
+      where.experience = filterOptions?.experience && Like(`%${filterOptions.experience}%`);
+
+      where.skills = {
+        programmingLanguages:
+          filterOptions?.programmingLanguages && ArrayOverlap(filterOptions.programmingLanguages),
+        frameworks: filterOptions?.frameworks && ArrayOverlap(filterOptions.frameworks),
+        designerTools: filterOptions?.designerTools && ArrayOverlap(filterOptions.designerTools),
+        projectManagerTools:
+          filterOptions?.projectManagerTools && ArrayOverlap(filterOptions.projectManagerTools),
+        fields: filterOptions?.fields && ArrayOverlap(filterOptions.fields),
+        methodologies: filterOptions?.methodologies && ArrayOverlap(filterOptions.methodologies),
+      };
+    }
 
     return this.usersRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
-      where: {
-        fullName: filters?.fullName && Like(`%${filters.fullName}%`),
-        username: filters?.username && Like(`%${filters.username}%`),
-        isLeader: filters?.isLeader && filters.isLeader,
-
-        // TODO: change for arrays (countries / specialities / experiences)
-        country: filters?.country && Like(`%${filters.country}%`),
-        speciality: filters?.speciality && Like(`%${filters.speciality}%`),
-        experience: filters?.experience && Like(`%${filters.experience}%`),
-
-        skills: {
-          programmingLanguages:
-            filters?.programmingLanguages && ArrayOverlap(filters.programmingLanguages),
-          frameworks: filters?.frameworks && ArrayOverlap(filters.frameworks),
-          designerTools: filters?.designerTools && ArrayOverlap(filters.designerTools),
-          projectManagerTools:
-            filters?.projectManagerTools && ArrayOverlap(filters.projectManagerTools),
-          fields: filters?.fields && ArrayOverlap(filters.fields),
-          methodologies: filters?.methodologies && ArrayOverlap(filters.methodologies),
-        },
-      },
+      where: where,
+      order: sortOptions?.reduce(
+        (accumulator, sort) => ({
+          ...accumulator,
+          [sort.orderBy]: sort.order,
+        }),
+        {}
+      ),
     });
   }
 

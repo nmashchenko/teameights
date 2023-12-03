@@ -6,3 +6,5 @@ export const PASSWORD_SUCCESS = '/password/success';
 export const PASSWORD_EXPIRED = '/password/expired';
 
 export const SIGNUP_CONFIRMATION = '/signup/confirmation';
+
+export const LOGIN = '/login';
