@@ -1,7 +1,6 @@
 import request from 'supertest';
 import { APP_URL } from '../utils/constants';
 import { faker } from '@faker-js/faker';
-import qs from 'qs';
 
 describe('Get users (e2e)', () => {
   const app = APP_URL;

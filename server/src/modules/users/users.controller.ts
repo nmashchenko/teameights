@@ -8,8 +8,6 @@ import {
   Delete,
   UseGuards,
   Query,
-  DefaultValuePipe,
-  ParseIntPipe,
   HttpStatus,
   HttpCode,
   SerializeOptions,
