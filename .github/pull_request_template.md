@@ -1,6 +1,6 @@
-## 🛠 Clickup tickets
-<!--- List clickup tickets resolved --->
-<!-- [#8677dqa8r](https://app.clickup.com/t/8677dqa8r) -->
+## 🛠 Notion tickets
+<!--- List notion tickets resolved --->
+<!-- [Backend limits](https://www.notion.so/team8s-teamspace/Implement-limits-on-backend-2e270aeec30d418ba7b38aa103ed59ee) -->
 * Resolves []()
 
 ## ✨ Overview
