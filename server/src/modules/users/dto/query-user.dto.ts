@@ -119,7 +119,6 @@ export class QueryUserDto {
   @ApiProperty({ type: String, required: false })
   @IsOptional()
   @Transform(({ value }) => {
-    console.log(JSON.parse(value));
     return value ? plainToInstance(SortUserDto, JSON.parse(value)) : undefined;
   })
   @ValidateNested({ each: true })
