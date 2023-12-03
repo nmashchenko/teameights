@@ -106,20 +106,23 @@ export class AuthService {
     authProvider: string,
     socialData: SocialInterface
   ): Promise<LoginResponseType> {
-    let user: NullableType<User>;
+    let user: NullableType<User> = null;
     const socialEmail = socialData.email?.toLowerCase();
+    let userByEmail: NullableType<User> = null;
 
     // issue: https://github.com/typeorm/typeorm/issues/9316
-    const userByEmail = socialEmail
-      ? await this.usersService.findOne({
-          email: socialEmail,
-        })
-      : null;
+    if (socialEmail) {
+      userByEmail = await this.usersService.findOne({
+        email: socialEmail,
+      });
+    }
 
-    user = await this.usersService.findOne({
-      socialId: socialData.id,
-      provider: authProvider,
-    });
+    if (socialData.id) {
+      user = await this.usersService.findOne({
+        socialId: socialData.id,
+        provider: authProvider,
+      });
+    }
 
     if (user) {
       if (socialEmail && !userByEmail) {

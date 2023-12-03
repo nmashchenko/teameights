@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, SerializeOptions } from '@nestjs/common';
 import { AuthService } from 'src/modules/auth/base/auth.service';
 import { LoginResponseType } from 'src/modules/auth/base/types/login-response.type';
 import { AuthGithubService } from './auth-github.service';
@@ -16,6 +16,9 @@ export class AuthGithubController {
     private readonly authGithubService: AuthGithubService
   ) {}
 
+  @SerializeOptions({
+    groups: ['me'],
+  })
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@Body() loginDto: AuthGithubLoginDto): Promise<LoginResponseType> {
