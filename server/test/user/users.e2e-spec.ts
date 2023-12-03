@@ -182,8 +182,8 @@ describe('Get users (e2e)', () => {
       .send({
         skills: {
           programmingLanguages: programmingLanguages,
-          type: "developer"
-        }
+          type: 'developer',
+        },
       })
       .expect(200)
       .expect(({ body }) => {
@@ -199,12 +199,12 @@ describe('Get users (e2e)', () => {
       .send({
         skills: {
           programmingLanguages: programmingLanguages,
-          type: "designer"
-        }
+          type: 'designer',
+        },
       })
       .expect(422)
       .expect(({ body }) => {
-        expect(body.error).toBeDefined();
+        expect(body.errors).toBeDefined();
       });
   });
   //
@@ -229,10 +229,10 @@ describe('Get users (e2e)', () => {
         type: 'bearer',
       })
       .send({
-        "skills": {
-          "frameworks": frameworks,
-          "type": "developer"
-        }
+        skills: {
+          frameworks: frameworks,
+          type: 'developer',
+        },
       })
       .expect(200)
       .expect(({ body }) => {
@@ -252,7 +252,7 @@ describe('Get users (e2e)', () => {
 
   it('Get users with fullName filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
-      .get(`/api/v1/users?filters%5BfullName%5D=Slavik%20Ukraincev`)
+      .get(`/api/v1/users?filters={"fullName": "${fullName}"}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
@@ -264,7 +264,7 @@ describe('Get users (e2e)', () => {
 
   it('Get users with username filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
-      .get(`/api/v1/users?filters%5Busername%5D=${username}`)
+      .get(`/api/v1/users?filters={"username": "${username}"}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
@@ -276,7 +276,7 @@ describe('Get users (e2e)', () => {
 
   it('Get users with country filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
-      .get(`/api/v1/users?filters%5Bcountry%5D=${country}`)
+      .get(`/api/v1/users?filters={"countries": ["${country}"]}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
@@ -287,14 +287,8 @@ describe('Get users (e2e)', () => {
   });
 
   it('Get users with speciality filter: /api/v1/users?filters= (GET)', () => {
-    const filters = {
-      filters: {
-        speciality: speciality,
-      },
-    };
-
     return request(app)
-      .get(`/api/v1/users?${qs.stringify(filters)}`)
+      .get(`/api/v1/users?filters={"specialities": ["${speciality}"]}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
@@ -306,7 +300,7 @@ describe('Get users (e2e)', () => {
 
   it('Get users with experience filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
-      .get(`/api/v1/users?filters%5Bexperience%5D=${experience}`)
+      .get(`/api/v1/users?filters={"experience": "${experience}"}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
@@ -318,7 +312,7 @@ describe('Get users (e2e)', () => {
 
   it('Get users with programmingLanguages filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
-      .get(`/api/v1/users?filters%5BprogrammingLanguages%5D%5B0%5D=JS`)
+      .get(`/api/v1/users?filters={"programmingLanguages": ["JS"]}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
@@ -330,7 +324,7 @@ describe('Get users (e2e)', () => {
 
   it('Get users with frameworks filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
-      .get(`/api/v1/users?filters%5Bframeworks%5D%5B0%5D=NestJS`)
+      .get(`/api/v1/users?filters={"frameworks": ["NestJS"]}`)
       .expect(200)
       .send()
       .expect(({ body }) => {

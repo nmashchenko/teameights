@@ -9435,7 +9435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.11.0, qs@npm:^6.11.2":
+"qs@npm:^6.11.0":
   version: 6.11.2
   resolution: "qs@npm:6.11.2"
   dependencies:
@@ -10474,7 +10474,6 @@ __metadata:
     passport-jwt: 4.0.1
     pg: 8.11.3
     prettier: 3.0.3
-    qs: ^6.11.2
     reflect-metadata: 0.1.13
     rimraf: 5.0.1
     rxjs: 7.8.1

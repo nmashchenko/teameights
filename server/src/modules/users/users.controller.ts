@@ -26,8 +26,7 @@ import { infinityPagination } from 'src/utils/infinity-pagination';
 import { User } from './entities/user.entity';
 import { InfinityPaginationResultType } from 'src/utils/types/infinity-pagination-result.type';
 import { NullableType } from 'src/utils/types/nullable.type';
-import { parse } from 'qs';
-import { FindUserDto } from './dto/find-user.dto';
+import { QueryUserDto } from './dto/query-user.dto';
 
 @ApiTags('Users')
 @Controller({
@@ -54,12 +53,9 @@ export class UsersController {
   })
   @Get()
   @HttpCode(HttpStatus.OK)
-  async findAll(
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
-    @Query('filters') filters?: string
-  ): Promise<InfinityPaginationResultType<User>> {
-    const filterOptions: FindUserDto | undefined = filters ? parse(filters) : undefined;
+  async findAll(@Query() query: QueryUserDto): Promise<InfinityPaginationResultType<User>> {
+    const page = query?.page ?? 1;
+    let limit = query?.limit ?? 10;
 
     if (limit > 50) {
       limit = 50;
@@ -67,9 +63,12 @@ export class UsersController {
 
     return infinityPagination(
       await this.usersService.findManyWithPagination({
-        page,
-        limit,
-        filters: filterOptions,
+        filterOptions: query?.filters,
+        sortOptions: query?.sort,
+        paginationOptions: {
+          page,
+          limit,
+        },
       }),
       { page, limit }
     );
