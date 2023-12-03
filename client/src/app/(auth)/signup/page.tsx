@@ -20,7 +20,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const router = useRouter();
-  const { mutate: registerUser } = useRegister();
+  const { mutate: registerUser, isPending } = useRegister();
 
   const login = useGoogleLogin({
     onSuccess: codeResponse => router.push(`/proxy/google?code=${codeResponse.code}`),
@@ -76,7 +76,9 @@ export default function SignupPage() {
         </Flex>
 
         <Flex direction='column' gap={24}>
-          <Button type='submit'>Sign up</Button>
+          <Button type='submit' loading={isPending}>
+            Sign up
+          </Button>
 
           <Flex justify='center' align='center' gap={13} className={styles.lines_container}>
             <div className={styles.line} />
