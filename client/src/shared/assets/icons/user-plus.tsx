@@ -1,14 +1,15 @@
-import { FC, SVGProps } from 'react';
+import { SVGPropsWithSize } from '@/shared/types/svg-props-with-size';
+import { FC } from 'react';
 
-export const UserPlus: FC<SVGProps<SVGSVGElement>> = props => {
+export const UserPlus: FC<SVGPropsWithSize> = ({ size = '20', ...rest }) => {
   return (
     <svg
-      width='20'
-      height='20'
+      width={size}
+      height={size}
       viewBox='0 0 20 20'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      {...props}
+      {...rest}
     >
       <path
         fillRule='evenodd'
