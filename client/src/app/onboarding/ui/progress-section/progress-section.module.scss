@@ -1,0 +1,8 @@
+.container {
+  flex-basis: 39.06%;
+  padding: 48px 55px;
+
+  @media (width <= 768px) {
+    display: none;
+  }
+}
