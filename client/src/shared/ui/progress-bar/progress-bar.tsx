@@ -1,5 +1,5 @@
-import styles from "./progress-bar.module.scss"
-import {FC} from "react";
+import styles from './progress-bar.module.scss';
+import { FC } from 'react';
 
 export interface IProgressBar {
   /**
@@ -30,17 +30,19 @@ export interface IProgressBar {
  * Customizable progress bar component.
  *
  */
-export const ProgressBar: FC<IProgressBar> = (props) => {
-  const {percentageProgress, barColor = "#434752", progressColor = "#5BD424", height = "8px"} = props
+export const ProgressBar: FC<IProgressBar> = props => {
+  const {
+    percentageProgress,
+    barColor = '#434752',
+    progressColor = '#5BD424',
+    height = '8px',
+  } = props;
   return (
-    <div
-      className={styles.bar}
-      style={{background: barColor, height}}
-    >
+    <div className={styles.bar} style={{ background: barColor, height }}>
       <div
         className={styles.progress}
-        style={{ background: progressColor, width: `${percentageProgress}%`}}/>
+        style={{ background: progressColor, width: `${percentageProgress}%` }}
+      />
     </div>
   );
-}
-
+};

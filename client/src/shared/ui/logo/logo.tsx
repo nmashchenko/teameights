@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import {LogoBig, LogoSmall} from "@/shared/assets";
-import {useGetScreenWidth} from "@/shared/lib";
+import { LogoBig, LogoSmall } from '@/shared/assets';
+import { useGetScreenWidth } from '@/shared/lib';
 import styles from './logo.module.scss';
-import {useRouter} from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 interface LogoProps {
   /**
@@ -21,12 +21,12 @@ interface LogoProps {
  * The `Button` component represents a customizable button element with various configurations like size, type, and content.
  */
 
-export const Logo = ({shouldRedirect = true, shouldBeAdaptive = false}: LogoProps) => {
+export const Logo = ({ shouldRedirect = true, shouldBeAdaptive = false }: LogoProps) => {
   const router = useRouter();
   const width = useGetScreenWidth();
 
   const handleBack = () => {
-    if(shouldRedirect){
+    if (shouldRedirect) {
       router.push('/');
     }
   };
@@ -35,5 +35,5 @@ export const Logo = ({shouldRedirect = true, shouldBeAdaptive = false}: LogoProp
     <div className={styles.logo} onClick={handleBack}>
       {!shouldBeAdaptive || width > 430 ? <LogoBig /> : <LogoSmall />}
     </div>
-  )
-}
+  );
+};

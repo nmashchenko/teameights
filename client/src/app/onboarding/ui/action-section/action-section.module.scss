@@ -1,6 +1,6 @@
 .container {
   flex-basis: 60.94%;
-  background: #1A1C22;
+  background: var(--cards-color);
   padding: 48px 55px;
 
   @media (width <= 768px) {

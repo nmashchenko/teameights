@@ -1,12 +1,12 @@
-"use client"
+'use client';
 
-import {Question} from "@/shared/assets";
-import {Tooltip} from "react-tooltip";
-import Link from "next/link";
-import {RefObject, useState} from "react";
-import {useClickOutside, useGetScreenWidth} from "@/shared/lib";
+import { Question } from '@/shared/assets';
+import { Tooltip } from 'react-tooltip';
+import Link from 'next/link';
+import { RefObject, useState } from 'react';
+import { useClickOutside, useGetScreenWidth } from '@/shared/lib';
 import styles from './need-help.module.scss';
-import {Typography} from "@/shared/ui";
+import { Typography } from '@/shared/ui';
 
 const mailTo = 'mailto:help@teameights.com';
 
@@ -21,15 +21,14 @@ interface NeedHelpProps {
  * The `NeedHelp` component represents a button that provides a tooltip with contact information when clicked.
  *
  */
-export const  NeedHelp = ({shouldHideWhenWidth = 0}: NeedHelpProps) => {
+export const NeedHelp = ({ shouldHideWhenWidth = 0 }: NeedHelpProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const ref: RefObject<HTMLDivElement> = useClickOutside(() => setIsOpen(false));
   const width = useGetScreenWidth();
 
   return (
     <>
-      {
-        width > shouldHideWhenWidth && (
+      {width > shouldHideWhenWidth && (
         <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={ref}>
           <Typography size='body_m'>Need Help</Typography>
           <Question data-tooltip-id='my-tooltip-inline' />
@@ -48,8 +47,7 @@ export const  NeedHelp = ({shouldHideWhenWidth = 0}: NeedHelpProps) => {
             </Typography>
           </Tooltip>
         </div>
-        )
-      }
+      )}
     </>
-  )
-}
+  );
+};

@@ -2,21 +2,20 @@
 import Link from 'next/link';
 import { ArrowLeft, Planet } from '@/shared/assets';
 import { AmongUs } from '@/shared/lib';
-import {Button, Logo, Typography} from '@/shared/ui';
+import { Button, Logo, Typography } from '@/shared/ui';
 import styles from './styles/not-found.module.scss';
-import {NeedHelp} from "@/entities/need-help";
+import { NeedHelp } from '../shared/ui/need-help';
 
 /** Used to open email */
 const mailTo = 'mailto:help@teameights.com';
 
 export default function NotFound() {
-
   return (
     <>
       <div className={styles.container}>
         <header className={styles.header}>
           <Logo />
-         <NeedHelp shouldHideWhenWidth={430}/>
+          <NeedHelp shouldHideWhenWidth={430} />
         </header>
         <div className={styles.main}>
           <div className={styles.illustration}>

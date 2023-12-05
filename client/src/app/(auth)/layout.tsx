@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
 import { Flex, Tabs } from '@/shared/ui';
 import styles from './styles.module.scss';
-import {Logo} from "@/shared/ui/logo";
+import { Logo } from '@/shared/ui/logo';
 
 const baseLayouts = ['confirmation', 'expired', 'success'];
 
@@ -22,7 +22,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   const header = (
     <header className={styles.header}>
-      <Logo  shouldBeAdaptive={true}/>
+      <Logo shouldBeAdaptive={true} />
       <div className={styles.headerNormalizer}>
         <Tabs options={options} currentTab={tab} onTabChange={handleChange} />
       </div>

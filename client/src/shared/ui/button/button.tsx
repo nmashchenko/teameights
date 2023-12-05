@@ -2,13 +2,17 @@ import { clsx } from 'clsx';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import styles from './button.module.scss';
 import colors from '../../styles/colors.module.scss';
-import {Colors} from "@/shared/types";
+import { Colors } from '@/shared/types';
+import { DotPulse } from '@uiball/loaders';
 
-type ButtonType = 'tertiary' | 'danger' | 'secondary' | 'primary';
+export const buttonTypesArray = ['primary', 'secondary', 'danger', 'tertiary'] as const;
+export const buttonSizeArray = ['l', 'm', 's'] as const;
+
+type ButtonType = (typeof buttonTypesArray)[number];
 
 type ButtonContent = 'icon_button' | 'button_with_text';
 
-type ButtonSize = 'l' | 'm' | 's';
+type ButtonSize = (typeof buttonSizeArray)[number];
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
@@ -60,22 +64,22 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * Padding of the button. Accepts valid CSS padding values.
    */
   padding?: string;
+  loading?: boolean;
 }
 
-export const Button = (
-  {
+export const Button = ({
   className,
   children,
   content = 'button_with_text',
-  size = "l",
+  size = 'l',
   typeBtn = 'primary',
   isDisabled = false,
   width,
   color = 'white',
   padding,
-  ...rest}: ButtonProps) => {
-
-
+  loading = false,
+  ...rest
+}: ButtonProps) => {
   return (
     <button
       disabled={isDisabled}
@@ -95,7 +99,7 @@ export const Button = (
       )}
       {...rest}
     >
-      {children}
+      {loading ? <DotPulse size={24} speed={1.3} color='white' /> : children}
     </button>
   );
 };

@@ -1,30 +1,25 @@
-import type {Meta} from '@storybook/react';
-import { ProgressBar} from '@/shared/ui';
-import React from "react";
-import {IProgressBar} from "@/shared/ui/progress-bar/progress-bar";
-import {StoryObj} from "@storybook/react";
-
-
+import type { Meta } from '@storybook/react';
+import { ProgressBar } from '@/shared/ui';
+import React from 'react';
+import { IProgressBar } from '@/shared/ui/progress-bar/progress-bar';
+import { StoryObj } from '@storybook/react';
 
 const progressBarProps: IProgressBar = {
   percentageProgress: 20,
-  barColor: "#434752",
-  progressColor: "#5BD424",
-  height: "8px"
+  barColor: '#434752',
+  progressColor: '#5BD424',
+  height: '8px',
 };
 
 type Story = StoryObj<typeof ProgressBar>;
 
 const ProgressBarTemplate: Story = {
-  render: args =>
-    <ProgressBar {...args} />
+  render: args => <ProgressBar {...args} />,
 };
 
-
-export const ProgressBar_Default = {...ProgressBarTemplate}
+export const ProgressBar_Default = { ...ProgressBarTemplate };
 
 ProgressBar_Default.args = progressBarProps;
-
 
 const progressBarArgTypes = {
   percentageProgress: {
@@ -70,10 +65,9 @@ const progressBarArgTypes = {
   },
 };
 
-export  default {
+export default {
   title: 'shared/ProgressBar',
   component: ProgressBar,
   tags: ['autodocs'],
   argTypes: progressBarArgTypes,
-} as Meta
-
+} as Meta;
