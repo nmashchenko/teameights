@@ -2,7 +2,7 @@ import { Button, Flex, Typography } from '@/shared/ui';
 import { ReactNode } from 'react';
 import { ArrowLeft, ArrowRight } from '@/shared/assets';
 import styles from './action-section.module.scss';
-import { NeedHelp } from '../../../../shared/ui/need-help';
+import { NeedHelp } from '@/shared/ui/need-help';
 
 interface ActionSectionProps {
   children: ReactNode;
@@ -18,11 +18,11 @@ export const ActionSection = ({ children, stepTitle }: ActionSectionProps) => {
         </Typography>
         <NeedHelp />
       </Flex>
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Flex flex={1} align='center' justify='center'>
         {children}
-      </div>
+      </Flex>
       <Flex justify={'space-between'}>
-        <Button className={styles.button} typeBtn={'secondary'}>
+        <Button className={styles.button} typeBtn='secondary'>
           <ArrowLeft />
           Back
         </Button>
