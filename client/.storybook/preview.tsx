@@ -1,8 +1,12 @@
 import type { StoryFn } from '@storybook/react';
 import '../src/app/styles/globals.scss';
 import './font.scss';
+import { AppRouterContext } from 'next/dist/shared/lib/app-router-context';
 
 export const parameters = {
+  nextRouter: {
+    Provider: AppRouterContext.Provider,
+  },
   actions: { argTypesRegex: '^on[A-Z].*' },
   viewMode: 'docs',
   previewTabs: {

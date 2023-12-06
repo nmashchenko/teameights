@@ -22,18 +22,8 @@
   justify-content: space-between;
   align-items: center;
 
-  @media (width <= 580px) {
+  @media (width <= 430px) {
     justify-content: center;
-  }
-}
-
-.needHelp {
-  display: flex;
-  gap: 8px;
-  cursor: pointer;
-
-  @media (width <= 580px) {
-    display: none;
   }
 }
 
@@ -66,19 +56,6 @@
   @media (width <= 580px) {
     display: none;
   }
-}
-
-.tooltip {
-  background: var(--grey-dark-color);
-  color: var(--white-color);
-  opacity: 1;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px 0 rgba(17, 20, 27, 0.2);
-}
-
-.span {
-  color: var(--green-bright-color);
-  cursor: pointer;
 }
 
 .mobileButtons {
