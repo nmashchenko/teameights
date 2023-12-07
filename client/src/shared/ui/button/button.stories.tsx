@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Plus } from '@/shared/assets';
+import { PlusIcon } from '@/shared/assets';
 import { Button } from './button';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
@@ -25,10 +25,10 @@ export const Button_Primary: Story = {
           Some Text
         </Button>
         <Button typeBtn='primary' content='icon_button' size='l'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='primary' content='icon_button' size='l' isDisabled>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
       <div style={{ display: 'flex', gap: 20 }}>
@@ -39,10 +39,10 @@ export const Button_Primary: Story = {
           Some Text
         </Button>
         <Button typeBtn='primary' content='icon_button' size='m'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='primary' content='icon_button' isDisabled size='m'>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
       <div style={{ display: 'flex', gap: 20 }}>
@@ -53,10 +53,10 @@ export const Button_Primary: Story = {
           Some Text
         </Button>
         <Button typeBtn='primary' content='icon_button' size='s'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='primary' content='icon_button' isDisabled size='s'>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
     </div>
@@ -74,10 +74,10 @@ export const Button_Secondary: Story = {
           Some Text
         </Button>
         <Button typeBtn='secondary' content='icon_button' size='l'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='secondary' content='icon_button' size='l' isDisabled>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
       <div style={{ display: 'flex', gap: 20 }}>
@@ -88,10 +88,10 @@ export const Button_Secondary: Story = {
           Some Text
         </Button>
         <Button typeBtn='secondary' content='icon_button' size='m'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='secondary' content='icon_button' isDisabled size='m'>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
       <div style={{ display: 'flex', gap: 20 }}>
@@ -102,10 +102,10 @@ export const Button_Secondary: Story = {
           Some Text
         </Button>
         <Button typeBtn='secondary' content='icon_button' size='s'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='secondary' content='icon_button' isDisabled size='s'>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
     </div>
@@ -123,10 +123,10 @@ export const Button_Danger: Story = {
           Some Text
         </Button>
         <Button typeBtn='danger' content='icon_button' size='l'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='danger' content='icon_button' size='l' isDisabled>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
       <div style={{ display: 'flex', gap: 20 }}>
@@ -137,10 +137,10 @@ export const Button_Danger: Story = {
           Some Text
         </Button>
         <Button typeBtn='danger' content='icon_button' size='m'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='danger' content='icon_button' isDisabled size='m'>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
       <div style={{ display: 'flex', gap: 20 }}>
@@ -151,10 +151,10 @@ export const Button_Danger: Story = {
           Some Text
         </Button>
         <Button typeBtn='danger' content='icon_button' size='s'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='danger' content='icon_button' isDisabled size='s'>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
     </div>
@@ -172,10 +172,10 @@ export const Button_Tertiary: Story = {
           Some Text
         </Button>
         <Button typeBtn='tertiary' content='icon_button' size='l'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='tertiary' content='icon_button' size='l' isDisabled>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
       <div style={{ display: 'flex', gap: 20 }}>
@@ -186,10 +186,10 @@ export const Button_Tertiary: Story = {
           Some Text
         </Button>
         <Button typeBtn='tertiary' content='icon_button' size='m'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='tertiary' content='icon_button' isDisabled size='m'>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
       <div style={{ display: 'flex', gap: 20 }}>
@@ -200,10 +200,10 @@ export const Button_Tertiary: Story = {
           Some Text
         </Button>
         <Button typeBtn='tertiary' content='icon_button' size='s'>
-          <Plus />
+          <PlusIcon />
         </Button>
         <Button typeBtn='tertiary' content='icon_button' isDisabled size='s'>
-          <Plus />
+          <PlusIcon />
         </Button>
       </div>
     </div>

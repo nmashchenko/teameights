@@ -1,6 +1,6 @@
 import { SVGPropsWithSize } from '@/shared/types/svg-props-with-size';
 import { FC } from 'react';
-export const Link: FC<SVGPropsWithSize> = ({ size = '24', ...rest }) => {
+export const LinkIcon: FC<SVGPropsWithSize> = ({ size = '24', ...rest }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

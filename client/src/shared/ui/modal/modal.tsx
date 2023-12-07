@@ -5,7 +5,7 @@ import { FC, PropsWithChildren } from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal as ResponsiveModal } from 'react-responsive-modal';
 import styles from './modal.module.scss';
-import { Cross } from '@/shared/assets';
+import { CrossIcon } from '@/shared/assets';
 
 /**
  * Modal Component
@@ -62,7 +62,7 @@ export const Modal: FC<PropsWithChildren<ModalProps>> = props => {
       }}
       showCloseIcon={false}
     >
-      <Cross className={styles.closeButton} onClick={onClose} />
+      <CrossIcon className={styles.closeButton} onClick={onClose} />
       <div className={styles.modalContent}>{children}</div>
     </ResponsiveModal>
   );

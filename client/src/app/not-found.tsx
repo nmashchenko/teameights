@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { RefObject, useState } from 'react';
 import { Tooltip } from 'react-tooltip';
-import { ArrowLeft, LogoBig, Planet, Question } from '@/shared/assets';
+import { ArrowLeftIcon, LogoBig, PlanetIllustration, QuestionIcon } from '@/shared/assets';
 import { AmongUs, useClickOutside } from '@/shared/lib';
 import { Button, Typography } from '@/shared/ui';
 import styles from './styles/not-found.module.scss';
@@ -22,7 +22,7 @@ export default function NotFound() {
           </Link>
           <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={ref}>
             <Typography size='body_m'>Need Help</Typography>
-            <Question data-tooltip-id='my-tooltip-inline' />
+            <QuestionIcon data-tooltip-id='my-tooltip-inline' />
             <Tooltip
               id='my-tooltip-inline'
               className={styles.tooltip}
@@ -41,14 +41,14 @@ export default function NotFound() {
         </header>
         <div className={styles.main}>
           <div className={styles.illustration}>
-            <Planet />
+            <PlanetIllustration />
           </div>
           <div className={styles.info}>
             <Typography size='heading_m'>Oops... it looks like you are lost.</Typography>
             <Typography size='body_m'>Please check the URL or contact us for assistance</Typography>
             <div className={styles.button}>
               <Button>
-                <ArrowLeft />
+                <ArrowLeftIcon />
                 <Link href='/'>Back to home</Link>
               </Button>
             </div>
@@ -57,7 +57,7 @@ export default function NotFound() {
         <div className={styles.mobileButtons}>
           <Link href='/'>
             <Button width='100%'>
-              <ArrowLeft />
+              <ArrowLeftIcon />
               Back to home
             </Button>
           </Link>

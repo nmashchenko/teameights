@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from '@/shared/assets';
+import { ArrowLeftIcon, ArrowRightIcon } from '@/shared/assets';
 import { Button, Drawer, Flex, Typography } from '@/shared/ui';
 import { FC } from 'react';
 import styles from './phone.module.scss';
@@ -25,12 +25,12 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
         >
           <Flex justify='space-between'>
             <Button typeBtn='tertiary' size='m' color='white' onClick={handleClose} padding='0'>
-              <ArrowLeft />
+              <ArrowLeftIcon />
               Back
             </Button>
             <Button typeBtn='tertiary' size='m' color='white' padding='0'>
               Profile
-              <ArrowRight />
+              <ArrowRightIcon />
             </Button>
           </Flex>
           <Flex gap='24px' direction='column'>

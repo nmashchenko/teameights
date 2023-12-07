@@ -1,7 +1,7 @@
 import { SVGPropsWithSize } from '@/shared/types/svg-props-with-size';
 import { FC } from 'react';
 
-export const UserPlus: FC<SVGPropsWithSize> = ({ size = '20', ...rest }) => {
+export const UserPlusIcon: FC<SVGPropsWithSize> = ({ size = '20', ...rest }) => {
   return (
     <svg
       width={size}

@@ -3,7 +3,7 @@
 import { Drawer, Flex, Typography } from '@/shared/ui';
 import { FC, PropsWithChildren } from 'react';
 import styles from './phone.module.scss';
-import { Cross } from '@/shared/assets';
+import { CrossIcon } from '@/shared/assets';
 import { ActionModalProps } from '../interfaces';
 
 export const Phone: FC<PropsWithChildren<ActionModalProps>> = props => {
@@ -19,7 +19,7 @@ export const Phone: FC<PropsWithChildren<ActionModalProps>> = props => {
           padding='32px'
           position='relative'
         >
-          <Cross className={styles.close_button} onClick={handleClose} />
+          <CrossIcon className={styles.close_button} onClick={handleClose} />
           <Flex direction='column' gap={8} className={styles.text}>
             <Typography size='heading_s' color='white'>
               {heading}

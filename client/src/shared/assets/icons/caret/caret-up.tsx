@@ -1,6 +1,6 @@
 import { SVGPropsWithSize } from '@/shared/types/svg-props-with-size';
 import { FC } from 'react';
-export const CaretUp: FC<SVGPropsWithSize> = ({ size = '24', ...rest }) => {
+export const CaretUpIcon: FC<SVGPropsWithSize> = ({ size = '24', ...rest }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
