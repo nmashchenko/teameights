@@ -5,10 +5,8 @@ import { User } from 'src/modules/users/entities/user.entity';
 import bcrypt from 'bcryptjs';
 import { AuthEmailLoginDto } from './dto/auth-email-login.dto';
 import { AuthUpdateDto } from './dto/auth-update.dto';
-import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
 import { RoleEnum } from 'src/libs/database/metadata/roles/roles.enum';
 import { StatusEnum } from 'src/libs/database/metadata/statuses/statuses.enum';
-import crypto from 'crypto';
 import { plainToClass } from 'class-transformer';
 import { Status } from 'src/libs/database/metadata/statuses/entities/status.entity';
 import { Role } from 'src/libs/database/metadata/roles/entities/role.entity';
@@ -16,7 +14,6 @@ import { AuthProvidersEnum } from 'src/modules/auth/auth-providers.enum';
 import { SocialInterface } from 'src/libs/database/metadata/social/interfaces/social.interface';
 import { AuthRegisterLoginDto } from './dto/auth-register-login.dto';
 import { UsersService } from 'src/modules/users/users.service';
-import { ForgotService } from 'src/modules/forgot/forgot.service';
 import { MailService } from 'src/modules/mail/mail.service';
 import { NullableType } from 'src/utils/types/nullable.type';
 import { LoginResponseType } from './types/login-response.type';
@@ -32,7 +29,6 @@ export class AuthService {
   constructor(
     private jwtService: JwtService,
     private usersService: UsersService,
-    private forgotService: ForgotService,
     private sessionService: SessionService,
     private mailService: MailService,
     private configService: ConfigService<AllConfigType>
@@ -106,17 +102,23 @@ export class AuthService {
     authProvider: string,
     socialData: SocialInterface
   ): Promise<LoginResponseType> {
-    let user: NullableType<User>;
+    let user: NullableType<User> = null;
     const socialEmail = socialData.email?.toLowerCase();
+    let userByEmail: NullableType<User> = null;
 
-    const userByEmail = await this.usersService.findOne({
-      email: socialEmail,
-    });
+    // issue: https://github.com/typeorm/typeorm/issues/9316
+    if (socialEmail) {
+      userByEmail = await this.usersService.findOne({
+        email: socialEmail,
+      });
+    }
 
-    user = await this.usersService.findOne({
-      socialId: socialData.id,
-      provider: authProvider,
-    });
+    if (socialData.id) {
+      user = await this.usersService.findOne({
+        socialId: socialData.id,
+        provider: authProvider,
+      });
+    }
 
     if (user) {
       if (socialEmail && !userByEmail) {
@@ -187,9 +189,7 @@ export class AuthService {
   }
 
   async register(dto: AuthRegisterLoginDto): Promise<void> {
-    const hash = crypto.createHash('sha256').update(randomStringGenerator()).digest('hex');
-
-    await this.usersService.create({
+    const user = await this.usersService.create({
       ...dto,
       email: dto.email,
       role: {
@@ -198,8 +198,21 @@ export class AuthService {
       status: {
         id: StatusEnum.inactive,
       } as Status,
-      hash,
     });
+
+    const hash = await this.jwtService.signAsync(
+      {
+        confirmEmailUserId: user.id,
+      },
+      {
+        secret: this.configService.getOrThrow('auth.confirmEmailSecret', {
+          infer: true,
+        }),
+        expiresIn: this.configService.getOrThrow('auth.confirmEmailExpires', {
+          infer: true,
+        }),
+      }
+    );
 
     await this.mailService.userSignUp({
       to: dto.email,
@@ -210,11 +223,35 @@ export class AuthService {
   }
 
   async confirmEmail(hash: string): Promise<void> {
+    let userId: User['id'];
+
+    try {
+      const jwtData = await this.jwtService.verifyAsync<{
+        confirmEmailUserId: User['id'];
+      }>(hash, {
+        secret: this.configService.getOrThrow('auth.confirmEmailSecret', {
+          infer: true,
+        }),
+      });
+
+      userId = jwtData.confirmEmailUserId;
+    } catch {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            hash: `invalidHash`,
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
+
     const user = await this.usersService.findOne({
-      hash,
+      id: userId,
     });
 
-    if (!user) {
+    if (!user || user?.status?.id !== StatusEnum.inactive) {
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
@@ -224,7 +261,6 @@ export class AuthService {
       );
     }
 
-    user.hash = null;
     user.status = plainToClass(Status, {
       id: StatusEnum.active,
     });
@@ -248,11 +284,19 @@ export class AuthService {
       );
     }
 
-    const hash = crypto.createHash('sha256').update(randomStringGenerator()).digest('hex');
-    await this.forgotService.create({
-      hash,
-      user,
-    });
+    const hash = await this.jwtService.signAsync(
+      {
+        forgotUserId: user.id,
+      },
+      {
+        secret: this.configService.getOrThrow('auth.forgotSecret', {
+          infer: true,
+        }),
+        expiresIn: this.configService.getOrThrow('auth.forgotExpires', {
+          infer: true,
+        }),
+      }
+    );
 
     await this.mailService.forgotPassword({
       to: email,
@@ -263,13 +307,35 @@ export class AuthService {
   }
 
   async resetPassword(hash: string, password: string): Promise<void> {
-    const forgot = await this.forgotService.findOne({
-      where: {
-        hash,
-      },
+    let userId: User['id'];
+
+    try {
+      const jwtData = await this.jwtService.verifyAsync<{
+        forgotUserId: User['id'];
+      }>(hash, {
+        secret: this.configService.getOrThrow('auth.forgotSecret', {
+          infer: true,
+        }),
+      });
+
+      userId = jwtData.forgotUserId;
+    } catch {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            hash: `invalidHash`,
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
+
+    const user = await this.usersService.findOne({
+      id: userId,
     });
 
-    if (!forgot) {
+    if (!user) {
       throw new HttpException(
         {
           status: HttpStatus.UNPROCESSABLE_ENTITY,
@@ -281,7 +347,6 @@ export class AuthService {
       );
     }
 
-    const user = forgot.user;
     user.password = password;
 
     await this.sessionService.softDelete({
@@ -290,7 +355,6 @@ export class AuthService {
       },
     });
     await user.save();
-    await this.forgotService.softDelete(forgot.id);
   }
 
   async me(userJwtPayload: JwtPayloadType): Promise<NullableType<User>> {
@@ -318,6 +382,9 @@ export class AuthService {
         HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
+
+    // TODO: add support for checking if user speciality is designer
+    // and updating fields are designer fields
 
     await this.sessionService.softDelete({
       user: {

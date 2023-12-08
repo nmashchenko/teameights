@@ -2,10 +2,10 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ArrowLeft } from '@/shared/assets';
+import { ArrowLeftIcon } from '@/shared/assets';
 import { Button, Flex, Input, Typography } from '@/shared/ui';
-import { useRouter } from 'next/navigation';
 import styles from '../password.module.scss';
+import { useForgotPassword } from '@/entities/session';
 
 interface RecoverProps {
   email: string;
@@ -13,7 +13,7 @@ interface RecoverProps {
 
 export default function Recover() {
   const [email, setEmail] = useState('');
-  const router = useRouter();
+  const { mutate: forgotPassword, isPending } = useForgotPassword();
 
   const {
     register,
@@ -21,10 +21,7 @@ export default function Recover() {
     formState: { errors },
   } = useForm<RecoverProps>();
 
-  const onSubmit: SubmitHandler<RecoverProps> = data => {
-    console.log(data);
-    router.push('confirmation');
-  };
+  const onSubmit: SubmitHandler<RecoverProps> = data => forgotPassword(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -58,11 +55,11 @@ export default function Recover() {
           onChange={e => setEmail(e.target.value)}
         />
         <Flex direction='column' justify='center' align='center' gap={8} width='100%'>
-          <Button width='100%' disabled={!email.length}>
+          <Button width='100%' disabled={!email.length} loading={isPending}>
             Reset password
           </Button>
           <Button width='100%' typeBtn='secondary' type='button'>
-            <ArrowLeft />
+            <ArrowLeftIcon />
             <Link href='/login'>Back to Log in</Link>
           </Button>
         </Flex>

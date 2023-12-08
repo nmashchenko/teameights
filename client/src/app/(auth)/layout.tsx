@@ -3,23 +3,18 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
-import { LogoBig, LogoSmall } from '@/shared/assets';
-import { Flex, Tabs } from '@/shared/ui';
+import { Flex, Logo, Tabs } from '@/shared/ui';
 import styles from './styles.module.scss';
-import { useGetScreenWidth } from '@/shared/lib';
+import Image from 'next/image';
 
-const baseLayouts = ['confirmation', 'expired', 'success'];
+const baseLayouts = ['confirmation', 'expired', 'success', 'processing'];
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const width = useGetScreenWidth();
   const pathname = usePathname();
   const options = ['Login', 'Sign Up'];
   const [tab, setTab] = useState(options[0]);
 
-  const handleBack = () => {
-    router.push('/');
-  };
   const handleChange = (option: string) => {
     setTab(option);
     router.push(`/${option.toLowerCase().replace(/\s/g, '')}`);
@@ -27,9 +22,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   const header = (
     <header className={styles.header}>
-      <div className={styles.logo} onClick={handleBack}>
-        {width > 420 ? <LogoBig /> : <LogoSmall />}
-      </div>
+      <Logo shouldBeAdaptive={true} />
       <div className={styles.headerNormalizer}>
         <Tabs options={options} currentTab={tab} onTabChange={handleChange} />
       </div>
@@ -59,7 +52,15 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           {children}
         </Flex>
       </div>
-      <img className={styles.right} src='https://dummyimage.com/4000x4000' alt='Main image' />
+      <Image
+        src='/images/team8s.png'
+        width={0}
+        height={0}
+        alt={'Teameights screen'}
+        sizes='100vw'
+        className={styles.right}
+        priority
+      />
     </Flex>
   );
 

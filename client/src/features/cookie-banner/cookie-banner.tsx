@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { Button, Typography } from '@/shared/ui';
 import styles from './cookie-banner.module.scss';
 import { useAnimationEnd } from './lib/hooks/useAnimationEnd';
-import { Cookie } from '@/shared/assets';
+import { CookieIcon } from './cookie';
 
 export const CookieBanner = () => {
   const elemRef = useRef<HTMLDivElement | null>(null);
@@ -20,7 +20,7 @@ export const CookieBanner = () => {
       <div ref={elemRef} className={styles.container}>
         <div className={styles.inline}>
           <div>
-            <Cookie />
+            <CookieIcon />
           </div>
           <div>
             <Typography color='white' size='body_s'>

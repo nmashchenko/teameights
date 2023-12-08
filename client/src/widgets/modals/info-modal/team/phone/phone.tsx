@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from '@/shared/assets';
+import { ArrowLeftIcon, ArrowRightIcon } from '@/shared/assets';
 import { Button, Drawer, Flex, Typography } from '@/shared/ui';
 import { FC } from 'react';
 import styles from './phone.module.scss';
@@ -25,12 +25,12 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
         >
           <Flex justify='space-between'>
             <Button typeBtn='tertiary' size='m' color='white' onClick={handleClose} padding='0'>
-              <ArrowLeft />
+              <ArrowLeftIcon />
               Back
             </Button>
             <Button typeBtn='tertiary' size='m' color='white' padding='0'>
               Profile
-              <ArrowRight />
+              <ArrowRightIcon />
             </Button>
           </Flex>
           <Flex gap='24px' direction='column'>
@@ -45,7 +45,7 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
               <Flex direction='column' maxHeight='70px' gap='8px'>
                 <Flex gap='8px' align='center' maxHeight='30px'>
                   <Typography size='heading_s' color='white'>
-                    {team.name}
+                    {team?.name}
                   </Typography>
                 </Flex>
                 <Flex gap='4px' align='center'>
@@ -69,17 +69,17 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
                 Wins: <span className={styles.span_text}>{team?.wins}</span>
               </Typography>
               <Typography size='body_m'>
-                Points: <span className={styles.span_text}>{team.points}</span>
+                Points: <span className={styles.span_text}>{team?.points}</span>
               </Typography>
             </Flex>
             <Button
               typeBtn='primary'
               size='m'
               width='100%'
-              disabled={team.leader.id === user.id}
+              disabled={team?.leader.id === user?.id}
               onClick={handleJoin}
             >
-              {team.leader.id === user.id ? 'Your team' : 'Join team'}
+              {team?.leader.id === user?.id ? 'Your team' : 'Join team'}
             </Button>
           </Flex>
           <Flex padding='8px 0'>
@@ -95,7 +95,7 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
                 crownSize={20}
                 width={50}
                 height={50}
-                src={team.leader?.photo?.path || ''}
+                src={team?.leader?.photo?.path || ''}
                 alt='Team leader image'
                 borderRadius='50%'
               />
@@ -112,11 +112,11 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
                   />
                 </Flex>
                 <Typography size='body_s' color='greyNormal'>
-                  {team?.leader?.concentration}
+                  {team?.leader?.speciality}
                 </Typography>
               </Flex>
             </Flex>
-            {team.members?.map((teammate, index) => (
+            {team?.members?.map((teammate, index) => (
               <Flex align='center' gap='12px' key={index}>
                 <ImageLoader
                   width={50}
@@ -137,7 +137,7 @@ export const TeamPhone: FC<InfoModalTeamProps> = ({
                     />
                   </Flex>
                   <Typography size='body_s' color='greyNormal'>
-                    {teammate?.concentration}
+                    {teammate?.speciality}
                   </Typography>
                 </Flex>
               </Flex>

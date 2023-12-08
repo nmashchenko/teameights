@@ -1,5 +1,4 @@
-export interface IPaginationOptions<T> {
+export interface IPaginationOptions {
   page: number;
   limit: number;
-  filters?: T;
 }

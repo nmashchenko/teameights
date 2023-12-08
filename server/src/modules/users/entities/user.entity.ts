@@ -25,6 +25,7 @@ import { Universities } from './universities.entity';
 import { Jobs } from './jobs.entity';
 import { Projects } from './projects.entity';
 import { Links } from './links.entity';
+import { Skills } from './skills.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -89,11 +90,6 @@ export class User extends EntityHelper {
   })
   status?: Status;
 
-  @Column({ type: String, nullable: true })
-  @Index()
-  @Exclude({ toPlainOnly: true })
-  hash: string | null;
-
   @Index()
   @Column({ type: Boolean, nullable: true })
   isLeader?: boolean | null;
@@ -106,19 +102,13 @@ export class User extends EntityHelper {
   dateOfBirth?: Date | null;
 
   @Column({ type: String, nullable: true })
-  concentration?: string | null;
+  speciality?: string | null;
 
   @Column({ type: String, nullable: true })
   description?: string | null;
 
   @Column({ type: String, nullable: true })
   experience?: string | null;
-
-  @Column('text', { array: true, nullable: true })
-  programmingLanguages?: string[] | null;
-
-  @Column('text', { array: true, nullable: true })
-  frameworks?: string[] | null;
 
   @OneToMany(() => Universities, universities => universities.user, {
     eager: true,
@@ -137,6 +127,13 @@ export class User extends EntityHelper {
     cascade: true,
   })
   projects?: Projects[];
+
+  @OneToOne(() => Skills, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn()
+  skills?: Skills;
 
   @OneToOne(() => Links, { eager: true, cascade: true })
   @JoinColumn()

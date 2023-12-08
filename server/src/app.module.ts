@@ -15,7 +15,6 @@ import { AuthGoogleModule } from './modules/auth/auth-google/auth-google.module'
 import { I18nModule } from 'nestjs-i18n/dist/i18n.module';
 import { HeaderResolver } from 'nestjs-i18n';
 import { TypeOrmConfigService } from './libs/database/typeorm-config.service';
-import { ForgotModule } from './modules/forgot/forgot.module';
 import { MailModule } from './modules/mail/mail.module';
 import { HomeModule } from './modules/home/home.module';
 import { DataSource, DataSourceOptions } from 'typeorm';
@@ -73,7 +72,6 @@ import githubConfig from './config/github.config';
     FilesModule,
     AuthModule,
     AuthGoogleModule,
-    ForgotModule,
     SessionModule,
     MailModule,
     MailerModule,
