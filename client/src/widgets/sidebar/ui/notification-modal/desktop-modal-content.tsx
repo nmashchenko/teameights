@@ -2,7 +2,7 @@ import React from 'react';
 import { clsx } from 'clsx';
 
 import { IconWrapper } from '@/shared/ui';
-import { ReadYesIcon, X } from '@/shared/assets';
+import { ChecksIcon, XIcon } from '@/shared/assets';
 
 import { SidebarNotificationsList } from '../notification-list/notification-list';
 import { NotificationsModalProps } from './notification-modal';
@@ -34,12 +34,12 @@ export const SidebarDesktopModalContent: React.FC<DesktopModalContentProps> = pr
       <div className={styles.notificationsHeader}>
         <div className={styles.markAllBtn} onClick={markAllAsRead}>
           <IconWrapper width='20px' height='20px'>
-            <ReadYesIcon />
+            <ChecksIcon />
           </IconWrapper>
           <p>Mark all as read</p>
         </div>
         <div className={styles.crossBtn} onClick={closeNotificationsModal}>
-          <X width={20} height={20} />
+          <XIcon />
         </div>
       </div>
       <SidebarNotificationsList

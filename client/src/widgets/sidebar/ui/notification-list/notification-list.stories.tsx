@@ -9,7 +9,7 @@ import {
 } from '@/shared/lib';
 
 const mockTeam = generateMockTeam();
-const mockUser = generateMockUser(mockTeam);
+const mockUser = generateMockUser(undefined, mockTeam, undefined);
 const mockSystemNotification = generateSystemNotification(mockUser);
 const mockTeamInvitationNotification = generateTeamInvitationNotification(mockUser, mockTeam);
 

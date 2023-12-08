@@ -1,2 +1,2 @@
-export { CaretDown } from './caret-down';
-export { CaretUp } from './caret-up';
+export { CaretDownIcon } from './caret-down';
+export { CaretUpIcon } from './caret-up';

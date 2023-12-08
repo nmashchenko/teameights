@@ -1,0 +1,17 @@
+.tag {
+  &_list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &_wrapper {
+    border-radius: 5px;
+    overflow: hidden;
+  }
+}
+
+.checkboxFilterTag {
+  display: flex;
+  gap: 8px;
+}

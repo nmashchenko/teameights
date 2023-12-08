@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, SerializeOptions } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/modules/auth/base/auth.service';
 import { AuthGoogleService } from './auth-google.service';
@@ -16,6 +16,9 @@ export class AuthGoogleController {
     private readonly authGoogleService: AuthGoogleService
   ) {}
 
+  @SerializeOptions({
+    groups: ['me'],
+  })
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@Body() loginDto: AuthGoogleLoginDto): Promise<LoginResponseType> {

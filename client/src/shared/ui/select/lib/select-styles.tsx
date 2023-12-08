@@ -15,10 +15,10 @@ const _colors = {
   red: '#d42422',
 };
 
-const _focusAndActiveStyles = {
+const getFocusAndActiveStyles = (isWithBorder?: boolean) => ({
   boxShadow: 'none',
-  borderBottom: `1px solid ${_colors.white}`,
-};
+  borderBottom: isWithBorder ? `1px solid ${_colors.white}` : 'none',
+});
 const _checkboxOption = <
   OptionType,
   IsMultiType extends boolean = false,
@@ -63,11 +63,15 @@ export const selectStyles = <
   IsMultiType extends boolean = false,
   GroupType extends GroupBase<OptionType> = GroupBase<OptionType>,
 >(
-  isCheckbox = false
+  styles?: StylesConfig<OptionType, IsMultiType, GroupType>,
+  isCheckbox = false,
+  isWithBorder = true
 ): StylesConfig<OptionType, IsMultiType, GroupType> => {
+  const customStyles = styles || {};
+
   return {
-    control: styles => ({
-      ...styles,
+    control: (base, props) => ({
+      ...base,
       outline: 'none',
       border: 'none',
       borderRadius: 0,
@@ -77,56 +81,69 @@ export const selectStyles = <
       cursor: 'text',
       padding: '8px 4px',
       fontSize: '100%',
-      borderBottom: `1px solid ${_colors.grey.normal}`,
+      borderBottom: isWithBorder ? `1px solid ${_colors.grey.normal}` : 'none',
       // This line disable the blue border
       boxShadow: 'none',
-      ':active': { ..._focusAndActiveStyles },
-      ':focus': { ..._focusAndActiveStyles },
-      ':focus-within': { ..._focusAndActiveStyles },
+      ':active': { ...getFocusAndActiveStyles(isWithBorder) },
+      ':focus': { ...getFocusAndActiveStyles(isWithBorder) },
+      ':focus-within': { ...getFocusAndActiveStyles(isWithBorder) },
       caretColor: _colors.green.bright,
+      // Spreading custom styles
+      ...(customStyles.control ? customStyles.control({}, props) : {}),
     }),
-    dropdownIndicator: styles => ({
-      ...styles,
+    dropdownIndicator: (base, props) => ({
+      ...base,
       padding: 0,
       cursor: 'pointer',
+      ...(customStyles.dropdownIndicator ? customStyles.dropdownIndicator({}, props) : {}),
     }),
-    valueContainer: styles => ({
-      ...styles,
+    valueContainer: (base, props) => ({
+      ...base,
       padding: 0,
       margin: 0,
+      ...(customStyles.valueContainer ? customStyles.valueContainer({}, props) : {}),
     }),
-    singleValue: styles => ({
-      ...styles,
+    singleValue: (base, props) => ({
+      ...base,
       color: _colors.white,
       padding: 0,
       margin: 0,
+      ...(customStyles.singleValue ? customStyles.singleValue({}, props) : {}),
     }),
-    input: styles => ({
-      ...styles,
+    input: (base, props) => ({
+      ...base,
       color: _colors.white,
       padding: 0,
       margin: 0,
+      ...(customStyles.input ? customStyles.input({}, props) : {}),
     }),
-    menu: () => ({
+    menu: (base, props) => ({
+      ...base,
       padding: 0,
       margin: 0,
       background: 'transparent',
       paddingTop: '8px',
       maxHeight: '300px',
+      ...(customStyles.menu ? customStyles.menu({}, props) : {}),
     }),
-    menuList: styles => ({
-      ...styles,
+    menuList: (base, props) => ({
+      ...base,
       padding: 0,
       margin: 0,
       borderRadius: '5px',
       overflowY: 'auto',
       boxShadow: '0 4px 24px 0 rgb(17 20 27 / 25%)',
       background: _colors.grey.dark,
+      ...(customStyles.menuList ? customStyles.menuList({}, props) : {}),
     }),
     option: (styles, props) =>
-      isCheckbox ? _checkboxOption(styles, props) : _regularOption(styles, props),
-    multiValue: styles => ({
-      ...styles,
+      customStyles.option
+        ? customStyles.option({}, props)
+        : isCheckbox
+        ? _checkboxOption(styles, props)
+        : _regularOption(styles, props),
+    multiValue: (base, props) => ({
+      ...base,
       cursor: 'pointer',
       borderRadius: '5px',
       padding: '4px 8px',
@@ -135,20 +152,23 @@ export const selectStyles = <
       ':hover': {
         background: _colors.grey.medium,
       },
+      ...(customStyles.multiValue ? customStyles.multiValue({}, props) : {}),
     }),
-    multiValueLabel: styles => ({
-      ...styles,
+    multiValueLabel: (base, props) => ({
+      ...base,
       color: _colors.white,
       fontSize: '100%',
+      ...(customStyles.multiValueLabel ? customStyles.multiValueLabel({}, props) : {}),
     }),
-    multiValueRemove: styles => ({
-      ...styles,
+    multiValueRemove: (base, props) => ({
+      ...base,
       background: 'none',
       ':hover': {
         svg: {
           fill: _colors.red,
         },
       },
+      ...(customStyles.multiValueRemove ? customStyles.multiValueRemove({}, props) : {}),
     }),
   };
 };

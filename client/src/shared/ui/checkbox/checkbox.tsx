@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { FC, InputHTMLAttributes } from 'react';
-import { Check } from '@/shared/assets';
+import { CheckIcon } from '@/shared/assets';
 import styles from './checkbox.module.scss';
 
 /**
@@ -50,7 +50,7 @@ export const Checkbox: FC<CheckboxProps> = props => {
         {...rest}
       />
       <span className={styles.checkmark} style={{ width: width, height: height }}>
-        <Check />
+        <CheckIcon />
       </span>
       {label && (
         <span className={clsx(styles.label, { [styles.label__disabled]: disabled })}>{label}</span>

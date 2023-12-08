@@ -65,10 +65,10 @@ export class AuthGithubService {
     }
 
     return {
-      id: user?.id ?? null,
-      email: user?.email ?? null,
-      firstName: user?.name?.split(' ')[0] ?? null,
-      lastName: user?.name?.split(' ')[1] ?? null,
+      id: user.id,
+      email: user.email,
+      firstName: user?.name?.split(' ')[0],
+      lastName: user?.name?.split(' ')[1],
     };
   }
 }

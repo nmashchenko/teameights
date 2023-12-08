@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import React from 'react';
 
-import { ReadYesIcon, X } from '@/shared/assets';
+import { ChecksIcon, XIcon } from '@/shared/assets';
 import { IconWrapper } from '@/shared/ui';
 
 import { SidebarNotificationsList } from '../notification-list/notification-list';
@@ -32,7 +32,7 @@ export const SidebarMobileModalContent: React.FC<MobileModalContentProps> = prop
           <div className={styles.notificationsHeader}>
             <h3 className={styles.text}>Notifications</h3>
             <div className={styles.crossBtn} onClick={closeNotificationsModal}>
-              <X width={14} height={14} />
+              <XIcon />
             </div>
           </div>
           <SidebarNotificationsList
@@ -43,7 +43,7 @@ export const SidebarMobileModalContent: React.FC<MobileModalContentProps> = prop
         </div>
         <button className={styles.markAllBtnMobile} onClick={markAllAsRead}>
           <IconWrapper width='20px' height='20px'>
-            <ReadYesIcon />
+            <ChecksIcon />
           </IconWrapper>
           <p>Mark all as read</p>
         </button>

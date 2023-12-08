@@ -5,16 +5,15 @@ import clsx from 'clsx';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { IconWrapper } from '@/shared/ui';
-import { BugerCloseIcon, LogoSmall, SignOutIcon } from '@/shared/assets';
+import { BurgerCloseIcon, LogoSmall, SignOutIcon, SignInIcon } from '@/shared/assets';
 import { generateMockUser, useClickOutside } from '@/shared/lib';
-import { CLIENT_ROUTES } from '@/shared/constant';
+import { SIGNUP } from '@/shared/constant';
 import { getSidebarItems } from '../../config/getSidebarItems';
 import { SidebarItem } from '../sidebar-item/sidebar-item';
 import { SidebarProfile } from '../sidebar-profile/sidebar-profile';
 import { SidebarNotificationsContent } from '../notification-content/notification-content';
 
 import styles from './sidebar.module.scss';
-import { SignInIcon } from '@/shared/assets/icons/24px';
 import { IUserBase } from '@teameights/types';
 
 export const Sidebar: React.FC = () => {
@@ -64,7 +63,7 @@ export const Sidebar: React.FC = () => {
         aria-label='Toggle Sidebar'
       >
         <div className={clsx(styles.close, { [styles.active]: isSidebarExpanded })}>
-          <BugerCloseIcon />
+          <BurgerCloseIcon />
         </div>
       </button>
 
@@ -87,7 +86,7 @@ export const Sidebar: React.FC = () => {
               onClick={handleShowSidebar}
               aria-label='Toggle sidebar'
             >
-              <BugerCloseIcon aria-hidden='true' />
+              <BurgerCloseIcon aria-hidden='true' />
             </button>
           </div>
           <SidebarProfile active={isSidebarExpanded} user={user} />
@@ -115,7 +114,7 @@ export const Sidebar: React.FC = () => {
             {!isAuth ? (
               <button
                 className={clsx(styles.interactButton, { [styles.active]: isSidebarExpanded })}
-                onClick={() => navigateToPath(CLIENT_ROUTES.REGISTRATION)}
+                onClick={() => navigateToPath(SIGNUP)}
                 aria-label='Login'
               >
                 <IconWrapper width='24px' height='24px' cursor='pointer'>

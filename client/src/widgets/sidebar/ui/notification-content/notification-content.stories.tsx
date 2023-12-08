@@ -7,7 +7,7 @@ import { generateMockUser, generateSystemNotification } from '@/shared/lib';
 const mockNotifications = Array.from({ length: 5 }).map(() => generateSystemNotification());
 
 // Using the mock user function to generate a user with notifications
-const mockUser = generateMockUser(undefined, mockNotifications);
+const mockUser = generateMockUser(undefined, undefined, mockNotifications);
 
 const defaultProps: NotificationContentProps = {
   userNotifications: mockUser.notifications,

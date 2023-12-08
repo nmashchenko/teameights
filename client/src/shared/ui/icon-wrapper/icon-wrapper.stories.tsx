@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArgTypes, Meta, StoryObj } from '@storybook/react';
 import { IconWrapper, IconWrapperProps } from './icon-wrapper';
-import { ArrowLeft, Link } from '@/shared/assets';
+import { ArrowLeftIcon, LinkIcon } from '@/shared/assets';
 import { ICON_OPTIONS } from '@/shared/assets/storybook';
 
 // Default props for IconWrapper
@@ -11,7 +11,7 @@ const iconWrapperProps: IconWrapperProps = {
   height: 50,
   padding: 10,
   margin: 5,
-  children: <Link />,
+  children: <LinkIcon />,
 };
 
 // Defining meta information for Storybook
@@ -48,7 +48,7 @@ DifferentPaddingMargin.args = {
 export const DifferentIcon = { ...IconWrapperTemplate };
 DifferentIcon.args = {
   ...iconWrapperProps,
-  children: <ArrowLeft />,
+  children: <ArrowLeftIcon />,
 };
 
 const iconWrapperArgTypes: ArgTypes = {

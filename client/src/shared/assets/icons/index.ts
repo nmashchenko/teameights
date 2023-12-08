@@ -1,53 +1,25 @@
-export { Check } from './check';
-export { Cross } from './cross';
-export { Eye } from './eye';
-export { EyeClosed } from './eye-closed';
-export { Crown20, Crown28, Crown40 } from './crowns';
-export { Link } from './link';
-export { Plus } from './plus';
-export { Question } from './question';
-export { WarningCircle } from './warning-circle';
-export { X } from './x';
-export { Cookie } from './cookie';
-export { Search } from './search';
-export { UserPlus } from './user-plus';
-export { ChatCircleDots } from './chat-circle-dots';
-export { ArrowLeft, ArrowRight } from './arrows';
-export { CaretUp, CaretDown } from './caret';
-export { LogoBig, LogoSmall } from './logo';
-export { Google, Github } from './socials';
-export {
-  C,
-  CPlusPlus,
-  CSharp,
-  CSS,
-  Dart,
-  Go,
-  HTML,
-  Java,
-  JS,
-  Kotlin,
-  Lua,
-  Perl,
-  Php,
-  Python,
-  R,
-  Ruby,
-  Rust,
-  Scala,
-  SQL,
-  Swift,
-  TS,
-} from './language-logo';
+export { CheckIcon } from './check';
+export { CrossIcon } from './cross';
+export { EyeIcon } from './eye';
+export { EyeClosedIcon } from './eye-closed';
+export { LinkIcon } from './link';
+export { PlusIcon } from './plus';
+export { QuestionIcon } from './question';
+export { WarningCircleIcon } from './warning-circle';
+export { XIcon } from './x';
+export { SearchIcon } from './search';
+export { UserPlusIcon } from './user-plus';
+export { ChatCircleDotsIcon } from './chat-circle-dots';
+export { BellIcon } from './bell';
+export { ChecksIcon } from './checks';
+export { LightningIcon } from './lightning';
+export { BurgerCloseIcon } from './burger-close';
+export { SignInIcon } from './sign-in';
+export { SignOutIcon } from './sign-out';
+export { TrophyIcon } from './trophy';
+export { UserIcon } from './user';
+export { UsersIcon } from './users';
 
-export { ReadYesIcon } from './16px';
-export { LightningIcon } from './20px';
-export {
-  UserIcon,
-  UsersIcon,
-  TrophyIcon,
-  BellIcon,
-  BugerCloseIcon,
-  SearchIcon,
-  SignOutIcon,
-} from './24px';
+export * from './arrows';
+export * from './caret';
+export * from './crowns';

@@ -1,76 +1,91 @@
 import { clsx } from 'clsx';
-import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import styles from './button.module.scss';
 import colors from '../../styles/colors.module.scss';
-import type { Colors } from '@/shared/types';
+import { Colors } from '@/shared/types';
+import { DotPulse } from '@uiball/loaders';
 
-/**
- * Button Component
- *
- * This is a customizable Button component with various styles and sizes.
- *
- * Props:
- *
- * @prop {ReactNode} children - Content of the button. Can be either text, icon, or any other ReactNode.
- * @prop {ButtonSize} [size='l'] - Size of the button. Accepts 'l' (large), 'm' (medium), 's' (small). Default is 'l'.
- * @prop {ButtonContent} [content='text_button'] - Content type of the button. Accepts 'icon_button' or 'text_button'. Default is 'text_button'.
- * @prop {ButtonType} [typeBtn='primary'] - Type or theme of the button. Accepts 'tertiary', 'danger', 'secondary', 'primary'. Default is 'primary'.
- * @prop {string} [className] - Additional Css classes to apply to the button for custom styling.
- * @prop {boolean} [isDisabled=false] - Whether the button is disabled. Default is false.
- * @prop {string} [width] - Custom width for the button. Must be passed with a valid Css unit (e.g. '50px', '100%').
- *
- * Usage:
- *
- * ```tsx
- * import { Button } from 'shared/ui';
- *
- * <Button typeBtn="danger" size="m">Click Me!</Button>
- * ```
- *
- * Note:
- * - This component uses `clsx` for conditional class joining, ensuring optimal performance.
- * - External styles are imported from 'styles.module.scss'. Make sure the styles are appropriately set in the SCSS file.
- * - For custom colors, make sure to define the color as a Css variable and pass the variable name (without '--') to the 'color' prop.
- */
+export const buttonTypesArray = ['primary', 'secondary', 'danger', 'tertiary'] as const;
+export const buttonSizeArray = ['l', 'm', 's'] as const;
 
-type ButtonType = 'tertiary' | 'danger' | 'secondary' | 'primary';
+type ButtonType = (typeof buttonTypesArray)[number];
 
-type ButtonContent = 'icon_button' | 'text_button';
+type ButtonContent = 'icon_button' | 'button_with_text';
 
-type ButtonSize = 'l' | 'm' | 's';
+type ButtonSize = (typeof buttonSizeArray)[number];
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * Content to be displayed inside the button, can include text, icons, or other elements.
+   */
   children: ReactNode;
-  size?: ButtonSize;
-  content?: ButtonContent;
-  typeBtn?: ButtonType;
+
+  /**
+   * Additional CSS classes to be applied to the button.
+   */
   className?: string;
+
+  /**
+   * Size of the button. Can be 's' (small), 'm' (medium), or 'l' (large). Default is 'l'.
+   * @default "l"
+   */
+  size?: ButtonSize;
+
+  /**
+   * Type of content inside the button. Can be 'icon_button' or 'button_with_text'. Default is 'button_with_text'.
+   * @default "button_with_text"
+   */
+  content?: ButtonContent;
+
+  /**
+   * Type of the button. Can be 'tertiary', 'danger', 'secondary', or 'primary'. Default is 'primary'.
+   * @default "primary"
+   */
+  typeBtn?: ButtonType;
+
+  /**
+   * Specifies if the button should be disabled or not. Default is false.
+   * @default false
+   */
   isDisabled?: boolean;
+
+  /**
+   * Width of the button. Accepts valid CSS width values.
+   */
   width?: string;
+
+  /**
+   * Color of the button. Can be any valid color from the Colors type. Default is 'white'.
+   * @default "white"
+   */
   color?: Colors;
+
+  /**
+   * Padding of the button. Accepts valid CSS padding values.
+   */
   padding?: string;
+  loading?: boolean;
 }
 
-export const Button: FC<ButtonProps> = props => {
-  const {
-    className,
-    children,
-    content = 'text_button',
-    size = 'l',
-    typeBtn = 'primary',
-    isDisabled = false,
-    width,
-    color = 'white',
-    padding,
-    ...rest
-  } = props;
-
+export const Button = ({
+  className,
+  children,
+  content = 'button_with_text',
+  size = 'l',
+  typeBtn = 'primary',
+  isDisabled = false,
+  width,
+  color = 'white',
+  padding,
+  loading = false,
+  ...rest
+}: ButtonProps) => {
   return (
     <button
       disabled={isDisabled}
       style={{
-        width: width ? `${width}` : undefined,
-        padding: padding ? `${padding}` : undefined,
+        width,
+        padding,
       }}
       className={clsx(
         styles.container,
@@ -84,7 +99,7 @@ export const Button: FC<ButtonProps> = props => {
       )}
       {...rest}
     >
-      {children}
+      {loading ? <DotPulse size={24} speed={1.3} color='white' /> : children}
     </button>
   );
 };
