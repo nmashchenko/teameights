@@ -1,11 +1,10 @@
-import Image from 'next/image';
-
-import { Crown28 } from '@/shared/assets';
 import styles from './user-card.module.scss';
 import { ProgrammingLanguagesLayout } from '../language-layout/language-layout';
 import { BadgeFrameworksLayout } from '../frameworks-layout/frameworks-layout';
 import { IUserResponse } from '@teameights/types';
 import { calculateAge } from '@/shared/lib';
+import { ImageLoader } from '@/shared/ui';
+import { CrownIcon28 } from '@/shared/assets';
 
 interface UserCardProps {
   user: IUserResponse;
@@ -13,7 +12,7 @@ interface UserCardProps {
 }
 
 export const UserCard: React.FC<UserCardProps> = ({
-  user: { photo, programmingLanguages, frameworks, isLeader, fullName, role, dateOfBirth },
+  user: { photo, programmingLanguages, isLeader, frameworks, fullName, role, dateOfBirth },
   onClick,
 }) => {
   const years = calculateAge(dateOfBirth);
@@ -23,8 +22,15 @@ export const UserCard: React.FC<UserCardProps> = ({
       <div className={styles.header}>
         <div className={styles.avatar}>
           {/* TODO: Починить это опсле фикса типов с фотками*/}
-          <Image src={photo!.path} className={styles.image} alt={fullName} width={70} height={70} />
-          {isLeader && <Crown28 className={styles.crown} />}
+          <ImageLoader
+            borderRadius='5px'
+            src={photo?.path ?? ''}
+            className={styles.image}
+            alt={fullName}
+            width={70}
+            height={70}
+          />
+          {isLeader && <CrownIcon28 className={styles.crown} />}
         </div>
         {programmingLanguages && <ProgrammingLanguagesLayout languages={programmingLanguages} />}
       </div>

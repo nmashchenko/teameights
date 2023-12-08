@@ -1,5 +1,5 @@
 import styles from '../user-card/user-card.module.scss';
-import { BadgeLanguage } from '@/shared/ui';
+import { BadgeIcon } from '@/shared/ui';
 import { languageLayoutConfig } from './language-layout-config';
 
 interface ProgrammingLanguagesProps {
@@ -12,8 +12,8 @@ export const ProgrammingLanguagesLayout: React.FC<ProgrammingLanguagesProps> = (
   return (
     <div className={styles.languagesContainer}>
       {layout.map((type, index) => {
-        if (type === 'more') return <BadgeLanguage key={index} data={`+${languages.length - 1}`} />;
-        return languages[index] && <BadgeLanguage key={languages[index]} data={languages[index]} />;
+        if (type === 'more') return <BadgeIcon key={index} data={`+${languages.length - 1}`} />;
+        return languages[index] && <BadgeIcon key={languages[index]} data={languages[index]} />;
       })}
     </div>
   );

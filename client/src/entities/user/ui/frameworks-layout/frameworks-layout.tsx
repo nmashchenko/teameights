@@ -1,5 +1,5 @@
 import styles from '../user-card/user-card.module.scss';
-import { BadgeFramework } from '@/shared/ui';
+import { BadgeText } from '@/shared/ui';
 import { badgeFrameworkLayoutConfig } from './frameworks-layout-config';
 
 type BadgeFrameworksProps = {
@@ -15,7 +15,7 @@ export const BadgeFrameworksLayout: React.FC<BadgeFrameworksProps> = ({ framewor
   return (
     <div className={styles.badgeContainer}>
       {layout.map((size, index) => (
-        <BadgeFramework
+        <BadgeText
           className={styles[size]}
           data={
             size === 'extra' ? `+${frameworks.length - 3}` : frameworks[isOneFramework ? 0 : index]

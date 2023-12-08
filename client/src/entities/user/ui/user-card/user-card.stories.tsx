@@ -31,48 +31,52 @@ export const UserCardPreview: Story = {
 
 const user1 = {
   ...defaultUser,
-  programmingLanguages: ['JS'],
-  frameworks: ['NodeJS'],
+  programmingLanguages: ['JavaScript'],
+  frameworks: ['Node.js'],
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_1variant = () => <UserCard user={user1} />;
 
 const user2 = {
   ...defaultUser,
-  programmingLanguages: ['JS', 'TS'],
-  frameworks: ['NodeJS', 'React'],
+  programmingLanguages: ['JavaScript', 'TypeScript'],
+  frameworks: ['Node.js', 'React.js'],
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_2variant = () => <UserCard user={user2} />;
 
 const user3 = {
   ...defaultUser,
-  programmingLanguages: ['JS', 'TS', 'Rust'],
-  frameworks: ['NodeJS', 'React', 'MUI'],
+  programmingLanguages: ['JavaScript', 'TypeScript', 'Rust'],
+  frameworks: ['Node.js', 'React.js', 'MUI'],
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_3variant = () => <UserCard user={user3} />;
 
 const user4 = {
   ...defaultUser,
-  programmingLanguages: ['JS', 'TS', 'Rust', 'Java'],
-  frameworks: ['NodeJS', 'React', 'MUI', 'VueJS'],
+  programmingLanguages: ['JavaScript', 'TypeScript', 'Rust', 'Java'],
+  frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js'],
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_4variant = () => <UserCard user={user4} />;
 
 const user5 = {
   ...defaultUser,
-  programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Php'],
-  frameworks: ['NodeJS', 'React', 'MUI', 'VueJS', 'Angular'],
+  programmingLanguages: ['JavaScript', 'TypeScript', 'Rust', 'Java', 'PHP'],
+  frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js', 'Angular'],
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_5variant = () => <UserCard user={user5} />;
 
-const user6 = {
+const userWithoutPhoto = {
+  ...defaultUser,
   programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Php'],
   fullName: 'John Doe',
-  frameworks: ['NodeJS', 'React', 'MUI', 'VueJS', 'Angular'],
+  frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js', 'Angular'],
   isLeader: true,
 } as unknown as IUserResponse;
-export const UserCardWithImageFallback = () => <UserCard user={user6} />;
+
+userWithoutPhoto.photo = null;
+
+export const UserCardWithImageFallback = () => <UserCard user={userWithoutPhoto} />;
