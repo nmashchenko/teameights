@@ -74,6 +74,9 @@
 
   .name {
     font: var(--font-body-m);
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .role {

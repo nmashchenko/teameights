@@ -5,6 +5,7 @@ import { IUserResponse } from '@teameights/types';
 import { calculateAge } from '@/shared/lib';
 import { ImageLoader } from '@/shared/ui';
 import { CrownIcon28 } from '@/shared/assets';
+import { countryFlags } from '@/shared/constant';
 
 interface UserCardProps {
   user: IUserResponse;
@@ -12,7 +13,7 @@ interface UserCardProps {
 }
 
 export const UserCard: React.FC<UserCardProps> = ({
-  user: { photo, programmingLanguages, isLeader, frameworks, fullName, role, dateOfBirth },
+  user: { country, photo, skills, isLeader, fullName, role, dateOfBirth },
   onClick,
 }) => {
   const years = calculateAge(dateOfBirth);
@@ -32,15 +33,18 @@ export const UserCard: React.FC<UserCardProps> = ({
           />
           {isLeader && <CrownIcon28 className={styles.crown} />}
         </div>
-        {programmingLanguages && <ProgrammingLanguagesLayout languages={programmingLanguages} />}
+        {skills?.programmingLanguages && (
+          <ProgrammingLanguagesLayout languages={skills.programmingLanguages} />
+        )}
       </div>
       <div className={styles.content}>
         <div className={styles.name}>
           {fullName}, {years}
+          <ImageLoader src={countryFlags[country] ?? ''} alt={fullName} width={16} height={12} />
         </div>
         <div className={styles.role}>{role.name}</div>
       </div>
-      {frameworks && <BadgeFrameworksLayout frameworks={frameworks} />}
+      {skills?.frameworks && <BadgeFrameworksLayout frameworks={skills.frameworks} />}
     </div>
   );
 };
