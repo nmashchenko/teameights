@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ArrowLeft } from '@/shared/assets';
+import { ArrowLeftIcon } from '@/shared/assets';
 import { Button, Flex, Input, Typography } from '@/shared/ui';
 import styles from '../password.module.scss';
 import { useForgotPassword } from '@/entities/session';
@@ -59,7 +59,7 @@ export default function Recover() {
             Reset password
           </Button>
           <Button width='100%' typeBtn='secondary' type='button'>
-            <ArrowLeft />
+            <ArrowLeftIcon />
             <Link href='/login'>Back to Log in</Link>
           </Button>
         </Flex>

@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import styles from './text-input.module.scss';
-import { Search } from '@/shared/assets';
+import { SearchIcon } from '@/shared/assets';
 import { Flex, Input } from '@/shared/ui';
 
 interface TextInputProps {
@@ -30,7 +30,7 @@ export const TextInput: FC<TextInputProps> = ({ defaultValue, placeholder, onCha
         isWithBorder={false}
       />
       <Flex align='center' justify='center' className={styles.search_icon}>
-        <Search />
+        <SearchIcon />
       </Flex>
     </Flex>
   );

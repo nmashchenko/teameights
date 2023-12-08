@@ -1,11 +1,11 @@
 import { ClearIndicatorProps } from 'react-select';
-import { X } from '@/shared/assets';
+import { XIcon } from '@/shared/assets';
 import { CSSProperties } from 'react';
 import { OptionType } from '../select-autocomplete';
 
 export const ClearIndicator = (props: ClearIndicatorProps<OptionType>) => {
   const {
-    children = <X />,
+    children = <XIcon />,
     getStyles,
     innerProps: { ref, ...restInnerProps },
   } = props;

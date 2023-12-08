@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, ForwardRefRenderFunction, InputHTMLAttributes } from 'react';
-import { WarningCircle } from '@/shared/assets';
+import { WarningCircleIcon } from '@/shared/assets';
 import styles from './input.module.scss';
 
 /**
@@ -92,7 +92,7 @@ const InputComponent: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         />
         {error && (
           <div className={styles.error_icon}>
-            <WarningCircle />
+            <WarningCircleIcon />
           </div>
         )}
         {subIcon && (

@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
 import { Button, buttonSizeArray, buttonTypesArray } from './button';
 import React from 'react';
-import { Plus } from '@/shared/assets';
+import { PlusIcon } from '@/shared/assets';
 import { StoryObj } from '@storybook/react';
 import { Flex } from '../flex';
 
@@ -15,10 +15,10 @@ const ButtonTemplate: Story = {
 
 const buttonContentOptions = {
   text: <span>Some Text</span>,
-  icon: <Plus />,
+  icon: <PlusIcon />,
   textWithIcon: (
     <>
-      <span>Some Text</span> <Plus />
+      <span>Some Text</span> <PlusIcon />
     </>
   ),
 };

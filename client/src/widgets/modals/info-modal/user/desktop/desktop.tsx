@@ -1,7 +1,7 @@
 import { BadgeText, BadgeIcon, Button, Modal, Typography, Flex, ImageLoader } from '@/shared/ui';
 import styles from './desktop.module.scss';
 import { FC } from 'react';
-import { ArrowRight, UserPlus, ChatCircleDots } from '@/shared/assets';
+import { ArrowRightIcon, UserPlusIcon, ChatCircleDotsIcon } from '@/shared/assets';
 import { calculateAge, getCountryFlag } from '@/shared/lib';
 import { InfoModalUserProps } from '../interfaces';
 
@@ -104,19 +104,19 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
               {showInviteButton() && (
                 <Button typeBtn='primary' size='m' width='100px'>
                   Invite
-                  <UserPlus />
+                  <UserPlusIcon />
                 </Button>
               )}
 
               <Button typeBtn='secondary' size='m' width='124px'>
                 Message
-                <ChatCircleDots />
+                <ChatCircleDotsIcon />
               </Button>
             </Flex>
 
             <Button typeBtn='tertiary' size='m' color='white' padding='0'>
               Profile
-              <ArrowRight />
+              <ArrowRightIcon />
             </Button>
           </Flex>
         </Flex>

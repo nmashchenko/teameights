@@ -1,5 +1,5 @@
 import { FC, SVGProps } from 'react';
-export const Crown28: FC<SVGProps<SVGSVGElement>> = props => {
+export const CrownIcon28: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg
       width='28'

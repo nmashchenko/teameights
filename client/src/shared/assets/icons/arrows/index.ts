@@ -1,2 +1,2 @@
-export { ArrowLeft } from './arrow-left';
-export { ArrowRight } from './arrow-right';
+export { ArrowLeftIcon } from './arrow-left';
+export { ArrowRightIcon } from './arrow-right';

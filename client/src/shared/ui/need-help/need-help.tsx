@@ -1,6 +1,6 @@
 'use client';
 
-import { Question } from '@/shared/assets';
+import { QuestionIcon } from '@/shared/assets';
 import { Tooltip } from 'react-tooltip';
 import Link from 'next/link';
 import { RefObject, useState } from 'react';
@@ -31,7 +31,7 @@ export const NeedHelp = ({ shouldHideWhenWidth = 0 }: NeedHelpProps) => {
       {width > shouldHideWhenWidth && (
         <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={ref}>
           <Typography size='body_m'>Need Help</Typography>
-          <Question data-tooltip-id='my-tooltip-inline' />
+          <QuestionIcon data-tooltip-id='my-tooltip-inline' />
           <Tooltip
             id='my-tooltip-inline'
             className={styles.tooltip}

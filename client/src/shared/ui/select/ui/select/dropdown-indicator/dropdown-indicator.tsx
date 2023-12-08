@@ -1,5 +1,5 @@
 import { components, DropdownIndicatorProps, GroupBase } from 'react-select';
-import { CaretDown, CaretUp } from '@/shared/assets';
+import { CaretDownIcon, CaretUpIcon } from '@/shared/assets';
 
 export const DropdownIndicator = <
   OptionType,
@@ -11,7 +11,7 @@ export const DropdownIndicator = <
   return (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
-        {props.selectProps.menuIsOpen ? <CaretUp /> : <CaretDown />}
+        {props.selectProps.menuIsOpen ? <CaretUpIcon /> : <CaretDownIcon />}
       </components.DropdownIndicator>
     )
   );
