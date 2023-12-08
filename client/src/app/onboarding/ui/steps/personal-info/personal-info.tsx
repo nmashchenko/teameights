@@ -5,6 +5,7 @@ import { useState } from 'react';
 export const PersonalInfo = () => {
   const [name, setName] = useState('');
   const [user, setUser] = useState('');
+  //Completely redo inline styles, remake the component itself
   return (
     <Flex direction='column' gap='48px'>
       <div style={{ width: '370px' }}>
