@@ -1,4 +1,6 @@
 import { FC, SVGProps } from 'react';
+
+// NB: don't add size here since it can brake other components
 export const CheckIcon: FC<SVGProps<SVGSVGElement>> = props => {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' fill='#ffffff' viewBox='0 0 256 256' {...props}>

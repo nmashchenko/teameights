@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { Button, Typography } from '@/shared/ui';
 import styles from './cookie-banner.module.scss';
 import { useAnimationEnd } from './lib/hooks/useAnimationEnd';
-import { CookieIcon } from '@/shared/assets';
+import { CookieIcon } from './cookie';
 
 export const CookieBanner = () => {
   const elemRef = useRef<HTMLDivElement | null>(null);

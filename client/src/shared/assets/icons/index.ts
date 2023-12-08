@@ -7,7 +7,6 @@ export { PlusIcon } from './plus';
 export { QuestionIcon } from './question';
 export { WarningCircleIcon } from './warning-circle';
 export { XIcon } from './x';
-export { CookieIcon } from './cookie';
 export { SearchIcon } from './search';
 export { UserPlusIcon } from './user-plus';
 export { ChatCircleDotsIcon } from './chat-circle-dots';

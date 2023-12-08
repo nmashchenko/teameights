@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { Badge } from './badge';
-import { CookieIcon, LinkIcon } from '@/shared/assets';
+import { LinkIcon, XIcon } from '@/shared/assets';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Badge> = {
@@ -25,5 +25,5 @@ export const Badge_link = () => {
 };
 
 export const Badge_default = () => {
-  return <Badge type='block' icon={<CookieIcon width='16' height='16xs' />} title='Cookie' />;
+  return <Badge type='block' icon={<XIcon width='16' height='16xs' />} title='Cookie' />;
 };
