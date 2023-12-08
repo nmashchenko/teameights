@@ -17,9 +17,7 @@ export const ActionSection = ({ children, stepTitle }: ActionSectionProps) => {
         </Typography>
         <NeedHelp />
       </Flex>
-      <Flex flex={1} align='center' justify='center'>
-        {children}
-      </Flex>
+      <div className={styles.content}>{children}</div>
       <Flex justify={'space-between'}>
         <Button className={styles.button} typeBtn='secondary'>
           <ArrowLeftIcon />
