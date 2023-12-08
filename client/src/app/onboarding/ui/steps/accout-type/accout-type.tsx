@@ -5,7 +5,7 @@ import { CookieIcon } from '@/features/cookie-banner/cookie';
 export const AccountType = () => {
   return (
     <div>
-      <div>
+      <div style={{ textAlign: 'center' }}>
         <Typography size='heading_m' color='white'>
           I’d like to join the platform as...
         </Typography>
