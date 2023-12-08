@@ -90,11 +90,6 @@ export class User extends EntityHelper {
   })
   status?: Status;
 
-  @Column({ type: String, nullable: true })
-  @Index()
-  @Exclude({ toPlainOnly: true })
-  hash: string | null;
-
   @Index()
   @Column({ type: Boolean, nullable: true })
   isLeader?: boolean | null;

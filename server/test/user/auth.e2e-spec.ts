@@ -46,7 +46,7 @@ describe('Auth user (e2e)', () => {
       })
       .expect(422)
       .expect(({ body }) => {
-        expect(body.error).toBeDefined();
+        expect(body.errors.email).toBeDefined();
       });
   });
 
@@ -79,9 +79,9 @@ describe('Auth user (e2e)', () => {
             .find(
               letter =>
                 letter.to[0].address.toLowerCase() === newUserEmail.toLowerCase() &&
-                /.*email\?hash\=(\w+).*/g.test(letter.text)
+                /.*email\?hash\=(\S+).*/g.test(letter.text)
             )
-            ?.text.replace(/.*email\?hash\=(\w+).*/g, '$1')
+            ?.text.replace(/.*email\?hash\=(\S+).*/g, '$1')
       );
 
     return request(app)
@@ -89,7 +89,7 @@ describe('Auth user (e2e)', () => {
       .send({
         hash,
       })
-      .expect(200);
+      .expect(204);
   });
 
   it('Can not confirm email with same link twice: /api/v1/auth/email/confirm (POST)', async () => {
@@ -101,9 +101,9 @@ describe('Auth user (e2e)', () => {
             .find(
               letter =>
                 letter.to[0].address.toLowerCase() === newUserEmail.toLowerCase() &&
-                /.*email\?hash\=(\w+).*/g.test(letter.text)
+                /.*email\?hash\=(\S+).*/g.test(letter.text)
             )
-            ?.text.replace(/.*email\?hash\=(\w+).*/g, '$1')
+            ?.text.replace(/.*email\?hash\=(\S+).*/g, '$1')
       );
 
     return request(app)

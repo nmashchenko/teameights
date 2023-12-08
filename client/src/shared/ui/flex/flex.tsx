@@ -68,6 +68,8 @@ export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
    * props.className - Additional classnames you want to add to flex if needed
    */
   className?: string;
+
+  flex?: string | number | undefined;
 }
 
 /**
@@ -114,6 +116,7 @@ export const Flex: React.FC<FlexProps> = props => {
     shrink,
     children,
     className,
+    flex,
     ...rest
   } = props;
 
@@ -131,6 +134,7 @@ export const Flex: React.FC<FlexProps> = props => {
     flexWrap: wrap,
     height: height,
     flexShrink: shrink,
+    flex: flex,
   } as React.CSSProperties;
 
   return (

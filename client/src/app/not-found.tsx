@@ -1,43 +1,20 @@
 'use client';
 import Link from 'next/link';
-import { RefObject, useState } from 'react';
-import { Tooltip } from 'react-tooltip';
-import { ArrowLeftIcon, LogoBig, PlanetIllustration, QuestionIcon } from '@/shared/assets';
-import { AmongUs, useClickOutside } from '@/shared/lib';
-import { Button, Typography } from '@/shared/ui';
+import { ArrowLeftIcon, PlanetIllustration } from '@/shared/assets';
+import { AmongUs } from '@/shared/lib';
+import { Button, Logo, Typography, NeedHelp } from '@/shared/ui';
 import styles from './styles/not-found.module.scss';
 
 /** Used to open email */
 const mailTo = 'mailto:help@teameights.com';
 
 export default function NotFound() {
-  const [isOpen, setIsOpen] = useState(false);
-  const ref: RefObject<HTMLDivElement> = useClickOutside(() => setIsOpen(false));
   return (
     <>
       <div className={styles.container}>
         <header className={styles.header}>
-          <Link href='/'>
-            <LogoBig />
-          </Link>
-          <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={ref}>
-            <Typography size='body_m'>Need Help</Typography>
-            <QuestionIcon data-tooltip-id='my-tooltip-inline' />
-            <Tooltip
-              id='my-tooltip-inline'
-              className={styles.tooltip}
-              isOpen={isOpen}
-              clickable
-              place='bottom-end'
-            >
-              <Typography size='body_s'>
-                If you have any issues, please email <br /> us at{' '}
-                <Link href={mailTo}>
-                  <span className={styles.span}>helpteameights@gmail.com</span>
-                </Link>
-              </Typography>
-            </Tooltip>
-          </div>
+          <Logo />
+          <NeedHelp shouldHideWhenWidth={430} />
         </header>
         <div className={styles.main}>
           <div className={styles.illustration}>
