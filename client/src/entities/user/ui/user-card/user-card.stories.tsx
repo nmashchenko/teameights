@@ -31,49 +31,58 @@ export const UserCardPreview: Story = {
 
 const user1 = {
   ...defaultUser,
-  programmingLanguages: ['JavaScript'],
-  frameworks: ['Node.js'],
+  skills: { programmingLanguages: ['JavaScript'], frameworks: ['Node.js'] },
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_1variant = () => <UserCard user={user1} />;
 
 const user2 = {
   ...defaultUser,
-  programmingLanguages: ['JavaScript', 'TypeScript'],
-  frameworks: ['Node.js', 'React.js'],
+  skills: {
+    programmingLanguages: ['JavaScript', 'TypeScript'],
+    frameworks: ['Node.js', 'React.js'],
+  },
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_2variant = () => <UserCard user={user2} />;
 
 const user3 = {
   ...defaultUser,
-  programmingLanguages: ['JavaScript', 'TypeScript', 'Rust'],
-  frameworks: ['Node.js', 'React.js', 'MUI'],
+  skills: {
+    programmingLanguages: ['JavaScript', 'TypeScript', 'Rust'],
+    frameworks: ['Node.js', 'React.js', 'MUI'],
+  },
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_3variant = () => <UserCard user={user3} />;
 
 const user4 = {
   ...defaultUser,
-  programmingLanguages: ['JavaScript', 'TypeScript', 'Rust', 'Java'],
-  frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js'],
+  skills: {
+    programmingLanguages: ['JavaScript', 'TypeScript', 'Rust', 'Java'],
+    frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js'],
+  },
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_4variant = () => <UserCard user={user4} />;
 
 const user5 = {
   ...defaultUser,
-  programmingLanguages: ['JavaScript', 'TypeScript', 'Rust', 'Java', 'PHP'],
-  frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js', 'Angular'],
+  skills: {
+    programmingLanguages: ['JavaScript', 'TypeScript', 'Rust', 'Java', 'PHP'],
+    frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js', 'Angular'],
+  },
   isLeader: true,
 } as unknown as IUserResponse;
 export const UserCard_5variant = () => <UserCard user={user5} />;
 
 const userWithoutPhoto = {
   ...defaultUser,
-  programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Php'],
+  skills: {
+    programmingLanguages: ['JS', 'TS', 'Rust', 'Java', 'Php'],
+    frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js', 'Angular'],
+  },
   fullName: 'John Doe',
-  frameworks: ['Node.js', 'React.js', 'MUI', 'Vue.js', 'Angular'],
   isLeader: true,
 } as unknown as IUserResponse;
 
