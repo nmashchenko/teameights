@@ -10,6 +10,7 @@ import {
   ITeam,
   IUniversity,
   IUserBase,
+  IUserProtectedResponse,
   NotificationType,
 } from '@teameights/types';
 import { getRandomItemFromArray, shuffleArray } from './common';
@@ -179,6 +180,15 @@ export const generateMockUser = (
   }
 
   return user;
+};
+
+export const addProtectedFields = (user: IUserBase): IUserProtectedResponse => {
+  return {
+    ...user,
+    email: faker.internet.email(),
+    provider: 'email',
+    socialId: null,
+  };
 };
 
 export const generateMockUsers = (count: number): IUserBase[] => {

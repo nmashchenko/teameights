@@ -2,13 +2,14 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { SidebarProfile, SidebarProfileProps } from './sidebar-profile';
 import { IUserResponse } from '@teameights/types';
-import { generateMockUser } from '@/shared/lib';
+import { addProtectedFields, generateMockUser } from '@/shared/lib';
 
 const mockUser: IUserResponse = generateMockUser();
+const mockUserWithProtectedFields = addProtectedFields(mockUser);
 
 const sidebarProfileProps: SidebarProfileProps = {
   active: false,
-  user: mockUser,
+  user: mockUserWithProtectedFields,
 };
 
 type Story = StoryObj<typeof SidebarProfile>;
@@ -35,14 +36,14 @@ InactiveUserProfile.args = {
 export const UnregisteredUserProfile = { ...SidebarProfileTemplate };
 UnregisteredUserProfile.args = {
   ...sidebarProfileProps,
-  user: generateMockUser(),
+  user: addProtectedFields(generateMockUser()),
 };
 
 // Active Unregistered User Profile
 export const ActiveUnregisteredUserProfile = { ...SidebarProfileTemplate };
 ActiveUnregisteredUserProfile.args = {
   ...sidebarProfileProps,
-  user: generateMockUser(),
+  user: addProtectedFields(generateMockUser()),
   active: true,
 };
 
@@ -51,7 +52,7 @@ export const UserProfileWithNoImage = { ...SidebarProfileTemplate };
 UserProfileWithNoImage.args = {
   ...sidebarProfileProps,
   user: {
-    ...generateMockUser(),
+    ...addProtectedFields(generateMockUser()),
     photo: null,
   },
 };
