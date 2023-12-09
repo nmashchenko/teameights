@@ -22,9 +22,15 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
   const filterListRef = useClickOutside<HTMLDivElement>(() => setIsListOpened(false));
 
   return (
-    <div className={styles.container} onClick={() => setIsListOpened(true)} ref={filterListRef}>
+    <div className={styles.container} ref={filterListRef}>
+      <div className={styles.menu_wrapper} onClick={() => setIsListOpened(true)}>
+        <Tag isFilledWhileHover>
+          +{filterItem.filterValue.length - 1}{' '}
+          {filterItem.filterValue.length > 2 ? 'items' : 'item'}
+        </Tag>
+      </div>
       {isListOpened ? (
-        <ul>
+        <ul className={styles.menu_list}>
           {filterItem.filterValue.slice(1).map((item: IOptionItem, index: number) => (
             <li key={item.value}>
               <Tag
@@ -49,12 +55,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
             </Flex>
           </li>
         </ul>
-      ) : (
-        <Tag isFilledWhileHover>
-          +{filterItem.filterValue.length - 1}{' '}
-          {filterItem.filterValue.length > 2 ? 'items' : 'item'}
-        </Tag>
-      )}
+      ) : null}
     </div>
   );
 };

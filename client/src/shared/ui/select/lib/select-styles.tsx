@@ -2,17 +2,17 @@ import { CSSObjectWithLabel, GroupBase, OptionProps, StylesConfig } from 'react-
 
 const _colors = {
   grey: {
-    normal: '#8f9094',
-    dark: '#2f3239',
-    medium: '#434752',
+    normal: 'var(--grey-normal-color)',
+    dark: 'var(--grey-dark-color)',
+    medium: 'var(--grey-medium-color)',
   },
   green: {
-    bright: '#5bd424',
-    dark: '#064006',
-    active: '#1c8111',
+    bright: 'var(--green-bright-color)',
+    dark: 'var(--green-dark-color)',
+    active: 'var(--green-active-color)',
   },
-  white: '#fff',
-  red: '#d42422',
+  white: 'var(--white-color)',
+  red: 'var(--red-error-color)',
 };
 
 const getFocusAndActiveStyles = (isWithBorder?: boolean) => ({

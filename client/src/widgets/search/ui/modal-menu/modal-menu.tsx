@@ -44,14 +44,16 @@ export const ModalMenu: FC<ModalMenuProps> = ({ filterArr, onOpenFilter }) => {
     <ul className={styles.option_list}>
       {filterArr.map((item, index) => (
         <li key={item.value} className={styles.option_item} onClick={() => onOpenFilter(index)}>
-          <Flex width='100%' align='center' justify='space-between'>
-            <Flex align='center' gap='8px'>
+          <Flex width='100%' align='center' justify='space-between' gap='8px'>
+            <Flex className={styles.option_item_wrapper} align='center' gap='8px'>
               <Typography variant='p' size='body_m'>
                 {item.label}
               </Typography>
               {renderTag(item)}
             </Flex>
-            <ArrowRightIcon />
+            <Flex justify='center' align='center' width='20px' height='20px'>
+              <ArrowRightIcon />
+            </Flex>
           </Flex>
         </li>
       ))}

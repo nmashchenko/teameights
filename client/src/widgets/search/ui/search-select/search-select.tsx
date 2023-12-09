@@ -46,7 +46,7 @@ export const SearchSelect: FC<SearchSelectProps> = ({
           ...(menuWrapper
             ? {
                 menu: () => ({
-                  background: '#2f3239',
+                  background: 'var(--grey-dark-color)',
                   maxHeight: 'none',
                   height: '100%',
                   position: 'static',
