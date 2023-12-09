@@ -46,7 +46,7 @@ export const BadgeIcon: FC<BadgeIconProps> = props => {
         background: `${isActive ? badgeColors[data] : 'var(--grey-dark-color)'}`,
       }}
     >
-      {badgeIcons[data]}
+      {badgeIcons[data] || data}
     </div>
   );
 };

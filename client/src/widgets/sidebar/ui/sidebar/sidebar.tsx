@@ -6,34 +6,31 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { IconWrapper } from '@/shared/ui';
 import { BurgerCloseIcon, LogoSmall, SignOutIcon, SignInIcon } from '@/shared/assets';
-import { generateMockUser, useClickOutside } from '@/shared/lib';
-import { SIGNUP } from '@/shared/constant';
+import { useClickOutside } from '@/shared/lib';
 import { getSidebarItems } from '../../config/getSidebarItems';
 import { SidebarItem } from '../sidebar-item/sidebar-item';
 import { SidebarProfile } from '../sidebar-profile/sidebar-profile';
 import { SidebarNotificationsContent } from '../notification-content/notification-content';
 
 import styles from './sidebar.module.scss';
-import { IUserBase } from '@teameights/types';
+import { useGetMe, useLogout } from '@/entities/session';
+import { LOGIN } from '@/shared/constant';
 
 export const Sidebar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const { data: user } = useGetMe();
+  const { mutate: logoutUser } = useLogout();
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false);
-  const [user, _setUser] = useState<IUserBase>(() => generateMockUser());
 
-  // const { isAuth } = useSelector((state) => state.userReducer);
-  // const { data: user } = useCheckAuth();
-  // const user = generateMockUser();
-  const isAuth = !!user?.username;
+  const isSignedUp = !!user?.username;
 
   const sidebarItemsData = React.useMemo(() => {
     return getSidebarItems(user);
   }, [user]);
 
-  // const { mutate: logoutUser, isLoading: isUserLoggingOut } = useLogoutUser();
   const navigateToPath = (path: string) => {
     router.push(path);
   };
@@ -43,14 +40,9 @@ export const Sidebar: React.FC = () => {
   );
 
   const handleLogout = () => {
-    // logoutUser();
-    console.log('123');
+    logoutUser();
   };
 
-  // if (isUserLoggingOut) {
-  //
-  //   // return <Loader />;
-  // }
   const handleShowSidebar = () => {
     setIsSidebarExpanded(prev => !prev);
   };
@@ -103,7 +95,7 @@ export const Sidebar: React.FC = () => {
             ))}
           </ul>
           <div className={styles.interactions}>
-            {isAuth && user && (
+            {isSignedUp && user && (
               <SidebarNotificationsContent
                 userNotifications={user.notifications}
                 isSidebarExpanded={isSidebarExpanded}
@@ -111,10 +103,10 @@ export const Sidebar: React.FC = () => {
                 setNotificationModal={setNotificationModal}
               />
             )}
-            {!isAuth ? (
+            {!user ? (
               <button
                 className={clsx(styles.interactButton, { [styles.active]: isSidebarExpanded })}
-                onClick={() => navigateToPath(SIGNUP)}
+                onClick={() => navigateToPath(LOGIN)}
                 aria-label='Login'
               >
                 <IconWrapper width='24px' height='24px' cursor='pointer'>

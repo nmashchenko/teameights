@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 import styles from './sidebar-profile.module.scss';
-import { IUserResponse } from '@teameights/types';
+import { IUserProtectedResponse } from '@teameights/types';
 import { ImageLoader, Typography } from '@/shared/ui';
 
 // import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
@@ -30,7 +30,7 @@ export interface SidebarProfileProps {
   /**
    * The user object containing user information.
    */
-  user: IUserResponse;
+  user?: IUserProtectedResponse;
 }
 
 /**
@@ -58,9 +58,7 @@ export interface SidebarProfileProps {
  */
 export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
   const { user, active } = props;
-  // const { data: user } = useCheckAuth();
 
-  // Если юзер не прошёл мульти-степ регу(полностью), то у него не будет username
   const isUserRegistered = !!user?.username;
   const [data, setData] = useState<UserData>(defaultData);
 

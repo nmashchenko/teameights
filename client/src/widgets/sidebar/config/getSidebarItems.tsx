@@ -2,9 +2,9 @@ import React from 'react';
 
 import { DEFAULT, TEAM, TOURNAMENTS, PROFILE } from '@/shared/constant';
 import { SearchIcon, TrophyIcon, UserIcon, UsersIcon } from '@/shared/assets';
-import { IUserResponse } from '@teameights/types';
+import { IUserProtectedResponse } from '@teameights/types';
 
-export const getSidebarItems = (user: IUserResponse) => {
+export const getSidebarItems = (user?: IUserProtectedResponse) => {
   const data = [
     {
       title: 'Teammates',
@@ -13,7 +13,7 @@ export const getSidebarItems = (user: IUserResponse) => {
     },
     {
       title: 'Team',
-      path: user?.team ? `${TEAM}/${user.team.id}` : TEAM,
+      path: user?.team ? `${TEAM}/${user?.team.id}` : TEAM,
       icon: <UsersIcon />,
     },
     {
@@ -25,7 +25,7 @@ export const getSidebarItems = (user: IUserResponse) => {
   if (user) {
     data.push({
       title: 'Profile',
-      path: `${PROFILE}/${user.id}`,
+      path: `${PROFILE}/${user?.id}`,
       icon: <UserIcon />,
     });
   }

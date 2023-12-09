@@ -35,12 +35,6 @@ export interface NotificationProps {
 export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
   const { notification, closeNotificationsModal } = props;
 
-  // const isHandlingInvite = false;
-  // const { data: teamData, isLoading, error } = useGetTeamData(notification.teamid)
-  // const { mutate: teamInviteMutation, isLoading: isHandlingInvite } = useChangeMessageStatus(
-  //   notification.teamid,
-  // )
-
   const handleAccept = () => {
     // Mock the mutatios
     console.log('Accepted the invitation');

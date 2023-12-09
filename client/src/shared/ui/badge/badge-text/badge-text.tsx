@@ -46,7 +46,7 @@ export const BadgeText: FC<BadgeFrameworkProps> = props => {
         maxWidth: `${maxWidth ? maxWidth : '100%'}`,
       }}
     >
-      {data}
+      <span>{data}</span>
     </div>
   );
 };

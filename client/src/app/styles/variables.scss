@@ -108,16 +108,22 @@
   --font-body-size-s: 14px;
   --font-body-line-s: 120%;
   --font-body-weight-s: 400;
+  --font-body-s: var(--font-body-weight-s) var(--font-body-size-s) / var(--font-body-line-s)
+    var(--font-rubik);
 
   /* Body 2 -> Body M */
   --font-body-size-m: 16px;
   --font-body-line-m: 140%;
   --font-body-weight-m: 400;
+  --font-body-m: var(--font-body-weight-s) var(--font-body-size-m) / var(--font-body-line-m)
+    var(--font-rubik);
 
   /* Body 1 -> Body XL */
   --font-body-size-l: 20px;
   --font-body-line-l: 140%;
   --font-body-weight-l: 400;
+  --font-body-l: var(--font-body-weight-l) var(--font-body-size-l) / var(--font-body-line-l)
+    var(--font-rubik);
 
   /* Caption font */
   --font-caption-size: 12px;
