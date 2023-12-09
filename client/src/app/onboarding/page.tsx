@@ -5,6 +5,7 @@ import { ProgressSection } from '@/app/onboarding/ui/progress-section/progress-s
 import { ActionSection } from '@/app/onboarding/ui/action-section/action-section';
 import styles from './onboarding.module.scss';
 import { PersonalInfo } from './ui/steps/personal-info/personal-info';
+// import { AccountType } from './ui/steps/accout-type/accout-type';
 
 const OnboardingPage = () => {
   return (

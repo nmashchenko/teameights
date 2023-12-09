@@ -1,26 +1,31 @@
 import { countries } from '@/shared/constant';
-import { Flex, Input, InputDate, Select } from '@/shared/ui';
+import { Flex, Input, InputDate, Select, Typography } from '@/shared/ui';
 import { useState } from 'react';
 
 export const PersonalInfo = () => {
   const [name, setName] = useState('');
   const [user, setUser] = useState('');
-  //Completely redo inline styles, remake the component itself
   return (
-    <Flex direction='column' gap='48px'>
-      <div style={{ width: '370px' }}>
+    <Flex direction='column' gap='48px' width='370px'>
+      <div>
         <Select name='country-flag' options={countries} />
       </div>
-      <div style={{ color: 'gray' }}>
-        <p>Full Name</p>
+      <div>
+        <Typography size='body_s' color='greyNormal'>
+          Full name
+        </Typography>
         <Input name='full-name' value={name} onChange={e => setName(e.target.value)} />
       </div>
-      <div style={{ color: 'gray' }}>
-        <p>Username</p>
+      <div>
+        <Typography size='body_s' color='greyNormal'>
+          Username
+        </Typography>
         <Input name='full-name' value={user} onChange={e => setUser(e.target.value)} />
       </div>
-      <div style={{ color: 'gray' }}>
-        <p>Birthday</p>
+      <div>
+        <Typography size='body_s' color='greyNormal'>
+          Birthday
+        </Typography>
         <InputDate name='data' />
       </div>
     </Flex>
