@@ -12,7 +12,7 @@ import {
   IUserBase,
   NotificationType,
 } from '@teameights/types';
-import { getRandomItemFromArray, getRandomNumberBetween, shuffleArray } from './common';
+import { getRandomItemFromArray, shuffleArray } from './common';
 import {
   designerTools,
   fields,
@@ -70,10 +70,7 @@ export const getRandomBadgeIcon = (
 export const generateMockFileEntity = (): IFileEntity => {
   return {
     id: faker.number.int(),
-    path: `https://picsum.photos/${getRandomNumberBetween(1000, 1500)}/${getRandomNumberBetween(
-      1000,
-      1500
-    )}`,
+    path: `https://source.unsplash.com/random?${faker.lorem.word()}`,
   };
 };
 
