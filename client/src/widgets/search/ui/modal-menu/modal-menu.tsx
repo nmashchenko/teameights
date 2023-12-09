@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ArrowRight } from '@/shared/assets';
+import { ArrowRightIcon } from '@/shared/assets';
 import { Typography } from '@/shared/ui';
 import { Flex } from '@/shared/ui';
 import { Filter } from '../../types';
@@ -51,7 +51,7 @@ export const ModalMenu: FC<ModalMenuProps> = ({ filterArr, onOpenFilter }) => {
               </Typography>
               {renderTag(item)}
             </Flex>
-            <ArrowRight />
+            <ArrowRightIcon />
           </Flex>
         </li>
       ))}

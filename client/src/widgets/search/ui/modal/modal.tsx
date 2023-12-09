@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useFilters } from '../../hooks';
 import clsx from 'clsx';
 import { Modal as ResponsiveModal } from 'react-responsive-modal';
-import { Cross } from '@/shared/assets';
+import { CrossIcon } from '@/shared/assets';
 import { Flex, Typography } from '@/shared/ui';
 import { FilterMenu } from '../filter-menu';
 import { ModalMenu } from '../modal-menu';
@@ -99,7 +99,7 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
           {isFilterOpened ? currentFilter.label : 'Filters'}
         </Typography>
         <button onClick={onClose} className={styles.close}>
-          <Cross className={styles.close_icon} />
+          <CrossIcon className={styles.close_icon} />
         </button>
       </Flex>
 

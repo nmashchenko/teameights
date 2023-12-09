@@ -7,7 +7,7 @@ import { TagList } from '../tag-list';
 import { Flex } from '@/shared/ui';
 import { useTrackFilterArr } from '../../hooks';
 import { SearchContext } from '../../contexts';
-import { Search } from '@/shared/assets';
+import { SearchIcon } from '@/shared/assets';
 import { Modal } from '../modal';
 
 /**
@@ -63,7 +63,7 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback })
         className={styles.modal_button}
         onClick={() => setIsModalOpened(true)}
       >
-        <Search className={styles.search_icon} />
+        <SearchIcon className={styles.search_icon} />
       </Flex>
 
       <Flex direction='column' gap='24px' className={styles.searchbar}>
