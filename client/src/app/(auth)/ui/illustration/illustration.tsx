@@ -1,4 +1,4 @@
-import { ArrowLeft, Email } from '@/shared/assets';
+import { ArrowLeftIcon, EmailIllustration } from '@/shared/assets';
 import { Button, Flex, Typography } from '@/shared/ui';
 import styles from './illustration.module.scss';
 import { FC } from 'react';
@@ -14,7 +14,7 @@ export const IllustrationStatus: FC<ConfirmProps> = props => {
   const { mainText, subText, buttonText, buttonHandler } = props;
   return (
     <div className={styles.container}>
-      <Email />
+      <EmailIllustration />
       <Flex direction='column' gap={24} className={styles.text_align}>
         <Flex justify='center' align='center' direction='column' gap={8}>
           <Typography size='heading_m'>{mainText}</Typography>
@@ -25,7 +25,7 @@ export const IllustrationStatus: FC<ConfirmProps> = props => {
         {buttonText && (
           <Flex align='center' justify='center'>
             <Button onClick={buttonHandler} width='136px' size='m' typeBtn='secondary'>
-              <ArrowLeft />
+              <ArrowLeftIcon />
               {buttonText}
             </Button>
           </Flex>

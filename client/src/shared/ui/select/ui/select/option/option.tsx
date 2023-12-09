@@ -1,5 +1,5 @@
 import { components, GroupBase, OptionProps } from 'react-select';
-import { Check } from '@/shared/assets';
+import { CheckIcon } from '@/shared/assets';
 import styles from '@/shared/ui/checkbox/checkbox.module.scss';
 
 export const Option = <
@@ -18,7 +18,7 @@ export const Option = <
         onChange={() => {}}
       />
       <span className={styles.checkmark} style={{ width: '16px', height: '16px' }}>
-        <Check />
+        <CheckIcon />
       </span>
       <span className={styles.label}>{props.label}</span>
     </components.Option>

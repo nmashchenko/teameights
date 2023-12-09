@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 import styles from './tag.module.scss';
-import { X } from '@/shared/assets';
+import { XIcon } from '@/shared/assets';
 import { Flex, Typography } from '@/shared/ui';
 import clsx from 'clsx';
 
@@ -37,7 +37,7 @@ export const Tag: FC<PropsWithChildren<TagProps>> = ({
       </Typography>
       {isWithCross && (
         <Flex align='center' className={styles.remove}>
-          <X />
+          <XIcon />
         </Flex>
       )}
     </Flex>

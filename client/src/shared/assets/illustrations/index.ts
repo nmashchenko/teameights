@@ -1,3 +1,3 @@
-export { Email } from './email';
-export { Login } from './login';
-export { Planet } from './planet';
+export { EmailIllustration } from './email';
+export { LoginIllustration } from './login';
+export { PlanetIllustration } from './planet';

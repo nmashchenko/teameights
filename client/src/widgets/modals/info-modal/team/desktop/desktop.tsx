@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './desktop.module.scss';
 import { Typography, Button, Modal, Flex } from '@/shared/ui';
-import { ArrowRight } from '@/shared/assets';
+import { ArrowRightIcon } from '@/shared/assets';
 import { InfoModalTeamProps } from '../interfaces';
 import { ImageLoader } from '@/shared/ui/image-loader/image-loader';
 import { capitalize, getCountryFlag } from '@/shared/lib';
@@ -111,7 +111,7 @@ export const TeamDesktop: FC<InfoModalTeamProps> = ({
               padding='0'
             >
               Profile
-              <ArrowRight />
+              <ArrowRightIcon />
             </Button>
           </Flex>
         </Flex>

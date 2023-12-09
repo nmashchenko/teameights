@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { MultiValue } from 'react-select';
 import styles from './search-select.module.scss';
-import { Search } from '@/shared/assets';
+import { SearchIcon } from '@/shared/assets';
 import { Flex, Select } from '@/shared/ui';
 import { IOptionItem } from '../../types';
 
@@ -54,7 +54,7 @@ export const SearchSelect: FC<SearchSelectProps> = ({
         isMulti
       />
       <Flex align='center' justify='center' className={styles.search_icon_wrapper}>
-        <Search />
+        <SearchIcon />
       </Flex>
     </Flex>
   );

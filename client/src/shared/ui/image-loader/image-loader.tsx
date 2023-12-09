@@ -1,6 +1,6 @@
 'use client';
 
-import { Crown20, Crown28, Crown40 } from '@/shared/assets';
+import { CrownIcon20, CrownIcon28, CrownIcon40 } from '@/shared/assets';
 import { CSSProperties, FC, SyntheticEvent, useState } from 'react';
 import Image, { ImageProps } from 'next/image';
 import { SkeletonLoader } from './ui/skeleton-loader';
@@ -67,9 +67,9 @@ export const ImageLoader: FC<ImageLoaderProps> = props => {
         </div>
         {crownSize && (
           <div className={styles.crown_container}>
-            {crownSize === 20 && <Crown20 />}
-            {crownSize === 28 && <Crown28 />}
-            {crownSize === 40 && <Crown40 />}
+            {crownSize === 20 && <CrownIcon20 />}
+            {crownSize === 28 && <CrownIcon28 />}
+            {crownSize === 40 && <CrownIcon40 />}
           </div>
         )}
       </div>
