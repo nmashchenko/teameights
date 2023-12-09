@@ -70,6 +70,7 @@ export const selectStyles = <
   const customStyles = styles || {};
 
   return {
+    ...customStyles,
     control: (base, props) => ({
       ...base,
       outline: 'none',

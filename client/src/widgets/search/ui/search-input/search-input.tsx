@@ -3,8 +3,13 @@ import { IOptionItem } from '../../types';
 import { TextInput } from '../text-input';
 import { SearchSelect } from '../search-select';
 import { useFilters } from '../../hooks';
+import { FC } from 'react';
 
-export const SearchInput = () => {
+interface SearchInputProps {
+  menuWrapper?: HTMLElement | null;
+}
+
+export const SearchInput: FC<SearchInputProps> = ({ menuWrapper }) => {
   const { filterArr, setFilterArr, filterIndex } = useFilters();
   const currentFilter = filterArr[filterIndex];
 
@@ -38,6 +43,7 @@ export const SearchInput = () => {
           onChange={onChange}
           isCheckbox
           placeholder={currentFilter.placeholder}
+          menuWrapper={menuWrapper}
         />
       );
 
@@ -48,6 +54,7 @@ export const SearchInput = () => {
           optionsArr={currentFilter.optionsArr}
           onChange={onChange}
           placeholder={currentFilter.placeholder}
+          menuWrapper={menuWrapper}
         />
       );
 

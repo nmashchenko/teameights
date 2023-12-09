@@ -11,6 +11,7 @@ interface SearchSelectProps {
   onChange: (value: MultiValue<IOptionItem>) => void;
   placeholder: string;
   isCheckbox?: boolean;
+  menuWrapper?: HTMLElement | null;
 }
 
 export const SearchSelect: FC<SearchSelectProps> = ({
@@ -19,6 +20,7 @@ export const SearchSelect: FC<SearchSelectProps> = ({
   placeholder,
   onChange,
   isCheckbox = false,
+  menuWrapper,
 }) => {
   const [value, setValue] = useState(defaultValue);
 
@@ -35,10 +37,27 @@ export const SearchSelect: FC<SearchSelectProps> = ({
     <Flex align='center' className={styles.container}>
       <Select
         className={styles.select}
+        menuIsOpen={menuWrapper ? true : undefined}
         styles={{
           menuList: () => ({
             padding: '8px 0',
+            ...(menuWrapper ? { boxShadow: 'none' } : {}),
           }),
+          ...(menuWrapper
+            ? {
+                menu: () => ({
+                  background: '#2f3239',
+                  maxHeight: 'none',
+                  height: '100%',
+                  position: 'static',
+                }),
+                menuPortal: () => ({
+                  height: '100%',
+                  width: 'auto',
+                  position: 'static',
+                }),
+              }
+            : {}),
         }}
         classNames={{
           menuList: () => styles.menu_list,
@@ -52,6 +71,7 @@ export const SearchSelect: FC<SearchSelectProps> = ({
         isIndicatorAllowed={false}
         isCheckbox={isCheckbox}
         isMulti
+        menuPortalTarget={menuWrapper}
       />
       <Flex align='center' justify='center' className={styles.search_icon_wrapper}>
         <SearchIcon />
