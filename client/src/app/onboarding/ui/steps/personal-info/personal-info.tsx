@@ -8,7 +8,10 @@ export const PersonalInfo = () => {
   return (
     <Flex direction='column' gap='48px' width='370px'>
       <div>
-        <Select name='country-flag' options={countries} />
+        <Typography size='body_s' color='greyNormal'>
+          Location
+        </Typography>
+        <Select name='country' options={countries} />
       </div>
       <div>
         <Typography size='body_s' color='greyNormal'>
