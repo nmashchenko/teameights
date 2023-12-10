@@ -15,6 +15,7 @@ export const SocialLinks = () => {
           placeholder='add link'
           value={gitLink}
           onChange={e => setGitLink(e.target.value)}
+          linkType='github'
         />
       </div>
       <div>
@@ -23,6 +24,7 @@ export const SocialLinks = () => {
           placeholder='add link'
           value={behLink}
           onChange={e => setBehLink(e.target.value)}
+          linkType='behance'
         />
       </div>
       <div>
@@ -31,6 +33,7 @@ export const SocialLinks = () => {
           placeholder='add link'
           value={telLink}
           onChange={e => setTelLink(e.target.value)}
+          linkType='telegram'
         />
       </div>
       <div>
@@ -39,6 +42,7 @@ export const SocialLinks = () => {
           placeholder='add link'
           value={linLink}
           onChange={e => setLinLink(e.target.value)}
+          linkType='linkedin'
         />
       </div>
     </Flex>

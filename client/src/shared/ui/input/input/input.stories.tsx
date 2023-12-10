@@ -153,6 +153,7 @@ export const Input_link_label = () => {
           placeholder='add link'
           value={state}
           onChange={e => setState(e.target.value)}
+          linkType='link'
         />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
@@ -163,6 +164,7 @@ export const Input_link_label = () => {
           disabled
           value={state}
           onChange={e => setState(e.target.value)}
+          linkType='link'
         />
       </div>
     </div>
