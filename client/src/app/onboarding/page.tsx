@@ -4,7 +4,7 @@ import { Flex } from '@/shared/ui';
 import { ProgressSection } from '@/app/onboarding/ui/progress-section/progress-section';
 import { ActionSection } from '@/app/onboarding/ui/action-section/action-section';
 import styles from './onboarding.module.scss';
-import { SocialLinks } from './ui/steps/social-links/social-links';
+import { Specialty } from './ui/steps/specialty/specialty';
 const OnboardingPage = () => {
   return (
     <Flex width={'100vw'} height={'100dvh'}>
@@ -18,7 +18,7 @@ const OnboardingPage = () => {
       </ProgressSection>
 
       <ActionSection stepTitle={'Step Title'}>
-        <SocialLinks />
+        <Specialty />
       </ActionSection>
     </Flex>
   );
