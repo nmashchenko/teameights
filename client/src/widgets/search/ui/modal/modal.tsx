@@ -1,9 +1,8 @@
 import { FC, useState } from 'react';
 import { useFilters } from '../../hooks';
 import clsx from 'clsx';
-import { Modal as ResponsiveModal } from 'react-responsive-modal';
 import { CrossIcon } from '@/shared/assets';
-import { Flex, Typography } from '@/shared/ui';
+import { Drawer, Flex, Typography } from '@/shared/ui';
 import { FilterMenu } from '../filter-menu';
 import { ModalMenu } from '../modal-menu';
 import styles from './modal.module.scss';
@@ -84,15 +83,12 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
   };
 
   return (
-    <ResponsiveModal
+    <Drawer
       open={isOpened}
       onClose={onClose}
-      center
-      classNames={{
-        modalContainer: styles.modal,
-        modal: styles.modal_content,
-      }}
-      showCloseIcon={false}
+      isFullHeight
+      className={styles.modal_content}
+      overlayClassName={styles.modal}
     >
       <Flex align='center' justify='space-between'>
         <Typography variant='h2' size='heading_m' className={styles.title}>
@@ -122,6 +118,6 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
           </button>
         </Flex>
       </Flex>
-    </ResponsiveModal>
+    </Drawer>
   );
 };
