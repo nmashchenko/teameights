@@ -43,8 +43,8 @@ interface DrawerProps {
   onClose: () => void;
   isFullHeight?: boolean;
   direction?: 'left' | 'right' | 'top' | 'bottom';
-  className: string;
-  overlayClassName: string;
+  className?: string;
+  overlayClassName?: string;
 }
 export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
   const {
