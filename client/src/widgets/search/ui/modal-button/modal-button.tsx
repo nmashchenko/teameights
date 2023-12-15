@@ -14,8 +14,6 @@ export const ModalButton: FC<ModalButtonProps> = ({ onOpen, onClose }) => {
 
   if (screenWidth > 768) {
     onClose();
-
-    return null;
   }
 
   return (

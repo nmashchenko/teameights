@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import styles from './search-bar.module.scss';
-import { Filter } from '../../types';
+import { Filter, IFilterParams } from '../../types';
 import { FilterSelect } from '../filter-select';
 import { SearchInput } from '../search-input';
 import { TagList } from '../tag-list';
@@ -39,7 +39,7 @@ import { Modal } from '../modal';
 
 interface SearchBarProps {
   initialFiltersState: Filter[];
-  callback: (queryString: string) => void;
+  callback: (filtersValues: IFilterParams | null) => void;
 }
 
 export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback }) => {

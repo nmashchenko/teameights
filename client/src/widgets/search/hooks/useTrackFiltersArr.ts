@@ -1,10 +1,9 @@
 import { useEffect, useRef } from 'react';
-import qs from 'qs';
-import { Filter } from '../types';
+import { Filter, IFilterParams } from '../types';
 
 export const useTrackFilterArr = (
   filterArr: Filter[],
-  callback: (queryString: string) => void
+  callback: (filterValues: IFilterParams | null) => void
 ) => {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
@@ -13,40 +12,35 @@ export const useTrackFilterArr = (
     }
 
     timerRef.current = setTimeout(() => {
-      const filtersValues = {
-        filters: filterArr.reduce<{ [key: string]: string | string[] | [number, number] }>(
-          (acc, curr) => {
-            switch (curr.type) {
-              case 'text':
-                if (curr.filterValue.length) {
-                  acc[curr.value] = curr.filterValue;
-                }
-
-                return acc;
-
-              case 'multiple':
-              case 'checkbox':
-                if (curr.filterValue.length) {
-                  acc[curr.value] = curr.filterValue.map(item => item.value);
-                }
-
-                return acc;
-
-              case 'range':
-                if (curr.filterValue?.length) {
-                  acc[curr.value] = curr.filterValue;
-                }
-
-                return acc;
+      const filtersValues: IFilterParams = filterArr.reduce<{
+        [key: string]: string | string[] | [number, number];
+      }>((acc, curr) => {
+        switch (curr.type) {
+          case 'text':
+            if (curr.filterValue.length) {
+              acc[curr.value] = curr.filterValue;
             }
-          },
-          {}
-        ),
-      };
 
-      const queryString = qs.stringify(filtersValues);
+            return acc;
 
-      callback(queryString);
+          case 'multiple':
+          case 'checkbox':
+            if (curr.filterValue.length) {
+              acc[curr.value] = curr.filterValue.map<string>(item => item.value);
+            }
+
+            return acc;
+
+          case 'range':
+            if (curr.filterValue?.length) {
+              acc[curr.value] = curr.filterValue;
+            }
+
+            return acc;
+        }
+      }, {});
+
+      callback(Object.keys(filtersValues).length ? filtersValues : null);
     }, 1300);
   }, [filterArr, callback]);
 };

@@ -38,6 +38,10 @@ export interface IRangeFilter extends IFilter {
 
 export type Filter = ITextFilter | ICheckboxFilter | IMultipleFilter | IRangeFilter;
 
+export interface IFilterParams {
+  [key: string]: string | [number, number] | string[];
+}
+
 export interface SearchContextType {
   filterArr: Filter[];
   setFilterArr: Dispatch<SetStateAction<Filter[]>>;
