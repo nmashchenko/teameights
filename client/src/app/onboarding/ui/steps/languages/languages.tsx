@@ -7,12 +7,15 @@ import { programmingLanguages } from '@/shared/constant';
 import { LanguageItem } from './ui/language-item';
 import { IOptionItem } from '@/widgets/search/types';
 
+const MAX_LANGS = 10;
+
 export const Languages = () => {
   const [text, setText] = useState('');
   const [languages, setLanguages] = useState<IOptionItem[]>([]);
 
   function toggleLanguage(language: IOptionItem) {
     setLanguages(prev => {
+      if (prev.length === MAX_LANGS) return prev;
       let index = -1;
       const appearedLang = Array.from(prev as IOptionItem[]).find((lang, i) => {
         index = i;
@@ -40,11 +43,6 @@ export const Languages = () => {
                       <div onClick={() => toggleLanguage(languagesItem)} key={languagesItem.label}>
                         <BadgeIcon isActive={true} data={languagesItem.label} />
                       </div>
-                      // <LanguageItem
-                      //   onClick={() => toggleLanguage(languagesItem)}
-                      //   key={index}
-                      //   language={languagesItem.label}
-                      // />
                     );
                   }
                   return <EmptyTile key={index} />;
@@ -65,6 +63,7 @@ export const Languages = () => {
             <div className={styles.recommended_languages}>
               {programmingLanguages.map((lang, index) => (
                 <LanguageItem
+                  isActive={Boolean(languages.find(option => option.label === lang.label))}
                   onClick={() => toggleLanguage(lang)}
                   language={lang.label}
                   key={index}
