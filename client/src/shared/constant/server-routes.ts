@@ -9,3 +9,4 @@ export const API_REFRESH = '/auth/refresh';
 export const API_LOGOUT = '/auth/logout';
 export const API_GOOGLE_LOGIN = '/auth/google/login';
 export const API_GITHUB_LOGIN = '/auth/github/login';
+export const API_USERS = '/users'
