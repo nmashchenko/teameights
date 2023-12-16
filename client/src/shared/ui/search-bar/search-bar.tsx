@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, useState } from 'react';
 import styles from './search-bar.module.scss';
 import { Filter } from './types';
