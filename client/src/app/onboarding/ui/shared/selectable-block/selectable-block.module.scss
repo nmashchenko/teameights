@@ -3,8 +3,13 @@
   border-radius: 10px;
   border: 2px solid var(--grey-dark-color);
   transition: border-color 0.3s ease;
+  cursor: pointer;
 }
 
 .container:hover {
+  border-color: var(--green-bright-color);
+}
+
+.selected{
   border-color: var(--green-bright-color);
 }

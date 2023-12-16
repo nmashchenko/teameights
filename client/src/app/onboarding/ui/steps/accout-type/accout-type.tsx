@@ -1,24 +1,31 @@
 import { Flex, Typography } from '@/shared/ui';
-import { AboutPlatform } from './ui/about-platform';
+import { SelectableBlock } from '../../shared';
 import styles from './account-type.module.scss';
 import Image from 'next/image';
+import { accountTypes } from '@/app/onboarding/ui/steps/accout-type/account-types';
+import { useState } from 'react';
 
 export const AccountType = () => {
+  const [selectedType, setSelectedType] = useState('');
   return (
-    <div>
+    <Flex direction='column' gap='32px' width='100%' maxWidth='470px'>
       <Flex direction='column' className={styles.align_text}>
         <Typography size='heading_m' color='white'>
           I’d like to join the platform as...
         </Typography>
       </Flex>
-      <Flex gap='24px' margin='32px 0 0 0'>
-        <AboutPlatform PlatformText='IT-specialist'>
-          <Image src='/images/technologist.png' alt='technologist' width={48} height={48} />
-        </AboutPlatform>
-        <AboutPlatform PlatformText='Company'>
-          <Image src='/images/office-worker.png' alt='office-worker' width={48} height={48} />
-        </AboutPlatform>
+      <Flex gap='24px'>
+        {accountTypes.map(accountType => (
+          <SelectableBlock
+            text={accountType.name}
+            onClick={() => setSelectedType(accountType.name)}
+            selected={accountType.name === selectedType}
+            key={accountType.name}
+          >
+            <Image src={accountType.image} alt={accountType.name} width={48} height={48} />
+          </SelectableBlock>
+        ))}
       </Flex>
-    </div>
+    </Flex>
   );
 };
