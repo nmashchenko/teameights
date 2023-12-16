@@ -26,6 +26,7 @@ import { Jobs } from './jobs.entity';
 import { Projects } from './projects.entity';
 import { Links } from './links.entity';
 import { Skills } from './skills.entity';
+import { Notification } from '../../notifications/entities/notification.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -139,9 +140,9 @@ export class User extends EntityHelper {
   @JoinColumn()
   links?: Links;
 
-  // @OneToMany(() => Notifications, notifications => notifications.user)
-  // notifications: Notifications[];
-  //
+  @OneToMany(() => Notification, notifications => notifications.receiver)
+  notifications: Notification[];
+
   // @ManyToOne(() => Team, team => team.users)
   // team: Team;
 
