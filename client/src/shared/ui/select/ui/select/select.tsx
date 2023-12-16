@@ -113,7 +113,9 @@ export const Select = <
         isMulti={isMulti}
         isClearable={false}
         hideSelectedOptions={!isCheckbox}
-        menuPortalTarget={menuPortalTarget ? menuPortalTarget : typeof window !== 'undefined' ? document.body : null}
+        menuPortalTarget={
+          menuPortalTarget ? menuPortalTarget : typeof window !== 'undefined' ? document.body : null
+        }
       />
       {error && (
         <p className={styles.error} id={`${name}-error`} role='alert'>

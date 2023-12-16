@@ -21,7 +21,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Toaster
             theme='dark'
             toastOptions={{
-              style: { ...inter.style, background: 'var(--grey-dark-color)', color: 'var(--white-color)', border: 'none' },
+              style: {
+                ...inter.style,
+                background: 'var(--grey-dark-color)',
+                color: 'var(--white-color)',
+                border: 'none',
+              },
             }}
           />
           {children}

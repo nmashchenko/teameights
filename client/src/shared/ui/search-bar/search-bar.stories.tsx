@@ -60,7 +60,7 @@ export const SearchBar_default = () => {
           filterValue: [],
         },
       ]}
-      callback={queryString => console.log(queryString)}
+      onChange={filterValues => console.log(filterValues)}
     />
   );
 };

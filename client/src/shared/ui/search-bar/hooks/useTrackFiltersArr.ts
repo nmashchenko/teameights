@@ -3,7 +3,7 @@ import { Filter, IFilterParams } from '../types';
 
 export const useTrackFilterArr = (
   filterArr: Filter[],
-  callback: (filterValues: IFilterParams | null) => void
+  onChange: (filterValues: string | null) => void
 ) => {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
@@ -12,7 +12,7 @@ export const useTrackFilterArr = (
     }
 
     timerRef.current = setTimeout(() => {
-      const filtersValues: IFilterParams = filterArr.reduce<{
+      const filterValues: IFilterParams = filterArr.reduce<{
         [key: string]: string | string[] | [number, number];
       }>((acc, curr) => {
         switch (curr.type) {
@@ -40,7 +40,7 @@ export const useTrackFilterArr = (
         }
       }, {});
 
-      callback(Object.keys(filtersValues).length ? filtersValues : null);
+      onChange(Object.keys(filterValues).length ? JSON.stringify(filterValues) : null);
     }, 1300);
-  }, [filterArr, callback]);
+  }, [filterArr, onChange]);
 };

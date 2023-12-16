@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import styles from './search-bar.module.scss';
-import { Filter, IFilterParams } from './types';
+import { Filter } from './types';
 import { FilterSelect } from './ui/filter-select';
 import { SearchInput } from './ui/search-input';
 import { TagList } from './ui/tag-list';
@@ -18,7 +18,7 @@ import { Modal } from './ui/modal';
  * Props:
  *
  * @prop {Filter[]} [initialFiltersState] - Initial state as an array with filters.
- * @prop {(queryString: string) => void} [callback] - A callback that takes a string of query parameters as an argument. Must be used for requests to the server.
+ * @prop {(filterValues: string | null) => void} [onChange] - A callback that takes a string of query parameters as an argument. Must be used for requests to the server.
  *
  * Usage:
  *
@@ -39,14 +39,14 @@ import { Modal } from './ui/modal';
 
 interface SearchBarProps {
   initialFiltersState: Filter[];
-  callback: (filtersValues: IFilterParams | null) => void;
+  onChange: (filterValues: string | null) => void;
 }
 
-export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, callback }) => {
+export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange }) => {
   const [filterArr, setFilterArr] = useState(initialFiltersState);
   const [filterIndex, setFilterIndex] = useState(0);
   const [isModalOpened, setIsModalOpened] = useState(false);
-  useTrackFilterArr(filterArr, callback);
+  useTrackFilterArr(filterArr, onChange);
 
   const onOpen = () => {
     setIsModalOpened(true);
