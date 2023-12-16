@@ -29,6 +29,15 @@ export const Languages = () => {
       }
     });
   }
+
+  function filterBySearch(item: IOptionItem) {
+    const trimmedText = text.trim().toLowerCase();
+    return (
+      item.label.toLowerCase().includes(trimmedText) ||
+      item.value.toLowerCase().includes(trimmedText)
+    );
+  }
+
   return (
     <Flex width='100%' height='100%' direction='column'>
       <div className={styles.languages}>
@@ -52,32 +61,41 @@ export const Languages = () => {
           </div>
           <div className={styles.search}>
             <Flex>
-              <Search placeholder='Search' defaultValue={text} onChange={setText} />
+              <Search
+                placeholder='Search'
+                defaultValue={text}
+                onChange={e => {
+                  return setText(e);
+                }}
+              />
             </Flex>
           </div>
         </div>
         <div className={styles.languages_list}>
-          <div className={styles.recommended}>
-            <Typography size='body_s' color='greyNormal'>
-              Recommended for you
-            </Typography>
-            <div className={styles.recommended_languages}>
-              {recommendedLanguages[SPECIALITY].map((lang, index) => (
-                <LanguageItem
-                  isActive={Boolean(languages.find(option => option.label === lang.label))}
-                  onClick={() => toggleLanguage(lang)}
-                  language={lang.label}
-                  key={index}
-                />
-              ))}
+          {text === '' && (
+            <div className={styles.recommended}>
+              <Typography size='body_s' color='greyNormal'>
+                Recommended for you
+              </Typography>
+
+              <div className={styles.recommended_languages}>
+                {recommendedLanguages[SPECIALITY].filter(filterBySearch).map((lang, index) => (
+                  <LanguageItem
+                    isActive={Boolean(languages.find(option => option.label === lang.label))}
+                    onClick={() => toggleLanguage(lang)}
+                    language={lang.label}
+                    key={index}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           <div className={styles.recommended}>
             <Typography size='body_s' color='greyNormal'>
               All languages
             </Typography>
             <div className={styles.recommended_languages}>
-              {programmingLanguages.map((lang, index) => (
+              {programmingLanguages.filter(filterBySearch).map((lang, index) => (
                 <LanguageItem
                   isActive={Boolean(languages.find(option => option.label === lang.label))}
                   onClick={() => toggleLanguage(lang)}
