@@ -32,7 +32,7 @@ import { Modal } from './ui/modal';
  *  placeholder: 'Search by name',
  *  filterValue: '',
  *  }]}
- *  callback={string => console.log(string)}
+ *  onChange={string => console.log(string)}
  * />
  * ```
  */
