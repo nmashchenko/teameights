@@ -1,14 +1,14 @@
 import { FC, useState } from 'react';
 import styles from './search-bar.module.scss';
-import { Filter, IFilterParams } from '../../types';
-import { FilterSelect } from '../filter-select';
-import { SearchInput } from '../search-input';
-import { TagList } from '../tag-list';
+import { Filter, IFilterParams } from './types';
+import { FilterSelect } from './ui/filter-select';
+import { SearchInput } from './ui/search-input';
+import { TagList } from './ui/tag-list';
 import { Flex } from '@/shared/ui';
-import { useTrackFilterArr } from '../../hooks';
-import { SearchContext } from '../../contexts';
-import { ModalButton } from '../modal-button';
-import { Modal } from '../modal';
+import { useTrackFilterArr } from './hooks';
+import { SearchContext } from './contexts';
+import { ModalButton } from './ui/modal-button';
+import { Modal } from './ui/modal';
 
 /**
  * Search-bar Component

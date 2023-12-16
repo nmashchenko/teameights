@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { IUserProtectedResponse } from '@teameights/types';
 import { API } from '@/shared/api';
 import { API_USERS } from '@/shared/constant';
-import { IFilterParams } from '@/widgets/search/types';
+import { IFilterParams } from '@/shared/ui/search-bar/types';
 
 interface IQueryParams {
   page?: number;
