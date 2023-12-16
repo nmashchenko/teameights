@@ -1,4 +1,5 @@
 export { specialities } from './specialities';
+export { recommendedLanguages } from './recommended-languages';
 export { experiences, type ExperienceProps } from './experiences';
 export { badgeColors, badgeTextColors } from './badge-colors';
 export { programmingLanguages } from './programming-languages';

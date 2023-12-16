@@ -3,11 +3,12 @@ import { EmptyTile } from './ui/empty-tile';
 import { useState } from 'react';
 import { Search } from './ui/search';
 import styles from './languages.module.scss';
-import { programmingLanguages } from '@/shared/constant';
+import { programmingLanguages, recommendedLanguages } from '@/shared/constant';
 import { LanguageItem } from './ui/language-item';
 import { IOptionItem } from '@/widgets/search/types';
 
 const MAX_LANGS = 8;
+const SPECIALITY = 'Frontend/UI Developer'; // TODO: replace with real data. Hardcoded Right now
 
 export const Languages = () => {
   const [text, setText] = useState('');
@@ -40,7 +41,7 @@ export const Languages = () => {
                   const languagesItem = languages[index];
                   if (languagesItem) {
                     return (
-                      <div onClick={() => toggleLanguage(languagesItem)} key={languagesItem.label}>
+                      <div onClick={() => toggleLanguage(languagesItem)} key={index}>
                         <BadgeIcon isActive={true} data={languagesItem.label} />
                       </div>
                     );
@@ -61,7 +62,7 @@ export const Languages = () => {
               Recommended for you
             </Typography>
             <div className={styles.recommended_languages}>
-              {programmingLanguages.map((lang, index) => (
+              {recommendedLanguages[SPECIALITY].map((lang, index) => (
                 <LanguageItem
                   isActive={Boolean(languages.find(option => option.label === lang.label))}
                   onClick={() => toggleLanguage(lang)}
@@ -79,7 +80,7 @@ export const Languages = () => {
               {programmingLanguages.map((lang, index) => (
                 <LanguageItem
                   isActive={Boolean(languages.find(option => option.label === lang.label))}
-                  onClick={() => setLanguages(prev => [...prev, lang])}
+                  onClick={() => toggleLanguage(lang)}
                   language={lang.label}
                   key={index}
                 />
