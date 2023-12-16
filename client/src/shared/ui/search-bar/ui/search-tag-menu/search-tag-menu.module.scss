@@ -1,0 +1,37 @@
+.container {
+  position: relative;
+}
+
+.menu_wrapper {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.menu_list {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 4px 24px 0px rgba(17, 20, 27, 0.25);
+}
+
+.clear_all_button {
+  min-width: 0;
+  box-sizing: border-box;
+  background: var(--grey-dark-color);
+
+  p {
+    box-sizing: border-box;
+    padding: 3px;
+    padding-left: 6px;
+    font-size: 100%;
+    color: var(--red-error-color);
+    white-space: nowrap;
+    overflow: hidden;
+    border-radius: 2px;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+}

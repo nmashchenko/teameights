@@ -9,3 +9,4 @@ export { useLogout } from './useLogout';
 export { useRegister } from './useRegister';
 export { useResetPassword } from './useResetPassword';
 export { useUpdateMe } from './useUpdateMe';
+export { useGetUsers } from './useGetUsers';

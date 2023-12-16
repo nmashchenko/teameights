@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Typography } from '@/shared/ui';
+import { Button, SearchBar, Typography } from '@/shared/ui';
 import { useGetScreenWidth } from '@/shared/lib';
 
 import { useGetMe, useLogout, useLogin, useUpdateMe, useRegister } from '@/entities/session';
@@ -41,6 +41,19 @@ export default function Home() {
       <a href='/login' style={{ color: 'green' }}>
         Get to login
       </a>
+
+      <SearchBar
+        initialFiltersState={[
+          {
+            type: 'text',
+            label: 'Name',
+            value: 'name',
+            placeholder: 'Search by name',
+            filterValue: '',
+          },
+        ]}
+        onChange={() => console.log(1)}
+      />
     </>
   );
 }
