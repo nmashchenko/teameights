@@ -7,7 +7,7 @@ import { programmingLanguages } from '@/shared/constant';
 import { LanguageItem } from './ui/language-item';
 import { IOptionItem } from '@/widgets/search/types';
 
-const MAX_LANGS = 10;
+const MAX_LANGS = 8;
 
 export const Languages = () => {
   const [text, setText] = useState('');
@@ -15,7 +15,6 @@ export const Languages = () => {
 
   function toggleLanguage(language: IOptionItem) {
     setLanguages(prev => {
-      if (prev.length === MAX_LANGS) return prev;
       let index = -1;
       const appearedLang = Array.from(prev as IOptionItem[]).find((lang, i) => {
         index = i;
@@ -24,6 +23,7 @@ export const Languages = () => {
       if (appearedLang) {
         return prev.slice(0, index).concat(prev.slice(index + 1));
       } else {
+        if (prev.length === MAX_LANGS) return prev;
         return [...prev, language];
       }
     });
