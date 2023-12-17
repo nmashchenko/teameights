@@ -8,7 +8,9 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   SerializeOptions,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { RoleEnum } from '../../libs/database/metadata/roles/roles.enum';
@@ -18,8 +20,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { NotificationsService } from './notifications.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { NullableType } from '../../utils/types/nullable.type';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Notification } from './entities/notification.entity';
+import { infinityPagination } from '../../utils/infinity-pagination';
+import { QueryNotificationDto } from './dto/query-notification.dto';
 
 @ApiTags('Notifications')
 @Controller({
@@ -40,25 +44,55 @@ export class NotificationsController {
   @SerializeOptions({
     groups: ['user'],
   })
+  @ApiBearerAuth()
+  @Roles(RoleEnum.user)
+  @UseGuards(AuthGuard('jwt'))
+  @Get('')
+  async findAll(@Request() request, @Query() query: QueryNotificationDto) {
+    const page = query?.page ?? 1;
+    let limit = query?.limit ?? 10;
+
+    if (limit > 10) {
+      limit = 10;
+    }
+
+    return infinityPagination(
+      await this.notificationService.findManyWithPagination({
+        userJwtPayload: request.user,
+        filterOptions: query?.filters,
+        sortOptions: query?.sort,
+        paginationOptions: {
+          page,
+          limit,
+        },
+      }),
+      { page, limit }
+    );
+  }
+
+  @SerializeOptions({
+    groups: ['user'],
+  })
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   findOne(@Param('id') id: number): Promise<NullableType<Notification>> {
     return this.notificationService.findOne({ id: +id });
   }
 
-  @Get('user/:userid')
-  async findNotificationByReceiver(@Param('userid') userid: number) {
-    return await this.notificationService.findByReceiver(userid);
-  }
-
-  // add guard / httpcode
   @Patch(':id')
+  @ApiBearerAuth()
+  @Roles(RoleEnum.user)
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.OK)
   async readUnreadNotification(@Param('id') id: number) {
     await this.notificationService.readNotification(id);
   }
 
-  // add guard / httpcode
   @Delete(':id')
+  @ApiBearerAuth()
+  @Roles(RoleEnum.user)
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteNotification(@Param('id') id: number) {
     await this.notificationService.deleteNotification(id);
   }

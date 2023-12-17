@@ -1,12 +1,12 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateUser1702763328738 implements MigrationInterface {
-    name = 'CreateUser1702763328738'
+export class CreateUser1702842748127 implements MigrationInterface {
+    name = 'CreateUser1702842748127'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TABLE "file" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "path" character varying NOT NULL, CONSTRAINT "PK_36b46d232307066b3a2c9ea3a1d" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "role" ("id" integer NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_b36bcfe02fc8de3c57a8b2391c2" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "status" ("id" integer NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_e12743a7086ec826733f54e1d95" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "file" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "path" character varying NOT NULL, CONSTRAINT "PK_36b46d232307066b3a2c9ea3a1d" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "universities" ("id" SERIAL NOT NULL, "university" character varying NOT NULL, "degree" character varying NOT NULL, "major" character varying NOT NULL, "admissionDate" date NOT NULL, "graduationDate" date, "userId" integer, CONSTRAINT "PK_8da52f2cee6b407559fdbabf59e" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "jobs" ("id" SERIAL NOT NULL, "title" character varying NOT NULL, "company" character varying NOT NULL, "startDate" date NOT NULL, "endDate" date, "userId" integer, CONSTRAINT "PK_cf0a6c42b72fcc7f7c237def345" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "projects" ("id" SERIAL NOT NULL, "title" character varying NOT NULL, "link" character varying NOT NULL, "userId" integer, CONSTRAINT "PK_6271df0a7aed1d6c0691ce6ac50" PRIMARY KEY ("id"))`);
@@ -58,9 +58,9 @@ export class CreateUser1702763328738 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "projects"`);
         await queryRunner.query(`DROP TABLE "jobs"`);
         await queryRunner.query(`DROP TABLE "universities"`);
+        await queryRunner.query(`DROP TABLE "file"`);
         await queryRunner.query(`DROP TABLE "status"`);
         await queryRunner.query(`DROP TABLE "role"`);
-        await queryRunner.query(`DROP TABLE "file"`);
     }
 
 }

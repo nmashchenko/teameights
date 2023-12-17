@@ -1,6 +1,6 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { Notification } from './entities/notification.entity';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
@@ -8,6 +8,9 @@ import { CreateNotificationDto, SystemNotificationDataDto } from './dto/create-n
 import { NotificationTypesEnum } from './types/notification.type';
 import { EntityCondition } from '../../utils/types/entity-condition.type';
 import { NullableType } from '../../utils/types/nullable.type';
+import { FilterNotificationDto, SortNotificationDto } from './dto/query-notification.dto';
+import { IPaginationOptions } from '../../utils/types/pagination-options';
+import { JwtPayloadType } from '../auth/base/strategies/types/jwt-payload.type';
 
 @Injectable()
 export class NotificationsService {
@@ -20,48 +23,99 @@ export class NotificationsService {
   public async readNotification(id: number) {
     const notification = await this.findOne({ id: id });
 
-    if (notification) {
-      notification.read = !notification.read;
-      await this.notificationRepository.save(notification);
+    if (!notification) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            user: `notification with id: ${id} was not found`,
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
     }
+
+    notification.read = !notification.read;
+    await this.notificationRepository.save(notification);
   }
 
-  // see user service and how it's done there
   public async deleteNotification(id: number) {
     const notification = await this.findOne({ id: id });
 
-    if (notification) {
-      await this.notificationRepository.remove(notification);
+    if (!notification) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            user: `notification with id: ${id} was not found`,
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
     }
+
+    await this.notificationRepository.remove(notification);
   }
 
-  // NB: this is ideal example of how it should be used
   public async findOne(fields: EntityCondition<Notification>): Promise<NullableType<Notification>> {
     return this.notificationRepository.findOne({
       where: fields,
     });
   }
 
-  async findByFromUser(userId: number) {
-    return await this.notificationRepository
-      .createQueryBuilder('notification')
-      .leftJoinAndSelect('notification.receiver', 'receiver')
-      .where("notification.data -> 'fromUser' -> 'id' = :userId", {
-        userId: userId,
-      })
-      .getMany();
-  }
+  async findManyWithPagination({
+    userJwtPayload,
+    filterOptions,
+    sortOptions,
+    paginationOptions,
+  }: {
+    userJwtPayload: JwtPayloadType;
+    filterOptions: FilterNotificationDto;
+    sortOptions?: SortNotificationDto[] | null;
+    paginationOptions: IPaginationOptions;
+  }): Promise<Notification[]> {
+    const where: FindOptionsWhere<Notification> = {};
 
-  async findByReceiver(receiverId: number) {
-    return await this.notificationRepository.find({
-      where: { receiver: { id: receiverId } },
+    where.receiver = { id: userJwtPayload.id };
+
+    if (filterOptions?.type) {
+      switch (filterOptions.type) {
+        case NotificationTypesEnum.system:
+          where.type = NotificationTypesEnum.system;
+          break;
+        case NotificationTypesEnum.team_invitation:
+          where.type = NotificationTypesEnum.team_invitation;
+          break;
+        default:
+          // Handle the default case or leave it empty if not needed
+          break;
+      }
+    }
+
+    if (filterOptions?.read) {
+      where.read = filterOptions.read.toLowerCase() == 'true';
+    }
+
+    return this.notificationRepository.find({
+      skip: (paginationOptions.page - 1) * paginationOptions.limit,
+      take: paginationOptions.limit,
+      where: where,
+      order: sortOptions?.reduce(
+        (accumulator, sort) => ({
+          ...accumulator,
+          [sort.orderBy]: sort.order,
+        }),
+        {}
+      ),
     });
   }
 
   // improve code here
   async createNotification(dto: CreateNotificationDto) {
-    const receiver = await this.checkAndGetReceiver(dto.receiver);
+    const receiver = await this.getUser(dto.receiver);
+
     const data = await this.getDataByType(dto);
+
     await this.notificationRepository.save(
       this.notificationRepository.create({
         receiver: receiver,
@@ -72,22 +126,34 @@ export class NotificationsService {
   }
 
   private async getDataByType(dto: CreateNotificationDto) {
-    //TODO: rewrite for switch  to add more cases
-    if (dto.type == 'system') {
-      const data = dto.data as SystemNotificationDataDto;
-      return {
-        system_message: data.system_message,
-      };
+    switch (dto.type) {
+      case 'system':
+        const data = dto.data as SystemNotificationDataDto;
+        return {
+          system_message: data.system_message,
+        };
+      // Add more cases here as needed
+      default:
+        // Handle the default case or leave it empty if not needed
+        break;
     }
   }
 
-  // improve code here, doesn;t have to error out
-  private async checkAndGetReceiver(receiver: string): Promise<User> {
-    const user = await this.usersService.findOne({ username: receiver });
+  private async getUser(username: string): Promise<User> {
+    const user = await this.usersService.findOne({ username });
+
     if (!user) {
-      throw new BadRequestException('Receiver not exist');
-    } else {
-      return user;
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            user: `user ${username} was not found`,
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
     }
+
+    return user;
   }
 }
