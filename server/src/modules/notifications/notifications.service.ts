@@ -110,7 +110,6 @@ export class NotificationsService {
     });
   }
 
-  // improve code here
   async createNotification(dto: CreateNotificationDto) {
     const receiver = await this.getUser(dto.receiver);
 
@@ -125,7 +124,7 @@ export class NotificationsService {
     );
   }
 
-  private async getDataByType(dto: CreateNotificationDto) {
+  private getDataByType(dto: CreateNotificationDto) {
     switch (dto.type) {
       case 'system':
         const data = dto.data as SystemNotificationDataDto;
