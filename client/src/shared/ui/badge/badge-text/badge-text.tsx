@@ -41,7 +41,7 @@ export const BadgeText: FC<BadgeFrameworkProps> = props => {
     <div
       className={clsx([className], styles.badge_text)}
       style={{
-        backgroundColor: `${badgeColors[data] ? badgeColors[data] : '#2F3239'}`,
+        backgroundColor: `${badgeColors[data] ? badgeColors[data] : 'var(--grey-dark-color)'}`,
         color: badgeTextColors[data],
         maxWidth: `${maxWidth ? maxWidth : '100%'}`,
       }}

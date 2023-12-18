@@ -1,0 +1,17 @@
+.option_list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option_item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+
+  &_wrapper {
+    overflow: hidden;
+  }
+}
