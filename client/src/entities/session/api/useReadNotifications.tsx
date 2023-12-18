@@ -5,7 +5,7 @@ import { API_NOTIFICATIONS } from '@/shared/constant';
 export const useReadNotifications = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    // TODO: add types here
+    // TODO: add types here and change to read all notifications
     mutationFn: async (id: string) => await API.patch(API_NOTIFICATIONS + `/${id}`),
     onSuccess: () => {
       // Invalidate and refetch

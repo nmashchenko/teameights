@@ -1,14 +1,11 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { NotificationType } from '@teameights/types';
-import { generateSystemNotification, generateTeamInvitationNotification } from '@/shared/lib';
+import { generateSystemNotification } from '@/shared/lib';
 import { NotificationsModalProps, SidebarNotificationsModal } from './notification-modal';
 
 // Generating mock notifications to use in stories
-const mockNotifications: NotificationType[] = [
-  generateSystemNotification(),
-  generateTeamInvitationNotification(),
-];
+const mockNotifications: NotificationType[] = [generateSystemNotification()];
 
 const notificationsModalProps: NotificationsModalProps = {
   userNotifications: mockNotifications,

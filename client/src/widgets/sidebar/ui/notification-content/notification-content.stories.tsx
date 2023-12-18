@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import { Meta, StoryFn } from '@storybook/react';
 import { NotificationContentProps, SidebarNotificationsContent } from './notification-content';
-import { generateMockUser, generateSystemNotification } from '@/shared/lib';
+import { generateSystemNotification } from '@/shared/lib';
 
 // Generate mock notifications using the provided mocs feature
 const mockNotifications = Array.from({ length: 5 }).map(() => generateSystemNotification());
 
-// Using the mock user function to generate a user with notifications
-const mockUser = generateMockUser(undefined, undefined, mockNotifications);
-
 const defaultProps: NotificationContentProps = {
-  userNotifications: mockUser.notifications,
+  userNotifications: mockNotifications,
   isSidebarExpanded: false,
   notificationModal: false,
   setNotificationModal: () => {},
@@ -50,7 +47,7 @@ SidebarCollapsed.args = {
 export const WithNotifications = { ...NotificationContentTemplate };
 WithNotifications.args = {
   ...defaultProps,
-  userNotifications: mockUser.notifications,
+  userNotifications: mockNotifications,
 };
 
 // Without Notifications
@@ -64,7 +61,7 @@ WithoutNotifications.args = {
 export const WithUnreadNotifications = { ...NotificationContentTemplate };
 WithUnreadNotifications.args = {
   ...defaultProps,
-  userNotifications: mockUser.notifications.filter(notification => !notification.read),
+  userNotifications: mockNotifications.filter(notification => !notification.read),
 };
 
 export default {
