@@ -14,10 +14,12 @@ export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisco
   server: Server;
 
   handleConnection(client: Socket) {
+    console.log('client', client.id, 'connected');
     // TODO: add authorization checks (jwt)
   }
 
   handleDisconnect(client: Socket) {
+    console.log('client', client.id, 'disconnected');
     // TODO: Handle disconnection event
   }
 

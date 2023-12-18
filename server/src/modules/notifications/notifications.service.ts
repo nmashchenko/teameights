@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { Notification } from './entities/notification.entity';
 import { UsersService } from '../users/users.service';
-import { User } from '../users/entities/user.entity';
 import { CreateNotificationDto, SystemNotificationDataDto } from './dto/create-notification.dto';
 import { NotificationTypesEnum } from './types/notification.type';
 import { EntityCondition } from '../../utils/types/entity-condition.type';

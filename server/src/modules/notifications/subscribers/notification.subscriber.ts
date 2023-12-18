@@ -11,12 +11,12 @@ export class NotificationSubscriber implements EntitySubscriberInterface<Notific
     dataSource.subscribers.push(this);
   }
 
-  listenTo(): Function | string {
+  listenTo() {
     return Notification;
   }
 
   // TODO: add MQ support: https://docs.nestjs.com/recipes/cqrs (EventPublisher)
-  afterInsert(event: InsertEvent<Notification>): void {
+  afterInsert(event: InsertEvent<Notification>) {
     this.notificationsGateway.sendMessage(event);
   }
 }
