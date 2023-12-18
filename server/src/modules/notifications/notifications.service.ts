@@ -20,18 +20,30 @@ export class NotificationsService {
     private readonly usersService: UsersService
   ) {}
 
-  public async readNotification(id: number) {
+  public async readNotification(id: number, userJwtPayload: JwtPayloadType) {
     const notification = await this.findOne({ id: id });
 
     if (!notification) {
       throw new HttpException(
         {
-          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          status: HttpStatus.NOT_FOUND,
           errors: {
-            user: `notification with id: ${id} was not found`,
+            notification: `notification with id: ${id} was not found`,
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    if (notification.receiver.id !== userJwtPayload.id) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNAUTHORIZED,
+          errors: {
+            notification: `current user can't update this notification. administrator was notified about this action.`,
+          },
+        },
+        HttpStatus.UNAUTHORIZED
       );
     }
 
@@ -39,7 +51,7 @@ export class NotificationsService {
     await this.notificationRepository.save(notification);
   }
 
-  public async deleteNotification(id: number) {
+  public async deleteNotification(id: number, userJwtPayload: JwtPayloadType) {
     const notification = await this.findOne({ id: id });
 
     if (!notification) {
@@ -47,10 +59,22 @@ export class NotificationsService {
         {
           status: HttpStatus.UNPROCESSABLE_ENTITY,
           errors: {
-            user: `notification with id: ${id} was not found`,
+            notification: `notification with id: ${id} was not found`,
           },
         },
         HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
+
+    if (notification.receiver.id !== userJwtPayload.id) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNAUTHORIZED,
+          errors: {
+            notification: `current user can't delete this notification. administrator was notified about this action.`,
+          },
+        },
+        HttpStatus.UNAUTHORIZED
       );
     }
 
@@ -111,13 +135,25 @@ export class NotificationsService {
   }
 
   async createNotification(dto: CreateNotificationDto) {
-    const receiver = await this.getUser(dto.receiver);
+    const user = await this.usersService.findOne({ username: dto.receiver });
 
-    const data = await this.getDataByType(dto);
+    if (!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          errors: {
+            user: `user ${dto.receiver} was not found`,
+          },
+        },
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    const data = this.getDataByType(dto);
 
     await this.notificationRepository.save(
       this.notificationRepository.create({
-        receiver: receiver,
+        receiver: user,
         type: NotificationTypesEnum[dto.type],
         data: data,
       })
@@ -136,23 +172,5 @@ export class NotificationsService {
         // Handle the default case or leave it empty if not needed
         break;
     }
-  }
-
-  private async getUser(username: string): Promise<User> {
-    const user = await this.usersService.findOne({ username });
-
-    if (!user) {
-      throw new HttpException(
-        {
-          status: HttpStatus.UNPROCESSABLE_ENTITY,
-          errors: {
-            user: `user ${username} was not found`,
-          },
-        },
-        HttpStatus.UNPROCESSABLE_ENTITY
-      );
-    }
-
-    return user;
   }
 }

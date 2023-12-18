@@ -34,6 +34,7 @@ export class NotificationsController {
   constructor(private readonly notificationService: NotificationsService) {}
 
   @Post()
+  @ApiBearerAuth()
   @Roles(RoleEnum.admin)
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @HttpCode(HttpStatus.CREATED)
@@ -84,8 +85,8 @@ export class NotificationsController {
   @Roles(RoleEnum.user)
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
-  async readUnreadNotification(@Param('id') id: number) {
-    await this.notificationService.readNotification(id);
+  async readUnreadNotification(@Request() request, @Param('id') id: number) {
+    await this.notificationService.readNotification(id, request.user);
   }
 
   @Delete(':id')
@@ -93,7 +94,7 @@ export class NotificationsController {
   @Roles(RoleEnum.user)
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteNotification(@Param('id') id: number) {
-    await this.notificationService.deleteNotification(id);
+  async deleteNotification(@Request() request, @Param('id') id: number) {
+    await this.notificationService.deleteNotification(id, request.user);
   }
 }
