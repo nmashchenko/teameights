@@ -5187,12 +5187,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@teameights/types@npm:^1.1.24":
-  version: 1.1.24
-  resolution: "@teameights/types@npm:1.1.24"
+"@teameights/types@npm:^1.1.27":
+  version: 1.1.27
+  resolution: "@teameights/types@npm:1.1.27"
   dependencies:
     esno: ^0.17.0
-  checksum: 4d3fabdddd6cefa9236653b7cbad7582cdf1230e746dc7b807830508b275a6db8d49b5ed7c94b1db0e9c637bd7705e4032174589ad108134b60f423bbbeab7cf
+  checksum: dc9478e04a3a1f26feddd08abd558a6e280af9d18e9465a9965c158fca11aecfb6d675ee4349b8e9947f69e4efac50318608d24f9db7a9729e16d076f4d25be2
   languageName: node
   linkType: hard
 
@@ -7728,7 +7728,7 @@ __metadata:
     "@tanstack/eslint-plugin-query": ^5.0.0
     "@tanstack/react-query": ^5.0.0
     "@tanstack/react-query-devtools": ^5.0.1
-    "@teameights/types": ^1.1.24
+    "@teameights/types": ^1.1.27
     "@testing-library/jest-dom": ^6.1.3
     "@testing-library/react": ^14.0.0
     "@types/jest": ^29.5.5

@@ -140,6 +140,7 @@ export class User extends EntityHelper {
   @JoinColumn()
   links?: Links;
 
+  @Exclude({ toPlainOnly: true })
   @OneToMany(() => Notification, notifications => notifications.receiver)
   notifications: Notification[];
 

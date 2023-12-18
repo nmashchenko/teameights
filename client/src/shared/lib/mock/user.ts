@@ -7,11 +7,9 @@ import {
   IProject,
   IRole,
   IStatus,
-  ITeam,
   IUniversity,
   IUserBase,
   IUserProtectedResponse,
-  NotificationType,
 } from '@teameights/types';
 import { getRandomItemFromArray, shuffleArray } from './common';
 import {
@@ -116,11 +114,7 @@ export const generateMockUniversity = (): IUniversity => ({
   graduationDate: faker.datatype.boolean() ? faker.date.past() : null,
 });
 
-export const generateMockUser = (
-  type: Speciality = 'developer',
-  initialTeam?: ITeam,
-  initialNotifications?: NotificationType[]
-): IUserBase => {
+export const generateMockUser = (type: Speciality = 'developer'): IUserBase => {
   const user: IUserBase = {
     id: faker.number.int(),
     username: faker.internet.userName(),
@@ -151,9 +145,6 @@ export const generateMockUser = (
     ),
     links: faker.datatype.boolean() ? generateMockLinks() : null,
     skills: null,
-    notifications: initialNotifications ? initialNotifications : [],
-    // to avoid dead lock we can't generate team here, we will need to add team
-    team: initialTeam ? initialTeam : null,
     createdAt: faker.date.recent(),
     updatedAt: faker.date.recent(),
     deletedAt: faker.datatype.boolean() ? faker.date.recent() : null,

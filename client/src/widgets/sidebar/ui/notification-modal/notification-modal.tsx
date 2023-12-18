@@ -6,6 +6,7 @@ import { useClickOutside, useGetScreenWidth } from '@/shared/lib';
 import { SidebarDesktopModalContent } from './desktop-modal-content';
 import { SidebarMobileModalContent } from './mobile-modal-content';
 import { NotificationType } from '@teameights/types';
+import { useReadNotifications } from '@/entities/session/api/useReadNotifications';
 
 export interface NotificationsModalProps {
   userNotifications: NotificationType[];
@@ -15,6 +16,7 @@ export interface NotificationsModalProps {
 
 export const SidebarNotificationsModal: React.FC<NotificationsModalProps> = props => {
   const { userNotifications, notificationModal, setNotificationModal } = props;
+  const { mutate: readNotifications } = useReadNotifications();
 
   const [unreadIds, setUnreadIds] = useState(new Set<string>());
   // const { mutateAsync: readMessages } = useReadMessages();
@@ -29,8 +31,8 @@ export const SidebarNotificationsModal: React.FC<NotificationsModalProps> = prop
     if (notificationModal) {
       setNotificationModal(false);
       if (unreadIds.size) {
-        // Request to the server is here
-        // await readMessages(Array.from(unreadIds))
+        console.log(Array.from(unreadIds));
+        readNotifications(Array.from(unreadIds)[0]);
         setUnreadIds(new Set());
       }
     }

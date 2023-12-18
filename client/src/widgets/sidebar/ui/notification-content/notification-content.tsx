@@ -55,7 +55,9 @@ export const SidebarNotificationsContent: React.FC<NotificationContentProps> = p
   const { notificationModal, setNotificationModal, userNotifications, isSidebarExpanded } = props;
 
   const unreadMessages = React.useMemo(() => {
-    return userNotifications?.filter(item => !item.read);
+    if (userNotifications?.length) {
+      return userNotifications?.filter(item => !item.read);
+    }
   }, [userNotifications]);
 
   const toggleNotificationModal = () => {

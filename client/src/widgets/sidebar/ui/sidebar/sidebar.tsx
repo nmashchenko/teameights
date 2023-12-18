@@ -15,11 +15,13 @@ import { SidebarNotificationsContent } from '../notification-content/notificatio
 import styles from './sidebar.module.scss';
 import { useGetMe, useLogout } from '@/entities/session';
 import { LOGIN } from '@/shared/constant';
+import { useGetNotifications } from '@/entities/session/api/useGetNotifications';
 
 export const Sidebar: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { data: user } = useGetMe();
+  const { data: notifications } = useGetNotifications();
   const { mutate: logoutUser } = useLogout();
 
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -97,7 +99,7 @@ export const Sidebar: React.FC = () => {
           <div className={styles.interactions}>
             {isSignedUp && user && (
               <SidebarNotificationsContent
-                userNotifications={user.notifications}
+                userNotifications={notifications?.data}
                 isSidebarExpanded={isSidebarExpanded}
                 notificationModal={notificationModal}
                 setNotificationModal={setNotificationModal}

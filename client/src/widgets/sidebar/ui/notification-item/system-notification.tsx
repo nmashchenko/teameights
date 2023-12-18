@@ -32,7 +32,7 @@ export const SidebarSystemNotification: React.FC<SystemNotificationProps> = prop
           {!notification.read && <div className={styles.messageCircle} />}
           <LightningIcon />
         </div>
-        <p className={styles.messageText}>{notification.system_message}</p>
+        <p className={styles.messageText}>{notification.data.system_message}</p>
       </Flex>
       <p className={styles.sendingTime}>{getElapsedTime(notification.createdAt)}</p>
     </>

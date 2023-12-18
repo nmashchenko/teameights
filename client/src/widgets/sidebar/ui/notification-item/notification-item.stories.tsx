@@ -1,10 +1,9 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { SidebarNotificationsItem } from './notification-item';
-import { generateSystemNotification, generateTeamInvitationNotification } from '@/shared/lib';
+import { generateSystemNotification } from '@/shared/lib';
 
 const systemNotificationMock = generateSystemNotification();
-const teamInvitationNotificationMock = generateTeamInvitationNotification();
 
 type Story = StoryObj<typeof SidebarNotificationsItem>;
 const NotificationItemTemplate: Story = { render: args => <SidebarNotificationsItem {...args} /> };
@@ -15,12 +14,12 @@ Playground.args = {
   closeNotificationsModal: () => console.log('Modal Closed'),
 };
 
-// Team Invitation Notification
-export const TeamInvitation = { ...NotificationItemTemplate };
-TeamInvitation.args = {
-  notification: teamInvitationNotificationMock,
-  closeNotificationsModal: () => console.log('Modal Closed'),
-};
+// // Team Invitation Notification
+// export const TeamInvitation = { ...NotificationItemTemplate };
+// TeamInvitation.args = {
+//   notification: teamInvitationNotificationMock,
+//   closeNotificationsModal: () => console.log('Modal Closed'),
+// };
 
 // Read Notification
 export const ReadNotification = { ...NotificationItemTemplate };
@@ -28,7 +27,9 @@ ReadNotification.args = {
   notification: {
     ...systemNotificationMock,
     read: true,
-    system_message: 'This is a read notification',
+    data: {
+      system_message: 'This is a read notification',
+    },
   },
   closeNotificationsModal: () => console.log('Modal Closed'),
 };

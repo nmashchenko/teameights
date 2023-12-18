@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 
 import styles from './notification-list.module.scss';
 import { SidebarNotificationsItem } from '../notification-item/notification-item';
@@ -53,34 +53,35 @@ export interface NotificationsListProps {
  * />
  * ```
  */
-export const SidebarNotificationsList: React.FC<NotificationsListProps> = props => {
+export const SidebarNotificationsList: FC<NotificationsListProps> = props => {
   const { userNotifications, setUnreadIds, closeNotificationsModal } = props;
 
   const listRef = useRef<HTMLUListElement>(null);
 
-  const sortedNotifications = React.useMemo(
-    () => sortNotifications(userNotifications),
-    [userNotifications]
-  );
+  const sortedNotifications = useMemo(() => {
+    if (userNotifications?.length) {
+      return sortNotifications(userNotifications);
+    }
+  }, [userNotifications]);
 
-  const handleIntersection = React.useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const itemId = entry.target.getAttribute('data-notification-id');
-          const isRead = entry.target.getAttribute('data-notification-read');
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const itemId = entry.target.getAttribute('data-notification-id');
+        const isRead = entry.target.getAttribute('data-notification-read');
 
-          if (isRead === 'false' && itemId) {
-            setUnreadIds(prev => new Set([...Array.from(prev), itemId]));
-          }
+        console.log(itemId);
+
+        if (isRead === 'false' && itemId) {
+          setUnreadIds(prev => new Set([...Array.from(prev), itemId]));
         }
-      });
-    },
-    [setUnreadIds]
-  );
+      }
+    });
+  };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection);
+    console.log(observer);
     const listItems = listRef.current?.querySelectorAll('[data-notification-read]');
     listItems?.forEach(item => observer.observe(item));
 
@@ -91,7 +92,7 @@ export const SidebarNotificationsList: React.FC<NotificationsListProps> = props 
 
   return (
     <ul className={styles.notificationsList} ref={listRef}>
-      {sortedNotifications.map(notification => (
+      {sortedNotifications?.map(notification => (
         <SidebarNotificationsItem
           key={notification.id}
           closeNotificationsModal={closeNotificationsModal}

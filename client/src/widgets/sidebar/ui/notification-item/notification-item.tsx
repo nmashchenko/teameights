@@ -1,9 +1,5 @@
-// import { useChangeMessageStatus } from '../../../api/hooks/123/useChangeMessageStatus'
-// import { useGetTeamData } from '../../../api/hooks/team/useGetTeamData'
-// import { LOCAL_PATH } from '../../../http'
 import React from 'react';
 
-import { SidebarTeamInvatitionNotification } from './team-invatition-notification';
 import { SidebarSystemNotification } from './system-notification';
 
 import styles from './notification-item.module.scss';
@@ -33,31 +29,31 @@ export interface NotificationProps {
  * ```
  */
 export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
-  const { notification, closeNotificationsModal } = props;
+  const { notification } = props;
 
-  const handleAccept = () => {
-    // Mock the mutatios
-    console.log('Accepted the invitation');
-    closeNotificationsModal();
-  };
+  // const handleAccept = () => {
+  //   // Mock the mutatios
+  //   console.log('Accepted the invitation');
+  //   closeNotificationsModal();
+  // };
 
-  const handleReject = () => {
-    // Mock the mutation
-    console.log('Rejected the invitation');
-  };
+  // const handleReject = () => {
+  //   // Mock the mutation
+  //   console.log('Rejected the invitation');
+  // };
 
   const renderContent = () => {
     switch (notification.type) {
       case 'system':
         return <SidebarSystemNotification notification={notification} />;
-      case 'team_invite':
-        return (
-          <SidebarTeamInvatitionNotification
-            notification={notification}
-            handleAccept={handleAccept}
-            handleReject={handleReject}
-          />
-        );
+      // case 'team_invite':
+      //   return (
+      //     <SidebarTeamInvatitionNotification
+      //       notification={notification}
+      //       handleAccept={handleAccept}
+      //       handleReject={handleReject}
+      //     />
+      //   );
       default:
         console.error(`Unknown notification type: ${notification}`);
         return null;
