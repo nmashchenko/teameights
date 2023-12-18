@@ -31,8 +31,7 @@ export const SidebarNotificationsModal: React.FC<NotificationsModalProps> = prop
     if (notificationModal) {
       setNotificationModal(false);
       if (unreadIds.size) {
-        // TODO: fix this when batch read notifications will be implemented on server
-        readNotifications(Array.from(unreadIds)[0]);
+        readNotifications(Array.from(unreadIds));
         setUnreadIds(new Set());
       }
     }

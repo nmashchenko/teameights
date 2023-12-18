@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 
 import styles from './notification-list.module.scss';
 import { SidebarNotificationsItem } from '../notification-item/notification-item';
@@ -64,24 +64,20 @@ export const SidebarNotificationsList: FC<NotificationsListProps> = props => {
     }
   }, [userNotifications]);
 
-  // TODO: fix this
-  const handleIntersection = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const itemId = entry.target.getAttribute('data-notification-id');
-          const isRead = entry.target.getAttribute('data-notification-read');
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const itemId = entry.target.getAttribute('data-notification-id');
+        const isRead = entry.target.getAttribute('data-notification-read');
 
-          console.log(itemId);
+        console.log(itemId);
 
-          if (isRead === 'false' && itemId) {
-            setUnreadIds(prev => new Set([...Array.from(prev), itemId]));
-          }
+        if (isRead === 'false' && itemId) {
+          setUnreadIds(prev => new Set([...Array.from(prev), itemId]));
         }
-      });
-    },
-    [setUnreadIds]
-  );
+      }
+    });
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection);

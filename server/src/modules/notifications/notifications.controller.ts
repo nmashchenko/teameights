@@ -24,6 +24,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Notification } from './entities/notification.entity';
 import { infinityPagination } from '../../utils/infinity-pagination';
 import { QueryNotificationDto } from './dto/query-notification.dto';
+import { ReadNotificationsDto } from './dto/read-notifications.dto';
 
 @ApiTags('Notifications')
 @Controller({
@@ -51,10 +52,10 @@ export class NotificationsController {
   @Get('')
   async findAll(@Request() request, @Query() query: QueryNotificationDto) {
     const page = query?.page ?? 1;
-    let limit = query?.limit ?? 10;
+    let limit = query?.limit ?? 50;
 
-    if (limit > 10) {
-      limit = 10;
+    if (limit > 50) {
+      limit = 50;
     }
 
     return infinityPagination(
@@ -80,13 +81,13 @@ export class NotificationsController {
     return this.notificationService.findOne({ id: +id });
   }
 
-  @Patch(':id')
+  @Patch()
   @ApiBearerAuth()
   @Roles(RoleEnum.user)
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
-  async readUnreadNotification(@Request() request, @Param('id') id: number) {
-    await this.notificationService.readNotification(id, request.user);
+  async readUnreadNotification(@Request() request, @Body() dto: ReadNotificationsDto) {
+    await this.notificationService.readNotification(dto, request.user);
   }
 
   @Delete(':id')

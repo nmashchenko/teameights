@@ -6,7 +6,8 @@ export const useReadNotifications = () => {
   const queryClient = useQueryClient();
   return useMutation({
     // TODO: add types here and change to read all notifications
-    mutationFn: async (id: string) => await API.patch(API_NOTIFICATIONS + `/${id}`),
+    mutationFn: async (data: string[]) =>
+      await API.patch(API_NOTIFICATIONS, { notification_ids: data }),
     onSuccess: () => {
       // Invalidate and refetch
       queryClient
