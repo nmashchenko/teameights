@@ -1,5 +1,5 @@
-import {ApiProperty} from "@nestjs/swagger";
-import {ArrayNotEmpty, IsOptional} from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { ArrayNotEmpty, IsOptional } from 'class-validator';
 
 export class DeveloperDto {
   @ApiProperty()
