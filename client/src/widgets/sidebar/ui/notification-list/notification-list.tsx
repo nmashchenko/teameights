@@ -64,22 +64,20 @@ export const SidebarNotificationsList: FC<NotificationsListProps> = props => {
     }
   }, [userNotifications]);
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const itemId = entry.target.getAttribute('data-notification-id');
-        const isRead = entry.target.getAttribute('data-notification-read');
-
-        console.log(itemId);
-
-        if (isRead === 'false' && itemId) {
-          setUnreadIds(prev => new Set([...Array.from(prev), itemId]));
-        }
-      }
-    });
-  };
-
   useEffect(() => {
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const itemId = entry.target.getAttribute('data-notification-id');
+          const isRead = entry.target.getAttribute('data-notification-read');
+
+          if (isRead === 'false' && itemId) {
+            setUnreadIds(prev => new Set([...Array.from(prev), itemId]));
+          }
+        }
+      });
+    };
+
     const observer = new IntersectionObserver(handleIntersection);
     const listItems = listRef.current?.querySelectorAll('[data-notification-read]');
     listItems?.forEach(item => observer.observe(item));
@@ -87,7 +85,7 @@ export const SidebarNotificationsList: FC<NotificationsListProps> = props => {
     return () => {
       observer.disconnect();
     };
-  }, [handleIntersection]);
+  }, [setUnreadIds]);
 
   return (
     <ul className={styles.notificationsList} ref={listRef}>

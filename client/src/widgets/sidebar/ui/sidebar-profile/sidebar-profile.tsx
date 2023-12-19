@@ -5,7 +5,6 @@ import styles from './sidebar-profile.module.scss';
 import { IUserProtectedResponse } from '@teameights/types';
 import { ImageLoader, Typography } from '@/shared/ui';
 
-// import { useCheckAuth } from '../../../api/hooks/auth/useCheckAuth';
 const unregisteredImg = '/images/user-images/unregistered.png';
 
 const defaultData = {

@@ -24,6 +24,8 @@ export const Sidebar: React.FC = () => {
   const { data: notifications } = useGetNotifications();
   const { mutate: logoutUser } = useLogout();
 
+  console.log(notifications);
+
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false);
 
@@ -61,10 +63,7 @@ export const Sidebar: React.FC = () => {
         </div>
       </button>
 
-      <aside
-        className={clsx(styles.sidebarWrapper, { [styles.active]: isSidebarExpanded })}
-        aria-expanded={isSidebarExpanded}
-      >
+      <aside className={clsx(styles.sidebarWrapper, { [styles.active]: isSidebarExpanded })}>
         <nav
           ref={navMenuRef}
           onClick={e => e.stopPropagation()}

@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useCallback, useState } from 'react';
 
 import { useClickOutside, useGetScreenWidth } from '@/shared/lib';
 
@@ -19,13 +18,7 @@ export const SidebarNotificationsModal: React.FC<NotificationsModalProps> = prop
   const { mutate: readNotifications } = useReadNotifications();
 
   const [unreadIds, setUnreadIds] = useState(new Set<string>());
-  // const { mutateAsync: readMessages } = useReadMessages();
   const width = useGetScreenWidth();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const closeNotificationsModal = useCallback(() => {
     if (notificationModal) {
@@ -35,7 +28,7 @@ export const SidebarNotificationsModal: React.FC<NotificationsModalProps> = prop
         setUnreadIds(new Set());
       }
     }
-  }, [notificationModal, setNotificationModal, unreadIds]);
+  }, [notificationModal, setNotificationModal, unreadIds, readNotifications]);
 
   const notificationModalRef = useClickOutside<HTMLDivElement>(closeNotificationsModal);
 
@@ -55,17 +48,13 @@ export const SidebarNotificationsModal: React.FC<NotificationsModalProps> = prop
           setUnreadIds={setUnreadIds}
         />
       ) : (
-        isClient &&
-        createPortal(
-          <SidebarMobileModalContent
-            userNotifications={userNotifications}
-            notificationModal={notificationModal}
-            closeNotificationsModal={closeNotificationsModal}
-            markAllAsRead={markAllAsRead}
-            setUnreadIds={setUnreadIds}
-          />,
-          document.body
-        )
+        <SidebarMobileModalContent
+          userNotifications={userNotifications}
+          notificationModal={notificationModal}
+          closeNotificationsModal={closeNotificationsModal}
+          markAllAsRead={markAllAsRead}
+          setUnreadIds={setUnreadIds}
+        />
       )}
     </>
   );

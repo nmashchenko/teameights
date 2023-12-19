@@ -1,8 +1,10 @@
 import { faker } from '@faker-js/faker';
-import { ISystemNotification, IUserBase } from '@teameights/types';
+import { ISystemNotification, IUserBase, IUserProtectedResponse } from '@teameights/types';
 import { generateMockUser } from './user';
 
-export const generateSystemNotification = (initialUser?: IUserBase): ISystemNotification => ({
+export const generateSystemNotification = (
+  initialUser?: IUserBase | IUserProtectedResponse
+): ISystemNotification => ({
   id: faker.number.int(),
   receiver: initialUser ? initialUser : generateMockUser(),
   type: 'system',
@@ -14,3 +16,11 @@ export const generateSystemNotification = (initialUser?: IUserBase): ISystemNoti
     system_message: faker.lorem.sentence(),
   },
 });
+
+export const generateMockNotifications = (
+  count: number,
+  initialUser?: IUserBase | IUserProtectedResponse
+): ISystemNotification[] => {
+  // todo: add support for other types
+  return Array.from({ length: count }).map(() => generateSystemNotification(initialUser));
+};

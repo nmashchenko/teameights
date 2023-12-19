@@ -86,24 +86,11 @@
 .mobileWrapper {
   width: 100%;
   min-height: 100dvh;
-  background: #26292b;
+  background: #26292b !important;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  overflow: scroll;
-
-  ::-webkit-scrollbar {
-    transition: all 0.2s;
-    width: 0;
-    height: 0;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #000000;
-  }
+  overflow-y: scroll;
 }
 
 .text {

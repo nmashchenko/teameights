@@ -66,7 +66,7 @@ export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
 
   return (
     <DrawerComponent
-      zIndex={99}
+      zIndex={999}
       open={open}
       onClose={onClose}
       direction={direction}

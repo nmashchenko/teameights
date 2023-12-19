@@ -10,7 +10,6 @@ export const useGetNotifications = () => {
     queryFn: async () => {
       const { data } =
         await API.get<InfinityPaginationResultType<NotificationType>>(API_NOTIFICATIONS);
-      console.log(data);
       return data;
     },
     refetchOnMount: false,
