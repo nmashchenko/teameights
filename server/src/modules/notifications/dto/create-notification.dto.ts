@@ -1,7 +1,7 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
 import { IsIn, IsNotEmpty, IsNumber, IsObject, IsString, ValidateNested } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
-import { lowerCaseTransformer } from '../../../utils/transformers/lower-case.transformer';
+
 export class SystemNotificationDataDto {
   @IsString()
   @IsNotEmpty()

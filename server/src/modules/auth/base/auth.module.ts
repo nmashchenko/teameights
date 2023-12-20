@@ -11,7 +11,6 @@ import { IsExist } from 'src/utils/validators/is-exists.validator';
 import { IsNotExist } from 'src/utils/validators/is-not-exists.validator';
 import { SessionModule } from 'src/modules/session/session.module';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsModule } from '../../notifications/notifications.module';
 
 @Module({
