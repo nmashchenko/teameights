@@ -34,6 +34,7 @@ export const SidebarSystemNotification: React.FC<SystemNotificationProps> = prop
         </div>
         <p className={styles.messageText}>{notification.data.system_message}</p>
       </Flex>
+      {/* TODO: FIX time here, rn in UTC() but function doesn't work for it */}
       <p className={styles.sendingTime}>{getElapsedTime(notification.createdAt)}</p>
     </>
   );

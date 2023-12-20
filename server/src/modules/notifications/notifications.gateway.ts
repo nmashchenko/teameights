@@ -8,7 +8,11 @@ import { Socket, Server } from 'socket.io';
 import { Notification } from './entities/notification.entity';
 import { InsertEvent } from 'typeorm';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: {
+    origin: '*',
+  },
+})
 export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;

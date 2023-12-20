@@ -1,5 +1,5 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
-import { IsIn, IsNotEmpty, IsObject, IsString, ValidateNested } from 'class-validator';
+import { IsIn, IsNotEmpty, IsNumber, IsObject, IsString, ValidateNested } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { lowerCaseTransformer } from '../../../utils/transformers/lower-case.transformer';
 export class SystemNotificationDataDto {
@@ -27,10 +27,10 @@ export class SystemNotificationDataDto {
 
 @ApiExtraModels(SystemNotificationDataDto)
 export class CreateNotificationDto {
-  @ApiProperty({ example: 'nmashchenko' })
-  @Transform(lowerCaseTransformer)
-  @IsNotEmpty()
-  receiver: string;
+  @ApiProperty({ example: '1' })
+  @Transform(({ value }) => (value ? Number(value) : undefined))
+  @IsNumber()
+  receiver: number;
 
   @ApiProperty({ enum: ['system', 'team_invitation'] })
   @IsNotEmpty({ message: 'mustBeNotEmpty' })

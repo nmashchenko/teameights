@@ -139,14 +139,14 @@ export class NotificationsService {
   }
 
   async createNotification(dto: CreateNotificationDto) {
-    const user = await this.usersService.findOne({ username: dto.receiver });
+    const user = await this.usersService.findOne({ id: dto.receiver });
 
     if (!user) {
       throw new HttpException(
         {
           status: HttpStatus.NOT_FOUND,
           errors: {
-            user: `user ${dto.receiver} was not found`,
+            user: `user with id: ${dto.receiver} was not found`,
           },
         },
         HttpStatus.NOT_FOUND

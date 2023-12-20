@@ -16,6 +16,7 @@ import styles from './sidebar.module.scss';
 import { useGetMe, useLogout } from '@/entities/session';
 import { LOGIN } from '@/shared/constant';
 import { useGetNotifications } from '@/entities/session/api/useGetNotifications';
+import { useSocketConnection } from '@/widgets/sidebar/lib/hooks/useListenToNotifications';
 
 export const Sidebar: React.FC = () => {
   const router = useRouter();
@@ -24,12 +25,13 @@ export const Sidebar: React.FC = () => {
   const { data: notifications } = useGetNotifications();
   const { mutate: logoutUser } = useLogout();
 
-  console.log(notifications);
-
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false);
 
   const isSignedUp = !!user?.username;
+
+  // TODO: FIX THAT so only one connection to websocket exists
+  useSocketConnection(user);
 
   const sidebarItemsData = React.useMemo(() => {
     return getSidebarItems(user);

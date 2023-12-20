@@ -85,7 +85,7 @@ export const SidebarNotificationsList: FC<NotificationsListProps> = props => {
     return () => {
       observer.disconnect();
     };
-  }, [setUnreadIds]);
+  }, [setUnreadIds, userNotifications]);
 
   return (
     <ul className={styles.notificationsList} ref={listRef}>

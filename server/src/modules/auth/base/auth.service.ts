@@ -23,6 +23,7 @@ import { SessionService } from 'src/modules/session/session.service';
 import { JwtRefreshPayloadType } from './strategies/types/jwt-refresh-payload.type';
 import { Session } from 'src/modules/session/entities/session.entity';
 import { JwtPayloadType } from './strategies/types/jwt-payload.type';
+import { NotificationsService } from '../../notifications/notifications.service';
 
 @Injectable()
 export class AuthService {
@@ -31,6 +32,7 @@ export class AuthService {
     private usersService: UsersService,
     private sessionService: SessionService,
     private mailService: MailService,
+    private notificationsService: NotificationsService,
     private configService: ConfigService<AllConfigType>
   ) {}
 
@@ -149,6 +151,8 @@ export class AuthService {
         status,
       });
 
+      await this.sendWelcomeNotification(user);
+
       user = await this.usersService.findOne({
         id: user.id,
       });
@@ -213,6 +217,8 @@ export class AuthService {
         }),
       }
     );
+
+    await this.sendWelcomeNotification(user);
 
     await this.mailService.userSignUp({
       to: dto.email,
@@ -479,5 +485,15 @@ export class AuthService {
       refreshToken,
       tokenExpires,
     };
+  }
+
+  private async sendWelcomeNotification(user: User) {
+    await this.notificationsService.createNotification({
+      receiver: user.id,
+      type: 'system',
+      data: {
+        system_message: 'Welcome to Teameights!',
+      },
+    });
   }
 }
