@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 import { User } from '../../users/entities/user.entity';
 import { NotificationTypeData, NotificationTypesEnum } from '../types/notification.type';
@@ -16,12 +24,18 @@ export class Notification {
   @Column({ type: Boolean, default: false })
   read: boolean;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
   @Column({ type: 'enum', enum: NotificationTypesEnum })
   type: NotificationTypesEnum;
 
   @Column({ type: 'jsonb' })
   data: NotificationTypeData;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
+
+  @DeleteDateColumn({ type: 'timestamptz' })
+  deletedAt: Date;
 }

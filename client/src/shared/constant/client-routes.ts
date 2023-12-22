@@ -8,3 +8,11 @@ export const PASSWORD_EXPIRED = '/password/expired';
 export const SIGNUP_CONFIRMATION = '/signup/confirmation';
 
 export const LOGIN = '/login';
+
+export const SIGNUP = '/signup';
+
+export const TEAM = '/team';
+
+export const PROFILE = '/profile';
+
+export const TOURNAMENTS = '/tournaments';

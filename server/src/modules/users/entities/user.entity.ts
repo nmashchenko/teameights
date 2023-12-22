@@ -140,18 +140,19 @@ export class User extends EntityHelper {
   @JoinColumn()
   links?: Links;
 
+  @Exclude({ toPlainOnly: true })
   @OneToMany(() => Notification, notifications => notifications.receiver)
   notifications: Notification[];
 
   // @ManyToOne(() => Team, team => team.users)
   // team: Team;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
 }

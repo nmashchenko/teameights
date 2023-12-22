@@ -2,7 +2,6 @@
 
 import { QuestionIcon } from '@/shared/assets';
 import { Tooltip } from 'react-tooltip';
-import Link from 'next/link';
 import { RefObject, useState } from 'react';
 import { useClickOutside, useGetScreenWidth } from '@/shared/lib';
 import styles from './need-help.module.scss';
@@ -41,9 +40,9 @@ export const NeedHelp = ({ shouldHideWhenWidth = 0 }: NeedHelpProps) => {
           >
             <Typography size='body_s'>
               If you have any issues, please email <br /> us at{' '}
-              <Link href={mailTo}>
-                <span className={styles.span}>helpteameights@gmail.com</span>
-              </Link>
+              <a className={styles.span} href={mailTo}>
+                helpteameights@gmail.com
+              </a>
             </Typography>
           </Tooltip>
         </div>

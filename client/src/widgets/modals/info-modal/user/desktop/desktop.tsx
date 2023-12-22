@@ -7,15 +7,15 @@ import { InfoModalUserProps } from '../interfaces';
 
 export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
-  const showInviteButton = () => {
-    if (user?.team) {
-      if (!user.team.members?.some(member => member.id === user.id)) {
-        return true;
-      }
-    }
-
-    return false;
-  };
+  // const showInviteButton = () => {
+  //   if (user?.team) {
+  //     if (!user.team.members?.some(member => member.id === user.id)) {
+  //       return true;
+  //     }
+  //   }
+  //
+  //   return false;
+  // };
   return (
     <>
       <Modal isOpen={isOpenModal} onClose={handleClose} size='m'>
@@ -101,12 +101,12 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
           )}
           <Flex justify='space-between' align='center' margin='24px 0 0 0'>
             <Flex gap='8px'>
-              {showInviteButton() && (
+              {
                 <Button typeBtn='primary' size='m' width='100px'>
-                  Invite
+                  Connect
                   <UserPlusIcon />
                 </Button>
-              )}
+              }
 
               <Button typeBtn='secondary' size='m' width='124px'>
                 Message

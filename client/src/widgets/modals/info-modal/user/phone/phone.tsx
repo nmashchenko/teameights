@@ -8,15 +8,15 @@ import { ImageLoader } from '@/shared/ui/image-loader/image-loader';
 
 export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
-  const showInviteButton = () => {
-    if (user?.team) {
-      if (!user.team.members?.some(member => member.id === user.id)) {
-        return true;
-      }
-    }
-
-    return false;
-  };
+  // const showInviteButton = () => {
+  //   if (user?.team) {
+  //     if (!user.team.members?.some(member => member.id === user.id)) {
+  //       return true;
+  //     }
+  //   }
+  //
+  //   return false;
+  // };
 
   return (
     <>
@@ -73,11 +73,11 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
               </Flex>
             </Flex>
             <Flex gap='8px' width='100%'>
-              {showInviteButton() && (
+              {
                 <Button typeBtn='primary' size='m' width='100%'>
-                  Invite
+                  Connect
                 </Button>
-              )}
+              }
               <Button typeBtn='secondary' size='m' width='100%'>
                 Message
               </Button>

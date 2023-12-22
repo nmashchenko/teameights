@@ -10,6 +10,16 @@ export { XIcon } from './x';
 export { SearchIcon } from './search';
 export { UserPlusIcon } from './user-plus';
 export { ChatCircleDotsIcon } from './chat-circle-dots';
+export { BellIcon } from './bell';
+export { ChecksIcon } from './checks';
+export { LightningIcon } from './lightning';
+export { BurgerCloseIcon } from './burger-close';
+export { SignInIcon } from './sign-in';
+export { SignOutIcon } from './sign-out';
+export { TrophyIcon } from './trophy';
+export { UserIcon } from './user';
+export { UsersIcon } from './users';
+
 export * from './arrows';
 export * from './caret';
 export * from './crowns';

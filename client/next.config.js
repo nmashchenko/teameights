@@ -3,7 +3,12 @@ const path = require('path');
 
 module.exports = {
   images: {
-    domains: ['picsum.photos', 'source.unsplash.com'],
+    domains: [
+      'teameights-production.s3.amazonaws.com',
+      'localhost',
+      'picsum.photos',
+      'source.unsplash.com',
+    ],
     remotePatterns: [
       {
         protocol: 'https',
