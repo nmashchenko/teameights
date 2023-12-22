@@ -1,7 +1,4 @@
-export const calculateAge = (birthDate: string | Date | undefined): number => {
-  if (!birthDate) {
-    return -999;
-  }
+export const calculateAge = (birthDate: string | Date): number => {
   const birthDateObj = typeof birthDate === 'string' ? new Date(birthDate) : birthDate;
   const currentDate = new Date();
 
