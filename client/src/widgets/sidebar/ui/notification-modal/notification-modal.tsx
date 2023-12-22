@@ -33,7 +33,12 @@ export const SidebarNotificationsModal: React.FC<NotificationsModalProps> = prop
   const notificationModalRef = useClickOutside<HTMLDivElement>(closeNotificationsModal);
 
   const markAllAsRead = () => {
-    // ... rest of the function ...
+    const unreadNotifications = userNotifications
+      .filter(notification => !notification.read)
+      .map(notification => String(notification.id));
+    if (unreadNotifications.length) {
+      readNotifications(unreadNotifications);
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { clsx } from 'clsx';
 
-import { IconWrapper } from '@/shared/ui';
+import { Flex, IconWrapper } from '@/shared/ui';
 import { ChecksIcon, XIcon } from '@/shared/assets';
 
 import { SidebarNotificationsList } from '../notification-list/notification-list';
@@ -31,7 +31,7 @@ export const SidebarDesktopModalContent: React.FC<DesktopModalContentProps> = pr
       ref={notificationModalRef}
       onClick={e => e.stopPropagation()}
     >
-      <div className={styles.notificationsHeader}>
+      <Flex className={styles.notificationsHeader} width='100%' justify='space-between'>
         <div className={styles.markAllBtn} onClick={markAllAsRead}>
           <IconWrapper width='20px' height='20px'>
             <ChecksIcon />
@@ -41,7 +41,7 @@ export const SidebarDesktopModalContent: React.FC<DesktopModalContentProps> = pr
         <div className={styles.crossBtn} onClick={closeNotificationsModal}>
           <XIcon />
         </div>
-      </div>
+      </Flex>
       <SidebarNotificationsList
         userNotifications={userNotifications}
         closeNotificationsModal={closeNotificationsModal}

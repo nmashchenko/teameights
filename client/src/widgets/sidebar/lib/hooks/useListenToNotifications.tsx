@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { socket } from '@/shared/api/socket';
 import { IUserProtectedResponse } from '@teameights/types';
+import { socket } from '@/shared/api/socket';
 
 export const useSocketConnection = (user?: IUserProtectedResponse) => {
   const queryClient = useQueryClient();
@@ -10,35 +10,24 @@ export const useSocketConnection = (user?: IUserProtectedResponse) => {
     if (!user) {
       return;
     }
-    const handleConnect = () => {
-      console.log('connected');
-    };
 
-    const handleDisconnect = () => {
-      console.log('disconnected');
-    };
+    socket.connect();
+
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
 
     const handleNotification = () => {
-      queryClient
-        .invalidateQueries({ queryKey: ['useGetNotifications'] })
-        .then(() => console.log('notification added'));
+      queryClient.invalidateQueries({ queryKey: ['useGetNotifications'] });
     };
 
-    const setupSocketListeners = () => {
-      socket.on('connect', handleConnect);
-      socket.on('disconnect', handleDisconnect);
-      socket.on(`notification-${user.id}`, handleNotification);
-    };
-
-    const cleanupSocketListeners = () => {
-      socket.off('connect', handleConnect);
-      socket.off('disconnect', handleDisconnect);
-      socket.off(`notification-${user.id}`, handleNotification);
-    };
-
-    setupSocketListeners();
+    socket.on(`notification-${user.id}`, handleNotification);
 
     // Cleanup socket listeners when the component unmounts
-    return cleanupSocketListeners;
-  }, [user, queryClient]);
+    return () => {
+      console.log('Disconnecting from WebSocket server...');
+      socket.off(`notification-${user.id}`, handleNotification);
+      socket.disconnect();
+    };
+  }, [user]);
 };

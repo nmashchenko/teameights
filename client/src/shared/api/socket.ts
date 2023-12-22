@@ -8,11 +8,13 @@ class SocketSingleton {
   }
 
   public static getInstance(): Socket {
-    if (!SocketSingleton.instance) {
+    if (!this.instance) {
       // Create a new socket instance if it doesn't exist
-      SocketSingleton.instance = io('ws://localhost:3001');
+      this.instance = io('ws://localhost:3001', {
+        autoConnect: false,
+      });
     }
-    return SocketSingleton.instance;
+    return this.instance;
   }
 }
 

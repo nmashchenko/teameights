@@ -23,7 +23,7 @@ export class NotificationsService {
   public async readNotification(dto: ReadNotificationsDto, userJwtPayload: JwtPayloadType) {
     const notificationIds = dto.notification_ids;
 
-    for (let id of notificationIds) {
+    for (const id of notificationIds) {
       const notification = await this.findOne({ id: Number(id) });
 
       if (!notification) {

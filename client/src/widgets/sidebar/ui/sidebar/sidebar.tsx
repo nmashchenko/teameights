@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -13,27 +13,29 @@ import { SidebarProfile } from '../sidebar-profile/sidebar-profile';
 import { SidebarNotificationsContent } from '../notification-content/notification-content';
 
 import styles from './sidebar.module.scss';
-import { useGetMe, useLogout } from '@/entities/session';
+import { useLogout } from '@/entities/session';
 import { LOGIN } from '@/shared/constant';
-import { useGetNotifications } from '@/entities/session/api/useGetNotifications';
-import { useSocketConnection } from '@/widgets/sidebar/lib/hooks/useListenToNotifications';
+import {
+  InfinityPaginationResultType,
+  IUserProtectedResponse,
+  NotificationType,
+} from '@teameights/types';
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  user?: IUserProtectedResponse;
+  notifications?: InfinityPaginationResultType<NotificationType>;
+}
+
+export const Sidebar: FC<SidebarProps> = ({ user, notifications }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { data: user } = useGetMe();
-  const { data: notifications } = useGetNotifications();
   const { mutate: logoutUser } = useLogout();
-
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const [notificationModal, setNotificationModal] = useState(false);
 
   const isSignedUp = !!user?.username;
 
-  // TODO: FIX THAT so only one connection to websocket exists
-  useSocketConnection(user);
-
-  const sidebarItemsData = React.useMemo(() => {
+  const sidebarItemsData = useMemo(() => {
     return getSidebarItems(user);
   }, [user]);
 

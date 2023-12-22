@@ -1,7 +1,7 @@
 import React, { Dispatch, FC, SetStateAction } from 'react';
 
 import { ChecksIcon, XIcon } from '@/shared/assets';
-import { Drawer, IconWrapper } from '@/shared/ui';
+import { Button, Drawer, Flex, IconWrapper } from '@/shared/ui';
 
 import { SidebarNotificationsList } from '../notification-list/notification-list';
 import { NotificationsModalProps } from './notification-modal';
@@ -30,24 +30,26 @@ export const SidebarMobileModalContent: FC<MobileModalContentProps> = props => {
       className={styles.mobileWrapper}
     >
       <div>
-        <div className={styles.notificationsHeader}>
-          <h3 className={styles.text}>Notifications</h3>
-          <div className={styles.crossBtn} onClick={closeNotificationsModal}>
-            <XIcon />
-          </div>
-        </div>
+        <Flex className={styles.notificationsHeader} direction='column' gap='8px'>
+          <Flex width='100%' justify='space-between'>
+            <h3 className={styles.text}>Notifications</h3>
+            <div className={styles.crossBtn} onClick={closeNotificationsModal}>
+              <XIcon />
+            </div>
+          </Flex>
+          <Button onClick={markAllAsRead} width='100%' typeBtn='secondary'>
+            <IconWrapper width='20px' height='20px'>
+              <ChecksIcon />
+            </IconWrapper>
+            <p>Mark all as read</p>
+          </Button>
+        </Flex>
         <SidebarNotificationsList
           userNotifications={userNotifications}
           closeNotificationsModal={closeNotificationsModal}
           setUnreadIds={setUnreadIds}
         />
       </div>
-      <button className={styles.markAllBtnMobile} onClick={markAllAsRead}>
-        <IconWrapper width='20px' height='20px'>
-          <ChecksIcon />
-        </IconWrapper>
-        <p>Mark all as read</p>
-      </button>
     </Drawer>
   );
 };
