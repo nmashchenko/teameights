@@ -9,7 +9,7 @@ interface LanguageItemProps {
 export const LanguageItem = ({ language, onClick, isActive }: LanguageItemProps) => {
   return (
     <div onClick={() => onClick()} className={styles.language_item}>
-      <Flex gap='8px' align='center'>
+      <Flex className={styles.framework_wrapper} gap='8px' align='center'>
         <BadgeIcon isActive={Boolean(isActive)} data={language} />
         <Typography className={styles.language_text} size='body_s'>
           {language}
