@@ -1,21 +1,15 @@
 'use client';
 import { Flex, SearchBar } from '@/shared/ui';
-import { useGetScreenWidth } from '@/shared/lib';
 import { countries, specialities } from '@/shared/constant';
 import { LogoBig } from '@/shared/assets';
 import { useGetUsers } from '@/entities/session';
 import { useState } from 'react';
 import { Cards } from '@/app/(main)/ui/cards/cards';
 import styles from './layout.module.scss';
+
 export default function Home() {
-  const width = useGetScreenWidth();
   const [filters, setFilters] = useState<string | null>();
-  const { data: users, isPending } = useGetUsers({
-    page: 1,
-    limit: 50,
-    filters: filters,
-    sort: '',
-  });
+  const { fetchNextPage, hasNextPage, isFetchingNextPage, data, ...result } = useGetUsers(filters);
 
   return (
     <>
@@ -54,10 +48,18 @@ export default function Home() {
               filterValue: [],
             },
           ]}
-          onChange={filterValues => console.log(filterValues)}
+          onChange={filterValues => {
+            setFilters(filterValues);
+          }}
         />
       </Flex>
-      <Cards users={users} isLoading={isPending} />
+      <Cards
+        data={data}
+        isLoading={result.isLoading}
+        isFetchingNextPage={isFetchingNextPage}
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+      />
     </>
   );
 }

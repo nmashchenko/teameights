@@ -13,6 +13,7 @@
   width: 100%;
   max-width: 1196px;
   grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
 
   @media screen and (max-width: 1440px) {
     max-width: 826px;
