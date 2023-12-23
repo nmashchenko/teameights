@@ -22,7 +22,7 @@ export const Specialty = () => {
     if (selectedExperience) {
       setValue("experience", selectedExperience);
     }
-  }, [selectedSpeciality, selectedExperience])
+  }, [selectedSpeciality, selectedExperience, setValue])
 
   const handleChange = (newValue: SingleValue<ExperienceProps>) => {
     if (newValue) {
