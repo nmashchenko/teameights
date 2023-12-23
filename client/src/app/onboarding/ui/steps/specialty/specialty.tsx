@@ -1,21 +1,47 @@
 import { Checkbox, Flex, Select, Typography } from '@/shared/ui';
 import { SelectableBlock } from '../../shared';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ExperienceProps, experiences, specialities } from '@/shared/constant';
 import { principalSpecialities } from './principal-specialities';
 import { SingleValue } from 'react-select';
+import {useFormContext} from "react-hook-form";
 
 export const Specialty = () => {
-  const [selectedSpeciality, setSelectedSpeciality] = useState('');
+    const { setValue , getValues} = useFormContext();
+  const { specialty } = getValues();
+  const [occupation, setOccupation] = useState("");
+  const [selectedSpeciality, setSelectedSpeciality] = useState(specialty ?? "");
   const [selectedExperience, setSelectedExperience] = useState('');
   const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (selectedSpeciality) {
+      setValue("specialty", selectedSpeciality);
+    }
+    if (selectedExperience) {
+      setValue("experience", selectedExperience);
+    }
+  }, [selectedSpeciality, selectedExperience])
 
   const handleChange = (newValue: SingleValue<ExperienceProps>) => {
     if (newValue) {
       setSelectedExperience(newValue.label);
     }
   };
+
+  const handleSpecialityChange = (newValue: SingleValue<ExperienceProps>) => {
+    if (newValue) {
+      setSelectedSpeciality(newValue.label);
+    }
+  };
+
+  useEffect(() => {
+    if (occupation === "Designer" || occupation === "Manager") {
+      setSelectedSpeciality(occupation);
+    }
+  }, [occupation])
+
 
   return (
     <Flex direction='column' width='400px'>
@@ -26,20 +52,20 @@ export const Specialty = () => {
               text={speciality.name}
               gap='8px'
               padding='8px'
-              onClick={() => setSelectedSpeciality(speciality.name)}
-              selected={speciality.name === selectedSpeciality}
+              onClick={() => setOccupation(speciality.name)}
+              selected={speciality.name === occupation}
               key={speciality.name}
             >
               <Image src={speciality.image} alt={speciality.name} width={24} height={24} />
             </SelectableBlock>
           ))}
         </Flex>
-        {selectedSpeciality === 'Developer' && (
+        {occupation === 'Developer' && (
           <div>
             <Typography size='body_s' color='greyNormal'>
               Specialty
             </Typography>
-            <Select name='specialty' options={specialities} />
+            <Select name='specialty' options={specialities} onChange={handleSpecialityChange} />
           </div>
         )}
         <div>

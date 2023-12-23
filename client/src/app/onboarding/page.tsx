@@ -27,7 +27,7 @@ interface FormValues {
   fields?: Option[];
 }
 
-function useSteps(getValues: UseFormGetValues<FormValues>) {
+function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
   const [steps, setSteps] = useState(DEFAULT_STEPS);
   const [step, setStep] = useState(0);
 
@@ -87,12 +87,12 @@ function useSteps(getValues: UseFormGetValues<FormValues>) {
   return { steps, step, handleNext, handleBack };
 }
 const OnboardingPage = () => {
-  // TODO: move this logic into separate hook
 
   const methods = useForm<FormValues>({
-    defaultValues: { occupation: 'designer', fields: [{ label: '3D', value: '3d' }] },
+    defaultValues: { fields: [], languages: [], frameworks: [] },
   });
   const { steps, step, handleNext, handleBack } = useSteps(methods.getValues);
+
 
   return (
     <Flex width={'100vw'} height={'100dvh'}>
