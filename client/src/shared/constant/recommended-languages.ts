@@ -1,4 +1,5 @@
 export const recommendedLanguages = {
+  // It is not languages, but rather step 1 fields? Since it also includes Designer and Manager
   'Backend Developer': [
     { label: 'JavaScript', value: 'javascript' },
     { label: 'PHP', value: 'php' },
@@ -86,6 +87,8 @@ export const recommendedLanguages = {
   'No-code Developer': [
     // No specific programming languages recommended
   ],
+  "Manager": [],
+  "Designer": [],
   'QA/Test Engineer': [
     { label: 'Python', value: 'python' },
     { label: 'JavaScript', value: 'javascript' },

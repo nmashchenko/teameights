@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { steps as DEFAULT_STEPS } from './steps';
 import { occupations } from '@/app/onboarding/occupations';
 import { SelectFields } from '@/app/onboarding/step/select-fields';
-import { recommendedLanguages, fields } from '@/shared/constant';
+import { recommendedLanguages } from '@/shared/constant';
 import { recommendedDesignerTools } from '@/shared/constant/recommended-designer-tools';
 
 const SPECIALITY_STEP = 2;
@@ -19,9 +19,11 @@ interface Option {
   value: string;
 }
 
+type Occupation = "Manager" | "Designer" | "Developer"
+type Specialty = "Manager" | "Designer" | keyof typeof recommendedLanguages
+
 interface FormValues {
-  occupation?: 'designer' | 'developer' | 'manager';
-  specialty?: keyof typeof recommendedLanguages;
+  specialty?: Specialty;
   frameworks?: Option[];
   languages?: Option[];
   fields?: Option[];
@@ -33,13 +35,14 @@ function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
 
   const handleNext = () => {
     if (step + 1 <= steps.length - 1) {
-      const { languages, occupation, specialty, fields } = getValues();
-      if (occupation) {
-        const occupationFields = occupations[occupation];
+      const { languages, specialty, fields } = getValues();
+      if (specialty) {
+        const occupation = specialty.toLowerCase().includes("developer") ? "Developer" : specialty;
+        const occupationFields = occupations[occupation as Occupation];
         const newSteps = occupationFields.map(occupationItem => {
           const recommended: { label: string; value: string }[] = [];
 
-          if (occupation === 'designer' && Array.isArray(fields) && fields.length > 0) {
+          if (occupation === 'Designer' && Array.isArray(fields) && fields.length > 0) {
             fields.forEach(field => {
               const recommendedItems =
                 recommendedDesignerTools[field.label as keyof typeof recommendedDesignerTools];
@@ -49,7 +52,7 @@ function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
             });
           }
 
-          if (specialty && (!languages || languages?.length === 0)) {
+          if (specialty && occupation === "Developer" && (!languages || languages?.length === 0)) {
             recommended.push(...recommendedLanguages[specialty]);
           }
 

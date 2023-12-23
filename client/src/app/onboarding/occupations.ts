@@ -8,7 +8,7 @@ import {
 } from '@/shared/constant';
 
 export const occupations = {
-  designer: [
+  Designer: [
     {
       type: 'badgeText',
       fields: fields,
@@ -20,11 +20,11 @@ export const occupations = {
       title: 'Tools',
     },
   ],
-  manager: [
+  Manager: [
     { fields: methodologies, type: 'badgeText', title: 'Frameworks' },
     { fields: managerTools, type: 'badgeIcon', title: 'Tools' },
   ],
-  developer: [
+  Developer: [
     { type: 'badgeIcon', fields: programmingLanguages, title: 'Languages' },
     { fields: frameworks, type: 'badgeText', title: 'Frameworks' },
   ],
