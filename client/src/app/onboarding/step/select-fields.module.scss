@@ -22,7 +22,26 @@
       display: none;
     }
   }
+}
 
+.badge_icon_placeholder_container {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.badge_text_placeholder_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  & > div {
+    width: 100%;
+    height: 32px;
+  }
+
+  @media (max-width: 450px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .badge_icon_container {
@@ -59,7 +78,7 @@
   margin-bottom: 24px;
 }
 
-.languages_list {
+.fields_list {
   height: 49vh;
 
   overflow-y: scroll;

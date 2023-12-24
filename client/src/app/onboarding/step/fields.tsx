@@ -1,4 +1,4 @@
-import { LanguageItem } from '@/app/onboarding/ui';
+import { EmptyTile, LanguageItem } from '@/app/onboarding/ui';
 import { BadgeIcon } from '@/shared/ui';
 import { FrameworkItem } from '@/app/onboarding/ui/framework-item/framework-item';
 import styles from './select-fields.module.scss';
@@ -9,12 +9,12 @@ interface ComponentProps {
   isActive: boolean;
 }
 
-interface PlaceholderProps extends Omit<ComponentProps, 'onClick'> {}
 interface Fields {
   [key: string]: {
     component: (props: ComponentProps) => JSX.Element;
-    placeholder: (props: PlaceholderProps) => JSX.Element;
+    placeholder: () => JSX.Element;
     containerClass: string;
+    selectedContainerClass: string;
   };
 }
 
@@ -23,14 +23,16 @@ export const fields: Fields = {
     component: ({ data, onClick, isActive }) => (
       <LanguageItem language={data} onClick={onClick} isActive={isActive} />
     ),
-    placeholder: ({ isActive, data }) => <BadgeIcon isActive={isActive} data={data} />,
+    placeholder: EmptyTile,
     containerClass: styles.badge_icon_container,
+    selectedContainerClass: styles.badge_icon_placeholder_container,
   },
   badgeText: {
     component: ({ data, onClick, isActive }) => (
       <FrameworkItem framework={data} onClick={onClick} isActive={isActive} />
     ),
-    placeholder: ({ isActive, data }) => <BadgeIcon isActive={isActive} data={data} />,
+    placeholder: EmptyTile,
     containerClass: styles.badge_text_container,
+    selectedContainerClass: styles.badge_text_placeholder_container,
   },
 };

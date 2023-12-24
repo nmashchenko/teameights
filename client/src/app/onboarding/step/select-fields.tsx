@@ -21,6 +21,7 @@ export const SelectFields = ({ recommendedList, fieldsName, fieldsList }: Select
     component: FieldComponent,
     placeholder: Placeholder,
     containerClass,
+    selectedContainerClass,
   } = fields[fieldsName];
   const [text, setText] = useState('');
   const [selectedFields, setFields] = useState<IOptionItem[]>([]);
@@ -60,21 +61,24 @@ export const SelectFields = ({ recommendedList, fieldsName, fieldsList }: Select
       <div className={styles.fields}>
         <div className={styles.top}>
           <div className={styles.selected_fields}>
-            <Flex wrap='wrap' gap='24px'>
+            <div className={selectedContainerClass}>
               {Array(8)
                 .fill(null)
                 .map((_, index) => {
                   const FieldsItem = selectedFields[index];
                   if (FieldsItem) {
                     return (
-                      <div onClick={() => toggleField(FieldsItem)} key={index}>
-                        <Placeholder isActive={true} data={FieldsItem.label} />
-                      </div>
+                      <FieldComponent
+                        onClick={() => toggleField(FieldsItem)}
+                        key={index}
+                        isActive={true}
+                        data={FieldsItem.label}
+                      />
                     );
                   }
-                  return <EmptyTile key={index} />;
+                  return <Placeholder key={index} />;
                 })}
-            </Flex>
+            </div>
           </div>
           <div className={styles.search}>
             <Flex>
