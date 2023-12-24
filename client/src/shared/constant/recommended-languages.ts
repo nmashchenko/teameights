@@ -87,8 +87,8 @@ export const recommendedLanguages = {
   'No-code Developer': [
     // No specific programming languages recommended
   ],
-  "Manager": [],
-  "Designer": [],
+  Manager: [],
+  Designer: [],
   'QA/Test Engineer': [
     { label: 'Python', value: 'python' },
     { label: 'JavaScript', value: 'javascript' },

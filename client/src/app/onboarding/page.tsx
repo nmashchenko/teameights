@@ -19,8 +19,8 @@ interface Option {
   value: string;
 }
 
-type Occupation = "Manager" | "Designer" | "Developer"
-type Specialty = "Manager" | "Designer" | keyof typeof recommendedLanguages
+type Occupation = 'Manager' | 'Designer' | 'Developer';
+type Specialty = 'Manager' | 'Designer' | keyof typeof recommendedLanguages;
 
 interface FormValues {
   specialty?: Specialty;
@@ -37,7 +37,7 @@ function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
     if (step + 1 <= steps.length - 1) {
       const { languages, specialty, fields } = getValues();
       if (specialty) {
-        const occupation = specialty.toLowerCase().includes("developer") ? "Developer" : specialty;
+        const occupation = specialty.toLowerCase().includes('developer') ? 'Developer' : specialty;
         const occupationFields = occupations[occupation as Occupation];
         const newSteps = occupationFields.map(occupationItem => {
           const recommended: { label: string; value: string }[] = [];
@@ -52,7 +52,7 @@ function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
             });
           }
 
-          if (specialty && occupation === "Developer" && (!languages || languages?.length === 0)) {
+          if (specialty && occupation === 'Developer' && (!languages || languages?.length === 0)) {
             recommended.push(...recommendedLanguages[specialty]);
           }
 
@@ -90,12 +90,10 @@ function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
   return { steps, step, handleNext, handleBack };
 }
 const OnboardingPage = () => {
-
   const methods = useForm<FormValues>({
     defaultValues: { fields: [], languages: [], frameworks: [] },
   });
   const { steps, step, handleNext, handleBack } = useSteps(methods.getValues);
-
 
   return (
     <Flex width={'100vw'} height={'100dvh'}>

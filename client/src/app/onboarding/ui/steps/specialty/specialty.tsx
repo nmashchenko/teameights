@@ -5,24 +5,24 @@ import { useState, useEffect } from 'react';
 import { ExperienceProps, experiences, specialities } from '@/shared/constant';
 import { principalSpecialities } from './principal-specialities';
 import { SingleValue } from 'react-select';
-import {useFormContext} from "react-hook-form";
+import { useFormContext } from 'react-hook-form';
 
 export const Specialty = () => {
-    const { setValue , getValues} = useFormContext();
+  const { setValue, getValues } = useFormContext();
   const { specialty } = getValues();
-  const [occupation, setOccupation] = useState("");
-  const [selectedSpeciality, setSelectedSpeciality] = useState(specialty ?? "");
+  const [occupation, setOccupation] = useState('');
+  const [selectedSpeciality, setSelectedSpeciality] = useState(specialty ?? '');
   const [selectedExperience, setSelectedExperience] = useState('');
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     if (selectedSpeciality) {
-      setValue("specialty", selectedSpeciality);
+      setValue('specialty', selectedSpeciality);
     }
     if (selectedExperience) {
-      setValue("experience", selectedExperience);
+      setValue('experience', selectedExperience);
     }
-  }, [selectedSpeciality, selectedExperience, setValue])
+  }, [selectedSpeciality, selectedExperience, setValue]);
 
   const handleChange = (newValue: SingleValue<ExperienceProps>) => {
     if (newValue) {
@@ -37,11 +37,10 @@ export const Specialty = () => {
   };
 
   useEffect(() => {
-    if (occupation === "Designer" || occupation === "Manager") {
+    if (occupation === 'Designer' || occupation === 'Manager') {
       setSelectedSpeciality(occupation);
     }
-  }, [occupation])
-
+  }, [occupation]);
 
   return (
     <Flex direction='column' width='400px'>
