@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import styles from './select-fields.module.scss';
 import { IOptionItem } from '@/widgets/search/types';
 import { Search } from '../ui/shared';
-import { EmptyTile } from '@/app/onboarding/ui';
 import { useFormContext } from 'react-hook-form';
 import { fields } from './fields';
 
@@ -22,6 +21,7 @@ export const SelectFields = ({ recommendedList, fieldsName, fieldsList }: Select
     placeholder: Placeholder,
     containerClass,
     selectedContainerClass,
+    selected: SelectedField
   } = fields[fieldsName];
   const [text, setText] = useState('');
   const [selectedFields, setFields] = useState<IOptionItem[]>([]);
@@ -68,12 +68,13 @@ export const SelectFields = ({ recommendedList, fieldsName, fieldsList }: Select
                   const FieldsItem = selectedFields[index];
                   if (FieldsItem) {
                     return (
-                      <FieldComponent
-                        onClick={() => toggleField(FieldsItem)}
+                      <div key={index} onClick={() => toggleField(FieldsItem)}>
+                      <SelectedField
                         key={index}
                         isActive={true}
                         data={FieldsItem.label}
                       />
+                      </div>
                     );
                   }
                   return <Placeholder key={index} />;
