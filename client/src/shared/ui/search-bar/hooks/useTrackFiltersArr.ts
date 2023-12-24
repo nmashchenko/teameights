@@ -26,7 +26,7 @@ export const useTrackFilterArr = (
           case 'multiple':
           case 'checkbox':
             if (curr.filterValue.length) {
-              acc[curr.value] = curr.filterValue.map<string>(item => item.value);
+              acc[curr.value] = curr.filterValue.map<string>(item => item.label);
             }
 
             return acc;

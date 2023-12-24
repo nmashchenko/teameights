@@ -14,10 +14,10 @@ describe('getCountryFlag', () => {
   });
 
   it('should get nothing', () => {
-    expect(getCountryFlag('')).toBe('');
+    expect(getCountryFlag('')).toBe(undefined);
   });
 
   it('should get nothing for random words', () => {
-    expect(getCountryFlag('adfasreavxgeag')).toBe('');
+    expect(getCountryFlag('adfasreavxgeag')).toBe(undefined);
   });
 });

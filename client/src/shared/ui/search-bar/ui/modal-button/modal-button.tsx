@@ -18,7 +18,7 @@ export const ModalButton: FC<ModalButtonProps> = ({ onOpen, onClose }) => {
 
   return (
     <Flex align='center' justify='center' className={styles.modal_button} onClick={onOpen}>
-      <SearchIcon className={styles.search_icon} />
+      <SearchIcon className={styles.search_icon} color='#5BD424' size='24' />
     </Flex>
   );
 };
