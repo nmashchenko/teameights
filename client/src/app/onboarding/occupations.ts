@@ -13,19 +13,21 @@ export const occupations = {
       type: 'badgeText',
       fields: fields,
       title: 'Fields',
+      formName: 'fields',
     },
     {
       type: 'badgeIcon',
       fields: designerTools,
       title: 'Tools',
+      formName: 'tools',
     },
   ],
   Manager: [
-    { fields: methodologies, type: 'badgeText', title: 'Frameworks' },
-    { fields: managerTools, type: 'badgeIcon', title: 'Tools' },
+    { fields: methodologies, type: 'badgeText', title: 'Frameworks', formName: 'frameworks' },
+    { fields: managerTools, type: 'badgeIcon', title: 'Tools', formName: 'tools' },
   ],
   Developer: [
-    { type: 'badgeIcon', fields: programmingLanguages, title: 'Languages' },
-    { fields: frameworks, type: 'badgeText', title: 'Frameworks' },
+    { type: 'badgeIcon', fields: programmingLanguages, title: 'Languages', formName: 'frameworks' },
+    { fields: frameworks, type: 'badgeText', title: 'Frameworks', formName: 'frameworks' },
   ],
 };

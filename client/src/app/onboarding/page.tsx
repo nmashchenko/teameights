@@ -57,7 +57,11 @@ function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
             });
           }
 
-          if (specialty && occupation === 'Developer' && (!languages || languages?.length === 0)) {
+          if (
+            step === SPECIALITY_STEP &&
+            occupation === 'Developer' &&
+            (!languages || languages?.length === 0)
+          ) {
             recommended.push(...recommendedLanguages[specialty]);
           }
 
@@ -65,6 +69,7 @@ function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
             title: occupationItem.title,
             step: () => (
               <SelectFields
+                formName={occupationItem.formName}
                 recommendedList={recommended}
                 fieldsList={occupationItem.fields}
                 fieldsName={occupationItem.type}

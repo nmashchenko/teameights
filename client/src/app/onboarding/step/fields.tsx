@@ -11,7 +11,7 @@ interface ComponentProps {
 
 interface Fields {
   [key: string]: {
-    selected: (props: Omit<ComponentProps, "onClick">) => JSX.Element;
+    selected: (props: Omit<ComponentProps, 'onClick'>) => JSX.Element;
     component: (props: ComponentProps) => JSX.Element;
     placeholder: () => JSX.Element;
     containerClass: string;
@@ -24,7 +24,7 @@ export const fields: Fields = {
     component: ({ data, onClick, isActive }) => (
       <LanguageItem language={data} onClick={onClick} isActive={isActive} />
     ),
-    selected: ({ data, isActive}) => (<BadgeIcon isActive={isActive} data={data} />),
+    selected: ({ data, isActive }) => <BadgeIcon isActive={isActive} data={data} />,
     placeholder: EmptyTile,
     containerClass: styles.badge_icon_container,
     selectedContainerClass: styles.badge_icon_placeholder_container,
@@ -33,9 +33,7 @@ export const fields: Fields = {
     component: ({ data, onClick, isActive }) => (
       <FrameworkItem framework={data} onClick={onClick} isActive={isActive} />
     ),
-    selected: ({ data, isActive }) => (
-      <FrameworkItem framework={data} isActive={isActive} />
-    ),
+    selected: ({ data, isActive }) => <FrameworkItem framework={data} isActive={isActive} />,
     placeholder: EmptyTile,
     containerClass: styles.badge_text_container,
     selectedContainerClass: styles.badge_text_placeholder_container,

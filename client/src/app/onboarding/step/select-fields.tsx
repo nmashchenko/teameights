@@ -13,24 +13,30 @@ interface SelectFieldsProps {
   fieldsName: keyof typeof fields;
   fieldsList: { value: string; label: string }[];
   recommendedList: { value: string; label: string }[];
+  formName: string;
 }
 
-export const SelectFields = ({ recommendedList, fieldsName, fieldsList }: SelectFieldsProps) => {
+export const SelectFields = ({
+  recommendedList,
+  fieldsName,
+  fieldsList,
+  formName,
+}: SelectFieldsProps) => {
   const {
     component: FieldComponent,
     placeholder: Placeholder,
     containerClass,
     selectedContainerClass,
-    selected: SelectedField
+    selected: SelectedField,
   } = fields[fieldsName];
   const [text, setText] = useState('');
-  const [selectedFields, setFields] = useState<IOptionItem[]>([]);
-
   const { setValue, getValues } = useFormContext();
 
+  const [selectedFields, setFields] = useState<IOptionItem[]>(getValues()[formName] ?? []);
+
   useEffect(() => {
-    setValue(String(fieldsName), selectedFields);
-  }, [selectedFields, fieldsName, getValues, setValue]);
+    setValue(String(formName), selectedFields);
+  }, [selectedFields, formName, getValues, setValue]);
 
   function toggleField(Field: IOptionItem) {
     setFields(prev => {
@@ -69,11 +75,7 @@ export const SelectFields = ({ recommendedList, fieldsName, fieldsList }: Select
                   if (FieldsItem) {
                     return (
                       <div key={index} onClick={() => toggleField(FieldsItem)}>
-                      <SelectedField
-                        key={index}
-                        isActive={true}
-                        data={FieldsItem.label}
-                      />
+                        <SelectedField key={index} isActive={true} data={FieldsItem.label} />
                       </div>
                     );
                   }
@@ -94,7 +96,7 @@ export const SelectFields = ({ recommendedList, fieldsName, fieldsList }: Select
           </div>
         </div>
         <div className={styles.fields_list}>
-          {text === '' && (
+          {recommendedList.length > 0 && text === '' && (
             <div className={styles.recommended}>
               <Typography size='body_s' color='greyNormal'>
                 Recommended for you

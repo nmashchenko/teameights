@@ -9,7 +9,7 @@ interface LanguageItemProps {
 }
 
 export const FrameworkItem = ({ framework, onClick, isActive }: LanguageItemProps) => {
-  const onClickProp = onClick ? { onClick: () => onClick() } : { }
+  const onClickProp = onClick ? { onClick: () => onClick() } : {};
   return (
     <div style={{ width: '100%' }} {...onClickProp}>
       <Flex width={'100%'} gap='8px' align='center'>
