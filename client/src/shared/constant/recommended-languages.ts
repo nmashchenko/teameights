@@ -81,7 +81,7 @@ export const recommendedLanguages = {
     { label: 'Kotlin', value: 'kotlin' },
     { label: 'Swift', value: 'swift' },
     { label: 'Java', value: 'java' },
-    { label: 'Javascript', value: 'javascript' },
+    { label: 'JavaScript', value: 'javascript' },
     { label: 'TypeScript', value: 'typescript' },
   ],
   'No-code Developer': [
