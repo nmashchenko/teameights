@@ -6,13 +6,23 @@ import { useGetUsers } from '@/entities/session';
 import { useState } from 'react';
 import { Cards } from '@/app/(main)/ui/cards/cards';
 import styles from './layout.module.scss';
+import { UserInfoModal } from '@/widgets';
+import { IUserResponse } from '@teameights/types';
 
 export default function Home() {
   const [filters, setFilters] = useState<string | null>();
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data, ...result } = useGetUsers(filters);
+  const [open, setOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<IUserResponse>();
+
+  const handleModalOpen = (user: IUserResponse) => {
+    setSelectedUser(user);
+    setOpen(true);
+  };
 
   return (
     <>
+      <UserInfoModal isOpenModal={open} handleClose={() => setOpen(false)} user={selectedUser} />
       <Flex
         gap={48}
         direction='column'
@@ -27,7 +37,7 @@ export default function Home() {
             {
               type: 'text',
               label: 'Name',
-              value: 'name',
+              value: 'fullName',
               placeholder: 'Search by name',
               filterValue: '',
             },
@@ -40,9 +50,9 @@ export default function Home() {
               filterValue: [],
             },
             {
-              label: 'Specialty',
-              value: 'specialty',
-              type: 'multiple',
+              label: 'Specialties',
+              value: 'specialities',
+              type: 'checkbox',
               placeholder: 'Search by specialty',
               optionsArr: specialities,
               filterValue: [],
@@ -54,6 +64,7 @@ export default function Home() {
         />
       </Flex>
       <Cards
+        onCardClick={handleModalOpen}
         data={data}
         isLoading={result.isLoading}
         isFetchingNextPage={isFetchingNextPage}

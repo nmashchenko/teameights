@@ -8,6 +8,7 @@ module.exports = {
       'localhost',
       'picsum.photos',
       'source.unsplash.com',
+      'upload.wikimedia.org',
     ],
     remotePatterns: [
       {

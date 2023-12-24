@@ -4,19 +4,11 @@ import { InfinityPaginationResultType, IUserResponse } from '@teameights/types';
 import { API } from '@/shared/api';
 import { API_USERS } from '@/shared/constant';
 
-interface IQueryParams {
-  page?: number;
-  limit?: number;
-  filters?: string | null;
-  sort?: string;
-}
-
 export const useGetUsers = (filters?: string | null) => {
   return useInfiniteQuery({
     queryKey: ['useGetUsers', filters],
     queryFn: async ({ queryKey, pageParam }) => {
-      console.log(queryKey[1]);
-      let url = `${API_USERS}?page=${pageParam}`;
+      let url = `${API_USERS}?page=${pageParam}&limit=9`;
       if (queryKey[1]) {
         url = `${url}&filters=${queryKey[1]}`;
       }

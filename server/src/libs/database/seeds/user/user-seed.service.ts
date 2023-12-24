@@ -5,6 +5,8 @@ import { StatusEnum } from 'src/libs/database/metadata/statuses/statuses.enum';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { faker } from '@faker-js/faker';
+import { specialityValues } from '../../../../utils/types/specialities.type';
+import { experienceValues } from '../../../../utils/types/experiences.type';
 
 @Injectable()
 export class UserSeedService {
@@ -42,7 +44,7 @@ export class UserSeedService {
   ) => {
     let data;
 
-    let methodologies = [
+    const methodologies = [
       'Agile',
       'CPM',
       'Kanban',
@@ -54,7 +56,7 @@ export class UserSeedService {
       'Six Sigma',
       'Waterfall',
     ];
-    let fields = [
+    const fields = [
       '3D',
       'Graphic',
       'Motion',
@@ -67,7 +69,7 @@ export class UserSeedService {
       'Web',
     ];
 
-    let frameworks = [
+    const frameworks = [
       'Node.js',
       'Ruby',
       'Angular',
@@ -143,7 +145,7 @@ export class UserSeedService {
   ): string[] => {
     let data;
 
-    let managerTools = [
+    const managerTools = [
       'Asana',
       'ClickUp',
       'JIRA',
@@ -154,7 +156,7 @@ export class UserSeedService {
       'Trello',
     ];
 
-    let designerTools = [
+    const designerTools = [
       '3ds Max',
       'After Effects',
       'Aseprite',
@@ -188,7 +190,7 @@ export class UserSeedService {
       'ZBrush',
     ];
 
-    let programmingLanguages = [
+    const programmingLanguages = [
       'Assembly',
       'Bash',
       'C',
@@ -254,33 +256,6 @@ export class UserSeedService {
     }
   };
 
-  generateMockProject = () => ({
-    title: faker.lorem.sentence(),
-    link: faker.internet.url(),
-  });
-
-  generateMockLinks = () => ({
-    github: faker.internet.url(),
-    linkedIn: faker.internet.url(),
-    behance: faker.internet.url(),
-    telegram: faker.internet.url(),
-  });
-
-  generateMockJob = () => ({
-    title: faker.person.jobTitle(),
-    company: faker.company.name(),
-    startDate: faker.date.past(),
-    endDate: faker.datatype.boolean() ? faker.date.past() : null,
-  });
-
-  generateMockUniversity = () => ({
-    name: faker.company.name(),
-    degree: faker.person.jobType(),
-    major: faker.person.jobArea(),
-    admissionDate: faker.date.past(),
-    graduationDate: faker.datatype.boolean() ? faker.date.past() : null,
-  });
-
   async run() {
     const countAdmin = await this.repository.count({
       where: {
@@ -344,17 +319,32 @@ export class UserSeedService {
       );
     }
 
+    await this.repository.save(
+      this.repository.create({
+        fullName: 'John Deer',
+        email: 'john.doe@example.com',
+        password: 'secret',
+        role: {
+          id: RoleEnum.user,
+          name: 'Admin',
+        },
+        status: {
+          id: StatusEnum.active,
+          name: 'Active',
+        },
+      })
+    );
+
     for (let i = 0; i < 50; i++) {
-      let randomSpeciality = this.getRandomItemFromArray(['developer', 'designer', 'pm']) as
+      const randomSpeciality = this.getRandomItemFromArray(['developer', 'designer', 'pm']) as
         | 'developer'
         | 'designer'
         | 'pm';
-      console.log(randomSpeciality);
+
       await this.repository.save(
         this.repository.create({
           username: faker.internet.userName(),
           fullName: faker.person.firstName(),
-          // photo: this.generateMockFileEntity(),
           role: {
             id: RoleEnum.user,
           },
@@ -364,29 +354,11 @@ export class UserSeedService {
           },
           isLeader: faker.datatype.boolean(),
           country: faker.location.country(),
-          dateOfBirth: faker.date.past(),
-          speciality: faker.lorem.word(),
+          dateOfBirth: faker.date.birthdate({ min: 18, max: 70, mode: 'age' }),
+          speciality: this.getRandomItemFromArray(specialityValues),
           description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 50 }) : null,
-          experience: this.getRandomItemFromArray([
-            'No experience',
-            'Few months',
-            '1 year',
-            '2 years',
-            '3 years',
-            '4 years',
-            '5+ years',
-          ]),
+          experience: this.getRandomItemFromArray(experienceValues),
           skills: this.generateMockSkills(randomSpeciality),
-          // universities: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }).map(() =>
-          //   this.generateMockUniversity()
-          // ),
-          // jobs: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }).map(() =>
-          //   this.generateMockJob()
-          // ),
-          // projects: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }).map(() =>
-          //   this.generateMockProject()
-          // ),
-          // links: faker.datatype.boolean() ? this.generateMockLinks() : undefined,
         })
       );
     }

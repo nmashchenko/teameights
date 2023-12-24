@@ -4,7 +4,7 @@ import { calculateAge } from '@/shared/lib';
 import { ImageLoader } from '@/shared/ui';
 import { CrownIcon28 } from '@/shared/assets';
 import { countryFlags } from '@/shared/constant';
-import { FC, ForwardedRef, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { IconLayout } from '../icon-layout/icon-layout';
 import { TextLayout } from '../text-layout/text-layout';
 
@@ -41,7 +41,12 @@ export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
         <div className={styles.content}>
           <div className={styles.name}>
             {fullName}, {years}
-            <ImageLoader src={countryFlags[country] ?? ''} alt={fullName} width={16} height={12} />
+            <ImageLoader
+              src={countryFlags[country] ?? '/images/placeholder.png'}
+              alt={fullName}
+              width={16}
+              height={12}
+            />
           </div>
           <div className={styles.speciality}>{speciality}</div>
         </div>
