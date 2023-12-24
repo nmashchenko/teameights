@@ -37,7 +37,12 @@ function useSteps(getValues: UseFormGetValues<Partial<FormValues>>) {
     if (step + 1 <= steps.length - 1) {
       const { languages, specialty, fields } = getValues();
       if (specialty) {
-        const occupation = specialty.toLowerCase().includes('developer') ? 'Developer' : specialty;
+        // Converting specialties to one of three occupations
+        const occupation = ['developer', 'scientist', 'engineer'].filter(specialty =>
+          specialty.toLowerCase().includes(specialty)
+        )
+          ? 'Developer'
+          : specialty;
         const occupationFields = occupations[occupation as Occupation];
         const newSteps = occupationFields.map(occupationItem => {
           const recommended: { label: string; value: string }[] = [];

@@ -56,7 +56,7 @@ export const recommendedLanguages = {
     { label: 'C++', value: 'cpp' },
     { label: 'Embedded C', value: 'embeddedc' },
   ],
-  'Frontend/UI Developer': [
+  'Frontend Developer': [
     { label: 'JavaScript', value: 'javascript' },
     { label: 'TypeScript', value: 'typescript' },
     { label: 'Python', value: 'python' },
