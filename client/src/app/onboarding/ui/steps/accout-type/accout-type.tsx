@@ -4,9 +4,17 @@ import styles from './account-type.module.scss';
 import Image from 'next/image';
 import { accountTypes } from '@/app/onboarding/ui/steps/accout-type/account-types';
 import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 export const AccountType = () => {
   const [selectedType, setSelectedType] = useState('');
+  const { setValue } = useFormContext();
+
+  const handleClickType = (type: string) => {
+    setSelectedType(type);
+    setValue('accountType', type);
+  };
+
   return (
     <Flex direction='column' gap='32px' width='100%' maxWidth='470px'>
       <Flex direction='column' className={styles.align_text}>
@@ -18,7 +26,7 @@ export const AccountType = () => {
         {accountTypes.map(accountType => (
           <SelectableBlock
             text={accountType.name}
-            onClick={() => setSelectedType(accountType.name)}
+            onClick={() => handleClickType(accountType.name)}
             selected={accountType.name === selectedType}
             key={accountType.name}
           >

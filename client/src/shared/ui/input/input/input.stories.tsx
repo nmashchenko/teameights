@@ -1,6 +1,5 @@
 import type { Meta } from '@storybook/react';
 import { useState } from 'react';
-import { InputDate } from '../input-date/input-date';
 import { InputLink } from '../input-link/input-link';
 import { InputPassword } from '../input-password/input-password';
 import { Input } from './input';
@@ -176,11 +175,11 @@ export const Input_date = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Default with label and link</p>
-        <InputDate name='link' />
+        <Input name='link' type='date' />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Disabled</p>
-        <InputDate name='link-disabled' disabled />
+        <Input name='link-disabled' disabled type='date' />
       </div>
     </div>
   );
@@ -191,11 +190,11 @@ export const Input_date_error = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30, width: 400 }}>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Default with label and link</p>
-        <InputDate name='link' error='Required' label='Label' />
+        <Input name='link' error='Required' label='Label' type='date' />
       </div>
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Disabled</p>
-        <InputDate name='link-disabled' disabled error='Required' label='Label' />
+        <Input name='link-disabled' disabled error='Required' label='Label' type='date' />
       </div>
     </div>
   );

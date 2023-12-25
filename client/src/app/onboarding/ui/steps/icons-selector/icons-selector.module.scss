@@ -1,8 +1,4 @@
-.languages {
-  margin-top: 36px;
-}
-
-.selected_languages {
+.selected_icons {
   margin-bottom: 32px;
 }
 
@@ -10,16 +6,17 @@
   margin-bottom: 24px;
 }
 
-.languages_list {
-  overflow: scroll;
+.icons_list {
+  height: 450px;
+  overflow-y: scroll;
 }
 
-.recommended_languages {
+.recommended_icons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px 32px;
   margin-top: 16px;
-  overflow: auto;
+  //overflow: auto;
 
   @media (width <= 890px) {
     grid-template-columns: repeat(3, 1fr);
@@ -32,17 +29,4 @@
 
 .recommended {
   margin-bottom: 24px;
-}
-
-.languages_list {
-  height: 49vh;
-
-  overflow-y: scroll;
-  &::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-
-  @media (width <= 360px) {
-    height: 36vh;
-  }
 }

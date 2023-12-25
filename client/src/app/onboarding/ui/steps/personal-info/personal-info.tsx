@@ -1,10 +1,10 @@
 import { countries } from '@/shared/constant';
-import { Flex, Input, InputDate, Select, Typography } from '@/shared/ui';
-import { useState } from 'react';
+import { Flex, Input, Select, Typography } from '@/shared/ui';
+import { useFormContext } from 'react-hook-form';
 
 export const PersonalInfo = () => {
-  const [name, setName] = useState('');
-  const [user, setUser] = useState('');
+  const { register, setValue, getValues } = useFormContext();
+
   return (
     <Flex direction='column' gap='48px' width='370px'>
       <div>
@@ -17,19 +17,19 @@ export const PersonalInfo = () => {
         <Typography size='body_s' color='greyNormal'>
           Full name
         </Typography>
-        <Input name='full-name' value={name} onChange={e => setName(e.target.value)} />
+        <Input {...register('fullName')} />
       </div>
       <div>
         <Typography size='body_s' color='greyNormal'>
           Username
         </Typography>
-        <Input name='full-name' value={user} onChange={e => setUser(e.target.value)} />
+        <Input {...register('username')} />
       </div>
       <div>
         <Typography size='body_s' color='greyNormal'>
           Birthday
         </Typography>
-        <InputDate name='data' />
+        <Input type='date' {...register('dateOfBirth', { valueAsDate: true, required: true })} />
       </div>
     </Flex>
   );

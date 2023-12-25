@@ -1,7 +1,7 @@
 import { Flex, Logo, ProgressBar } from '@/shared/ui';
 import { ReactNode } from 'react';
 import styles from './progress-section.module.scss';
-import { steps } from '../../steps';
+import { useFormContext } from 'react-hook-form';
 
 interface ProgressSectionProps {
   step: number;
@@ -9,11 +9,14 @@ interface ProgressSectionProps {
 }
 
 export const ProgressSection = ({ children, step }: ProgressSectionProps) => {
+  const { getValues } = useFormContext();
+  const steps = getValues('steps');
+
   return (
     <Flex direction={'column'} className={styles.container}>
       <Logo shouldRedirect={false} />
       {children}
-      <ProgressBar percentageProgress={(100 / steps.length) * (step + 1)} />
+      <ProgressBar percentageProgress={(100 / steps.length) * step} />
     </Flex>
   );
 };

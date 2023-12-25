@@ -5606,6 +5606,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.isempty@npm:^4.4.9":
+  version: 4.4.9
+  resolution: "@types/lodash.isempty@npm:4.4.9"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 89f94bac5364850cb2f49a414a1632371541bdb2e6c00d73fbe2f7ad827a3ced3eaa42d64d9463eced4499d99c0619757605322f45c5b0d36cd761c561dcf8a2
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:*":
   version: 4.14.199
   resolution: "@types/lodash@npm:4.14.199"
@@ -7734,6 +7743,7 @@ __metadata:
     "@types/jest": ^29.5.5
     "@types/js-cookie": ^3.0.5
     "@types/lodash.debounce": ^4.0.7
+    "@types/lodash.isempty": ^4.4.9
     "@types/node": 20.4.8
     "@types/react": 18.2.18
     "@types/react-dom": 18.2.7
@@ -7752,6 +7762,7 @@ __metadata:
     jest-environment-jsdom: ^29.7.0
     js-cookie: ^3.0.5
     lodash.debounce: ^4.0.8
+    lodash.isempty: ^4.4.0
     next: 13.4.12
     prettier: ^3.0.1
     qs: ^6.11.2
@@ -12377,6 +12388,13 @@ __metadata:
   version: 4.0.8
   resolution: "lodash.debounce@npm:4.0.8"
   checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
+  languageName: node
+  linkType: hard
+
+"lodash.isempty@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "lodash.isempty@npm:4.4.0"
+  checksum: a8118f23f7ed72a1dbd176bf27f297d1e71aa1926288449cb8f7cef99ba1bc7527eab52fe7899ab080fa1dc150aba6e4a6367bf49fa4e0b78da1ecc095f8d8c5
   languageName: node
   linkType: hard
 

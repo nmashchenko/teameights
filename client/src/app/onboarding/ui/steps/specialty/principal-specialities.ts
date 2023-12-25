@@ -12,7 +12,7 @@ export const principalSpecialities: PrincipalSpecialityProps[] = [
     image: '/images/artist.png',
   },
   {
-    name: 'Manager',
+    name: 'Project Manager',
     image: '/images/office-worker.png',
   },
 ];
