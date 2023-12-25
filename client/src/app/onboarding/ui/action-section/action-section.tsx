@@ -31,6 +31,7 @@ export const ActionSection = ({ step, setStep }: ActionSectionProps) => {
   const handleNext = () => {
     const values = getValues();
 
+    console.log('TODO: fix this');
     console.log(values, step, steps[step]);
 
     switch (step) {
