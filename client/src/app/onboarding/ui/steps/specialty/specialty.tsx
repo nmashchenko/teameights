@@ -21,7 +21,7 @@ export const Specialty = () => {
       <Flex direction='column' gap='48px' padding='0 0 24px 0'>
         <Flex gap='8px'>
           {principalSpecialities.map(speciality => (
-            <>
+            <Flex width={"33%"} key={speciality.name}>
               <input
                 type='radio'
                 id={speciality.name}
@@ -34,7 +34,7 @@ export const Specialty = () => {
                 <Image src={speciality.image} alt={speciality.name} width={24} height={24} />
                 {speciality.name}
               </label>
-            </>
+            </Flex>
           ))}
         </Flex>
         {principalSpeciality && (
