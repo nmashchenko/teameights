@@ -20,13 +20,9 @@ interface OnboardingProps {
   fullName: string;
   dateOfBirth: Date;
   country: string;
-  type: string;
-  designerTools: string[];
-  projectManagerTools: string[];
-  fields: string[];
-  programmingLanguages: string[];
-  frameworks: string[];
-  methodologies: string[];
+  focus: string;
+  coreTools: string[];
+  additionalTools: string[];
   experience: string; // все что в experienceValues бекенд валидирует
   speciality: string; // все что в specialityValues, бекенд имеет валидацию
   isLeader: boolean;

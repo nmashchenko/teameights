@@ -1,34 +1,30 @@
-import { Flex, Typography, BadgeIcon } from '@/shared/ui';
-import { EmptyTile } from './ui/empty-tile/empty-tile';
+import { Flex } from '@/shared/ui';
 import { FC, useState } from 'react';
 import { Search } from '../../shared/search/search';
 import styles from './icons-selector.module.scss';
-import { IconItem } from './ui/icon-item/icon-item';
 import isEmpty from 'lodash.isempty';
 import { useFormContext } from 'react-hook-form';
+import { Placeholders } from '@/app/onboarding/ui/steps/icons-selector/ui/placeholders/placeholders';
+import { Options } from '@/app/onboarding/ui/steps/icons-selector/ui/options/options';
+import { IOption, IRoleToOptionsMap } from '@/shared/interfaces';
 
 const MAX_ICONS = 8;
 const SPECIALITY = 'Frontend/UI Developer'; // TODO: replace with real data. Hardcoded Right now
 
-interface IOption {
-  label: string;
-  value: string;
-}
-
-interface IRecommendedIcons {
-  [role: string]: IOption[] | undefined;
-}
-
 interface IconsSelector {
   icons: IOption[];
-  recommendedIcons?: IRecommendedIcons;
+  recommendedIcons?: IRoleToOptionsMap;
   formFieldToUpdate: string;
+  description: string;
+  type?: 'text' | 'icon';
 }
 
 export const IconsSelector: FC<IconsSelector> = ({
   icons,
   recommendedIcons,
   formFieldToUpdate,
+  description,
+  type = 'icon',
 }) => {
   const [text, setText] = useState('');
   const [selectedIcons, setSelectedIcons] = useState<IOption[]>([]);
@@ -72,71 +68,38 @@ export const IconsSelector: FC<IconsSelector> = ({
 
   return (
     <Flex width='100%' direction='column' padding='36px 0'>
-      <div className={styles.top}>
-        <div className={styles.selected_icons}>
-          <Flex wrap='wrap' gap='24px'>
-            {Array(8)
-              .fill(null)
-              .map((value, index) => {
-                const iconsItem = selectedIcons[index];
-                if (iconsItem) {
-                  return (
-                    <div onClick={() => toggleIcon(iconsItem)} key={index}>
-                      <BadgeIcon isActive={true} data={iconsItem.label} />
-                    </div>
-                  );
-                }
-                return <EmptyTile key={index} />;
-              })}
-          </Flex>
-        </div>
-        <div className={styles.search}>
-          <Flex>
-            <Search
-              placeholder='Search'
-              defaultValue={text}
-              onChange={e => {
-                return setText(e);
-              }}
-            />
-          </Flex>
-        </div>
+      <Placeholders selectedIcons={selectedIcons} toggleIcon={toggleIcon} type={type} />
+      <div className={styles.search}>
+        <Flex>
+          <Search
+            placeholder='Search'
+            defaultValue={text}
+            onChange={e => {
+              return setText(e);
+            }}
+          />
+        </Flex>
       </div>
-      <div className={styles.icons_list}>
+      <Flex direction='column' gap='24px'>
         {text === '' && !isEmpty(recommendedIcons) && (
-          <div className={styles.recommended}>
-            <Typography size='body_s' color='greyNormal'>
-              Recommended for you
-            </Typography>
-
-            <div className={styles.recommended_icons}>
-              {recommendedIcons[SPECIALITY]?.filter(filterBySearch).map((icon, index) => (
-                <IconItem
-                  isActive={Boolean(selectedIcons.find(option => option.label === icon.label))}
-                  onClick={() => toggleIcon(icon)}
-                  icon={icon.label}
-                  key={index}
-                />
-              ))}
-            </div>
-          </div>
+          <Options
+            icons={recommendedIcons[SPECIALITY] ?? []}
+            selectedIcons={selectedIcons}
+            type={type}
+            filterFn={filterBySearch}
+            toggleFn={toggleIcon}
+            description='Recommended for you'
+          />
         )}
-        <div className={styles.recommended}>
-          <Typography size='body_s' color='greyNormal'>
-            All languages
-          </Typography>
-          <div className={styles.recommended_icons}>
-            {icons.filter(filterBySearch).map((icon, index) => (
-              <IconItem
-                isActive={Boolean(selectedIcons.find(option => option.label === icon.label))}
-                onClick={() => toggleIcon(icon)}
-                icon={icon.label}
-                key={index}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+        <Options
+          icons={icons}
+          selectedIcons={selectedIcons}
+          type={type}
+          filterFn={filterBySearch}
+          toggleFn={toggleIcon}
+          description={description}
+        />
+      </Flex>
     </Flex>
   );
 };

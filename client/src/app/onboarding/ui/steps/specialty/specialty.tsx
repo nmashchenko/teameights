@@ -1,24 +1,19 @@
 import { Checkbox, Flex, Select, Typography } from '@/shared/ui';
-import { SelectableBlock } from '../../shared';
 import Image from 'next/image';
 import { useState } from 'react';
-import { ExperienceProps, experiences, specialities } from '@/shared/constant';
+import { experiences, focuses } from '@/shared/constant';
 import { principalSpecialities } from './principal-specialities';
-import { SingleValue } from 'react-select';
 import { Controller, useFormContext } from 'react-hook-form';
+import styles from './speciality.module.scss';
 
 export const Specialty = () => {
-  const [principalSpeciality, setPrincipalSpeciality] = useState('');
   const [selectedExperience, setSelectedExperience] = useState('');
   const [checked, setChecked] = useState(false);
-  const { setValue, control, getValues } = useFormContext();
+  const { setValue, control, getValues, register, watch } = useFormContext();
 
+  const principalSpeciality = watch('speciality');
   const handlePrincipalSpecialityChange = (speciality: string) => {
-    setPrincipalSpeciality(speciality);
-
-    if (speciality !== 'Developer') {
-      setValue('speciality', speciality);
-    }
+    setValue('focus', '');
   };
 
   return (
@@ -26,35 +21,41 @@ export const Specialty = () => {
       <Flex direction='column' gap='48px' padding='0 0 24px 0'>
         <Flex gap='8px'>
           {principalSpecialities.map(speciality => (
-            <SelectableBlock
-              text={speciality.name}
-              gap='8px'
-              padding='8px'
-              onClick={() => handlePrincipalSpecialityChange(speciality.name)}
-              selected={speciality.name === principalSpeciality}
-              key={speciality.name}
-            >
-              <Image src={speciality.image} alt={speciality.name} width={24} height={24} />
-            </SelectableBlock>
+            <>
+              <input
+                type='radio'
+                id={speciality.name}
+                className={styles.input}
+                onClick={() => handlePrincipalSpecialityChange(speciality.name)}
+                value={speciality.name}
+                {...register('speciality')}
+              />
+              <label htmlFor={speciality.name} className={styles.label}>
+                <Image src={speciality.image} alt={speciality.name} width={24} height={24} />
+                {speciality.name}
+              </label>
+            </>
           ))}
         </Flex>
-        {principalSpeciality === 'Developer' && (
+        {principalSpeciality && (
           <div>
             <Typography size='body_s' color='greyNormal'>
-              Specialty
+              Focus
             </Typography>
             <Controller
               control={control}
-              name='speciality'
+              name='focus'
               render={({ field: { onChange, value, onBlur } }) => (
                 <Select
-                  value={specialities.find(s => s.label === value)}
+                  value={
+                    focuses[principalSpeciality]?.find(s => s.label === value) ?? {
+                      value: '',
+                      label: '',
+                    }
+                  }
                   onChange={val => onChange(val?.label)}
                   onBlur={onBlur} // notify when input is touched/blur
-                  options={specialities.filter(
-                    speciality =>
-                      speciality.label !== 'Designer' && speciality.label !== 'Project Manager'
-                  )}
+                  options={focuses[principalSpeciality] ?? []}
                 />
               )}
             />
@@ -86,15 +87,11 @@ export const Specialty = () => {
         </div>
         <div>
           <Checkbox
-            name='isLeader'
             checked={checked}
             disabled={selectedExperience === 'No experience' || selectedExperience === 'Few months'}
-            onChange={() => {
-              setChecked(prev => !prev);
-              setValue('isLeader', !checked);
-              console.log(getValues(), checked);
-            }}
             label={'I want to be a leader of the team'}
+            onClick={() => setChecked(prev => !prev)}
+            {...register('isLeader')}
           />
         </div>
       </Flex>

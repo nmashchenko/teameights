@@ -33,18 +33,23 @@ interface BadgeFrameworkProps {
   data: string;
   className?: string;
   maxWidth?: string;
+  isNotActive?: boolean;
+  onClick?: () => void;
 }
 
 export const BadgeText: FC<BadgeFrameworkProps> = props => {
-  const { className, maxWidth, data } = props;
+  const { className, maxWidth, data, isNotActive, onClick } = props;
   return (
     <div
       className={clsx([className], styles.badge_text)}
       style={{
-        backgroundColor: `${badgeColors[data] ? badgeColors[data] : '#2F3239'}`,
-        color: badgeTextColors[data],
+        backgroundColor: isNotActive
+          ? '#2F3239'
+          : `${badgeColors[data] ? badgeColors[data] : '#2F3239'}`,
+        color: isNotActive ? 'white' : badgeTextColors[data],
         maxWidth: `${maxWidth ? maxWidth : '100%'}`,
       }}
+      onClick={onClick}
     >
       {data}
     </div>

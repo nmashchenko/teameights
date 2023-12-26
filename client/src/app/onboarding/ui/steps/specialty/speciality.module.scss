@@ -1,0 +1,22 @@
+.input[type="radio"] {
+  display: none;
+}
+
+.label {
+  border-radius: 10px;
+  border: 2px solid var(--grey-dark-color);
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.input[type="radio"]:checked + label {
+  border-color: var(--green-bright-color);
+}

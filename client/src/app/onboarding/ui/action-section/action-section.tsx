@@ -10,7 +10,10 @@ import { AccountType } from '@/app/onboarding/ui/steps/accout-type/accout-type';
 import { IconsSelector } from '@/app/onboarding/ui/steps/icons-selector/icons-selector';
 import {
   designerTools,
+  fields,
+  frameworks,
   managerTools,
+  methodologies,
   programmingLanguages,
   recommendedLanguages,
 } from '@/shared/constant';
@@ -57,7 +60,13 @@ export const ActionSection = ({ step, setStep }: ActionSectionProps) => {
               { step: <PersonalInfo />, title: 'Personal info' },
               { step: <Specialty />, title: 'Speciality' },
               {
-                step: <IconsSelector icons={designerTools} formFieldToUpdate='designerTools' />,
+                step: (
+                  <IconsSelector
+                    icons={designerTools}
+                    formFieldToUpdate='coreTools'
+                    description='All Tools'
+                  />
+                ),
                 title: 'Tools',
               },
               { step: <SocialLinks />, title: 'Links' },
@@ -69,8 +78,25 @@ export const ActionSection = ({ step, setStep }: ActionSectionProps) => {
               { step: <PersonalInfo />, title: 'Personal info' },
               { step: <Specialty />, title: 'Speciality' },
               {
-                step: <IconsSelector icons={managerTools} formFieldToUpdate='managerTools' />,
+                step: (
+                  <IconsSelector
+                    icons={managerTools}
+                    formFieldToUpdate='coreTools'
+                    description='All Tools'
+                  />
+                ),
                 title: 'Tools',
+              },
+              {
+                step: (
+                  <IconsSelector
+                    icons={methodologies}
+                    formFieldToUpdate='additionalTools'
+                    description='All methodologies'
+                    type='text'
+                  />
+                ),
+                title: 'Methodologies',
               },
               { step: <SocialLinks />, title: 'Links' },
             ]);
@@ -85,10 +111,23 @@ export const ActionSection = ({ step, setStep }: ActionSectionProps) => {
                   <IconsSelector
                     icons={programmingLanguages}
                     recommendedIcons={recommendedLanguages}
-                    formFieldToUpdate='programmingLanguages'
+                    formFieldToUpdate='coreTools'
+                    description='All Languages'
                   />
                 ),
                 title: 'Languages',
+              },
+              {
+                step: (
+                  <IconsSelector
+                    icons={frameworks}
+                    // recommendedIcons={recommendedLanguages}
+                    formFieldToUpdate='additionalTools'
+                    description='All Frameworks'
+                    type='text'
+                  />
+                ),
+                title: 'Frameworks',
               },
               { step: <SocialLinks />, title: 'Links' },
             ]);
