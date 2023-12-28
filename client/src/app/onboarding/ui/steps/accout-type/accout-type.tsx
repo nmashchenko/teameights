@@ -22,7 +22,7 @@ export const AccountType = () => {
           I’d like to join the platform as...
         </Typography>
       </Flex>
-      <Flex gap='24px'>
+      <Flex className={styles.account_types} gap='24px'>
         {accountTypes.map(accountType => (
           <SelectableBlock
             text={accountType.name}

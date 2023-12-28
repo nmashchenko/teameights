@@ -1,3 +1,10 @@
 .align_text {
   text-align: center;
 }
+
+
+.account_types {
+  @media (max-width: 430px) {
+    flex-direction: column;
+  }
+}
