@@ -5,6 +5,7 @@ import { IconItem } from '@/app/onboarding/ui/steps/icons-selector/ui/icon-item/
 import { IOption } from '@/shared/interfaces';
 
 interface OptionsProps {
+  className: string;
   icons: IOption[];
   selectedIcons: IOption[];
   filterFn: (item: IOption) => void;
@@ -14,6 +15,7 @@ interface OptionsProps {
 }
 
 export const Options: FC<OptionsProps> = ({
+  className= styles.recommended_icons,
   icons,
   selectedIcons,
   filterFn,
@@ -26,7 +28,7 @@ export const Options: FC<OptionsProps> = ({
       <Typography size='body_s' color='greyNormal'>
         {description}
       </Typography>
-      <div className={styles.recommended_icons}>
+      <div className={className}>
         {icons
           .filter(filterFn)
           .map((icon, index) =>

@@ -4,6 +4,7 @@
   gap: 16px;
   max-height: 300px;
   overflow: auto;
+  padding-right: 10px;
 
   @media (width <= 890px) {
     grid-template-columns: repeat(3, 1fr);
