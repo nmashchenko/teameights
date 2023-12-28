@@ -2,6 +2,20 @@
   display: none;
 }
 
+.specialties {
+  @media (max-width: 460px) {
+    flex-direction: column;
+  }
+  .speciality {
+    width: 33%;
+    @media (max-width: 460px) {
+      width: 100% !important;
+    }
+  }
+}
+
+
+
 .label {
   border-radius: 10px;
   border: 2px solid var(--grey-dark-color);

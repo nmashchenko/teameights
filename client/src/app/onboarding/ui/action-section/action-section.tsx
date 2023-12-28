@@ -52,7 +52,6 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
         <Button
           className={styles.button}
           padding='0 16px'
-          width='170px'
           typeBtn='secondary'
           onClick={handleBack}
           disabled={step - 1 < 0}
@@ -61,11 +60,11 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
           Back
         </Button>
         {steps[step]?.submissionStep ? (
-          <Button padding='0 16px' width='170px' type='submit'>
+          <Button className={styles.button} padding='0 16px' type='submit'>
             Submit
           </Button>
         ) : (
-          <Button className={styles.button} padding='0 16px' width='170px' onClick={handleNext}>
+          <Button className={styles.button} padding='0 16px' onClick={handleNext}>
             Next
             <ArrowRightIcon />
           </Button>

@@ -8,7 +8,7 @@ export const SocialLinks = () => {
   const [linLink, setLinLink] = useState('');
 
   return (
-    <Flex direction='column' gap='48px' width='370px'>
+    <Flex direction='column' gap='48px' width="100%" maxWidth='370px'>
       <div>
         <InputLink
           name='git'

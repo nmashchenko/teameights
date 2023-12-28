@@ -76,6 +76,7 @@ export const IconsSelector: FC<IconsSelector> = ({
           />
         )}
         <Options
+          className={styles.all_icons}
           icons={icons}
           selectedIcons={selectedIcons}
           type={type}

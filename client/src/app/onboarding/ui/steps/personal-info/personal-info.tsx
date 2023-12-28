@@ -6,7 +6,7 @@ export const PersonalInfo = () => {
   const { register, control } = useFormContext();
 
   return (
-    <Flex direction='column' gap='48px' width='370px'>
+    <Flex direction='column' gap='48px' width={"100%"} maxWidth='370px'>
       <div>
         <Typography size='body_s' color='greyNormal'>
           Location

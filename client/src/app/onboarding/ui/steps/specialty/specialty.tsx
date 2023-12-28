@@ -19,11 +19,11 @@ export const Specialty = () => {
   };
 
   return (
-    <Flex direction='column' width='400px'>
+    <Flex direction='column' width={"100%"} maxWidth='400px'>
       <Flex direction='column' gap='48px' padding='0 0 24px 0'>
-        <Flex gap='8px'>
+        <Flex className={styles.specialties} gap='8px'>
           {principalSpecialities.map(speciality => (
-            <Flex width={'33%'} key={speciality.name}>
+            <Flex className={styles.speciality} key={speciality.name}>
               <input
                 type='radio'
                 id={speciality.name}
