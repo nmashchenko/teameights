@@ -35,7 +35,7 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
   return (
     <Flex direction={'column'} className={styles.container} height='100%'>
       <Flex justify={'space-between'} align={'center'}>
-        <Typography size={'heading_l'} color={'greenBright'}>
+        <Typography className={styles.title} size={'heading_l'} color={'greenBright'}>
           {steps[step]?.title}
         </Typography>
         <NeedHelp />
@@ -48,8 +48,9 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
       >
         {steps[step]?.step}
       </Flex>
-      <Flex justify={'space-between'}>
+      <Flex className={styles.buttons_container} justify={'space-between'}>
         <Button
+          className={styles.button}
           padding='0 16px'
           width='170px'
           typeBtn='secondary'
@@ -64,7 +65,7 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
             Submit
           </Button>
         ) : (
-          <Button padding='0 16px' width='170px' onClick={handleNext}>
+          <Button className={styles.button} padding='0 16px' width='170px' onClick={handleNext}>
             Next
             <ArrowRightIcon />
           </Button>
