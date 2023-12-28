@@ -9,7 +9,6 @@ import { Options } from '@/app/onboarding/ui/steps/icons-selector/ui/options/opt
 import { IOption, IRoleToOptionsMap } from '@/shared/interfaces';
 
 const MAX_ICONS = 8;
-const SPECIALITY = 'Frontend/UI Developer'; // TODO: replace with real data. Hardcoded Right now
 
 interface IconsSelector {
   icons: IOption[];
@@ -27,35 +26,20 @@ export const IconsSelector: FC<IconsSelector> = ({
   type = 'icon',
 }) => {
   const [text, setText] = useState('');
-  const [selectedIcons, setSelectedIcons] = useState<IOption[]>([]);
-  const { setValue } = useFormContext();
+  const { setValue, watch } = useFormContext();
+
+  const selectedIcons: IOption[] = watch(formFieldToUpdate);
+  const focus: string = watch('focus');
 
   function toggleIcon(clickedIcon: IOption) {
-    setSelectedIcons(prev => {
-      let index = -1;
-      const appearedIcon = Array.from(prev as IOption[]).find((icon, i) => {
-        index = i;
-        return icon.value === clickedIcon.value;
-      });
-      if (appearedIcon) {
-        let newIcons = prev.slice(0, index).concat(prev.slice(index + 1));
-        setValue(
-          formFieldToUpdate,
-          newIcons.map(icon => icon.label)
-        );
+    const check = selectedIcons.find(icon => icon.label === clickedIcon.label);
 
-        return prev.slice(0, index).concat(prev.slice(index + 1));
-      } else {
-        if (prev.length === MAX_ICONS) return prev;
-        let newIcons = [...prev, clickedIcon];
-        setValue(
-          formFieldToUpdate,
-          newIcons.map(icon => icon.label)
-        );
-
-        return [...prev, clickedIcon];
-      }
-    });
+    if (!check) {
+      selectedIcons.length < 8 && setValue(formFieldToUpdate, [...selectedIcons, clickedIcon]);
+    } else {
+      const filtered = selectedIcons.filter(icon => icon.label !== clickedIcon.label);
+      setValue(formFieldToUpdate, filtered);
+    }
   }
 
   function filterBySearch(item: IOption) {
@@ -83,7 +67,7 @@ export const IconsSelector: FC<IconsSelector> = ({
       <Flex direction='column' gap='24px'>
         {text === '' && !isEmpty(recommendedIcons) && (
           <Options
-            icons={recommendedIcons[SPECIALITY] ?? []}
+            icons={recommendedIcons[focus] ?? []}
             selectedIcons={selectedIcons}
             type={type}
             filterFn={filterBySearch}

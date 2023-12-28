@@ -24,7 +24,13 @@ export const IllustrationStatus: FC<ConfirmProps> = props => {
         </Flex>
         {buttonText && (
           <Flex align='center' justify='center'>
-            <Button onClick={buttonHandler} width='136px' size='m' typeBtn='secondary'>
+            <Button
+              onClick={buttonHandler}
+              width='136px'
+              size='m'
+              typeBtn='secondary'
+              type='button'
+            >
               <ArrowLeftIcon />
               {buttonText}
             </Button>

@@ -45,7 +45,7 @@ export const PersonalInfo = () => {
         <Typography size='body_s' color='greyNormal'>
           Birthday
         </Typography>
-        <Input type='date' {...register('dateOfBirth', { valueAsDate: true, required: true })} />
+        <Input type='date' {...register('dateOfBirth')} />
       </div>
     </Flex>
   );

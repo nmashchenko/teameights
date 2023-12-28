@@ -3,7 +3,6 @@ import { BadgeIcon, BadgeText, Flex } from '@/shared/ui';
 import { EmptyTile } from '@/app/onboarding/ui/steps/icons-selector/ui/empty-tile/empty-tile';
 import { FC } from 'react';
 import { IOption } from '@/shared/interfaces';
-import { IconItem } from '../icon-item/icon-item';
 
 interface PlaceholdersProps {
   selectedIcons: IOption[];

@@ -14,6 +14,8 @@ export const Specialty = () => {
   const principalSpeciality = watch('speciality');
   const handlePrincipalSpecialityChange = (speciality: string) => {
     setValue('focus', '');
+    setValue('coreTools', []);
+    setValue('additionalTools', []);
   };
 
   return (
@@ -21,7 +23,7 @@ export const Specialty = () => {
       <Flex direction='column' gap='48px' padding='0 0 24px 0'>
         <Flex gap='8px'>
           {principalSpecialities.map(speciality => (
-            <Flex width={"33%"} key={speciality.name}>
+            <Flex width={'33%'} key={speciality.name}>
               <input
                 type='radio'
                 id={speciality.name}
@@ -53,6 +55,7 @@ export const Specialty = () => {
                       label: '',
                     }
                   }
+                  placeholder='Focus'
                   onChange={val => onChange(val?.label)}
                   onBlur={onBlur} // notify when input is touched/blur
                   options={focuses[principalSpeciality] ?? []}
