@@ -4,6 +4,8 @@ import styles from './onboarding.module.scss';
 import { FormProvider, useForm } from 'react-hook-form';
 import { accountTypeStep } from '@/app/onboarding/lib/const/steps';
 import { StepProps } from '@/app/onboarding/lib/const/steps';
+import { useUpdateMe } from '@/entities/session';
+import { ExperienceType, IUserRequest } from '@teameights/types';
 
 interface OnboardingProps {
   steps: StepProps[];
@@ -15,16 +17,18 @@ interface OnboardingProps {
   focus: string;
   coreTools: string[];
   additionalTools: string[];
-  experience: string; // все что в experienceValues бекенд валидирует
-  speciality: string; // все что в specialityValues, бекенд имеет валидацию
+  experience: string;
+  speciality: string;
   isLeader: boolean;
-  github: string; // имеет валидацию на бэке
-  behance: string; // имеет валидацию на бэке
-  linkedIn: string; // имеет валидацию на бэке
-  telegram: string; // имеет валидацию на бэке
+  github: string;
+  behance: string;
+  linkedIn: string;
+  telegram: string;
 }
 
 export default function OnboardingLayout({ children }: { children: ReactNode }) {
+  const { mutate: updateUser } = useUpdateMe();
+
   const methods = useForm<OnboardingProps>({
     defaultValues: {
       steps: [accountTypeStep],
@@ -45,11 +49,56 @@ export default function OnboardingLayout({ children }: { children: ReactNode }) 
     },
   });
 
-  const onSubmit = () => console.log('23');
+  const onSubmit = methods.handleSubmit(data => {
+    let type = '';
 
+    switch (data.speciality) {
+      case 'Developer':
+        type = 'dev';
+        break;
+      case 'Designer':
+        type = 'designer';
+        break;
+      case 'Project Manager':
+        type = 'pm';
+        break;
+    }
+
+    const updateRequest: IUserRequest = {
+      fullName: data.fullName,
+      username: data.username,
+      isLeader: data.isLeader,
+      country: data.country,
+      experience: data.experience as ExperienceType,
+      skills: {
+        __type: type as 'dev' | 'designer' | 'pm',
+        speciality: data.speciality,
+        focus: data.focus,
+        // TODO: fix bug here coreTools and additionalTools currently submit in following form:
+        // "additionalTools": [
+        //   "{\"label\":\"Redux\",\"value\":\"redux\"}",
+        //   "{\"label\":\"jQuery\",\"value\":\"jquery\"}",
+        //   "{\"label\":\"Backbone\",\"value\":\"backbone\"}"
+        // ],
+        // TODO: should be just array of labels
+        coreTools: data.coreTools,
+        additionalTools: data.additionalTools,
+      },
+      links: {
+        behance: data.behance,
+        linkedIn: data.linkedIn,
+        telegram: data.telegram,
+        github: data.github,
+      },
+    };
+
+    updateUser(updateRequest);
+  });
+
+  // TODO: add validations on each step (required / min amount of characters / etc)
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.container}>
+      <form onSubmit={onSubmit} className={styles.container}>
         {children}
       </form>
     </FormProvider>

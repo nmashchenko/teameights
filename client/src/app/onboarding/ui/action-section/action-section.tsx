@@ -1,25 +1,7 @@
 import { Button, Flex, Typography, NeedHelp } from '@/shared/ui';
-import { Dispatch, SetStateAction } from 'react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/shared/assets';
 import { useFormContext } from 'react-hook-form';
 import styles from './action-section.module.scss';
-import { useRouter } from 'next/navigation';
-import { PersonalInfo } from '@/app/onboarding/ui/steps/personal-info/personal-info';
-import { Specialty } from '@/app/onboarding/ui/steps/specialty/specialty';
-import { AccountType } from '@/app/onboarding/ui/steps/accout-type/accout-type';
-import { IconsSelector } from '@/app/onboarding/ui/steps/icons-selector/icons-selector';
-import {
-  designerTools,
-  fields,
-  frameworks,
-  managerTools,
-  methodologies,
-  programmingLanguages,
-  recommendedLanguages,
-} from '@/shared/constant';
-import { SocialLinks } from '@/app/onboarding/ui/steps/social-links/social-links';
-import { IOption } from '@/shared/interfaces';
-import { StepProps } from '@/app/onboarding/page';
 
 interface ActionSectionProps {
   step: number;
@@ -59,12 +41,13 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
           <ArrowLeftIcon />
           Back
         </Button>
+        {/*TODO: fix bug here when form submits before entering last step*/}
         {steps[step]?.submissionStep ? (
           <Button className={styles.button} padding='0 16px' type='submit'>
             Submit
           </Button>
         ) : (
-          <Button className={styles.button} padding='0 16px' onClick={handleNext}>
+          <Button className={styles.button} padding='0 16px' onClick={handleNext} type='button'>
             Next
             <ArrowRightIcon />
           </Button>
