@@ -83,4 +83,89 @@ export class UsersService {
   async softDelete(id: User['id']): Promise<void> {
     await this.usersRepository.softDelete(id);
   }
+
+  // async makeFriendship(creator: User, receiver: User) {
+  //   if (!creator.friends) {
+  //     creator.friends = [];
+  //   }
+  //   if (!receiver.friends) {
+  //     receiver.friends = [];
+  //   }
+  //
+  //   creator.friends.push(receiver);
+  //   receiver.friends.push(creator);
+  //   await this.usersRepository.save(creator);
+  //   await this.usersRepository.save(receiver);
+  // }
+
+  // async findFriends(id: number) {
+  //   const user = await this.usersRepository.findOne({ where: { id: id }, relations: ['friends'] });
+  //   if (!user) {
+  //     throw new HttpException(
+  //       {
+  //         status: HttpStatus.NOT_FOUND,
+  //         errors: {
+  //           user: `user with id: ${id} was not found`,
+  //         },
+  //       },
+  //       HttpStatus.NOT_FOUND
+  //     );
+  //   }
+  //   return user.friends;
+  // }
+
+  // async deleteFriend(id: number, friendId: number, userJwtPayload: JwtPayloadType) {
+  //   if (id !== userJwtPayload.id) {
+  //     throw new HttpException(
+  //       {
+  //         status: HttpStatus.UNAUTHORIZED,
+  //         errors: {
+  //           notification: `current user can't do this action. administrator was notified about this action.`,
+  //         },
+  //       },
+  //       HttpStatus.UNAUTHORIZED
+  //     );
+  //   }
+  //   const user = await this.usersRepository.findOne({ where: { id: id }, relations: ['friends'] });
+  //   if (!user) {
+  //     throw new HttpException(
+  //       {
+  //         status: HttpStatus.NOT_FOUND,
+  //         errors: {
+  //           user: `User with id: ${id} was not found`,
+  //         },
+  //       },
+  //       HttpStatus.NOT_FOUND
+  //     );
+  //   }
+  //
+  //   const friend = await this.usersRepository.findOne({
+  //     where: { id: friendId },
+  //     relations: ['friends'],
+  //   });
+  //   if (!friend) {
+  //     throw new HttpException(
+  //       {
+  //         status: HttpStatus.NOT_FOUND,
+  //         errors: {
+  //           user: `User with id: ${friendId} was not found`,
+  //         },
+  //       },
+  //       HttpStatus.NOT_FOUND
+  //     );
+  //   }
+  //
+  //   const userFriendIndex = user.friends.findIndex(userFriend => userFriend.id === friend.id);
+  //   const friendFriendIndex = friend.friends.findIndex(friendFriend => friendFriend.id === user.id);
+  //
+  //   if (userFriendIndex !== -1) {
+  //     user.friends.splice(userFriendIndex, 1);
+  //     await this.usersRepository.save(user);
+  //   }
+  //
+  //   if (friendFriendIndex !== -1) {
+  //     friend.friends.splice(friendFriendIndex, 1);
+  //     await this.usersRepository.save(friend);
+  //   }
+  // }
 }

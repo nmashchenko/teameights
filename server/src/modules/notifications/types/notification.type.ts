@@ -1,16 +1,28 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { User } from '../../users/entities/user.entity';
+
+export enum NotificationTypesEnum {
+  system = 'system',
+  // team_invitation = 'team_invitation',
+  friend_request = 'friend_request',
+}
+
+export enum NotificationStatusEnum {
+  rejected = 'rejected',
+  pending = 'pending',
+  accepted = 'accepted',
+}
 
 export class SystemNotificationData {
-  @IsString()
-  @IsNotEmpty()
   system_message: string;
 }
 
-// export enum NotificationStatusEnum {
-//   pending = 0,
-//   accepted = 1,
-//   rejected = 2,
-// }
+export class FriendRequestNotificationData {
+  status: NotificationStatusEnum;
+
+  creator: User;
+}
+
+export type NotificationTypeData = SystemNotificationData | FriendRequestNotificationData;
 
 // export class TeamInvitationNotificationData {
 //   @IsObject()
@@ -29,10 +41,3 @@ export class SystemNotificationData {
 //   @Column({ type: 'enum', enum: NotificationStatusEnum, default: NotificationStatusEnum.pending })
 //   status: NotificationStatusEnum;
 // }
-
-export type NotificationTypeData = SystemNotificationData;
-
-export enum NotificationTypesEnum {
-  system = 'system',
-  team_invitation = 'team_invitation',
-}

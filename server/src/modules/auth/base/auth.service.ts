@@ -488,12 +488,15 @@ export class AuthService {
   }
 
   private async sendWelcomeNotification(user: User) {
-    await this.notificationsService.createNotification({
-      receiver: user.id,
-      type: 'system',
-      data: {
-        system_message: 'Welcome to Teameights!',
+    await this.notificationsService.createNotification(
+      {
+        receiver: user.id,
+        type: 'system',
+        data: {
+          system_message: 'Welcome to Teameights!',
+        },
       },
-    });
+      user.id
+    );
   }
 }

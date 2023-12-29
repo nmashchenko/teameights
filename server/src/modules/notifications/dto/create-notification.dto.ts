@@ -1,5 +1,13 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
-import { IsIn, IsNotEmpty, IsNumber, IsObject, IsString, ValidateNested } from 'class-validator';
+import {
+  IsIn,
+  IsNotEmpty,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
 export class SystemNotificationDataDto {
@@ -7,6 +15,27 @@ export class SystemNotificationDataDto {
   @IsNotEmpty()
   @ApiProperty({ example: 'Welcome to the platform!' })
   system_message: string;
+}
+
+@ApiExtraModels(SystemNotificationDataDto)
+export class CreateNotificationDto {
+  @ApiProperty({ example: '1' })
+  @Transform(({ value }) => (value ? Number(value) : undefined))
+  @IsNumber()
+  receiver: number;
+
+  @ApiProperty({ enum: ['system', 'friend_request'] })
+  @IsNotEmpty({ message: 'mustBeNotEmpty' })
+  @IsIn(['system', 'friend_request'], { message: 'mustBeValidType' })
+  type: 'system' | 'friend_request';
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsObject({ message: 'Should be object' })
+  @ValidateNested()
+  @Type(() => SystemNotificationDataDto)
+  @IsOptional()
+  data?: SystemNotificationDataDto;
 }
 
 // export class TeamInvNotificationDataDto {
@@ -24,23 +53,3 @@ export class SystemNotificationDataDto {
 //   @IsOptional()
 //   message?: string;
 // }
-
-@ApiExtraModels(SystemNotificationDataDto)
-export class CreateNotificationDto {
-  @ApiProperty({ example: '1' })
-  @Transform(({ value }) => (value ? Number(value) : undefined))
-  @IsNumber()
-  receiver: number;
-
-  @ApiProperty({ enum: ['system', 'team_invitation'] })
-  @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  @IsIn(['system', 'team_invitation'], { message: 'mustBeValidType' })
-  type: 'system' | 'team_invitation';
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsObject({ message: 'Should be object' })
-  @ValidateNested()
-  @Type(() => SystemNotificationDataDto)
-  data: SystemNotificationDataDto;
-}

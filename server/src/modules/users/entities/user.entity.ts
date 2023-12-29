@@ -27,6 +27,7 @@ import { Projects } from './projects.entity';
 import { Links } from './links.entity';
 import { Skills } from './skills.entity';
 import { Notification } from '../../notifications/entities/notification.entity';
+import { Friendship } from '../../friendship/entities/friendship.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -144,9 +145,14 @@ export class User extends EntityHelper {
   @OneToMany(() => Notification, notifications => notifications.receiver)
   notifications: Notification[];
 
+  @OneToMany(() => Friendship, friendship => friendship.creator)
+  sentFriendshipRequests: Friendship[];
+
+  @OneToMany(() => Friendship, friendship => friendship.receiver)
+  receivedFriendshipRequests: Friendship[];
+
   // @ManyToOne(() => Team, team => team.users)
   // team: Team;
-
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
