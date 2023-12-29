@@ -38,7 +38,6 @@ export class UserSeedService {
           isLeader: true,
           country: 'Ukraine',
           dateOfBirth: '2023-09-25',
-          speciality: 'Frontend Developer',
           description: 'Cool developer!',
           experience: '5+ years',
           universities: [
@@ -68,8 +67,10 @@ export class UserSeedService {
             github: 'https://github.com',
           },
           skills: {
-            programmingLanguages: ['C++', 'TS'],
-            frameworks: ['NodeJS'],
+            speciality: 'Developer',
+            focus: 'Backend Developer',
+            coreTools: ['C++', 'TS'],
+            additionalTools: ['NodeJS'],
           },
         })
       );
@@ -97,10 +98,11 @@ export class UserSeedService {
             id: StatusEnum.active,
             name: 'Active',
           },
-          speciality: 'Project Manager',
           skills: {
-            projectManagerTools: ['Notion'],
-            methodologies: ['Agile'],
+            speciality: 'Project Manager',
+            focus: 'Web Projects',
+            coreTools: ['Notion'],
+            additionalTools: ['Agile'],
           },
         })
       );

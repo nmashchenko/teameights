@@ -383,9 +383,6 @@ export class AuthService {
       );
     }
 
-    // TODO: add support for checking if user speciality is designer
-    // and updating fields are designer fields
-
     await this.sessionService.softDelete({
       user: {
         id: currentUser.id,

@@ -47,14 +47,6 @@ export const focuses: IRoleToOptionsMap = {
       value: 'qa',
     },
     {
-      label: 'Designer',
-      value: 'designer',
-    },
-    {
-      label: 'Project Manager',
-      value: 'projectmanager',
-    },
-    {
       label: 'Cyber Security',
       value: 'cybersecurity',
     },
@@ -82,5 +74,6 @@ export const focuses: IRoleToOptionsMap = {
   'Project Manager': [
     { label: 'Web Projects', value: 'webprojects' },
     { label: 'Gaming projects', value: 'gamingprojects' },
+    { label: 'Mobile Projects', value: 'mobileprojects' },
   ],
 };

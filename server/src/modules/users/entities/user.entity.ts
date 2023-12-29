@@ -102,9 +102,6 @@ export class User extends EntityHelper {
   dateOfBirth?: Date | null;
 
   @Column({ type: String, nullable: true })
-  speciality?: string | null;
-
-  @Column({ type: String, nullable: true })
   description?: string | null;
 
   @Column({ type: String, nullable: true })

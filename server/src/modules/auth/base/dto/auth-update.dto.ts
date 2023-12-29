@@ -21,9 +21,7 @@ import { ProjectsDto } from '../../../users/dto/projects.dto';
 import { LinksDto } from '../../../users/dto/links.dto';
 import { Speciality, specialityValues } from '../../../../utils/types/specialities.type';
 import { Experience, experienceValues } from '../../../../utils/types/experiences.type';
-import { DeveloperDto } from '../../../users/dto/developer.dto';
-import { DesignerDto } from '../../../users/dto/designer.dto';
-import { ProjectManagerDto } from '../../../users/dto/project-manager.dto';
+import { DesignerDto, DeveloperDto, ProjectManagerDto } from '../../../users/dto/skills.dto';
 
 export class AuthUpdateDto {
   @ApiProperty({ type: () => FileEntity })
@@ -152,9 +150,8 @@ export class AuthUpdateDto {
 
   @ApiProperty({
     example: {
-      designerTools: ['Figma'],
-      fields: ['UI', 'Web'],
-      type: 'designer',
+      coreTools: ['Figma'],
+      speciality: 'Designer',
     },
     description: 'Skills based on specific group (developer, designer, pm)',
   })
@@ -162,9 +159,9 @@ export class AuthUpdateDto {
   @ValidateNested()
   @Type(() => Object, {
     discriminator: {
-      property: 'type',
+      property: '__type',
       subTypes: [
-        { value: DeveloperDto, name: 'developer' },
+        { value: DeveloperDto, name: 'dev' },
         { value: DesignerDto, name: 'designer' },
         { value: ProjectManagerDto, name: 'pm' },
       ],

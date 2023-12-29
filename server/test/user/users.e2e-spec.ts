@@ -8,10 +8,11 @@ describe('Get users (e2e)', () => {
   const fullName = 'Slavik Ukraincev';
   const username = faker.internet.userName().toLowerCase();
   const country = 'Ukraine';
-  const speciality = 'Backend Developer';
+  const speciality = 'Developer';
+  const focus = 'Backend Developer';
   const experience = '1 year';
-  const programmingLanguages = ['C', 'C++', 'TS', 'JS'];
-  const frameworks = ['NestJS', 'NextJS'];
+  const coreTools = ['C', 'C++', 'TS', 'JS'];
+  const additionalTools = ['NestJS', 'NextJS'];
 
   it('Register new user with fullName for tests: /api/v1/auth/email/register (POST)', async () => {
     const email = faker.internet.email();
@@ -100,7 +101,7 @@ describe('Get users (e2e)', () => {
       });
   });
   //
-  it('Register new user with speciality for tests: /api/v1/auth/email/register (POST)', async () => {
+  it('Register new user with skills for tests: /api/v1/auth/email/register (POST)', async () => {
     const email = faker.internet.email();
     await request(app)
       .post('/api/v1/auth/email/register')
@@ -121,11 +122,16 @@ describe('Get users (e2e)', () => {
         type: 'bearer',
       })
       .send({
-        speciality: speciality,
+        skills: {
+          __type: 'dev',
+          speciality: speciality,
+          focus: focus,
+          coreTools: ['C++'],
+        },
       })
       .expect(200)
       .expect(({ body }) => {
-        expect(body.speciality).toBe(speciality);
+        expect(body.skills.speciality).toBe(speciality);
       });
   });
 
@@ -158,7 +164,7 @@ describe('Get users (e2e)', () => {
       });
   });
   //
-  it('Register new user with programmingLanguages for tests: /api/v1/auth/email/register (POST)', async () => {
+  it('Register new user with core tools for tests: /api/v1/auth/email/register (POST)', async () => {
     const email = faker.internet.email();
     await request(app)
       .post('/api/v1/auth/email/register')
@@ -180,13 +186,15 @@ describe('Get users (e2e)', () => {
       })
       .send({
         skills: {
-          programmingLanguages: programmingLanguages,
-          type: 'developer',
+          speciality: speciality,
+          focus: focus,
+          coreTools: coreTools,
+          __type: 'dev',
         },
       })
       .expect(200)
       .expect(({ body }) => {
-        expect(body.skills.programmingLanguages).toEqual(programmingLanguages);
+        expect(body.skills.coreTools).toEqual(coreTools);
       });
 
     // make sure different type won't work
@@ -197,8 +205,9 @@ describe('Get users (e2e)', () => {
       })
       .send({
         skills: {
-          programmingLanguages: programmingLanguages,
-          type: 'designer',
+          coreTools: [],
+          speciality: 'designer',
+          __type: 'dev',
         },
       })
       .expect(422)
@@ -207,7 +216,7 @@ describe('Get users (e2e)', () => {
       });
   });
   //
-  it('Register new user with frameworks for tests: /api/v1/auth/email/register (POST)', async () => {
+  it('Register new user with additional tools for tests: /api/v1/auth/email/register (POST)', async () => {
     const email = faker.internet.email();
     await request(app)
       .post('/api/v1/auth/email/register')
@@ -229,13 +238,16 @@ describe('Get users (e2e)', () => {
       })
       .send({
         skills: {
-          frameworks: frameworks,
-          type: 'developer',
+          speciality: speciality,
+          focus: focus,
+          coreTools: coreTools,
+          additionalTools: additionalTools,
+          __type: 'dev',
         },
       })
       .expect(200)
       .expect(({ body }) => {
-        expect(body.skills.frameworks).toEqual(frameworks);
+        expect(body.skills.additionalTools).toEqual(additionalTools);
       });
   });
 
@@ -292,7 +304,7 @@ describe('Get users (e2e)', () => {
       .send()
       .expect(({ body }) => {
         for (let i = 0; i < body.data.length; i++) {
-          expect(body.data[0].speciality).toBe(speciality);
+          expect(body.data[0].skills.speciality).toBe(speciality);
         }
       });
   });
@@ -309,26 +321,26 @@ describe('Get users (e2e)', () => {
       });
   });
 
-  it('Get users with programmingLanguages filter: /api/v1/users?filters= (GET)', () => {
+  it('Get users with coreTools filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
-      .get(`/api/v1/users?filters={"programmingLanguages": ["JS"]}`)
+      .get(`/api/v1/users?filters={"coreTools": ["JS"]}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
         for (let i = 0; i < body.data.length; i++) {
-          expect(body.data[i].skills.programmingLanguages).toContain('JS');
+          expect(body.data[i].skills.coreTools).toContain('JS');
         }
       });
   });
 
-  it('Get users with frameworks filter: /api/v1/users?filters= (GET)', () => {
+  it('Get users with additionalTools filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
-      .get(`/api/v1/users?filters={"frameworks": ["NestJS"]}`)
+      .get(`/api/v1/users?filters={"additionalTools": ["NestJS"]}`)
       .expect(200)
       .send()
       .expect(({ body }) => {
         for (let i = 0; i < body.data.length; i++) {
-          expect(body.data[i].skills.frameworks).toContain('NestJS');
+          expect(body.data[i].skills.additionalTools).toContain('NestJS');
         }
       });
   });
