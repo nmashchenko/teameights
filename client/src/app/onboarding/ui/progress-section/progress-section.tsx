@@ -2,6 +2,7 @@ import { Flex, Logo, ProgressBar, Typography } from '@/shared/ui';
 import { ReactNode } from 'react';
 import styles from './progress-section.module.scss';
 import { useFormContext } from 'react-hook-form';
+import { StepProps } from '@/app/onboarding/lib/const/steps';
 
 interface ProgressSectionProps {
   step: number;
@@ -10,7 +11,7 @@ interface ProgressSectionProps {
 
 export const ProgressSection = ({ children, step }: ProgressSectionProps) => {
   const { watch } = useFormContext();
-  const steps = watch('steps');
+  const steps: StepProps[] = watch('steps');
 
   return (
     <Flex direction={'column'} className={styles.container}>
@@ -18,11 +19,9 @@ export const ProgressSection = ({ children, step }: ProgressSectionProps) => {
       {children}
       <Flex gap={32} direction='column'>
         <Flex gap={16} direction='column'>
-          {/*TODO: ADD DESCRIPTION / METADATA TO EACH STEP TO DISPLAY HERE*/}
-          <Typography size='heading_m'>Search for teammates</Typography>
+          <Typography size='heading_m'>{steps[step].meta.details}</Typography>
           <Typography size='body_m' color='greyNormal'>
-            Our intuitive search filters make it easy to find the right teammate based on a set of
-            criteria.
+            {steps[step].meta.description}
           </Typography>
         </Flex>
         <ProgressBar percentageProgress={(100 / steps.length) * step} />

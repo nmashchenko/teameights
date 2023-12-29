@@ -2,8 +2,8 @@
 import { ReactNode } from 'react';
 import styles from './onboarding.module.scss';
 import { FormProvider, useForm } from 'react-hook-form';
-import { AccountType } from '@/app/onboarding/ui/steps/accout-type/accout-type';
-import { StepProps } from '@/app/onboarding/page';
+import { accountTypeStep } from '@/app/onboarding/lib/const/steps';
+import { StepProps } from '@/app/onboarding/lib/const/steps';
 
 interface OnboardingProps {
   steps: StepProps[];
@@ -27,9 +27,7 @@ interface OnboardingProps {
 export default function OnboardingLayout({ children }: { children: ReactNode }) {
   const methods = useForm<OnboardingProps>({
     defaultValues: {
-      steps: [
-        { step: <AccountType />, title: 'Account type', centered: true, submissionStep: false },
-      ],
+      steps: [accountTypeStep],
       accountType: '',
       username: '',
       fullName: '',

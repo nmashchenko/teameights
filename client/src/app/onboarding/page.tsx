@@ -5,26 +5,20 @@ import { ProgressSection } from '@/app/onboarding/ui/progress-section/progress-s
 import { ActionSection } from '@/app/onboarding/ui/action-section/action-section';
 import styles from './onboarding.module.scss';
 import { useSteps } from './lib/hooks/useSteps';
-
-export interface StepProps {
-  step: JSX.Element;
-  title: string;
-  centered: boolean;
-  submissionStep: boolean;
-  // details: string;
-  // description: string;
-}
+import { useFormContext } from 'react-hook-form';
 
 const OnboardingPage = () => {
   const { step, handleNext, handleBack } = useSteps();
+  const { watch } = useFormContext();
+  const steps = watch('steps');
 
   return (
     <Flex width={'100%'} height={'100%'}>
       <ProgressSection step={step}>
-        <Flex direction='column' flex={1}>
-          <Flex align='center' flex={1}>
+        <Flex direction='column' flex={1} width='100%'>
+          <Flex align='center' flex={1} width='100%'>
             {/*TODO: CHANGE THIS FOR ILLUSTRATIONS*/}
-            <div style={{ width: '100%', height: '400px', background: '#D9D9D9' }} />
+            {steps[step].meta.illustration}
           </Flex>
         </Flex>
       </ProgressSection>
