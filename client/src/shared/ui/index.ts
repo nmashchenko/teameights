@@ -12,6 +12,8 @@ export * from './flex';
 export * from './icon-wrapper';
 export * from './drawer';
 export * from './image-loader';
+export * from './search-bar';
 export * from './progress-bar';
 export * from './logo';
 export * from './need-help';
+export * from './skeleton';

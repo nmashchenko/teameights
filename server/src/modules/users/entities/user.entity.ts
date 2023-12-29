@@ -26,6 +26,7 @@ import { Jobs } from './jobs.entity';
 import { Projects } from './projects.entity';
 import { Links } from './links.entity';
 import { Skills } from './skills.entity';
+import { Notification } from '../../notifications/entities/notification.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -98,7 +99,7 @@ export class User extends EntityHelper {
   @Index()
   country?: string | null;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
   dateOfBirth?: Date | null;
 
   @Column({ type: String, nullable: true })
@@ -136,18 +137,19 @@ export class User extends EntityHelper {
   @JoinColumn()
   links?: Links;
 
-  // @OneToMany(() => Notifications, notifications => notifications.user)
-  // notifications: Notifications[];
-  //
+  @Exclude({ toPlainOnly: true })
+  @OneToMany(() => Notification, notifications => notifications.receiver)
+  notifications: Notification[];
+
   // @ManyToOne(() => Team, team => team.users)
   // team: Team;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
 }

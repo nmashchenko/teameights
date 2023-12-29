@@ -51,7 +51,7 @@ export const BadgeText: FC<BadgeFrameworkProps> = props => {
       }}
       onClick={onClick}
     >
-      {data}
+      <span>{data}</span>
     </div>
   );
 };

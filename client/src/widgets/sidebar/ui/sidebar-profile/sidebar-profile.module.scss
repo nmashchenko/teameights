@@ -1,0 +1,53 @@
+.userInfo {
+  margin-top: 28px;
+  width: 100%;
+  display: flex;
+  padding: 0 12px;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.userContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.userRealName {
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  color: var(--white-color);
+
+  &.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+}
+
+.userUsername {
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  margin: 0;
+  color: var(--grey-normal-color);
+
+  &.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+}
+
+.notificationIconCenter {
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.notificationToggle {
+  cursor: pointer;
+}

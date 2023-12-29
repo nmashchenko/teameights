@@ -7,3 +7,4 @@ export { MentorshipIllustration } from './mentorship';
 export { ProjectsIllustration } from './projects';
 export { SearchIllustration } from './search';
 export { TeamIllustration } from './team';
+export { AstronautIllustration } from './astronaut';

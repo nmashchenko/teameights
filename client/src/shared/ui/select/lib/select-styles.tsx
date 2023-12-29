@@ -2,17 +2,17 @@ import { CSSObjectWithLabel, GroupBase, OptionProps, StylesConfig } from 'react-
 
 const _colors = {
   grey: {
-    normal: '#8f9094',
-    dark: '#2f3239',
-    medium: '#434752',
+    normal: 'var(--grey-normal-color)',
+    dark: 'var(--grey-dark-color)',
+    medium: 'var(--grey-medium-color)',
   },
   green: {
-    bright: '#5bd424',
-    dark: '#064006',
-    active: '#1c8111',
+    bright: 'var(--green-bright-color)',
+    dark: 'var(--green-dark-color)',
+    active: 'var(--green-active-color)',
   },
-  white: '#fff',
-  red: '#d42422',
+  white: 'var(--white-color)',
+  red: 'var(--red-error-color)',
 };
 
 const getFocusAndActiveStyles = (isWithBorder?: boolean) => ({
@@ -70,6 +70,7 @@ export const selectStyles = <
   const customStyles = styles || {};
 
   return {
+    ...customStyles,
     control: (base, props) => ({
       ...base,
       outline: 'none',
@@ -89,33 +90,33 @@ export const selectStyles = <
       ':focus-within': { ...getFocusAndActiveStyles(isWithBorder) },
       caretColor: _colors.green.bright,
       // Spreading custom styles
-      ...(customStyles.control ? customStyles.control({}, props) : {}),
+      ...(customStyles.control && customStyles.control({}, props)),
     }),
     dropdownIndicator: (base, props) => ({
       ...base,
       padding: 0,
       cursor: 'pointer',
-      ...(customStyles.dropdownIndicator ? customStyles.dropdownIndicator({}, props) : {}),
+      ...(customStyles.dropdownIndicator && customStyles.dropdownIndicator({}, props)),
     }),
     valueContainer: (base, props) => ({
       ...base,
       padding: 0,
       margin: 0,
-      ...(customStyles.valueContainer ? customStyles.valueContainer({}, props) : {}),
+      ...(customStyles.valueContainer && customStyles.valueContainer({}, props)),
     }),
     singleValue: (base, props) => ({
       ...base,
       color: _colors.white,
       padding: 0,
       margin: 0,
-      ...(customStyles.singleValue ? customStyles.singleValue({}, props) : {}),
+      ...(customStyles.singleValue && customStyles.singleValue({}, props)),
     }),
     input: (base, props) => ({
       ...base,
       color: _colors.white,
       padding: 0,
       margin: 0,
-      ...(customStyles.input ? customStyles.input({}, props) : {}),
+      ...(customStyles.input && customStyles.input({}, props)),
     }),
     menu: (base, props) => ({
       ...base,
@@ -124,7 +125,7 @@ export const selectStyles = <
       background: 'transparent',
       paddingTop: '8px',
       maxHeight: '300px',
-      ...(customStyles.menu ? customStyles.menu({}, props) : {}),
+      ...(customStyles.menu && customStyles.menu({}, props)),
     }),
     menuList: (base, props) => ({
       ...base,
@@ -134,7 +135,7 @@ export const selectStyles = <
       overflowY: 'auto',
       boxShadow: '0 4px 24px 0 rgb(17 20 27 / 25%)',
       background: _colors.grey.dark,
-      ...(customStyles.menuList ? customStyles.menuList({}, props) : {}),
+      ...(customStyles.menuList && customStyles.menuList({}, props)),
     }),
     option: (styles, props) =>
       customStyles.option
@@ -152,13 +153,13 @@ export const selectStyles = <
       ':hover': {
         background: _colors.grey.medium,
       },
-      ...(customStyles.multiValue ? customStyles.multiValue({}, props) : {}),
+      ...(customStyles.multiValue && customStyles.multiValue({}, props)),
     }),
     multiValueLabel: (base, props) => ({
       ...base,
       color: _colors.white,
       fontSize: '100%',
-      ...(customStyles.multiValueLabel ? customStyles.multiValueLabel({}, props) : {}),
+      ...(customStyles.multiValueLabel && customStyles.multiValueLabel({}, props)),
     }),
     multiValueRemove: (base, props) => ({
       ...base,
@@ -168,7 +169,7 @@ export const selectStyles = <
           fill: _colors.red,
         },
       },
-      ...(customStyles.multiValueRemove ? customStyles.multiValueRemove({}, props) : {}),
+      ...(customStyles.multiValueRemove && customStyles.multiValueRemove({}, props)),
     }),
   };
 };

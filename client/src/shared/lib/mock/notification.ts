@@ -1,44 +1,26 @@
 import { faker } from '@faker-js/faker';
-import { getRandomItemFromArray } from './common';
-import {
-  ISystemNotification,
-  ITeam,
-  ITeamInvitationNotification,
-  IUserBase,
-  StatusType,
-} from '@teameights/types';
-import { generateMockFileEntity, generateMockUser } from './user';
-import { generateMockTeam } from './team';
+import { ISystemNotification, IUserBase, IUserProtectedResponse } from '@teameights/types';
+import { generateMockUser } from './user';
 
-export const generateSystemNotification = (initialUser?: IUserBase): ISystemNotification => ({
+export const generateSystemNotification = (
+  initialUser?: IUserBase | IUserProtectedResponse
+): ISystemNotification => ({
   id: faker.number.int(),
-  user: initialUser ? initialUser : generateMockUser(),
+  receiver: initialUser ? initialUser : generateMockUser(),
   type: 'system',
   read: faker.datatype.boolean(),
-  expiresAt: faker.date.future(),
   createdAt: faker.date.recent(),
   updatedAt: faker.date.recent(),
-  system_message: faker.lorem.sentence(),
   deletedAt: faker.date.recent(),
+  data: {
+    system_message: faker.lorem.sentence(),
+  },
 });
 
-export const generateTeamInvitationNotification = (
-  initialUser?: IUserBase,
-  initialTeam?: ITeam,
-  initialFromUser?: IUserBase
-): ITeamInvitationNotification => ({
-  id: faker.number.int(),
-  user: initialUser ? initialUser : generateMockUser(),
-  type: 'team_invite',
-  read: faker.datatype.boolean(),
-  expiresAt: faker.date.future(),
-  createdAt: faker.date.recent(),
-  updatedAt: faker.date.recent(),
-  team: initialTeam ? initialTeam : generateMockTeam(initialTeam),
-  from_user: initialFromUser ? initialFromUser : generateMockUser(),
-  to_user_email: faker.internet.email(),
-  status: getRandomItemFromArray(['pending', 'accepted', 'rejected']) as StatusType,
-  photo: generateMockFileEntity(),
-  message: faker.lorem.sentence(),
-  deletedAt: faker.date.recent(),
-});
+export const generateMockNotifications = (
+  count: number,
+  initialUser?: IUserBase | IUserProtectedResponse
+): ISystemNotification[] => {
+  // todo: add support for other types
+  return Array.from({ length: count }).map(() => generateSystemNotification(initialUser));
+};

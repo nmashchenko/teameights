@@ -13,5 +13,7 @@ export const useGetMe = () => {
     },
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    retry: 1,
+    retryDelay: 5000,
   });
 };

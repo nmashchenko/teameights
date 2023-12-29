@@ -1,1 +1,1 @@
-export { type InfoModalTeamProps } from './info-modal-team-interface';
+// export { type InfoModalTeamProps } from './info-modal-team-interface';

@@ -1,22 +1,15 @@
-import { ArrowLeftIcon, ArrowRightIcon } from '@/shared/assets';
-import { BadgeText, BadgeIcon, Button, Drawer, Flex, Typography } from '@/shared/ui';
+import { ArrowLeftIcon, ArrowRightIcon, ChatCircleDotsIcon, UserPlusIcon } from '@/shared/assets';
+import { Button, Drawer, Flex, Typography } from '@/shared/ui';
 import { FC } from 'react';
 import styles from './phone.module.scss';
 import { calculateAge, getCountryFlag } from '@/shared/lib';
 import { InfoModalUserProps } from '../interfaces';
 import { ImageLoader } from '@/shared/ui/image-loader/image-loader';
+import { IconLayout } from '../ui/icon-layout/icon-layout';
+import { TextLayout } from '../ui/text-layout/text-layout';
 
 export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
-  const showInviteButton = () => {
-    if (user?.team) {
-      if (!user.team.members?.some(member => member.id === user.id)) {
-        return true;
-      }
-    }
-
-    return false;
-  };
 
   return (
     <>
@@ -44,7 +37,7 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
                 crownSize={28}
                 width={70}
                 height={70}
-                src={user?.photo?.path || ''}
+                src={user?.photo?.path || '/images/placeholder.png'}
                 alt='User image'
                 borderRadius='50%'
               />
@@ -57,13 +50,13 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
                     <ImageLoader
                       width={24}
                       height={16}
-                      src={getCountryFlag(user?.country)}
+                      src={getCountryFlag(user?.country) ?? '/images/placeholder.png'}
                       alt='User flag image'
                     />
                   </Flex>
                   <Flex direction='column' gap='4px'>
                     <Typography size='body_s' color='greyNormal'>
-                      {user?.speciality}
+                      {user?.skills?.speciality}
                     </Typography>
                     <Typography size='body_s' color='greyNormal'>
                       {user?.experience}
@@ -73,71 +66,23 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
               </Flex>
             </Flex>
             <Flex gap='8px' width='100%'>
-              {showInviteButton() && (
+              {
                 <Button typeBtn='primary' size='m' width='100%'>
-                  Invite
+                  Connect
+                  <UserPlusIcon />
                 </Button>
-              )}
+              }
               <Button typeBtn='secondary' size='m' width='100%'>
                 Message
+                <ChatCircleDotsIcon />
               </Button>
             </Flex>
           </Flex>
           <Typography size='body_m' color='white'>
             {user?.description}
           </Typography>
-          <Flex gap='24px' direction='column'>
-            {/*User is developer:*/}
-            {user?.skills?.frameworks && (
-              <div className={styles.grid_container}>
-                {user?.skills?.frameworks.map((framework: string, index: number) => (
-                  <BadgeText data={framework} key={index} />
-                ))}
-              </div>
-            )}
-            {/*User is designer:*/}
-            {user?.skills?.fields && (
-              <div className={styles.grid_container}>
-                {user?.skills?.fields.map((field: string, index: number) => (
-                  <BadgeText data={field} key={index} />
-                ))}
-              </div>
-            )}
-            {/*User is project manager:*/}
-            {user?.skills?.methodologies && (
-              <div className={styles.grid_container}>
-                {user?.skills?.methodologies.map((methodology: string, index: number) => (
-                  <BadgeText data={methodology} key={index} />
-                ))}
-              </div>
-            )}
-
-            {/*User is developer:*/}
-            {user?.skills?.programmingLanguages && (
-              <Flex wrap='wrap' gap='8px'>
-                {user?.skills.programmingLanguages.map((language: string, index: number) => (
-                  <BadgeIcon data={language} key={index} />
-                ))}
-              </Flex>
-            )}
-            {/*User is designer:*/}
-            {user?.skills?.designerTools && (
-              <Flex wrap='wrap' gap='8px'>
-                {user?.skills.designerTools.map((tool: string, index: number) => (
-                  <BadgeIcon data={tool} key={index} />
-                ))}
-              </Flex>
-            )}
-
-            {/*User is project manager:*/}
-            {user?.skills?.projectManagerTools && (
-              <Flex wrap='wrap' gap='8px'>
-                {user?.skills.projectManagerTools.map((tool: string, index: number) => (
-                  <BadgeIcon data={tool} key={index} />
-                ))}
-              </Flex>
-            )}
-          </Flex>
+          <TextLayout additionalTools={user?.skills?.additionalTools} />
+          <IconLayout coreTools={user?.skills?.coreTools} />
         </Flex>
       </Drawer>
     </>

@@ -22,7 +22,6 @@ import { UniversitiesDto } from './universities.dto';
 import { JobsDto } from './jobs.dto';
 import { ProjectsDto } from './projects.dto';
 import { LinksDto } from './links.dto';
-import { Speciality, specialityValues } from '../../../utils/types/specialities.type';
 import { Experience, experienceValues } from '../../../utils/types/experiences.type';
 import { DesignerDto, DeveloperDto, ProjectManagerDto } from './skills.dto';
 

@@ -10,6 +10,8 @@
  * @prop {boolean} open - Determines whether the drawer is visible (open) or not.
  * @prop {function} onClose - Callback function that gets triggered when the drawer is requested to be closed.
  * @prop {boolean} [isFullHeight=false] - Specifies whether the drawer should cover full height of the viewport. Default is `false`.
+ * @prop {string} [className] - Class for drawer content
+ * @prop {string} [overlayClassName] - Class for drawer overlay
  * @prop {ReactNode} [children] - Content to be displayed inside the drawer.
  *
  * Usage:
@@ -41,9 +43,19 @@ interface DrawerProps {
   onClose: () => void;
   isFullHeight?: boolean;
   direction?: 'left' | 'right' | 'top' | 'bottom';
+  className?: string;
+  overlayClassName?: string;
 }
 export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
-  const { open, onClose, isFullHeight, direction = 'bottom', children } = props;
+  const {
+    open,
+    onClose,
+    isFullHeight,
+    direction = 'bottom',
+    className,
+    overlayClassName,
+    children,
+  } = props;
 
   const style = {
     borderRadius: isFullHeight ? '0' : '15px 15px 0 0',
@@ -54,10 +66,13 @@ export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
 
   return (
     <DrawerComponent
+      zIndex={999}
       open={open}
       onClose={onClose}
       direction={direction}
       style={style}
+      className={className}
+      overlayClassName={overlayClassName}
       customIdSuffix='t8s-drawer'
       lockBackgroundScroll
     >
