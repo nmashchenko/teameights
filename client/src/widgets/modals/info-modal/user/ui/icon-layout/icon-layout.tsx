@@ -1,6 +1,5 @@
 import { BadgeIcon, Flex } from '@/shared/ui';
 import { FC } from 'react';
-import { Nullable } from '@teameights/types';
 
 interface IconLayout {
   coreTools?: string[];

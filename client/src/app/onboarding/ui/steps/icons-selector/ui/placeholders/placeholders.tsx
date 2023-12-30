@@ -8,11 +8,13 @@ interface PlaceholdersProps {
   selectedIcons: IOption[];
   toggleIcon: (clickedIcon: IOption) => void;
   type?: 'icon' | 'text';
+  error?: string;
 }
 export const Placeholders: FC<PlaceholdersProps> = ({
   selectedIcons,
   toggleIcon,
   type = 'icon',
+  error,
 }) => {
   const items = (type: 'icon' | 'text') =>
     Array(8)
@@ -34,7 +36,7 @@ export const Placeholders: FC<PlaceholdersProps> = ({
       });
 
   return (
-    <div className={styles.selected_icons}>
+    <Flex className={styles.selected_icons} gap={10} direction='column'>
       {type === 'text' ? (
         <div className={styles.placeholders}>{items(type)}</div>
       ) : (
@@ -42,6 +44,11 @@ export const Placeholders: FC<PlaceholdersProps> = ({
           {items(type)}
         </Flex>
       )}
-    </div>
+      {error && (
+        <span className={styles.error} role='alert'>
+          {error}
+        </span>
+      )}
+    </Flex>
   );
 };

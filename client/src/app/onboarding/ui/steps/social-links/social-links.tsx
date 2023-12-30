@@ -1,48 +1,62 @@
 import { Flex, InputLink } from '@/shared/ui';
-import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 export const SocialLinks = () => {
-  const [gitLink, setGitLink] = useState('');
-  const [behLink, setBehLink] = useState('');
-  const [telLink, setTelLink] = useState('');
-  const [linLink, setLinLink] = useState('');
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  // eslint-disable-next-line
+  const urlPattern = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+
+  const validateURL = (value: string) => {
+    if (value && !value.match(urlPattern)) {
+      return 'Invalid URL';
+    }
+    return true;
+  };
 
   return (
-    <Flex direction='column' gap='48px' width="100%" maxWidth='370px'>
+    <Flex direction='column' gap='48px' width='100%' maxWidth='370px'>
       <div>
         <InputLink
-          name='git'
           placeholder='add link'
-          value={gitLink}
-          onChange={e => setGitLink(e.target.value)}
+          {...register('github', {
+            validate: validateURL,
+          })}
           linkType='github'
+          error={errors.github?.message as string}
         />
       </div>
       <div>
         <InputLink
-          name='beh'
+          {...register('behance', {
+            validate: validateURL,
+          })}
           placeholder='add link'
-          value={behLink}
-          onChange={e => setBehLink(e.target.value)}
           linkType='behance'
+          error={errors.behance?.message as string}
         />
       </div>
       <div>
         <InputLink
-          name='tel'
+          {...register('telegram', {
+            validate: validateURL,
+          })}
           placeholder='add link'
-          value={telLink}
-          onChange={e => setTelLink(e.target.value)}
           linkType='telegram'
+          error={errors.telegram?.message as string}
         />
       </div>
       <div>
         <InputLink
-          name='git'
+          {...register('linkedIn', {
+            validate: validateURL,
+          })}
           placeholder='add link'
-          value={linLink}
-          onChange={e => setLinLink(e.target.value)}
-          linkType='linkedin'
+          linkType='linkedIn'
+          error={errors.linkedIn?.message as string}
         />
       </div>
     </Flex>

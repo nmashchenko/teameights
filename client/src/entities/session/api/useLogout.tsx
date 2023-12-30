@@ -11,9 +11,11 @@ export const useLogout = () => {
     onSuccess: () => {
       localStorage.removeItem('token');
       Cookies.remove('refreshToken');
-      // Invalidate and fetch again
+
       toast.success('Successful logout. See you soon!');
-      return queryClient.removeQueries();
+      return queryClient
+        .resetQueries({ queryKey: ['useGetMe'], exact: true })
+        .then(() => console.log('cleared'));
     },
     onError: error => {
       console.log(error);

@@ -9,17 +9,24 @@ import styles from './speciality.module.scss';
 export const Specialty = () => {
   const [selectedExperience, setSelectedExperience] = useState('');
   const [checked, setChecked] = useState(false);
-  const { setValue, control, getValues, register, watch } = useFormContext();
+  const {
+    setValue,
+    control,
+    register,
+    watch,
+    formState: { errors },
+    clearErrors,
+  } = useFormContext();
 
   const principalSpeciality = watch('speciality');
-  const handlePrincipalSpecialityChange = (speciality: string) => {
+  const handlePrincipalSpecialityChange = () => {
     setValue('focus', '');
     setValue('coreTools', []);
     setValue('additionalTools', []);
   };
 
   return (
-    <Flex direction='column' width={"100%"} maxWidth='400px'>
+    <Flex direction='column' width={'100%'} maxWidth='400px'>
       <Flex direction='column' gap='48px' padding='0 0 24px 0'>
         <Flex className={styles.specialties} gap='8px'>
           {principalSpecialities.map(speciality => (
@@ -28,9 +35,9 @@ export const Specialty = () => {
                 type='radio'
                 id={speciality.name}
                 className={styles.input}
-                onClick={() => handlePrincipalSpecialityChange(speciality.name)}
+                onClick={() => handlePrincipalSpecialityChange()}
                 value={speciality.name}
-                {...register('speciality')}
+                {...register('speciality', { required: 'Please select speciality' })}
               />
               <label htmlFor={speciality.name} className={styles.label}>
                 <Image src={speciality.image} alt={speciality.name} width={24} height={24} />
@@ -47,6 +54,7 @@ export const Specialty = () => {
             <Controller
               control={control}
               name='focus'
+              rules={{ required: 'Focus should not be empty.' }}
               render={({ field: { onChange, value, onBlur } }) => (
                 <Select
                   value={
@@ -56,9 +64,13 @@ export const Specialty = () => {
                     }
                   }
                   placeholder='Focus'
-                  onChange={val => onChange(val?.label)}
+                  onChange={val => {
+                    clearErrors('focus');
+                    onChange(val?.label);
+                  }}
                   onBlur={onBlur} // notify when input is touched/blur
                   options={focuses[principalSpeciality] ?? []}
+                  error={errors.focus?.message as string}
                 />
               )}
             />
@@ -71,11 +83,13 @@ export const Specialty = () => {
           <Controller
             control={control}
             name='experience'
+            rules={{ required: 'Experience should not be empty.' }}
             render={({ field: { onChange, onBlur, value } }) => (
               <Select
                 options={experiences}
                 value={experiences.find(s => s.label === value)}
                 onChange={val => {
+                  clearErrors('experience');
                   onChange(val?.label);
                   setSelectedExperience(val?.label ?? 'No experience');
 
@@ -84,6 +98,7 @@ export const Specialty = () => {
                   }
                 }}
                 onBlur={onBlur}
+                error={errors.experience?.message as string}
               />
             )}
           />

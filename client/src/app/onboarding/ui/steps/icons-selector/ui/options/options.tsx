@@ -5,7 +5,7 @@ import { IconItem } from '@/app/onboarding/ui/steps/icons-selector/ui/icon-item/
 import { IOption } from '@/shared/interfaces';
 
 interface OptionsProps {
-  className: string;
+  className?: string;
   icons: IOption[];
   selectedIcons: IOption[];
   filterFn: (item: IOption) => void;
@@ -15,7 +15,7 @@ interface OptionsProps {
 }
 
 export const Options: FC<OptionsProps> = ({
-  className= styles.recommended_icons,
+  className = styles.recommended_icons,
   icons,
   selectedIcons,
   filterFn,
@@ -41,7 +41,7 @@ export const Options: FC<OptionsProps> = ({
               />
             ) : (
               <BadgeText
-                isNotActive={!Boolean(selectedIcons.find(option => option.label === icon.label))}
+                isNotActive={!selectedIcons.find(option => option.label === icon.label)}
                 onClick={() => toggleFn(icon)}
                 data={icon.label}
                 key={index}

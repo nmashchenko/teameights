@@ -7,8 +7,9 @@ export const HackathonsIllustration: FC<SVGProps<SVGSVGElement>> = props => {
       viewBox='0 0 390 395'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      {...props}
     >
-      <g clip-path='url(#clip0_7373_88290)'>
+      <g clipPath='url(#clip0_7373_88290)'>
         <path
           d='M47.5583 271.529L54.0262 267.819C54.0262 267.819 57.8458 251.93 56.3265 237.636C54.179 217.545 40.9546 209.982 35.9552 211.714C30.9558 213.445 29.4703 219.293 37.7971 231.236C42.6268 238.323 48.6618 253.033 47.5583 271.529Z'
           fill='#5BD424'

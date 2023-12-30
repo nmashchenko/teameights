@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { FC, forwardRef, InputHTMLAttributes, Ref } from 'react';
+import { forwardRef, InputHTMLAttributes, Ref } from 'react';
 import { CheckIcon } from '@/shared/assets';
 import styles from './checkbox.module.scss';
 

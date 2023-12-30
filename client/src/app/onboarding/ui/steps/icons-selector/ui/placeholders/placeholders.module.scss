@@ -18,3 +18,9 @@
   }
 }
 
+.error {
+  color: var(--red-error-color);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+  var(--font-rubik);
+}
+

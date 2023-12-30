@@ -26,16 +26,23 @@ export const IconsSelector: FC<IconsSelector> = ({
   type = 'icon',
 }) => {
   const [text, setText] = useState('');
-  const { setValue, watch } = useFormContext();
+  const {
+    setValue,
+    watch,
+    formState: { errors },
+    clearErrors,
+  } = useFormContext();
 
   const selectedIcons: IOption[] = watch(formFieldToUpdate);
   const focus: string = watch('focus');
 
   function toggleIcon(clickedIcon: IOption) {
+    clearErrors(formFieldToUpdate);
     const check = selectedIcons.find(icon => icon.label === clickedIcon.label);
 
     if (!check) {
-      selectedIcons.length < 8 && setValue(formFieldToUpdate, [...selectedIcons, clickedIcon]);
+      selectedIcons.length < MAX_ICONS &&
+        setValue(formFieldToUpdate, [...selectedIcons, clickedIcon]);
     } else {
       const filtered = selectedIcons.filter(icon => icon.label !== clickedIcon.label);
       setValue(formFieldToUpdate, filtered);
@@ -52,7 +59,12 @@ export const IconsSelector: FC<IconsSelector> = ({
 
   return (
     <Flex width='100%' direction='column' padding='36px 0'>
-      <Placeholders selectedIcons={selectedIcons} toggleIcon={toggleIcon} type={type} />
+      <Placeholders
+        selectedIcons={selectedIcons}
+        toggleIcon={toggleIcon}
+        type={type}
+        error={errors[formFieldToUpdate]?.message as string}
+      />
       <div className={styles.search}>
         <Flex>
           <Search

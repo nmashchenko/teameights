@@ -1,7 +1,7 @@
 import { FC, SVGProps } from 'react';
 export const SearchIllustration: FC<SVGProps<SVGSVGElement>> = props => {
   return (
-    <svg viewBox='0 0 390 401' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg viewBox='0 0 390 401' fill='none' xmlns='http://www.w3.org/2000/svg' {...props}>
       <path
         d='M350.553 284.718L340.759 279.024C340.759 279.024 338.359 258.043 339.953 241.796C342.202 218.955 356.949 191.502 374.533 197.936C392.117 204.369 366.457 227.685 360.763 247.044C355.07 266.403 350.553 284.718 350.553 284.718Z'
         fill='#5BD424'

@@ -5,6 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { accountTypeStep } from '@/app/onboarding/lib/const/steps';
 import { StepProps } from '@/app/onboarding/lib/const/steps';
 import { useUpdateMe } from '@/entities/session';
+import { IOption } from '@/shared/interfaces';
 import { ExperienceType, IUserRequest } from '@teameights/types';
 
 interface OnboardingProps {
@@ -15,8 +16,8 @@ interface OnboardingProps {
   dateOfBirth: Date;
   country: string;
   focus: string;
-  coreTools: string[];
-  additionalTools: string[];
+  coreTools: IOption[];
+  additionalTools: IOption[];
   experience: string;
   speciality: string;
   isLeader: boolean;
@@ -70,25 +71,21 @@ export default function OnboardingLayout({ children }: { children: ReactNode }) 
       isLeader: data.isLeader,
       country: data.country,
       experience: data.experience as ExperienceType,
+      dateOfBirth: new Date(data.dateOfBirth),
       skills: {
         __type: type as 'dev' | 'designer' | 'pm',
         speciality: data.speciality,
         focus: data.focus,
-        // TODO: fix bug here coreTools and additionalTools currently submit in following form:
-        // "additionalTools": [
-        //   "{\"label\":\"Redux\",\"value\":\"redux\"}",
-        //   "{\"label\":\"jQuery\",\"value\":\"jquery\"}",
-        //   "{\"label\":\"Backbone\",\"value\":\"backbone\"}"
-        // ],
-        // TODO: should be just array of labels
-        coreTools: data.coreTools,
-        additionalTools: data.additionalTools,
+        coreTools: data.coreTools.map(tool => tool.label),
+        additionalTools: data?.additionalTools?.length
+          ? data.additionalTools.map(tool => tool.label)
+          : undefined,
       },
       links: {
-        behance: data.behance,
-        linkedIn: data.linkedIn,
-        telegram: data.telegram,
-        github: data.github,
+        behance: data.behance && data.behance,
+        linkedIn: data.linkedIn && data.linkedIn,
+        telegram: data.telegram && data.telegram,
+        github: data.github && data.github,
       },
     };
 

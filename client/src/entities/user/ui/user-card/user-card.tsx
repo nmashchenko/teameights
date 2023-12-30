@@ -35,7 +35,7 @@ export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
         </div>
         <div className={styles.content}>
           <div className={styles.name}>
-            {fullName}, {years}
+            {fullName.split(' ')[0]}, {years}
             <ImageLoader
               src={countryFlags[country] ?? '/images/placeholder.png'}
               alt={fullName}

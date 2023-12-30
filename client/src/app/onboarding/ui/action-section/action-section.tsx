@@ -2,6 +2,7 @@ import { Button, Flex, Typography, NeedHelp } from '@/shared/ui';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/shared/assets';
 import { useFormContext } from 'react-hook-form';
 import styles from './action-section.module.scss';
+import { StepProps } from '@/app/onboarding/lib/const/steps';
 
 interface ActionSectionProps {
   step: number;
@@ -10,15 +11,20 @@ interface ActionSectionProps {
 }
 
 export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionProps) => {
-  const { watch } = useFormContext();
+  const {
+    watch,
+    formState: { isSubmitting },
+  } = useFormContext();
 
-  const steps = watch('steps');
+  const steps: StepProps[] = watch('steps');
+
+  const isSubmissionStep = steps[step].submissionStep;
 
   return (
     <Flex direction={'column'} className={styles.container} height='100%'>
       <Flex justify={'space-between'} align={'center'}>
         <Typography className={styles.title} size={'heading_l'} color={'greenBright'}>
-          {steps[step]?.title}
+          {steps[step].title}
         </Typography>
         <NeedHelp />
       </Flex>
@@ -26,9 +32,9 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
         height='100%'
         maxHeight=''
         justify='center'
-        align={steps[step]?.centered ? 'center' : 'start'}
+        align={steps[step].centered ? 'center' : 'start'}
       >
-        {steps[step]?.step}
+        {steps[step].step}
       </Flex>
       <Flex className={styles.buttons_container} justify={'space-between'}>
         <Button
@@ -41,12 +47,13 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
           <ArrowLeftIcon />
           Back
         </Button>
-        {/*TODO: fix bug here when form submits before entering last step*/}
-        {steps[step]?.submissionStep ? (
-          <Button className={styles.button} padding='0 16px' type='submit'>
+        {/*NOTE: Don't change this, otherwise it would submit the form before last step (need to find better approach in the future)*/}
+        {isSubmissionStep && (
+          <Button className={styles.button} padding='0 16px' type='submit' loading={isSubmitting}>
             Submit
           </Button>
-        ) : (
+        )}
+        {!isSubmissionStep && (
           <Button className={styles.button} padding='0 16px' onClick={handleNext} type='button'>
             Next
             <ArrowRightIcon />

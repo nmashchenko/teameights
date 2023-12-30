@@ -6,7 +6,7 @@ import { Flex } from '@/shared/ui';
 export default function Company() {
   const router = useRouter();
   const handleBack = () => {
-    router.push('/');
+    router.back();
   };
   return (
     <Flex height='100%' width='100%' justify='center' align='center'>

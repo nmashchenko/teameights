@@ -8,11 +8,12 @@ import { useFormContext } from 'react-hook-form';
 
 export const AccountType = () => {
   const [selectedType, setSelectedType] = useState('');
-  const { setValue } = useFormContext();
+  const { setValue, clearErrors } = useFormContext();
 
   const handleClickType = (type: string) => {
     setSelectedType(type);
     setValue('accountType', type);
+    clearErrors('accountType');
   };
 
   return (
