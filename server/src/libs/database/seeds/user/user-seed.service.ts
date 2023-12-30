@@ -5,7 +5,6 @@ import { StatusEnum } from 'src/libs/database/metadata/statuses/statuses.enum';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { faker } from '@faker-js/faker';
-import { specialityValues } from '../../../../utils/types/specialities.type';
 import { experienceValues } from '../../../../utils/types/experiences.type';
 import {
   designerValues,
