@@ -333,7 +333,6 @@ export class UserSeedService {
             speciality: 'Developer',
             focus: 'Backend Developer',
             coreTools: ['C++', 'TS'],
-            additionalTools: ['NodeJS'],
           },
         })
       );
