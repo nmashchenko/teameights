@@ -5,6 +5,7 @@ import { ProgressSection } from '@/app/onboarding/ui/progress-section/progress-s
 import { ActionSection } from '@/app/onboarding/ui/action-section/action-section';
 import { useSteps } from './lib/hooks/useSteps';
 import { useFormContext } from 'react-hook-form';
+import styles from "./onboarding.module.scss"
 
 const OnboardingPage = () => {
   const { step, handleNext, handleBack } = useSteps();
@@ -15,7 +16,7 @@ const OnboardingPage = () => {
     <Flex width={'100%'} height={'100%'}>
       <ProgressSection step={step}>
         <Flex direction='column' flex={1} width='100%'>
-          <Flex align='center' flex={1} width='100%'>
+          <Flex className={styles.illustration} align='center' flex={1} width='100%'>
             {steps[step].meta.illustration}
           </Flex>
         </Flex>
