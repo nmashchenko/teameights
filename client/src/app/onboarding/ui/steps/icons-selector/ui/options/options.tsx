@@ -34,6 +34,7 @@ export const Options: FC<OptionsProps> = ({
           .map((icon, index) =>
             type === 'icon' ? (
               <IconItem
+                className={styles.badge_icon}
                 isActive={Boolean(selectedIcons.find(option => option.label === icon.label))}
                 onClick={() => toggleFn(icon)}
                 icon={icon.label}
@@ -41,6 +42,7 @@ export const Options: FC<OptionsProps> = ({
               />
             ) : (
               <BadgeText
+                className={styles.badge_text}
                 isNotActive={!selectedIcons.find(option => option.label === icon.label)}
                 onClick={() => toggleFn(icon)}
                 data={icon.label}

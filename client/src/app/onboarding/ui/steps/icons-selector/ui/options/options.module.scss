@@ -1,6 +1,6 @@
 .recommended_icons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
   max-height: 10vh;
   overflow: auto;
@@ -12,5 +12,12 @@
 
   @media (width <= 480px) {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.badge_icon {
+  max-width: 143px;
+  @media (width <= 950px) {
+    max-width: 106px;
   }
 }
