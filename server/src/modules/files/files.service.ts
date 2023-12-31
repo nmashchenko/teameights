@@ -4,8 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FileEntity } from './entities/file.entity';
 import { Repository } from 'typeorm';
 import { AllConfigType } from 'src/config/config.type';
-import path from 'path';
-import fs from 'fs';
 import { S3Client } from '@aws-sdk/client-s3';
 
 @Injectable()
