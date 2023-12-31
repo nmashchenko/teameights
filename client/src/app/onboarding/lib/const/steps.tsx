@@ -16,7 +16,7 @@ import {
   managerTools,
   methodologies,
   programmingLanguages,
-  recommendedLanguages,
+  // recommendedLanguages,
 } from '@/shared/constant';
 import { SocialLinks } from '@/app/onboarding/ui/steps/social-links/social-links';
 
@@ -103,7 +103,7 @@ export const developerSteps: StepProps[] = [
     step: (
       <IconsSelector
         icons={programmingLanguages}
-        recommendedIcons={recommendedLanguages}
+        // recommendedIcons={recommendedLanguages}
         formFieldToUpdate='coreTools'
         description='All Languages'
       />

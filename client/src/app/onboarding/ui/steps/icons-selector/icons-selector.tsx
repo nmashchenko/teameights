@@ -2,17 +2,16 @@ import { Flex } from '@/shared/ui';
 import { FC, useState } from 'react';
 import { Search } from '../../shared/search/search';
 import styles from './icons-selector.module.scss';
-import isEmpty from 'lodash.isempty';
 import { useFormContext } from 'react-hook-form';
 import { Placeholders } from '@/app/onboarding/ui/steps/icons-selector/ui/placeholders/placeholders';
 import { Options } from '@/app/onboarding/ui/steps/icons-selector/ui/options/options';
-import { IOption, IRoleToOptionsMap } from '@/shared/interfaces';
+import { IOption } from '@/shared/interfaces';
 
 const MAX_ICONS = 8;
 
 interface IconsSelector {
   icons: IOption[];
-  recommendedIcons?: IRoleToOptionsMap;
+  // recommendedIcons?: IRoleToOptionsMap;
   formFieldToUpdate: string;
   description: string;
   type?: 'text' | 'icon';
@@ -20,7 +19,7 @@ interface IconsSelector {
 
 export const IconsSelector: FC<IconsSelector> = ({
   icons,
-  recommendedIcons,
+  // recommendedIcons,
   formFieldToUpdate,
   description,
   type = 'icon',
@@ -34,7 +33,6 @@ export const IconsSelector: FC<IconsSelector> = ({
   } = useFormContext();
 
   const selectedIcons: IOption[] = watch(formFieldToUpdate);
-  const focus: string = watch('focus');
 
   function toggleIcon(clickedIcon: IOption) {
     clearErrors(formFieldToUpdate);
@@ -76,19 +74,8 @@ export const IconsSelector: FC<IconsSelector> = ({
           />
         </Flex>
       </div>
-      <Flex direction='column' gap='24px'>
-        {text === '' && !isEmpty(recommendedIcons) && (
-          <Options
-            icons={recommendedIcons[focus] ?? []}
-            selectedIcons={selectedIcons}
-            type={type}
-            filterFn={filterBySearch}
-            toggleFn={toggleIcon}
-            description='Recommended for you'
-          />
-        )}
+      <Flex direction='column' gap='8px'>
         <Options
-          className={styles.all_icons}
           icons={icons}
           selectedIcons={selectedIcons}
           type={type}

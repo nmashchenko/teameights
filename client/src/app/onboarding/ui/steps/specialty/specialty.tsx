@@ -26,8 +26,8 @@ export const Specialty = () => {
   };
 
   return (
-    <Flex direction='column' width={'100%'} maxWidth='400px'>
-      <Flex direction='column' gap='48px' padding='0 0 24px 0'>
+    <Flex direction='column' width={'100%'} gap='24px' padding='24px 0' maxWidth='400px'>
+      <Flex direction='column' gap='48px'>
         <Flex className={styles.specialties} gap='8px'>
           {principalSpecialities.map(speciality => (
             <Flex className={styles.speciality} key={speciality.name}>

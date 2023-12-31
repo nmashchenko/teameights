@@ -15,7 +15,6 @@ interface OptionsProps {
 }
 
 export const Options: FC<OptionsProps> = ({
-  className = styles.recommended_icons,
   icons,
   selectedIcons,
   filterFn,
@@ -28,7 +27,7 @@ export const Options: FC<OptionsProps> = ({
       <Typography size='body_s' color='greyNormal'>
         {description}
       </Typography>
-      <div className={className}>
+      <div className={styles.all_icons}>
         {icons
           .filter(filterFn)
           .map((icon, index) =>
@@ -42,7 +41,6 @@ export const Options: FC<OptionsProps> = ({
               />
             ) : (
               <BadgeText
-                className={styles.badge_text}
                 isNotActive={!selectedIcons.find(option => option.label === icon.label)}
                 onClick={() => toggleFn(icon)}
                 data={icon.label}

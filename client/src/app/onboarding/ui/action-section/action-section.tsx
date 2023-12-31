@@ -21,19 +21,14 @@ export const ActionSection = ({ step, handleNext, handleBack }: ActionSectionPro
   const isSubmissionStep = steps[step].submissionStep;
 
   return (
-    <Flex direction={'column'} className={styles.container} height='100%'>
+    <Flex direction={'column'} className={styles.container}>
       <Flex justify={'space-between'} align={'center'}>
         <Typography className={styles.title} size={'heading_l'} color={'greenBright'}>
           {steps[step].title}
         </Typography>
         <NeedHelp />
       </Flex>
-      <Flex
-        height='100%'
-        maxHeight=''
-        justify='center'
-        align={steps[step].centered ? 'center' : 'start'}
-      >
+      <Flex flex={1} justify='center' align={steps[step].centered ? 'center' : 'start'}>
         {steps[step].step}
       </Flex>
       <Flex className={styles.buttons_container} justify={'space-between'}>

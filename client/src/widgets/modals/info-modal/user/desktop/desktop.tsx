@@ -25,7 +25,7 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
             <Flex gap='8px' direction='column'>
               <Flex gap='8px' align='center'>
                 <Typography size='heading_s'>
-                  {user?.fullName.split(' ')[0]}, {age}
+                  {user?.fullName?.split(' ')[0]}, {age}
                 </Typography>
                 <ImageLoader
                   width={24}

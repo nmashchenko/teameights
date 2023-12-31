@@ -45,7 +45,7 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
                 <Flex direction='column' gap='8px'>
                   <Flex gap='8px' align='center'>
                     <Typography size='heading_s'>
-                      {user?.fullName.split(' ')[0]}, {age}
+                      {user?.fullName?.split(' ')[0]}, {age}
                     </Typography>
                     <ImageLoader
                       width={24}
