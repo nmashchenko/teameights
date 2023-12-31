@@ -337,48 +337,60 @@ export class UserSeedService {
       );
     }
 
-    await this.repository.save(
-      this.repository.create({
-        fullName: 'John Deer',
-        email: 'john.doe@example.com',
-        password: 'secret',
+    // await this.repository.save(
+    //   this.repository.create({
+    //     fullName: 'John Deer',
+    //     email: 'john.doe@example.com',
+    //     password: 'secret',
+    //     role: {
+    //       id: RoleEnum.user,
+    //       name: 'Admin',
+    //     },
+    //     status: {
+    //       id: StatusEnum.active,
+    //       name: 'Active',
+    //     },
+    //   })
+    // );
+
+    const countUser = await this.repository.count({
+      where: {
         role: {
           id: RoleEnum.user,
-          name: 'Admin',
         },
-        status: {
-          id: StatusEnum.active,
-          name: 'Active',
-        },
-      })
-    );
+      },
+    });
 
-    for (let i = 0; i < 50; i++) {
-      const randomSpeciality = this.getRandomItemFromArray([
-        'Developer',
-        'Designer',
-        'Project Manager',
-      ]) as 'Developer' | 'Designer' | 'Project Manager';
+    if (!countUser) {
+      for (let i = 0; i < 50; i++) {
+        const randomSpeciality = this.getRandomItemFromArray([
+          'Developer',
+          'Designer',
+          'Project Manager',
+        ]) as 'Developer' | 'Designer' | 'Project Manager';
 
-      await this.repository.save(
-        this.repository.create({
-          username: faker.internet.userName(),
-          fullName: faker.person.firstName(),
-          role: {
-            id: RoleEnum.user,
-          },
-          status: {
-            id: StatusEnum.active,
-            name: 'Active',
-          },
-          isLeader: faker.datatype.boolean(),
-          country: faker.location.country(),
-          dateOfBirth: faker.date.birthdate({ min: 18, max: 70, mode: 'age' }),
-          description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 50 }) : null,
-          experience: this.getRandomItemFromArray(experienceValues),
-          skills: this.generateMockSkills(randomSpeciality),
-        })
-      );
+        await this.repository.save(
+          this.repository.create({
+            username: faker.internet.userName(),
+            fullName: faker.person.firstName(),
+            role: {
+              id: RoleEnum.user,
+            },
+            status: {
+              id: StatusEnum.active,
+              name: 'Active',
+            },
+            isLeader: faker.datatype.boolean(),
+            country: faker.location.country(),
+            dateOfBirth: faker.date.birthdate({ min: 18, max: 70, mode: 'age' }),
+            description: faker.datatype.boolean()
+              ? faker.lorem.sentence({ min: 10, max: 50 })
+              : null,
+            experience: this.getRandomItemFromArray(experienceValues),
+            skills: this.generateMockSkills(randomSpeciality),
+          })
+        );
+      }
     }
   }
 }
