@@ -114,7 +114,7 @@ export const generateMockUniversity = (): IUniversity => ({
   graduationDate: faker.datatype.boolean() ? faker.date.past() : null,
 });
 
-export const generateMockUser = (type: Speciality = 'developer'): IUserBase => {
+export const generateMockUser = (): IUserBase => {
   const user: IUserBase = {
     id: faker.number.int(),
     username: faker.internet.userName(),
@@ -125,7 +125,6 @@ export const generateMockUser = (type: Speciality = 'developer'): IUserBase => {
     isLeader: faker.datatype.boolean(),
     country: faker.location.country(),
     dateOfBirth: faker.date.past(),
-    speciality: faker.lorem.word(),
     description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 50 }) : null,
     experience: getRandomItemFromArray([
       'No experience',
@@ -150,25 +149,14 @@ export const generateMockUser = (type: Speciality = 'developer'): IUserBase => {
     deletedAt: faker.datatype.boolean() ? faker.date.recent() : null,
   };
 
-  if (type === 'developer') {
-    user.skills = {
-      id: faker.number.int(),
-      programmingLanguages: getRandomBadgeIcon(1, 5),
-      frameworks: getRandomBadgeText(1, 5),
-    };
-  } else if (type === 'designer') {
-    user.skills = {
-      id: faker.number.int(),
-      designerTools: getRandomBadgeIcon(1, 5, 'designer'),
-      fields: getRandomBadgeText(1, 5, 'designer'),
-    };
-  } else {
-    user.skills = {
-      id: faker.number.int(),
-      methodologies: getRandomBadgeText(1, 5, 'pm'),
-      projectManagerTools: getRandomBadgeIcon(1, 5, 'pm'),
-    };
-  }
+  user.skills = {
+    id: faker.number.int(),
+    __type: 'dev',
+    speciality: 'Developer',
+    focus: 'Backend Developer',
+    coreTools: ['C++', 'TS'],
+    additionalTools: ['NodeJS'],
+  };
 
   return user;
 };

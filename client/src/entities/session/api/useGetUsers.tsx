@@ -12,6 +12,7 @@ export const useGetUsers = (filters?: string | null) => {
       if (queryKey[1]) {
         url = `${url}&filters=${queryKey[1]}`;
       }
+
       const { data } = await API.get<InfinityPaginationResultType<IUserResponse>>(url);
       return data;
     },

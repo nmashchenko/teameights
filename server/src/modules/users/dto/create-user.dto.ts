@@ -22,11 +22,8 @@ import { UniversitiesDto } from './universities.dto';
 import { JobsDto } from './jobs.dto';
 import { ProjectsDto } from './projects.dto';
 import { LinksDto } from './links.dto';
-import { Speciality, specialityValues } from '../../../utils/types/specialities.type';
 import { Experience, experienceValues } from '../../../utils/types/experiences.type';
-import { DeveloperDto } from './developer.dto';
-import { DesignerDto } from './designer.dto';
-import { ProjectManagerDto } from './project-manager.dto';
+import { DesignerDto, DeveloperDto, ProjectManagerDto } from './skills.dto';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'test1@example.com' })
@@ -95,12 +92,6 @@ export class CreateUserDto {
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
   dateOfBirth?: Date;
-
-  @ApiProperty({ enum: specialityValues })
-  @IsOptional()
-  @IsNotEmpty({ message: 'mustBeNotEmpty' })
-  @IsIn(specialityValues, { message: 'Must be valid speciality type!' })
-  speciality?: Speciality;
 
   @ApiProperty({ enum: experienceValues })
   @IsOptional()
@@ -190,7 +181,7 @@ export class CreateUserDto {
   @ValidateNested()
   @Type(() => Object, {
     discriminator: {
-      property: 'type',
+      property: 'speciality',
       subTypes: [
         { value: DeveloperDto, name: 'developer' },
         { value: DesignerDto, name: 'designer' },

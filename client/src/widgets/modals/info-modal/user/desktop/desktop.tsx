@@ -25,7 +25,7 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
             <Flex gap='8px' direction='column'>
               <Flex gap='8px' align='center'>
                 <Typography size='heading_s'>
-                  {user?.fullName.split(' ')[0]}, {age}
+                  {user?.fullName?.split(' ')[0]}, {age}
                 </Typography>
                 <ImageLoader
                   width={24}
@@ -37,7 +37,7 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
 
               <Flex gap='4px' direction='column'>
                 <Typography size='body_s' color='greyNormal'>
-                  {user?.speciality}
+                  {user?.skills?.speciality}
                 </Typography>
                 <Typography size='body_s' color='greyNormal'>
                   {user?.experience} of experience
@@ -50,8 +50,8 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
               {user?.description}
             </Typography>
           )}
-          <TextLayout skills={user?.skills} />
-          <IconLayout skills={user?.skills} />
+          <TextLayout additionalTools={user?.skills?.additionalTools} />
+          <IconLayout coreTools={user?.skills?.coreTools} />
           <Flex justify='space-between' align='center' margin='24px 0 0 0'>
             <Flex gap='8px'>
               {

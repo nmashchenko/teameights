@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateUser1703373105991 implements MigrationInterface {
-  name = 'CreateUser1703373105991';
+export class CreateUser1703839671313 implements MigrationInterface {
+  name = 'CreateUser1703839671313';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -26,7 +26,7 @@ export class CreateUser1703373105991 implements MigrationInterface {
       `CREATE TABLE "links" ("id" SERIAL NOT NULL, "github" character varying, "linkedIn" character varying, "behance" character varying, "telegram" character varying, CONSTRAINT "PK_ecf17f4a741d3c5ba0b4c5ab4b6" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
-      `CREATE TABLE "skills" ("id" SERIAL NOT NULL, "designerTools" text array, "projectManagerTools" text array, "fields" text array, "programmingLanguages" text array, "frameworks" text array, "methodologies" text array, CONSTRAINT "PK_0d3212120f4ecedf90864d7e298" PRIMARY KEY ("id"))`
+      `CREATE TABLE "skills" ("id" SERIAL NOT NULL, "speciality" character varying NOT NULL, "focus" character varying NOT NULL, "coreTools" text array NOT NULL, "additionalTools" text array, CONSTRAINT "PK_0d3212120f4ecedf90864d7e298" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
       `CREATE TYPE "public"."notification_type_enum" AS ENUM('system', 'team_invitation')`
@@ -35,7 +35,7 @@ export class CreateUser1703373105991 implements MigrationInterface {
       `CREATE TABLE "notification" ("id" SERIAL NOT NULL, "read" boolean NOT NULL DEFAULT false, "type" "public"."notification_type_enum" NOT NULL, "data" jsonb NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "receiverId" integer, CONSTRAINT "PK_705b6c7cdf9b2c2ff7ac7872cb7" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
-      `CREATE TABLE "user" ("id" SERIAL NOT NULL, "email" character varying, "password" character varying, "username" character varying, "provider" character varying NOT NULL DEFAULT 'email', "socialId" character varying, "fullName" character varying, "isLeader" boolean, "country" character varying, "dateOfBirth" TIMESTAMP WITH TIME ZONE, "speciality" character varying, "description" character varying, "experience" character varying, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "photoId" uuid, "roleId" integer, "statusId" integer, "skillsId" integer, "linksId" integer, CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE ("email"), CONSTRAINT "UQ_78a916df40e02a9deb1c4b75edb" UNIQUE ("username"), CONSTRAINT "REL_0e51e612eb9ed2fa5ac4f44c7e" UNIQUE ("skillsId"), CONSTRAINT "REL_c5a79824fd8a241f5a7ec428b3" UNIQUE ("linksId"), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`
+      `CREATE TABLE "user" ("id" SERIAL NOT NULL, "email" character varying, "password" character varying, "username" character varying, "provider" character varying NOT NULL DEFAULT 'email', "socialId" character varying, "fullName" character varying, "isLeader" boolean, "country" character varying, "dateOfBirth" TIMESTAMP WITH TIME ZONE, "description" character varying, "experience" character varying, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "photoId" uuid, "roleId" integer, "statusId" integer, "skillsId" integer, "linksId" integer, CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE ("email"), CONSTRAINT "UQ_78a916df40e02a9deb1c4b75edb" UNIQUE ("username"), CONSTRAINT "REL_0e51e612eb9ed2fa5ac4f44c7e" UNIQUE ("skillsId"), CONSTRAINT "REL_c5a79824fd8a241f5a7ec428b3" UNIQUE ("linksId"), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_9bd2fe7a8e694dedc4ec2f666f" ON "user" ("socialId") `

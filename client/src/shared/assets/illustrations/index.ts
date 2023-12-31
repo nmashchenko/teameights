@@ -1,4 +1,10 @@
 export { EmailIllustration } from './email';
 export { LoginIllustration } from './login';
 export { PlanetIllustration } from './planet';
+export { DuelsIllustration } from './duels';
+export { HackathonsIllustration } from './hackathons';
+export { MentorshipIllustration } from './mentorship';
+export { ProjectsIllustration } from './projects';
+export { SearchIllustration } from './search';
+export { TeamIllustration } from './team';
 export { AstronautIllustration } from './astronaut';

@@ -5,8 +5,12 @@ import { StatusEnum } from 'src/libs/database/metadata/statuses/statuses.enum';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { faker } from '@faker-js/faker';
-import { specialityValues } from '../../../../utils/types/specialities.type';
 import { experienceValues } from '../../../../utils/types/experiences.type';
+import {
+  designerValues,
+  developerValues,
+  projectManagerValues,
+} from '../../../../utils/types/focuses.type';
 
 @Injectable()
 export class UserSeedService {
@@ -40,7 +44,7 @@ export class UserSeedService {
   private getRandomBadgeText = (
     min: number,
     max: number,
-    type: 'developer' | 'designer' | 'pm' = 'developer'
+    type: 'dev' | 'designer' | 'pm' = 'dev'
   ) => {
     let data;
 
@@ -141,7 +145,7 @@ export class UserSeedService {
   private getRandomBadgeIcon = (
     min: number,
     max: number,
-    type: 'developer' | 'designer' | 'pm' = 'developer'
+    type: 'dev' | 'designer' | 'pm' = 'dev'
   ): string[] => {
     let data;
 
@@ -233,27 +237,41 @@ export class UserSeedService {
     return shuffledIcons.slice(0, randomLength);
   };
 
-  generateMockSkills = (type: 'developer' | 'designer' | 'pm') => {
+  getRandomFocus = (type: 'dev' | 'designer' | 'pm' = 'dev') => {
+    switch (type) {
+      case 'designer':
+        return this.getRandomItemFromArray(designerValues);
+      case 'dev':
+        return this.getRandomItemFromArray(developerValues);
+      case 'pm':
+        return this.getRandomItemFromArray(projectManagerValues);
+    }
+  };
+
+  generateMockSkills = (speciality: 'Developer' | 'Designer' | 'Project Manager') => {
+    let type: 'dev' | 'designer' | 'pm' = 'dev';
+
+    switch (speciality) {
+      case 'Developer':
+        type = 'dev';
+        break;
+      case 'Designer':
+        type = 'designer';
+        break;
+      case 'Project Manager':
+        type = 'pm';
+    }
+
     const randomBadgeIcons = this.getRandomBadgeIcon(1, 5, type);
     const randomBadgeTexts = this.getRandomBadgeText(1, 6, type);
+    const randomFocus = this.getRandomFocus(type);
 
-    switch (type) {
-      case 'developer':
-        return {
-          programmingLanguages: randomBadgeIcons,
-          frameworks: randomBadgeTexts,
-        };
-      case 'designer':
-        return {
-          designerTools: randomBadgeIcons,
-          fields: randomBadgeTexts,
-        };
-      case 'pm':
-        return {
-          projectManagerTools: randomBadgeIcons,
-          methodologies: randomBadgeTexts,
-        };
-    }
+    return {
+      speciality: speciality,
+      focus: randomFocus,
+      coreTools: randomBadgeIcons,
+      additionalTools: randomBadgeTexts,
+    };
   };
 
   async run() {
@@ -282,7 +300,6 @@ export class UserSeedService {
           isLeader: true,
           country: 'Ukraine',
           dateOfBirth: '2023-09-25',
-          speciality: 'Frontend Developer',
           description: 'Cool developer!',
           experience: '5+ years',
           universities: [
@@ -312,55 +329,79 @@ export class UserSeedService {
             github: 'https://github.com',
           },
           skills: {
-            programmingLanguages: ['C++', 'TS'],
-            frameworks: ['NodeJS'],
+            speciality: 'Developer',
+            focus: 'Backend Developer',
+            coreTools: ['C++', 'TS'],
           },
         })
       );
     }
 
-    await this.repository.save(
-      this.repository.create({
-        fullName: 'John Deer',
-        email: 'john.doe@example.com',
-        password: 'secret',
+    const userForTests = await this.repository.count({
+      where: {
         role: {
           id: RoleEnum.user,
-          name: 'Admin',
         },
-        status: {
-          id: StatusEnum.active,
-          name: 'Active',
-        },
-      })
-    );
+        fullName: 'John Deer',
+      },
+    });
 
-    for (let i = 0; i < 50; i++) {
-      const randomSpeciality = this.getRandomItemFromArray(['developer', 'designer', 'pm']) as
-        | 'developer'
-        | 'designer'
-        | 'pm';
-
+    if (!userForTests) {
       await this.repository.save(
         this.repository.create({
-          username: faker.internet.userName(),
-          fullName: faker.person.firstName(),
+          fullName: 'John Deer',
+          email: 'john.doe@example.com',
+          password: 'secret',
           role: {
             id: RoleEnum.user,
+            name: 'Admin',
           },
           status: {
             id: StatusEnum.active,
             name: 'Active',
           },
-          isLeader: faker.datatype.boolean(),
-          country: faker.location.country(),
-          dateOfBirth: faker.date.birthdate({ min: 18, max: 70, mode: 'age' }),
-          speciality: this.getRandomItemFromArray(specialityValues),
-          description: faker.datatype.boolean() ? faker.lorem.sentence({ min: 10, max: 50 }) : null,
-          experience: this.getRandomItemFromArray(experienceValues),
-          skills: this.generateMockSkills(randomSpeciality),
         })
       );
+    }
+
+    const countUser = await this.repository.count({
+      where: {
+        role: {
+          id: RoleEnum.user,
+        },
+      },
+    });
+
+    if (countUser === 1) {
+      for (let i = 0; i < 50; i++) {
+        const randomSpeciality = this.getRandomItemFromArray([
+          'Developer',
+          'Designer',
+          'Project Manager',
+        ]) as 'Developer' | 'Designer' | 'Project Manager';
+
+        await this.repository.save(
+          this.repository.create({
+            username: faker.internet.userName(),
+            fullName: faker.person.firstName(),
+            role: {
+              id: RoleEnum.user,
+            },
+            status: {
+              id: StatusEnum.active,
+              name: 'Active',
+            },
+            isLeader: faker.datatype.boolean(),
+            country: faker.location.country(),
+            dateOfBirth: faker.date.birthdate({ min: 18, max: 70, mode: 'age' }),
+            description: faker.datatype.boolean()
+              ? faker.lorem.sentence({ min: 10, max: 50 })
+              : null,
+            experience: this.getRandomItemFromArray(experienceValues),
+            skills: this.generateMockSkills(randomSpeciality),
+          })
+        );
+      }
     }
   }
 }

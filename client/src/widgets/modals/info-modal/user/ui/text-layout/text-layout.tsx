@@ -1,30 +1,18 @@
 import { BadgeText } from '@/shared/ui';
-import { ISkills, Nullable } from '@teameights/types';
 import styles from './text-layout.module.scss';
 import { FC } from 'react';
+import { Nullable } from '@teameights/types';
 
 interface TextLayout {
-  skills?: Nullable<ISkills>;
+  additionalTools?: Nullable<string[]>;
 }
 
-export const TextLayout: FC<TextLayout> = ({ skills }) => {
+export const TextLayout: FC<TextLayout> = ({ additionalTools }) => {
   return (
     <>
-      {skills?.frameworks && (
+      {additionalTools && (
         <div className={styles.grid_container}>
-          {skills?.frameworks.map((framework, index) => <BadgeText data={framework} key={index} />)}
-        </div>
-      )}
-      {skills?.fields && (
-        <div className={styles.grid_container}>
-          {skills?.fields.map((field, index) => <BadgeText data={field} key={index} />)}
-        </div>
-      )}
-      {skills?.methodologies && (
-        <div className={styles.grid_container}>
-          {skills?.methodologies.map((methodology, index) => (
-            <BadgeText data={methodology} key={index} />
-          ))}
+          {additionalTools?.map((framework, index) => <BadgeText data={framework} key={index} />)}
         </div>
       )}
     </>

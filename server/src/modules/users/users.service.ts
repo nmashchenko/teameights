@@ -36,18 +36,14 @@ export class UsersService {
       where.isLeader = filterOptions?.isLeader && filterOptions.isLeader;
 
       where.country = filterOptions?.countries && In(filterOptions.countries);
-      where.speciality = filterOptions?.specialities && In(filterOptions.specialities);
       where.experience = filterOptions?.experience && Like(`%${filterOptions.experience}%`);
 
       where.skills = {
-        programmingLanguages:
-          filterOptions?.programmingLanguages && ArrayOverlap(filterOptions.programmingLanguages),
-        frameworks: filterOptions?.frameworks && ArrayOverlap(filterOptions.frameworks),
-        designerTools: filterOptions?.designerTools && ArrayOverlap(filterOptions.designerTools),
-        projectManagerTools:
-          filterOptions?.projectManagerTools && ArrayOverlap(filterOptions.projectManagerTools),
-        fields: filterOptions?.fields && ArrayOverlap(filterOptions.fields),
-        methodologies: filterOptions?.methodologies && ArrayOverlap(filterOptions.methodologies),
+        speciality: filterOptions?.specialities && In(filterOptions.specialities),
+        focus: filterOptions?.focuses && In(filterOptions.focuses),
+        coreTools: filterOptions?.coreTools && ArrayOverlap(filterOptions.coreTools),
+        additionalTools:
+          filterOptions?.additionalTools && ArrayOverlap(filterOptions.additionalTools),
       };
     }
 

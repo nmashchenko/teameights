@@ -45,7 +45,7 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
                 <Flex direction='column' gap='8px'>
                   <Flex gap='8px' align='center'>
                     <Typography size='heading_s'>
-                      {user?.fullName.split(' ')[0]}, {age}
+                      {user?.fullName?.split(' ')[0]}, {age}
                     </Typography>
                     <ImageLoader
                       width={24}
@@ -56,7 +56,7 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
                   </Flex>
                   <Flex direction='column' gap='4px'>
                     <Typography size='body_s' color='greyNormal'>
-                      {user?.speciality}
+                      {user?.skills?.speciality}
                     </Typography>
                     <Typography size='body_s' color='greyNormal'>
                       {user?.experience}
@@ -81,8 +81,8 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
           <Typography size='body_m' color='white'>
             {user?.description}
           </Typography>
-          <TextLayout skills={user?.skills} />
-          <IconLayout skills={user?.skills} />
+          <TextLayout additionalTools={user?.skills?.additionalTools} />
+          <IconLayout coreTools={user?.skills?.coreTools} />
         </Flex>
       </Drawer>
     </>

@@ -14,10 +14,7 @@ interface UserCardProps {
 }
 
 export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
-  (
-    { user: { country, photo, skills, isLeader, fullName, speciality, dateOfBirth }, onClick },
-    ref
-  ) => {
+  ({ user: { country, photo, skills, isLeader, fullName, dateOfBirth }, onClick }, ref) => {
     const years = calculateAge(dateOfBirth);
 
     return (
@@ -34,13 +31,11 @@ export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
             />
             {isLeader && <CrownIcon28 className={styles.crown} />}
           </div>
-          {skills?.programmingLanguages && <IconLayout icons={skills.programmingLanguages} />}
-          {skills?.designerTools && <IconLayout icons={skills.designerTools} />}
-          {skills?.projectManagerTools && <IconLayout icons={skills.projectManagerTools} />}
+          {skills?.coreTools && <IconLayout icons={skills?.coreTools} />}
         </div>
         <div className={styles.content}>
           <div className={styles.name}>
-            {fullName}, {years}
+            {fullName?.split(' ')[0]}, {years}
             <ImageLoader
               src={countryFlags[country] ?? '/images/placeholder.png'}
               alt={fullName}
@@ -48,11 +43,9 @@ export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
               height={12}
             />
           </div>
-          <div className={styles.speciality}>{speciality}</div>
+          <div className={styles.speciality}>{skills?.speciality}</div>
         </div>
-        {skills?.frameworks && <TextLayout texts={skills.frameworks} />}
-        {skills?.methodologies && <TextLayout texts={skills.methodologies} />}
-        {skills?.fields && <TextLayout texts={skills.fields} />}
+        {skills?.additionalTools && <TextLayout texts={skills.additionalTools} />}
       </div>
     );
   }

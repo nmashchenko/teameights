@@ -1,0 +1,26 @@
+.selected_icons {
+  margin-bottom: 32px;
+}
+
+.placeholders {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-height: 300px;
+  overflow: auto;
+
+  @media (width <= 890px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (width <= 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.error {
+  color: var(--red-error-color);
+  font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
+  var(--font-rubik);
+}
+

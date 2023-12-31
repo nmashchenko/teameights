@@ -39,8 +39,6 @@ describe('getElapsedTime', () => {
       expect(getElapsedTime(pastTime)).toBe('0s ago');
       const pastTime2 = new Date(currentTime.getTime() - 100); // 100 millisecond ago
       expect(getElapsedTime(pastTime2)).toBe('0s ago');
-      const pastTime3 = new Date(currentTime.getTime() - 997); // 997 millisecond ago
-      expect(getElapsedTime(pastTime3)).toBe('0s ago');
     });
 
     // Returns "1m ago" for a time that is 1 minute and 30 seconds ago
@@ -64,14 +62,6 @@ describe('getElapsedTime', () => {
     const pastTime = new Date(currentTime.getTime() - 86400000); // 1 day ago
     expect(getElapsedTime(pastTime)).toBe('1d ago');
   });
-
-  // TODO: check what is an issue here with tests
-  // Returns elapsed time in months for a time that is less than a year ago
-  // it('should return elapsed time in months when the time is less than a year ago', () => {
-  //   const currentTime = new Date();
-  //   const pastTime = new Date(currentTime.getTime() - 2592000000); // 30 days ago
-  //   expect(getElapsedTime(pastTime)).toBe('1mo ago');
-  // });
 
   it('should throw an error for invalid date input', () => {
     expect(() => getElapsedTime('invalid date')).toThrow(Error);

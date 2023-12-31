@@ -12,9 +12,11 @@ import { IsNotExist } from 'src/utils/validators/is-not-exists.validator';
 import { SessionModule } from 'src/modules/session/session.module';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { NotificationsModule } from '../../notifications/notifications.module';
+import { FilesModule } from '../../files/files.module';
 
 @Module({
   imports: [
+    FilesModule,
     UsersModule,
     SessionModule,
     PassportModule,

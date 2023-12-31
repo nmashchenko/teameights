@@ -1,6 +1,6 @@
 'use client';
 import { Flex, SearchBar } from '@/shared/ui';
-import { countries, specialities } from '@/shared/constant';
+import { countries } from '@/shared/constant';
 import { LogoBig } from '@/shared/assets';
 import { useGetUsers } from '@/entities/session';
 import { useState } from 'react';
@@ -8,6 +8,8 @@ import { Cards } from '@/app/(main)/ui/cards/cards';
 import styles from './layout.module.scss';
 import { UserInfoModal } from '@/widgets';
 import { IUserResponse } from '@teameights/types';
+import { specialities } from '@/shared/constant/specialities';
+import { focusesValues } from '@/shared/constant/focuses';
 
 export default function Home() {
   const [filters, setFilters] = useState<string | null>();
@@ -55,6 +57,14 @@ export default function Home() {
               type: 'checkbox',
               placeholder: 'Search by specialty',
               optionsArr: specialities,
+              filterValue: [],
+            },
+            {
+              label: 'Focuses',
+              value: 'focuses',
+              type: 'checkbox',
+              placeholder: 'Search by focus',
+              optionsArr: focusesValues,
               filterValue: [],
             },
           ]}
