@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Rubik } from 'next/font/google';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'sonner';
 import { ReactQueryProvider } from './providers';
 import './styles/globals.scss';
 import { ReactNode } from 'react';
@@ -14,20 +14,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <ReactQueryProvider>
-      <html lang='en'>
-        <body className={inter.variable}>
+    <html lang='en'>
+      <body className={inter.variable}>
+        <ReactQueryProvider>
           {/* <CookieBanner /> */}
           <Toaster
-            gutter={8}
+            theme='dark'
             toastOptions={{
-              style: { ...inter.style, background: '#2F3239', color: 'white' },
-              duration: 2000,
+              style: {
+                ...inter.style,
+                background: 'var(--grey-dark-color)',
+                color: 'var(--white-color)',
+                border: 'none',
+              },
             }}
           />
           {children}
-        </body>
-      </html>
-    </ReactQueryProvider>
+        </ReactQueryProvider>
+      </body>
+    </html>
   );
 }

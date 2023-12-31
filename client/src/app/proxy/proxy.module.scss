@@ -1,0 +1,22 @@
+.container {
+  height: 100dvh;
+  width: 100%;
+  padding: 48px 55px;
+  background: var(--cards-color);
+
+  @media (width <= 1120px) {
+    padding: 48px 24px;
+  }
+
+  @media (width <= 580px) {
+    padding: 24px;
+  }
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.children {
+  min-height: calc(100% - 48px);
+}

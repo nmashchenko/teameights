@@ -1,0 +1,1 @@
+// export { TeamInfoModal } from './team';

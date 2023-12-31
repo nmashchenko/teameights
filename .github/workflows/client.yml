@@ -4,18 +4,19 @@ run-name: ${{ github.actor }} is starting sueta at the frontend code ☺️
 on:
   push:
     branches:
-      - dev-nextjs
+      - develop
+      - master
     paths:
       - "client/**"
   pull_request:
     branches:
-      - dev-nextjs
+      - develop
+      - master
     paths:
       - "client/**"
 
 jobs:
   pipeline:
-    # Exclude renovate[bot] from triggering the workflow
     if: github.actor != 'renovate[bot]'
     runs-on: ubuntu-latest
     strategy:
@@ -27,26 +28,24 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node-version}}
-
-      - name: Cache Yarn dependencies
-        uses: actions/cache@v3.2.2
-        with:
-          path: ./client/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('./client/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          cache: 'yarn'
+          cache-dependency-path: ./client/yarn.lock
 
       - name: Install yarn and dependencies
         working-directory: ./client
         run: |
           npm install --global yarn
-          yarn install --frozen-lockfile
+          yarn install --immutable
 
       - name: Lint and Format
         working-directory: ./client
         run: |
           yarn lint:ts:check
           yarn prettier:check
+
+      - name: Unit testing 💀💀
+        working-directory: ./client
+        run:  yarn test:unit
 
       - name: Build project
         working-directory: ./client

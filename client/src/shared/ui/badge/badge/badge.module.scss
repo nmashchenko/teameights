@@ -1,0 +1,20 @@
+.badge {
+  cursor: pointer;
+  display: flex;
+  height: 30px;
+  padding: 6px 8px 4px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  background: var(--grey-dark-color, #2f3239);
+  border-radius: 5px;
+
+  transition: opacity 0.3s;
+  outline: none;
+  border: 1px solid transparent;
+  color: white;
+  &:hover {
+    border: 1px solid var(--green-bright-color);
+  }
+}

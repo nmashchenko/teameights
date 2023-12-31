@@ -1,0 +1,52 @@
+import { IconGallery, IconItem, Meta } from '@storybook/blocks';
+
+import { ICON_OPTIONS, ILLUSTRATION_OPTIONS, LOGO_OPTIONS } from './storybook';
+import styles from './icons.module.scss';
+
+<Meta title='global/Iconography' />
+
+# Iconography
+
+<hr />
+<br />
+<div>
+  <h3>Icons that can be changed, you can pass 20, 28, 40 px size to all of them</h3>
+</div>
+<br />
+<IconGallery>
+  {Object.entries(ICON_OPTIONS).map(([iconName, iconComponent]) => (
+    <IconItem name={iconName} key={iconName}>
+      <div className={styles.iconItemStyle}>{iconComponent}</div>
+    </IconItem>
+  ))}
+</IconGallery>
+
+<hr />
+<br />
+<div>
+  <h3>Illustrations are used to be displayed on entire screen</h3>
+</div>
+<br />
+
+<IconGallery>
+  {Object.entries(ILLUSTRATION_OPTIONS).map(([illustrationName, illustrationComponent]) => (
+    <IconItem name={illustrationName} key={illustrationName}>
+      <div className={styles.iconItemStyle}>{illustrationComponent}</div>
+    </IconItem>
+  ))}
+</IconGallery>
+
+<hr />
+<br />
+<div>
+  <h3>Logos can't be changed anyhow and are use only in specific places</h3>
+</div>
+<br />
+
+<IconGallery>
+  {Object.entries(LOGO_OPTIONS).map(([logoName, logoComponent]) => (
+    <IconItem name={logoName} key={logoName}>
+      <div className={styles.iconItemStyle}>{logoComponent}</div>
+    </IconItem>
+  ))}
+</IconGallery>

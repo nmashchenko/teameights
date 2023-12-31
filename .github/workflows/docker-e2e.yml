@@ -1,0 +1,22 @@
+name: Backend checker, will punish for bad code 🪓😵‍💫
+run-name: ${{ github.actor }} is starting sueta at the backend code ☺️
+
+on:
+  push:
+    branches: [develop, master]
+    paths:
+      - "server/**"
+  pull_request:
+    branches: [develop, master]
+    paths:
+      - "server/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run e2e tests
+        working-directory: ./server
+        run: docker compose -f docker-compose.ci.yaml --env-file env-example -p ci up --build --exit-code-from api

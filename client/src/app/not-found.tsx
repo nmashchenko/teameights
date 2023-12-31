@@ -1,54 +1,31 @@
 'use client';
 import Link from 'next/link';
-import { RefObject, useState } from 'react';
-import { Tooltip } from 'react-tooltip';
-import { ArrowLeft, LogoBig, Planet, Question } from '@/shared/assets';
-import { AmongUs, useClickOutside } from '@/shared/lib';
-import { Button, Typography } from '@/shared/ui';
+import { ArrowLeftIcon, PlanetIllustration } from '@/shared/assets';
+import { AmongUs } from '@/shared/lib';
+import { Button, Logo, Typography, NeedHelp } from '@/shared/ui';
 import styles from './styles/not-found.module.scss';
 
 /** Used to open email */
 const mailTo = 'mailto:help@teameights.com';
 
 export default function NotFound() {
-  const [isOpen, setIsOpen] = useState(false);
-  const ref: RefObject<HTMLDivElement> = useClickOutside(() => setIsOpen(false));
   return (
     <>
       <div className={styles.container}>
         <header className={styles.header}>
-          <Link href='/'>
-            <LogoBig />
-          </Link>
-          <div className={styles.needHelp} onClick={() => setIsOpen(true)} ref={ref}>
-            <Typography size='body_m'>Need Help</Typography>
-            <Question data-tooltip-id='my-tooltip-inline' />
-            <Tooltip
-              id='my-tooltip-inline'
-              className={styles.tooltip}
-              isOpen={isOpen}
-              clickable
-              place='bottom-end'
-            >
-              <Typography size='body_s'>
-                If you have any issues, please email <br /> us at{' '}
-                <Link href={mailTo}>
-                  <span className={styles.span}>helpteameights@gmail.com</span>
-                </Link>
-              </Typography>
-            </Tooltip>
-          </div>
+          <Logo />
+          <NeedHelp shouldHideWhenWidth={430} />
         </header>
         <div className={styles.main}>
           <div className={styles.illustration}>
-            <Planet />
+            <PlanetIllustration />
           </div>
           <div className={styles.info}>
             <Typography size='heading_m'>Oops... it looks like you are lost.</Typography>
             <Typography size='body_m'>Please check the URL or contact us for assistance</Typography>
             <div className={styles.button}>
               <Button>
-                <ArrowLeft />
+                <ArrowLeftIcon />
                 <Link href='/'>Back to home</Link>
               </Button>
             </div>
@@ -57,7 +34,7 @@ export default function NotFound() {
         <div className={styles.mobileButtons}>
           <Link href='/'>
             <Button width='100%'>
-              <ArrowLeft />
+              <ArrowLeftIcon />
               Back to home
             </Button>
           </Link>

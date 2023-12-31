@@ -1,0 +1,13 @@
+###
+# Register new user via email provider
+POST {{domain}}{{api-version}}/auth/email/register
+Content-Type: application/json
+
+{
+  "email": "jreydman@gmail.com",
+  "password": "qwerty1234"
+}
+
+###
+# healthtack
+GET {{domain}}

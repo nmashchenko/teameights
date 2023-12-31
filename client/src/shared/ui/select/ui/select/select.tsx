@@ -2,12 +2,12 @@
 import clsx from 'clsx';
 import ReactSelect, { GroupBase, Props } from 'react-select';
 
-import { selectStyles } from '../../lib/selectStyles';
+import { selectStyles } from '../../lib/select-styles';
 import styles from './select.module.scss';
-import { DropdownIndicator } from '../dropdown-indicator/dropdown-indicator';
-import { ErrorIndicator } from '../error-indicator/error-indicator';
-import { MultiValueRemove } from '../multi-value-remove/multi-value-remove';
-import { Option } from '../option/option';
+import { DropdownIndicator } from './dropdown-indicator';
+import { ErrorIndicator } from './error-indicator';
+import { MultiValueRemove } from './multi-value-remove';
+import { Option } from './option';
 
 /**
  * Select Component
@@ -20,6 +20,8 @@ import { Option } from '../option/option';
  * @prop {string} [label] - Label to display above the select component.
  * @prop {boolean} [disabled=false] - Specifies if the select should be disabled.
  * @prop {boolean} [isCheckbox=false] - If true, the options in the select will be presented as checkboxes.
+ * @prop {boolean} [isWithBorder=true] - If true, then a border will appear under the select.
+ * @prop {boolean} [isIndicatorAllowed=true] - If true, then there will be a dropdown indicator near the value.
  * @prop {Option[]} options - Array of options to be displayed in the select. Each option should have a `label` and `value`.
  * @prop ... and all other props supported by `ReactSelect`.
  *
@@ -54,6 +56,8 @@ interface CustomSelectProps {
   label?: string;
   disabled?: boolean;
   isCheckbox?: boolean;
+  isWithBorder?: boolean;
+  isIndicatorAllowed?: boolean;
   options: Option[];
 }
 
@@ -64,7 +68,19 @@ export const Select = <
 >(
   props: Props<Option, IsMulti, Group> & CustomSelectProps
 ) => {
-  const { error, label, disabled, isMulti, isCheckbox = false, name, ...rest } = props;
+  const {
+    error,
+    label,
+    disabled,
+    name,
+    isMulti,
+    isCheckbox,
+    isWithBorder = true,
+    isIndicatorAllowed = true,
+    styles: customStyles,
+    menuPortalTarget,
+    ...rest
+  } = props;
   return (
     <div
       className={clsx(styles.container, {
@@ -80,10 +96,14 @@ export const Select = <
         {...rest}
         instanceId='t8s-select'
         closeMenuOnSelect={!isMulti}
-        styles={selectStyles<Option, IsMulti, Group>(isCheckbox)}
+        styles={selectStyles<Option, IsMulti, Group>(customStyles, isCheckbox, isWithBorder)}
         name={name}
         components={{
-          DropdownIndicator: error ? ErrorIndicator : DropdownIndicator,
+          DropdownIndicator: isIndicatorAllowed
+            ? error
+              ? ErrorIndicator
+              : DropdownIndicator
+            : () => null,
           IndicatorSeparator: () => null,
           MultiValueRemove,
           ...(isCheckbox ? { Option } : {}), // Conditionally include custom Option component
@@ -93,7 +113,9 @@ export const Select = <
         isMulti={isMulti}
         isClearable={false}
         hideSelectedOptions={!isCheckbox}
-        menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
+        menuPortalTarget={
+          menuPortalTarget ? menuPortalTarget : typeof window !== 'undefined' ? document.body : null
+        }
       />
       {error && (
         <p className={styles.error} id={`${name}-error`} role='alert'>

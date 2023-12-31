@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { concentrations } from '@/shared/constant';
+import { countries } from '@/shared/constant';
 import { Select } from './select';
 // import { useForm } from 'react-hook-form'
 
@@ -32,7 +32,7 @@ export const Select_default = () => {
           // control={control}
           name='concentration'
           label='Single select'
-          options={concentrations}
+          options={countries}
         />
       </div>
     </div>
@@ -57,7 +57,7 @@ export const Select_default_multiple = () => {
           // control={control}
           name='concentration'
           label='Multiple select'
-          options={concentrations}
+          options={countries}
           isMulti={true}
         />
       </div>
@@ -78,12 +78,7 @@ export const Select_error = () => {
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Type - Single with error</p>
-        <Select
-          name='concentration'
-          label='Description'
-          options={concentrations}
-          error='test error'
-        />
+        <Select name='concentration' label='Description' options={countries} error='test error' />
       </div>
     </div>
   );
@@ -105,7 +100,7 @@ export const Select_error_multiple = () => {
         <Select
           name='concentration'
           label='Description'
-          options={concentrations}
+          options={countries}
           error='test error'
           isMulti
         />
@@ -127,7 +122,7 @@ export const Select_disabled = () => {
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Type - Single disabled</p>
-        <Select name='concentration' label='Description' options={concentrations} disabled />
+        <Select name='concentration' label='Description' options={countries} disabled />
       </div>
     </div>
   );
@@ -146,7 +141,7 @@ export const Select_checkbox = () => {
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Type - Checkbox</p>
-        <Select name='concentration' label='Description' options={concentrations} isCheckbox />
+        <Select name='concentration' label='Description' options={countries} isCheckbox />
       </div>
     </div>
   );
@@ -165,13 +160,7 @@ export const Select_checkbox_multiple = () => {
     >
       <div style={{ display: 'flex', gap: 5, flexDirection: 'column' }}>
         <p>Type - Checkbox multy</p>
-        <Select
-          name='concentration'
-          label='Description'
-          options={concentrations}
-          isCheckbox
-          isMulti
-        />
+        <Select name='concentration' label='Description' options={countries} isCheckbox isMulti />
       </div>
     </div>
   );

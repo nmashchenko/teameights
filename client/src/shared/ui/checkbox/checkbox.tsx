@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
-import { FC, InputHTMLAttributes } from 'react';
-import { Check } from '@/shared/assets';
+import { forwardRef, InputHTMLAttributes, Ref } from 'react';
+import { CheckIcon } from '@/shared/assets';
 import styles from './checkbox.module.scss';
 
 /**
@@ -35,8 +35,9 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-export const Checkbox: FC<CheckboxProps> = props => {
+export const Checkbox = forwardRef((props: CheckboxProps, ref: Ref<HTMLInputElement>) => {
   const { disabled = false, label, width, height, className, onChange, ...rest } = props;
+
   return (
     <label
       className={clsx(styles.container, { [styles.container__disabled]: disabled }, [className])}
@@ -47,14 +48,15 @@ export const Checkbox: FC<CheckboxProps> = props => {
         disabled={disabled}
         aria-label={label || 'Checkbox'}
         onChange={onChange}
+        ref={ref}
         {...rest}
       />
       <span className={styles.checkmark} style={{ width: width, height: height }}>
-        <Check />
+        <CheckIcon />
       </span>
       {label && (
         <span className={clsx(styles.label, { [styles.label__disabled]: disabled })}>{label}</span>
       )}
     </label>
   );
-};
+});

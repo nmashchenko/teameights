@@ -1,2 +1,3 @@
-export { BadgeLanguage } from './badge-language/badge-language';
-export { BadgeFramework } from './badge-framework/badge-framework';
+export { BadgeIcon } from '@/shared/ui/badge/badge-icon/badge-icon';
+export { BadgeText } from '@/shared/ui/badge/badge-text/badge-text';
+export { Badge } from './badge/badge';

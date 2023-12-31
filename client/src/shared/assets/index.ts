@@ -1,5 +1,8 @@
-/* Illustrations */
-export * from './illustrations';
-
 /* Icons */
 export * from './icons';
+
+/* Logos */
+export * from './logos';
+
+/* illustration */
+export * from './illustrations';

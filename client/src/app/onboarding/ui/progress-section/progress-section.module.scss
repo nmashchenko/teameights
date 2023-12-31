@@ -1,0 +1,13 @@
+.container {
+  background: var(--bg-color);
+  flex-basis: 39.06%;
+  padding: 48px 55px;
+
+  @media (width <= 1120px) {
+    padding: 48px 24px;
+  }
+
+  @media (width <= 981px) {
+    display: none;
+  }
+}
