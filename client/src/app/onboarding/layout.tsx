@@ -92,7 +92,6 @@ export default function OnboardingLayout({ children }: { children: ReactNode }) 
     updateUser(updateRequest);
   });
 
-  // TODO: add validations on each step (required / min amount of characters / etc)
   return (
     <FormProvider {...methods}>
       <form onSubmit={onSubmit} className={styles.container}>

@@ -9,7 +9,7 @@ export default function Company() {
     router.back();
   };
   return (
-    <Flex height='100%' width='100%' justify='center' align='center'>
+    <Flex height='100dvh' width='100%' justify='center' align='center'>
       <IllustrationStatus
         mainText='Company Registrations'
         subText='We will send you an email as soon as this feature appears'

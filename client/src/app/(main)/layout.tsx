@@ -11,8 +11,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const { data: user } = useGetMe();
   const { data: notifications } = useGetNotifications();
 
-  console.log('user', user);
-
   useSocketConnection(user);
 
   return (

@@ -41,6 +41,6 @@ export const useTrackFilterArr = (
       }, {});
 
       onChange(Object.keys(filterValues).length ? JSON.stringify(filterValues) : null);
-    }, 1300);
+    }, 500);
   }, [filterArr, onChange]);
 };
