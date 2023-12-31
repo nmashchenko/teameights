@@ -337,21 +337,32 @@ export class UserSeedService {
       );
     }
 
-    // await this.repository.save(
-    //   this.repository.create({
-    //     fullName: 'John Deer',
-    //     email: 'john.doe@example.com',
-    //     password: 'secret',
-    //     role: {
-    //       id: RoleEnum.user,
-    //       name: 'Admin',
-    //     },
-    //     status: {
-    //       id: StatusEnum.active,
-    //       name: 'Active',
-    //     },
-    //   })
-    // );
+    const userForTests = await this.repository.count({
+      where: {
+        role: {
+          id: RoleEnum.user,
+        },
+        fullName: 'John Deer',
+      },
+    });
+
+    if (!userForTests) {
+      await this.repository.save(
+        this.repository.create({
+          fullName: 'John Deer',
+          email: 'john.doe@example.com',
+          password: 'secret',
+          role: {
+            id: RoleEnum.user,
+            name: 'Admin',
+          },
+          status: {
+            id: StatusEnum.active,
+            name: 'Active',
+          },
+        })
+      );
+    }
 
     const countUser = await this.repository.count({
       where: {
@@ -361,7 +372,7 @@ export class UserSeedService {
       },
     });
 
-    if (!countUser) {
+    if (countUser === 1) {
       for (let i = 0; i < 50; i++) {
         const randomSpeciality = this.getRandomItemFromArray([
           'Developer',
