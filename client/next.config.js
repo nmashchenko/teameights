@@ -7,7 +7,8 @@ module.exports = {
       'teameights-production.s3.amazonaws.com',
       'localhost',
       'picsum.photos',
-      'source.unsplash.com',
+	'source.unsplash.com',
+	'images.unsplash.com'
     ],
     remotePatterns: [
       {
