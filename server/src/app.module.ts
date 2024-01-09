@@ -24,7 +24,7 @@ import { MailerModule } from './libs/mailer/mailer.module';
 import { AuthGithubModule } from './modules/auth/auth-github/auth-github.module';
 import githubConfig from './config/github.config';
 import { NotificationsModule } from './modules/notifications/notifications.module';
-
+import { ChatModule } from './modules/chat/chat.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -79,6 +79,8 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
     HomeModule,
     AuthGithubModule,
     NotificationsModule,
+    ChatModule,
   ],
+  providers: [],
 })
 export class AppModule {}

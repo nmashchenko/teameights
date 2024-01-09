@@ -27,6 +27,7 @@ import { Projects } from './projects.entity';
 import { Links } from './links.entity';
 import { Skills } from './skills.entity';
 import { Notification } from '../../notifications/entities/notification.entity';
+import { Message } from 'src/modules/chat/entities/message.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -143,6 +144,13 @@ export class User extends EntityHelper {
 
   // @ManyToOne(() => Team, team => team.users)
   // team: Team;
+  @Exclude({ toPlainOnly: true })
+  @OneToMany(() => Message, message=>message.sender)
+  transmitMessages: Message[];
+
+  @Exclude({ toPlainOnly: true })
+  @ManyToOne(() => Message, message=>message.receivers)
+  receivedMessages: Message[];
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
