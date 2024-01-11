@@ -145,12 +145,12 @@ export class User extends EntityHelper {
   // @ManyToOne(() => Team, team => team.users)
   // team: Team;
   @Exclude({ toPlainOnly: true })
-  @OneToMany(() => Message, message=>message.sender)
+  @OneToMany(() => Message, message => message.sender)
   transmitMessages: Message[];
 
-  @Exclude({ toPlainOnly: true })
-  @ManyToOne(() => Message, message=>message.receivers)
-  receivedMessages: Message[];
+  //@Exclude({ toPlainOnly: true })
+  //@ManyToOne(() => Message, message => message.receivers)
+  //receivedMessages: Message[];
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
