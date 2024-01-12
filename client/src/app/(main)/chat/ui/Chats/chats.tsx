@@ -1,6 +1,6 @@
 import { UserElement, IUserElement } from '../UserElement';
-import styles from './chats.module.scss';
 import { Tabs } from '@/shared/ui';
+import styles from './chats.module.scss';
 
 const DBOfUsers: Array<IUserElement> = [
   {
@@ -164,7 +164,7 @@ const DBOfUsers: Array<IUserElement> = [
 export const Chats = () => {
   return (
     <div className={styles.wrapper}>
-      <div style={{ position: 'sticky', margin: '32px 0px 24px 24px' }}>
+      <div className={styles.tabs}>
         <Tabs
           currentTab='My team'
           onTabChange={selectedTab => console.log(`Switched to ${selectedTab}`)}
@@ -172,11 +172,7 @@ export const Chats = () => {
         />
       </div>
 
-      <div
-        style={{
-          maxHeight: '510px',
-          overflowY: 'auto'
-        }}
+      <div className={styles.users}
       >
         {DBOfUsers.map((item, id) => {
           return (

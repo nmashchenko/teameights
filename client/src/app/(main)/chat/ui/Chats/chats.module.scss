@@ -1,8 +1,14 @@
 .wrapper {
-    background-color: #1A1C22;
-    border-radius: 20px;
-    // width: 418px;
-    // height: 600px;
-    // min-width: 370px;
-    // max-height: 600px;
+  background-color: #1a1c22;
+  border-radius: 20px;
+
+  .tabs {
+    position: sticky;
+    margin: 32px 0px 24px 24px;
+  }
+
+  .users {
+    max-height: 510px;
+    overflow-y: auto;
+  }
 }
