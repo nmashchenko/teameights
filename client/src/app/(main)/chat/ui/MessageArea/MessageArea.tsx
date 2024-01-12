@@ -10,7 +10,7 @@ const DBofMessages = [
       },
     ],
     text: '1fjdfjpasdifjasdfspdfijaspfdjapsdf',
-    isThisMessageMine: true,
+    isThisMessageMine: false,
     timestamp: '15:36',
   },
   {
@@ -33,8 +33,8 @@ const DBofMessages = [
         userId: true,
       },
     ],
-    text: 'sdfjsajdfpasjdfasidfjpoasidfjpasidjfpasidfjpaosdifjpaosidfjpasdoijdfafasjdfpoisajfpoiasjfpoiasdjfpoiasdjfpoidsipaidfidfidfisdfsidfdjf',
-    isThisMessageMine: false,
+    text: 'sdfjsajdfpapafpoidsipaidfidfidfisdfsidfdjf',
+    isThisMessageMine: true,
     timestamp: '12:18',
   },
   {
@@ -57,8 +57,8 @@ const DBofMessages = [
         userId: true,
       },
     ],
-    text: 'sdfjsajdfpasjdfasidfjpoasidfjpasidjfpasidfjpaosdifjpaosidfjpasdoijdfa',
-    isThisMessageMine: false,
+    text: 'Lorem ipsum dolor sit amet very long-long message bla bla bla. ',
+    isThisMessageMine: true,
     timestamp: '12:18',
   },
 ];
@@ -68,6 +68,7 @@ export const MessageArea = () => {
     <div
       style={{
         overflowY: 'auto',
+        paddingRight: '20px'
       }}
     >
       {DBofMessages.map((item, id) => {
