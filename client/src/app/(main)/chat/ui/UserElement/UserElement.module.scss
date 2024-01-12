@@ -1,3 +1,43 @@
-.top {
+.container {
+  border-bottom: 1px #434752 solid;
+  cursor: pointer;
+
+  .wrapper {
     display: flex;
+    flexdirection: row;
+    justifycontent: left;
+    alignitems: center;
+    width: 370px;
+    height: 66px;
+    margin: 8px 24px 8px 24px;
+
+    .userInfo {
+      display: flex;
+      flex-direction: column;
+      min-width: 310px;
+
+      .titles {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .lastMessage {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 4px;
+      }
+
+      .unreadMessages {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 21px;
+        max-width: 26px;
+        padding: 2px 6px;
+        background: rgba(91, 212, 36, 1);
+        border-radius: 10px;
+        color: rgba(30, 30, 30, 1);
+      }
+    }
+  }
 }

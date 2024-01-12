@@ -27,61 +27,33 @@ export function UserElement({
   lastMessageSenderName,
   isLastMessageChecked,
   timestampOfLastMessage,
-  isGroup
+  isGroup,
 }: IUserElement) {
   return (
-    <div
-      style={{
-        borderBottom: '1px #434752 solid',
-        cursor: 'pointer',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'left',
-          alignItems: 'center',
-          width: '370px',
-          height: '66px',
-          margin: '8px 24px 8px 24px',
-        }}
-      >
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
         <Image
           style={{ borderRadius: '100px', marginRight: '10px' }}
           src={avatarUrl}
           width={50}
           height={50}
-          alt=""
+          alt=''
         />
 
-        <div style={{ display: 'flex', flexDirection: 'column', minWidth: "310px" }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Typography size='body_m'>
-              {title}
-            </Typography>
+        <div className={styles.userInfo}>
+          <div className={styles.titles}>
+            <Typography size='body_m'>{title}</Typography>
             <p>{timestampOfLastMessage}</p>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px' }}>
+          <div className={styles.lastMessage}>
             <div style={{ display: 'inline-flex', textWrap: 'nowrap' }}>
               <p style={{ color: 'rgba(91, 212, 36, 1)' }}>{lastMessageSenderName}</p>
               <p>{`: ${lastMessage}`}</p>
             </div>
 
             {hasUnreadMessages ? (
-              <p
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '21px',
-                  maxWidth: '26px',
-                  padding: '2px 6px',
-                  background: 'rgba(91, 212, 36, 1)',
-                  borderRadius: '10px',
-                  color: 'rgba(30, 30, 30, 1)',
-                }}
+              <p className={styles.unreadMessages}
               >
                 {countOfUnreadMessages}
               </p>
