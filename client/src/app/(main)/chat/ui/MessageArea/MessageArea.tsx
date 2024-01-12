@@ -1,4 +1,5 @@
 import { Message } from '../Message';
+import styles from './MessageArea.module.scss';
 
 const DBofMessages = [
   {
@@ -65,12 +66,7 @@ const DBofMessages = [
 
 export const MessageArea = () => {
   return (
-    <div
-      style={{
-        overflowY: 'auto',
-        paddingRight: '20px'
-      }}
-    >
+    <div className={styles.messages}>
       {DBofMessages.map((item, id) => {
         return (
           <Message
