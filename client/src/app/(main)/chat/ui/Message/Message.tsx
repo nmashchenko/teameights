@@ -38,18 +38,16 @@ export function Message({
       {isThisMessageMine ? (
         <div></div>
       ) : (
-        <div
+        <Image
+          src='https://images.unsplash.com/photo-1666597107756-ef489e9f1f09?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          height={32}
+          width={32}
+          alt='Avatar'
           style={{
-            borderRadius: 100,
+            borderRadius: "100px",
             marginRight: 12
-          }}>
-          <Image
-            src='https://images.unsplash.com/photo-1666597107756-ef489e9f1f09?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-            height={32}
-            width={32}
-            alt='Avatar'
-          />
-        </div>
+          }}
+        />
       )}
       <div
         style={{
