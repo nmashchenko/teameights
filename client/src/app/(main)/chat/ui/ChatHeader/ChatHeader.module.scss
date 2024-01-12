@@ -1,0 +1,31 @@
+.container {
+  position: sticky;
+  width: 100%;
+  height: 90px;
+  borderbottom: 1px solid rgba(67, 71, 82, 1);
+  display: flex;
+  justifycontent: space-between;
+
+  .headerWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 24px 32px 16px 32px;
+
+    .groupInfo {
+      display: flex;
+      flexdirection: row;
+
+      .titlesContainer {
+	  display: flex;
+	  flex-direction: column;
+      }
+    }
+
+    .icons {
+      display: flex;
+      gap: 4px;
+      margin: 11px 0px;
+    }
+  }
+}
