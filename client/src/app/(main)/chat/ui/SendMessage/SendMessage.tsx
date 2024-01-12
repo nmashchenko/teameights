@@ -10,25 +10,13 @@ export const SendMessage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.container}>
       <ChatHeader />
 
-      <div
-        style={{
-          height: '80%',
-          display: 'flex',
-          flexDirection: 'column',
-          margin: '0px 32px 24px 32px',
-        }}
-      >
+      <div className={styles.messageArea}>
         <MessageArea />
 
-        <div
-          style={{
-            position: 'sticky',
-            marginTop: 'auto',
-          }}
-        >
+        <div className={styles.input}>
           <Input
             placeholder='Write message...'
             ref={inputRef}
