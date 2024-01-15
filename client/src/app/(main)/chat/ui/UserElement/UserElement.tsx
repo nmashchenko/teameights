@@ -49,14 +49,11 @@ export function UserElement({
           <div className={styles.lastMessage}>
             <div style={{ display: 'inline-flex', textWrap: 'nowrap' }}>
               <p style={{ color: 'rgba(91, 212, 36, 1)' }}>{lastMessageSenderName}</p>
-              <p>{`: ${lastMessage}`}</p>
+              <p>{lastMessage.length > 18 ? `${lastMessage.substring(0, 18)}...` : lastMessage}</p>
             </div>
 
             {hasUnreadMessages ? (
-              <p className={styles.unreadMessages}
-              >
-                {countOfUnreadMessages}
-              </p>
+              <p className={styles.unreadMessages}>{countOfUnreadMessages}</p>
             ) : (
               ''
             )}
