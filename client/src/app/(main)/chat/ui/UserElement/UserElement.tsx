@@ -48,8 +48,12 @@ export function UserElement({
 
           <div className={styles.lastMessage}>
             <div style={{ display: 'inline-flex', textWrap: 'nowrap' }}>
-              <p style={{ color: 'rgba(91, 212, 36, 1)' }}>{lastMessageSenderName}</p>
-              <p>{lastMessage.length > 18 ? `${lastMessage.substring(0, 18)}...` : lastMessage}</p>
+              <p style={{ color: 'rgba(91, 212, 36, 1)' }}>{`${lastMessageSenderName}: `}</p>
+              <p>
+                {lastMessage.length > 18 && hasUnreadMessages
+                  ? `${lastMessage.substring(0, 18)}...`
+                  : `${lastMessage.substring(0, 25)}`}
+              </p>
             </div>
 
             {hasUnreadMessages ? (
