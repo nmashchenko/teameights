@@ -13,6 +13,7 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  ManyToMany,
 } from 'typeorm';
 import { Role } from 'src/libs/database/metadata/roles/entities/role.entity';
 import { Status } from 'src/libs/database/metadata/statuses/entities/status.entity';
@@ -144,13 +145,14 @@ export class User extends EntityHelper {
 
   // @ManyToOne(() => Team, team => team.users)
   // team: Team;
+
   @Exclude({ toPlainOnly: true })
   @OneToMany(() => Message, message => message.sender)
-  transmitMessages: Message[];
+  transmitMessages?: Message[];
 
   //@Exclude({ toPlainOnly: true })
-  //@ManyToOne(() => Message, message => message.receivers)
-  //receivedMessages: Message[];
+  @ManyToMany(() => Message, message => message.receivers)
+  receivedMessages: Message[];
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;

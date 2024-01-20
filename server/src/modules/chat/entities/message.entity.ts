@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -23,33 +24,33 @@ export class Message extends EntityHelper {
   })
   sender: User;
 
-  //@ManyToMany(() => User, user => user.receivedMessages, { eager: true })
-  //receivers: User[];
+  @ManyToMany(() => User, user => user.receivedMessages)
+  receivers: User[];
 
-  //@Column({ type: String })
-  //group?: string;
+  @Column({ type: String })
+  group?: string;
 
-  //@ApiProperty({ example: '{"userId":"boolean"}' })
-  //@Column({ type: 'jsonb' })
-  //read: {
-  //  [key: number]: boolean;
-  //};
+  @ApiProperty({ example: '{"userId":"boolean"}' })
+  @Column({ type: 'jsonb' })
+  read: {
+    [key: number]: boolean;
+  };
 
-  //@Column({ type: String })
-  //text?: string;
+  @Column({ type: String })
+  text?: string;
 
-  //@CreateDateColumn({ type: 'timestamp' })
-  //createdAt: Date;
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
 
-  //@UpdateDateColumn({ type: 'timestamp' })
-  //updatedAt: Date;
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
 
-  //@DeleteDateColumn({ type: 'timestamp' })
-  //deletedAt: Date;
+  @DeleteDateColumn({ type: 'timestamptz' })
+  deletedAt: Date;
 
-  //@ApiProperty({ example: '{"userId":"/reactionUnicode/"}' })
-  //@Column({ type: 'jsonb' })
-  //reactions: {
-  //  [key: number]: string;
-  //};
+  @ApiProperty({ example: '{"userId":"/reactionUnicode/"}' })
+  @Column({ type: 'jsonb' })
+  reactions?: {
+    [key: number]: string;
+  };
 }
