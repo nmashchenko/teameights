@@ -19,6 +19,16 @@
       .titles {
         display: flex;
         justify-content: space-between;
+
+        .rightData {
+	    display: flex;
+	    
+          .checker {
+            width: 16px;
+            height: 16px;
+	    margin-right: 10px;
+          }
+        }
       }
 
       .lastMessage {

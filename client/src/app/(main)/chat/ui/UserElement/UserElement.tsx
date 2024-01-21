@@ -43,7 +43,17 @@ export function UserElement({
         <div className={styles.userInfo}>
           <div className={styles.titles}>
             <Typography size='body_m'>{title}</Typography>
-            <p>{timestampOfLastMessage}</p>
+
+            <div className={styles.rightData}>
+              <div className={styles.checker}>
+                {isLastMessageChecked ? (
+                  <ChecksIcon fill='rgba(91, 212, 36, 1)' />
+                ) : (
+                  <CheckIcon fill='rgba(91, 212, 36, 1)' />
+                )}
+              </div>
+              <p>{timestampOfLastMessage}</p>
+            </div>
           </div>
 
           <div className={styles.lastMessage}>
