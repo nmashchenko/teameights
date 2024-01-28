@@ -12,6 +12,10 @@
 }
 
 .label {
+  width: calc(100% - 26px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: var(--white-color);
   font: var(--font-body-weight-m) var(--font-body-size-m) / var(--font-body-line-m)
     var(--font-rubik);

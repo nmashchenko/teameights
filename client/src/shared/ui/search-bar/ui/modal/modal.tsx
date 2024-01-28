@@ -82,7 +82,7 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
     }
   };
 
-  return (
+  return isOpened ? (
     <Drawer
       open={isOpened}
       onClose={onClose}
@@ -119,5 +119,5 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
         </Flex>
       </Flex>
     </Drawer>
-  );
+  ) : null;
 };

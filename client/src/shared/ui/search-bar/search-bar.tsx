@@ -11,6 +11,7 @@ import { useTrackFilterArr } from './hooks';
 import { SearchContext } from './contexts';
 import { ModalButton } from './ui/modal-button';
 import { Modal } from './ui/modal';
+import clsx from 'clsx';
 
 /**
  * Search-bar Component
@@ -58,6 +59,15 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange })
     setIsModalOpened(false);
   };
 
+  const isShowTagList = filterArr.some(item => {
+    switch (item.type) {
+      case 'text':
+      case 'checkbox':
+      case 'multiple':
+        return item.filterValue.length;
+    }
+  });
+
   return (
     <SearchContext.Provider
       value={{
@@ -69,7 +79,13 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange })
     >
       <ModalButton onOpen={onOpen} onClose={onClose} />
 
-      <Flex direction='column' gap='24px' className={styles.searchbar}>
+      <Flex
+        direction='column'
+        gap='24px'
+        className={clsx(styles.searchbar, {
+          [styles.searchbar_hidden]: !isShowTagList,
+        })}
+      >
         <Flex className={styles.searchbar_content}>
           <FilterSelect />
           <SearchInput />

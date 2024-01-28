@@ -24,6 +24,7 @@ export const TextInput: FC<TextInputProps> = ({ defaultValue, placeholder, onCha
   return (
     <Flex align='center' className={styles.container}>
       <Input
+        className={styles.input}
         value={value}
         onChange={e => handleChange(e.target.value)}
         placeholder={placeholder}
