@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Flex } from '@/shared/ui';
 import { SearchIcon } from '@/shared/assets';
 import { useGetScreenWidth } from '@/shared/lib';
@@ -12,9 +12,11 @@ interface ModalButtonProps {
 export const ModalButton: FC<ModalButtonProps> = ({ onOpen, onClose }) => {
   const screenWidth = useGetScreenWidth();
 
-  if (screenWidth > 768) {
-    onClose();
-  }
+  useEffect(() => {
+    if (screenWidth > 768) {
+      onClose();
+    }
+  }, [screenWidth, onClose]);
 
   return (
     <Flex align='center' justify='center' className={styles.modal_button} onClick={onOpen}>

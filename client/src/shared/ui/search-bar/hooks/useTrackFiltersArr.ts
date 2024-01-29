@@ -39,18 +39,17 @@ export const useTrackFilterArr = (
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!isTimerDisabled) {
+    if (isTimerDisabled) {
+      onChange(Object.keys(filterValues).length ? JSON.stringify(filterValues) : null);
+    } else {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
 
-      timerRef.current = setTimeout(() => {
-        onChange(Object.keys(filterValues).length ? JSON.stringify(filterValues) : null);
-      }, 500);
+      timerRef.current = setTimeout(
+        () => onChange(Object.keys(filterValues).length ? JSON.stringify(filterValues) : null),
+        500
+      );
     }
   }, [isTimerDisabled, filterArr, onChange, filterValues]);
-
-  if (isTimerDisabled) {
-    onChange(Object.keys(filterValues).length ? JSON.stringify(filterValues) : null);
-  }
 };
