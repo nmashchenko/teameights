@@ -9,10 +9,10 @@ import { Jobs } from './entities/jobs.entity';
 import { Links } from './entities/links.entity';
 import { Projects } from './entities/projects.entity';
 import { Universities } from './entities/universities.entity';
-import { Message } from '../chat/entities/message.entity';
+import { Chat } from '../chat/entities/chat.user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Jobs, Links, Projects, Universities, Message])],
+  imports: [TypeOrmModule.forFeature([User, Jobs, Links, Projects, Universities, Chat])],
   controllers: [UsersController],
   providers: [IsExist, IsNotExist, UsersService],
   exports: [UsersService],

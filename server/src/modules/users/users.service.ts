@@ -67,6 +67,13 @@ export class UsersService {
     });
   }
 
+  findMany(fields: EntityCondition<User>): Promise<User[]> {
+    return this.usersRepository.find({
+      where: fields,
+    });
+    this.usersRepository.find
+  }
+
   update(id: User['id'], payload: DeepPartial<User>): Promise<User> {
     return this.usersRepository.save(
       this.usersRepository.create({

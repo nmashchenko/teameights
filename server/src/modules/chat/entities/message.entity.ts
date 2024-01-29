@@ -6,12 +6,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Chat } from './chat.user.entity';
 
 @Entity({ name: 'message' })
 export class Message extends EntityHelper {
@@ -19,12 +19,12 @@ export class Message extends EntityHelper {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => User, user => user.transmitMessages, {
+  @ManyToOne(() => Chat, chat => chat.transmitMessages, {
     eager: true,
   })
   sender: User;
 
-  @ManyToMany(() => User, user => user.receivedMessages)
+  @ManyToMany(() => Chat, chat => chat.receivedMessages)
   receivers: User[];
 
   @Column({ type: String })

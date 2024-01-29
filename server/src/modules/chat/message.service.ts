@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Message } from './entities/message.entity';
-import { FindOptionsWhere, Like, Repository } from 'typeorm';
+import { FindOptionsWhere, ILike, In, Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
 import { NullableType } from 'src/utils/types/nullable.type';
@@ -10,6 +10,8 @@ import { FilterMessageDto, SortMessageDto } from './dto/query-message.dto';
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { User } from '../users/entities/user.entity';
+import { inspect } from 'util';
+import { Exception } from 'handlebars';
 
 @Injectable()
 export class MessageService {
@@ -38,10 +40,16 @@ export class MessageService {
   }): Promise<Message[]> {
     const where: FindOptionsWhere<Message>[] = [];
 
-    where.push({ sender: { id: userJwtPayload.id } }, { receivers: { id: userJwtPayload.id } });
+    if (filterOptions?.receivers)
+      where.push({
+        sender: { id: userJwtPayload.id },
+        receivers: { username: In(filterOptions.receivers) },
+      });
+    else
+      where.push({ sender: { id: userJwtPayload.id } }, { receivers: { id: userJwtPayload.id } });
 
     where.forEach(inst => {
-      if (filterOptions?.text) inst.text = Like(filterOptions.text);
+      inst.text = filterOptions?.text && ILike(`%${filterOptions.text}%`);
     });
 
     return this.messageRepository.find({
@@ -58,19 +66,31 @@ export class MessageService {
     });
   }
 
-  // async createMessage(dto: CreateMessageDto) {
-  //   const users = await this.usersService.findManyWithPagination()
+  async createMessage(senderId: number, dto: CreateMessageDto) {
+    //type one
+    const sender = await this.usersService.findOne({ id: senderId });
 
-  //   if (!user) {
-  //     throw new HttpException(
-  //       {
-  //         status: HttpStatus.NOT_FOUND,
-  //         errors: {
-  //           user: `user with id: ${dto.receiver} was not found`,
-  //         },
-  //       },
-  //       HttpStatus.NOT_FOUND
-  //     );
-  //   }
-  // }
+    const receivers = await this.usersService.findMany({ id: In(dto.receivers) });
+    const missingUsers = dto.receivers.filter(
+      receiver => !receivers.some(user => user.id === receiver)
+    );
+    if (missingUsers.length)
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          errors: {
+            receivers: `users with id: ${dto.receivers} was not found`,
+          },
+        },
+        HttpStatus.NOT_FOUND
+      );
+    await this.messageRepository.save(
+      this.messageRepository.create({
+        sender: sender!,
+        receivers: receivers,
+        text: dto.text,
+        group: dto.group,
+      })
+    );
+  }
 }

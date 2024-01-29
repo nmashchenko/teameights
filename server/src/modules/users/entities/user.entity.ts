@@ -14,6 +14,8 @@ import {
   OneToOne,
   JoinColumn,
   ManyToMany,
+  JoinTable,
+  AfterInsert,
 } from 'typeorm';
 import { Role } from 'src/libs/database/metadata/roles/entities/role.entity';
 import { Status } from 'src/libs/database/metadata/statuses/entities/status.entity';
@@ -28,7 +30,7 @@ import { Projects } from './projects.entity';
 import { Links } from './links.entity';
 import { Skills } from './skills.entity';
 import { Notification } from '../../notifications/entities/notification.entity';
-import { Message } from 'src/modules/chat/entities/message.entity';
+import { Chat } from 'src/modules/chat/entities/chat.user.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -139,20 +141,22 @@ export class User extends EntityHelper {
   @JoinColumn()
   links?: Links;
 
+  @OneToOne(() => Chat, { eager: true, cascade: true })
+  @JoinColumn()
+  chat: Chat;
+
+  @BeforeInsert()
+  private async createChat() {
+    this.chat = new Chat();
+    await this.chat.save();
+  }
+
   @Exclude({ toPlainOnly: true })
   @OneToMany(() => Notification, notifications => notifications.receiver)
   notifications: Notification[];
 
   // @ManyToOne(() => Team, team => team.users)
   // team: Team;
-
-  @Exclude({ toPlainOnly: true })
-  @OneToMany(() => Message, message => message.sender)
-  transmitMessages?: Message[];
-
-  //@Exclude({ toPlainOnly: true })
-  @ManyToMany(() => Message, message => message.receivers)
-  receivedMessages: Message[];
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
