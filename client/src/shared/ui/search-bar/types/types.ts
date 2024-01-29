@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { MultiValue } from 'react-select';
+import { Action, ActionTypesEnum } from '../actions';
 
 interface IFilter {
   label: string;
@@ -44,7 +45,12 @@ export interface IFilterParams {
 
 export interface SearchContextType {
   filterArr: Filter[];
-  setFilterArr: Dispatch<SetStateAction<Filter[]>>;
+  dispatch: Dispatch<Action<ActionTypesEnum>>;
   filterIndex: number;
   setFilterIndex: Dispatch<SetStateAction<number>>;
+}
+
+export interface IFilterState {
+  isTimerDisabled: boolean;
+  filterArr: Filter[];
 }

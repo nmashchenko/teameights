@@ -4,13 +4,18 @@ import { Tag } from '../tag';
 import { SearchTagMenu } from '../search-tag-menu';
 import { useFilters } from '../../hooks';
 import { Filter } from '../../types';
+import {
+  clearFilter,
+  clearOneMultipleOption,
+  clearAllExceptOneMultipleOptions,
+} from '../../actions';
 
 interface TagListProps {
   isOnlyCurrentFilterTags?: boolean;
 }
 
 export const TagList: FC<TagListProps> = ({ isOnlyCurrentFilterTags = false }) => {
-  const { filterArr, setFilterArr, filterIndex } = useFilters();
+  const { filterArr, dispatch, filterIndex } = useFilters();
   const currentFilter = filterArr[filterIndex];
 
   if (!filterArr.length) {
@@ -18,55 +23,15 @@ export const TagList: FC<TagListProps> = ({ isOnlyCurrentFilterTags = false }) =
   }
 
   const handleClearTextFilter = (filterIndex: number) => {
-    setFilterArr(prev =>
-      prev.map((item, index) => {
-        if (filterIndex === index) {
-          item.filterValue = '';
-        }
-
-        return item;
-      })
-    );
+    dispatch(clearFilter(filterIndex));
   };
 
-  const handleClearMultipleOption = (filterIndex: number, index: number) => {
-    setFilterArr(prev => {
-      const filter = prev[filterIndex];
-
-      if (filter.type === 'checkbox' || filter.type === 'multiple') {
-        const newFilterValue = filter.filterValue.filter((item, i) => i !== index);
-
-        return prev.map((item, i) => {
-          if (filterIndex === i) {
-            item.filterValue = newFilterValue;
-          }
-
-          return item;
-        });
-      }
-
-      return prev;
-    });
+  const handleClearOneMultipleOption = (filterIndex: number, optionIndex: number) => {
+    dispatch(clearOneMultipleOption(filterIndex, optionIndex));
   };
 
-  const handleClearAllMultipleOptions = (filterIndex: number) => {
-    setFilterArr(prev => {
-      const filter = prev[filterIndex];
-
-      if (filter.type === 'checkbox' || filter.type === 'multiple') {
-        const newFilterValue = [filter.filterValue[0]];
-
-        return prev.map((item, i) => {
-          if (filterIndex === i) {
-            item.filterValue = newFilterValue;
-          }
-
-          return item;
-        });
-      }
-
-      return prev;
-    });
+  const handleClearAllExceptOneMultipleOptions = (filterIndex: number) => {
+    dispatch(clearAllExceptOneMultipleOptions(filterIndex));
   };
 
   const renderTag = (filterItem: Filter, index: number) => {
@@ -85,15 +50,15 @@ export const TagList: FC<TagListProps> = ({ isOnlyCurrentFilterTags = false }) =
         if (filterItem.filterValue.length) {
           return (
             <li className={styles.checkboxFilterTag} key={filterItem.value}>
-              <Tag isWithCross onClick={() => handleClearMultipleOption(index, 0)}>
+              <Tag isWithCross onClick={() => handleClearOneMultipleOption(index, 0)}>
                 {filterItem.filterValue[0].label}
               </Tag>
               {filterItem.filterValue.length > 1 && (
                 <SearchTagMenu
                   filterItem={filterItem}
                   filterIndex={index}
-                  onClearOption={handleClearMultipleOption}
-                  onClearAllOptions={handleClearAllMultipleOptions}
+                  onClearOneOption={handleClearOneMultipleOption}
+                  onClearAllExceptOneOptions={handleClearAllExceptOneMultipleOptions}
                 />
               )}
             </li>

@@ -7,7 +7,7 @@ import { FilterSelect } from './ui/filter-select';
 import { SearchInput } from './ui/search-input';
 import { TagList } from './ui/tag-list';
 import { Flex } from '@/shared/ui';
-import { useTrackFilterArr } from './hooks';
+import { useFilterReducer, useTrackFilterArr } from './hooks';
 import { SearchContext } from './contexts';
 import { ModalButton } from './ui/modal-button';
 import { Modal } from './ui/modal';
@@ -46,10 +46,12 @@ interface SearchBarProps {
 }
 
 export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange }) => {
-  const [filterArr, setFilterArr] = useState(initialFiltersState);
+  const [filterState, dispatch] = useFilterReducer(initialFiltersState);
   const [filterIndex, setFilterIndex] = useState(0);
   const [isModalOpened, setIsModalOpened] = useState(false);
-  useTrackFilterArr(filterArr, onChange);
+  useTrackFilterArr(filterState, onChange);
+
+  const { filterArr } = filterState;
 
   const onOpen = () => {
     setIsModalOpened(true);
@@ -72,7 +74,7 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange })
     <SearchContext.Provider
       value={{
         filterArr,
-        setFilterArr,
+        dispatch,
         filterIndex,
         setFilterIndex,
       }}

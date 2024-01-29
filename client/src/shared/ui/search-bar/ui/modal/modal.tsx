@@ -6,6 +6,7 @@ import { Drawer, Flex, Typography } from '@/shared/ui';
 import { FilterMenu } from '../filter-menu';
 import { ModalMenu } from '../modal-menu';
 import styles from './modal.module.scss';
+import { clearAllFilters, clearFilter } from '../../actions';
 
 interface ModalProps {
   isOpened: boolean;
@@ -13,7 +14,7 @@ interface ModalProps {
 }
 
 export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
-  const { filterArr, setFilterArr, filterIndex, setFilterIndex } = useFilters();
+  const { filterArr, dispatch, filterIndex, setFilterIndex } = useFilters();
   const currentFilter = filterArr[filterIndex];
   const [isFilterOpened, setIsFilterOpened] = useState(false);
 
@@ -24,53 +25,9 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
 
   const leftButtonHandler = () => {
     if (isFilterOpened) {
-      setFilterArr(prev =>
-        prev.map((item, index) => {
-          if (index === filterIndex) {
-            switch (item.type) {
-              case 'text':
-                item.filterValue = '';
-
-                return item;
-
-              case 'multiple':
-              case 'checkbox':
-                item.filterValue = [];
-
-                return item;
-
-              case 'range':
-                item.filterValue = null;
-
-                return item;
-            }
-          }
-
-          return item;
-        })
-      );
+      dispatch(clearFilter(filterIndex));
     } else {
-      setFilterArr(prev =>
-        prev.map(item => {
-          switch (item.type) {
-            case 'text':
-              item.filterValue = '';
-
-              return item;
-
-            case 'multiple':
-            case 'checkbox':
-              item.filterValue = [];
-
-              return item;
-
-            case 'range':
-              item.filterValue = null;
-
-              return item;
-          }
-        })
-      );
+      dispatch(clearAllFilters());
     }
   };
 
