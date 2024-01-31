@@ -3,6 +3,7 @@ import { EntityHelper } from 'src/utils/entity-helper';
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   OneToMany,
@@ -20,21 +21,20 @@ export class Chat extends EntityHelper {
   id: number;
 
   //ChatGroups
-  @Exclude({ toPlainOnly: true })
+  //@Exclude({ toPlainOnly: true })
   @OneToMany(() => ChatGroup, group => group.owner)
   ownedGroups: ChatGroup[];
 
-  @Exclude({ toPlainOnly: true })
+  //@Exclude({ toPlainOnly: true })
   @ManyToMany(() => ChatGroup, group => group.members)
-  @JoinTable()
   memberGroups: ChatGroup[];
 
   //Messages
-  @Exclude({ toPlainOnly: true })
+  //@Exclude({ toPlainOnly: true })
   @OneToMany(() => Message, message => message.sender)
   transmitMessages?: Message[];
 
-  @Exclude({ toPlainOnly: true })
+  //@Exclude({ toPlainOnly: true })
   @ManyToMany(() => Message, message => message.receivers)
   @JoinTable()
   receivedMessages: Message[];

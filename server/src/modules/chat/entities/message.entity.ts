@@ -2,6 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/modules/users/entities/user.entity';
 import { EntityHelper } from 'src/utils/entity-helper';
 import {
+  AfterInsert,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -12,6 +15,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Chat } from './chat.user.entity';
+import { ChatGroup } from './chat.group.entity';
+import { MessageReaction, MessageReader } from '../interfaces/chat.interface';
+import { inspect } from 'util';
 
 @Entity({ name: 'message' })
 export class Message extends EntityHelper {
@@ -27,17 +33,23 @@ export class Message extends EntityHelper {
   @ManyToMany(() => Chat, chat => chat.receivedMessages)
   receivers: User[];
 
-  @Column({ type: String })
-  group?: string;
+  @ManyToOne(() => ChatGroup, group => group.threadMessages)
+  chatGroup?: ChatGroup;
 
-  @ApiProperty({ example: '{"userId":"boolean"}' })
+  @ApiProperty({ example: { 1: 'true' } })
   @Column({ type: 'jsonb' })
-  read: {
-    [key: number]: boolean;
-  };
+  read: { [key: number]: boolean };
 
-  @Column({ type: String })
-  text?: string;
+  @BeforeInsert()
+  setReaders() {
+    if (!this.read) this.read = {};
+    this.receivers.forEach(receiver => {
+      this.read![receiver.id] = false;
+    });
+  }
+
+  @Column()
+  text: string;
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
@@ -48,9 +60,7 @@ export class Message extends EntityHelper {
   @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
 
-  @ApiProperty({ example: '{"userId":"/reactionUnicode/"}' })
-  @Column({ type: 'jsonb' })
-  reactions?: {
-    [key: number]: string;
-  };
+  @ApiProperty({ example: { '👍': [1] } })
+  @Column({ type: 'jsonb', default: {} })
+  reactions?: { [key: string]: number[] };
 }

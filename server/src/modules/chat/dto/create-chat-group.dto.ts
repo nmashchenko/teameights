@@ -15,8 +15,8 @@ export class CreateChatGroupDto {
 
   @ApiProperty({ example: [1, 2, 6] })
   @IsOptional()
-  @ArrayNotEmpty()
+  //@ArrayNotEmpty()
   @IsNumber({ allowNaN: false, allowInfinity: false }, { each: true })
-  @Min(0, { each: true })
+  //@Min(0, { each: true })
   members?: number[];
 }

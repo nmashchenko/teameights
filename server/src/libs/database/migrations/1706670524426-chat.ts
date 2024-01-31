@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Chat1706381936459 implements MigrationInterface {
-    name = 'Chat1706381936459'
+export class Chat1706670524426 implements MigrationInterface {
+    name = 'Chat1706670524426'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "role" ("id" integer NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_b36bcfe02fc8de3c57a8b2391c2" PRIMARY KEY ("id"))`);
@@ -19,14 +19,14 @@ export class Chat1706381936459 implements MigrationInterface {
         await queryRunner.query(`CREATE INDEX "IDX_035190f70c9aff0ef331258d28" ON "user" ("fullName") `);
         await queryRunner.query(`CREATE INDEX "IDX_8bceb9ec5c48c54f7a3f11f31b" ON "user" ("isLeader") `);
         await queryRunner.query(`CREATE INDEX "IDX_5cb2b3e0419a73a360d327d497" ON "user" ("country") `);
-        await queryRunner.query(`CREATE TABLE "message" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "group" character varying NOT NULL, "read" jsonb NOT NULL, "text" character varying NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "reactions" jsonb NOT NULL, "senderId" integer, CONSTRAINT "PK_ba01f0a3e0123651915008bc578" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "message" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "read" jsonb NOT NULL, "text" character varying NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "reactions" jsonb NOT NULL DEFAULT '{}', "senderId" integer, "chatGroupId" uuid, CONSTRAINT "PK_ba01f0a3e0123651915008bc578" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "chat_group" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "title" character varying NOT NULL, "description" character varying NOT NULL, "roles" jsonb NOT NULL DEFAULT '{"member":[],"owner":[0,1,2,3,4,5,6,7,8]}', "roleAppointments" jsonb NOT NULL DEFAULT '{}', "referencedMessages" jsonb NOT NULL DEFAULT '{}', "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "ownerId" integer, CONSTRAINT "PK_4615844ed379806de3ff7c51a5a" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "chat_user" ("id" SERIAL NOT NULL, CONSTRAINT "PK_15d83eb496fd7bec7368b30dbf3" PRIMARY KEY ("id"))`);
-        await queryRunner.query(`CREATE TABLE "chat_group" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "title" character varying NOT NULL, "description" character varying NOT NULL, "roles" jsonb NOT NULL, "createdAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP WITH TIME ZONE, "ownerId" integer, CONSTRAINT "PK_4615844ed379806de3ff7c51a5a" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "session" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, "userId" integer, CONSTRAINT "PK_f55da76ac1c3ac420f444d2ff11" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE INDEX "IDX_3d2f174ef04fb312fdebd0ddc5" ON "session" ("userId") `);
-        await queryRunner.query(`CREATE TABLE "chat_user_member_groups_chat_group" ("chatUserId" integer NOT NULL, "chatGroupId" uuid NOT NULL, CONSTRAINT "PK_e2a1f902256c264a53ac63c9845" PRIMARY KEY ("chatUserId", "chatGroupId"))`);
-        await queryRunner.query(`CREATE INDEX "IDX_10277dbcd229d4311937393603" ON "chat_user_member_groups_chat_group" ("chatUserId") `);
-        await queryRunner.query(`CREATE INDEX "IDX_7b64ad7f0550385ed69272e687" ON "chat_user_member_groups_chat_group" ("chatGroupId") `);
+        await queryRunner.query(`CREATE TABLE "chat_group_members_user" ("chatGroupId" uuid NOT NULL, "userId" integer NOT NULL, CONSTRAINT "PK_d87da7c58cb4e479292864f1e8a" PRIMARY KEY ("chatGroupId", "userId"))`);
+        await queryRunner.query(`CREATE INDEX "IDX_6142752a30e34fabc292908a1d" ON "chat_group_members_user" ("chatGroupId") `);
+        await queryRunner.query(`CREATE INDEX "IDX_edf238915c8b31e5a788451e3b" ON "chat_group_members_user" ("userId") `);
         await queryRunner.query(`CREATE TABLE "chat_user_received_messages_message" ("chatUserId" integer NOT NULL, "messageId" uuid NOT NULL, CONSTRAINT "PK_cd94010255e474356d0513a0767" PRIMARY KEY ("chatUserId", "messageId"))`);
         await queryRunner.query(`CREATE INDEX "IDX_5391c514c900e65785c2f43e65" ON "chat_user_received_messages_message" ("chatUserId") `);
         await queryRunner.query(`CREATE INDEX "IDX_d7a6980da5585e3c7b66f0b456" ON "chat_user_received_messages_message" ("messageId") `);
@@ -41,10 +41,11 @@ export class Chat1706381936459 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT "FK_c5a79824fd8a241f5a7ec428b3e" FOREIGN KEY ("linksId") REFERENCES "links"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT "FK_1cfa1784ac9e67d4be782f4e5b8" FOREIGN KEY ("chatId") REFERENCES "chat_user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "message" ADD CONSTRAINT "FK_bc096b4e18b1f9508197cd98066" FOREIGN KEY ("senderId") REFERENCES "chat_user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "chat_group" ADD CONSTRAINT "FK_af456848017b57ea9752355e6eb" FOREIGN KEY ("ownerId") REFERENCES "chat_user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "message" ADD CONSTRAINT "FK_3c80ee9af82a0cda99f1d210edb" FOREIGN KEY ("chatGroupId") REFERENCES "chat_group"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "chat_group" ADD CONSTRAINT "FK_af456848017b57ea9752355e6eb" FOREIGN KEY ("ownerId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "session" ADD CONSTRAINT "FK_3d2f174ef04fb312fdebd0ddc53" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "chat_user_member_groups_chat_group" ADD CONSTRAINT "FK_10277dbcd229d4311937393603c" FOREIGN KEY ("chatUserId") REFERENCES "chat_user"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
-        await queryRunner.query(`ALTER TABLE "chat_user_member_groups_chat_group" ADD CONSTRAINT "FK_7b64ad7f0550385ed69272e6871" FOREIGN KEY ("chatGroupId") REFERENCES "chat_group"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "chat_group_members_user" ADD CONSTRAINT "FK_6142752a30e34fabc292908a1de" FOREIGN KEY ("chatGroupId") REFERENCES "chat_group"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE "chat_group_members_user" ADD CONSTRAINT "FK_edf238915c8b31e5a788451e3b9" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "chat_user_received_messages_message" ADD CONSTRAINT "FK_5391c514c900e65785c2f43e65a" FOREIGN KEY ("chatUserId") REFERENCES "chat_user"("id") ON DELETE CASCADE ON UPDATE CASCADE`);
         await queryRunner.query(`ALTER TABLE "chat_user_received_messages_message" ADD CONSTRAINT "FK_d7a6980da5585e3c7b66f0b4564" FOREIGN KEY ("messageId") REFERENCES "message"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
@@ -52,10 +53,11 @@ export class Chat1706381936459 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "chat_user_received_messages_message" DROP CONSTRAINT "FK_d7a6980da5585e3c7b66f0b4564"`);
         await queryRunner.query(`ALTER TABLE "chat_user_received_messages_message" DROP CONSTRAINT "FK_5391c514c900e65785c2f43e65a"`);
-        await queryRunner.query(`ALTER TABLE "chat_user_member_groups_chat_group" DROP CONSTRAINT "FK_7b64ad7f0550385ed69272e6871"`);
-        await queryRunner.query(`ALTER TABLE "chat_user_member_groups_chat_group" DROP CONSTRAINT "FK_10277dbcd229d4311937393603c"`);
+        await queryRunner.query(`ALTER TABLE "chat_group_members_user" DROP CONSTRAINT "FK_edf238915c8b31e5a788451e3b9"`);
+        await queryRunner.query(`ALTER TABLE "chat_group_members_user" DROP CONSTRAINT "FK_6142752a30e34fabc292908a1de"`);
         await queryRunner.query(`ALTER TABLE "session" DROP CONSTRAINT "FK_3d2f174ef04fb312fdebd0ddc53"`);
         await queryRunner.query(`ALTER TABLE "chat_group" DROP CONSTRAINT "FK_af456848017b57ea9752355e6eb"`);
+        await queryRunner.query(`ALTER TABLE "message" DROP CONSTRAINT "FK_3c80ee9af82a0cda99f1d210edb"`);
         await queryRunner.query(`ALTER TABLE "message" DROP CONSTRAINT "FK_bc096b4e18b1f9508197cd98066"`);
         await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_1cfa1784ac9e67d4be782f4e5b8"`);
         await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_c5a79824fd8a241f5a7ec428b3e"`);
@@ -70,13 +72,13 @@ export class Chat1706381936459 implements MigrationInterface {
         await queryRunner.query(`DROP INDEX "public"."IDX_d7a6980da5585e3c7b66f0b456"`);
         await queryRunner.query(`DROP INDEX "public"."IDX_5391c514c900e65785c2f43e65"`);
         await queryRunner.query(`DROP TABLE "chat_user_received_messages_message"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_7b64ad7f0550385ed69272e687"`);
-        await queryRunner.query(`DROP INDEX "public"."IDX_10277dbcd229d4311937393603"`);
-        await queryRunner.query(`DROP TABLE "chat_user_member_groups_chat_group"`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_edf238915c8b31e5a788451e3b"`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_6142752a30e34fabc292908a1d"`);
+        await queryRunner.query(`DROP TABLE "chat_group_members_user"`);
         await queryRunner.query(`DROP INDEX "public"."IDX_3d2f174ef04fb312fdebd0ddc5"`);
         await queryRunner.query(`DROP TABLE "session"`);
-        await queryRunner.query(`DROP TABLE "chat_group"`);
         await queryRunner.query(`DROP TABLE "chat_user"`);
+        await queryRunner.query(`DROP TABLE "chat_group"`);
         await queryRunner.query(`DROP TABLE "message"`);
         await queryRunner.query(`DROP INDEX "public"."IDX_5cb2b3e0419a73a360d327d497"`);
         await queryRunner.query(`DROP INDEX "public"."IDX_8bceb9ec5c48c54f7a3f11f31b"`);

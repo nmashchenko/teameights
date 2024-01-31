@@ -6,14 +6,19 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Chat as ChatUser } from './chat.user.entity';
 import { ChatGroupRole, ChatGroupRolesDefault } from '../interfaces/chat.interface';
 import { ChatGroupPermissions, ChatGroupRoles } from '../enums/chat.group.enum';
+import { Exclude } from 'class-transformer';
+import { Message } from './message.entity';
 
 @Entity({ name: 'chat_group' })
 export class ChatGroup extends EntityHelper {
@@ -27,20 +32,36 @@ export class ChatGroup extends EntityHelper {
   @Column()
   description?: string;
 
-  @ManyToOne(() => ChatUser, user => user.ownedGroups, {
-    eager: true,
-  })
-  owner: ChatUser;
+  @ManyToOne(() => User, user => user.chat.ownedGroups, { eager: true })
+  owner: User;
 
-  @ApiProperty({ example: { name: ChatGroupRoles.MEMBER, permissions: [ChatGroupRoles] } })
+  @ApiProperty({ example: { rolename: ['permission1', 'permission2'] } })
   @Column({
     type: 'jsonb',
-    default: () => ChatGroupRolesDefault,
+    default: ChatGroupRolesDefault,
   })
-  roles: ChatGroupRole[];
+  roles: {
+    [key: string | ChatGroupRoles]: [ChatGroupPermissions];
+  };
 
-  @ManyToMany(() => ChatUser, user => user.memberGroups)
-  members: ChatUser[];
+  @ApiProperty({ example: { 1: 'specific-rolename' } })
+  @Column({ type: 'jsonb', default: {} })
+  roleAppointments: {
+    [key: User['id']]: ChatGroupRoles | string;
+  };
+
+  @ManyToMany(() => User, user => user.chat.memberGroups, { eager: true })
+  @JoinTable()
+  members: User[];
+
+  @OneToMany(() => Message, message => message.chatGroup)
+  threadMessages?: Message[];
+
+  @ApiProperty({ example: { messageId: { referencedAd: '<timestamptz>', referer: 1 } } })
+  @Column({ type: 'jsonb', default: {} })
+  referencedMessages?: {
+    [key: Message['id']]: { referencedAt: Date; referer: User['id'] };
+  };
 
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;

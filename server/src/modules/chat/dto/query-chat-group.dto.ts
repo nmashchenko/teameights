@@ -8,38 +8,32 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { Message } from '../entities/message.entity';
 import { Transform, Type, plainToInstance } from 'class-transformer';
-
-export class SortMessageDto {
+import { ChatGroup } from '../entities/chat.group.entity';
+export class SortChatGroupDto {
   @ApiProperty()
   @IsString()
-  orderBy: keyof Message;
+  orderBy: keyof ChatGroup;
 
   @ApiProperty()
   @IsString()
   order: string;
 }
 
-export class FilterMessageDto {
-  @ApiProperty({ example: 'some substring of text...' })
+export class FilterChatGroupDto {
+  @ApiProperty({ example: 'some substring of title...' })
   @IsOptional()
   @IsNotEmpty()
-  text?: string;
+  title?: string;
 
-  //@ApiProperty()
-  //@IsOptional()
-  //@IsNotEmpty()
-  //read?: string;
-
-  @ApiProperty({ examples: [1, 2] })
+  @ApiProperty({ example: [1] })
   @IsArray()
   @IsOptional()
   @IsInt({ each: true })
-  receivers?: number[];
+  members?: number[];
 }
 
-export class QueryMessageDto {
+export class QueryChatGroupDto {
   @ApiProperty({
     required: false,
   })
@@ -59,18 +53,18 @@ export class QueryMessageDto {
   @ApiProperty({ type: String, required: false })
   @IsOptional()
   @Transform(({ value }) =>
-    value ? plainToInstance(FilterMessageDto, JSON.parse(value)) : undefined
+    value ? plainToInstance(FilterChatGroupDto, JSON.parse(value)) : undefined
   )
   @ValidateNested()
-  @Type(() => FilterMessageDto)
-  filters: FilterMessageDto;
+  @Type(() => FilterChatGroupDto)
+  filters: FilterChatGroupDto;
 
   @ApiProperty({ type: String, required: false })
   @IsOptional()
   @Transform(({ value }) => {
-    return value ? plainToInstance(SortMessageDto, JSON.parse(value)) : undefined;
+    return value ? plainToInstance(SortChatGroupDto, JSON.parse(value)) : undefined;
   })
   @ValidateNested({ each: true })
-  @Type(() => SortMessageDto)
-  sort?: SortMessageDto[] | null;
+  @Type(() => SortChatGroupDto)
+  sort?: SortChatGroupDto[] | null;
 }

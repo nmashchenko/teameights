@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayNotEmpty, IsArray, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  IsArray,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 export class CreateMessageDto {
   @ApiProperty({ example: [1, 2, 3] })
@@ -11,7 +19,7 @@ export class CreateMessageDto {
   @ApiProperty({ example: 'groupname' })
   @IsOptional()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   group?: string;
 
   @ApiProperty({ example: 'lorem ipsum...' })

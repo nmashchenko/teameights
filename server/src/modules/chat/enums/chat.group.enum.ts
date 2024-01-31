@@ -1,6 +1,6 @@
 export enum ChatGroupRoles {
-  OWNER,
-  MEMBER,
+  OWNER = 'owner',
+  MEMBER = 'member',
 }
 
 export enum ChatGroupPermissions {
