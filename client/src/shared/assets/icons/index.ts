@@ -1,3 +1,6 @@
+export { Star } from './star';
+export { Cake } from './cake';
+export { MapPin } from './map-pin';
 export { CheckIcon } from './check';
 export { CrossIcon } from './cross';
 export { EyeIcon } from './eye';
