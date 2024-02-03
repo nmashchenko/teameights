@@ -3,9 +3,15 @@ import { Card } from './card';
 import { Star, Cake, MapPin, UserIcon } from '@/shared/assets';
 import { Row } from '@/app/(main)/profile/ui/row';
 import { Flex } from '@/shared/ui';
+import { calculateAge } from '@/shared/lib';
 
 export const List = () => {
   const { data: user } = useGetMe();
+
+  let age = "";
+  if (user?.dateOfBirth) {
+    age = (calculateAge(user.dateOfBirth)).toString();
+  }
 
   return (
     <Card style={{ width: '40%', gap: '18px' }}>
@@ -13,7 +19,7 @@ export const List = () => {
         <Row icon={<UserIcon />} text={user?.speciality ?? ''} />
         <Row icon={<Star />} text={user?.experience ?? ''} />
         <Row icon={<MapPin />} text={user?.country ?? ''} />
-        <Row icon={<Cake />} text={String(user?.dateOfBirth) ?? ''} />
+        {age && <Row icon={<Cake />} text={age} /> }
       </Flex>
     </Card>
   );
