@@ -7,11 +7,20 @@ import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
 import { NotificationsGateway } from './notifications.gateway';
 import { NotificationSubscriber } from './subscribers/notification.subscriber';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Notification, User])],
   controllers: [NotificationsController],
-  providers: [NotificationsService, UsersService, NotificationsGateway, NotificationSubscriber],
+  providers: [
+    NotificationsService,
+    UsersService,
+    NotificationsGateway,
+    NotificationSubscriber,
+    JwtService,
+    ConfigService,
+  ],
   exports: [NotificationsService],
 })
 export class NotificationsModule {}

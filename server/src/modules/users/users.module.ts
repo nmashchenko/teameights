@@ -10,6 +10,7 @@ import { Links } from './entities/links.entity';
 import { Projects } from './entities/projects.entity';
 import { Universities } from './entities/universities.entity';
 import { Chat } from '../chat/entities/chat.user.entity';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Jobs, Links, Projects, Universities, Chat])],
