@@ -19,7 +19,7 @@ export const Header = () => {
           <div className={styles.profile}>
             <div className={styles.avatar}>
               <ImageLoader
-                crownSize={40}
+                crownSize={user.isLeader ? 40 : undefined}
                 width={100}
                 height={100}
                 className={styles.image}
