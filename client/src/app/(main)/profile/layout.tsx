@@ -6,6 +6,7 @@ import { Flex } from '@/shared/ui';
 import { List } from './ui/list';
 import { Skeleton } from '@/shared/ui/skeleton/skeleton';
 import { About } from './ui/about';
+import { LogoBig } from '@/shared/assets';
 export default function Layout() {
   const { data: user } = useGetMe();
 
@@ -21,6 +22,9 @@ export default function Layout() {
   return (
     <div className={styles.container}>
       <Flex direction={'column'} width={'100%'} gap={'30px'}>
+        <Flex justify='center'>
+          <LogoBig />
+        </Flex>
         <Header />
         {body}
       </Flex>
