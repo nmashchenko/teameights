@@ -1,3 +1,10 @@
+import { Github } from './github-icon';
+import { BehanceIcon } from './behance';
+import { LinkedinIcon } from './linkedin';
+import { TelegramIcon } from './telegram';
+export { Star } from './star';
+export { Cake } from './cake';
+export { MapPin } from './map-pin';
 export { CheckIcon } from './check';
 export { CrossIcon } from './cross';
 export { EyeIcon } from './eye';
