@@ -20,7 +20,7 @@ export const getSidebarItems = (user?: IUserProtectedResponse) => {
   if (user) {
     data.push({
       title: 'Profile',
-      path: `${PROFILE}/${user?.id}`,
+      path: `${PROFILE}`,
       icon: <UserIcon />,
     });
   }
