@@ -22,7 +22,9 @@ export const FilterMenu = () => {
       <Flex className={styles.searchinput_wrapper}>
         <SearchInput menuWrapper={menuWrapper} />
       </Flex>
-      <TagList isOnlyCurrentFilterTags />
+
+      <TagList isOnlyCurrentFilterTags isFilterMenu />
+
       {isSelect && (
         <div
           className={clsx(styles.menu_wrapper, {

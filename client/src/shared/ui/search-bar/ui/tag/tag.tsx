@@ -8,6 +8,7 @@ interface TagProps {
   isWithCross?: boolean;
   isFilledWhileHover?: boolean;
   isRounded?: boolean;
+  className?: string;
   onClick?: () => void;
 }
 
@@ -16,15 +17,20 @@ export const Tag: FC<PropsWithChildren<TagProps>> = ({
   isWithCross = false,
   isFilledWhileHover = false,
   isRounded = true,
+  className,
   children,
 }) => {
   return (
     <Flex
       justify='space-between'
       onClick={onClick}
-      className={clsx(styles.tag, {
-        [styles.tag_rounded]: isRounded,
-      })}
+      className={clsx(
+        styles.tag,
+        {
+          [styles.tag_rounded]: isRounded,
+        },
+        [className]
+      )}
     >
       <Typography
         className={clsx(styles.text, {
