@@ -8,3 +8,16 @@
     width: 100%;
   }
 }
+
+.back {
+  position: absolute;
+  left: -20px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  &:hover {
+    opacity: .7;
+    transition: .3s;
+  }
+}
