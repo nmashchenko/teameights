@@ -1,46 +1,47 @@
-import { JwtService, JwtVerifyOptions } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { Socket } from 'socket.io';
 import { User } from 'src/modules/users/entities/user.entity';
 import { UsersService } from 'src/modules/users/users.service';
-import { inspect } from 'util';
 import { ConfigService } from '@nestjs/config';
-import { AllConfigType } from 'src/config/config.type';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
-export interface AuthSocket extends Socket {
-  user: User;
-}
-
-export type SocketMiddleware = (socket: Socket, next: (err?: Error) => void) => void;
-export const WSAuthMiddleware = (
-  jwtService: JwtService,
-  userService: UsersService,
-  configService: ConfigService<AllConfigType>
-): SocketMiddleware => {
-  return async (socket: AuthSocket, next) => {
-    const unauthorizedException = new HttpException(
-      {
-        status: HttpStatus.UNAUTHORIZED,
-        errors: { message: `Unauthorizaed` },
-      },
-      HttpStatus.UNAUTHORIZED
-    );
-
-    try {
-      const token = socket.handshake.headers.authorization?.slice(7);
-      const jwtPayload = await jwtService.verify(token ?? '', {
-        secret: configService.get('auth.secret', { infer: true }),
-      });
-      const user = await userService.findOne({ id: jwtPayload.id });
-      if (user) {
-        socket.user = user;
-        next();
-      } else throw {};
-    } catch (e) {
-      next({
-        name: 'Unauthorizaed',
-        message: JSON.stringify(unauthorizedException),
-      } as Error);
-    }
+export type AuthSocket = Socket & {
+  handshake: {
+    user: User;
   };
 };
+
+@Injectable()
+export class WebSocketJwtAuthGuard extends AuthGuard('jwt') {
+  constructor() {
+    super();
+  }
+  getRequest(context: ExecutionContext) {
+    return context.switchToWs().getClient().handshake;
+  }
+}
+
+@Injectable()
+export class WebSocketJwtAuthMiddleware {
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly jwtService: JwtService,
+    private readonly userService: UsersService
+  ) {}
+  public readonly apply = async (socket: AuthSocket, next) => {
+    try {
+      const token = socket.handshake.headers.authorization?.slice(7);
+      const jwtPayload = await this.jwtService.verify(token ?? '', {
+        secret: this.configService.get('auth.secret', { infer: true }),
+      });
+      const user = await this.userService.findOne({ id: jwtPayload.id });
+      if (user) {
+        socket.handshake.user = user;
+        next();
+      } else throw false;
+    } catch (e) {
+      next(new UnauthorizedException());
+    }
+  };
+}

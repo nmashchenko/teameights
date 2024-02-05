@@ -57,7 +57,9 @@ export class NotificationsGateway
   }
 
   sendMessage(event: InsertEvent<Notification>) {
-    const client = this.clients.find(({ user }) => event.entity.receiver?.id == user.id);
+    const client = this.clients.find(
+      ({ handshake: { user } }) => event.entity.receiver?.id == user.id
+    );
     if (!client) return;
     client.emit(NotificationSocketEvents.GET_NOTIFICATIONS, JSON.stringify(event.entity));
     Logger.log(

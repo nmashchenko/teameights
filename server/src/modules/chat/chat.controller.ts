@@ -28,7 +28,6 @@ import { JwtPayloadType } from '../auth/base/strategies/types/jwt-payload.type';
 import { PatchMessagesDto } from './dto/patch-message.dto';
 import { MessageService } from './message/message.service';
 import { UUID } from 'crypto';
-import { ChatGateway } from './chat.gateway';
 
 @ApiTags('Chat')
 @Controller({
@@ -45,8 +44,8 @@ export class ChatController {
     groups: ['user'],
   })
   @ApiBearerAuth()
-  @Roles(RoleEnum.user)
-  @UseGuards(AuthGuard('jwt'))
+  @Roles(RoleEnum.user, RoleEnum.admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Get('/message')
   async findAllMessages(@Request() request, @Query() query: QueryMessageDto) {
     const page = query?.page ?? 1;

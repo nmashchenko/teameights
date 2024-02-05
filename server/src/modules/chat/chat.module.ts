@@ -12,6 +12,7 @@ import { Chat } from './entities/chat.user.entity';
 import { Message } from './entities/message.entity';
 import { MessageService } from './message/message.service';
 import { MessageSubscriber } from './message/message.subscriber';
+import { WebSocketJwtAuthMiddleware } from '../auth/base/auth.socket';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Message, User, Chat, ChatGroup])],
@@ -20,10 +21,10 @@ import { MessageSubscriber } from './message/message.subscriber';
     MessageService,
     UsersService,
     ChatGroupService,
-    JwtService,
-    ConfigService,
     ChatGateway,
     MessageSubscriber,
+    JwtService,
+    WebSocketJwtAuthMiddleware,
   ],
   exports: [MessageService, ChatGroupService],
 })
