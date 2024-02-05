@@ -50,8 +50,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     // TODO: Handle disconnection event
   }
 
-  sendMessage(event: InsertEvent<Message>, client: AuthSocket) {
-    console.log(client);
+  sendMessage(event: InsertEvent<Message>) {
     this.server.emit(`message`, inspect(event.entity));
     //if (userId) {
     //  this.server.emit(`message-${userId}`, event.entity);
