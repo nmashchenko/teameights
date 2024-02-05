@@ -11,7 +11,6 @@ import {
   MessageBody,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-import { WebsocketExceptionsFilter } from 'src/utils/websocket-exceprion-filter';
 import { InsertEvent } from 'typeorm';
 import { inspect } from 'util';
 import { WebSocketJwtAuthMiddleware, AuthSocket } from '../auth/base/auth.socket';
@@ -19,9 +18,10 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { Message } from './entities/message.entity';
 import { ChatSocketEvents } from './enums/chat.group.enum';
 import { MessageService } from './message/message.service';
+import { WebsocketAllExceptionsFilter } from 'src/utils/websocket-exceprion-filter';
 
-@UseFilters(WebsocketExceptionsFilter)
 @UsePipes(new ValidationPipe({ transform: true }))
+@UseFilters(WebsocketAllExceptionsFilter)
 @WebSocketGateway({
   namespace: 'chat',
   cors: {
@@ -48,7 +48,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
   async handleConnection(@ConnectedSocket() client: AuthSocket) {
     Logger.log(`client ${inspect(client.id)} connected`, ChatGateway.name);
     this.clients.push(client);
-    return true;
     const messages = await this.messageService.findManyWithPagination({
       filterOptions: {},
       userId: client.handshake.user.id,
@@ -79,14 +78,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
     );
   }
 
-  //@UseGuards(WsJwtAuthGuard)
   @SubscribeMessage(ChatSocketEvents.SEND_MESSAGE)
   async handleSendMessage(
     @MessageBody() dto: CreateMessageDto,
     @ConnectedSocket() client: AuthSocket
   ): Promise<void> {
-    client.emit(ChatSocketEvents.GET_MESSAGES, client.handshake.user);
-    return;
     await this.messageService.createMessage(client.handshake.user.id, dto);
     Logger.log(
       `\n{\nEvent: ${ChatSocketEvents.SEND_MESSAGE}\nClients: ${inspect(client.id)}\nEntity: ${
@@ -94,10 +90,5 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
       } ${inspect(dto)}\n}`,
       ChatGateway.name
     );
-  }
-
-  @SubscribeMessage('test')
-  test(@ConnectedSocket() client: AuthSocket) {
-    client.emit(ChatSocketEvents.GET_MESSAGES, client.handshake.user);
   }
 }

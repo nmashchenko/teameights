@@ -9,6 +9,7 @@ import { NotificationsGateway } from './notifications.gateway';
 import { NotificationSubscriber } from './subscribers/notification.subscriber';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { WebSocketJwtAuthMiddleware } from '../auth/base/auth.socket';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Notification, User])],
@@ -20,6 +21,7 @@ import { ConfigService } from '@nestjs/config';
     NotificationSubscriber,
     JwtService,
     ConfigService,
+    WebSocketJwtAuthMiddleware,
   ],
   exports: [NotificationsService],
 })

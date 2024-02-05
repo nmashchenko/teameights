@@ -10,16 +10,13 @@ import { Notification } from './entities/notification.entity';
 import { InsertEvent } from 'typeorm';
 import { Logger, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { inspect } from 'util';
-import { AuthSocket, WSAuthMiddleware } from '../auth/base/auth.socket';
+import { AuthSocket, WebSocketJwtAuthMiddleware } from '../auth/base/auth.socket';
 import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
-import { AllConfigType } from 'src/config/config.type';
-import { ConfigService } from '@nestjs/config';
 import { InstanceLoader } from '@nestjs/core/injector/instance-loader';
 import { NotificationSocketEvents } from './types/notification.type';
-import { WebsocketExceptionsFilter } from 'src/utils/websocket-exceprion-filter';
+import { WebsocketAllExceptionsFilter } from 'src/utils/websocket-exceprion-filter';
 
-@UseFilters(WebsocketExceptionsFilter)
+@UseFilters(WebsocketAllExceptionsFilter)
 @UsePipes(new ValidationPipe({ transform: true }))
 @WebSocketGateway({
   namespace: 'notifications',
@@ -31,9 +28,8 @@ export class NotificationsGateway
   implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit
 {
   constructor(
-    private readonly jwtService: JwtService,
     private readonly userService: UsersService,
-    private readonly configService: ConfigService<AllConfigType>
+    private readonly webSocketJwtAuthMiddleware: WebSocketJwtAuthMiddleware
   ) {}
 
   @WebSocketServer()
@@ -42,7 +38,7 @@ export class NotificationsGateway
   clients: AuthSocket[] = [];
 
   afterInit(server: Server) {
-    server.use(WSAuthMiddleware(this.jwtService, this.userService, this.configService));
+    server.use(this.webSocketJwtAuthMiddleware.apply);
     Logger.log(`${NotificationsGateway.name} initialized`, InstanceLoader.name);
   }
 
