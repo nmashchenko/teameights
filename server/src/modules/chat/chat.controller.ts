@@ -28,6 +28,7 @@ import { JwtPayloadType } from '../auth/base/strategies/types/jwt-payload.type';
 import { PatchMessagesDto } from './dto/patch-message.dto';
 import { MessageService } from './message/message.service';
 import { UUID } from 'crypto';
+import { ChatGateway } from './chat.gateway';
 
 @ApiTags('Chat')
 @Controller({
@@ -54,10 +55,9 @@ export class ChatController {
     if (limit > 50) {
       limit = 50;
     }
-
     return infinityPagination(
       await this.messageService.findManyWithPagination({
-        userJwtPayload: request.user,
+        userId: request.user.id,
         filterOptions: query?.filters,
         sortOptions: query?.sort,
         paginationOptions: {

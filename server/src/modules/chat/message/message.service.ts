@@ -29,12 +29,12 @@ export class MessageService {
   }
 
   async findManyWithPagination({
-    userJwtPayload,
+    userId,
     filterOptions,
     sortOptions,
     paginationOptions,
   }: {
-    userJwtPayload: JwtPayloadType;
+    userId: User['id'];
     filterOptions: FilterMessageDto;
     sortOptions?: SortMessageDto[] | null;
     paginationOptions: IPaginationOptions;
@@ -43,11 +43,10 @@ export class MessageService {
 
     if (filterOptions?.receivers)
       where.push({
-        sender: { id: userJwtPayload.id },
+        sender: { id: userId },
         receivers: { id: In(filterOptions.receivers) },
       });
-    else
-      where.push({ sender: { id: userJwtPayload.id } }, { receivers: { id: userJwtPayload.id } });
+    else where.push({ sender: { id: userId } }, { receivers: { id: userId } });
 
     where.forEach(inst => {
       inst.text = filterOptions?.text && ILike(`%${filterOptions.text}%`);

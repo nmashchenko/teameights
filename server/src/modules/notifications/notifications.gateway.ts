@@ -5,20 +5,18 @@ import {
   OnGatewayDisconnect,
   OnGatewayInit,
 } from '@nestjs/websockets';
-import { Socket, Server } from 'socket.io';
+import { Server } from 'socket.io';
 import { Notification } from './entities/notification.entity';
 import { InsertEvent } from 'typeorm';
 import { Logger } from '@nestjs/common';
 import { inspect } from 'util';
-import { ApiBearerAuth } from '@nestjs/swagger';
-import { Roles } from 'src/libs/database/metadata/roles/roles.decorator';
-import { RoleEnum } from 'src/libs/database/metadata/roles/roles.enum';
 import { AuthSocket, WSAuthMiddleware } from '../auth/base/auth.socket';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { AllConfigType, AuthConfig } from 'src/config/config.type';
+import { AllConfigType } from 'src/config/config.type';
 import { ConfigService } from '@nestjs/config';
 import { InstanceLoader } from '@nestjs/core/injector/instance-loader';
+import { NotificationSocketEvents } from './types/notification.type';
 
 @WebSocketGateway({
   namespace: 'notifications',
@@ -38,6 +36,8 @@ export class NotificationsGateway
   @WebSocketServer()
   server: Server;
 
+  clients: AuthSocket[] = [];
+
   afterInit(server: Server) {
     server.use(WSAuthMiddleware(this.jwtService, this.userService, this.configService));
     Logger.log(`${NotificationsGateway.name} initialized`, InstanceLoader.name);
@@ -45,21 +45,23 @@ export class NotificationsGateway
 
   handleConnection(client: AuthSocket) {
     Logger.log(`client ${inspect(client.id)} connected`, NotificationsGateway.name);
-    //console.log(inspect(client.handshake));
-
-    // TODO: add authorization checks (jwt)
+    this.clients.push(client);
   }
 
-  handleDisconnect(client: Socket) {
+  handleDisconnect(client: AuthSocket) {
     Logger.log(`client ${inspect(client.id)} disconnected`, NotificationsGateway.name);
-    // TODO: Handle disconnection event
+    this.clients = this.clients.filter(c => c.id != client.id);
   }
 
   sendMessage(event: InsertEvent<Notification>) {
-    const userId = event?.entity?.receiver.id;
-
-    if (userId) {
-      this.server.emit(`notification-${userId}`, event.entity);
-    }
+    const client = this.clients.find(({ user }) => event.entity.receiver?.id == user.id);
+    if (!client) return;
+    client.emit(NotificationSocketEvents.GET_NOTIFICATIONS, JSON.stringify(event.entity));
+    Logger.log(
+      `\n{\nEvent: ${NotificationSocketEvents.GET_NOTIFICATIONS}\nClients: ${inspect(
+        client.id
+      )}\nEntity: ${Notification.name} ${inspect(event.entity.id)}\n}`,
+      NotificationsGateway.name
+    );
   }
 }

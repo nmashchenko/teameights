@@ -36,3 +36,7 @@ export enum NotificationTypesEnum {
   system = 'system',
   team_invitation = 'team_invitation',
 }
+
+export enum NotificationSocketEvents {
+  GET_NOTIFICATIONS = 'notifications:get',
+}
