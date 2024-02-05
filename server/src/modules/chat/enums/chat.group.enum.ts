@@ -19,3 +19,7 @@ export enum ChatSocketEvents {
   SEND_MESSAGE = 'message:send',
   GET_MESSAGES = 'message:get',
 }
+
+export enum BasicSocketEvents {
+  ERRORS = 'log:error',
+}
