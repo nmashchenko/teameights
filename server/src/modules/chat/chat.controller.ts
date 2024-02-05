@@ -27,6 +27,7 @@ import { QueryChatGroupDto } from './dto/query-chat-group.dto';
 import { JwtPayloadType } from '../auth/base/strategies/types/jwt-payload.type';
 import { PatchMessagesDto } from './dto/patch-message.dto';
 import { MessageService } from './message/message.service';
+import { UUID } from 'crypto';
 
 @ApiTags('Chat')
 @Controller({
@@ -123,12 +124,12 @@ export class ChatController {
   async patchMessage(
     @Body() dto: PatchMessagesDto,
     @Request() { user }: { user: JwtPayloadType },
-    @Param('id') id: string
+    @Param('id') id: UUID
   ) {
     return await this.messageService.patchMessage(id, dto, user.id);
   }
 
-  @Delete('/message/all')
+  @Delete('/message')
   @ApiBearerAuth()
   @Roles(RoleEnum.user)
   @UseGuards(AuthGuard('jwt'), RolesGuard)
