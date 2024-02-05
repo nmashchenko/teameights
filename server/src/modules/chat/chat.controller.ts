@@ -13,7 +13,6 @@ import {
   Param,
   Patch,
 } from '@nestjs/common';
-import { MessageService } from './message.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/libs/database/metadata/roles/roles.decorator';
@@ -23,13 +22,11 @@ import { infinityPagination } from 'src/utils/infinity-pagination';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { RolesGuard } from 'src/libs/database/metadata/roles/roles.guard';
 import { CreateChatGroupDto } from './dto/create-chat-group.dto';
-import { ChatGroupService } from './chat.group.service';
+import { ChatGroupService } from './chatgroup/chat.group.service';
 import { QueryChatGroupDto } from './dto/query-chat-group.dto';
-import { ChatGroup } from './entities/chat.group.entity';
-import { ReadMessagesDto } from './dto/read-messages.dto';
-import { request } from 'http';
 import { JwtPayloadType } from '../auth/base/strategies/types/jwt-payload.type';
 import { PatchMessagesDto } from './dto/patch-message.dto';
+import { MessageService } from './message/message.service';
 
 @ApiTags('Chat')
 @Controller({
@@ -115,7 +112,7 @@ export class ChatController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteMessage(@Param('id') id: string, @Request() { user }: { user: JwtPayloadType }) {
-    return await this.messageService.softDelete(id, user.id);
+    return await this.messageService.softDelete({ id: id, sender: { id: user.id } });
   }
 
   @Patch('/message/:id')
@@ -129,6 +126,15 @@ export class ChatController {
     @Param('id') id: string
   ) {
     return await this.messageService.patchMessage(id, dto, user.id);
+  }
+
+  @Delete('/message/all')
+  @ApiBearerAuth()
+  @Roles(RoleEnum.user)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async deleteAllMessages(@Request() { user }: { user: JwtPayloadType }) {
+    return await this.messageService.softDelete({ sender: { id: user.id } });
   }
 
   // ----------------------------------------------

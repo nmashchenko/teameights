@@ -1,21 +1,17 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Message } from './entities/message.entity';
-import { FindOptionsWhere, ILike, In, Repository } from 'typeorm';
-import { UsersService } from '../users/users.service';
+import { JwtPayloadType } from 'src/modules/auth/base/strategies/types/jwt-payload.type';
+import { User } from 'src/modules/users/entities/user.entity';
+import { UsersService } from 'src/modules/users/users.service';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
 import { NullableType } from 'src/utils/types/nullable.type';
-import { JwtPayloadType } from '../auth/base/strategies/types/jwt-payload.type';
-import { FilterMessageDto, SortMessageDto } from './dto/query-message.dto';
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
-import { CreateMessageDto } from './dto/create-message.dto';
-import { User } from '../users/entities/user.entity';
-import { inspect } from 'util';
-import { Exception } from 'handlebars';
-import { arrayBuffer } from 'node:stream/consumers';
-import { ChatGroupService } from './chat.group.service';
-import { ReadMessagesDto } from './dto/read-messages.dto';
-import { PatchMessagesDto } from './dto/patch-message.dto';
+import { Repository, FindOptionsWhere, In, ILike } from 'typeorm';
+import { ChatGroupService } from '../chatgroup/chat.group.service';
+import { CreateMessageDto } from '../dto/create-message.dto';
+import { PatchMessagesDto } from '../dto/patch-message.dto';
+import { FilterMessageDto, SortMessageDto } from '../dto/query-message.dto';
+import { Message } from '../entities/message.entity';
 
 @Injectable()
 export class MessageService {
@@ -70,8 +66,8 @@ export class MessageService {
     });
   }
 
-  async softDelete(id: Message['id'], senderId: User['id']): Promise<void> {
-    await this.messageRepository.softDelete({ id: id, sender: { id: senderId } });
+  async softDelete(fields: EntityCondition<Message>): Promise<void> {
+    await this.messageRepository.softDelete(fields);
   }
 
   async createMessage(senderId: number, dto: CreateMessageDto) {

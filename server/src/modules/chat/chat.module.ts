@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-import { Message } from './entities/message.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Chat } from './entities/chat.user.entity';
-import { ChatGroup } from './entities/chat.group.entity';
-import { MessageService } from './message.service';
-import { UsersService } from '../users/users.service';
-import { ChatGroupService } from './chat.group.service';
-import { ChatController } from './chat.controller';
-import { User } from '../users/entities/user.entity';
-import { ChatGateway } from './chat.gateway';
-import { MessageSubscriber } from './message.subscriber';
 import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from '../users/entities/user.entity';
+import { UsersService } from '../users/users.service';
+import { ChatController } from './chat.controller';
+import { ChatGateway } from './chat.gateway';
+import { ChatGroupService } from './chatgroup/chat.group.service';
+import { ChatGroup } from './entities/chat.group.entity';
+import { Chat } from './entities/chat.user.entity';
+import { Message } from './entities/message.entity';
+import { MessageService } from './message/message.service';
+import { MessageSubscriber } from './message/message.subscriber';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Message, User, Chat, ChatGroup])],
@@ -25,6 +25,6 @@ import { JwtService } from '@nestjs/jwt';
     ChatGateway,
     MessageSubscriber,
   ],
-  exports: [MessageService],
+  exports: [MessageService, ChatGroupService],
 })
 export class ChatModule {}

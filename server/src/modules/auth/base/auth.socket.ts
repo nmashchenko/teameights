@@ -5,6 +5,7 @@ import { UsersService } from 'src/modules/users/users.service';
 import { inspect } from 'util';
 import { ConfigService } from '@nestjs/config';
 import { AllConfigType } from 'src/config/config.type';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 export interface AuthSocket extends Socket {
   user: User;
@@ -17,27 +18,29 @@ export const WSAuthMiddleware = (
   configService: ConfigService<AllConfigType>
 ): SocketMiddleware => {
   return async (socket: AuthSocket, next) => {
+    const unauthorizedException = new HttpException(
+      {
+        status: HttpStatus.UNAUTHORIZED,
+        errors: { message: `Unauthorizaed` },
+      },
+      HttpStatus.UNAUTHORIZED
+    );
+
     try {
       const token = socket.handshake.headers.authorization?.slice(7);
       const jwtPayload = await jwtService.verify(token ?? '', {
         secret: configService.get('auth.secret', { infer: true }),
       });
-      const userResult = await userService.findOne({ id: jwtPayload.id });
-      if (userResult) {
-        socket.user = userResult;
+      const user = await userService.findOne({ id: jwtPayload.id });
+      if (user) {
+        socket.user = user;
         next();
-      } else {
-        next({
-          name: 'Unauthorizaed',
-          message: 'Unauthorizaed',
-        });
-      }
-    } catch (error) {
-      console.log(inspect(error));
+      } else throw {};
+    } catch (e) {
       next({
         name: 'Unauthorizaed',
-        message: 'Unauthorizaed',
-      });
+        message: JSON.stringify(unauthorizedException),
+      } as Error);
     }
   };
 };

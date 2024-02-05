@@ -1,6 +1,6 @@
-import { DataSource, EntitySubscriberInterface, EventSubscriber, InsertEvent } from 'typeorm';
-import { Message } from './entities/message.entity';
-import { ChatGateway } from './chat.gateway';
+import { EventSubscriber, EntitySubscriberInterface, DataSource, InsertEvent } from 'typeorm';
+import { ChatGateway } from '../chat.gateway';
+import { Message } from '../entities/message.entity';
 
 @EventSubscriber()
 export class MessageSubscriber implements EntitySubscriberInterface<Message> {
@@ -15,7 +15,6 @@ export class MessageSubscriber implements EntitySubscriberInterface<Message> {
     return Message;
   }
 
-  // TODO: add MQ support: https://docs.nestjs.com/recipes/cqrs (EventPublisher)
   afterInsert(event: InsertEvent<Message>) {
     this.chatGateway.sendMessage(event);
   }

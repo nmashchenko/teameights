@@ -16,7 +16,6 @@ import {
 } from 'typeorm';
 import { Chat } from './chat.user.entity';
 import { ChatGroup } from './chat.group.entity';
-import { MessageReaction, MessageReader } from '../interfaces/chat.interface';
 import { inspect } from 'util';
 
 @Entity({ name: 'message' })
@@ -32,6 +31,14 @@ export class Message extends EntityHelper {
 
   @ManyToMany(() => Chat, chat => chat.receivedMessages)
   receivers: User[];
+
+  @BeforeInsert()
+  async setReceivers() {
+    if (!this.chatGroup) return;
+    await setTimeout(() => {}, 1);
+    
+    console.log(inspect(this.chatGroup));
+  }
 
   @ManyToOne(() => ChatGroup, group => group.threadMessages)
   chatGroup?: ChatGroup;

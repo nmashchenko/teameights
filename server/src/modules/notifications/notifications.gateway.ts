@@ -39,8 +39,7 @@ export class NotificationsGateway
   server: Server;
 
   afterInit(server: Server) {
-    const middleware = WSAuthMiddleware(this.jwtService, this.userService, this.configService);
-    server.use(middleware);
+    server.use(WSAuthMiddleware(this.jwtService, this.userService, this.configService));
     Logger.log(`${NotificationsGateway.name} initialized`, InstanceLoader.name);
   }
 

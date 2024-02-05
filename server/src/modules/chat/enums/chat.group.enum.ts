@@ -14,3 +14,8 @@ export enum ChatGroupPermissions {
   CAN_CHANGE_OWNER,
   CAN_REMOVE_CURRENT_GROUP,
 }
+
+export enum ChatSocketEvents {
+  SEND_MESSAGE = 'message:send',
+  GET_MESSAGES = 'message:get',
+}
