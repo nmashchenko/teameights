@@ -8,7 +8,7 @@ import {
 import { Server } from 'socket.io';
 import { Notification } from './entities/notification.entity';
 import { InsertEvent } from 'typeorm';
-import { Logger } from '@nestjs/common';
+import { Logger, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { inspect } from 'util';
 import { AuthSocket, WSAuthMiddleware } from '../auth/base/auth.socket';
 import { UsersService } from '../users/users.service';
@@ -17,7 +17,10 @@ import { AllConfigType } from 'src/config/config.type';
 import { ConfigService } from '@nestjs/config';
 import { InstanceLoader } from '@nestjs/core/injector/instance-loader';
 import { NotificationSocketEvents } from './types/notification.type';
+import { WebsocketExceptionsFilter } from 'src/utils/websocket-exceprion-filter';
 
+@UseFilters(WebsocketExceptionsFilter)
+@UsePipes(new ValidationPipe({ transform: true }))
 @WebSocketGateway({
   namespace: 'notifications',
   cors: {
