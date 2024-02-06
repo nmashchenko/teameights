@@ -20,27 +20,26 @@ export class ChatGroupService {
   ) {}
 
   async findManyWithPagination({
-    userJwtPayload,
+    userId,
     filterOptions,
     sortOptions,
     paginationOptions,
   }: {
-    userJwtPayload: JwtPayloadType;
+    userId: User['id'];
     filterOptions: FilterChatGroupDto;
     sortOptions?: SortChatGroupDto[] | null;
     paginationOptions: IPaginationOptions;
   }): Promise<ChatGroup[]> {
     const where: FindOptionsWhere<ChatGroup>[] = [];
-
     if (filterOptions?.members)
       where.push(
         {
-          owner: { id: userJwtPayload.id },
+          owner: { id: userId },
           members: { id: In(filterOptions.members) },
         },
-        { members: { id: In([...filterOptions.members, userJwtPayload.id]) } }
+        { members: { id: In([...filterOptions.members, userId]) } }
       );
-    else where.push({ owner: { id: userJwtPayload.id } }, { members: { id: userJwtPayload.id } });
+    else where.push({ owner: { id: userId } }, { members: { id: userId } });
 
     where.forEach(inst => {
       inst.title = filterOptions?.title && ILike(`%${filterOptions.title}%`);
@@ -57,15 +56,20 @@ export class ChatGroupService {
         }),
         {}
       ),
+      relations: { owner: true, members: true },
     });
+  }
+
+  async findMany(where: EntityCondition<ChatGroup>[]): Promise<ChatGroup[]> {
+    return this.chatGroupRepository.find({ where: where, relations: ['owner', 'members'] });
   }
 
   async softDelete(id: ChatGroup['id'], ownerId: User['id']): Promise<void> {
     await this.chatGroupRepository.softDelete({ id: id, owner: { id: ownerId } });
   }
 
-  async findOne(fields: EntityCondition<ChatGroup>): Promise<NullableType<ChatGroup>> {
-    return this.chatGroupRepository.findOneByOrFail(fields);
+  async findOne(where: EntityCondition<ChatGroup>): Promise<NullableType<ChatGroup>> {
+    return this.chatGroupRepository.findOne({ where });
   }
   public async createGroup(ownerId: number, dto: CreateChatGroupDto) {
     const owner = await this.usersService.findOne({ id: ownerId });

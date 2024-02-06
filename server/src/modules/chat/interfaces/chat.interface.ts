@@ -1,5 +1,6 @@
 import { User } from 'src/modules/users/entities/user.entity';
-import { ChatGroupPermissions, ChatGroupRoles } from '../enums/chat.group.enum';
+import { ChatGroupPermissions, ChatGroupRoles } from '../enums/chat.enum';
+import { SocketClientStatus } from 'src/utils/types/socket.type';
 
 export interface ChatGroupRole {
   name: ChatGroupRoles;
@@ -8,7 +9,7 @@ export interface ChatGroupRole {
 
 export interface ChatGroupMember {
   user: User;
-  roles: (string | ChatGroupRoles)[];
+  role: string | ChatGroupRoles;
 }
 
 export const ChatGroupRolesDefault = Object.freeze({
@@ -35,4 +36,10 @@ export interface MessageReader {
 export interface MessageReaction {
   sender: User['id'];
   emoji: string;
+}
+
+export interface ChatGroupRoomClient {
+  id: string | undefined;
+  appointment: ChatGroupMember;
+  status: SocketClientStatus;
 }

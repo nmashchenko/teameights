@@ -1,4 +1,9 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  HttpException,
+  HttpStatus,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtPayloadType } from 'src/modules/auth/base/strategies/types/jwt-payload.type';
 import { User } from 'src/modules/users/entities/user.entity';
@@ -12,6 +17,8 @@ import { CreateMessageDto } from '../dto/create-message.dto';
 import { PatchMessagesDto } from '../dto/patch-message.dto';
 import { FilterMessageDto, SortMessageDto } from '../dto/query-message.dto';
 import { Message } from '../entities/message.entity';
+import { UUID } from 'crypto';
+import { ChatExceptionsEn } from '../enums/chat.enum';
 
 @Injectable()
 export class MessageService {
@@ -22,7 +29,7 @@ export class MessageService {
     private readonly chatGroupService: ChatGroupService
   ) {}
 
-  public async findOne(fields: EntityCondition<Message>): Promise<NullableType<Message>> {
+  public async findOne(fields: EntityCondition<Message>[]): Promise<NullableType<Message>> {
     return this.messageRepository.findOne({
       where: fields,
     });
@@ -48,9 +55,9 @@ export class MessageService {
       });
     else where.push({ sender: { id: userId } }, { receivers: { id: userId } });
 
-    where.forEach(inst => {
+    for (const inst of where) {
       inst.text = filterOptions?.text && ILike(`%${filterOptions.text}%`);
-    });
+    }
     return this.messageRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
       take: paginationOptions.limit,
@@ -69,17 +76,8 @@ export class MessageService {
     await this.messageRepository.softDelete(fields);
   }
 
-  async createMessage(senderId: number, dto: CreateMessageDto) {
-    if (dto.receivers.includes(senderId))
-      throw new HttpException(
-        {
-          status: HttpStatus.UNPROCESSABLE_ENTITY,
-          errors: {
-            receivers: `you can't send message to yourself`,
-          },
-        },
-        HttpStatus.UNPROCESSABLE_ENTITY
-      );
+  async createMessage(senderId: User['id'], dto: CreateMessageDto) {
+    if (dto.receivers.includes(senderId)) throw ChatExceptionsEn.OWN_TRANSMIT_RECORD();
 
     const sender = await this.usersService.findOne({ id: senderId });
 
@@ -88,54 +86,54 @@ export class MessageService {
       receiver => !receivers.some(user => user.id === receiver)
     );
     if (missingUsers.length)
-      throw new HttpException(
-        {
-          status: HttpStatus.NOT_FOUND,
-          errors: {
-            receivers: `receivers with id: ${dto.receivers} was not found`,
-          },
-        },
-        HttpStatus.NOT_FOUND
-      );
+      throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('receivers', missingUsers);
 
-    //let group = false;
-    //if (dto.group) group = await this.chatGroupService.findOne({ id: dto.group });
+    const chatgroup = dto.chatgroup
+      ? await this.chatGroupService.findOne({ id: dto.chatgroup })
+      : undefined;
+
+    if (chatgroup === null)
+      throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [dto.chatgroup!]);
+
     await this.messageRepository.save(
       this.messageRepository.create({
         sender: sender!,
         receivers: receivers,
         text: dto.text,
+        chatGroup: chatgroup,
       })
     );
   }
 
   public async patchMessage(messageId: Message['id'], dto: PatchMessagesDto, senderId: User['id']) {
-    const exception = message =>
-      new HttpException(
-        { status: HttpStatus.NOT_FOUND, errors: { message } },
-        HttpStatus.UNAUTHORIZED
-      );
     const message = await this.messageRepository.findOne({
-      where: { id: String(messageId) },
+      where: { id: <UUID>String(messageId) },
       relations: ['receivers'],
     });
 
-    if (!message) throw exception(`message with id: ${messageId} was not found`);
+    if (!message)
+      throw new UnprocessableEntityException({
+        message: `message with id: ${messageId} was not found`,
+      });
 
     const viewersIdList: User['id'][] = [];
     viewersIdList.push(...message.receivers.map(receiver => receiver.id), message.sender.id);
     if (message.chatGroup) {
-      const group = await this.chatGroupService.findOne({ id: message.chatGroup.id });
-      viewersIdList.push(...group!.members.map(member => member.id), group!.owner.id);
+      const chatgroup = await this.chatGroupService.findOne({ id: message.chatGroup.id });
+      if (!chatgroup)
+        throw new UnprocessableEntityException({
+          chatgroup: `chatgroup with id: ${message.chatGroup.id} was not found`,
+        });
+      viewersIdList.push(...chatgroup!.members.map(member => member.id), chatgroup!.owner.id);
     }
 
     if (
       (dto.reactions && !viewersIdList.includes(senderId)) ||
       (dto.text && message.sender.id !== senderId)
     )
-      throw exception(
-        `current user can't update message with id: ${messageId} via current patch fields`
-      );
+      throw new UnprocessableEntityException({
+        message: `current user can't update message with id: ${messageId} via current patch fields`,
+      });
     for (const dtoKey in dto) {
       if (dto[dtoKey] !== undefined) {
         switch (dtoKey) {

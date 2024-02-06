@@ -1,10 +1,4 @@
-import {
-  WebSocketGateway,
-  WebSocketServer,
-  OnGatewayConnection,
-  OnGatewayDisconnect,
-  OnGatewayInit,
-} from '@nestjs/websockets';
+import { WebSocketGateway, WebSocketServer, ConnectedSocket } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { Notification } from './entities/notification.entity';
 import { InsertEvent } from 'typeorm';
@@ -15,18 +9,18 @@ import { UsersService } from '../users/users.service';
 import { InstanceLoader } from '@nestjs/core/injector/instance-loader';
 import { NotificationSocketEvents } from './types/notification.type';
 import { WebsocketAllExceptionsFilter } from 'src/utils/websocket-exceprion-filter';
+import { NestGateway } from '@nestjs/websockets/interfaces/nest-gateway.interface';
 
 @UseFilters(WebsocketAllExceptionsFilter)
 @UsePipes(new ValidationPipe({ transform: true }))
 @WebSocketGateway({
   namespace: 'notifications',
+  transports: ['websocket'],
   cors: {
     origin: '*',
   },
 })
-export class NotificationsGateway
-  implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit
-{
+export class NotificationsGateway implements NestGateway {
   constructor(
     private readonly userService: UsersService,
     private readonly webSocketJwtAuthMiddleware: WebSocketJwtAuthMiddleware
@@ -42,17 +36,17 @@ export class NotificationsGateway
     Logger.log(`${NotificationsGateway.name} initialized`, InstanceLoader.name);
   }
 
-  handleConnection(client: AuthSocket) {
+  handleConnection(@ConnectedSocket() client: AuthSocket) {
     Logger.log(`client ${inspect(client.id)} connected`, NotificationsGateway.name);
     this.clients.push(client);
   }
 
-  handleDisconnect(client: AuthSocket) {
+  handleDisconnect(@ConnectedSocket() client: AuthSocket) {
     Logger.log(`client ${inspect(client.id)} disconnected`, NotificationsGateway.name);
     this.clients = this.clients.filter(c => c.id != client.id);
   }
 
-  sendMessage(event: InsertEvent<Notification>) {
+  sendMessage(@ConnectedSocket() event: InsertEvent<Notification>) {
     const client = this.clients.find(
       ({ handshake: { user } }) => event.entity.receiver?.id == user.id
     );

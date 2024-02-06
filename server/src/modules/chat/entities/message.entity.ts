@@ -16,13 +16,13 @@ import {
 } from 'typeorm';
 import { Chat } from './chat.user.entity';
 import { ChatGroup } from './chat.group.entity';
-import { inspect } from 'util';
+import { UUID } from 'crypto';
 
 @Entity({ name: 'message' })
 export class Message extends EntityHelper {
   @ApiProperty({ example: 'cbcfa8b8-3a25-4adb-a9c6-e325f0d0f3ae' })
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: UUID;
 
   @ManyToOne(() => Chat, chat => chat.transmitMessages, {
     eager: true,
@@ -36,11 +36,14 @@ export class Message extends EntityHelper {
   async setReceivers() {
     if (!this.chatGroup) return;
     await setTimeout(() => {}, 1);
-    
-    console.log(inspect(this.chatGroup));
+    //TODO fix this
+    //console.log(inspect(this.chatGroup));
   }
 
-  @ManyToOne(() => ChatGroup, group => group.threadMessages)
+  @ManyToOne(() => ChatGroup, group => group.threadMessages, {
+    eager: true,
+    nullable: true,
+  })
   chatGroup?: ChatGroup;
 
   @ApiProperty({ example: { 1: 'true' } })

@@ -12,6 +12,8 @@ import {
   Delete,
   Param,
   Patch,
+  Res,
+  Next,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -40,34 +42,7 @@ export class ChatController {
     private readonly chatGroupService: ChatGroupService
   ) {}
 
-  @SerializeOptions({
-    groups: ['user'],
-  })
-  @ApiBearerAuth()
-  @Roles(RoleEnum.user, RoleEnum.admin)
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @Get('/message')
-  async findAllMessages(@Request() request, @Query() query: QueryMessageDto) {
-    const page = query?.page ?? 1;
-    let limit = query?.limit ?? 50;
-
-    if (limit > 50) {
-      limit = 50;
-    }
-    return infinityPagination(
-      await this.messageService.findManyWithPagination({
-        userId: request.user.id,
-        filterOptions: query?.filters,
-        sortOptions: query?.sort,
-        paginationOptions: {
-          page,
-          limit,
-        },
-      }),
-      { page, limit }
-    );
-  }
-
+  //#region Post Message
   @Post('/message/send')
   @ApiBearerAuth()
   @Roles(RoleEnum.user)
@@ -76,25 +51,28 @@ export class ChatController {
   async createMessage(@Request() request, @Body() dto: CreateMessageDto) {
     return await this.messageService.createMessage(request.user.id, dto);
   }
+  //#endregion
 
+  //#region Get Message
   @SerializeOptions({
     groups: ['user'],
   })
   @ApiBearerAuth()
-  @Roles(RoleEnum.user)
-  @UseGuards(AuthGuard('jwt'))
-  @Get('/group')
-  async findAllChatGroups(@Request() request, @Query() query: QueryChatGroupDto) {
+  @Roles(RoleEnum.user, RoleEnum.admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Get('/message/filter')
+  @HttpCode(HttpStatus.OK)
+  async findAllMessages(
+    @Request() { user }: { user: JwtPayloadType },
+    @Query() query: QueryMessageDto
+  ) {
     const page = query?.page ?? 1;
     let limit = query?.limit ?? 50;
 
-    if (limit > 50) {
-      limit = 50;
-    }
-
+    if (limit > 50) limit = 50;
     return infinityPagination(
-      await this.chatGroupService.findManyWithPagination({
-        userJwtPayload: request.user,
+      await this.messageService.findManyWithPagination({
+        userId: user.id,
         filterOptions: query?.filters,
         sortOptions: query?.sort,
         paginationOptions: {
@@ -106,15 +84,27 @@ export class ChatController {
     );
   }
 
-  @Delete('/message/:id')
+  @SerializeOptions({
+    groups: ['user'],
+  })
   @ApiBearerAuth()
-  @Roles(RoleEnum.user)
+  @Roles(RoleEnum.user, RoleEnum.admin)
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteMessage(@Param('id') id: string, @Request() { user }: { user: JwtPayloadType }) {
-    return await this.messageService.softDelete({ id: id, sender: { id: user.id } });
+  @Get('/message/:id')
+  @HttpCode(HttpStatus.OK)
+  async getMessage(
+    @Param('id') id: NonNullable<UUID>,
+    @Request() { user }: { user: JwtPayloadType }
+  ) {
+    return this.messageService.findOne([
+      { id: id, sender: { id: user.id } },
+      { id: id, receivers: { id: user.id } },
+    ]);
   }
 
+  //#endregion
+
+  //#region Patch Message
   @Patch('/message/:id')
   @ApiBearerAuth()
   @Roles(RoleEnum.user)
@@ -127,6 +117,17 @@ export class ChatController {
   ) {
     return await this.messageService.patchMessage(id, dto, user.id);
   }
+  //#endregion
+
+  //#region Delete Message
+  @Delete('/message/:id')
+  @ApiBearerAuth()
+  @Roles(RoleEnum.user)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async deleteMessage(@Param('id') id: UUID, @Request() { user }: { user: JwtPayloadType }) {
+    return await this.messageService.softDelete({ id: id, sender: { id: user.id } });
+  }
 
   @Delete('/message')
   @ApiBearerAuth()
@@ -136,9 +137,11 @@ export class ChatController {
   async deleteAllMessages(@Request() { user }: { user: JwtPayloadType }) {
     return await this.messageService.softDelete({ sender: { id: user.id } });
   }
+  //#endregion
 
-  // ----------------------------------------------
+  // -----------------------
 
+  //#region Post ChatGroup
   @Post('/group')
   @ApiBearerAuth()
   @Roles(RoleEnum.user)
@@ -147,13 +150,49 @@ export class ChatController {
   async createChatGroup(@Request() request, @Body() dto: CreateChatGroupDto) {
     return await this.chatGroupService.createGroup(request.user.id, dto);
   }
+  //#endregion
 
+  //#region Delete ChatGroup
   @Delete('/group/:id')
   @ApiBearerAuth()
   @Roles(RoleEnum.user)
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteChatGroup(@Param('id') id: string, @Request() { user }: { user: JwtPayloadType }) {
+  async deleteChatGroup(@Param('id') id: UUID, @Request() { user }: { user: JwtPayloadType }) {
     return await this.chatGroupService.softDelete(id, user.id);
   }
+  //#endregion
+
+  //#region Get ChatGroup
+  @SerializeOptions({
+    groups: ['user'],
+  })
+  @ApiBearerAuth()
+  @Roles(RoleEnum.user)
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/group')
+  @HttpCode(HttpStatus.OK)
+  async findAllChatGroups(
+    @Request() { user }: { user: JwtPayloadType },
+    @Query() query: QueryChatGroupDto
+  ) {
+    const page = query?.page ?? 1;
+    let limit = query?.limit ?? 50;
+
+    if (limit > 50) limit = 50;
+
+    return infinityPagination(
+      await this.chatGroupService.findManyWithPagination({
+        userId: user.id,
+        filterOptions: query?.filters,
+        sortOptions: query?.sort,
+        paginationOptions: {
+          page,
+          limit,
+        },
+      }),
+      { page, limit }
+    );
+  }
+  //#endregion
 }

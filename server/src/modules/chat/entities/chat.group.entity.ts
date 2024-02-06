@@ -15,15 +15,16 @@ import {
 } from 'typeorm';
 import { Chat as ChatUser } from './chat.user.entity';
 import { ChatGroupRole, ChatGroupRolesDefault } from '../interfaces/chat.interface';
-import { ChatGroupPermissions, ChatGroupRoles } from '../enums/chat.group.enum';
+import { ChatGroupPermissions, ChatGroupRoles } from '../enums/chat.enum';
 import { Exclude } from 'class-transformer';
 import { Message } from './message.entity';
+import { UUID } from 'crypto';
 
 @Entity({ name: 'chat_group' })
 export class ChatGroup extends EntityHelper {
   @ApiProperty({ example: 'cbcfa8b8-3a25-4adb-a9c6-e325f0d0f3ae' })
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: UUID;
 
   @Column()
   title: string;
@@ -31,7 +32,7 @@ export class ChatGroup extends EntityHelper {
   @Column()
   description?: string;
 
-  @ManyToOne(() => User, user => user.chat.ownedGroups, { eager: true })
+  @ManyToOne(() => User, user => user.chat.ownedGroups)
   owner: User;
 
   @ApiProperty({ example: { rolename: ['permission1', 'permission2'] } })
@@ -49,7 +50,7 @@ export class ChatGroup extends EntityHelper {
     [key: User['id']]: ChatGroupRoles | string;
   };
 
-  @ManyToMany(() => User, user => user.chat.memberGroups, { eager: true })
+  @ManyToMany(() => User, user => user.chat.memberGroups)
   @JoinTable()
   members: User[];
 
