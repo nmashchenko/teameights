@@ -23,7 +23,7 @@ interface UserData {
 
 export interface SidebarProfileProps {
   /**
-   * Determines the visual state of the user's real name and username. If true, they are highlighted.
+   * Determines the visual state of the user's real name and [username]. If true, they are highlighted.
    */
   active: boolean;
   /**
@@ -34,7 +34,7 @@ export interface SidebarProfileProps {
 
 /**
  * The SidebarProfile component displays the user's profile information in the sidebar.
- * It shows the user's image, real name, and username. If the user is not registered, default data is shown.
+ * It shows the user's image, real name, and [username]. If the user is not registered, default data is shown.
  *
  * Example of usage:
  *
@@ -45,7 +45,7 @@ export interface SidebarProfileProps {
  * const user = new User({
  *   isRegistered: true,
  *   fullName: 'John Doe',
- *   username: 'john.doe',
+ *   [username]: 'john.doe',
  *   image: '/images/user/john.png'
  * });
  *

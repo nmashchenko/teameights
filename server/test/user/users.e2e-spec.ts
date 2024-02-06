@@ -42,7 +42,7 @@ describe('Get users (e2e)', () => {
       });
   });
 
-  it('Register new user with username for tests: /api/v1/auth/email/register (POST)', async () => {
+  it('Register new user with [username] for tests: /api/v1/auth/email/register (POST)', async () => {
     const email = faker.internet.email();
     await request(app)
       .post('/api/v1/auth/email/register')
@@ -261,7 +261,7 @@ describe('Get users (e2e)', () => {
       });
   });
 
-  it('Get users with username filter: /api/v1/users?filters= (GET)', () => {
+  it('Get users with [username] filter: /api/v1/users?filters= (GET)', () => {
     return request(app)
       .get(`/api/v1/users?filters={"username": "${username}"}`)
       .expect(200)

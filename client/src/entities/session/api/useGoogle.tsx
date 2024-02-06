@@ -16,7 +16,7 @@ export const useGoogle = () => {
       localStorage.setItem('token', data.data.token);
       Cookies.set('refreshToken', data.data.refreshToken);
       /*
-       * If user has username it means he already signed up, so we don't need to
+       * If user has [username] it means he already signed up, so we don't need to
        * redirect him to onboarding, otherwise we should.
        * */
       if (user.username) {

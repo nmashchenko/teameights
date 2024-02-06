@@ -31,7 +31,7 @@ import styles from './input.module.scss';
  * To access the underlying input element directly:
  * ```tsx
  * const inputRef = useRef<HTMLInputElement>(null);
- * <Input ref={inputRef} name="username" label="Username" />
+ * <Input ref={inputRef} name="[username]" label="Username" />
  * ```
  *
  */

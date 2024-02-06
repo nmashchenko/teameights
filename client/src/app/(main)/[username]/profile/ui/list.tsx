@@ -1,7 +1,7 @@
 import { useGetMe } from '@/entities/session';
 import { Card } from './card';
 import { Star, Cake, MapPin, UserIcon } from '@/shared/assets';
-import { Row } from '@/app/(main)/profile/ui/row';
+import { Row } from '@/app/(main)/[username]/profile/ui/row';
 import { Flex } from '@/shared/ui';
 import { calculateAge } from '@/shared/lib';
 
