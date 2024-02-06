@@ -9,21 +9,48 @@ import { LinkedinIcon } from '@/shared/assets/icons/linkedin';
 export const About = () => {
   const { data: user } = useGetMe();
 
+  const linksPresent = Array.isArray(user?.links) && user.links.length > 0;
+  const descPresent = typeof user?.description === 'string';
   return (
     <Card style={{ width: '60%' }}>
-      <Flex direction='column' gap='24px' height="100%">
-        <Typography size={'heading_s'} color={'greenBright'}>
-          About
-        </Typography>
+      <Flex direction='column' gap='24px' height='100%'>
+        {!descPresent && !linksPresent && (
+          <Flex align='center' justify='center' height='100%'>
+            <Typography size='heading_m'>No data</Typography>{' '}
+          </Flex>
+        )}
+        {descPresent && (
+          <Typography size={'heading_s'} color={'greenBright'}>
+            About
+          </Typography>
+        )}
         <Flex flex={1}>
-        <Typography size={'body_s'}>{user?.description ?? 'Description'}</Typography>
+          {descPresent && <Typography size={'body_s'}>{user?.description}</Typography>}
         </Flex>
-        <Flex align={'center'} gap={24}>
-          {user?.links?.github && <a target="_blank" href={user.links.github}><GithubIcon width={28}/></a>}
-          {user?.links?.behance && <a target="_blank" href={user.links.behance}><BehanceIcon width={28} /></a>}
-          {user?.links?.telegram && <a target="_blank" href={user.links.telegram}><TelegramIcon width={28} /></a>}
-          {user?.links?.linkedIn && <a target="_blank" href={user.links.linkedIn}><LinkedinIcon width={28} /></a>}
-        </Flex>
+        {linksPresent && (
+          <Flex align={'center'} gap={24}>
+            {user?.links?.github && (
+              <a target='_blank' href={user.links.github}>
+                <GithubIcon width={28} />
+              </a>
+            )}
+            {user?.links?.behance && (
+              <a target='_blank' href={user.links.behance}>
+                <BehanceIcon width={28} />
+              </a>
+            )}
+            {user?.links?.telegram && (
+              <a target='_blank' href={user.links.telegram}>
+                <TelegramIcon width={28} />
+              </a>
+            )}
+            {user?.links?.linkedIn && (
+              <a target='_blank' href={user.links.linkedIn}>
+                <LinkedinIcon width={28} />
+              </a>
+            )}
+          </Flex>
+        )}
       </Flex>
     </Card>
   );
