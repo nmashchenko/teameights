@@ -6,7 +6,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { UsersService } from '../users/users.service';
 import { EntityCondition } from '../../utils/types/entity-condition.type';
 import { NullableType } from '../../utils/types/nullable.type';
-import { FriendshipStatusTypes } from './types/friendship.types';
+import { FriendshipCheckStatusTypes, FriendshipStatusTypes } from './types/friendship.types';
 import { UpdateStatusDto } from './dto/update-status.dto';
 import {
   FriendRequestNotificationData,
@@ -457,5 +457,47 @@ export class FriendshipService {
         {}
       ),
     });
+  }
+
+  async getStatus(userId: number, friendId: number) {
+    const friendshipFrom = await this.findOne({
+      creator: { id: userId },
+      receiver: { id: friendId },
+    });
+    if (friendshipFrom && friendshipFrom.status === FriendshipStatusTypes.accepted) {
+      return {
+        status: FriendshipCheckStatusTypes.friends,
+      };
+    } else if (
+      friendshipFrom &&
+      (friendshipFrom.status === FriendshipStatusTypes.pending ||
+        friendshipFrom.status === FriendshipStatusTypes.rejected)
+    ) {
+      return {
+        status: FriendshipCheckStatusTypes.requested,
+      };
+    }
+    const friendshipTo = await this.findOne({
+      creator: { id: friendId },
+      receiver: { id: userId },
+    });
+    if (friendshipTo && friendshipTo.status === FriendshipStatusTypes.accepted) {
+      return {
+        status: FriendshipCheckStatusTypes.friends,
+      };
+    } else if (friendshipTo && friendshipTo.status === FriendshipStatusTypes.pending) {
+      return {
+        status: FriendshipCheckStatusTypes.toRespond,
+      };
+    }
+
+    if (
+      (!friendshipTo && !friendshipFrom) ||
+      (friendshipTo && friendshipTo.status === FriendshipStatusTypes.rejected)
+    ) {
+      return {
+        status: FriendshipCheckStatusTypes.none,
+      };
+    }
   }
 }

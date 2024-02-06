@@ -50,6 +50,14 @@ export class FriendshipController {
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.OK)
+  @Get('/status/:friendId')
+  async getStatus(@Param('friendId') userId: number, @Request() req) {
+    return await this.friendshipService.getStatus(req.user.id, userId);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/:friendId')
   async deleteRequestOrFriendship(@Param('friendId') friendId: number, @Request() req) {
