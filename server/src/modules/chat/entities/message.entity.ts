@@ -2,9 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/modules/users/entities/user.entity';
 import { EntityHelper } from 'src/utils/entity-helper';
 import {
-  AfterInsert,
   BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -16,34 +14,34 @@ import {
 } from 'typeorm';
 import { Chat } from './chat.user.entity';
 import { ChatGroup } from './chat.group.entity';
-import { UUID } from 'crypto';
+import { Exclude } from 'class-transformer';
+import { faker } from '@faker-js/faker';
 
 @Entity({ name: 'message' })
 export class Message extends EntityHelper {
-  @ApiProperty({ example: 'cbcfa8b8-3a25-4adb-a9c6-e325f0d0f3ae' })
+  @ApiProperty({ example: faker.string.uuid() })
   @PrimaryGeneratedColumn('uuid')
-  id: UUID;
+  id: string;
 
+  @Exclude({ toPlainOnly: true })
   @ManyToOne(() => Chat, chat => chat.transmitMessages, {
     eager: true,
   })
   sender: User;
 
+  @Exclude({ toPlainOnly: true })
   @ManyToMany(() => Chat, chat => chat.receivedMessages)
   receivers: User[];
 
   @BeforeInsert()
   async setReceivers() {
     if (!this.chatGroup) return;
-    await setTimeout(() => {}, 1);
-    //TODO fix this
+    await new Promise(() => ({}));
+    //TODO fix this via members
     //console.log(inspect(this.chatGroup));
   }
 
-  @ManyToOne(() => ChatGroup, group => group.threadMessages, {
-    eager: true,
-    nullable: true,
-  })
+  @ManyToOne(() => ChatGroup, group => group.threadMessages, { eager: true })
   chatGroup?: ChatGroup;
 
   @ApiProperty({ example: { 1: 'true' } })
@@ -53,9 +51,7 @@ export class Message extends EntityHelper {
   @BeforeInsert()
   setReaders() {
     if (!this.read) this.read = {};
-    this.receivers.forEach(receiver => {
-      this.read![receiver.id] = false;
-    });
+    for (const receiver of this.receivers) this.read![receiver.id] = false;
   }
 
   @Column()

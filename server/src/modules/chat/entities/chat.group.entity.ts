@@ -22,7 +22,7 @@ import { Message } from './message.entity';
 export class ChatGroup extends EntityHelper {
   @ApiProperty({ example: 'cbcfa8b8-3a25-4adb-a9c6-e325f0d0f3ae' })
   @PrimaryGeneratedColumn('uuid')
-  id: UUID;
+  id: string;
 
   @Column()
   title: string;

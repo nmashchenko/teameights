@@ -87,14 +87,14 @@ export class MessageService {
       : undefined;
 
     if (chatgroup === null)
-      throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [dto.chatgroup!]);
+      throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [<UUID>dto.chatgroup]);
 
-    await this.messageRepository.save(
+    return this.messageRepository.save(
       this.messageRepository.create({
         sender: sender!,
         receivers: receivers,
         text: dto.text,
-        chatGroup: chatgroup,
+        chatGroup: undefined,
       })
     );
   }
@@ -105,14 +105,14 @@ export class MessageService {
       relations: ['receivers'],
     });
 
-    if (!message) throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('message', [messageId]);
+    if (!message) throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('message', [<UUID>messageId]);
 
     const viewersIdList: User['id'][] = [];
     viewersIdList.push(...message.receivers.map(receiver => receiver.id), message.sender.id);
     if (message.chatGroup) {
       const chatgroup = await this.chatGroupService.findOne({ id: message.chatGroup.id });
       if (!chatgroup)
-        throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [message.chatGroup.id]);
+        throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [<UUID>message.chatGroup.id]);
       viewersIdList.push(...chatgroup!.members.map(member => member.id), chatgroup!.owner.id);
     }
 
@@ -120,6 +120,7 @@ export class MessageService {
       (dto.reactions && !viewersIdList.includes(senderId)) ||
       (dto.text && message.sender.id !== senderId)
     )
+      //FIX make it better via exception list
       throw new UnprocessableEntityException({
         message: `current user can't update message with id: ${messageId} via current patch fields`,
       });

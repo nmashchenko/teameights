@@ -7,7 +7,6 @@ import { CreateChatGroupDto } from '../dto/create-chat-group.dto';
 import { User } from '../../users/entities/user.entity';
 import { FilterChatGroupDto, SortChatGroupDto } from '../dto/query-chat-group.dto';
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
-import { JwtPayloadType } from '../../auth/base/strategies/types/jwt-payload.type';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
 import { NullableType } from 'src/utils/types/nullable.type';
 
