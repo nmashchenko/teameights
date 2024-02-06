@@ -102,7 +102,7 @@
 //               <Flex direction='column' gap='4px'>
 //                 <Flex gap='4px' align='center'>
 //                   <Typography size='body_m' color='white'>
-//                     {team?.leader?.[username]}
+//                     {team?.leader?.username}
 //                   </Typography>
 //                   <ImageLoader
 //                     width={16}
@@ -128,7 +128,7 @@
 //                 />
 //                 <Flex direction='column' gap='4px'>
 //                   <Flex gap='4px' align='center'>
-//                     <Typography size='body_m'>{teammate?.[username]}</Typography>
+//                     <Typography size='body_m'>{teammate?.username}</Typography>
 //                     <ImageLoader
 //                       width={16}
 //                       height={10}
