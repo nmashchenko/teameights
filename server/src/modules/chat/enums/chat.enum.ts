@@ -1,6 +1,7 @@
-import { UnprocessableEntityException } from '@nestjs/common';
+import { HttpException, UnprocessableEntityException } from '@nestjs/common';
 import { ClassConstructor } from 'class-transformer';
 import { UUID } from 'crypto';
+import { Exception } from 'handlebars';
 import { Field } from 'multer';
 
 export enum ChatGroupRoles {
@@ -27,7 +28,7 @@ export enum ChatSocketEvents {
   PATCH_MESSAGE = 'message:patch',
 }
 
-export const ChatExceptionsEn = {
+export const ChatExceptionsEn = Object.freeze({
   OWN_TRANSMIT_RECORD: () =>
     new UnprocessableEntityException({
       receivers: `you can't send message to yourself`,
@@ -36,4 +37,4 @@ export const ChatExceptionsEn = {
     new UnprocessableEntityException({
       [`${field}`]: `${field} with id: ${value} was not found`,
     }),
-};
+});

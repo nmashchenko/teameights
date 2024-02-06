@@ -2,23 +2,21 @@ import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/modules/users/entities/user.entity';
 import { EntityHelper } from 'src/utils/entity-helper';
 import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+  CreateDateColumn,
   UpdateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
-import { Chat as ChatUser } from './chat.user.entity';
-import { ChatGroupRole, ChatGroupRolesDefault } from '../interfaces/chat.interface';
-import { ChatGroupPermissions, ChatGroupRoles } from '../enums/chat.enum';
-import { Exclude } from 'class-transformer';
+import { UUID } from 'typeorm/driver/mongodb/bson.typings';
+import { ChatGroupRoles, ChatGroupPermissions } from '../enums/chat.enum';
+import { ChatGroupRolesDefault } from '../interfaces/chat.interface';
 import { Message } from './message.entity';
-import { UUID } from 'crypto';
 
 @Entity({ name: 'chat_group' })
 export class ChatGroup extends EntityHelper {

@@ -1,18 +1,6 @@
-import { User } from 'src/modules/users/entities/user.entity';
 import { EntityHelper } from 'src/utils/entity-helper';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { ChatGroup } from './chat.group.entity';
-import { ApiProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
 import { Message } from './message.entity';
 
 @Entity({ name: 'chat_user' })

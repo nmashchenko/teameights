@@ -1,11 +1,5 @@
-import {
-  Injectable,
-  HttpException,
-  HttpStatus,
-  UnprocessableEntityException,
-} from '@nestjs/common';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { JwtPayloadType } from 'src/modules/auth/base/strategies/types/jwt-payload.type';
 import { User } from 'src/modules/users/entities/user.entity';
 import { UsersService } from 'src/modules/users/users.service';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
@@ -111,19 +105,14 @@ export class MessageService {
       relations: ['receivers'],
     });
 
-    if (!message)
-      throw new UnprocessableEntityException({
-        message: `message with id: ${messageId} was not found`,
-      });
+    if (!message) throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('message', [messageId]);
 
     const viewersIdList: User['id'][] = [];
     viewersIdList.push(...message.receivers.map(receiver => receiver.id), message.sender.id);
     if (message.chatGroup) {
       const chatgroup = await this.chatGroupService.findOne({ id: message.chatGroup.id });
       if (!chatgroup)
-        throw new UnprocessableEntityException({
-          chatgroup: `chatgroup with id: ${message.chatGroup.id} was not found`,
-        });
+        throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [message.chatGroup.id]);
       viewersIdList.push(...chatgroup!.members.map(member => member.id), chatgroup!.owner.id);
     }
 
