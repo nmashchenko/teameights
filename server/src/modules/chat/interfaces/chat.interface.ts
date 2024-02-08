@@ -1,6 +1,7 @@
 import { User } from 'src/modules/users/entities/user.entity';
 import { ChatGroupPermissions, ChatGroupRoles } from '../enums/chat.enum';
 import { SocketClientStatus } from 'src/utils/types/socket.type';
+import { UnprocessableEntityException } from '@nestjs/common';
 
 export interface ChatGroupRole {
   name: ChatGroupRoles;
@@ -43,3 +44,14 @@ export interface ChatGroupRoomClient {
   appointment: ChatGroupMember;
   status: SocketClientStatus;
 }
+
+export const ChatExceptionsEn = Object.freeze({
+  OWN_TRANSMIT_RECORD: () =>
+    new UnprocessableEntityException({
+      receivers: `you can't send message to yourself`,
+    }),
+  ENTITY_FIELD_NOT_FOUND: (field: string, value: (number | string | undefined)[]) =>
+    new UnprocessableEntityException({
+      [`${field}`]: `${field} with id: ${value} was not found`,
+    }),
+});

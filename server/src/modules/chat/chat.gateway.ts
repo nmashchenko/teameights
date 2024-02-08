@@ -50,21 +50,21 @@ export class ChatGateway implements NestGateway {
     activeClients: AuthSocket[];
   }[] = [];
 
-  private readonly logGatewayActivityInfo = () =>
-    console.log(
-      `
-       Active Clients: ${inspect(
-         this.clients.map(client => ({ id: client.id, rooms: client.rooms }))
-       )}\n
-       Active Rooms: ${inspect(
-         this.chatGroupRooms.map(room => ({
-           id: room.id,
-           chatgroup: room.chatgroup.title,
-           activeClients: room.activeClients,
-         }))
-       )}
-      `
-    );
+  private readonly logGatewayActivityInfo = () => {
+    const infoLog = `
+    Active Clients: ${inspect(
+      this.clients.map(client => ({ id: client.id, rooms: client.rooms }))
+    )}\n
+    Active Rooms: ${inspect(
+      this.chatGroupRooms.map(room => ({
+        id: room.id,
+        chatgroup: room.chatgroup.title,
+        activeClients: room.activeClients,
+      }))
+    )}
+   `;
+    this.server.emit(ChatSocketEvents.DEBUG_CHAT, infoLog);
+  };
 
   afterInit(server: Server) {
     this.clients = [];

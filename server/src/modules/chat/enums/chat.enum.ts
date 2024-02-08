@@ -26,15 +26,6 @@ export enum ChatSocketEvents {
   GET_MESSAGES = 'message:get',
   DEBUG_MESSAGES = 'message:debug',
   PATCH_MESSAGE = 'message:patch',
-}
 
-export const ChatExceptionsEn = Object.freeze({
-  OWN_TRANSMIT_RECORD: () =>
-    new UnprocessableEntityException({
-      receivers: `you can't send message to yourself`,
-    }),
-  ENTITY_FIELD_NOT_FOUND: (field: string, value: (number | UUID)[]) =>
-    new UnprocessableEntityException({
-      [`${field}`]: `${field} with id: ${value} was not found`,
-    }),
-});
+  DEBUG_CHAT = 'chat:debug',
+}

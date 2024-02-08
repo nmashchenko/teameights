@@ -12,7 +12,7 @@ import { PatchMessagesDto } from '../dto/patch-message.dto';
 import { FilterMessageDto, SortMessageDto } from '../dto/query-message.dto';
 import { Message } from '../entities/message.entity';
 import { UUID } from 'crypto';
-import { ChatExceptionsEn } from '../enums/chat.enum';
+import { ChatExceptionsEn } from '../interfaces/chat.interface';
 
 @Injectable()
 export class MessageService {
@@ -87,7 +87,7 @@ export class MessageService {
       : undefined;
 
     if (chatgroup === null)
-      throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [<UUID>dto.chatgroup]);
+      throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [dto.chatgroup]);
 
     return this.messageRepository.save(
       this.messageRepository.create({
@@ -105,7 +105,7 @@ export class MessageService {
       relations: ['receivers'],
     });
 
-    if (!message) throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('message', [<UUID>messageId]);
+    if (!message) throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('message', [messageId]);
 
     const viewersIdList: User['id'][] = [];
     viewersIdList.push(...message.receivers.map(receiver => receiver.id), message.sender.id);

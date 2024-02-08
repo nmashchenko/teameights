@@ -9,6 +9,7 @@ import { FilterChatGroupDto, SortChatGroupDto } from '../dto/query-chat-group.dt
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
 import { NullableType } from 'src/utils/types/nullable.type';
+import { ChatExceptionsEn } from '../interfaces/chat.interface';
 
 @Injectable()
 export class ChatGroupService {
@@ -77,15 +78,7 @@ export class ChatGroupService {
       members = await this.usersService.findMany({ id: In(dto.members) });
       const missingUsers = dto.members.filter(member => !members.some(user => user.id === member));
       if (missingUsers.length)
-        throw new HttpException(
-          {
-            status: HttpStatus.NOT_FOUND,
-            errors: {
-              receivers: `members with id: ${dto.members} was not found`,
-            },
-          },
-          HttpStatus.NOT_FOUND
-        );
+        throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('members', missingUsers);
     }
     await this.chatGroupRepository.save(
       this.chatGroupRepository.create({
