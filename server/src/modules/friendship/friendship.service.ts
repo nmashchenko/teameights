@@ -263,24 +263,24 @@ export class FriendshipService {
         HttpStatus.NOT_FOUND
       );
     }
-    const notification = await this.notificationsService.findOne({
-      receiver: { id: receiverId },
-      data: { status: NotificationStatusEnum.pending, creator: creator.toJSON() },
-    });
-    if (!notification) {
-      throw new HttpException(
-        {
-          status: HttpStatus.NOT_FOUND,
-          errors: {
-            notification: `notification not found`,
-          },
-        },
-        HttpStatus.NOT_FOUND
-      );
-    }
-    (notification.data as FriendRequestNotificationData).status =
-      NotificationStatusEnum[dto.status];
-    await this.notificationsService.save(notification);
+    // const notification = await this.notificationsService.findOne({
+    //   receiver: { id: receiverId },
+    //   data: { status: NotificationStatusEnum.pending, creator: creator.toJSON() },
+    // });
+    // if (!notification) {
+    //   throw new HttpException(
+    //     {
+    //       status: HttpStatus.NOT_FOUND,
+    //       errors: {
+    //         notification: `notification not found`,
+    //       },
+    //     },
+    //     HttpStatus.NOT_FOUND
+    //   );
+    // }
+    // (notification.data as FriendRequestNotificationData).status =
+    //   NotificationStatusEnum[dto.status];
+    // await this.notificationsService.save(notification);
 
     friendship.status = FriendshipStatusTypes[dto.status];
     await this.friendshipRepository.save(friendship);
