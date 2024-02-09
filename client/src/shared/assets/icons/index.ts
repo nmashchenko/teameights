@@ -1,4 +1,4 @@
-import { Github } from './github-icon';
+import { GithubIcon } from './github-icon';
 import { BehanceIcon } from './behance';
 import { LinkedinIcon } from './linkedin';
 import { TelegramIcon } from './telegram';

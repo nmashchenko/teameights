@@ -20,7 +20,7 @@ export const List = () => {
         <Row icon={<UserIcon />} text={user?.speciality ?? ''} />
         <Row icon={<Star />} text={user?.experience ?? ''} />
         <Row icon={<MapPin />} text={user?.country ?? ''} />
-        {age && <Row icon={<Cake />} text={age} /> }
+        {age && <Row icon={<Cake />} text={`${age} years old`} /> }
       </Flex>
     </Card>
   );
