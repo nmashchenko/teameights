@@ -298,7 +298,7 @@ export class FriendshipService {
     }
   }
 
-  async deleteRequestOrFriendship(friendId: number, userId: number) {
+  async deleteFriendship(friendId: number, userId: number) {
     if (userId === friendId) {
       throw new HttpException(
         {
@@ -373,7 +373,47 @@ export class FriendshipService {
       await this.friendshipRepository.remove(friendshipsToDelete);
       return;
     }
+  }
 
+  async rejectRequest(friendId: number, userId: number) {
+    if (userId === friendId) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          errors: {
+            message: 'You can`t do this operation with yourself',
+          },
+        },
+        HttpStatus.BAD_REQUEST
+      );
+    }
+    const user = await this.usersService.findOne({ id: userId });
+
+    if (!user) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          errors: {
+            user: `user with id: ${user} was not found`,
+          },
+        },
+        HttpStatus.NOT_FOUND
+      );
+    }
+
+    const friend = await this.usersService.findOne({ id: friendId });
+
+    if (!friend) {
+      throw new HttpException(
+        {
+          status: HttpStatus.NOT_FOUND,
+          errors: {
+            user: `user with id: ${friendId} was not found`,
+          },
+        },
+        HttpStatus.NOT_FOUND
+      );
+    }
     if (
       await this.friendshipRepository.exist({
         where: {

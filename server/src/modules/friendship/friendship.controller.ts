@@ -60,8 +60,16 @@ export class FriendshipController {
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('/:friendId')
-  async deleteRequestOrFriendship(@Param('friendId') friendId: number, @Request() req) {
-    await this.friendshipService.deleteRequestOrFriendship(friendId, req.user.id);
+  async deleteFriendship(@Param('friendId') friendId: number, @Request() req) {
+    await this.friendshipService.deleteFriendship(friendId, req.user.id);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.OK)
+  @Patch('request/:friendId')
+  async rejectRequest(@Param('friendId') friendId: number, @Request() req) {
+    await this.friendshipService.rejectRequest(friendId, req.user.id);
   }
 
   @HttpCode(HttpStatus.OK)
