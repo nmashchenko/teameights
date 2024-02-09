@@ -8,18 +8,15 @@ import { LinkedinIcon } from '@/shared/assets/icons/linkedin';
 
 export const About = () => {
   const { data: user } = useGetMe();
+  console.log(user?.links?.github);
 
-  const linksPresent = Array.isArray(user?.links) && user.links.length > 0;
+  const linksPresent = user?.links && Object.keys(user.links).length;
   const descPresent = typeof user?.description === 'string';
   return (
     <Card style={{ width: '60%' }}>
       <Flex direction='column' gap='24px' height='100%'>
         <Typography size={'heading_s'} color={'greenBright'}>About</Typography>
-        {descPresent ? (
-          <Typography size={'heading_s'} color={'greenBright'}>
-            About
-          </Typography>
-        ) : <Typography size={'body_s'} color={'greyNormal'}>
+        {!descPresent && <Typography size={'body_s'} color={'greyNormal'}>
           No description added.
         </Typography>}
         <Flex flex={1}>
