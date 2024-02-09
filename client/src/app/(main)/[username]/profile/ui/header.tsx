@@ -24,7 +24,7 @@ export const Header = () => {
                 height={100}
                 className={styles.image}
                 borderRadius={'50%'}
-                src={String(user.photo ?? '/images/placeholder.png')}
+                src={String(user.photo?.path ?? '/images/placeholder.png')}
                 alt={user.username ?? 'Profile picture'}
               />
             </div>
