@@ -1,14 +1,15 @@
-import { useGetMe } from '@/entities/session';
 import { Card } from './card';
 import { Flex, Typography } from '@/shared/ui';
 import { GithubIcon } from '@/shared/assets/icons/github-icon';
 import { BehanceIcon } from '@/shared/assets/icons/behance';
 import { TelegramIcon } from '@/shared/assets/icons/telegram';
 import { LinkedinIcon } from '@/shared/assets/icons/linkedin';
+import { useParams } from 'next/navigation';
+import { useGetUserByName } from '../lib/useGetUserByName';
 
 export const About = () => {
-  const { data: user } = useGetMe();
-  console.log(user?.links?.github);
+  const { username } = useParams();
+  const { data: user } = useGetUserByName(username as string);
 
   const linksPresent = user?.links && Object.keys(user.links).length;
   const descPresent = typeof user?.description === 'string';

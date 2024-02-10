@@ -22,8 +22,10 @@ export const useGetUsers = ({ page, limit, filters, sort }: IQueryParams) => {
   return useQuery({
     queryKey: ['useGetUsers', queryString],
     queryFn: async () => {
-      const { data } = await API.get<IUserProtectedResponse>(`${API_USERS}?${queryString}`);
-      return data;
+      const { data } = await API.get<{ data: IUserProtectedResponse[] }>(
+        `${API_USERS}?${queryString}`
+      );
+      return data.data[0];
     },
     refetchOnMount: false,
     refetchOnWindowFocus: false,

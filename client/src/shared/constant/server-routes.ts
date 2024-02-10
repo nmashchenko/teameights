@@ -5,6 +5,7 @@ export const API_EMAIL_CONFIRM = '/auth/email/confirm';
 export const API_FORGOT_PASSWORD = '/auth/forgot/password';
 export const API_RESET_PASSWORD = '/auth/reset/password';
 export const API_ME = '/auth/me';
+export const API_FRIENDSHIP = '/friendship';
 export const API_REFRESH = '/auth/refresh';
 export const API_LOGOUT = '/auth/logout';
 export const API_GOOGLE_LOGIN = '/auth/google/login';

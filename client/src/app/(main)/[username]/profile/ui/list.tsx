@@ -5,9 +5,12 @@ import { Star, Cake, MapPin, UserIcon } from '@/shared/assets';
 import { Row } from './row';
 import { Flex } from '@/shared/ui';
 import { calculateAge } from '@/shared/lib';
+import { useParams } from 'next/navigation';
+import { useGetUserByName } from '../lib/useGetUserByName';
 
 export const List = () => {
-  const { data: user } = useGetMe();
+  const { username } = useParams();
+  const { data: user } = useGetUserByName(username as string);
 
   let age = '';
   if (user?.dateOfBirth) {

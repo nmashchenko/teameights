@@ -1,4 +1,3 @@
-import { useGetMe } from '@/entities/session';
 import { Card } from './card';
 import { Flex, Typography } from '@/shared/ui';
 import { useState } from 'react';
@@ -6,10 +5,7 @@ import styles from './fields.module.scss';
 import { Skills } from './fields/skills';
 import { WorkExperience } from './fields/work-experience';
 import { Education } from './fields/education';
-
 export const Fields = () => {
-  const { data: user } = useGetMe();
-
   const [field, setField] = useState('Skills');
 
   const fields = {

@@ -1,14 +1,13 @@
 import { useGetMe } from '@/entities/session';
 import { BadgeIcon, BadgeText, Flex, Typography } from '@/shared/ui';
 import { useState } from 'react';
-import styles from './fields.module.scss';
 
 export const Education = () => {
   const { data: user } = useGetMe();
   const universities = user?.universities;
   if (!universities) return <Typography>No information</Typography>;
   return (
-    <Flex className={styles.work_experience} gap='24px' direction='column'>
+    <Flex gap='24px' direction='column'>
       {universities.map((education, i) => {
         const start = new Date(education.admissionDate).getFullYear();
         const end = education.graduationDate
