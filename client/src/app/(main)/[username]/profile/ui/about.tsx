@@ -15,10 +15,14 @@ export const About = () => {
   return (
     <Card style={{ width: '60%' }}>
       <Flex direction='column' gap='24px' height='100%'>
-        <Typography size={'heading_s'} color={'greenBright'}>About</Typography>
-        {!descPresent && <Typography size={'body_s'} color={'greyNormal'}>
-          No description added.
-        </Typography>}
+        <Typography size={'heading_s'} color={'greenBright'}>
+          About
+        </Typography>
+        {!descPresent && (
+          <Typography size={'body_s'} color={'greyNormal'}>
+            No description added.
+          </Typography>
+        )}
         <Flex flex={1}>
           {descPresent && <Typography size={'body_s'}>{user?.description}</Typography>}
         </Flex>
