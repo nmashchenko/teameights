@@ -1,0 +1,12 @@
+.selected {
+  border-bottom: 1px solid #5bd424;
+}
+
+.field_text {
+  transition: 0.3s;
+  transition-property: color;
+}
+
+.fields_container { 
+  min-height: 150px;
+}
