@@ -2,8 +2,7 @@
 import styles from './header.module.scss';
 import { useGetMe } from '@/entities/session';
 import { ChatCircleDotsIcon, PlusIcon, UserPlusIcon } from '@/shared/assets';
-import { Button, Flex, ImageLoader, Typography } from '@/shared/ui';
-import { Skeleton } from '@/shared/ui/skeleton/skeleton';
+import { Button, CardSkeleton, Flex, ImageLoader, Typography } from '@/shared/ui';
 import { useParams } from 'next/navigation';
 import { useGetUserByName } from '../lib/useGetUserByName';
 import { useContext } from 'react';
@@ -14,10 +13,10 @@ export const Header = () => {
   const { data: me } = useGetMe();
   const { data: user } = useGetUserByName(username as string);
   const isMyProfile = useContext(ProfileContext);
-  const { mutate: addFriend } = useAddFriend(String(me.id), String(user!.id));
+  const { mutate: addFriend } = useAddFriend(String(me?.id), String(user!.id));
 
   if (!user || !me) {
-    return <Skeleton width={'100%'} height={'248px'} borderRadius={'15px'} />;
+    return <CardSkeleton width={'100%'} height={'248px'} borderRadius={15} />;
   }
 
   let interactions = (

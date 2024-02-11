@@ -19,6 +19,7 @@ export const ReactQueryProvider: FC<QueryClientProviderProps> = ({
       new QueryClient({
         queryCache: new QueryCache({
           onError: (error, query) => {
+            console.log(error, query);
             // 🎉 only show error toasts if we already have data in the cache
             // which indicates a failed background update
             console.log(query.state);

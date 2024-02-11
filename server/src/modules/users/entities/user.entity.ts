@@ -100,11 +100,8 @@ export class User extends EntityHelper {
   @Index()
   country?: string | null;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
   dateOfBirth?: Date | null;
-
-  @Column({ type: String, nullable: true })
-  speciality?: string | null;
 
   @Column({ type: String, nullable: true })
   description?: string | null;

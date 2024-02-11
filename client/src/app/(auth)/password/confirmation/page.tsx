@@ -1,5 +1,5 @@
 'use client';
-import { IllustrationStatus } from '../../ui';
+import { IllustrationStatus } from '../../../ui';
 import { useRouter } from 'next/navigation';
 
 export default function Confirmation() {

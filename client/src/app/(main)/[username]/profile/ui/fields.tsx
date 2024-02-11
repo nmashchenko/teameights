@@ -34,7 +34,8 @@ export const Fields = () => {
             );
           })}
         </Flex>
-        {fields[field]}
+        {/*хз че это но поправить*/}
+        {/*{fields[field]}*/}
       </Flex>
     </Card>
   );

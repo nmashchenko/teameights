@@ -29,5 +29,5 @@ export const useSocketConnection = (user?: IUserProtectedResponse) => {
       socket.off(`notification-${user.id}`, handleNotification);
       socket.disconnect();
     };
-  }, [user]);
+  }, [user, queryClient]);
 };

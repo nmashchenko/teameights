@@ -35,23 +35,21 @@ export const Skills = () => {
 
   return (
     <Flex gap='24px' direction='column'>
-      {user?.skills &&
-        Object.entries(skills).map(skill => {
-          const skillName = skill[0] as keyof typeof skills;
-          const Badge = skills[skillName].Badge;
-          return (
-            <Flex key={skillName} direction='column' gap='8px'>
-              <Typography>{skills[skillName].title}</Typography>
-              {user?.skills[skillName] && (
-                <Flex gap='8px'>
-                  {user!.skills[skillName].map((lang: string) => (
-                    <Badge key={lang} data={lang} />
-                  ))}
-                </Flex>
-              )}
-            </Flex>
-          );
-        })}
+      {/*tODO: ромчик тут надо что то по умнее придумать так как щас coreTools/additionalTools*/}
+
+      {/*{user?.skills &&*/}
+      {/*  Object.entries(skills).map(skill => {*/}
+      {/*    const skillName = skill[0] as keyof typeof skills;*/}
+      {/*    const Badge = skills[skillName].Badge;*/}
+      {/*    return (*/}
+      {/*      <Flex key={skillName} direction='column' gap='8px'>*/}
+      {/*        <Typography>{skills[skillName].title}</Typography>*/}
+      {/*        <Flex gap='8px'>*/}
+      {/*          {user?.skills?.coreTools.map((lang: string) => <Badge key={lang} data={lang} />)}*/}
+      {/*        </Flex>*/}
+      {/*      </Flex>*/}
+      {/*    );*/}
+      {/*  })}*/}
     </Flex>
   );
 };

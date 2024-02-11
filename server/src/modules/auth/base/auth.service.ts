@@ -24,6 +24,7 @@ import { JwtRefreshPayloadType } from './strategies/types/jwt-refresh-payload.ty
 import { Session } from 'src/modules/session/entities/session.entity';
 import { JwtPayloadType } from './strategies/types/jwt-payload.type';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { FilesService } from '../../files/files.service';
 
 @Injectable()
 export class AuthService {
@@ -33,6 +34,7 @@ export class AuthService {
     private sessionService: SessionService,
     private mailService: MailService,
     private notificationsService: NotificationsService,
+    private filesService: FilesService,
     private configService: ConfigService<AllConfigType>
   ) {}
 
@@ -137,6 +139,8 @@ export class AuthService {
         id: StatusEnum.active,
       });
 
+      const photo = await this.filesService.assignRandomUserImage();
+
       const fullName =
         socialData.firstName || socialData.lastName
           ? (socialData.firstName ?? '') + ' ' + (socialData.lastName ?? '')
@@ -149,6 +153,7 @@ export class AuthService {
         provider: authProvider,
         role,
         status,
+        photo: photo,
       });
 
       await this.sendWelcomeNotification(user);
@@ -193,6 +198,8 @@ export class AuthService {
   }
 
   async register(dto: AuthRegisterLoginDto): Promise<void> {
+    const photo = await this.filesService.assignRandomUserImage();
+
     const user = await this.usersService.create({
       ...dto,
       email: dto.email,
@@ -202,6 +209,7 @@ export class AuthService {
       status: {
         id: StatusEnum.inactive,
       } as Status,
+      photo: photo,
     });
 
     const hash = await this.jwtService.signAsync(
@@ -388,9 +396,6 @@ export class AuthService {
         HttpStatus.UNPROCESSABLE_ENTITY
       );
     }
-
-    // TODO: add support for checking if user speciality is designer
-    // and updating fields are designer fields
 
     await this.sessionService.softDelete({
       user: {

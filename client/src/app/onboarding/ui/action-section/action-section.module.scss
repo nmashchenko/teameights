@@ -3,7 +3,7 @@
   background: var(--cards-color);
   padding: 48px 55px;
 
-  @media (width <= 768px) {
+  @media (width <= 981px){
     padding: 36px 30px;
     flex-basis: 100%;
   }
@@ -17,8 +17,25 @@
   }
 }
 
-.button {
-  padding: 0 16px;
-  width: 170px;
+.title {
+  @media(max-width: 430px) {
+    font-size: 24px;
+  }
 }
 
+.buttons_container {
+  @media (max-width: 350px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.button {
+  width: 170px;
+  @media (max-width: 430px) {
+    width: 152px;
+  }
+  @media (max-width: 350px) {
+    width: 100%;
+  }
+}

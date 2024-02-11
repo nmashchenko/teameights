@@ -2,10 +2,10 @@ import { useGetMe } from '@/entities/session';
 import { Flex, Typography } from '@/shared/ui';
 export const WorkExperience = () => {
   const { data: user } = useGetMe();
-  const jobs = user.jobs;
+  const jobs = user?.jobs;
   return (
     <Flex gap='24px' direction='column'>
-      {jobs.map((job, i: number) => {
+      {jobs?.map((job, i: number) => {
         const start = new Date(job.startDate).getFullYear();
         const end = job.endDate ? new Date(job.endDate).getFullYear() : 'Present';
         return (

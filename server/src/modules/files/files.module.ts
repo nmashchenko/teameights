@@ -45,7 +45,7 @@ import { AllConfigType } from 'src/config/config.type';
               bucket: configService.getOrThrow('file.awsDefaultS3Bucket', {
                 infer: true,
               }),
-              acl: 'public-read',
+              // acl: 'public-read',
               contentType: multerS3.AUTO_CONTENT_TYPE,
               key: (request, file, callback) => {
                 callback(
@@ -85,6 +85,7 @@ import { AllConfigType } from 'src/config/config.type';
     }),
   ],
   controllers: [FilesController],
-  providers: [ConfigModule, ConfigService, FilesService],
+  providers: [ConfigModule, ConfigService, FilesService, S3Client],
+  exports: [FilesService],
 })
 export class FilesModule {}
