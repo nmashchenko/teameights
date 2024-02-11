@@ -1,25 +1,7 @@
 import { Typography } from '@/shared/ui';
+import { Message } from "../../types/IMessage"
 import styles from './Message.module.scss';
 import Image from 'next/image';
-
-interface usersThatReadMessage {
-  userId: boolean;
-}
-
-interface User {
-  // TODO: get right data from server when Aleksander finish his part of work.
-}
-
-interface Message {
-  senderId: string;
-  receivers: Array<User>; // Main data of receivers. TODO: Find right props for it without useless data in it
-  groupId?: string;
-  isMessageRead: Array<usersThatReadMessage>;
-  text: string;
-  fileId?: string;
-  isThisMessageMine: boolean;
-  timestamp: string;
-}
 
 export function Message({
   senderId,

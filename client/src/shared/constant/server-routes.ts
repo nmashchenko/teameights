@@ -12,3 +12,4 @@ export const API_GITHUB_LOGIN = '/auth/github/login';
 export const API_USERS = '/users';
 
 export const API_NOTIFICATIONS = '/notifications';
+export const API_MESSAGES = '/chat/message/filter'
