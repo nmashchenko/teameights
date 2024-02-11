@@ -1,40 +1,37 @@
-import { BadgeIcon, BadgeText, Flex, Typography } from '@/shared/ui';
-import { useGetUserByName } from '@/app/(main)/[username]/profile/lib/useGetUserByName';
-import { useParams } from 'next/navigation';
+import { Flex } from '@/shared/ui';
 
 export const Skills = () => {
-  const { username } = useParams();
-  const { data: user } = useGetUserByName(username as string);
 
-  const skills = {
-    programmingLanguages: {
-      Badge: BadgeIcon,
-      title: 'Programming Languages',
-    },
-    frameworks: {
-      Badge: BadgeText,
-      title: 'Frameworks',
-    },
-    fields: {
-      Badge: BadgeText,
-      title: 'Fields',
-    },
-    designerTools: {
-      Badge: BadgeIcon,
-      title: 'Fields',
-    },
-    projectManagerTools: {
-      Badge: BadgeIcon,
-      title: 'Tools',
-    },
-    methodologies: {
-      Badge: BadgeText,
-      title: 'Methodologies',
-    },
-  };
+  // const skills = {
+  //   programmingLanguages: {
+  //     Badge: BadgeIcon,
+  //     title: 'Programming Languages',
+  //   },
+  //   frameworks: {
+  //     Badge: BadgeText,
+  //     title: 'Frameworks',
+  //   },
+  //   fields: {
+  //     Badge: BadgeText,
+  //     title: 'Fields',
+  //   },
+  //   designerTools: {
+  //     Badge: BadgeIcon,
+  //     title: 'Fields',
+  //   },
+  //   projectManagerTools: {
+  //     Badge: BadgeIcon,
+  //     title: 'Tools',
+  //   },
+  //   methodologies: {
+  //     Badge: BadgeText,
+  //     title: 'Methodologies',
+  //   },
+  // };
 
   return (
     <Flex gap='24px' direction='column'>
+      Temp fix
       {/*tODO: ромчик тут надо что то по умнее придумать так как щас coreTools/additionalTools*/}
 
       {/*{user?.skills &&*/}

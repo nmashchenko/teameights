@@ -1,4 +1,3 @@
-import { useGetMe } from '@/entities/session';
 import { Card } from './card';
 import { Star, Cake, MapPin, UserIcon } from '@/shared/assets';
 // import { Row } from '@/app/(main)/user/[username]/profile/ui/row';

@@ -1,6 +1,6 @@
 'use client';
 import styles from './layout.module.scss';
-import { useGetMe, useGetUsers } from '@/entities/session';
+import { useGetMe } from '@/entities/session';
 import { Header } from './ui/header';
 import { CardSkeleton, Flex, Typography } from '@/shared/ui';
 import { List } from './ui/list';

@@ -1,6 +1,5 @@
 import { useGetMe } from '@/entities/session';
-import { BadgeIcon, BadgeText, Flex, Typography } from '@/shared/ui';
-import { useState } from 'react';
+import { Flex, Typography } from '@/shared/ui';
 
 export const Education = () => {
   const { data: user } = useGetMe();

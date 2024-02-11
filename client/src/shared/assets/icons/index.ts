@@ -1,7 +1,3 @@
-import { GithubIcon } from './github-icon';
-import { BehanceIcon } from './behance';
-import { LinkedinIcon } from './linkedin';
-import { TelegramIcon } from './telegram';
 export { Star } from './star';
 export { Cake } from './cake';
 export { MapPin } from './map-pin';
