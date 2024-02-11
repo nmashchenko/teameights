@@ -20,4 +20,11 @@
     opacity: .7;
     transition: .3s;
   }
+  @media (max-width: 1127px) {
+    left: 0;
+  }
+  @media (max-width: 790px) {
+    right: 0;
+    left: unset;
+  }
 }
