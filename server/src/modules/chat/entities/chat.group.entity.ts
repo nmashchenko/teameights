@@ -13,7 +13,6 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
-import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 import { ChatGroupRoles, ChatGroupPermissions } from '../enums/chat.enum';
 import { ChatGroupRolesDefault } from '../interfaces/chat.interface';
 import { Message } from './message.entity';
@@ -69,4 +68,7 @@ export class ChatGroup extends EntityHelper {
 
   @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt: Date;
+
+  //visibility: ChatgroupVisibility;
+  //type: ChatgroupType;
 }

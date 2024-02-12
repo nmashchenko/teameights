@@ -26,4 +26,6 @@ export class Chat extends EntityHelper {
   @ManyToMany(() => Message, message => message.receivers)
   @JoinTable()
   receivedMessages: Message[];
+
+  //referencedMessages
 }

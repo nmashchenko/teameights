@@ -13,14 +13,12 @@ import { inspect } from 'util';
 import { WebSocketJwtAuthMiddleware, AuthSocket } from '../auth/base/auth.socket';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { Message } from './entities/message.entity';
-import { ChatGroupRoles, ChatSocketEvents } from './enums/chat.enum';
+import { ChatSocketEvents } from './enums/chat.enum';
 import { MessageService } from './message/message.service';
 import { WebsocketAllExceptionsFilter } from 'src/utils/websocket-exceprion-filter';
 import { NestGateway } from '@nestjs/websockets/interfaces/nest-gateway.interface';
 import { ChatGroup } from './entities/chat.group.entity';
 import { ChatGroupService } from './chatgroup/chat.group.service';
-import { title } from 'process';
-import { ChatGroupRoomClient } from './interfaces/chat.interface';
 
 @UsePipes(new ValidationPipe({ transform: true }))
 @UseFilters(WebsocketAllExceptionsFilter)

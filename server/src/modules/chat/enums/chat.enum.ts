@@ -1,9 +1,3 @@
-import { HttpException, UnprocessableEntityException } from '@nestjs/common';
-import { ClassConstructor } from 'class-transformer';
-import { UUID } from 'crypto';
-import { Exception } from 'handlebars';
-import { Field } from 'multer';
-
 export enum ChatGroupRoles {
   OWNER = 'owner',
   MEMBER = 'member',
@@ -28,4 +22,24 @@ export enum ChatSocketEvents {
   PATCH_MESSAGE = 'message:patch',
 
   DEBUG_CHAT = 'chat:debug',
+}
+
+export enum MessageType {
+  FORWARD, //refeferenced
+  REPLY, //responsed
+  DELETED_ALL,
+  DELETED_ME,
+  DEFAULT,
+  WELCOME,
+}
+
+export enum ChatgroupType {
+  DIALOG,
+  GROUP,
+  CHANNEL,
+}
+
+export enum ChatgroupVisibility {
+  PUBLIC,
+  PRIVATE,
 }

@@ -1,16 +1,16 @@
 import { io, Socket } from 'socket.io-client';
 
-class SocketSingleton {
+export class SocketSingleton {
   private static instance: Socket | null = null;
 
   private constructor() {
     // Private constructor to prevent instantiation
   }
 
-  public static getInstance(): Socket {
+  public static getInstance(namespace: string): Socket {
     if (!this.instance) {
       // Create a new socket instance if it doesn't exist
-      this.instance = io('ws://localhost:3001', {
+      this.instance = io(`ws://localhost:3001/${namespace}`, {
         autoConnect: false,
       });
     }
@@ -18,4 +18,4 @@ class SocketSingleton {
   }
 }
 
-export const socket = SocketSingleton.getInstance();
+export const socket = SocketSingleton.getInstance('notifications');
