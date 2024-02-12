@@ -1,33 +1,31 @@
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { IUserProtectedResponse } from '@teameights/types';
-import { socket } from '@/shared/api/socket';
+import { socketManager } from '@/shared/api/socket';
 
-export const useSocketConnection = (user?: IUserProtectedResponse) => {
+export const useSocketListenNotifications = (user?: IUserProtectedResponse) => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
-    socket.connect();
+    const socket = socketManager.socket('/notifications');
 
-    socket.on('connect', () => {
-      console.log('Connected to WebSocket server');
-    });
+    socket.connect()
 
     const handleNotification = () => {
       queryClient.invalidateQueries({ queryKey: ['useGetNotifications'] });
     };
 
-    socket.on(`notification-${user.id}`, handleNotification);
+    socket.on(`notifications:get`, handleNotification);
 
-    // Cleanup socket listeners when the component unmounts
+    socket.on('connect_error', (error: Error)=>{
+      console.error(`${error}`)
+    })
+
     return () => {
-      console.log('Disconnecting from WebSocket server...');
-      socket.off(`notification-${user.id}`, handleNotification);
+      socket.off(`notification:get`, handleNotification);
       socket.disconnect();
     };
   }, [user, queryClient]);
-};
+}

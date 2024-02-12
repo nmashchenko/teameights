@@ -15,7 +15,7 @@ import { NestGateway } from '@nestjs/websockets/interfaces/nest-gateway.interfac
 @UsePipes(new ValidationPipe({ transform: true }))
 @WebSocketGateway({
   namespace: 'notifications',
-  transports: ['websocket'],
+  transports: ['websocket', 'polling'],
   cors: {
     origin: '*',
   },
