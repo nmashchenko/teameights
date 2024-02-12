@@ -1,6 +1,10 @@
 /.idea
 /.vscode
 
+/node_modules
+
+.turbo
+
 .yarn/*
 !.yarn/patches
 !.yarn/releases
