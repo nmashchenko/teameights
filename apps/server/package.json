@@ -1,5 +1,5 @@
 {
-  "name": "teameights-server",
+  "name": "@teameights/server",
   "version": "0.0.1",
   "description": "Built with typeorm, postgresql, passportjs, nestjs, swagger, docker, i18n",
   "author": "Nikita Mashchenko <mashchenko1@icloud.com> (https://mashchenko.tech)",
@@ -21,7 +21,7 @@
     "build": "rimraf dist && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "start:both": "concurrently \" nest start --watch \" \" yarn client \"",

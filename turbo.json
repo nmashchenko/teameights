@@ -24,9 +24,9 @@
       "cache": false
     },
     "lint": {},
+    "migration:run": {},
     "dev": {
-      "cache": false,
-      "persistent": true
+      "dependsOn": ["migration:run"]
     }
   }
 }

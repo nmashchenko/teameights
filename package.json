@@ -9,7 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --parallel",
     "test:integration": "turbo run test:integration",
     "test:unit": "turbo run test:unit",
     "lint": "eslint packages/",
