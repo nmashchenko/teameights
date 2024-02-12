@@ -13,6 +13,9 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  ManyToMany,
+  JoinTable,
+  AfterInsert,
 } from 'typeorm';
 import { Role } from 'src/libs/database/metadata/roles/entities/role.entity';
 import { Status } from 'src/libs/database/metadata/statuses/entities/status.entity';
@@ -27,6 +30,7 @@ import { Projects } from './projects.entity';
 import { Links } from './links.entity';
 import { Skills } from './skills.entity';
 import { Notification } from '../../notifications/entities/notification.entity';
+import { Chat } from 'src/modules/chat/entities/chat.user.entity';
 
 @Entity()
 export class User extends EntityHelper {
@@ -99,11 +103,8 @@ export class User extends EntityHelper {
   @Index()
   country?: string | null;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'timestamptz', nullable: true })
   dateOfBirth?: Date | null;
-
-  @Column({ type: String, nullable: true })
-  speciality?: string | null;
 
   @Column({ type: String, nullable: true })
   description?: string | null;
@@ -139,6 +140,16 @@ export class User extends EntityHelper {
   @OneToOne(() => Links, { eager: true, cascade: true })
   @JoinColumn()
   links?: Links;
+
+  @OneToOne(() => Chat, { eager: true, cascade: true })
+  @JoinColumn()
+  chat: Chat;
+
+  @BeforeInsert()
+  private async createChat() {
+    this.chat = new Chat();
+    await this.chat.save();
+  }
 
   @Exclude({ toPlainOnly: true })
   @OneToMany(() => Notification, notifications => notifications.receiver)

@@ -1,22 +1,86 @@
 'use client';
-
-import { Typography } from '@/shared/ui';
-import { useGetScreenWidth } from '@/shared/lib';
+import { Flex, SearchBar } from '@/shared/ui';
+import { countries } from '@/shared/constant';
+import { LogoBig } from '@/shared/assets';
+import { useGetUsers } from '@/entities/session';
+import { useState } from 'react';
+import { Cards } from '@/app/(main)/ui/cards/cards';
+import styles from './layout.module.scss';
+import { UserInfoModal } from '@/widgets';
+import { IUserResponse } from '@teameights/types';
+import { specialities } from '@/shared/constant/specialities';
+import { focusesValues } from '@/shared/constant/focuses';
 
 export default function Home() {
-  const width = useGetScreenWidth();
+  const [filters, setFilters] = useState<string | null>();
+  const { fetchNextPage, hasNextPage, isFetchingNextPage, data, ...result } = useGetUsers(filters);
+  const [open, setOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<IUserResponse>();
+
+  const handleModalOpen = (user: IUserResponse) => {
+    setSelectedUser(user);
+    setOpen(true);
+  };
 
   return (
     <>
-      <Typography size='heading_l' variant='h6'>
-        We are working hard to deliver teameights on NextJS/TS soon!
-      </Typography>
-
-      <div> The screen width is: {width} </div>
-
-      <a href='/login' style={{ color: 'green' }}>
-        Get to login
-      </a>
+      <UserInfoModal isOpenModal={open} handleClose={() => setOpen(false)} user={selectedUser} />
+      <Flex
+        gap={48}
+        direction='column'
+        width='100%'
+        justify='center'
+        align='center'
+        className={styles.content_zone}
+      >
+        <LogoBig />
+        <SearchBar
+          initialFiltersState={[
+            {
+              type: 'text',
+              label: 'Name',
+              value: 'fullName',
+              placeholder: 'Search by name',
+              filterValue: '',
+            },
+            {
+              label: 'Countries',
+              value: 'countries',
+              type: 'checkbox',
+              placeholder: 'Search by countries',
+              optionsArr: countries,
+              filterValue: [],
+            },
+            {
+              label: 'Specialties',
+              value: 'specialities',
+              type: 'checkbox',
+              placeholder: 'Search by specialty',
+              optionsArr: specialities,
+              filterValue: [],
+            },
+            {
+              label: 'Focuses',
+              value: 'focuses',
+              type: 'checkbox',
+              placeholder: 'Search by focus',
+              optionsArr: focusesValues,
+              filterValue: [],
+            },
+          ]}
+          onChange={filterValues => {
+            setFilters(filterValues);
+          }}
+        />
+      </Flex>
+      <Cards
+        onCardClick={handleModalOpen}
+        data={data}
+        isLoading={result.isLoading}
+        isFetchingNextPage={isFetchingNextPage}
+        hasNextPage={hasNextPage}
+        fetchNextPage={fetchNextPage}
+      />
     </>
   );
 }

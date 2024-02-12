@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
 import { IPaginationOptions } from 'src/utils/types/pagination-options';
-import { ArrayOverlap, DeepPartial, FindOptionsWhere, In, Like, Repository } from 'typeorm';
+import { ArrayOverlap, DeepPartial, FindOptionsWhere, ILike, In, Like, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { NullableType } from 'src/utils/types/nullable.type';
@@ -31,23 +31,19 @@ export class UsersService {
     const where: FindOptionsWhere<User> = {};
 
     if (filterOptions) {
-      where.fullName = filterOptions?.fullName && Like(`%${filterOptions.fullName}%`);
-      where.username = filterOptions?.username && Like(`%${filterOptions.username}%`);
+      where.fullName = filterOptions?.fullName && ILike(`%${filterOptions.fullName}%`);
+      where.username = filterOptions?.username && ILike(`%${filterOptions.username}%`);
       where.isLeader = filterOptions?.isLeader && filterOptions.isLeader;
 
       where.country = filterOptions?.countries && In(filterOptions.countries);
-      where.speciality = filterOptions?.specialities && In(filterOptions.specialities);
       where.experience = filterOptions?.experience && Like(`%${filterOptions.experience}%`);
 
       where.skills = {
-        programmingLanguages:
-          filterOptions?.programmingLanguages && ArrayOverlap(filterOptions.programmingLanguages),
-        frameworks: filterOptions?.frameworks && ArrayOverlap(filterOptions.frameworks),
-        designerTools: filterOptions?.designerTools && ArrayOverlap(filterOptions.designerTools),
-        projectManagerTools:
-          filterOptions?.projectManagerTools && ArrayOverlap(filterOptions.projectManagerTools),
-        fields: filterOptions?.fields && ArrayOverlap(filterOptions.fields),
-        methodologies: filterOptions?.methodologies && ArrayOverlap(filterOptions.methodologies),
+        speciality: filterOptions?.specialities && In(filterOptions.specialities),
+        focus: filterOptions?.focuses && In(filterOptions.focuses),
+        coreTools: filterOptions?.coreTools && ArrayOverlap(filterOptions.coreTools),
+        additionalTools:
+          filterOptions?.additionalTools && ArrayOverlap(filterOptions.additionalTools),
       };
     }
 
@@ -69,6 +65,13 @@ export class UsersService {
     return this.usersRepository.findOne({
       where: fields,
     });
+  }
+
+  findMany(fields: EntityCondition<User>): Promise<User[]> {
+    return this.usersRepository.find({
+      where: fields,
+    });
+    this.usersRepository.find
   }
 
   update(id: User['id'], payload: DeepPartial<User>): Promise<User> {

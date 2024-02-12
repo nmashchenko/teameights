@@ -15,40 +15,22 @@ const meta: Meta<typeof UserPhone> = {
 export default meta;
 
 export const InfoModalUser_desktop = () => {
-  const [openDesigner, setOpenDesigner] = useState(false);
-  const [openDev, setOpenDev] = useState(false);
-  const [openPM, setOpenPM] = useState(false);
+  const [modal, setModal] = useState(false);
 
-  const [designer, setDesigner] = useState<IUserBase>();
-  const [developer, setDeveloper] = useState<IUserBase>();
-  const [pm, setPM] = useState<IUserBase>();
+  const [user, setUser] = useState<IUserBase>();
 
   useEffect(() => {
-    setDesigner(generateMockUser('designer'));
-    setDeveloper(generateMockUser());
-    setPM(generateMockUser('pm'));
+    setUser(generateMockUser());
   }, []);
 
   return (
     <div style={{ height: '100vh' }}>
       <Flex gap={8}>
-        <Button typeBtn='primary' size='m' color='white' onClick={() => setOpenDev(true)}>
-          Open Developer Modal
-        </Button>
-        <Button typeBtn='primary' size='m' color='white' onClick={() => setOpenDesigner(true)}>
-          Open Designer Modal
-        </Button>
-        <Button typeBtn='primary' size='m' color='white' onClick={() => setOpenPM(true)}>
-          Open PM Modal
+        <Button typeBtn='primary' size='m' color='white' onClick={() => setModal(true)}>
+          Open Modal
         </Button>
       </Flex>
-      <UserPhone user={developer} isOpenModal={openDev} handleClose={() => setOpenDev(false)} />
-      <UserPhone
-        user={designer}
-        isOpenModal={openDesigner}
-        handleClose={() => setOpenDesigner(false)}
-      />
-      <UserPhone user={pm} isOpenModal={openPM} handleClose={() => setOpenPM(false)} />
+      <UserPhone user={user} isOpenModal={modal} handleClose={() => setModal(false)} />
     </div>
   );
 };

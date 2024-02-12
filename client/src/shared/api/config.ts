@@ -4,9 +4,7 @@ import Cookies from 'js-cookie';
 
 // * API url is set based on current DEV_TYPE var
 const LOCAL_PATH =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3001'
-    : 'https://teameights-server.herokuapp.com';
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'http://localhost:3001';
 
 export const API_URL = LOCAL_PATH + '/api/v1';
 
