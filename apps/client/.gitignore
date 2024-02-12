@@ -8,6 +8,8 @@ node_modules
 /.pnp
 .pnp.js
 
+.turbo
+
 # testing
 /coverage
 
@@ -37,7 +39,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# yarn 
+# yarn
 .pnp.*
 .yarn/*
 !.yarn/patches

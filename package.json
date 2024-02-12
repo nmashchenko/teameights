@@ -1,5 +1,26 @@
 {
+  "name": "@teameights/monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "dev": "turbo run dev",
+    "test:integration": "turbo run test:integration",
+    "test:unit": "turbo run test:unit",
+    "lint": "eslint packages/",
+    "prettier": "prettier --write ."
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "dependencies": {
     "@teameights/types": "^1.1.11"
-  }
+  },
+  "packageManager": "yarn@4.1.0"
 }

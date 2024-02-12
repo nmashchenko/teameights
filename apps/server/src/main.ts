@@ -12,6 +12,8 @@ async function bootstrap() {
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   const configService = app.get(ConfigService<AllConfigType>);
 
+  // some code
+  console.log('@yml');
   app.enableShutdownHooks();
   app.setGlobalPrefix(configService.getOrThrow('app.apiPrefix', { infer: true }), {
     exclude: ['/'],
