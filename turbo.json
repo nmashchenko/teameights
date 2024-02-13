@@ -14,7 +14,8 @@
      "dependsOn": ["^lint"]
     },
     "dev": {
-      "dependsOn": ["migration:run"]
+      "cache": false,
+      "dependsOn": ["migration:run", "storybook"]
     }
   }
 }
