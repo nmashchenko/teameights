@@ -17,7 +17,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <div className={styles.container}>
       <Sidebar user={user} notifications={notifications} />
       <div className={styles.children}>
-        <div>12112asd3 nikita</div>
         {children}
       </div>
     </div>
