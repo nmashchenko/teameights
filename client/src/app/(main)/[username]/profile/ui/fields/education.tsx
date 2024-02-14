@@ -1,8 +1,10 @@
-import { useGetMe } from '@/entities/session';
 import { Flex, Typography } from '@/shared/ui';
+import { useParams } from 'next/navigation';
+import { useGetUserByName } from '../../lib/useGetUserByName';
 
 export const Education = () => {
-  const { data: user } = useGetMe();
+  const { username } = useParams();
+  const { data: user } = useGetUserByName(username as string);
   const universities = user?.universities;
   if (!universities) return <Typography>No information</Typography>;
   return (

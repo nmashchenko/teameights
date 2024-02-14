@@ -1,7 +1,9 @@
-import { useGetMe } from '@/entities/session';
 import { Flex, Typography } from '@/shared/ui';
+import { useParams } from 'next/navigation';
+import { useGetUserByName } from '../../lib/useGetUserByName';
 export const WorkExperience = () => {
-  const { data: user } = useGetMe();
+  const { username } = useParams();
+  const { data: user } = useGetUserByName(username as string);
   const jobs = user?.jobs;
   return (
     <Flex gap='24px' direction='column'>

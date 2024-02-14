@@ -20,12 +20,17 @@ export default function Layout() {
   const router = useRouter();
   const isMyProf = me?.username === username;
 
-  let body = <CardSkeleton borderRadius={15} width={'100%'} height={'227px'} />;
+  let body = (
+    <Flex direction='column' gap='30px'>
+      <CardSkeleton borderRadius={15} width={'100%'} height={'227px'} />
+      <CardSkeleton borderRadius={15} width={'100%'} height={'227px'} />
+    </Flex>
+  );
   if (user && me) {
     body = (
       <>
         <Header />
-        <Flex direction='column' gap='30px'>
+        <Flex padding='0 0 15px 0' direction='column' gap='30px'>
           <Flex gap='30px'>
             <List />
             <About />
