@@ -1,7 +1,6 @@
 import { Flex } from '@/shared/ui';
 
 export const Skills = () => {
-
   // const skills = {
   //   programmingLanguages: {
   //     Badge: BadgeIcon,
@@ -33,7 +32,6 @@ export const Skills = () => {
     <Flex gap='24px' direction='column'>
       Temp fix
       {/*tODO: ромчик тут надо что то по умнее придумать так как щас coreTools/additionalTools*/}
-
       {/*{user?.skills &&*/}
       {/*  Object.entries(skills).map(skill => {*/}
       {/*    const skillName = skill[0] as keyof typeof skills;*/}
