@@ -6,7 +6,7 @@ import { Skills } from './fields/skills';
 import { WorkExperience } from './fields/work-experience';
 import { Education } from './fields/education';
 export const Fields = () => {
-  const [field, setField] = useState('Skills');
+  const [field, setField] = useState<keyof typeof fields>('Skills');
 
   const fields = {
     Skills: <Skills />,
@@ -23,7 +23,11 @@ export const Fields = () => {
           {Object.keys(fields).map(key => {
             const classProps = field === key ? { className: styles.selected } : {};
             return (
-              <button onClick={() => setField(key)} {...classProps} key={key}>
+              <button
+                onClick={() => setField(key as keyof typeof fields)}
+                {...classProps}
+                key={key}
+              >
                 <Typography
                   className={styles.field_text}
                   color={field === key ? 'greenBright' : 'greyNormal'}
@@ -34,8 +38,7 @@ export const Fields = () => {
             );
           })}
         </Flex>
-        {/*хз че это но поправить*/}
-        {/*{fields[field]}*/}
+        {fields[field]}
       </Flex>
     </Card>
   );
