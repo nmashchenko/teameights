@@ -5,12 +5,15 @@ import { useGetUserByName } from '../lib/useGetUserByName';
 import { CardSkeleton, Flex, ImageLoader, Typography } from '@/shared/ui';
 import styles from './friends.module.scss';
 import { ArrowRightIcon } from '@/shared/assets';
+import { useState } from 'react';
+import { FriendsModal } from './friends-modal';
 
 export const Friends = () => {
   const { username } = useParams();
   const { data: user } = useGetUserByName(username as string);
   const { data: friends } = useGetFriends(user!.id);
   const friendshipList = friends?.data;
+  const [isFriendsModalOpen, setFriendsModal] = useState(false);
 
   if (!friends || !friendshipList) {
     return <CardSkeleton borderRadius={15} width={'40%'} height={'227px'} />;
@@ -30,12 +33,17 @@ export const Friends = () => {
     });
     friendsContainer = (
       <Flex direction='column'>
+        <FriendsModal
+          friendsList={friendsList}
+          isFriendsModalOpen={isFriendsModalOpen}
+          setFriendsModal={setFriendsModal}
+        />
         <Flex align='center' justify='space-between' margin='0 0 21px 0'>
           <Flex gap='5px'>
             <Typography size='body_m'>{friendshipList.length}</Typography>
             <Typography size='body_m'>{noun}</Typography>
           </Flex>
-          <button>
+          <button onClick={() => setFriendsModal(true)}>
             <Flex gap='6px' align='center'>
               <Typography size='body_m'>Show all</Typography>
               <ArrowRightIcon />

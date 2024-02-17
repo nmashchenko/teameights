@@ -22,3 +22,11 @@
 .friends_label {
   margin-left: 3px;
 }
+
+.friends_list {
+  overflow-y: scroll;
+}
+
+.friends_list_item:first-of-type {
+  padding-top: 10px;
+}
