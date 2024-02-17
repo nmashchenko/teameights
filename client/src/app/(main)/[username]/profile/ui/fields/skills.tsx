@@ -26,7 +26,7 @@ export const Skills = () => {
           return (
             <Flex key={skillName} direction='column' gap='8px'>
               <Typography>{skills[skillName].title}</Typography>
-              <Flex gap='8px'>
+              <Flex wrap='wrap' gap='8px'>
                 {user?.skills?.coreTools.map((lang: string) => <Badge key={lang} data={lang} />)}
               </Flex>
             </Flex>

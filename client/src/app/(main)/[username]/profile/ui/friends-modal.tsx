@@ -39,8 +39,8 @@ export const FriendsModal = ({
                     <Flex gap='4px' align='center'>
                       <Typography>{friend.username ?? 'usernamehey'}</Typography>
                       <ImageLoader
-                        width={24}
-                        height={16}
+                        width={16}
+                        height={10}
                         src={getCountryFlag(friend?.country) ?? '/images/placeholder.png'}
                         alt='User flag image'
                       />

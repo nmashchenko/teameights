@@ -45,7 +45,7 @@ export const Header = () => {
     <div className={styles.container}>
       <div className={styles.body}>
         <div className={styles.background}></div>
-        <div className={styles.header}>
+        <Flex align='end' justify='space-between' wrap='wrap' className={styles.header}>
           <div className={styles.profile}>
             <div className={styles.avatar}>
               <ImageLoader
@@ -66,7 +66,7 @@ export const Header = () => {
             </Flex>
           </div>
           {interactions}
-        </div>
+        </Flex>
       </div>
     </div>
   );

@@ -13,10 +13,8 @@
 .header {
   background: rgba(26, 28, 34, 1);
   padding: 24px 32px 32px 32px;
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  height: 118px;
+  min-height: 118px;
+  gap: 30px;
 
   .interactable {
     align-self: start;
@@ -27,8 +25,4 @@
   display: flex;
   align-items: end;
   gap: 24px;
-  .avatar {
-  .image {
-  }
-  }
 }

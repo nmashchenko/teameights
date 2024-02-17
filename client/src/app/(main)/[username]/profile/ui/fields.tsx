@@ -5,6 +5,7 @@ import styles from './fields.module.scss';
 import { Skills } from './fields/skills';
 import { WorkExperience } from './fields/work-experience';
 import { Education } from './fields/education';
+import layoutStyles from '../layout.module.scss';
 export const Fields = () => {
   const [field, setField] = useState<keyof typeof fields>('Skills');
 
@@ -17,9 +18,9 @@ export const Fields = () => {
   };
 
   return (
-    <Card style={{ width: '60%' }}>
+    <Card className={layoutStyles.lg_card}>
       <Flex direction='column' gap='24px' className={styles.fields_container}>
-        <Flex gap='16px'>
+        <Flex className={styles.nav_bar} gap='16px'>
           {Object.keys(fields).map(key => {
             const classProps = field === key ? { className: styles.selected } : {};
             return (

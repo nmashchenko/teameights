@@ -1,16 +1,15 @@
-import { type CSSProperties, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import styles from './card.module.scss';
+import clsx from 'clsx';
 
 interface CardProps {
   children: ReactNode;
-  style?: CSSProperties;
+  className?: string;
   borderRadius?: string;
 }
 
-export const Card = ({ children, style }: CardProps) => {
-  return (
-    <div style={style} className={styles.card}>
-      {children}
-    </div>
-  );
+export const Card = ({ children, className }: CardProps) => {
+  const cls = clsx(styles.card, className);
+  console.log(cls);
+  return <div className={cls}>{children}</div>;
 };

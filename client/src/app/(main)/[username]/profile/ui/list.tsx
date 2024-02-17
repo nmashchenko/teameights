@@ -5,6 +5,7 @@ import { Row } from './row';
 import { Flex } from '@/shared/ui';
 import { calculateAge } from '@/shared/lib';
 import { useParams } from 'next/navigation';
+import styles from '../layout.module.scss';
 import { useGetUserByName } from '../lib/useGetUserByName';
 
 export const List = () => {
@@ -17,7 +18,7 @@ export const List = () => {
   }
 
   return (
-    <Card style={{ width: '40%', gap: '18px' }}>
+    <Card className={styles.list_card}>
       <Flex direction='column' gap='16px'>
         <Row icon={<UserIcon />} text={user?.skills?.speciality ?? ''} />
         <Row icon={<Star />} text={user?.experience ?? ''} />

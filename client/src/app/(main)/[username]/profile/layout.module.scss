@@ -28,3 +28,26 @@
     left: unset;
   }
 }
+
+.profile_row {
+  @media (max-width: 1045px) {
+    flex-direction: column;
+    width: 100%;
+    & > div {
+      width: 100%;
+    }
+  }
+}
+
+.sm_card {
+  width: 40%;
+}
+
+.lg_card {
+  width: 60%;
+}
+
+.list_card {
+  width: 40%;
+  gap: 18px;
+}

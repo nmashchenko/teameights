@@ -31,11 +31,11 @@ export default function Layout() {
       <>
         <Header />
         <Flex padding='0 0 15px 0' direction='column' gap='30px'>
-          <Flex gap='30px'>
+          <Flex className={styles.profile_row} gap='30px'>
             <List />
             <About />
           </Flex>
-          <Flex gap='30px'>
+          <Flex className={styles.profile_row} gap='30px'>
             <Friends />
             <Fields />
           </Flex>

@@ -6,6 +6,7 @@ import { CardSkeleton, Flex, ImageLoader, Typography } from '@/shared/ui';
 import styles from './friends.module.scss';
 import { ArrowRightIcon } from '@/shared/assets';
 import { useState } from 'react';
+import layoutStyles from '../layout.module.scss';
 import { FriendsModal } from './friends-modal';
 
 export const Friends = () => {
@@ -73,7 +74,7 @@ export const Friends = () => {
     );
   }
   return (
-    <Card style={{ width: '40%' }}>
+    <Card className={layoutStyles.sm_card}>
       <Flex direction='column' gap='24px'>
         <Typography size={'heading_s'} color={'greenBright'}>
           Friends

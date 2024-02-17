@@ -6,6 +6,7 @@ import { TelegramIcon } from '@/shared/assets/icons/telegram';
 import { LinkedinIcon } from '@/shared/assets/icons/linkedin';
 import { useParams } from 'next/navigation';
 import { useGetUserByName } from '../lib/useGetUserByName';
+import styles from '../layout.module.scss';
 
 export const About = () => {
   const { username } = useParams();
@@ -14,7 +15,7 @@ export const About = () => {
   const linksPresent = user?.links && Object.keys(user.links).length;
   const descPresent = typeof user?.description === 'string';
   return (
-    <Card style={{ width: '60%' }}>
+    <Card className={styles.lg_card}>
       <Flex direction='column' gap='24px' height='100%'>
         <Typography size={'heading_s'} color={'greenBright'}>
           About
