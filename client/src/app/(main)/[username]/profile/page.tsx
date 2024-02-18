@@ -15,7 +15,6 @@ export default function Page() {
   const { data: me } = useGetMe();
   const { username } = useParams();
   const { data: user } = useGetUserByName(username as string);
-
   const isMyProf = me?.username === username;
 
   let body = (
@@ -24,7 +23,8 @@ export default function Page() {
       <CardSkeleton borderRadius={15} width={'100%'} height={'227px'} />
     </Flex>
   );
-  if (user && me) {
+
+  if (user) {
     body = (
       <>
         <Header />
