@@ -1,11 +1,11 @@
-import { Card } from './card';
+import { Card } from '../card/card';
 import { Flex, Typography } from '@/shared/ui';
 import { useState } from 'react';
 import styles from './fields.module.scss';
-import { Skills } from './fields/skills';
-import { WorkExperience } from './fields/work-experience';
-import { Education } from './fields/education';
-import layoutStyles from '../layout.module.scss';
+import { Skills } from './skills';
+import { WorkExperience } from './work-experience';
+import { Education } from './education';
+import layoutStyles from '../../layout.module.scss';
 export const Fields = () => {
   const [field, setField] = useState<keyof typeof fields>('Skills');
 

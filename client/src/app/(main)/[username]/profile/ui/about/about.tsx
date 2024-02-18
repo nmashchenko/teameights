@@ -1,12 +1,12 @@
-import { Card } from './card';
+import { Card } from '../card/card';
 import { Flex, Typography } from '@/shared/ui';
 import { GithubIcon } from '@/shared/assets/icons/github-icon';
 import { BehanceIcon } from '@/shared/assets/icons/behance';
 import { TelegramIcon } from '@/shared/assets/icons/telegram';
 import { LinkedinIcon } from '@/shared/assets/icons/linkedin';
 import { useParams } from 'next/navigation';
-import { useGetUserByName } from '../lib/useGetUserByName';
-import styles from '../layout.module.scss';
+import { useGetUserByName } from '../../lib/useGetUserByName';
+import styles from '../../layout.module.scss';
 
 export const About = () => {
   const { username } = useParams();

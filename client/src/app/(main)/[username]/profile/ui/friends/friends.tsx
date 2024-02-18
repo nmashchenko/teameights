@@ -1,12 +1,12 @@
 import { useGetFriends } from '@/entities/session';
-import { Card } from './card';
+import { Card } from '../card/card';
 import { useParams } from 'next/navigation';
-import { useGetUserByName } from '../lib/useGetUserByName';
+import { useGetUserByName } from '../../lib/useGetUserByName';
 import { CardSkeleton, Flex, ImageLoader, Typography } from '@/shared/ui';
 import styles from './friends.module.scss';
 import { ArrowRightIcon } from '@/shared/assets';
 import { useState } from 'react';
-import layoutStyles from '../layout.module.scss';
+import layoutStyles from '../../layout.module.scss';
 import { FriendsModal } from './friends-modal';
 
 export const Friends = () => {
