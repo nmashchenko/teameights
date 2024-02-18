@@ -28,7 +28,7 @@ export default function Page() {
     body = (
       <>
         <Header />
-        <Flex padding='0 0 15px 0' direction='column' gap='30px'>
+        <Flex padding='0 0 48px 0' direction='column' gap='30px'>
           <Flex className={styles.profile_row} gap='30px'>
             <List />
             <About />
