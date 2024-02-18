@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={styles.container}>
-      <Flex direction={'column'} width={'100%'} gap={'30px'} position='relative'>
+      <Flex direction={'column'} width={'100%'} gap={'30px'} >
         <button onClick={router.back} className={styles.back}>
           <ArrowLeftIcon />
           <Typography>Back</Typography>
