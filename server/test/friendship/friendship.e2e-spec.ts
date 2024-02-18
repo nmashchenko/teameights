@@ -1,11 +1,5 @@
 import request from 'supertest';
-import {
-  ADMIN_EMAIL,
-  ADMIN_PASSWORD,
-  APP_URL,
-  TESTER_EMAIL,
-  TESTER_PASSWORD,
-} from '../utils/constants';
+import { APP_URL, TESTER_EMAIL, TESTER_PASSWORD } from '../utils/constants';
 import { faker } from '@faker-js/faker';
 
 describe('Friendship (e2e)', () => {
@@ -17,7 +11,7 @@ describe('Friendship (e2e)', () => {
   let senderToken;
 
   beforeAll(async () => {
-    const userApiToken = await request(app)
+    await request(app)
       .post('/api/v1/auth/email/login')
       .send({ email: TESTER_EMAIL, password: TESTER_PASSWORD })
       .then(({ body }) => {
