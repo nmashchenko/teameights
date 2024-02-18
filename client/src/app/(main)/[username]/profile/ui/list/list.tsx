@@ -1,12 +1,12 @@
-import { Card } from './card';
+import { Card } from '../card/card';
 import { Star, Cake, MapPin, UserIcon } from '@/shared/assets';
 // import { Row } from '@/app/(main)/user/[username]/profile/ui/row';
-import { Row } from './row';
+import { Row } from '../row/row';
 import { Flex } from '@/shared/ui';
 import { calculateAge } from '@/shared/lib';
 import { useParams } from 'next/navigation';
-import styles from '../layout.module.scss';
-import { useGetUserByName } from '../lib/useGetUserByName';
+import styles from '../../layout.module.scss';
+import { useGetUserByName } from '../../lib/useGetUserByName';
 
 export const List = () => {
   const { username } = useParams();

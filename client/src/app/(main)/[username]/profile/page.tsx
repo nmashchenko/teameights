@@ -1,13 +1,13 @@
 'use client';
 import styles from './layout.module.scss';
 import { useGetMe } from '@/entities/session';
-import { Header } from './ui/header';
+import { Header } from './ui/header/header';
 import { CardSkeleton, Flex } from '@/shared/ui';
-import { List } from './ui/list';
-import { About } from './ui/about';
+import { List } from './ui/list/list';
+import { About } from './ui/about/about';
 import { useParams } from 'next/navigation';
-import { Friends } from './ui/friends';
-import { Fields } from './ui/fields';
+import { Friends } from './ui/friends/friends';
+import { Fields } from './ui/fields/fields';
 import { useGetUserByName } from './lib/useGetUserByName';
 import { ProfileContext } from './lib/profile-context';
 

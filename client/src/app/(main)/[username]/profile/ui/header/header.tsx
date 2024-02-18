@@ -4,7 +4,7 @@ import { useGetFriends, useGetMe } from '@/entities/session';
 import { ChatCircleDotsIcon, PlusIcon, UserPlusIcon } from '@/shared/assets';
 import { Button, CardSkeleton, Flex, ImageLoader, Typography } from '@/shared/ui';
 import { useParams } from 'next/navigation';
-import { useGetUserByName } from '../lib/useGetUserByName';
+import { useGetUserByName } from '../../lib/useGetUserByName';
 import { useContext } from 'react';
 import { ProfileContext } from '@/app/(main)/[username]/profile/lib/profile-context';
 import { useAddFriend } from '@/entities/session/api/useAddFriend';
