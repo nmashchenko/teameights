@@ -8,10 +8,7 @@ import { EntityCondition } from '../../utils/types/entity-condition.type';
 import { NullableType } from '../../utils/types/nullable.type';
 import { FriendshipCheckStatusTypes, FriendshipStatusTypes } from './types/friendship.types';
 import { UpdateStatusDto } from './dto/update-status.dto';
-import {
-  FriendRequestNotificationData,
-  NotificationStatusEnum,
-} from '../notifications/types/notification.type';
+import { NotificationStatusEnum } from '../notifications/types/notification.type';
 
 import { IPaginationOptions } from '../../utils/types/pagination-options';
 
