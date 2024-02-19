@@ -397,6 +397,18 @@ export class AuthService {
       );
     }
 
+    if (userDto.username && !this.isUsernameAllowed(userDto.username)) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            username: 'invalid',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
+
     await this.sessionService.softDelete({
       user: {
         id: currentUser.id,
@@ -409,6 +421,10 @@ export class AuthService {
     return this.usersService.findOne({
       id: userJwtPayload.id,
     });
+  }
+
+  private isUsernameAllowed(username: string) {
+    return /^[A-Za-z0-9]+$/.test(username);
   }
 
   async refreshToken(
