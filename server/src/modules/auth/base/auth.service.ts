@@ -389,6 +389,17 @@ export class AuthService {
       );
     }
 
+    if (userDto.username && !this.isUsernameAllowed(userDto.username)) {
+      throw new HttpException(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          errors: {
+            username: 'invalid',
+          },
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
+    }
     // TODO: add support for checking if user speciality is designer
     // and updating fields are designer fields
 
@@ -404,6 +415,10 @@ export class AuthService {
     return this.usersService.findOne({
       id: userJwtPayload.id,
     });
+  }
+
+  private isUsernameAllowed(username: string) {
+    return /^[A-Za-z0-9]+$/.test(username);
   }
 
   async refreshToken(
