@@ -78,6 +78,7 @@ export const Button = ({
   color = 'white',
   padding,
   loading = false,
+  type = 'button',
   ...rest
 }: ButtonProps) => {
   return (
@@ -97,6 +98,7 @@ export const Button = ({
         },
         [className]
       )}
+      type={type}
       {...rest}
     >
       {loading ? <DotPulse size={24} speed={1.3} color='white' /> : children}

@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  background: rgba(67, 71, 82);
+  flex-shrink: 0;
+}
+
+.background {
+  height: 130px;
+}
+
+.header {
+  background: rgba(26, 28, 34, 1);
+  padding: 24px 32px 32px 32px;
+  min-height: 118px;
+  gap: 30px;
+
+  .interactable {
+    align-self: start;
+  }
+}
+.profile {
+  margin-top: -44px;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+}

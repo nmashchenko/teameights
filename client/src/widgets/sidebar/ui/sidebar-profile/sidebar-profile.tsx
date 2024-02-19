@@ -77,7 +77,7 @@ export const SidebarProfile: React.FC<SidebarProfileProps> = props => {
   return (
     <div className={styles.userInfo}>
       <ImageLoader
-        src={data.userImg}
+        src={data.userImg ?? '/images/placeholder.png'}
         alt='Profile icon'
         width={32}
         height={32}

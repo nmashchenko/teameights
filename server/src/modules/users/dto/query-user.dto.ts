@@ -13,6 +13,12 @@ import { lowerCaseTransformer } from '../../../utils/transformers/lower-case.tra
 import { Speciality, specialityValues } from '../../../utils/types/specialities.type';
 import { Experience, experienceValues } from '../../../utils/types/experiences.type';
 import { User } from '../entities/user.entity';
+import {
+  designerValues,
+  developerValues,
+  Focus,
+  projectManagerValues,
+} from '../../../utils/types/focuses.type';
 
 export class SortUserDto {
   @ApiProperty()
@@ -55,6 +61,15 @@ export class FilterUserDto {
   @IsIn(specialityValues, { each: true })
   specialities?: Speciality[];
 
+  @ApiProperty({
+    type: [String],
+    enum: [...designerValues, ...projectManagerValues, ...developerValues],
+  })
+  @IsOptional()
+  @ArrayNotEmpty()
+  @IsIn([...designerValues, ...projectManagerValues, ...developerValues], { each: true })
+  focuses?: Focus[];
+
   @ApiProperty({ enum: experienceValues })
   @IsOptional()
   @IsNotEmpty({ message: 'mustBeNotEmpty' })
@@ -64,32 +79,12 @@ export class FilterUserDto {
   @ApiProperty()
   @IsOptional()
   @ArrayNotEmpty()
-  programmingLanguages?: string[];
+  coreTools?: string[];
 
   @ApiProperty()
   @IsOptional()
   @ArrayNotEmpty()
-  frameworks?: string[];
-
-  @ApiProperty()
-  @IsOptional()
-  @ArrayNotEmpty()
-  projectManagerTools?: string[];
-
-  @ApiProperty()
-  @IsOptional()
-  @ArrayNotEmpty()
-  designerTools?: string[];
-
-  @ApiProperty()
-  @IsOptional()
-  @ArrayNotEmpty()
-  fields?: string[];
-
-  @ApiProperty()
-  @IsOptional()
-  @ArrayNotEmpty()
-  methodologies?: string[];
+  additionalTools?: string[];
 }
 
 export class QueryUserDto {

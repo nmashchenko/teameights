@@ -1,0 +1,24 @@
+.all_icons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-height: 35vh;
+  overflow: auto;
+  padding-right: 10px;
+
+  @media (width <= 981px) {
+    max-height: 45vh;
+  }
+
+
+  @media (width <= 480px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.badge_icon {
+  max-width: 143px;
+  @media (width <= 950px) {
+    max-width: 106px;
+  }
+}

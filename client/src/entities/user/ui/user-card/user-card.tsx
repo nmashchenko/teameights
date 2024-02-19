@@ -1,50 +1,52 @@
 import styles from './user-card.module.scss';
-import { ProgrammingLanguagesLayout } from '../language-layout/language-layout';
-import { BadgeFrameworksLayout } from '../frameworks-layout/frameworks-layout';
 import { IUserResponse } from '@teameights/types';
 import { calculateAge } from '@/shared/lib';
 import { ImageLoader } from '@/shared/ui';
 import { CrownIcon28 } from '@/shared/assets';
 import { countryFlags } from '@/shared/constant';
+import { forwardRef } from 'react';
+import { IconLayout } from '../icon-layout/icon-layout';
+import { TextLayout } from '../text-layout/text-layout';
 
 interface UserCardProps {
   user: IUserResponse;
   onClick?: () => void;
 }
 
-export const UserCard: React.FC<UserCardProps> = ({
-  user: { country, photo, skills, isLeader, fullName, role, dateOfBirth },
-  onClick,
-}) => {
-  const years = calculateAge(dateOfBirth);
+export const UserCard = forwardRef<HTMLDivElement, UserCardProps>(
+  ({ user: { country, photo, skills, isLeader, fullName, dateOfBirth }, onClick }, ref) => {
+    const years = calculateAge(dateOfBirth);
 
-  return (
-    <div className={styles.card} onClick={onClick}>
-      <div className={styles.header}>
-        <div className={styles.avatar}>
-          {/* TODO: Починить это опсле фикса типов с фотками*/}
-          <ImageLoader
-            borderRadius='5px'
-            src={photo?.path ?? ''}
-            className={styles.image}
-            alt={fullName}
-            width={70}
-            height={70}
-          />
-          {isLeader && <CrownIcon28 className={styles.crown} />}
+    return (
+      <div className={styles.card} onClick={onClick} ref={ref}>
+        <div className={styles.header}>
+          <div className={styles.avatar}>
+            <ImageLoader
+              borderRadius='5px'
+              src={photo?.path ?? '/images/placeholder.png'}
+              className={styles.image}
+              alt={fullName}
+              width={70}
+              height={70}
+            />
+            {isLeader && <CrownIcon28 className={styles.crown} />}
+          </div>
+          {skills?.coreTools && <IconLayout icons={skills?.coreTools} />}
         </div>
-        {skills?.programmingLanguages && (
-          <ProgrammingLanguagesLayout languages={skills.programmingLanguages} />
-        )}
-      </div>
-      <div className={styles.content}>
-        <div className={styles.name}>
-          {fullName}, {years}
-          <ImageLoader src={countryFlags[country] ?? ''} alt={fullName} width={16} height={12} />
+        <div className={styles.content}>
+          <div className={styles.name}>
+            {fullName?.split(' ')[0]}, {years}
+            <ImageLoader
+              src={countryFlags[country] ?? '/images/placeholder.png'}
+              alt={fullName}
+              width={16}
+              height={12}
+            />
+          </div>
+          <div className={styles.speciality}>{skills?.speciality}</div>
         </div>
-        <div className={styles.role}>{role.name}</div>
+        {skills?.additionalTools && <TextLayout texts={skills.additionalTools} />}
       </div>
-      {skills?.frameworks && <BadgeFrameworksLayout frameworks={skills.frameworks} />}
-    </div>
-  );
-};
+    );
+  }
+);

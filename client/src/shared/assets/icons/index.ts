@@ -1,7 +1,3 @@
-import { Github } from './github-icon';
-import { BehanceIcon } from './behance';
-import { LinkedinIcon } from './linkedin';
-import { TelegramIcon } from './telegram';
 export { Star } from './star';
 export { Cake } from './cake';
 export { MapPin } from './map-pin';
@@ -17,6 +13,10 @@ export { XIcon } from './x';
 export { SearchIcon } from './search';
 export { UserPlusIcon } from './user-plus';
 export { ChatCircleDotsIcon } from './chat-circle-dots';
+export { BehanceIcon } from './behance';
+export { TelegramIcon } from './telegram';
+export { GithubIcon } from './github-icon';
+export { LinkedinIcon } from './linkedin';
 export { BellIcon } from './bell';
 export { ChecksIcon } from './checks';
 export { LightningIcon } from './lightning';
@@ -26,7 +26,6 @@ export { SignOutIcon } from './sign-out';
 export { TrophyIcon } from './trophy';
 export { UserIcon } from './user';
 export { UsersIcon } from './users';
-
 export * from './arrows';
 export * from './caret';
 export * from './crowns';

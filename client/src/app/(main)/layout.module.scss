@@ -23,4 +23,8 @@
 
 .placeholder {
   width: 93px;
+  flex-shrink: 0;
+  @media (max-width: 768px) {
+    display: none;
+  }
 }

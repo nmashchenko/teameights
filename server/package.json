@@ -6,9 +6,7 @@
   "private": true,
   "engines": {
     "node": ">=16.0.0",
-    "yarn": ">=1.22.0",
-    "npm": "please-use-yarn",
-    "pnpm": "please-use-yarn"
+    "yarn": ">=1.22.0"
   },
   "license": "MIT",
   "scripts": {
@@ -72,7 +70,7 @@
     "typeorm": "0.3.17"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.1.0",
+    "@faker-js/faker": "^8.3.1",
     "@nestjs/cli": "10.1.17",
     "@nestjs/schematics": "10.0.2",
     "@nestjs/testing": "10.2.5",
