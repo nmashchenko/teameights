@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsAlphanumeric,
   IsArray,
   IsIn,
   IsNotEmpty,
@@ -43,6 +44,7 @@ export class AuthUpdateDto {
   @Validate(IsNotExist, ['User'], {
     message: 'usernameAlreadyExists',
   })
+  @IsAlphanumeric()
   username?: string | null;
 
   @ApiProperty()
