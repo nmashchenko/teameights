@@ -8,7 +8,7 @@ export const Skills = () => {
   const { data: user } = useGetUserByName(username as string);
   const skills = {
     coreTools: {
-      badge: ( {  data }: { data: string }) => <BadgeIcon data={data} isActive={true} />,
+      badge: ({ data }: { data: string }) => <BadgeIcon data={data} isActive={true} />,
       title: 'Core Tools',
     },
     additionalTools: {
