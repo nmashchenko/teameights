@@ -16,7 +16,7 @@ export const useGetFriends = (userId: number) => {
     queryKey: ['useGetFriends', userId],
     queryFn: async () => {
       const { data } = await API.get<{ data: Array<IFriendshipResponse> }>(
-        `${API_FRIENDSHIP}/${userId}?filters={"status":"accepted"}`
+        `${API_FRIENDSHIP}/${userId}`
       );
       return data;
     },

@@ -26,12 +26,15 @@ export const Friends = () => {
     </Typography>
   );
   if (friendshipList.length) {
-    const noun = friendshipList.length === 1 ? 'friend' : 'friends';
-    const friendsList = friendshipList.map(friendship => {
-      const { receiver, creator } = friendship;
-      if (receiver.id !== user?.id) return receiver;
-      return creator;
-    });
+    const friendsList = friendshipList
+      .map(friendship => {
+        const { receiver, creator } = friendship;
+        if (receiver.id !== user?.id) return receiver;
+        return creator;
+      })
+      .filter((friend, i, arr) => arr.findIndex(item => item.id === friend.id) === i);
+    // filter out duplicates, since there can be two similar friendships with different creators
+    const noun = friendsList.length === 1 ? 'friend' : 'friends';
     friendsContainer = (
       <Flex direction='column'>
         <FriendsModal
@@ -41,7 +44,7 @@ export const Friends = () => {
         />
         <Flex align='center' justify='space-between' margin='0 0 21px 0'>
           <Flex gap='5px'>
-            <Typography size='body_m'>{friendshipList.length}</Typography>
+            <Typography size='body_m'>{friendsList.length}</Typography>
             <Typography size='body_m'>{noun}</Typography>
           </Flex>
           <button onClick={() => setFriendsModal(true)}>
