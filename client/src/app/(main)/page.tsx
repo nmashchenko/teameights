@@ -49,6 +49,7 @@ export default function Home() {
               type: 'checkbox',
               placeholder: 'Search by countries',
               optionsArr: countries,
+              oneItemName: 'country',
               filterValue: [],
             },
             {
@@ -57,6 +58,7 @@ export default function Home() {
               type: 'checkbox',
               placeholder: 'Search by specialty',
               optionsArr: specialities,
+              oneItemName: 'speciality',
               filterValue: [],
             },
             {
@@ -65,6 +67,7 @@ export default function Home() {
               type: 'checkbox',
               placeholder: 'Search by focus',
               optionsArr: focusesValues,
+              oneItemName: 'focus',
               filterValue: [],
             },
           ]}

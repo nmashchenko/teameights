@@ -22,12 +22,14 @@ export interface ICheckboxFilter extends IFilter {
   type: 'checkbox';
   optionsArr: IOptionItem[];
   filterValue: MultiValue<IOptionItem>;
+  oneItemName: string;
 }
 
 export interface IMultipleFilter extends IFilter {
   type: 'multiple';
   optionsArr: IOptionItem[];
   filterValue: MultiValue<IOptionItem>;
+  oneItemName: string;
 }
 
 export interface IRangeFilter extends IFilter {

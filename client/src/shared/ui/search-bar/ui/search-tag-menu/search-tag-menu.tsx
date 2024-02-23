@@ -26,7 +26,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
       <div className={styles.menu_wrapper} onClick={() => setIsListOpened(true)}>
         <Tag isFilledWhileHover>
           +{filterItem.filterValue.length - 1}{' '}
-          {filterItem.filterValue.length > 2 ? 'items' : 'item'}
+          {filterItem.filterValue.length > 2 ? filterItem.value : filterItem.oneItemName}
         </Tag>
       </div>
       {isListOpened ? (
