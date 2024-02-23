@@ -1,13 +1,16 @@
 import { Button, Modal, Typography, Flex, ImageLoader } from '@/shared/ui';
 import { FC } from 'react';
-import { ArrowRightIcon, UserPlusIcon, ChatCircleDotsIcon } from '@/shared/assets';
+import { ArrowRightIcon, ChatCircleDotsIcon } from '@/shared/assets';
 import { calculateAge, getCountryFlag } from '@/shared/lib';
 import { InfoModalUserProps } from '../interfaces';
 import { IconLayout } from '../ui/icon-layout/icon-layout';
 import { TextLayout } from '../ui/text-layout/text-layout';
+import { FriendButton } from '@/features/friend-button';
+import { useGetMe } from '@/entities/session';
 
 export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
+  const { data: me } = useGetMe();
 
   return (
     <>
@@ -54,12 +57,7 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
           <IconLayout coreTools={user?.skills?.coreTools} />
           <Flex justify='space-between' align='center' margin='24px 0 0 0'>
             <Flex gap='8px'>
-              {
-                <Button typeBtn='primary' size='m'>
-                  Connect
-                  <UserPlusIcon />
-                </Button>
-              }
+              {user?.id && <FriendButton myId={me?.id} userId={user.id} />}
 
               <Button typeBtn='secondary' size='m'>
                 Message
