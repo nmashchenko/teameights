@@ -4,6 +4,7 @@ import { SidebarSystemNotification } from './system-notification';
 
 import styles from './notification-item.module.scss';
 import { NotificationType } from '@teameights/types';
+import { SidebarFriendNotification } from './friend-notification';
 
 export interface NotificationProps {
   /**
@@ -46,6 +47,8 @@ export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
     switch (notification.type) {
       case 'system':
         return <SidebarSystemNotification notification={notification} />;
+      case 'friend_request':
+        return <SidebarFriendNotification notification={notification} />;
       // case 'team_invite':
       //   return (
       //     <SidebarTeamInvatitionNotification

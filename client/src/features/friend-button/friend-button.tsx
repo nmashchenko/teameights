@@ -8,9 +8,16 @@ import { useHandleFriendshipRequest } from '@/entities/session/api/useHandleFrie
 interface FriendButtonProps {
   myId?: number;
   userId: number;
+  short?: boolean;
+  size?: 'm' | 'l' | 's';
 }
 
-export const FriendButton = ({ myId, userId }: FriendButtonProps) => {
+function getText(text: string, short: boolean) {
+  if (short) return text;
+  return text + ' friend';
+}
+
+export const FriendButton = ({ myId, userId, short = false, size = 'm' }: FriendButtonProps) => {
   const { mutate: addFriend } = useAddFriend(myId, userId);
   const { mutate: removeFriend } = useRemoveFriend(userId);
   const { mutate: declineFriend } = useHandleFriendshipRequest(myId, userId, 'rejected');
@@ -28,10 +35,10 @@ export const FriendButton = ({ myId, userId }: FriendButtonProps) => {
       friendship.status !== 'rejected'
   );
 
-  if (!ourFriendshipIndex || ourFriendshipIndex === -1) {
+  if (ourFriendshipIndex === undefined || ourFriendshipIndex === -1) {
     return (
-      <Button onClick={() => addFriend()} size={'m'}>
-        Add friend
+      <Button onClick={() => addFriend()} size={size}>
+        {getText('Add', short)}
         <UserPlusIcon />
       </Button>
     );
@@ -45,22 +52,22 @@ export const FriendButton = ({ myId, userId }: FriendButtonProps) => {
     switch (friendshipStatus) {
       case 'accepted':
         return (
-          <Button onClick={() => removeFriend()} size={'m'} typeBtn='danger'>
-            Remove friend
+          <Button onClick={() => removeFriend()} size={size} typeBtn='danger'>
+            {getText('Remove', short)}
           </Button>
         );
       case 'pending':
         return ourFriendship.creator.id !== myId ? (
           <>
-            <Button onClick={() => acceptFriend()} size={'m'} typeBtn='primary'>
-              Accept friend
+            <Button onClick={() => acceptFriend()} size={size} typeBtn='primary'>
+              {getText('Accept', short)}
             </Button>
-            <Button onClick={() => declineFriend()} size={'m'} typeBtn='danger'>
-              Reject friend
+            <Button onClick={() => declineFriend()} size={size} typeBtn='danger'>
+              {getText('Reject', short)}
             </Button>
           </>
         ) : (
-          <Button size='m' typeBtn='secondary'>
+          <Button size={size} typeBtn='secondary'>
             Pending
           </Button>
         );

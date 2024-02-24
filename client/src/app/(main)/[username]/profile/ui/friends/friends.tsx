@@ -8,6 +8,7 @@ import { ArrowRightIcon } from '@/shared/assets';
 import { useState } from 'react';
 import layoutStyles from '../../layout.module.scss';
 import { FriendsModal } from './friends-modal';
+import { IUserBase } from '@teameights/types';
 
 export const Friends = () => {
   const { username } = useParams();
@@ -26,14 +27,19 @@ export const Friends = () => {
     </Typography>
   );
   if (friendshipList.length) {
-    const friendsList = friendshipList
-      .map(friendship => {
+    const friendsList = friendshipList.reduce<IUserBase[]>((accumulator, friendship) => {
+      if (friendship.status === 'accepted') {
         const { receiver, creator } = friendship;
-        if (receiver.id !== user?.id) return receiver;
-        return creator;
-      })
-      .filter((friend, i, arr) => arr.findIndex(item => item.id === friend.id) === i);
-    // filter out duplicates, since there can be two similar friendships with different creators
+        const friend = receiver.id !== user?.id ? receiver : creator;
+
+        const existingFriendIndex = accumulator.findIndex(item => item?.id === friend.id);
+        // filter out duplicates, since there can be two similar friendships with different creators
+        if (existingFriendIndex === -1) {
+          accumulator.push(friend);
+        }
+      }
+      return accumulator;
+    }, []);
     const noun = friendsList.length === 1 ? 'friend' : 'friends';
     friendsContainer = (
       <Flex direction='column'>
