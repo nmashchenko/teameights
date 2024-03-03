@@ -18,7 +18,13 @@ function getText(text: string, short: boolean) {
   return text + ' friend';
 }
 
-export const FriendButton = ({ myId, userId, short = false, size = 'm', width }: FriendButtonProps) => {
+export const FriendButton = ({
+  myId,
+  userId,
+  short = false,
+  size = 'm',
+  width,
+}: FriendButtonProps) => {
   const { mutate: addFriend } = useAddFriend(myId, userId);
   const { mutate: removeFriend } = useRemoveFriend(userId);
   const { mutate: declineFriend } = useHandleFriendshipRequest(myId, userId, 'rejected');

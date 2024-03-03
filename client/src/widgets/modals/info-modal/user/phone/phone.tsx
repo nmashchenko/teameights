@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowRightIcon, ChatCircleDotsIcon, UserPlusIcon } from '@/shared/assets';
+import { ArrowLeftIcon, ArrowRightIcon, ChatCircleDotsIcon } from '@/shared/assets';
 import { Button, Drawer, Flex, Typography } from '@/shared/ui';
 import { FC } from 'react';
 import styles from './phone.module.scss';
@@ -7,10 +7,12 @@ import { InfoModalUserProps } from '../interfaces';
 import { ImageLoader } from '@/shared/ui/image-loader/image-loader';
 import { IconLayout } from '../ui/icon-layout/icon-layout';
 import { TextLayout } from '../ui/text-layout/text-layout';
+import { FriendButton } from '@/features/friend-button';
+import { useGetMe } from '@/entities/session';
 
 export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClose }) => {
   const age = user?.dateOfBirth ? calculateAge(user.dateOfBirth) : null;
-
+  const { data: me } = useGetMe();
   return (
     <>
       <Drawer open={isOpenModal} onClose={handleClose} isFullHeight>
@@ -68,12 +70,9 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
               </Flex>
             </Flex>
             <Flex gap='8px' width='100%'>
-              {
-                <Button typeBtn='primary' size='m' width='100%'>
-                  Connect
-                  <UserPlusIcon />
-                </Button>
-              }
+              {user?.id && (
+                <FriendButton short={true} width='100%' myId={me?.id} userId={user.id} />
+              )}
               <Button typeBtn='secondary' size='m' width='100%'>
                 Message
                 <ChatCircleDotsIcon />

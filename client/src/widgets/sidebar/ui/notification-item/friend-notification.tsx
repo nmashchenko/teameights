@@ -5,7 +5,7 @@ import { LightningIcon } from '@/shared/assets';
 import { getElapsedTime } from '@/shared/lib';
 
 import styles from './notification-item.module.scss';
-import { IFriendNotification } from '@teameights/types';
+import { IFriendNotification } from '@/widgets/sidebar/interfaces';
 import { FriendButton } from '@/features/friend-button';
 import { useGetFriends } from '@/entities/session';
 

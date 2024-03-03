@@ -56,9 +56,8 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
           <TextLayout additionalTools={user?.skills?.additionalTools} />
           <IconLayout coreTools={user?.skills?.coreTools} />
           <Flex justify='space-between' align='center' margin='24px 0 0 0'>
-            <Flex gap='8px'>
-              {user?.id && <FriendButton myId={me?.id} userId={user.id} />}
-
+            <Flex wrap='wrap' gap='8px'>
+              {user?.id && <FriendButton short={true} myId={me?.id} userId={user.id} />}
               <Button typeBtn='secondary' size='m'>
                 Message
                 <ChatCircleDotsIcon />
