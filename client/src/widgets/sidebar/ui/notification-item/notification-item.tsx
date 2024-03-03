@@ -3,14 +3,15 @@ import React from 'react';
 import { SidebarSystemNotification } from './system-notification';
 
 import styles from './notification-item.module.scss';
-import { NotificationType } from '@teameights/types';
 import { SidebarFriendNotification } from './friend-notification';
+import { ISystemNotification } from '@teameights/types';
+import { IFriendNotification } from '../../interfaces';
 
 export interface NotificationProps {
   /**
    * The notification object.
    */
-  notification: NotificationType;
+  notification: ISystemNotification | IFriendNotification;
   /**
    * A function to close the notifications modal.
    */
