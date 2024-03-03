@@ -26,10 +26,12 @@ export const UserPhone: FC<InfoModalUserProps> = ({ user, isOpenModal, handleClo
               <ArrowLeftIcon />
               Back
             </Button>
-            <Button typeBtn='tertiary' size='m' color='white' padding='0'>
-              Profile
-              <ArrowRightIcon />
-            </Button>
+            <a href={`/${user?.username}/profile`}>
+              <Button typeBtn='tertiary' size='m' color='white' padding='0'>
+                Profile
+                <ArrowRightIcon />
+              </Button>
+            </a>
           </Flex>
           <Flex gap='24px' direction='column'>
             <Flex gap='32px' maxHeight='70px'>

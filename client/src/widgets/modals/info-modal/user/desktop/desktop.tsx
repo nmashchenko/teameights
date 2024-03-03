@@ -64,11 +64,12 @@ export const UserDesktop: FC<InfoModalUserProps> = ({ user, isOpenModal, handleC
                 <ChatCircleDotsIcon />
               </Button>
             </Flex>
-
-            <Button typeBtn='tertiary' size='m' color='white' padding='0'>
-              Profile
-              <ArrowRightIcon />
-            </Button>
+            <a href={`/${user?.username}/profile`}>
+              <Button typeBtn='tertiary' size='m' color='white' padding='0'>
+                Profile
+                <ArrowRightIcon />
+              </Button>
+            </a>
           </Flex>
         </Flex>
       </Modal>
