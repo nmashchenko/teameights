@@ -10,6 +10,7 @@ interface FriendButtonProps {
   userId: number;
   short?: boolean;
   size?: 'm' | 'l' | 's';
+  width?: string;
 }
 
 function getText(text: string, short: boolean) {
@@ -17,7 +18,7 @@ function getText(text: string, short: boolean) {
   return text + ' friend';
 }
 
-export const FriendButton = ({ myId, userId, short = false, size = 'm' }: FriendButtonProps) => {
+export const FriendButton = ({ myId, userId, short = false, size = 'm', width }: FriendButtonProps) => {
   const { mutate: addFriend } = useAddFriend(myId, userId);
   const { mutate: removeFriend } = useRemoveFriend(userId);
   const { mutate: declineFriend } = useHandleFriendshipRequest(myId, userId, 'rejected');
@@ -37,7 +38,7 @@ export const FriendButton = ({ myId, userId, short = false, size = 'm' }: Friend
 
   if (ourFriendshipIndex === undefined || ourFriendshipIndex === -1) {
     return (
-      <Button onClick={() => addFriend()} size={size}>
+      <Button width={width} onClick={() => addFriend()} size={size}>
         {getText('Add', short)}
         <UserPlusIcon />
       </Button>
@@ -52,22 +53,22 @@ export const FriendButton = ({ myId, userId, short = false, size = 'm' }: Friend
     switch (friendshipStatus) {
       case 'accepted':
         return (
-          <Button onClick={() => removeFriend()} size={size} typeBtn='danger'>
+          <Button width={width} onClick={() => removeFriend()} size={size} typeBtn='danger'>
             {getText('Remove', short)}
           </Button>
         );
       case 'pending':
         return ourFriendship.creator.id !== myId ? (
           <>
-            <Button onClick={() => acceptFriend()} size={size} typeBtn='primary'>
+            <Button width={width} onClick={() => acceptFriend()} size={size} typeBtn='primary'>
               {getText('Accept', short)}
             </Button>
-            <Button onClick={() => declineFriend()} size={size} typeBtn='danger'>
+            <Button width={width} onClick={() => declineFriend()} size={size} typeBtn='danger'>
               {getText('Reject', short)}
             </Button>
           </>
         ) : (
-          <Button size={size} typeBtn='secondary'>
+          <Button width={width} size={size} typeBtn='secondary'>
             Pending
           </Button>
         );
