@@ -9,6 +9,7 @@ export const useRemoveFriend = (userId: number) => {
     mutationFn: async () => await API.delete(`${API_FRIENDSHIP}/${userId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['useGetFriends'] });
+      queryClient.invalidateQueries({ queryKey: ['useGetFriendshipStatus', userId] });
       toast('User is removed from the friends list');
     },
     onError: err => {

@@ -5,7 +5,7 @@ import { SidebarSystemNotification } from './system-notification';
 import styles from './notification-item.module.scss';
 import { SidebarFriendNotification } from './friend-notification';
 import { ISystemNotification } from '@teameights/types';
-import { IFriendNotification } from '../../interfaces';
+import { IFriendNotification } from '@/widgets/sidebar/interfaces';
 
 export interface NotificationProps {
   /**

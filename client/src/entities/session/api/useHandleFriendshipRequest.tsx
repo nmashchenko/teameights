@@ -16,6 +16,7 @@ export const useHandleFriendshipRequest = (
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['useGetFriends'] });
+      queryClient.invalidateQueries({ queryKey: ['useGetFriendshipStatus', receiverId] });
       if (status === 'accepted') {
         toast('New friend added');
       } else {

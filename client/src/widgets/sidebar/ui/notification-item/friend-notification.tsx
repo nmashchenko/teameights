@@ -7,7 +7,8 @@ import { getElapsedTime } from '@/shared/lib';
 import styles from './notification-item.module.scss';
 import { IFriendNotification } from '@/widgets/sidebar/interfaces';
 import { FriendButton } from '@/features/friend-button';
-import { useGetFriends } from '@/entities/session';
+import { useGetMe } from '@/entities/session';
+import { useGetFriendshipStatus } from '@/entities/session/api/useGetFriendshipStatus';
 
 interface SystemNotificationProps {
   notification: IFriendNotification;
@@ -28,15 +29,11 @@ interface SystemNotificationProps {
 export const SidebarFriendNotification: React.FC<SystemNotificationProps> = props => {
   const { notification } = props;
 
-  const myId = notification.receiver.id;
+  const { data } = useGetMe();
   const userId = notification.data.creator.id;
-  const { data: friendships } = useGetFriends(userId);
 
-  const isPending = friendships?.data.some(
-    friendship =>
-      (friendship.creator.id === myId || friendship.receiver.id === myId) &&
-      friendship.status === 'pending'
-  );
+  const { data: statusResponse } = useGetFriendshipStatus(userId);
+  const isPending = statusResponse?.status === 'toRespond';
 
   return (
     <>
@@ -51,7 +48,7 @@ export const SidebarFriendNotification: React.FC<SystemNotificationProps> = prop
           </p>
           {isPending && (
             <Flex gap='8px'>
-              <FriendButton size='s' short={true} userId={userId} myId={myId} />
+              <FriendButton size='s' short={true} userId={userId} myId={data!.id} />
             </Flex>
           )}
         </Flex>

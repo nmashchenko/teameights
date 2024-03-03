@@ -1,9 +1,9 @@
 import { useAddFriend } from '@/entities/session/api/useAddFriend';
 import { useRemoveFriend } from '@/entities/session/api/useRemoveFriend';
-import { useGetFriends } from '@/entities/session';
 import { Button } from '@/shared/ui';
 import { UserPlusIcon } from '@/shared/assets';
 import { useHandleFriendshipRequest } from '@/entities/session/api/useHandleFriendshipRequest';
+import { useGetFriendshipStatus } from '@/entities/session/api/useGetFriendshipStatus';
 
 interface FriendButtonProps {
   myId?: number;
@@ -29,59 +29,51 @@ export const FriendButton = ({
   const { mutate: removeFriend } = useRemoveFriend(userId);
   const { mutate: declineFriend } = useHandleFriendshipRequest(myId, userId, 'rejected');
   const { mutate: acceptFriend } = useHandleFriendshipRequest(myId, userId, 'accepted');
-  const { data: friendships } = useGetFriends(userId);
   const isMyProfile = myId === userId;
+  const { data } = useGetFriendshipStatus(userId);
+
+  const friendStatus = data?.status;
 
   if (!myId || isMyProfile) {
     return null; // Hide friend button if user not logged in or it's their profile
   }
 
-  const ourFriendshipIndex = friendships?.data.findIndex(
-    friendship =>
-      (friendship.creator.id === myId || friendship.receiver.id === myId) &&
-      friendship.status !== 'rejected'
-  );
-
-  if (ourFriendshipIndex === undefined || ourFriendshipIndex === -1) {
-    return (
-      <Button width={width} onClick={() => addFriend()} size={size}>
-        {getText('Add', short)}
-        <UserPlusIcon />
-      </Button>
-    );
-  }
-
-  const ourFriendship = friendships!.data[ourFriendshipIndex];
-
-  const { status } = ourFriendship;
-
-  const renderFriendButton = (friendshipStatus: string) => {
-    switch (friendshipStatus) {
-      case 'accepted':
-        return (
-          <Button width={width} onClick={() => removeFriend()} size={size} typeBtn='danger'>
-            {getText('Remove', short)}
-          </Button>
-        );
-      case 'pending':
-        return ourFriendship.creator.id !== myId ? (
-          <>
-            <Button width={width} onClick={() => acceptFriend()} size={size} typeBtn='primary'>
-              {getText('Accept', short)}
-            </Button>
-            <Button width={width} onClick={() => declineFriend()} size={size} typeBtn='danger'>
-              {getText('Reject', short)}
-            </Button>
-          </>
-        ) : (
-          <Button width={width} size={size} typeBtn='secondary'>
-            Pending
-          </Button>
-        );
-      default:
-        return null;
+  switch (friendStatus) {
+    case 'none': {
+      return (
+        <Button width={width} onClick={() => addFriend()} size={size}>
+          {getText('Add', short)}
+          <UserPlusIcon />
+        </Button>
+      );
     }
-  };
-
-  return renderFriendButton(status);
+    case 'requested': {
+      return (
+        <Button width={width} size={size} typeBtn='secondary'>
+          Pending
+        </Button>
+      );
+    }
+    case 'toRespond': {
+      return (
+        <>
+          <Button width={width} onClick={() => acceptFriend()} size={size} typeBtn='primary'>
+            {getText('Accept', short)}
+          </Button>
+          <Button width={width} onClick={() => declineFriend()} size={size} typeBtn='danger'>
+            {getText('Reject', short)}
+          </Button>
+        </>
+      );
+    }
+    case 'friends': {
+      return (
+        <Button width={width} onClick={() => removeFriend()} size={size} typeBtn='danger'>
+          {getText('Remove', short)}
+        </Button>
+      );
+    }
+    default:
+      return null;
+  }
 };

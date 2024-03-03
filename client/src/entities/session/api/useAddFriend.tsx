@@ -10,6 +10,8 @@ export const useAddFriend = (userId: number | undefined, receiverId: number) => 
       await API.post(`${API_FRIENDSHIP}/${receiverId}?user={"id":"${userId}"}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['useGetFriends'] });
+      queryClient.invalidateQueries({ queryKey: ['useGetFriendshipStatus', receiverId] });
+
       toast('Request is sent');
     },
     onError: err => {
