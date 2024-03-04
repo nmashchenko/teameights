@@ -231,7 +231,6 @@ export class FriendshipService {
     }
 
     const receiver = await this.usersService.findOne({ id: receiverId });
-
     if (!receiver) {
       throw new HttpException(
         {
@@ -260,27 +259,17 @@ export class FriendshipService {
         HttpStatus.NOT_FOUND
       );
     }
-    // const notification = await this.notificationsService.findOne({
-    //   receiver: { id: receiverId },
-    //   data: { status: NotificationStatusEnum.pending, creator: creator.toJSON() },
-    // });
-    // if (!notification) {
-    //   throw new HttpException(
-    //     {
-    //       status: HttpStatus.NOT_FOUND,
-    //       errors: {
-    //         notification: `notification not found`,
-    //       },
-    //     },
-    //     HttpStatus.NOT_FOUND
-    //   );
-    // }
-    // (notification.data as FriendRequestNotificationData).status =
-    //   NotificationStatusEnum[dto.status];
-    // await this.notificationsService.save(notification);
+    const notification = await this.notificationsService.findOne({
+      receiver: { id: receiverId },
+      data: { status: NotificationStatusEnum.pending, creator: creator.toJSON() },
+    });
+    if (notification) {
+      await this.notificationsService.deleteNotification(notification);
+    }
 
     friendship.status = FriendshipStatusTypes[dto.status];
     await this.friendshipRepository.save(friendship);
+    console.log(receiver.username);
     if (dto.status === 'accepted') {
       await this.notificationsService.createNotification(
         {
@@ -497,41 +486,34 @@ export class FriendshipService {
   }
 
   async getStatus(userId: number, friendId: number) {
-    const friendshipFrom = await this.findOne({
+    const friendshipFromMe = await this.findOne({
       creator: { id: userId },
       receiver: { id: friendId },
     });
-    if (friendshipFrom && friendshipFrom.status === FriendshipStatusTypes.accepted) {
+    const friendshipToMe = await this.findOne({
+      creator: { id: friendId },
+      receiver: { id: userId },
+    });
+    if (
+      (friendshipFromMe && friendshipFromMe.status === FriendshipStatusTypes.accepted) ||
+      (friendshipToMe && friendshipToMe.status === FriendshipStatusTypes.accepted)
+    ) {
       return {
         status: FriendshipCheckStatusTypes.friends,
       };
+    } else if (friendshipToMe && friendshipToMe.status === FriendshipStatusTypes.pending) {
+      return {
+        status: FriendshipCheckStatusTypes.toRespond,
+      };
     } else if (
-      friendshipFrom &&
-      (friendshipFrom.status === FriendshipStatusTypes.pending ||
-        friendshipFrom.status === FriendshipStatusTypes.rejected)
+      friendshipFromMe &&
+      (friendshipFromMe.status === FriendshipStatusTypes.pending ||
+        friendshipFromMe.status === FriendshipStatusTypes.rejected)
     ) {
       return {
         status: FriendshipCheckStatusTypes.requested,
       };
-    }
-    const friendshipTo = await this.findOne({
-      creator: { id: friendId },
-      receiver: { id: userId },
-    });
-    if (friendshipTo && friendshipTo.status === FriendshipStatusTypes.accepted) {
-      return {
-        status: FriendshipCheckStatusTypes.friends,
-      };
-    } else if (friendshipTo && friendshipTo.status === FriendshipStatusTypes.pending) {
-      return {
-        status: FriendshipCheckStatusTypes.toRespond,
-      };
-    }
-
-    if (
-      (!friendshipTo && !friendshipFrom) ||
-      (friendshipTo && friendshipTo.status === FriendshipStatusTypes.rejected)
-    ) {
+    } else {
       return {
         status: FriendshipCheckStatusTypes.none,
       };
