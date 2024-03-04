@@ -1,28 +1,18 @@
 'use client';
 import styles from './header.module.scss';
-import { useGetFriends, useGetMe } from '@/entities/session';
-import { ChatCircleDotsIcon, PlusIcon, UserPlusIcon } from '@/shared/assets';
+import { useGetMe } from '@/entities/session';
+import { ChatCircleDotsIcon, PlusIcon } from '@/shared/assets';
 import { Button, CardSkeleton, Flex, ImageLoader, Typography } from '@/shared/ui';
 import { useParams } from 'next/navigation';
 import { useGetUserByName } from '../../lib/useGetUserByName';
 import { useContext } from 'react';
 import { ProfileContext } from '@/app/(main)/[username]/profile/lib/profile-context';
-import { useAddFriend } from '@/entities/session/api/useAddFriend';
-import { useRemoveFriend } from '@/entities/session/api/useRemoveFriend';
+import { FriendButton } from '@/features/friend-button';
 export const Header = () => {
   const { username } = useParams();
   const { data: me } = useGetMe();
   const { data: user } = useGetUserByName(username as string);
   const isMyProfile = useContext(ProfileContext);
-  const { mutate: addFriend } = useAddFriend(String(me?.id), String(user!.id));
-  const { mutate: removeFriend } = useRemoveFriend(String(user!.id));
-  const { data: friendships } = useGetFriends(user!.id);
-
-  const isMyFriend =
-    me &&
-    friendships?.data.some(
-      friendship => friendship.creator.id === me.id || friendship.receiver.id === me.id
-    );
 
   if (!user) {
     return <CardSkeleton width={'100%'} height={'248px'} borderRadius={15} />;
@@ -35,21 +25,6 @@ export const Header = () => {
     </Button>
   );
 
-  let friendButton = (
-    <Button onClick={() => addFriend()} size={'m'}>
-      Add friend
-      <UserPlusIcon />
-    </Button>
-  );
-
-  if (isMyFriend) {
-    friendButton = (
-      <Button onClick={() => removeFriend()} size={'m'} typeBtn='danger'>
-        Remove friend
-      </Button>
-    );
-  }
-
   if (!isMyProfile) {
     interactions = (
       <Flex gap={'8px'}>
@@ -57,7 +32,7 @@ export const Header = () => {
           Message
           <ChatCircleDotsIcon />
         </Button>
-        {friendButton}
+        <FriendButton myId={me?.id} userId={user.id} />
       </Flex>
     );
   }

@@ -8,6 +8,7 @@ import { ArrowRightIcon } from '@/shared/assets';
 import { useState } from 'react';
 import layoutStyles from '../../layout.module.scss';
 import { FriendsModal } from './friends-modal';
+import { IUserBase } from '@teameights/types';
 
 export const Friends = () => {
   const { username } = useParams();
@@ -26,12 +27,20 @@ export const Friends = () => {
     </Typography>
   );
   if (friendshipList.length) {
-    const noun = friendshipList.length === 1 ? 'friend' : 'friends';
-    const friendsList = friendshipList.map(friendship => {
-      const { receiver, creator } = friendship;
-      if (receiver.id !== user?.id) return receiver;
-      return creator;
-    });
+    const friendsList = friendshipList.reduce<IUserBase[]>((accumulator, friendship) => {
+      if (friendship.status === 'accepted') {
+        const { receiver, creator } = friendship;
+        const friend = receiver.id !== user?.id ? receiver : creator;
+
+        const existingFriendIndex = accumulator.findIndex(item => item?.id === friend.id);
+        // filter out duplicates, since there can be two similar friendships with different creators
+        if (existingFriendIndex === -1) {
+          accumulator.push(friend);
+        }
+      }
+      return accumulator;
+    }, []);
+    const noun = friendsList.length === 1 ? 'friend' : 'friends';
     friendsContainer = (
       <Flex direction='column'>
         <FriendsModal
@@ -41,7 +50,7 @@ export const Friends = () => {
         />
         <Flex align='center' justify='space-between' margin='0 0 21px 0'>
           <Flex gap='5px'>
-            <Typography size='body_m'>{friendshipList.length}</Typography>
+            <Typography size='body_m'>{friendsList.length}</Typography>
             <Typography size='body_m'>{noun}</Typography>
           </Flex>
           <button onClick={() => setFriendsModal(true)}>

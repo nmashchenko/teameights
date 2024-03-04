@@ -3,19 +3,27 @@ import { API } from '@/shared/api';
 import { API_FRIENDSHIP } from '@/shared/constant';
 import { toast } from 'sonner';
 
-export const useAddFriend = (userId: number | undefined, receiverId: number) => {
+export const useHandleFriendshipRequest = (
+  userId: number | undefined,
+  receiverId: number,
+  status: 'rejected' | 'accepted'
+) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () =>
-      await API.post(`${API_FRIENDSHIP}/${receiverId}?user={"id":"${userId}"}`),
+      await API.patch(`${API_FRIENDSHIP}/${receiverId}?user={"id":"${userId}"}`, {
+        status,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['useGetFriends'] });
       queryClient.invalidateQueries({ queryKey: ['useGetFriendshipStatus', receiverId] });
-
-      toast('Request is sent');
+      if (status === 'accepted') {
+        toast('New friend added');
+      } else {
+        toast('Friend request declined');
+      }
     },
     onError: err => {
-      console.log(err);
       toast(`Error occurred: ${err}`);
     },
   });

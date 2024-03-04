@@ -8,7 +8,7 @@ export const Skills = () => {
   const { data: user } = useGetUserByName(username as string);
   const skills = {
     coreTools: {
-      badge: BadgeIcon,
+      badge: ({ data }: { data: string }) => <BadgeIcon data={data} isActive={true} />,
       title: 'Core Tools',
     },
     additionalTools: {
@@ -16,10 +16,9 @@ export const Skills = () => {
       title: 'Additional Tools',
     },
   };
-
   return (
     <Flex gap='24px' direction='column'>
-      {user?.skills &&
+      {user!.skills &&
         Object.entries(skills).map(skill => {
           const skillName = skill[0] as keyof typeof skills;
           const Badge = skills[skillName].badge;
@@ -27,7 +26,7 @@ export const Skills = () => {
             <Flex key={skillName} direction='column' gap='8px'>
               <Typography>{skills[skillName].title}</Typography>
               <Flex wrap='wrap' gap='8px'>
-                {user?.skills?.coreTools.map((lang: string) => <Badge key={lang} data={lang} />)}
+                {user?.skills![skillName]?.map((lang: string) => <Badge key={lang} data={lang} />)}
               </Flex>
             </Flex>
           );

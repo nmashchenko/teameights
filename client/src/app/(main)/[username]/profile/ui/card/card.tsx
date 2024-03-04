@@ -10,6 +10,5 @@ interface CardProps {
 
 export const Card = ({ children, className }: CardProps) => {
   const cls = clsx(styles.card, className);
-  console.log(cls);
   return <div className={cls}>{children}</div>;
 };
