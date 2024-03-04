@@ -269,7 +269,6 @@ export class FriendshipService {
 
     friendship.status = FriendshipStatusTypes[dto.status];
     await this.friendshipRepository.save(friendship);
-    console.log(receiver.username);
     if (dto.status === 'accepted') {
       await this.notificationsService.createNotification(
         {
