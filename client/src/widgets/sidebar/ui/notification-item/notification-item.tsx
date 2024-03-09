@@ -3,13 +3,15 @@ import React from 'react';
 import { SidebarSystemNotification } from './system-notification';
 
 import styles from './notification-item.module.scss';
-import { NotificationType } from '@teameights/types';
+import { SidebarFriendNotification } from './friend-notification';
+import { ISystemNotification } from '@teameights/types';
+import { IFriendNotification } from '@/widgets/sidebar/interfaces';
 
 export interface NotificationProps {
   /**
    * The notification object.
    */
-  notification: NotificationType;
+  notification: ISystemNotification | IFriendNotification;
   /**
    * A function to close the notifications modal.
    */
@@ -46,6 +48,8 @@ export const SidebarNotificationsItem: React.FC<NotificationProps> = props => {
     switch (notification.type) {
       case 'system':
         return <SidebarSystemNotification notification={notification} />;
+      case 'friend_request':
+        return <SidebarFriendNotification notification={notification} />;
       // case 'team_invite':
       //   return (
       //     <SidebarTeamInvatitionNotification

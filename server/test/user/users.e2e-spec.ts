@@ -6,7 +6,10 @@ describe('Get users (e2e)', () => {
   const app = APP_URL;
   const newUserPassword = `secret`;
   const fullName = 'Slavik Ukraincev';
-  const username = faker.internet.userName().toLowerCase();
+  const username = faker.internet
+    .userName()
+    .toLowerCase()
+    .replace(/[^a-z0-9]/gi, '');
   const country = 'Ukraine';
   const speciality = 'Developer';
   const focus = 'Backend Developer';

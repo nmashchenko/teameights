@@ -24,6 +24,7 @@ import { MailerModule } from './libs/mailer/mailer.module';
 import { AuthGithubModule } from './modules/auth/auth-github/auth-github.module';
 import githubConfig from './config/github.config';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { FriendshipModule } from './modules/friendship/friendship.module';
 
 @Module({
   imports: [
@@ -79,6 +80,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
     HomeModule,
     AuthGithubModule,
     NotificationsModule,
+    FriendshipModule,
   ],
 })
 export class AppModule {}

@@ -397,6 +397,18 @@ export class AuthService {
       );
     }
 
+    // if (userDto.username && !this.isUsernameAllowed(userDto.username)) {
+    //   throw new HttpException(
+    //     {
+    //       status: HttpStatus.UNPROCESSABLE_ENTITY,
+    //       errors: {
+    //         username: 'invalid',
+    //       },
+    //     },
+    //     HttpStatus.UNPROCESSABLE_ENTITY
+    //   );
+    // }
+
     await this.sessionService.softDelete({
       user: {
         id: currentUser.id,
@@ -410,6 +422,10 @@ export class AuthService {
       id: userJwtPayload.id,
     });
   }
+
+  // private isUsernameAllowed(username: string) {
+  //   return /^[A-Za-z0-9]+$/.test(username);
+  // }
 
   async refreshToken(
     data: Pick<JwtRefreshPayloadType, 'sessionId'>
@@ -493,12 +509,15 @@ export class AuthService {
   }
 
   private async sendWelcomeNotification(user: User) {
-    await this.notificationsService.createNotification({
-      receiver: user.id,
-      type: 'system',
-      data: {
-        system_message: 'Welcome to Teameights!',
+    await this.notificationsService.createNotification(
+      {
+        receiver: user.id,
+        type: 'system',
+        data: {
+          system_message: 'Welcome to Teameights!',
+        },
       },
-    });
+      user.id
+    );
   }
 }

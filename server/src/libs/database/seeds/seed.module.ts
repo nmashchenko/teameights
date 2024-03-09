@@ -9,6 +9,7 @@ import { RoleSeedModule } from './role/role-seed.module';
 import { StatusSeedModule } from './status/status-seed.module';
 import { UserSeedModule } from './user/user-seed.module';
 import { FileSeedModule } from './file/file-seed.module';
+import { FriendshipSeedModule } from './friendship/friendship-seed.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { FileSeedModule } from './file/file-seed.module';
     StatusSeedModule,
     UserSeedModule,
     FileSeedModule,
+    FriendshipSeedModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, appConfig],

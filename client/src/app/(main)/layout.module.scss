@@ -1,30 +1,34 @@
 .container {
   height: 100dvh;
   width: 100%;
-  padding: 48px 0;
-
-  @media (width <= 1120px) {
-    padding: 48px 0;
-  }
-
-  @media (width <= 580px) {
-    padding: 28px;
-  }
+  
+  display: flex;
 }
 
 .children {
   width: 100%;
   min-height: 100%;
   display: flex;
-  align-items: center;
   flex-direction: column;
+
+  padding: 48px 55px;
+  @media (width <= 1120px) {
+    padding: 48px 24px;
+  }
+
+  @media (width <= 580px) {
+    padding: 24px;
+  }
 }
 
 .content_zone {
   margin-bottom: 48px;
-  padding-left: 88px;
+}
 
-  @media screen and (max-width: 768px) {
-    padding-left: 0;
+.placeholder {
+  width: 93px;
+  flex-shrink: 0;
+  @media (max-width: 768px) {
+    display: none;
   }
 }
