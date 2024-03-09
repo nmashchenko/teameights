@@ -7,7 +7,10 @@
 }
 
 .menu_wrapper {
-  height: 100%;
-  margin-bottom: 10px;
-  overflow: hidden;
+  height: calc(100vh - 222px);
+  overflow: auto;
+
+  &_short {
+    height: calc(100vh - 271px);
+  }
 }

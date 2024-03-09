@@ -7,10 +7,11 @@ import { FilterSelect } from './ui/filter-select';
 import { SearchInput } from './ui/search-input';
 import { TagList } from './ui/tag-list';
 import { Flex } from '@/shared/ui';
-import { useTrackFilterArr } from './hooks';
+import { useFilterReducer, useTrackFilterArr } from './hooks';
 import { SearchContext } from './contexts';
 import { ModalButton } from './ui/modal-button';
 import { Modal } from './ui/modal';
+import clsx from 'clsx';
 
 /**
  * Search-bar Component
@@ -45,39 +46,84 @@ interface SearchBarProps {
 }
 
 export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange }) => {
-  const [filterArr, setFilterArr] = useState(initialFiltersState);
+  const [filterState, dispatch] = useFilterReducer(initialFiltersState);
   const [filterIndex, setFilterIndex] = useState(0);
   const [isModalOpened, setIsModalOpened] = useState(false);
-  useTrackFilterArr(filterArr, onChange);
+  const [isFilterOpened, setIsFilterOpened] = useState(false);
+  useTrackFilterArr(filterState, onChange);
 
-  const onOpen = () => {
+  const { filterArr } = filterState;
+
+  const onOpenModal = () => {
     setIsModalOpened(true);
   };
 
-  const onClose = () => {
+  const onCloseModal = () => {
     setIsModalOpened(false);
   };
+
+  const onOpenFilter = () => {
+    setIsFilterOpened(true);
+  };
+
+  const onCloseFilter = () => {
+    setIsFilterOpened(false);
+  };
+
+  const onOpenModalWithoutFilter = () => {
+    onCloseFilter();
+    onOpenModal();
+  };
+
+  const onOpenModalWithFilter = (value: string) => {
+    const newFilterIndex = filterArr.findIndex(filter => filter.value === value);
+    setFilterIndex(newFilterIndex);
+
+    onOpenFilter();
+    onOpenModal();
+  };
+
+  const isShowTagList = filterArr.some(item => {
+    switch (item.type) {
+      case 'text':
+      case 'checkbox':
+      case 'multiple':
+        return item.filterValue.length;
+    }
+  });
 
   return (
     <SearchContext.Provider
       value={{
         filterArr,
-        setFilterArr,
+        dispatch,
         filterIndex,
         setFilterIndex,
       }}
     >
-      <ModalButton onOpen={onOpen} onClose={onClose} />
+      <ModalButton onOpen={onOpenModalWithoutFilter} onClose={onCloseModal} />
 
-      <Flex direction='column' gap='24px' className={styles.searchbar}>
+      <Flex
+        direction='column'
+        gap='24px'
+        className={clsx(styles.searchbar, {
+          [styles.searchbar_hidden]: !isShowTagList,
+        })}
+      >
         <Flex className={styles.searchbar_content}>
           <FilterSelect />
           <SearchInput />
         </Flex>
-        <TagList />
+        <TagList onOpenFilter={onOpenModalWithFilter} />
       </Flex>
 
-      <Modal isOpened={isModalOpened} onClose={onClose} />
+      <Modal
+        isOpened={isModalOpened}
+        onClose={onCloseModal}
+        isFilterOpened={isFilterOpened}
+        onOpenFilter={onOpenFilter}
+        onCloseFilter={onCloseFilter}
+      />
     </SearchContext.Provider>
   );
 };

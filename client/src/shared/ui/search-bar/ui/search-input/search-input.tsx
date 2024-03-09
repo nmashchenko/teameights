@@ -4,25 +4,18 @@ import { TextInput } from '../text-input';
 import { SearchSelect } from '../search-select';
 import { useFilters } from '../../hooks';
 import { FC } from 'react';
+import { changeFilterValue } from '../../actions';
 
 interface SearchInputProps {
   menuWrapper?: HTMLElement | null;
 }
 
 export const SearchInput: FC<SearchInputProps> = ({ menuWrapper }) => {
-  const { filterArr, setFilterArr, filterIndex } = useFilters();
+  const { filterArr, dispatch, filterIndex } = useFilters();
   const currentFilter = filterArr[filterIndex];
 
   const onChange = (newValue: string | MultiValue<IOptionItem> | [number, number] | null) => {
-    setFilterArr(prev => {
-      return prev.map((item, i) => {
-        if (filterIndex === i) {
-          item.filterValue = newValue;
-        }
-
-        return item;
-      });
-    });
+    dispatch(changeFilterValue(filterIndex, newValue));
   };
 
   switch (currentFilter.type) {

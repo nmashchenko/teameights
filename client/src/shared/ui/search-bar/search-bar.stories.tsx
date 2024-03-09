@@ -32,13 +32,14 @@ export const SearchBar_default = () => {
             { label: 'Ukraine', value: 'ua' },
             { label: 'Korea', value: 'kr' },
           ],
+          oneItemName: 'country',
           filterValue: [],
         },
         {
-          label: 'Specialty',
-          value: 'specialty',
+          label: 'Specialities',
+          value: 'specialities',
           type: 'multiple',
-          placeholder: 'Search by specialty',
+          placeholder: 'Search by speciality',
           optionsArr: [
             {
               label: 'Mobile Developer',
@@ -57,6 +58,7 @@ export const SearchBar_default = () => {
               value: 'fullstack',
             },
           ],
+          oneItemName: 'speciality',
           filterValue: [],
         },
       ]}

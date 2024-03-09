@@ -8,10 +8,29 @@
 }
 
 .menu_list {
-  display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 32px;
   width: calc(100% + 36px);
+  display: flex;
+  flex-wrap: wrap;
+
+  .option {
+    width: calc((100% - 1 * 32px) / 2);
+
+    &:nth-child(2n) {
+      margin-left: 32px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+
+      &:nth-child(2n) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .search_icon_wrapper {

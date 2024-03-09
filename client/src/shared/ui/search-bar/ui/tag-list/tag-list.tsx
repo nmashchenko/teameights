@@ -1,16 +1,27 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import styles from './tag-list.module.scss';
 import { Tag } from '../tag';
 import { SearchTagMenu } from '../search-tag-menu';
 import { useFilters } from '../../hooks';
 import { Filter } from '../../types';
+import {
+  clearFilter,
+  clearOneMultipleOption,
+  clearAllExceptOneMultipleOptions,
+} from '../../actions';
 
 interface TagListProps {
   isOnlyCurrentFilterTags?: boolean;
+  isFilterMenu?: boolean;
+  onOpenFilter?: (value: string) => void;
 }
 
-export const TagList: FC<TagListProps> = ({ isOnlyCurrentFilterTags = false }) => {
-  const { filterArr, setFilterArr, filterIndex } = useFilters();
+export const TagList: FC<TagListProps> = ({
+  isOnlyCurrentFilterTags = false,
+  isFilterMenu = false,
+  onOpenFilter,
+}) => {
+  const { filterArr, dispatch, filterIndex } = useFilters();
   const currentFilter = filterArr[filterIndex];
 
   if (!filterArr.length) {
@@ -18,55 +29,15 @@ export const TagList: FC<TagListProps> = ({ isOnlyCurrentFilterTags = false }) =
   }
 
   const handleClearTextFilter = (filterIndex: number) => {
-    setFilterArr(prev =>
-      prev.map((item, index) => {
-        if (filterIndex === index) {
-          item.filterValue = '';
-        }
-
-        return item;
-      })
-    );
+    dispatch(clearFilter(filterIndex));
   };
 
-  const handleClearMultipleOption = (filterIndex: number, index: number) => {
-    setFilterArr(prev => {
-      const filter = prev[filterIndex];
-
-      if (filter.type === 'checkbox' || filter.type === 'multiple') {
-        const newFilterValue = filter.filterValue.filter((item, i) => i !== index);
-
-        return prev.map((item, i) => {
-          if (filterIndex === i) {
-            item.filterValue = newFilterValue;
-          }
-
-          return item;
-        });
-      }
-
-      return prev;
-    });
+  const handleClearOneMultipleOption = (filterIndex: number, optionIndex: number) => {
+    dispatch(clearOneMultipleOption(filterIndex, optionIndex));
   };
 
-  const handleClearAllMultipleOptions = (filterIndex: number) => {
-    setFilterArr(prev => {
-      const filter = prev[filterIndex];
-
-      if (filter.type === 'checkbox' || filter.type === 'multiple') {
-        const newFilterValue = [filter.filterValue[0]];
-
-        return prev.map((item, i) => {
-          if (filterIndex === i) {
-            item.filterValue = newFilterValue;
-          }
-
-          return item;
-        });
-      }
-
-      return prev;
-    });
+  const handleClearAllExceptOneMultipleOptions = (filterIndex: number) => {
+    dispatch(clearAllExceptOneMultipleOptions(filterIndex));
   };
 
   const renderTag = (filterItem: Filter, index: number) => {
@@ -83,20 +54,45 @@ export const TagList: FC<TagListProps> = ({ isOnlyCurrentFilterTags = false }) =
       case 'multiple':
       case 'checkbox':
         if (filterItem.filterValue.length) {
-          return (
-            <li className={styles.checkboxFilterTag} key={filterItem.value}>
-              <Tag isWithCross onClick={() => handleClearMultipleOption(index, 0)}>
-                {filterItem.filterValue[0].label}
-              </Tag>
-              {filterItem.filterValue.length > 1 && (
-                <SearchTagMenu
-                  filterItem={filterItem}
-                  filterIndex={index}
-                  onClearOption={handleClearMultipleOption}
-                  onClearAllOptions={handleClearAllMultipleOptions}
-                />
-              )}
+          return isFilterMenu ? (
+            <li className={styles.checkbox_filter_tag_mobile} key={filterItem.value}>
+              {filterItem.filterValue.map((option, optionIndex) => (
+                <Tag
+                  key={option.value}
+                  isWithCross
+                  onClick={() => handleClearOneMultipleOption(index, optionIndex)}
+                >
+                  {option.label}
+                </Tag>
+              ))}
             </li>
+          ) : (
+            <Fragment key={filterItem.value}>
+              <li className={styles.checkbox_filter_tag}>
+                <Tag isWithCross onClick={() => handleClearOneMultipleOption(index, 0)}>
+                  {filterItem.filterValue[0].label}
+                </Tag>
+
+                {filterItem.filterValue.length > 1 && (
+                  <SearchTagMenu
+                    filterItem={filterItem}
+                    filterIndex={index}
+                    onClearOneOption={handleClearOneMultipleOption}
+                    onClearAllExceptOneOptions={handleClearAllExceptOneMultipleOptions}
+                  />
+                )}
+              </li>
+
+              <li
+                onClick={onOpenFilter ? () => onOpenFilter(filterItem.value) : undefined}
+                className={styles.checkbox_filter_tag_mobile}
+                key={filterItem.value}
+              >
+                <Tag>
+                  {filterItem.filterValue.length} {filterItem.value}
+                </Tag>
+              </li>
+            </Fragment>
           );
         }
 

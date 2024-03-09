@@ -8,15 +8,15 @@ import { Flex } from '@/shared/ui';
 interface SearchTagMenuProps {
   filterItem: ICheckboxFilter | IMultipleFilter;
   filterIndex: number;
-  onClearOption: (filterIndex: number, index: number) => void;
-  onClearAllOptions: (filterIndex: number) => void;
+  onClearOneOption: (filterIndex: number, index: number) => void;
+  onClearAllExceptOneOptions: (filterIndex: number) => void;
 }
 
 export const SearchTagMenu: FC<SearchTagMenuProps> = ({
   filterItem,
   filterIndex,
-  onClearOption,
-  onClearAllOptions,
+  onClearOneOption,
+  onClearAllExceptOneOptions,
 }) => {
   const [isListOpened, setIsListOpened] = useState(false);
   const filterListRef = useClickOutside<HTMLDivElement>(() => setIsListOpened(false));
@@ -26,7 +26,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
       <div className={styles.menu_wrapper} onClick={() => setIsListOpened(true)}>
         <Tag isFilledWhileHover>
           +{filterItem.filterValue.length - 1}{' '}
-          {filterItem.filterValue.length > 2 ? 'items' : 'item'}
+          {filterItem.filterValue.length > 2 ? filterItem.value : filterItem.oneItemName}
         </Tag>
       </div>
       {isListOpened ? (
@@ -36,7 +36,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
               <Tag
                 isWithCross
                 isRounded={false}
-                onClick={() => onClearOption(filterIndex, index + 1)}
+                onClick={() => onClearOneOption(filterIndex, index + 1)}
               >
                 {item.label}
               </Tag>
@@ -48,7 +48,7 @@ export const SearchTagMenu: FC<SearchTagMenuProps> = ({
               align='center'
               height='fit-content'
               padding='4px 8px'
-              onClick={() => onClearAllOptions(filterIndex)}
+              onClick={() => onClearAllExceptOneOptions(filterIndex)}
               className={styles.clear_all_button}
             >
               <p>Clear All</p>
