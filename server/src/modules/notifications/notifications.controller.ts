@@ -12,6 +12,7 @@ import {
   SerializeOptions,
   Request,
   UseGuards,
+  HttpException,
 } from '@nestjs/common';
 import { RoleEnum } from '../../libs/database/metadata/roles/roles.enum';
 import { RolesGuard } from '../../libs/database/metadata/roles/roles.guard';
@@ -36,11 +37,22 @@ export class NotificationsController {
 
   @Post()
   @ApiBearerAuth()
-  @Roles(RoleEnum.admin)
+  @Roles(RoleEnum.admin, RoleEnum.user)
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @HttpCode(HttpStatus.CREATED)
-  async createNotification(@Body() dto: CreateNotificationDto) {
-    return await this.notificationService.createNotification(dto);
+  async createNotification(@Body() dto: CreateNotificationDto, @Request() request) {
+    if (request.user.role.name !== 'Admin' && dto.type == 'system') {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          errors: {
+            message: `Forbidden resource`,
+          },
+        },
+        HttpStatus.FORBIDDEN
+      );
+    }
+    return await this.notificationService.createNotification(dto, request.user.id);
   }
 
   @SerializeOptions({
@@ -96,6 +108,6 @@ export class NotificationsController {
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteNotification(@Request() request, @Param('id') id: number) {
-    await this.notificationService.deleteNotification(id, request.user);
+    await this.notificationService.deleteNotificationByUser(id, request.user);
   }
 }

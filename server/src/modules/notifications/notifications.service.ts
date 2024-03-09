@@ -4,7 +4,7 @@ import { FindOptionsWhere, Repository } from 'typeorm';
 import { Notification } from './entities/notification.entity';
 import { UsersService } from '../users/users.service';
 import { CreateNotificationDto, SystemNotificationDataDto } from './dto/create-notification.dto';
-import { NotificationTypesEnum } from './types/notification.type';
+import { NotificationStatusEnum, NotificationTypesEnum } from './types/notification.type';
 import { EntityCondition } from '../../utils/types/entity-condition.type';
 import { NullableType } from '../../utils/types/nullable.type';
 import { FilterNotificationDto, SortNotificationDto } from './dto/query-notification.dto';
@@ -55,7 +55,7 @@ export class NotificationsService {
     }
   }
 
-  public async deleteNotification(id: number, userJwtPayload: JwtPayloadType) {
+  public async deleteNotificationByUser(id: number, userJwtPayload: JwtPayloadType) {
     const notification = await this.findOne({ id: id });
 
     if (!notification) {
@@ -111,9 +111,9 @@ export class NotificationsService {
         case NotificationTypesEnum.system:
           where.type = NotificationTypesEnum.system;
           break;
-        case NotificationTypesEnum.team_invitation:
-          where.type = NotificationTypesEnum.team_invitation;
-          break;
+        // case NotificationTypesEnum.team_invitation:
+        //   where.type = NotificationTypesEnum.team_invitation;
+        //   break;
         default:
           // Handle the default case or leave it empty if not needed
           break;
@@ -138,7 +138,7 @@ export class NotificationsService {
     });
   }
 
-  async createNotification(dto: CreateNotificationDto) {
+  async createNotification(dto: CreateNotificationDto, requestUserId: number) {
     const user = await this.usersService.findOne({ id: dto.receiver });
 
     if (!user) {
@@ -153,8 +153,7 @@ export class NotificationsService {
       );
     }
 
-    const data = this.getDataByType(dto);
-
+    const data = await this.getDataByType(dto, requestUserId);
     await this.notificationRepository.save(
       this.notificationRepository.create({
         receiver: user,
@@ -164,17 +163,124 @@ export class NotificationsService {
     );
   }
 
-  private getDataByType(dto: CreateNotificationDto) {
+  private async getDataByType(dto: CreateNotificationDto, requestUserId: number) {
     switch (dto.type) {
-      case 'system':
+      case 'system': {
         const data = dto.data as SystemNotificationDataDto;
         return {
           system_message: data.system_message,
         };
+      }
       // Add more cases here as needed
+      case 'friend_request': {
+        if (dto.receiver == requestUserId) {
+          throw new HttpException(
+            {
+              status: HttpStatus.BAD_REQUEST,
+              errors: {
+                message: `You can't add yourself as a friend`,
+              },
+            },
+            HttpStatus.BAD_REQUEST
+          );
+        }
+        const creator = await this.usersService.findOne({ id: requestUserId });
+        if (!creator) {
+          throw new HttpException(
+            {
+              status: HttpStatus.NOT_FOUND,
+              errors: {
+                user: `user with id: ${requestUserId} was not found`,
+              },
+            },
+            HttpStatus.NOT_FOUND
+          );
+        }
+        return {
+          creator: creator,
+          status: NotificationStatusEnum.pending,
+        };
+      }
       default:
         // Handle the default case or leave it empty if not needed
         break;
     }
+  }
+
+  // async updateFriendRequestStatus(
+  //   dto: UpdateFriendRequestStatusDto,
+  //   userJwtPayload: JwtPayloadType
+  // ) {
+  //   const notification = await this.findOne({ id: dto.notificationId });
+  //   if (!notification) {
+  //     throw new HttpException(
+  //       {
+  //         status: HttpStatus.NOT_FOUND,
+  //         errors: {
+  //           notification: `notification with id: ${dto.notificationId} was not found`,
+  //         },
+  //       },
+  //       HttpStatus.NOT_FOUND
+  //     );
+  //   }
+  //
+  //   if (notification.receiver.id !== userJwtPayload.id) {
+  //     throw new HttpException(
+  //       {
+  //         status: HttpStatus.UNAUTHORIZED,
+  //         errors: {
+  //           notification: `current user can't update this notification status. administrator was notified about this action.`,
+  //         },
+  //       },
+  //       HttpStatus.UNAUTHORIZED
+  //     );
+  //   }
+  //   const data = notification.data as FriendRequestNotificationData;
+  //   if (data.status !== 'pending') {
+  //     throw new HttpException(
+  //       {
+  //         status: HttpStatus.FORBIDDEN,
+  //         error: 'Friend request already accepted or rejected',
+  //       },
+  //       HttpStatus.FORBIDDEN
+  //     );
+  //   }
+  //   if (dto.status === 'accepted') {
+  //     const creator = await this.usersService.findOne({ id: data.creator.id });
+  //     if (!creator) {
+  //       throw new HttpException(
+  //         {
+  //           status: HttpStatus.NOT_FOUND,
+  //           errors: {
+  //             user: `user with id: ${data.creator.id} was not found`,
+  //           },
+  //         },
+  //         HttpStatus.NOT_FOUND
+  //       );
+  //     }
+  //     const receiver = await this.usersService.findOne({ id: notification.receiver.id });
+  //     if (!receiver) {
+  //       throw new HttpException(
+  //         {
+  //           status: HttpStatus.NOT_FOUND,
+  //           errors: {
+  //             user: `user with id: ${notification.receiver.id} was not found`,
+  //           },
+  //         },
+  //         HttpStatus.NOT_FOUND
+  //       );
+  //     }
+  //
+  //     await this.usersService.makeFriendship(creator, receiver);
+  //   }
+  //   data.status = NotificationStatusEnum[dto.status];
+  //   await this.notificationRepository.save(notification);
+  // }
+  async save(notification: Notification) {
+    await this.notificationRepository.save(notification);
+  }
+
+  async deleteNotification(notification: Notification) {
+    await this.notificationRepository.remove(notification);
   }
 }
