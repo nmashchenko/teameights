@@ -13,11 +13,13 @@ import {
 interface TagListProps {
   isOnlyCurrentFilterTags?: boolean;
   isFilterMenu?: boolean;
+  onOpenFilter?: (value: string) => void;
 }
 
 export const TagList: FC<TagListProps> = ({
   isOnlyCurrentFilterTags = false,
   isFilterMenu = false,
+  onOpenFilter,
 }) => {
   const { filterArr, dispatch, filterIndex } = useFilters();
   const currentFilter = filterArr[filterIndex];
@@ -81,7 +83,11 @@ export const TagList: FC<TagListProps> = ({
                 )}
               </li>
 
-              <li className={styles.checkbox_filter_tag_mobile} key={filterItem.value}>
+              <li
+                onClick={onOpenFilter ? () => onOpenFilter(filterItem.value) : undefined}
+                className={styles.checkbox_filter_tag_mobile}
+                key={filterItem.value}
+              >
                 <Tag>
                   {filterItem.filterValue.length} {filterItem.value}
                 </Tag>

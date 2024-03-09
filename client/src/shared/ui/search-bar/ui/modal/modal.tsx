@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useFilters } from '../../hooks';
 import clsx from 'clsx';
 import { CrossIcon } from '@/shared/assets';
@@ -11,15 +11,23 @@ import { clearAllFilters, clearFilter } from '../../actions';
 interface ModalProps {
   isOpened: boolean;
   onClose: () => void;
+  isFilterOpened: boolean;
+  onOpenFilter: () => void;
+  onCloseFilter: () => void;
 }
 
-export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
+export const Modal: FC<ModalProps> = ({
+  isOpened,
+  onClose,
+  isFilterOpened,
+  onOpenFilter,
+  onCloseFilter,
+}) => {
   const { filterArr, dispatch, filterIndex, setFilterIndex } = useFilters();
   const currentFilter = filterArr[filterIndex];
-  const [isFilterOpened, setIsFilterOpened] = useState(false);
 
   const handleOpenFilter = (index: number) => {
-    setIsFilterOpened(true);
+    onOpenFilter();
     setFilterIndex(index);
   };
 
@@ -33,7 +41,7 @@ export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
 
   const handleRightButtonClick = () => {
     if (isFilterOpened) {
-      setIsFilterOpened(false);
+      onCloseFilter();
     } else {
       onClose();
     }

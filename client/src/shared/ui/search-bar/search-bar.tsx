@@ -49,16 +49,38 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange })
   const [filterState, dispatch] = useFilterReducer(initialFiltersState);
   const [filterIndex, setFilterIndex] = useState(0);
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isFilterOpened, setIsFilterOpened] = useState(false);
   useTrackFilterArr(filterState, onChange);
 
   const { filterArr } = filterState;
 
-  const onOpen = () => {
+  const onOpenModal = () => {
     setIsModalOpened(true);
   };
 
-  const onClose = () => {
+  const onCloseModal = () => {
     setIsModalOpened(false);
+  };
+
+  const onOpenFilter = () => {
+    setIsFilterOpened(true);
+  };
+
+  const onCloseFilter = () => {
+    setIsFilterOpened(false);
+  };
+
+  const onOpenModalWithoutFilter = () => {
+    onCloseFilter();
+    onOpenModal();
+  };
+
+  const onOpenModalWithFilter = (value: string) => {
+    const newFilterIndex = filterArr.findIndex(filter => filter.value === value);
+    setFilterIndex(newFilterIndex);
+
+    onOpenFilter();
+    onOpenModal();
   };
 
   const isShowTagList = filterArr.some(item => {
@@ -79,7 +101,7 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange })
         setFilterIndex,
       }}
     >
-      <ModalButton onOpen={onOpen} onClose={onClose} />
+      <ModalButton onOpen={onOpenModalWithoutFilter} onClose={onCloseModal} />
 
       <Flex
         direction='column'
@@ -92,10 +114,16 @@ export const SearchBar: FC<SearchBarProps> = ({ initialFiltersState, onChange })
           <FilterSelect />
           <SearchInput />
         </Flex>
-        <TagList />
+        <TagList onOpenFilter={onOpenModalWithFilter} />
       </Flex>
 
-      <Modal isOpened={isModalOpened} onClose={onClose} />
+      <Modal
+        isOpened={isModalOpened}
+        onClose={onCloseModal}
+        isFilterOpened={isFilterOpened}
+        onOpenFilter={onOpenFilter}
+        onCloseFilter={onCloseFilter}
+      />
     </SearchContext.Provider>
   );
 };
