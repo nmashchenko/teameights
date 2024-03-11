@@ -4,14 +4,14 @@ import styles from './layout.module.scss';
 import { Sidebar } from '@/widgets/sidebar';
 import { useGetMe } from '@/entities/session';
 import { useGetNotifications } from '@/entities/session/api/useGetNotifications';
-import { useSocketConnection } from '@/widgets/sidebar/lib/hooks/useListenToNotifications';
+import { useSocketListenNotifications } from '@/widgets/sidebar/lib/hooks/useSocketListenNotifications';
 import { ReactNode } from 'react';
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const { data: user } = useGetMe();
   const { data: notifications } = useGetNotifications();
 
-  useSocketConnection(user);
+  useSocketListenNotifications(user);
 
   return (
     <div className={styles.container}>
