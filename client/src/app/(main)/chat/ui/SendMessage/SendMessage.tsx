@@ -2,8 +2,6 @@ import { Input } from '@/shared/ui';
 import { ChatHeader } from '../ChatHeader';
 import { MessageArea } from '../MessageArea';
 import styles from './SendMessage.module.scss';
-
-import { PlusIcon } from '@/shared/assets'; // TODO: Add new icons and replace
 import { useContext, useRef } from 'react';
 import { CurrentChat } from '../../page';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -84,7 +82,6 @@ export const SendMessage = () => {
             subIconPosition='end'
             subIcon={
               <>
-                <PlusIcon size='20' />
                 <button type='submit'>
                   <PaperPlaneRightIcon />
                 </button>
