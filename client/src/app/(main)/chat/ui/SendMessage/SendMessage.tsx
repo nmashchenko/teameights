@@ -6,19 +6,16 @@ import styles from './SendMessage.module.scss';
 import { PlusIcon } from '@/shared/assets'; // TODO: Add new icons and replace
 import { useContext, useRef } from 'react';
 import { CurrentChat } from '../../page';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import qs from 'qs';
 import { API } from '@/shared/api';
+import { PaperPlaneRightIcon } from '@/shared/assets/icons/paper-plane-right';
 
-const customParamsSerializer = params =>
-  qs.stringify(params, {
-    encode: false, // Отключаем автоматическое кодирование
-    encoder: str => str, // Переопределение функции кодирования, чтобы она просто возвращала строку без изменений
-  });
+const chatBaseKey = 'chat';
 
 const useGetChatMessages = ({ filters, sort }: any) => {
   return useQuery({
-    queryKey: ['chatMessages', filters, sort],
+    queryKey: [chatBaseKey, 'chatMessages', filters, sort],
     queryFn: async () => {
       const params = {
         filters: JSON.stringify(filters),
@@ -30,20 +27,47 @@ const useGetChatMessages = ({ filters, sort }: any) => {
   });
 };
 
+const useInvalidateChatMessages = () => {
+  const queryClient = useQueryClient();
+
+  return () => {
+    queryClient.invalidateQueries({ queryKey: [chatBaseKey, 'chatMessages'] });
+  };
+};
+
+const useSendMessage = () => {
+  return useMutation({
+    mutationKey: ['sendMessage'],
+    mutationFn: async (data: { text: string; chatgroup: string }) => {
+      return await API.post('/chat/message/send', { ...data, receivers: [22, 23] });
+    },
+  });
+};
+
 export const SendMessage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { currentChat } = useContext(CurrentChat);
 
   const getChatMessagesQuery = useGetChatMessages({
     filters: { chatgroup: currentChat?.id },
-    sort: { orderBy: 'text', order: 'desc' },
+    sort: { orderBy: 'text', order: 'asc' },
   });
-
-  console.log('@', currentChat, getChatMessagesQuery.data?.data);
+  const sendMessageMutation = useSendMessage();
+  const invalidateChatMessages = useInvalidateChatMessages();
 
   if (!currentChat) {
     return <div className={styles.container} />;
   }
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    await sendMessageMutation.mutateAsync({
+      text: inputRef.current?.value || '',
+      chatgroup: currentChat.id,
+    });
+    inputRef.current!.value = '';
+    invalidateChatMessages();
+  };
 
   return (
     <div className={styles.container}>
@@ -51,15 +75,19 @@ export const SendMessage = () => {
 
       <div className={styles.chatBody}>
         <MessageArea messages={getChatMessagesQuery.data?.data?.data} />
-        <div className={styles.input}>
+
+        <form onSubmit={handleSubmit}>
           <Input
+            className={styles.input}
             placeholder='Write message...'
             ref={inputRef}
             subIconPosition='end'
             subIcon={
               <>
-                <PlusIcon size='16' />
-                <PlusIcon size='16' />
+                <PlusIcon size='20' />
+                <button type='submit'>
+                  <PaperPlaneRightIcon />
+                </button>
               </>
             }
             style={{
@@ -67,7 +95,7 @@ export const SendMessage = () => {
               borderRadius: '10px',
             }}
           />
-        </div>
+        </form>
       </div>
     </div>
   );
