@@ -76,7 +76,7 @@ export const MessageArea = ({ messages }: any) => {
             text={item.text}
             fileId={item.fileId}
             isThisMessageMine={item.isThisMessageMine}
-            timestamp={item.timestamp}
+            timestamp={item.createdAt}
           />
         );
       })}

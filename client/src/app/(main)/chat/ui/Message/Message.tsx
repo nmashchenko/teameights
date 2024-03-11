@@ -3,6 +3,12 @@ import { Message } from '../../types/IMessage';
 import styles from './Message.module.scss';
 import Image from 'next/image';
 
+function formatDate(dateString) {
+  const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+
 export function Message({
   senderId,
   receivers,
@@ -35,7 +41,7 @@ export function Message({
           }}
         >
           <Typography>{text}</Typography>
-          <div className={styles.timestamp}>{timestamp}</div>
+          <div className={styles.timestamp}>{formatDate(timestamp)}</div>
         </div>
       </div>
     </div>
