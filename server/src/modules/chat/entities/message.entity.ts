@@ -35,8 +35,8 @@ export class Message extends EntityHelper {
 
   @BeforeInsert()
   async setReceivers() {
-    if (!this.chatGroup) return;
-    await new Promise(() => ({}));
+    //if (!this.chatGroup) return;
+    //await new Promise(() => ({}));
     //TODO fix this via members
     //console.log(inspect(this.chatGroup));
   }

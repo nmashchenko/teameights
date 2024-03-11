@@ -13,6 +13,7 @@ import { FilterMessageDto, SortMessageDto } from '../dto/query-message.dto';
 import { Message } from '../entities/message.entity';
 import { UUID } from 'crypto';
 import { ChatExceptionsEn } from '../interfaces/chat.interface';
+import { inspect } from 'util';
 
 @Injectable()
 export class MessageService {
@@ -51,6 +52,7 @@ export class MessageService {
 
     for (const inst of where) {
       inst.text = filterOptions?.text && ILike(`%${filterOptions.text}%`);
+      inst.chatGroup = filterOptions?.chatgroup ? { id: filterOptions.chatgroup } : false;
     }
     return this.messageRepository.find({
       skip: (paginationOptions.page - 1) * paginationOptions.limit,
@@ -89,12 +91,13 @@ export class MessageService {
     if (chatgroup === null)
       throw ChatExceptionsEn.ENTITY_FIELD_NOT_FOUND('chatgroup', [dto.chatgroup]);
 
+    console.log(inspect(chatgroup));
     return this.messageRepository.save(
       this.messageRepository.create({
         sender: sender!,
         receivers: receivers,
         text: dto.text,
-        chatGroup: undefined,
+        chatGroup: chatgroup,
       })
     );
   }

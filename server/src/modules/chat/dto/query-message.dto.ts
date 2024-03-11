@@ -6,10 +6,12 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsUUID,
   ValidateNested,
 } from 'class-validator';
 import { Message } from '../entities/message.entity';
 import { Transform, Type, plainToInstance } from 'class-transformer';
+import { ChatGroup } from '../entities/chat.group.entity';
 
 export class SortMessageDto {
   @ApiProperty()
@@ -31,6 +33,12 @@ export class FilterMessageDto {
   //@IsOptional()
   //@IsNotEmpty()
   //read?: string;
+
+  @ApiProperty({ example: 'uuid' })
+  @IsOptional()
+  @IsNotEmpty()
+  @IsUUID()
+  chatgroup?: ChatGroup['id'];
 
   @ApiProperty({ examples: [1, 2] })
   @IsArray()
