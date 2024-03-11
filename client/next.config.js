@@ -9,6 +9,7 @@ module.exports = {
       'picsum.photos',
       'source.unsplash.com',
       'upload.wikimedia.org',
+      'images.unsplash.com',
       'teameights.s3.amazonaws.com',
     ],
     remotePatterns: [

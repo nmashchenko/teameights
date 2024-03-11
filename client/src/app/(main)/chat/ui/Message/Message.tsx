@@ -1,5 +1,5 @@
 import { Typography } from '@/shared/ui';
-import { Message } from "../../types/IMessage"
+import { Message } from '../../types/IMessage';
 import styles from './Message.module.scss';
 import Image from 'next/image';
 
@@ -14,7 +14,7 @@ export function Message({
   timestamp,
 }: Message) {
   return (
-    <div className={styles.wrapper} style={{ marginLeft: isThisMessageMine ? '35%' : '0' }}>
+    <div className={styles.wrapper} style={{ marginLeft: isThisMessageMine ? 'auto' : '0' }}>
       {isThisMessageMine ? (
         <div></div>
       ) : (

@@ -2,6 +2,8 @@ import { Typography } from '@/shared/ui';
 import Image from 'next/image';
 import { SearchIcon } from '@/shared/assets'; // TODO: Add another icons: Headphones and ThreeDotsVertilcal
 import styles from './ChatHeader.module.scss';
+import { useContext } from 'react';
+import { CurrentChat } from '../../page';
 
 interface IChatHeader {
   avatarGroup: string;
@@ -10,6 +12,8 @@ interface IChatHeader {
 }
 
 export const ChatHeader = () => {
+  const { currentChat } = useContext(CurrentChat);
+
   return (
     <div className={styles.container}>
       <div className={styles.headerWrapper}>
@@ -23,8 +27,10 @@ export const ChatHeader = () => {
           />
 
           <div className={styles.titlesContainer}>
-            <Typography size='heading_s'>Cool developers</Typography>
-            <p style={{ color: 'rgba(143, 144, 148, 1)', fontSize: '13px' }}>7 members</p>
+            <Typography size='heading_s'>{currentChat.title}</Typography>
+            <p style={{ color: 'rgba(143, 144, 148, 1)', fontSize: '13px' }}>
+              {currentChat.members.length} members
+            </p>
           </div>
         </div>
 

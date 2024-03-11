@@ -64,10 +64,10 @@ const DBofMessages = [
   },
 ];
 
-export const MessageArea = () => {
+export const MessageArea = ({ messages }: any) => {
   return (
     <div className={styles.messages}>
-      {DBofMessages.map((item, id) => {
+      {messages?.map((item, id) => {
         return (
           <Message
             senderId={item.senderId}

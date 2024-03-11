@@ -1,40 +1,25 @@
 import Image from 'next/image';
 import { Typography } from '@/shared/ui';
 
-import { CheckIcon } from '@/shared/assets';
-import { ChecksIcon } from '@/shared/assets';
-
 import styles from './UserElement.module.scss';
+import { useContext } from 'react';
+import { CurrentChat } from '../../page';
 
 export interface IUserElement {
-  avatarUrl: string;
-  title: string;
-  hasUnreadMessages: boolean;
-  countOfUnreadMessages: number; // 0 >= countOfUnreadMessages. 0 -- if no messages
-  lastMessage: string;
-  lastMessageSenderName: string;
-  isLastMessageChecked: boolean;
-  timestampOfLastMessage: string;
-  isGroup: boolean;
+  chat: any;
 }
 
-export function UserElement({
-  avatarUrl,
-  title,
-  hasUnreadMessages,
-  countOfUnreadMessages,
-  lastMessage,
-  lastMessageSenderName,
-  isLastMessageChecked,
-  timestampOfLastMessage,
-  isGroup,
-}: IUserElement) {
+export function UserElement({ chat }: IUserElement) {
+  const { setCurrentChat } = useContext(CurrentChat);
+
   return (
-    <div className={styles.container}>
+    <div onClick={() => setCurrentChat(chat)} className={styles.container}>
       <div className={styles.wrapper}>
         <Image
           style={{ borderRadius: '100px', marginRight: '10px' }}
-          src={avatarUrl}
+          src={
+            'https://images.unsplash.com/photo-1666597107756-ef489e9f1f09?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          }
           width={50}
           height={50}
           alt=''
@@ -42,36 +27,36 @@ export function UserElement({
 
         <div className={styles.userInfo}>
           <div className={styles.titles}>
-            <Typography size='body_m'>{title}</Typography>
+            <Typography size='body_m'>{chat.title}</Typography>
 
             <div className={styles.rightData}>
               <div className={styles.checker}>
-                {isLastMessageChecked ? (
-                  <ChecksIcon fill='rgba(91, 212, 36, 1)' />
-                ) : (
-                  <CheckIcon fill='rgba(91, 212, 36, 1)' />
-                )}
+                {/*{isLastMessageChecked ? (*/}
+                {/*  <ChecksIcon fill='rgba(91, 212, 36, 1)' />*/}
+                {/*) : (*/}
+                {/*  <CheckIcon fill='rgba(91, 212, 36, 1)' />*/}
+                {/*)}*/}
               </div>
-              <p>{timestampOfLastMessage}</p>
+              {/*<p>{timestampOfLastMessage}</p>*/}
             </div>
           </div>
 
-          <div className={styles.lastMessage}>
-            <div style={{ display: 'inline-flex', textWrap: 'nowrap' }}>
-              <p style={{ color: 'rgba(91, 212, 36, 1)' }}>{`${lastMessageSenderName}: `}</p>
-              <p>
-                {lastMessage.length > 18 && hasUnreadMessages
-                  ? `${lastMessage.substring(0, 18)}...`
-                  : `${lastMessage.substring(0, 25)}`}
-              </p>
-            </div>
+          {/*<div className={styles.lastMessage}>*/}
+          {/*  <div style={{ display: 'inline-flex', textWrap: 'nowrap' }}>*/}
+          {/*    <p style={{ color: 'rgba(91, 212, 36, 1)' }}>{`${lastMessageSenderName}: `}</p>*/}
+          {/*    <p>*/}
+          {/*      {lastMessage.length > 18 && hasUnreadMessages*/}
+          {/*        ? `${lastMessage.substring(0, 18)}...`*/}
+          {/*        : `${lastMessage.substring(0, 25)}`}*/}
+          {/*    </p>*/}
+          {/*  </div>*/}
 
-            {hasUnreadMessages ? (
-              <p className={styles.unreadMessages}>{countOfUnreadMessages}</p>
-            ) : (
-              ''
-            )}
-          </div>
+          {/*  {hasUnreadMessages ? (*/}
+          {/*    <p className={styles.unreadMessages}>{countOfUnreadMessages}</p>*/}
+          {/*  ) : (*/}
+          {/*    ''*/}
+          {/*  )}*/}
+          {/*</div>*/}
         </div>
       </div>
     </div>

@@ -1,20 +1,24 @@
 .container {
   background-color: #1a1c22;
   border-radius: 20px;
-  width: 670px;
-  height: 600px;
-  max-width: 670px;
-  max-height: 600px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-  .messageArea {
-    height: 80%;
+  .chatBody {
+    padding: 0 32px 24px 32px;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    margin: 0px 32px 24px 32px;
-
-    .input {
-      position: sticky;
-      margin-top: auto;
-    }
   }
+
+  .messageArea {
+    //flex: 1 1 100%;
+    margin: 0px 32px 24px 32px;
+  }
+
+  //.input {
+  //  position: sticky;
+  //}
 }

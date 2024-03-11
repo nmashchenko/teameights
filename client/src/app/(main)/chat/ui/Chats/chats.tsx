@@ -1,6 +1,8 @@
-import { UserElement, IUserElement } from '../UserElement';
+import { IUserElement, UserElement } from '../UserElement';
 import { Tabs } from '@/shared/ui';
 import styles from './chats.module.scss';
+import { useQuery } from '@tanstack/react-query';
+import { API } from '@/shared/api';
 
 const DBOfUsers: Array<IUserElement> = [
   {
@@ -161,7 +163,15 @@ const DBOfUsers: Array<IUserElement> = [
   },
 ];
 
+const useGetChats = () =>
+  useQuery({
+    queryKey: ['useGetChats'],
+    queryFn: async () => API.get('/chat/group'),
+  });
+
 export const Chats = () => {
+  const getChatGroupsQuery = useGetChats();
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.tabs}>
@@ -172,22 +182,11 @@ export const Chats = () => {
         />
       </div>
 
-      <div className={styles.users}
-      >
-        {DBOfUsers.map((item, id) => {
+      <div className={styles.users}>
+        {getChatGroupsQuery.data?.data.data.map((item, id) => {
           return (
             <div key={id}>
-              <UserElement
-                avatarUrl={item.avatarUrl}
-                title={item.title}
-                hasUnreadMessages={item.hasUnreadMessages}
-                countOfUnreadMessages={item.countOfUnreadMessages}
-                lastMessage={item.lastMessage}
-                lastMessageSenderName={item.lastMessageSenderName}
-                isLastMessageChecked={item.isLastMessageChecked}
-                timestampOfLastMessage={item.timestampOfLastMessage}
-                isGroup={item.isGroup}
-              />
+              <UserElement chat={item} />
             </div>
           );
         })}
