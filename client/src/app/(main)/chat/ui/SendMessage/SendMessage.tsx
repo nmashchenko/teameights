@@ -73,7 +73,7 @@ export const SendMessage = () => {
     <div className={styles.container}>
       <ChatHeader />
 
-      <div className={styles.chatBody}>
+      <div className={styles.messagesBody}>
         <MessageArea messages={getChatMessagesQuery.data?.data?.data} />
 
         <form onSubmit={handleSubmit}>

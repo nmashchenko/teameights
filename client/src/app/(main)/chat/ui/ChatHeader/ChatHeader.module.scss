@@ -2,9 +2,9 @@
   position: sticky;
   width: 100%;
   height: 90px;
-  borderbottom: 1px solid rgba(67, 71, 82, 1);
+  border-bottom: 1px solid var(--grey-medium-color, #434752);
   display: flex;
-  justifycontent: space-between;
+  justify-content: space-between;
 
   .headerWrapper {
     display: flex;
@@ -14,11 +14,11 @@
 
     .groupInfo {
       display: flex;
-      flexdirection: row;
+      flex-direction: row;
 
       .titlesContainer {
-	  display: flex;
-	  flex-direction: column;
+        display: flex;
+        flex-direction: column;
       }
     }
 
