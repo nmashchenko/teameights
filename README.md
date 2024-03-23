@@ -4,7 +4,7 @@
 
 [Landing page](https://teameights.com/)
 
-*LAST UPDATED: Sat, Mar 23 2024 2:56 AM*
+*LAST UPDATED: Sat, Mar 23 2024 4:10 AM*
 
 
 ## Word from a founder:
@@ -71,3 +71,11 @@ I've got to give a huge shoutout to everyone on the team who helped make this ha
 ![image](https://github.com/nmashchenko/teameights/assets/52038455/70d637f4-caf9-4be7-b059-09b72d649967)
 
 ## List of project contributors:
+1. [@velenyx](https://github.com/velenyx)
+2. [@lanselon](https://github.com/LanselonX)
+3. [@merankori](https://github.com/merankori)
+4. [@mikhail2404](https://github.com/mikhail2404)
+5. [@jreydman](https://github.com/jreydman)
+6. [@pupixipup](https://github.com/pupixipup)
+7. [@Ivan-Sai](https://github.com/Ivan-Sai)
+8. [@vberezhnev](https://github.com/vberezhnev)
