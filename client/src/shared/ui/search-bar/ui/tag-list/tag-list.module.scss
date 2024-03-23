@@ -3,15 +3,40 @@
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      overflow: auto;
+      flex-wrap: nowrap;
+    }
   }
 
   &_wrapper {
     border-radius: 5px;
     overflow: hidden;
+    min-width: 100px;
   }
 }
 
-.checkboxFilterTag {
+.checkbox_filter_tag {
   display: flex;
   gap: 8px;
+
+  &_mobile {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.first_tag_option {
+  @media (max-width: 768px) {
+    display: none;
+  }
 }

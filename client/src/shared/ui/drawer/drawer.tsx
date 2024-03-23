@@ -37,6 +37,7 @@
 import React, { FC, PropsWithChildren } from 'react';
 import DrawerComponent from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
+import { Portal } from '../portal';
 
 interface DrawerProps {
   open: boolean;
@@ -65,18 +66,20 @@ export const Drawer: FC<PropsWithChildren<DrawerProps>> = props => {
   } as React.CSSProperties;
 
   return (
-    <DrawerComponent
-      zIndex={999}
-      open={open}
-      onClose={onClose}
-      direction={direction}
-      style={style}
-      className={className}
-      overlayClassName={overlayClassName}
-      customIdSuffix='t8s-drawer'
-      lockBackgroundScroll
-    >
-      {children}
-    </DrawerComponent>
+    <Portal>
+      <DrawerComponent
+        zIndex={999}
+        open={open}
+        onClose={onClose}
+        direction={direction}
+        style={style}
+        className={className}
+        overlayClassName={overlayClassName}
+        customIdSuffix='t8s-drawer'
+        lockBackgroundScroll
+      >
+        {children}
+      </DrawerComponent>
+    </Portal>
   );
 };

@@ -1,3 +1,4 @@
+export { useGetFriends } from './useGetFriends';
 /* Here will be imports for session hooks */
 export { useConfirmEmail } from './useConfirmEmail';
 export { useForgotPassword } from './useForgotPassword';

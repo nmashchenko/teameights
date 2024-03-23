@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useFilters } from '../../hooks';
 import clsx from 'clsx';
 import { CrossIcon } from '@/shared/assets';
@@ -6,77 +6,42 @@ import { Drawer, Flex, Typography } from '@/shared/ui';
 import { FilterMenu } from '../filter-menu';
 import { ModalMenu } from '../modal-menu';
 import styles from './modal.module.scss';
+import { clearAllFilters, clearFilter } from '../../actions';
 
 interface ModalProps {
   isOpened: boolean;
   onClose: () => void;
+  isFilterOpened: boolean;
+  onOpenFilter: () => void;
+  onCloseFilter: () => void;
 }
 
-export const Modal: FC<ModalProps> = ({ isOpened, onClose }) => {
-  const { filterArr, setFilterArr, filterIndex, setFilterIndex } = useFilters();
+export const Modal: FC<ModalProps> = ({
+  isOpened,
+  onClose,
+  isFilterOpened,
+  onOpenFilter,
+  onCloseFilter,
+}) => {
+  const { filterArr, dispatch, filterIndex, setFilterIndex } = useFilters();
   const currentFilter = filterArr[filterIndex];
-  const [isFilterOpened, setIsFilterOpened] = useState(false);
 
   const handleOpenFilter = (index: number) => {
-    setIsFilterOpened(true);
+    onOpenFilter();
     setFilterIndex(index);
   };
 
   const leftButtonHandler = () => {
     if (isFilterOpened) {
-      setFilterArr(prev =>
-        prev.map((item, index) => {
-          if (index === filterIndex) {
-            switch (item.type) {
-              case 'text':
-                item.filterValue = '';
-
-                return item;
-
-              case 'multiple':
-              case 'checkbox':
-                item.filterValue = [];
-
-                return item;
-
-              case 'range':
-                item.filterValue = null;
-
-                return item;
-            }
-          }
-
-          return item;
-        })
-      );
+      dispatch(clearFilter(filterIndex));
     } else {
-      setFilterArr(prev =>
-        prev.map(item => {
-          switch (item.type) {
-            case 'text':
-              item.filterValue = '';
-
-              return item;
-
-            case 'multiple':
-            case 'checkbox':
-              item.filterValue = [];
-
-              return item;
-
-            case 'range':
-              item.filterValue = null;
-
-              return item;
-          }
-        })
-      );
+      dispatch(clearAllFilters());
     }
   };
 
   const handleRightButtonClick = () => {
     if (isFilterOpened) {
-      setIsFilterOpened(false);
+      onCloseFilter();
     } else {
       onClose();
     }

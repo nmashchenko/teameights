@@ -39,6 +39,9 @@ export const SearchSelect: FC<SearchSelectProps> = ({
         className={styles.select}
         menuIsOpen={menuWrapper ? true : undefined}
         styles={{
+          control: () => ({
+            padding: '8px 11px',
+          }),
           menuList: () => ({
             padding: '8px 0',
             ...(menuWrapper ? { boxShadow: 'none' } : {}),
@@ -46,21 +49,31 @@ export const SearchSelect: FC<SearchSelectProps> = ({
           ...(menuWrapper
             ? {
                 menu: () => ({
-                  background: 'var(--grey-dark-color)',
                   maxHeight: 'none',
                   height: '100%',
+                  paddingTop: 0,
+                  boxShadow: 'none',
+                  overflow: 'auto',
+                  borderRadius: '5px',
                   position: 'static',
                 }),
+                menuList: () => ({
+                  maxHeight: 'none',
+                  borderRadius: '0',
+                  background: 'none',
+                  boxShadow: 'none',
+                }),
                 menuPortal: () => ({
-                  height: '100%',
-                  width: 'auto',
                   position: 'static',
+                  width: 'auto',
+                  height: '100%',
                 }),
               }
             : {}),
         }}
         classNames={{
           menuList: () => styles.menu_list,
+          option: () => styles.option,
         }}
         value={value}
         controlShouldRenderValue={false}
